@@ -1,8 +1,8 @@
 # Site settings
-baseurl = "http://replace-this-with-your-hugo-site.com" #without ending slash
+baseurl = "https://msfjarvis.me/"
 languageCode = "en-us"
 theme = "hugo-identity-theme"
-title = "Hugo Identity Theme"
+title = "Harsh Shandilya"
 
 # Enter your tracking code to enable Google Analytics
 googleAnalytics = "UA-XXXXX-Y"
