@@ -66,6 +66,11 @@ googleAnalytics = "UA-XXXXX-Y"
 		title = "Github"
 		icon = "fa-github"
 		link = "https://github.com/MSF-Jarvis"
+		
+	[[params.social]]
+		title = "Blog"
+		icon = "fa-rss"
+		link = "https://blog.msfjarvis.me"
 			
 	# Footer settings
 	[params.footer]
