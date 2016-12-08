@@ -1,39 +1,16 @@
-baseurl = "https://msfjarvis.me/"
-googleAnalytics = "UA-XXXXX-Y"
+Title = "Harsh Shandilya"
+baseurl = "https://msfjarvis.me"
 languageCode = "en-us"
-theme = "hugo-identity-theme"
-title = "Harsh Shandilya"
+theme = "hugo-theme-nix"
 
 [params]
-  appletouchicon = "apple-touch-icon-precomposed.png"
-  avatar = "harsh.jpg"
-  background = "bg1.jpg"
-  email = "msfjarvis@gmail.com"
-  favicon = "favicon.ico"
-  name = "Harsh Shandilya"
-  position = "Code Review -1, Verified -2"
-  [params.contact]
-    buttonText = "Send it"
-    emailPlaceholder = "Email"
-    enable = true
-    formTitle = "Touch Me!"
-    messagePlaceholder = "Message"
-    namePlaceholder = "Name"
-  [params.footer]
-    copyright = "Harsh Shandilya"
-
-  [[params.social]]
-    icon = "fa-twitter"
-    link = "https://twitter.com/MSF_Jarvis"
-    title = "Twitter"
-
-  [[params.social]]
-    icon = "fa-github"
-    link = "https://github.com/MSF-Jarvis"
-    title = "Github"
-
-  [[params.social]]
-    icon = "fa-rss"
-    link = "https://blog.msfjarvis.me"
-    title = "Blog"
-
+  GithubID = "MSF-Jarvis"
+  TwitterID = "MSF_Jarvis"
+  LinkedInID = "harsh-shandilya-557334121"
+  GoogleplusID = "+MSFJarvisTeamRedux"
+  Name = "Harsh Shandilya"
+  HeaderUsername = "msf"
+  HeaderHostname = "jarvisbox"
+  Email = "msfjarvis@gmail.com"
+  About = "Code Review -1, Verified -2"
+  ProfilePicture = "https://www.robertalollobrigida.ga/avatars/av-full/150-avatar.png"
