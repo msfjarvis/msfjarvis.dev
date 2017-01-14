@@ -1,7 +1,9 @@
 Title = "Harsh Shandilya"
 baseurl = "https://msfjarvis.me"
 languageCode = "en-us"
-theme = "hugo-theme-nix"
+title = "Harsh Shandilya"
+theme = "hugo-theme-vec"
+paginate = 15
 
 [params]
   GithubID = "MSF-Jarvis"
@@ -14,3 +16,8 @@ theme = "hugo-theme-nix"
   Email = "msfjarvis@gmail.com"
   About = "Code Review -1, Verified -2"
   ProfilePicture = "images/avatar.png"
+  Keywords = "MSF Jarvis, Harsh Shandilya, Android, Golang"
+  Description = "Just a random guy who eats and......IDK, something"
+  Avatar = "https://avatars3.githubusercontent.com/u/13348378?v=3"
+  SelfIntro = "Just a worm, seek for true, live in shadow, no more..." 
+  
