@@ -3,7 +3,6 @@ baseurl = "https://msfjarvis.me"
 languageCode = "en-us"
 title = "Harsh Shandilya"
 theme = "hugo-theme-vec"
-paginate = 15
 
 [params]
   GithubID = "MSF-Jarvis"
@@ -11,13 +10,8 @@ paginate = 15
   LinkedInID = "harsh-shandilya-557334121"
   GoogleplusID = "+MSFJarvisTeamRedux"
   Name = "Harsh Shandilya"
-  HeaderUsername = "msf"
-  HeaderHostname = "jarvisbox"
   Email = "msfjarvis@gmail.com"
-  About = "Code Review -1, Verified -2"
-  ProfilePicture = "images/avatar.png"
   Keywords = "MSF Jarvis, Harsh Shandilya, Android, Golang"
-  Description = "Just a random guy who eats and......IDK, something"
   Avatar = "https://avatars3.githubusercontent.com/u/13348378?v=3"
-  SelfIntro = "Just a worm, seek for true, live in shadow, no more..." 
+  SelfIntro = "Android is <3" 
   
