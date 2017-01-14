@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> {{ .Title }} &middot; {{ .Site.Title }} </title>
+  
+  {{ partial "head.html" . }}
+</head>
+
+<body>
+  {{ partial "header.html" . }}
+  <div class="content">
+    <section class="post">
+      <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+      <div class="post-content">
+        {{ .Content }}
+      </div>
+      
+      {{ if .Params.formspree }}{{ partial "formspree.html" . }}{{ end }}
+      
+    </section>
+    
+    {{ if .Params.comments }}{{ partial "disqus.html" . }}{{ end }}
+  </div>
+  {{ partial "footer.html" . }}
+  
+  {{ partial "analytics.html" . }}
+
+</body>
+
+</html>
