@@ -11,7 +11,8 @@ theme = "hugo-theme-vec"
   GoogleplusID = "+MSFJarvisTeamRedux"
   Name = "Harsh Shandilya"
   Email = "msfjarvis@gmail.com"
-  Keywords = "MSF Jarvis, Harsh Shandilya, Android, Golang"
+  Keywords = "msf jarvis, harsh shandilya, android, halogenOS, github"
   Avatar = "https://avatars3.githubusercontent.com/u/13348378?v=3"
-  SelfIntro = "Android is <3" 
-  
+  SelfIntro = "Android is <3"
+  Description = "Android Lover, Golang Advocate, OSS freak"
+
