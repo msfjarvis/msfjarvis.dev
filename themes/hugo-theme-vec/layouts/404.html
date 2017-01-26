@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+  <title> {{ .Site.Title }} </title>
+  
+  {{ with .Site.Params.Keywords }}<meta name="keywords" content="{{.}}">{{ end }}
+  {{ with .Site.Params.Description }}<meta name="description" content="{{.}}">{{ end }}
+  
+  {{ partial "head.html" . }}
+    
+</head>
+
+<body>
+  {{ partial "header.html" . }}
+  <img src="why_you_vote_trump.jpg" align="center">
+  
+  {{ partial "footer.html" . }}
+  {{ partial "analytics.html" . }}
+
+</body>
+</html>
