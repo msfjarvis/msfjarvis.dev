@@ -1,18 +1,23 @@
 Title = "Harsh Shandilya"
-baseurl = "https://msfjarvis.me"
+baseurl = "https://msfjarvis.website"
 languageCode = "en-us"
 title = "Harsh Shandilya"
 theme = "hugo-theme-vec"
+
+[menu]
+  [[menu.main]]
+    name = "contact"
+    weight = 0
+    url = "/contact"
 
 [params]
   GithubID = "MSF-Jarvis"
   TwitterID = "MSF_Jarvis"
   LinkedInID = "harsh-shandilya-557334121"
-  GoogleplusID = "+MSFJarvisTeamRedux"
+  GoogleplusID = "+HarshShandila99"
   Name = "Harsh Shandilya"
-  Email = "msfjarvis@gmail.com"
+  Email = "harsh@prjkt.io"
   Keywords = "msf jarvis, harsh shandilya, android, halogenOS, github"
   Avatar = "https://avatars3.githubusercontent.com/u/13348378?v=3"
-  SelfIntro = "Android is <3"
+  SelfIntro = "18 | M | halogenOS | That substratum guy"
   Description = "Android Lover, Golang Advocate, OSS freak"
-
