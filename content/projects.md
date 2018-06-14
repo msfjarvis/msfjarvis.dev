@@ -15,4 +15,4 @@ notable projects include:
   staying up-to-date with kernel.org linux-stable releases.
 
 
-I am currently interning for [WireGuard](https://wireguard.com), a next generation kernel-space VPN with a focus on speed and privacy.
+I am also interning for [WireGuard](https://wireguard.com), a next generation kernel-space VPN with a focus on speed and privacy.
