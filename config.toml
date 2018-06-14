@@ -9,6 +9,10 @@ theme = "hugo-theme-vec"
     name = "contact"
     weight = 0
     url = "/contact"
+  [[menu.main]]
+    name = "projects"
+    weight = 1
+    url = "/projects"
 
 [params]
   Username = "MSFJarvis"
