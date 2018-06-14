@@ -11,6 +11,7 @@ theme = "hugo-theme-vec"
     url = "/contact"
 
 [params]
+  Username = "MSFJarvis"
   GithubID = "MSF-Jarvis"
   TwitterID = "MSF_Jarvis"
   LinkedInID = "harsh-shandilya-557334121"
