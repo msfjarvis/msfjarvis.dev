@@ -13,6 +13,10 @@ theme = "hugo-theme-vec"
     name = "projects"
     weight = 1
     url = "/projects"
+  [[menu.main]]
+    name = "downloads"
+    weight = 2
+    url = "https://download.msfjarvis.website"
 
 [params]
   Username = "MSFJarvis"
