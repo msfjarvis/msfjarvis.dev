@@ -3,7 +3,7 @@
     <ul>
       {{ $title := lower .Title }}
       {{ $section := lower .Section }}
-      <li class="pull-left {{ if .IsHome }}current{{ end }}">
+      <li class="pull-left header_item {{ if .IsHome }}current{{ end }}">
         <a href="{{ .Site.BaseURL }}">/home/{{ lower .Site.Params.Username}}</a>
       </li>
       {{ range .Site.Menus.main }}
