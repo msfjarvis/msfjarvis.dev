@@ -11,7 +11,7 @@ notable projects include:
   conditions. Details about all the available methods are on the documentation website.
 - [floating-action-button](https://github.com/MSF-Jarvis/floating-action-button): Yet another Android library, this time for drawing Material Design promoted
   actions.
-- [Caesium Kernel for the OnePlus 3/3T](https://kutt.io/caesiumop3): A custom kernel for the OnePlus 3/3T, designed to be lean, quick and efficient while
+- [Caesium Kernel for the OnePlus 3/3T](https://kutt.it/caesiumop3): A custom kernel for the OnePlus 3/3T, designed to be lean, quick and efficient while
   staying up-to-date with kernel.org linux-stable releases.
 
 
