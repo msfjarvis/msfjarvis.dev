@@ -501,4 +501,12 @@ footer .footer-info {
 .icons{
     font-size:2em
 }
+
+@media screen and (max-width: 600px) {
+    .header_item {
+        visibility: hidden;
+        display: none;
+    }
+}
+
 /*# sourceMappingURL=vec.css.map */
