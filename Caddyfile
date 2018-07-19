@@ -5,6 +5,7 @@ msfjarvis.website {
     git https://github.com/MSF-Jarvis/msfjarvis.website /var/www/msfjarvis.website {
         branch src
         then hugo
+        interval 600
     }
     gzip
     errors {
