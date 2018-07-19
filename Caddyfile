@@ -1,0 +1,13 @@
+msfjarvis.website {
+    root /var/www/msfjarvis.website/public
+    hugo /var/www/msfjarvis.website
+    tls msfjarvis@gmail.com
+    git https://github.com/MSF-Jarvis/msfjarvis.website /var/www/msfjarvis.website {
+        branch src
+        then hugo
+    }
+    gzip
+    errors {
+        404 404.html
+    }
+}
