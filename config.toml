@@ -2,7 +2,12 @@ Title = "Harsh Shandilya"
 baseurl = "https://msfjarvis.website"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = "hugo-theme-vec"
+theme = "hugo-coder-portfolio"
+
+[params]
+  author = "Harsh Shandilya"
+  description = "Android Lover | OSS freak"
+  avatarurl = "https://avatars3.githubusercontent.com/u/13348378?v=3"
 
 [menu]
   [[menu.main]]
@@ -18,15 +23,15 @@ theme = "hugo-theme-vec"
     weight = 2
     url = "https://download.msfjarvis.website"
 
-[params]
-  Username = "MSFJarvis"
-  GithubID = "MSF-Jarvis"
-  TwitterID = "MSF_Jarvis"
-  LinkedInID = "harsh-shandilya-557334121"
-  GoogleplusID = "+HarshShandilya99"
-  Name = "Harsh Shandilya"
-  Email = "msfjarvis@gmail.com"
-  Keywords = "msf jarvis, harsh shandilya, android, halogenOS, aosip, AOSIP, caesium kernel"
-  Avatar = "https://avatars3.githubusercontent.com/u/13348378?v=3"
-  SelfIntro = "Harsh Shandilya"
-  Description = "Android Lover | OSS freak"
+[[params.social]]
+  name = "GitHub"
+  weight = 1
+  url = "https://github.com/MSF-Jarvis"
+[[params.social]]
+  name = "Twitter"
+  weight = 2
+  url = "https://twitter.com/MSF_Jarvis"
+[[params.social]]
+  name = "LinkedIn"
+  weight = 3
+  url = "https://linkedin.com/in/harsh-shandilya-557334121"
