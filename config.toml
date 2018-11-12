@@ -35,3 +35,7 @@ theme = "hugo-coder-portfolio"
   name = "LinkedIn"
   weight = 3
   url = "https://linkedin.com/in/harsh-shandilya-557334121"
+[[params.social]]
+  name = "GPG"
+  weight = 4
+  url = "https://keyserver.ubuntu.com/pks/lookup?search=msfjarvis%40gmail.com&op=vindex"
