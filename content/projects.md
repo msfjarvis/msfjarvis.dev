@@ -11,3 +11,4 @@ notable projects include:
   actions.
 - [Caesium Kernel for the OnePlus 3/3T](https://github.com/MSF-Jarvis/oneplus3): A custom kernel for the OnePlus 3/3T, designed to be lean, quick and efficient while
   staying up-to-date with kernel.org linux-stable releases.
+- [Caesium Kernel for the Pixel 2/2XL](https://github.com/MSF-Jarvis/wahoo): A custom kernel for the Google Pixel 2/2XL with similar principles.
