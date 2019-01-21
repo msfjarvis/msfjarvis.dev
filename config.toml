@@ -38,4 +38,4 @@ theme = "hugo-coder-portfolio"
 [[params.social]]
   name = "GPG"
   weight = 4
-  url = "https://keyserver.ubuntu.com/pks/lookup?search=msfjarvis%40gmail.com&op=vindex"
+  url = "/msfjarvis.gpg"
