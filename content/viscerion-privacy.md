@@ -1,16 +1,16 @@
 ## Privacy Policy
 
-Harsh Shandilya built the WireGuard-KT app as an Open Source app. This SERVICE is provided by Harsh Shandilya at no cost and is intended for use as is.
+Harsh Shandilya built the Viscerion app as an Open Source app. This SERVICE is provided by Harsh Shandilya at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
 If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at WireGuard-KT unless otherwise defined in this Privacy Policy.
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Viscerion unless otherwise defined in this Privacy Policy.
 
 **Information Collection and Use**
 
-I collect absolutely no information about users through WireGuard-KT. Your privacy is respected and enforced.
+I collect absolutely no information about users through Viscerion. Your privacy is respected and enforced.
 
 **Log Data**
 
@@ -24,7 +24,7 @@ This Service does not use these “cookies” explicitly. However, the app may u
 
 **Service Providers**
 
-I do not employ any third-party services that will collect your data, all operations on WireGuard-KT are offline and completely anonymous.
+I do not employ any third-party services that will collect your data, all operations on Viscerion are offline and completely anonymous.
 
 **Links to Other Sites**
 
