@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/msf_jarvis
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://msfjarvis.website
+  * I am msf_jarvis (https://keybase.io/msf_jarvis) on keybase.
+  * I have a public key ASBstuVsc7AbYSuyAJKtj9AhD6L66wrlEthvV24663UADgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01206cb6e56c73b01b612bb20092ad8fd0210fa2faeb0ae512d86f576e3aeb75000e0a",
+      "host": "keybase.io",
+      "kid": "01206cb6e56c73b01b612bb20092ad8fd0210fa2faeb0ae512d86f576e3aeb75000e0a",
+      "uid": "4e0eac37a2b6118ff6fc8c3d924cf719",
+      "username": "msf_jarvis"
+    },
+    "merkle_root": {
+      "ctime": 1558697627,
+      "hash": "8889f0dc6f2f9084a3d6fcbb4bd4b68d19bf2e6eb09756b128675f4f989ff4d04233531273b83baf384053745cb6e7a59db28e9fb707e96b93471be2a96db5fc",
+      "hash_meta": "33824042898f3d7fadc8a917e383491764925866063a683533cf30ea7d18829a",
+      "seqno": 5439839
+    },
+    "service": {
+      "entropy": "jDrnPrCjaWUwRF7agI1079ts",
+      "hostname": "msfjarvis.website",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.0.0"
+  },
+  "ctime": 1558697634,
+  "expire_in": 504576000,
+  "prev": "c930d28978e05ba247bb110807d1ed409fdba2b408ff44a0268af72202fe3e05",
+  "seqno": 8,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgbLblbHOwG2ErsgCSrY/QIQ+i+usK5RLYb1duOut1AA4Kp3BheWxvYWTESpcCCMQgyTDSiXjgW6JHuxEIB9HtQJ/borQI/0SgJor3IgL+PgXEIC+d5yBv11fGNaOO/N/Mz6Akf3LFDuXoUhhHdpumjqPHAgHCo3NpZ8RADa5ySmq8ddhAwBtvQdBZHoYbuWwfyoNYJRCTgg5ueJ/1wFDvUCKXH5xu9zz/cWM6ziyQ75snEIuETC6Tg072AqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIPHuAgcFPj/cVNYAW/yzSVkAAZJKEnat+E4sePjD9Kv2o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/msf_jarvis
+
+==================================================================
