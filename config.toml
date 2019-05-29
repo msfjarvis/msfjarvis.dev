@@ -12,7 +12,7 @@ theme = "hugo-coder-portfolio"
 [menu]
   [[menu.main]]
     name = "contact"
-    weight = 0
+    weight = 1
     url = "/contact"
   [[menu.main]]
     name = "projects"
@@ -20,7 +20,7 @@ theme = "hugo-coder-portfolio"
     url = "/projects"
   [[menu.main]]
     name = "downloads"
-    weight = 2
+    weight = 0
     url = "https://download.msfjarvis.website"
 
 [[params.social]]
