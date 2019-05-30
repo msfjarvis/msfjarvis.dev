@@ -19,6 +19,10 @@ theme = "hugo-coder-portfolio"
     weight = 1
     url = "/projects"
   [[menu.main]]
+    name = "blog"
+    weight = 1
+    url = "/posts"
+  [[menu.main]]
     name = "downloads"
     weight = 0
     url = "https://download.msfjarvis.website"
