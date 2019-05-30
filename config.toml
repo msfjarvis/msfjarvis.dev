@@ -36,9 +36,9 @@ theme = "hugo-coder-portfolio"
   weight = 2
   url = "https://twitter.com/MSF_Jarvis"
 [[params.social]]
-  name = "LinkedIn"
+  name = "Keybase"
   weight = 3
-  url = "https://linkedin.com/in/harsh-shandilya-557334121"
+  url = "https://keybase.io/msf_jarvis"
 [[params.social]]
   name = "GPG"
   weight = 4
