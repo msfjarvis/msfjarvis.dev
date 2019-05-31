@@ -8,6 +8,8 @@ theme = "hugo-coder-portfolio"
   author = "Harsh Shandilya"
   description = "Android Lover | OSS freak"
   avatarurl = "https://avatars3.githubusercontent.com/u/13348378?v=3"
+  snsShare = true
+  enableTwitterShare = true
 
 [menu]
   [[menu.main]]
