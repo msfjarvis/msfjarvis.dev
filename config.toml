@@ -29,17 +29,21 @@ theme = "hugo-coder-portfolio"
 
 [[params.social]]
   name = "GitHub"
+  icon = "fab fa-github fa-2x"
   weight = 1
   url = "https://github.com/MSF-Jarvis"
 [[params.social]]
   name = "Twitter"
+  icon = "fab fa-twitter fa-2x"
   weight = 2
   url = "https://twitter.com/MSF_Jarvis"
 [[params.social]]
   name = "Keybase"
+  icon = "fab fa-keybase fa-2x"
   weight = 3
   url = "https://keybase.io/msf_jarvis"
 [[params.social]]
   name = "GPG"
+  icon = "fas fa-key fa-2x"
   weight = 4
   url = "/msfjarvis.gpg"
