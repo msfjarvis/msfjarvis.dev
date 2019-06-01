@@ -10,6 +10,7 @@ theme = "hugo-coder-portfolio"
   avatarurl = "https://avatars3.githubusercontent.com/u/13348378?v=3"
   snsShare = true
   enableTwitterShare = true
+  twitterUsername = "MSF_Jarvis"
 
 [menu]
   [[menu.main]]
