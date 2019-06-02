@@ -48,7 +48,12 @@ theme = "hugo-coder-portfolio"
   weight = 3
   url = "https://keybase.io/msf_jarvis"
 [[params.social]]
+  name = "DEV.to"
+  icon = "fab fa-dev fa-2x"
+  weight = 4
+  url = "https://dev.to/msfjarvis"
+[[params.social]]
   name = "GPG"
   icon = "fas fa-key fa-2x"
-  weight = 4
+  weight = 5
   url = "/msfjarvis.gpg"
