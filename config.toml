@@ -56,4 +56,4 @@ theme = "hugo-coder-portfolio"
   name = "GPG"
   icon = "fas fa-key fa-2x"
   weight = 5
-  url = "/msfjarvis.gpg"
+  url = "/publickey.txt"
