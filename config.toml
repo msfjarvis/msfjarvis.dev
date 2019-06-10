@@ -13,6 +13,7 @@ theme = "hugo-coder-portfolio"
   snsShare = true
   enableTwitterShare = true
   twitterUsername = "MSF_Jarvis"
+  extendedFaviconSupport = true
 
 [menu]
   [[menu.main]]
