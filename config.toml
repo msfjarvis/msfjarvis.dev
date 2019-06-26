@@ -20,6 +20,10 @@ theme = "hugo-coder-portfolio"
     weight = 1
     url = "/contact"
   [[menu.main]]
+    name = "resume"
+    weight = 1
+    url = "/resume.pdf"
+  [[menu.main]]
     name = "projects"
     weight = 1
     url = "/projects"
