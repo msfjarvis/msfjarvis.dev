@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: msfjarvis.website
+Token: e5161e406d9309a885b13f58246f05f582231c80076e9d3ca32a321ccc7b1f02
