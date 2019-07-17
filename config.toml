@@ -8,7 +8,7 @@ theme = "hugo-coder-portfolio"
   name = "Harsh Shandilya"
 
 [params]
-  description = "Android Lover | OSS freak"
+  description = ""
   avatarurl = "/images/avatar.png"
   snsShare = true
   enableTwitterShare = true
