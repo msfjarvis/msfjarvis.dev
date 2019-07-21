@@ -3,7 +3,7 @@ title = "Projects"
 id = "projects"
 +++
 
-Over the years I have worked on and contributed to various projects in the Android community. I am currently a project maintainer for [substratum](https://github.com/substratum) and [Android Password Store](https://github.com/zeapo/Android-Password-Store). My personal projects can be found on [GitHub](https://github.com/MSF-Jarvis),
+Over the years I have worked on and contributed to various projects in the Android community. I am currently a project maintainer for [Android Password Store](https://github.com/zeapo/Android-Password-Store). My personal projects can be found on [GitHub](https://github.com/MSF-Jarvis),
 some of the prominent ones are:
 
 - [Viscerion](https://github.com/MSF-Jarvis/viscerion): Android client for the WireGuard™️  VPN protocol. Built with Android Jetpack and Kotlin.
