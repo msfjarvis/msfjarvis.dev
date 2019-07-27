@@ -1,2 +1,4 @@
 # Redirect default Netlify subdomain to primary domain
 https://msfjarvis-website.netlify.com/* https://msfjarvis.website/:splat 301!
+# Shortlink for Brave Rewards referral
+/brave https://brave.com/msf756
