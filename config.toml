@@ -40,7 +40,7 @@ theme = "hugo-coder-portfolio"
   name = "GitHub"
   icon = "fab fa-github fa-2x"
   weight = 1
-  url = "https://github.com/MSF-Jarvis"
+  url = "https://github.com/msfjarvis"
 [[params.social]]
   name = "Twitter"
   icon = "fab fa-twitter fa-2x"
