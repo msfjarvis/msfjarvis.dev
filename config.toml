@@ -9,7 +9,7 @@ theme = "hugo-coder-portfolio"
 
 [params]
   description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
-  avatarurl = "/images/avatar.png"
+  avatarurl = "https://avatars0.githubusercontent.com/u/13348378?v=4"
   snsShare = true
   enableTwitterShare = true
   twitterUsername = "MSF_Jarvis"
