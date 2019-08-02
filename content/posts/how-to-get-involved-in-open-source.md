@@ -11,7 +11,7 @@ The most common question I get when I recommend open source as a launching pad f
 
 The answer: *anywhere!*
 
-There's a plethora of open source software out there, and not everybody needs to have an encyclopaedic knowledge of the codebase to contribute. You can contribute small things like [fixing dead links in the README](https://github.com/portainer/portainer/commit/173c673d37ea2e4bb82d159b601e60109a435601) to [resolving trivial compilation warnings](https://github.com/mozilla-mobile/fenix/commits/master?author=MSF-Jarvis) to simply [tweaking an issue template](https://github.com/opengapps/opengapps/commits/master/.github/ISSUE_TEMPLATE.md).
+There's a plethora of open source software out there, and not everybody needs to have an encyclopaedic knowledge of the codebase to contribute. You can contribute small things like [fixing dead links in the README](https://github.com/portainer/portainer/commit/173c673d37ea2e4bb82d159b601e60109a435601) to [resolving trivial compilation warnings](https://github.com/mozilla-mobile/fenix/commits/master?author=msfjarvis) to simply [tweaking an issue template](https://github.com/opengapps/opengapps/commits/master/.github/ISSUE_TEMPLATE.md).
 
 The reason I'm linking my own commits is because I want to let people know that the guy helming a [theme engine](https://github.com/substratum) is also out of his element at times and there's no shame in admitting it :)
 
