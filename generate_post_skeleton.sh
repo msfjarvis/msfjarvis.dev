@@ -14,6 +14,7 @@ function create_post() {
     postslug="$(echo "${title}" | tr -dc '[:alnum:][:space:]\n\r' | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g')"
     filename="${postslug}.md"
     printf "+++\ndate = \"%s\"\ntitle = \"%s\"\nslug = \"%s\"\ntags = []\ncategories = []\n+++\n" "${postdate}" "${title}" "${postslug}" > content/posts/"${filename}"
+    echo "content/posts/${filename} created!"
 }
 
 create_post "${@}"
