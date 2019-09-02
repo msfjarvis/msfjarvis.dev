@@ -1,18 +1,20 @@
-Title = "Harsh Shandilya"
 baseurl = "https://msfjarvis.website"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = "hugo-coder-portfolio"
+theme = "hello-friend-ng"
 
 [author]
   name = "Harsh Shandilya"
 
 [params]
   description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
-  avatarurl = "https://avatars0.githubusercontent.com/u/13348378?v=4"
-  snsShare = true
-  enableTwitterShare = true
-  twitterUsername = "MSF_Jarvis"
+  dateform        = "Jan 2, 2006"
+  dateformShort   = "Jan 2"
+  dateformNum     = "2006-01-02"
+  dateformNumTime = "2006-01-02 15:04 -0700"
+  keywords = "homepage, blog, android, kotlin, programming"
+  contentTypeName = "posts"
+  defaultTheme = "dark"
 
 [menu]
   [[menu.main]]
@@ -39,25 +41,20 @@ theme = "hugo-coder-portfolio"
 [[params.social]]
   name = "GitHub"
   icon = "fab fa-github fa-2x"
-  weight = 1
   url = "https://github.com/msfjarvis"
 [[params.social]]
   name = "Twitter"
   icon = "fab fa-twitter fa-2x"
-  weight = 2
   url = "https://twitter.com/MSF_Jarvis"
 [[params.social]]
   name = "Keybase"
   icon = "fab fa-keybase fa-2x"
-  weight = 3
   url = "https://keybase.io/msf_jarvis"
 [[params.social]]
   name = "DEV.to"
   icon = "fab fa-dev fa-2x"
-  weight = 4
   url = "https://dev.to/msfjarvis"
 [[params.social]]
   name = "GPG"
   icon = "fas fa-key fa-2x"
-  weight = 5
   url = "/publickey.txt"
