@@ -6,12 +6,6 @@
 <meta name="keywords" content="{{ .Site.Params.keywords }}" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="{{ .Permalink }}" />
-<script>
-if ('serviceWorker' in navigator) {
-  // sw.js can literally be empty, but must exist
-  navigator.serviceWorker.register('/sw.js');
-}
-</script>
 
 {{ block "title" . }}
 <title>
@@ -30,8 +24,7 @@ if ('serviceWorker' in navigator) {
 <script src="https://assets.digitalclimatestrike.net/widget.js" async></script>
 
 <!-- PWA -->
-<link rel="manifest" href="manifest.webmanifest" />
-<script src="https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js" integrity="sha384-VcI6S+HIsE80FVM1jgbd6WDFhzKYA0PecD/LcIyMQpT4fMJdijBh0I7Iblaacawc" crossorigin="anonymous" async></script>
+<meta name="msapplication-TileColor" content="#2b5797">
 
 {{ $options := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" true) }}
 {{ $style := resources.Get "scss/main.scss" | resources.ToCSS $options | resources.Minify | resources.Fingerprint }}
