@@ -8,19 +8,19 @@
   "theme_color": "#a9a9b3",
   "icons": [
     {
-      "src": "favicon-16x16.png",
+      "src": "favicon-16x16.webp",
       "sizes": "16x16",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
-      "src": "favicon-32x32.png",
+      "src": "favicon-32x32.webp",
       "sizes": "32x32",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
-      "src": "android-chrome-192x192.png",
+      "src": "android-chrome-192x192.webp",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ]
 }
