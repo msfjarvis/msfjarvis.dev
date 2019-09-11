@@ -27,7 +27,7 @@
 <meta name="msapplication-TileColor" content="#2b5797">
 
 {{ $options := (dict "targetPath" "main.css" "outputStyle" "compressed" "enableSourceMap" true) }}
-{{ $style := resources.Get "scss/main.scss" | resources.ToCSS $options | resources.Minify | resources.Fingerprint }}
+{{ $style := resources.Get "scss/main.scss" | resources.ToCSS $options | resources.Minify }}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
 {{ range $val := $.Site.Params.customCSS }}
