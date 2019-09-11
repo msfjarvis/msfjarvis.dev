@@ -8,17 +8,15 @@
 <link rel="canonical" href="{{ .Permalink }}" />
 <script>
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-            .register('/service-worker.js', { scope: '/' })
-            .then(function (registration) {
-                console.log('Service Worker Registered');
-            });
-
-        navigator.serviceWorker
-            .ready
-            .then(function (registration) {
-                console.log('Service Worker Ready');
-            });
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(reg => {
+                    console.log('Service worker registered!', reg);
+                })
+                .catch(err => {
+                    console.log('Service worker registration failed: ', err);
+                });
+        });
     }
 </script>
 
