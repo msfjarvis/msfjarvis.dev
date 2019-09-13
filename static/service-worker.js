@@ -21,7 +21,11 @@ const precacheResources = [
   '/fonts/Inter-UI-Bold.woff2',
   '/fonts/fa-solid-900.woff',
   '/fonts/Inter-UI-BoldItalic.woff2',
-  '/fonts/fa-brands-400.woff2'
+  '/fonts/fa-brands-400.woff2',
+  '/posts/how-to-get-involved-in-open-source/index.html',
+  '/posts/i-m-gonna-blog/index.html',
+  '/posts/tools-for-effective-rust-development/index.html',
+  '/posts/understanding-and-resolving-selinux-denials-on-android/index.html',
 ];
 
 self.addEventListener('install', event => {
