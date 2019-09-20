@@ -80,7 +80,7 @@ Let's take these for a spin on [repl.it](https://repl.it)!
 
 {% replit @msfjarvis/ButteryYellowgreenTraining %}
 
-{% @msfjarvis/DarkcyanDisfiguredDatalogs %}
+{% replit @msfjarvis/DarkcyanDisfiguredDatalogs %}
 
 Both work perfectly well, but you know which one you'd enjoy writing more ;)
 
