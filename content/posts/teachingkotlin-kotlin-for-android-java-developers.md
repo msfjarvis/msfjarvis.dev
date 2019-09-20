@@ -1,8 +1,8 @@
 +++
-categories = ["#teachingkotlin", "kotlin", "dev", "android"]
+categories = ["teachingkotlin", "kotlin", "dev", "android"]
 date = "2019-09-20T08:00:00+05:30"
 slug = "teaching-kotlin--kotlin-for-android-java-developers"
-tags = ["#teachingkotlin", "android", "kotlin"]
+tags = ["teachingkotlin", "android", "kotlin"]
 title = "#TeachingKotlin - Kotlin for Android Java developers"
 
 +++
