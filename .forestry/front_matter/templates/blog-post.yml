@@ -17,3 +17,5 @@ fields:
 - type: list
   name: categories
   label: categories
+pages:
+- content/posts/teachingkotlin-kotlin-for-android-java-developers.md
