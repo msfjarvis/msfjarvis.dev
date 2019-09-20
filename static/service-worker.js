@@ -26,6 +26,7 @@ const precacheResources = [
   '/posts/i-m-gonna-blog/index.html',
   '/posts/tools-for-effective-rust-development/index.html',
   '/posts/understanding-and-resolving-selinux-denials-on-android/index.html',
+  '/posts/teaching-kotlin-kotlin-for-android-java-developers/index.html',
 ];
 
 self.addEventListener('install', event => {
