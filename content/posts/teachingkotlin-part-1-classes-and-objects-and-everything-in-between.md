@@ -66,7 +66,7 @@ Kotlin:
 ```kotlin
 class Person(val name: String, val age: Int = 18) {
     override fun toString() : String {
-        // I know how cool this looks. I'll explore string templating differences in a future post, hold me to it :)
+        // I'll go over string templates in a future post, hold me to it :)
         return "Name=$name,age=$age"
     }
 }
@@ -95,3 +95,7 @@ class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
 ```
 
 Doing this will generate constructors similar to how we previously wrote in Java, to allow both Kotlin and Java callers to work.
+
+## Finality of classes
+
+In Kotlin, all classes are final by default, and cannot be inherited while Java defaults to extensible classes. The `open` keyword marks Kotlin classes as extensible, and the `final` keyword does the opposite on Java. This is a behavior change that is confusing and undesirable to a lot of people, so Kotlin provides a compiler plugin to mark all classes as `open` by default. Check out the [`kotlin-allopen`](https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin) page for more information about how to configure the plugin for your needs.
