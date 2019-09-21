@@ -74,7 +74,7 @@ class Person(val name: String, val age: Int = 18) {
 
 Lots of new things here! Let's break them down.
 
-Kotlin has a feature called 'default parameters`, that allows you to specify default values for parameters, thus making them optional when creating an instance of the class.
+Kotlin has a feature called 'default parameters', that allows you to specify default values for parameters, thus making them optional when creating an instance of the class.
 
 Let's take these for a spin on [repl.it](https://repl.it)!
 
