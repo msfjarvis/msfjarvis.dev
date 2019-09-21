@@ -15,11 +15,11 @@ Java:
 
 ```java
 class Person {
-    private final String name;
+  private final String name;
 
-    public Person(String name) {
-        this.name = name;
-    }
+  public Person(String name) {
+    this.name = name;
+  }
 }
 ```
 
@@ -65,10 +65,10 @@ Kotlin:
 
 ```kotlin
 class Person(val name: String, val age: Int = 18) {
-    override fun toString() : String {
-        // I'll go over string templates in a future post, hold me to it :)
-        return "Name=$name,age=$age"
-    }
+  override fun toString() : String {
+    // I'll go over string templates in a future post, hold me to it :)
+    return "Name=$name,age=$age"
+  }
 }
 ```
 
@@ -88,9 +88,9 @@ An important note here is that constructors with default values don't directly w
 
 ```kotlin
 class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
-    override fun toString() : String {
-        return "Name=$name,age=$age"
-    }
+  override fun toString() : String {
+    return "Name=$name,age=$age"
+  }
 }
 ```
 
@@ -99,3 +99,30 @@ Doing this will generate constructors similar to how we previously wrote in Java
 ## Finality of classes
 
 In Kotlin, all classes are final by default, and cannot be inherited while Java defaults to extensible classes. The `open` keyword marks Kotlin classes as extensible, and the `final` keyword does the opposite on Java. This is a behavior change that is confusing and undesirable to a lot of people, so Kotlin provides a compiler plugin to mark all classes as `open` by default. Check out the [`kotlin-allopen`](https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin) page for more information about how to configure the plugin for your needs.
+
+## Static utils classes
+
+Everybody knows that you don't have a real project until you have a `StringUtils` class. Usually it'd be a `public static final` class with a bunch of static methods. While Kotlin has a sweeter option of [extension functions and properties](https://kotlinlang.org/docs/tutorials/kotlin-for-py/extension-functionsproperties.html), for purposes of comparison we'll stick with the old Java way of doing things.
+
+Here's a small function I use to convert Android's URI paths to human-readable versions.
+
+Java:
+
+```java
+public static final class StringUtils {
+  public static String normalizePath(final String str) {
+    return str.replace("/document/primary:", "/sdcard/");
+  }
+}
+```
+
+Kotlin:
+
+```kotlin
+object StringUtils {
+  // I'll cover this declaration style too. It's just the first post!
+  fun normalizePath(str: String) = str.replace("/document/primary:", "/sdcard/")
+}
+```
+
+A recurring pattern with Kotlin is concise code as you can see in this case.
