@@ -98,7 +98,38 @@ Doing this will generate constructors similar to how we previously wrote in Java
 
 ## Finality of classes
 
-In Kotlin, all classes are final by default, and cannot be inherited while Java defaults to extensible classes. The `open` keyword marks Kotlin classes as extensible, and the `final` keyword does the opposite on Java. This is a behavior change that is confusing and undesirable to a lot of people, so Kotlin provides a compiler plugin to mark all classes as `open` by default. Check out the [`kotlin-allopen`](https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin) page for more information about how to configure the plugin for your needs.
+In Kotlin, all classes are final by default, and cannot be inherited while Java defaults to extensible classes. The `open` keyword marks Kotlin classes as extensible, and the `final` keyword does the opposite on Java.
+
+Java:
+
+```java
+public class Man extends Person { /* Class body */ } // Valid in Java
+```
+
+Kotlin:
+
+```kotlin
+class Man(val firstName: String) : Person(firstName) // Errors!
+```
+
+Trying it out in the Kotlin REPL
+
+```kotlin
+>>> class Man(val firstName: String) : Person(firstName)
+error: this type is final, so it cannot be inherited from
+class Man(val firstName: String) : Person(firstName)
+                                   ^
+```
+
+Makes sense, since that's default for Kotlin. Let's add the `open` keyword to our definition of `Person` and try again.
+
+```kotlin
+>>> class Man(val firstName: String) : Person(firstName)
+>>> println(Man("Henry"))
+Name=Henry,age=18
+```
+
+And everything works as we'd expect it to. This is a behavior change that is confusing and undesirable to a lot of people, so Kotlin provides a compiler plugin to mark all classes as `open` by default. Check out the [`kotlin-allopen`](https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin) page for more information about how to configure the plugin for your needs.
 
 ## Static utils classes
 
