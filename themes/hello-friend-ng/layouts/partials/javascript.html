@@ -2,14 +2,7 @@
 {{ $menu := resources.Get "js/menu.js" }}
 {{ $prism := resources.Get "js/prism.js" }}
 {{ $theme := resources.Get "js/theme.js" }}
-{{ $climatestrike := resources.Get "js/digitalclimatestrike-widget.js" }}
-{{ $secureJS := slice $main $menu $prism $theme $climatestrike | resources.Concat "bundle.js" | resources.Minify }}
-<script type="text/javascript">
-  var DIGITAL_CLIMATE_STRIKE_OPTIONS = {
-    disableGoogleAnalytics: true,
-    showCloseButtonOnFullPageWidget: true,
-  };
-</script>
+{{ $secureJS := slice $main $menu $prism $theme | resources.Concat "bundle.js" | resources.Minify }}
 <script type="text/javascript" src="{{ $secureJS.RelPermalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
 
 {{- if .Site.GoogleAnalytics }}
