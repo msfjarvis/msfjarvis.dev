@@ -15,7 +15,8 @@ theme = "hello-friend-ng"
   keywords = "homepage, blog, android, kotlin, programming"
   contentTypeName = "posts"
   defaultTheme = "dark"
-  customJS = ["https://stats.msfjarvis.website/kis3.js"]
+  FathomAnalyticsDomain = "stats.msfjarvis.website"
+  FathomAnalyticsSiteId = "BXNEC"
 
 [menu]
   [[menu.main]]
