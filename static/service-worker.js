@@ -1,5 +1,5 @@
 const oldCaches = ['cache-v1', 'cache-v2']
-const cacheName = 'cache-v3';
+const cacheName = 'cache-v3'
 const precacheResources = [
   '/',
   '/posts/',
@@ -28,8 +28,8 @@ const precacheResources = [
   '/posts/tools-for-effective-rust-development/index.html',
   '/posts/understanding-and-resolving-selinux-denials-on-android/index.html',
   '/posts/teaching-kotlin-kotlin-for-android-java-developers/index.html',
-  '/posts/teaching-kotlin-classes-and-objects/index.html',
-];
+  '/posts/teaching-kotlin-classes-and-objects/index.html'
+]
 
 for (id in oldCaches) {
   caches.open(id).then(cache =>
@@ -42,27 +42,26 @@ for (id in oldCaches) {
 }
 
 self.addEventListener('install', event => {
-  console.log('Service worker install event!');
+  console.log('Service worker install event!')
   event.waitUntil(
-    caches.open(cacheName)
-      .then(cache => {
-        return cache.addAll(precacheResources);
-      })
-  );
-});
+    caches.open(cacheName).then(cache => {
+      return cache.addAll(precacheResources)
+    })
+  )
+})
 
 self.addEventListener('activate', event => {
-  console.log('Service worker activate event!');
-});
+  console.log('Service worker activate event!')
+})
 
 self.addEventListener('fetch', event => {
-  console.log('Fetch intercepted for:', event.request.url);
-  event.respondWith(caches.match(event.request)
-    .then(cachedResponse => {
+  console.log('Fetch intercepted for:', event.request.url)
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
       if (cachedResponse) {
-        return cachedResponse;
+        return cachedResponse
       }
-      return fetch(event.request);
+      return fetch(event.request)
     })
-  );
-});
+  )
+})
