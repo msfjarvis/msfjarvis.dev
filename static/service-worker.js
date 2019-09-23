@@ -1,3 +1,4 @@
+const oldCaches = ['cache-v1', 'cache-v2']
 const cacheName = 'cache-v3';
 const precacheResources = [
   '/',
@@ -29,6 +30,16 @@ const precacheResources = [
   '/posts/teaching-kotlin-kotlin-for-android-java-developers/index.html',
   '/posts/teaching-kotlin-classes-and-objects/index.html',
 ];
+
+for (id in oldCaches) {
+  caches.open(id).then(cache =>
+    cache.keys().then(keys => {
+      for (let key of keys) {
+        cache.delete(key)
+      }
+    })
+  )
+}
 
 self.addEventListener('install', event => {
   console.log('Service worker install event!');
