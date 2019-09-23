@@ -35,7 +35,21 @@ The benefits of using Kotlin immediately start showing! But let's go over this i
 
 Kotlin uses a very compact syntax for describing primary constructors. With some clever tricks around default values, we can create many constructors out of a single one!
 
-Let's add an optional age parameter to our classes, with a default value of 18. To make it convenient to see how different constructors affect values, we're also including an implementation of the `toString` method for some classing print debugging.
+Notice the `val` in the parameter name. It's a concise syntax for declaring variables and initializing them from the constructor itself. Like any other property, they can be mutable (`var`) or immutable (`val`). If you remove the `val` in our `Person` constructor, you will not have a `name` variable available on its instance, i.e., `Person("Person 1").name` will not resolve.
+
+The primary constructor cannot have any code so Kotlin provides something called 'initializer blocks' to allow you to run initialization code from your constructor. Try running the code below in the [Kotlin playground](https://play.kotlinlang.org/)
+
+```kotlin
+class Person(val name: String) {
+  init {
+    println("Invoking constructor!")
+  }
+}
+
+val _ = Person("Matt")
+```
+
+Moving on, let's add an optional age parameter to our classes, with a default value of 18. To make it convenient to see how different constructors affect values, we're also including an implementation of the `toString` method for some classing print debugging.
 
 Java:
 
