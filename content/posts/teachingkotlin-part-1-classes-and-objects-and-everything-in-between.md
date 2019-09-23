@@ -180,4 +180,6 @@ object StringUtils {
 }
 ```
 
-A recurring pattern with Kotlin is concise code as you can see in this case.
+A recurring pattern with Kotlin is concise code, as you can see in this case.
+
+That's all for this one! Let me know in the comments about what you'd prefer to be next week's post about or if you feel I missed something in this one and I'll definitely try to make it happen :)
