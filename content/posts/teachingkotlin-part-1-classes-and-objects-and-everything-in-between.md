@@ -115,6 +115,11 @@ class Man(val firstName: String) : Person(firstName) // Errors!
 Trying it out in the Kotlin REPL
 
 ```kotlin
+>>> class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
+...   override fun toString() : String {
+...     return "Name=$name,age=$age"
+...   }
+... }
 >>> class Man(val firstName: String) : Person(firstName)
 error: this type is final, so it cannot be inherited from
 class Man(val firstName: String) : Person(firstName)
@@ -124,6 +129,11 @@ class Man(val firstName: String) : Person(firstName)
 Makes sense, since that's default for Kotlin. Let's add the `open` keyword to our definition of `Person` and try again.
 
 ```kotlin
+>>> open class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
+...   override fun toString() : String {
+...     return "Name=$name,age=$age"
+...   }
+... }
 >>> class Man(val firstName: String) : Person(firstName)
 >>> println(Man("Henry"))
 Name=Henry,age=18
