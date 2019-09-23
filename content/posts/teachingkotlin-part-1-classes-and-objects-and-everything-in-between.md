@@ -175,7 +175,7 @@ Kotlin:
 ```kotlin
 object StringUtils {
   // I'll cover this declaration style too. It's just the first post!
-  fun normalizePath(str: String) = str.replace("/document/primary:", "/sdcard/")
+  fun normalizePath(str: String): String = str.replace("/document/primary:", "/sdcard/")
 }
 ```
 
