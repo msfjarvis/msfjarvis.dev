@@ -1,4 +1,4 @@
-const cacheName = 'cache-v2';
+const cacheName = 'cache-v3';
 const precacheResources = [
   '/',
   '/posts/',
@@ -27,6 +27,7 @@ const precacheResources = [
   '/posts/tools-for-effective-rust-development/index.html',
   '/posts/understanding-and-resolving-selinux-denials-on-android/index.html',
   '/posts/teaching-kotlin-kotlin-for-android-java-developers/index.html',
+  '/posts/teaching-kotlin-classes-and-objects/index.html',
 ];
 
 self.addEventListener('install', event => {
