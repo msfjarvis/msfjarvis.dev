@@ -7,6 +7,7 @@
 <meta name="robots" content="noodp" />
 <meta name="flattr:id" content="xj7zpw">
 <link rel="canonical" href="{{ .Permalink }}" />
+{{ if not .Site.IsServer }}
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
@@ -20,6 +21,7 @@
         });
     }
 </script>
+{{ end }}
 
 {{ block "title" . }}
 <title>
