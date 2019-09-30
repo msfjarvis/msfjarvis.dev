@@ -1,7 +1,6 @@
 +++
 categories = ["kotlin", "dev", "android", "teachingkotlin"]
 date = "2019-09-30T15:00:00+05:30"
-draft = true
 slug = "teaching-kotlin--variables"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 2 - Variables"
@@ -120,3 +119,5 @@ The keyword `this` does not behave as some would normally expect in inner classe
 ### `internal`
 
 `internal` applies to methods and properties in classes. It makes the field/method 'module-local', allowing it to be accessed within the same module and nowhere else. A module in this context is a logical compilation unit, like a Gradle subproject.
+
+That's all for today! Hope you're liking the series so far. I'd love to hear feedback on what you want me to cover next and how to improve what I write :)
