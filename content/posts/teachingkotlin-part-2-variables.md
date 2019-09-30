@@ -97,3 +97,26 @@ id=1,name=Bricks
 Notice how setting a new value to currentState mutates the other variables as well? That's because of our custom setter. These setters are identical to a normal top-level function except a reference to the field in question is available as the variable `field` for manipulation.
 
 ## Visiblity modifiers
+
+Kotlin's visiblity modifiers aren't very well explained. There's the standard `public`, `private` and `protected`, but also the new `inner` and `internal`. I'll attempt to fill in those gaps.
+
+### `inner`
+
+`inner` is a modifier that only applies to classes declared within another one. It allows you to access members of the enclosing class. A sample might help explain this better.
+
+```kotlin
+class Outer {
+    private val bar: Int = 1
+    inner class Inner {
+        fun foo() = bar
+    }
+}
+
+val demo = Outer().Inner().foo() // == 1
+```
+
+The keyword `this` does not behave as some would normally expect in inner classes, go through the Kotlin documentation for `this` [here](https://kotlinlang.org/docs/reference/this-expressions.html) and I'll be happy to answer any further questions :)
+
+### `internal`
+
+`internal` applies to methods and properties in classes. It makes the field/method 'module-local', allowing it to be accessed within the same module and nowhere else. A module in this context is a logical compilation unit, like a Gradle subproject.
