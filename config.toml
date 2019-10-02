@@ -40,21 +40,21 @@ theme = "hello-friend-ng"
 
 [[params.social]]
   name = "GitHub"
-  icon = "fab fa-github fa-2x"
+  icon = "icon-github"
   url = "https://github.com/msfjarvis"
 [[params.social]]
   name = "Twitter"
-  icon = "fab fa-twitter fa-2x"
+  icon = "icon-twitter"
   url = "https://twitter.com/MSF_Jarvis"
 [[params.social]]
   name = "Keybase"
-  icon = "fab fa-keybase fa-2x"
+  icon = "icon-keybase"
   url = "https://keybase.io/msf_jarvis"
 [[params.social]]
   name = "DEV.to"
-  icon = "fab fa-dev fa-2x"
+  icon = "icon-dev"
   url = "https://dev.to/msfjarvis"
 [[params.social]]
   name = "GPG"
-  icon = "fas fa-key fa-2x"
+  icon = "icon-key"
   url = "/publickey.txt"
