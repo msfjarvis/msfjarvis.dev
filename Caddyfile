@@ -1,0 +1,17 @@
+:1313 {
+    tls off
+    header / {
+        # Security related changes stolen from https://github.com/searx/searx-docker/blob/master/Caddyfile
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-XSS-Protection "1; mode=block"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Feature-Policy "accelerometer 'none';ambient-light-sensor 'none'; autoplay 'none';camera 'none';encrypted-media 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none'; speaker 'none';sync-xhr 'none';usb 'none';vr 'none'"
+        Referrer-Policy "no-referrer"
+    }
+    gzip
+    root public
+    header / {
+        Cache-Control "max-age=2592000"
+    }
+}
