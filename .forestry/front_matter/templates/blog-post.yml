@@ -18,6 +18,7 @@ fields:
   name: categories
   label: categories
 pages:
-- content/posts/teachingkotlin-part-2-variables.md
-- content/posts/teachingkotlin-part-1-classes-and-objects-and-everything-in-between.md
 - content/posts/teachingkotlin-kotlin-for-android-java-developers.md
+- content/posts/teachingkotlin-part-1-classes-and-objects-and-everything-in-between.md
+- content/posts/teachingkotlin-part-2-variables.md
+- content/posts/why-i-went-back-to-the-gradle-groovy-dsl.md
