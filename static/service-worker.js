@@ -1,4 +1,3 @@
-const oldCaches = ['cache-v1', 'cache-v2', 'cache-v3']
 const cacheName = 'cache-v4'
 const precacheResources = [
   '/',
@@ -40,9 +39,21 @@ self.addEventListener('install', event => {
 })
 
 self.addEventListener('activate', event => {
-  for (id in oldCaches) {
-    self.caches.delete(id)
-  }
+  var cacheKeeplist = [cacheName]
+  event.waitUntil(
+    caches
+      .keys()
+      .then(keyList => {
+        return Promise.all(
+          keyList.map(key => {
+            if (cacheKeeplist.indexOf(key) === -1) {
+              return caches.delete(key)
+            }
+          })
+        )
+      })
+      .then(self.clients.claim())
+  )
 })
 
 self.addEventListener('fetch', event => {
