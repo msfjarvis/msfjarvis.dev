@@ -2,6 +2,7 @@ baseurl = "https://msfjarvis.website"
 languageCode = "en-us"
 title = "Harsh Shandilya"
 theme = "hello-friend-ng"
+googleAnalytics = "UA-151235413-1"
 
 [author]
   name = "Harsh Shandilya"
@@ -15,7 +16,6 @@ theme = "hello-friend-ng"
   keywords = "homepage, blog, android, kotlin, programming"
   contentTypeName = "posts"
   defaultTheme = "dark"
-  GoogleAnalytics = "UA-151235413-1"
 
 [menu]
   [[menu.main]]
