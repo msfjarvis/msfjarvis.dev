@@ -15,6 +15,7 @@ theme = "hello-friend-ng"
   keywords = "homepage, blog, android, kotlin, programming"
   contentTypeName = "posts"
   defaultTheme = "dark"
+  GoogleAnalytics = "UA-151235413-1"
 
 [menu]
   [[menu.main]]
