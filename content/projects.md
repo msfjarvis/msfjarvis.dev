@@ -13,7 +13,7 @@ some of the prominent ones are:
 I engage in multiple sysadmin and DevOps related activities as well to hone my skills.
 
 - All my sites and applications are self-hosted using [Caddyserver](https://caddyserver.com/) and Systemd, the configurations for which are impeccably maintained under git at [msfjarvis/server-config](https://github.com/msfjarvis/server-config).
-- I also maintain a set of adblocking lists on [GitHub](https://github.com/msfjarvis/hosts) and the release artifacts can be found [here](https://download.msfjarvis.website/adblock) where they're available in multiple formats depending on the software stack of users.
+- I also maintain a set of adblocking lists on [GitHub](https://github.com/msfjarvis/hosts) and the release artifacts can be found [here](https://dl.msfjarvis.website/adblock) where they're available in multiple formats depending on the software stack of users.
 
 I've also developed a recent infatuation with [Docker](https://docker.com), and developed the following images for various usecases of mine
 

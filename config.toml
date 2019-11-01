@@ -37,7 +37,7 @@ googleAnalytics = "UA-151235413-1"
   [[menu.main]]
     name = "downloads"
     weight = 0
-    url = "https://download.msfjarvis.website"
+    url = "https://dl.msfjarvis.website"
 
 [[params.social]]
   name = "GitHub"
