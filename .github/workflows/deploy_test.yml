@@ -49,3 +49,15 @@ jobs:
         SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
         SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
+
+    - name: Build prod
+      run: hugo --minify
+
+    - name: Deploy to prod
+      run: source $GITHUB_WORKSPACE/ci/deploy.sh
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+        SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}
+        SSH_PORT: ${{ secrets.SSH_PORT }}
