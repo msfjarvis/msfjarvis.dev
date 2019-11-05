@@ -17,10 +17,10 @@ jobs:
         hugo-version: '0.59.1'
         extended: true
 
-    - name: Build
+    - name: Build GitHub Pages
       run: hugo --minify -DEFb=https://msfjarvis.github.io/msfjarvis.website
 
-    - name: Deploy
+    - name: Deploy to GitHub pages
       uses: docker://peaceiris/gh-pages:latest
       env:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
@@ -37,3 +37,15 @@ jobs:
       with:
         name: report
         path: './report'
+
+    - name: Build staging
+      run: hugo --minify -DEFb=https://staging.msfjarvis.website
+
+    - name: Deploy to staging
+      run: source $GITHUB_WORKSPACE/ci/deploy.sh
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+        SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION }}
+        SSH_PORT: ${{ secrets.SSH_PORT }}
