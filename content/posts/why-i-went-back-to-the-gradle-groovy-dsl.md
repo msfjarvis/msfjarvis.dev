@@ -1,7 +1,6 @@
 +++
 categories = []
 date = 2019-10-25T20:23:00Z
-draft = true
 slug = "why-i-went-back-to-the-gradle-groovy-dsl"
 tags = []
 title = "Why I went back to the Gradle Groovy DSL"
