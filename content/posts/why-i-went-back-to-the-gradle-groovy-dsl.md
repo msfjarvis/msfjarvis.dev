@@ -25,116 +25,72 @@ Gradle doesn't seem to have invested any actual time in converting the original 
 
 Groovy
 
-\`\`\`groovy
-
+```groovy
 android {
-
   compileSdkVersion 29
-
   buildToolsVersion = '29.0.2'
-
   defaultConfig {
-
     minSdkVersion 21
-
     targetSdkVersion 29
-
   }
-
-}
-
-buildTypes {
-
-  minifyEnabled = true
-
+  buildTypes {
+    minifyEnabled = true
+  }
 }
 
 dependencies {
-
   implementation('my.company:fancy.library:1.1.1') {
-
     force = true
-
   }
-
-}  
-\`\`\`
+}
+```
 
 Kotlin
 
-\`\`\`kotlin
-
+```kotlin
 android {
-
   compileSdkVersion(29)
-
   buildToolsVersion = "29.0.2"
-
   defaultConfig {
-
     minSdkVersion(21)
-
     targetSdkVersion(29)
-
   }
-
-}
-
-buildTypes {
-
-  isMinifyEnabled = true
-
+  buildTypes {
+    isMinifyEnabled = true
+  }
 }
 
 dependencies {
-
   implementation('my.company:fancy.library:1.1.1') {
-
     isForce = true
-
   }
-
-}  
-\`\`\`
+}
+```
 
 I am definitely biased here, but this is not how an idiomatic Kotlin API looks like.
 
 What we should have gotten
 
-\`\`\`kotlin
-
+```kotlin
 android {
-
   compileSdkVersion = 29
-
   buildToolsVersion = "29.0.2"
-
   defaultConfig {
-
     minSdkVersion = 21
-
     targetSdkVersion = 29
-
   }
 
-}
-
-buildTypes {
-
-  minifyEnabled = true
-
+  buildTypes {
+    minifyEnabled = true
+   }
 }
 
 dependencies {
-
   implementation('my.company:fancy.library:1.1.1') {
-
     force = true
-
   }
-
-}  
-\`\`\`
+}
+```
 
 Property access syntax and discoverable variable names should have been the norm since day one for it to actually be a good Kotlin DSL.
 
