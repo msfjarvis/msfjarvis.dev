@@ -1,8 +1,8 @@
 +++
-categories = []
+categories = ["kotlin", "android"]
 date = 2019-10-25T20:23:00Z
 slug = "why-i-went-back-to-the-gradle-groovy-dsl"
-tags = []
+tags = ["groovy", "gradle", "kotlin", "android"]
 title = "Why I went back to the Gradle Groovy DSL"
 
 +++
