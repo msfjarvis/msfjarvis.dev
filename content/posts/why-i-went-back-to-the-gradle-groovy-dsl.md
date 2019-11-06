@@ -11,7 +11,7 @@ About an year ago when I first discovered the [Gradle Kotlin DSL](https://docs.g
 
 The initial premise of the Gradle Kotlin DSL was very cool. You get first class code completion in the IDE, and you get to write Kotlin rather than the arguably weird Groovy. People were excited to finally be able to write complex build logic using the `buildSrc` functionality that this change introduced.
 
-However the dream slowly started fading as more and more people started using the Kotlin DSL and the shortcomings became more apparent. My grievances with the Kotlin DSL are multifold as I'll detail below. 
+However the dream slowly started fading as more and more people started using the Kotlin DSL and the shortcomings became more apparent. My grievances with the Kotlin DSL are multifold as I'll detail below.
 
 Just a disclaimer, This post is not meant to completely trash the Kotlin DSL's usability. It has it's own very great benefits and people who leverage those should continue using it and disregard this post :-)
 
@@ -47,7 +47,7 @@ dependencies {
 
 Kotlin
 
-```kotlin
+```groovy
 android {
   compileSdkVersion(29)
   buildToolsVersion = "29.0.2"
@@ -71,7 +71,7 @@ I am definitely biased here, but this is not how an idiomatic Kotlin API looks l
 
 What we should have gotten
 
-```kotlin
+```groovy
 android {
   compileSdkVersion = 29
   buildToolsVersion = "29.0.2"
