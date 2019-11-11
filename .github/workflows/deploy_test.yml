@@ -2,8 +2,8 @@ name: Hugo deployment test
 
 on:
   push:
-    branches-ignore:
-    - gh-pages
+    branches:
+    - src
 
 jobs:
   build-deploy:
