@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content=" width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="{{ if .Params.author }}{{ .Params.author }}{{ else }}{{ range .Site.Author }}{{ . }} {{ end }}{{ end }}">
-<meta name="description" content="{{ .Site.Params.description }}" />
+<meta name="description" content="{{ if .IsHome }}{{ .Site.Params.homeSubtitle }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
 <meta name="keywords" content="{{ .Site.Params.keywords }}" />
 <meta name="robots" content="noodp" />
 <meta name="flattr:id" content="xj7zpw">
@@ -24,13 +24,13 @@
 {{ end }}
 
 {{ block "title" . }}
-<title>
-    {{ if .IsHome }}
-    {{ $.Site.Title }} {{ with $.Site.Params.Subtitle }} — {{ . }} {{ end }}
-    {{ else }}
-    {{ .Title }} :: {{ $.Site.Title }} {{ with $.Site.Params.Subtitle }} — {{ . }}{{ end }}
-    {{ end }}
-</title>
+    <title>
+        {{ if .IsHome }}
+            {{ $.Site.Title }} {{ with $.Site.Params.Subtitle }} — {{ . }} {{ end }}
+        {{ else }}
+            {{ .Title }} :: {{ $.Site.Title }} {{ with $.Site.Params.Subtitle }} — {{ . }}{{ end }}
+        {{ end }}
+    </title>
 {{ end }}
 
 <!-- PWA -->
@@ -41,9 +41,9 @@
 <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
 {{ range $val := $.Site.Params.customCSS }}
-{{ if gt (len $val) 0 }}
-<link rel="stylesheet" type="text/css" href="{{ $val }}">
-{{ end }}
+    {{ if gt (len $val) 0 }}
+        <link rel="stylesheet" type="text/css" href="{{ $val }}">
+    {{ end }}
 {{ end }}
 
 <!-- Icons -->
@@ -53,9 +53,12 @@
 {{- template "_internal/twitter_cards.html" . }}
 
 {{ range .Params.categories }}
-<meta property="article:section" content="{{ . }}" />{{ end }}
+    <meta property="article:section" content="{{ . }}" />
+{{ end }}
+
 {{ if isset .Params "date" }}
-<meta property="article:published_time" content="{{ time .Date }}" />{{ end }}
+    <meta property="article:published_time" content="{{ time .Date }}" />
+{{ end }}
 
 <!-- RSS -->
 {{ with .OutputFormats.Get "rss" -}}
@@ -70,5 +73,5 @@
 
 <!-- Custom head tags -->
 {{- if templates.Exists "partials/extra-head.html" -}}
-{{ partial "extra-head.html" . }}
+    {{ partial "extra-head.html" . }}
 {{- end }}
