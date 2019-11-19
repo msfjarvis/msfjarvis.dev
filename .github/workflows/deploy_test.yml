@@ -48,13 +48,16 @@ jobs:
         CF_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
         CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
 
-    - name: Audit live URL
-      uses: docker://jakejarvis/lighthouse-action:latest
+    - name: Audit URLs using Lighthouse
+      uses: treosh/lighthouse-ci-action@v2
       with:
-        url: 'https://msfjarvis.website/'
+        urls: |
+          https://msfjarvis.website/
+          https://staging.msfjarvis.website
+        budgetsPath: ./budgets.json
 
-    - name: Upload results as an artifact
-      uses: actions/upload-artifact@master
+    - name: Save results
+      uses: actions/upload-artifact@v1
       with:
-        name: report
-        path: './report'
+        name: lighthouse-results
+        path: '.lighthouseci'
