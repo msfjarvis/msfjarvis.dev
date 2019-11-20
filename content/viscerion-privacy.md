@@ -1,3 +1,8 @@
++++
+title = "Viscerion Privacy Policy"
+id = "viscerion-privacy"
++++
+
 ## Privacy Policy
 
 Harsh Shandilya built the Viscerion app as an Open Source app. This SERVICE is provided by Harsh Shandilya at no cost and is intended for use as is.
