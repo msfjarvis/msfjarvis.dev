@@ -184,12 +184,13 @@ Now, let's add the actual configuration that'll get Actions up and running.
 
 That's it! Once you push to GitHub, you'll see the action running in your repository's Actions tab and a corresponding package once the workflow finishes executing.
 
-![](/uploads/Screenshot from 2019-11-21 19-50-20.png)![](/uploads/Screenshot from 2019-11-21 19-50-41.png)
+![](/uploads/github_packages_actions_run.png)
+![](/uploads/github_packages_built_package.png)
 
 ### Closing notes
 
 The requirement to authenticate for packages is a significant problem with GitHub Packages' adoption, giving an edge to solutions like [JitPack](https://jitpack.io) which handle the entire process automagically. As mentioned earlier, I did contact GitHub support about it and got this back.
 
-![](/uploads/Screenshot from 2019-11-21 20-08-01.png)
+![](/uploads/github_packages_support_response.png)
 
 My interpretation of this is quite simply that **it's gonna take a while**. I hope not :)
