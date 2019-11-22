@@ -1,7 +1,6 @@
 +++
 categories = ["android"]
 date = 2019-11-21T06:27:52Z
-draft = true
 slug = "publishing-an-android-library-to-github-packages"
 tags = ["android", "gradle", "github", "packaging"]
 title = "Publishing an Android library to GitHub packages"
