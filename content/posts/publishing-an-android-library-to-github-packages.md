@@ -18,7 +18,7 @@ NB: Grab a Personal Access Token from GitHub with the `write:packages` scope. Yo
 
 #### Step 1
 
-Copy the official integration step from GitHub's [guide](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages#authenticating-with-a-personal-access-token), into your Android library's `build.gradle`/`build.gradle.kts`. If you try to run `./gradlew publish` now, you'll run into errors. We'll be fixing that shortly. \[Commit [link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/d69235577a1d4345cecb364a3a3d366bf894c5a6)\]
+Copy the official integration step from GitHub's [guide](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages#authenticating-with-a-personal-access-token), into your Android library's `build.gradle`/`build.gradle.kts`. If you try to run `./gradlew publish` now, you'll run into errors. We'll be fixing that shortly. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/d69235577a1d4345cecb364a3a3d366bf894c5a6)\]
 
 ```diff
 --- library/build.gradle
@@ -59,7 +59,7 @@ Copy the official integration step from GitHub's [guide](https://help.github.com
 
 #### Step 2
 
-Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/android-maven-publish) one. It provides us an Android component that's compatible with publications and precisely what we need. \[Commit [link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/1452c4a0c15d394b73dc3384f02834788dfe1bda)\]
+Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/android-maven-publish) one. It provides us an Android component that's compatible with publications and precisely what we need. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/1452c4a0c15d394b73dc3384f02834788dfe1bda)\]
 
 ```diff
 --- build.gradle
@@ -99,7 +99,7 @@ Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/
 
 #### Step 3
 
-Switch to using the `android` component provided by `wup.digital.android-maven-publish`. This is the one we require to be able to upload an [AAR](https://developer.android.com/studio/projects/android-library) artifact. \[Commit [link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/7cc6fcd6ffa5774433bce76ac6929435dbbb77cc)\]
+Switch to using the `android` component provided by `wup.digital.android-maven-publish`. This is the one we require to be able to upload an [AAR](https://developer.android.com/studio/projects/android-library) artifact. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/7cc6fcd6ffa5774433bce76ac6929435dbbb77cc)\]
 
 ```diff
 --- library/build.gradle
@@ -129,7 +129,7 @@ Here:
 * Artifact ID: `my-fancy-library`
 * Version: `1.0.0`
 
-We'll need to configure these too. I prefer using the `gradle.properties` file for this purpose since it's very easy to access variables from it, but if you have a favorite way of configuring build properties, use that instead! \[Commit [link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/cee74a5e0b3b76d1d7a2d4eb9636d80fb1db49d6)\]
+We'll need to configure these too. I prefer using the `gradle.properties` file for this purpose since it's very easy to access variables from it, but if you have a favorite way of configuring build properties, use that instead! \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/cee74a5e0b3b76d1d7a2d4eb9636d80fb1db49d6)\]
 
 ```diff
 --- gradle.properties
