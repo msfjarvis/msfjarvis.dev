@@ -1,61 +1,16 @@
 baseurl = "https://msfjarvis.website"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = "hello-friend-ng"
+theme = "hyde"
 googleAnalytics = "UA-151235413-1"
-
-[author]
-  name = "Harsh Shandilya"
 
 [params]
   description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
-  dateform        = "Jan 2, 2006"
-  dateformShort   = "Jan 2, 2006"
-  dateformNum     = "Jan 2, 2006"
-  dateformNumTime = "Jan 2, 2006"
   keywords = "homepage, blog, android, kotlin, programming"
   contentTypeName = "posts"
-  defaultTheme = "dark"
 
-[menu]
-  [[menu.main]]
-    name = "contact"
-    weight = 1
-    url = "/contact"
-  [[menu.main]]
-    name = "resume"
-    weight = 1
-    url = "/resume.pdf"
-  [[menu.main]]
-    name = "projects"
-    weight = 1
-    url = "/projects"
-  [[menu.main]]
-    name = "blog"
-    weight = 1
-    url = "/posts"
-  [[menu.main]]
-    name = "downloads"
-    weight = 0
-    url = "https://dl.msfjarvis.website"
-
-[[params.social]]
-  name = "GitHub"
-  icon = "icon-github"
-  url = "https://github.com/msfjarvis"
-[[params.social]]
-  name = "Twitter"
-  icon = "icon-twitter"
-  url = "https://twitter.com/MSF_Jarvis"
-[[params.social]]
-  name = "Keybase"
-  icon = "icon-keybase"
-  url = "https://keybase.io/msf_jarvis"
-[[params.social]]
-  name = "DEV.to"
-  icon = "icon-dev"
-  url = "https://dev.to/msfjarvis"
-[[params.social]]
-  name = "GPG"
-  icon = "icon-key"
-  url = "/publickey.txt"
+[Menus]
+  main = [
+      {Name = "Github", URL = "https://github.com/msfjarvis"},
+      {Name = "Twitter", URL = "https://twitter.com/MSF_Jarvis"},
+  ]
