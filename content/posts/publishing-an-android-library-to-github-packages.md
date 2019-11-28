@@ -18,7 +18,7 @@ NB: Grab a Personal Access Token from GitHub with the `write:packages` scope. Yo
 
 #### Step 1
 
-Copy the official integration step from GitHub's [guide](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages#authenticating-with-a-personal-access-token), into your Android library's `build.gradle`/`build.gradle.kts`. If you try to run `./gradlew publish` now, you'll run into errors. We'll be fixing that shortly. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/d69235577a1d4345cecb364a3a3d366bf894c5a6)\]
+Copy the official integration step from GitHub's [guide](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages#authenticating-with-a-personal-access-token), into your Android library's `build.gradle` / `build.gradle.kts`. If you try to run `./gradlew publish` now, you'll run into errors. We'll be fixing that shortly. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/d69235577a1d4345cecb364a3a3d366bf894c5a6)\]
 
 ```diff
 --- library/build.gradle
