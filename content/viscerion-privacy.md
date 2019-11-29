@@ -1,6 +1,8 @@
 +++
 title = "Viscerion Privacy Policy"
 id = "viscerion-privacy"
+type = "standalone"
+layout = "standalone"
 +++
 
 ## Privacy Policy
