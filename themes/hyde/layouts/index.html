@@ -1,6 +1,7 @@
 {{ define "main" -}}
 <div class="posts">
 {{ range .Site.RegularPages -}}
+{{ if .Date }}
 <article class="post">
   <h1 class="post-title">
     <a href="{{ .Permalink }}">{{ .Title }}</a>
@@ -15,4 +16,5 @@
 </article>
 {{- end }}
 </div>
+{{- end }}
 {{- end }}
