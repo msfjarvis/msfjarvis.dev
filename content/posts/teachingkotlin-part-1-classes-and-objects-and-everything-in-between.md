@@ -91,9 +91,9 @@ Kotlin has a feature called 'default parameters', that allows you to specify def
 
 Let's take these for a spin on [repl.it](https://repl.it)!
 
-{% replit @msfjarvis/ButteryYellowgreenTraining %}
+<iframe frameborder="0" width="100%" height="500px" src="https://repl.it/@msfjarvis/ButteryYellowgreenTraining?lite=true"></iframe>
 
-{% replit @msfjarvis/DarkcyanDisfiguredDatalogs %}
+<iframe frameborder="0" width="100%" height="500px" src="https://repl.it/@msfjarvis/DarkcyanDisfiguredDatalogs?lite=true"></iframe>
 
 Both work perfectly well, but you know which one you'd enjoy writing more ;)
 
