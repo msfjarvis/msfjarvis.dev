@@ -1,4 +1,4 @@
-name: Hugo deployment test
+name: Hugo deployment
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2.2.2
       with:
-        hugo-version: '0.59.1'
+        hugo-version: '0.60.1'
         extended: true
 
     - name: Build staging
@@ -48,16 +48,3 @@ jobs:
         CF_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
         CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
 
-    - name: Audit URLs using Lighthouse
-      uses: treosh/lighthouse-ci-action@v2
-      with:
-        urls: |
-          https://msfjarvis.website/
-          https://staging.msfjarvis.website
-        budgetsPath: ./budgets.json
-
-    - name: Save results
-      uses: actions/upload-artifact@v1
-      with:
-        name: lighthouse-results
-        path: '.lighthouseci'
