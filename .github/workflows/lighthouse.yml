@@ -1,0 +1,29 @@
+name: Lighthouse testing
+
+on:
+  push:
+    branches:
+    - src
+
+jobs:
+  lighthouse-test:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Wait for deployment to finish
+      run: sleep 60
+
+    - name: Audit URLs using Lighthouse
+      uses: treosh/lighthouse-ci-action@v2
+      with:
+        urls: |
+          https://msfjarvis.website/
+          https://staging.msfjarvis.website
+        budgetsPath: ./budgets.json
+
+    - name: Save results
+      uses: actions/upload-artifact@v1
+      with:
+        name: lighthouse-results
+        path: '.lighthouseci'
