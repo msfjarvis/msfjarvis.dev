@@ -4,7 +4,7 @@ date = "2019-09-23T15:00:00+05:30"
 slug = "teaching-kotlin--classes-and-objects"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 1 - Classes and Objects and everything in between"
-
+description = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes, objects and how things like finality and staticity vary between Java and Kotlin."
 +++
 Classes in Kotlin closely mimic their Java counterparts in implementation, with some crucial changes that I will attempt to outline here.
 

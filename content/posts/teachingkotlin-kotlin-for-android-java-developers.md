@@ -4,10 +4,10 @@ date = "2019-09-20T08:00:00+05:30"
 slug = "teaching-kotlin--kotlin-for-android-java-developers"
 tags = ["teachingkotlin", "android", "kotlin"]
 title = "#TeachingKotlin - Kotlin for Android Java developers"
-
+description = "Kotlin's been great for me -- and millions others, as evident by its explosive growth. Long-time Java developers may feel hesitant to give it a shot. This series aims to smoothen this transition, letting people know what benefits they might reap from Kotlin, and what differences should they be careful about."
 +++
-Anybody familiar with my work knows that I am a fan of the [Kotlin](https://kotlinlang.org/ "Kotlin") programming language, especially it's interoperability with Java with respect to Android. I'll admit, I've not been a fan since day one. The abundant lambdas worried me and everything being that much shorter to implement was confusing to a person whose first real programming task was in the Java programming language.  
-  
+Anybody familiar with my work knows that I am a fan of the [Kotlin](https://kotlinlang.org/ "Kotlin") programming language, especially it's interoperability with Java with respect to Android. I'll admit, I've not been a fan since day one. The abundant lambdas worried me and everything being that much shorter to implement was confusing to a person whose first real programming task was in the Java programming language.
+
 As I leaped over the initial hurdle of hesitation and really got into Kotlin, I was mindblown. Everything is so much better! Being able to break away from Java's explicit verbosity into letting the language do things for you is a bit daunting at first but over time you'll come to appreciate the time you save and in turn how many potential problems you can avoid by simply not having to do everything yourself. [Can't have bugs if you don't write code](https://github.com/kelseyhightower/nocode) :p
 
 As I've gotten more and more into the Kotlin ecosystem and community and converted developers into adopting Kotlin, into taking that first step, I've realised most of them have a common set of concerns and often a lack of knowledge about what Kotlin actually brings to the table and what are the drawbacks of using a "new" language over an established behemoth like Java.

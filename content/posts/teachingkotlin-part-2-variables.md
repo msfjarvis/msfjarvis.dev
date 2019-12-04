@@ -4,7 +4,7 @@ date = "2019-09-30T15:00:00+05:30"
 slug = "teaching-kotlin--variables"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 2 - Variables"
-
+description = "The second post in #TeachingKotlin series, this post goes over Kotlin's variables and their attributes, like visiblity and getters/setters."
 +++
 
 Even the variables in Kotlin are supercharged!
