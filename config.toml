@@ -13,4 +13,5 @@ googleAnalytics = "UA-151235413-1"
   main = [
       {Name = "Github", URL = "https://github.com/msfjarvis"},
       {Name = "Twitter", URL = "https://twitter.com/MSF_Jarvis"},
+      {Name = "Contact", URL = "/contact"},
   ]
