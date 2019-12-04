@@ -1,3 +1,3 @@
-### msfjarvis.website
+# msfjarvis.website [![Deployment workflow](https://github.com/msfjarvis/msfjarvis.website/workflows/Hugo%20deployment/badge.svg)](https://github.com/msfjarvis/msfjarvis.website/actions) [![Lighthouse workflow](https://github.com/msfjarvis/msfjarvis.website/workflows/Lighthouse%20testing/badge.svg)](https://github.com/msfjarvis/msfjarvis.website/actions)
 
-Source code for my website at [msfjarvis.website](https://msfjarvis.website). It's built with [Hugo](https://github.com/gohugoio/hugo) and served by [Caddy](https://caddyserver.com) behind [Cloudflare](https://cloudflare.com). I use a mix of local editing and the [Forestry](https://forestry.io) CMS for managing the content on the site.
+Source code for my website at [msfjarvis.website](https://msfjarvis.website). It's built with [Hugo](https://github.com/gohugoio/hugo), deployed continuously by [GitHub Actions](https://github.com/features/actions) and served by [Caddy](https://caddyserver.com) behind [Cloudflare](https://cloudflare.com). I use a mix of local editing and the [Forestry](https://forestry.io) CMS for managing the content on the site.
