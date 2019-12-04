@@ -6,7 +6,7 @@
   <h1 class="post-title">
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h1>
-  <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}" class="post-date">{{ .Date.Format "Mon, Jan 2, 2006" }}</time>
+  <p class="post-date"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}">{{ .Date.Format "Mon, Jan 2, 2006" }}</time> | ~{{ .ReadingTime }} minutes</p>
   {{ .Description }}
   {{ if .Truncated }}
   <div class="read-more-link">
