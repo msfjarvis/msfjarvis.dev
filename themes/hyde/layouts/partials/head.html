@@ -23,7 +23,9 @@
   {{ partial "head_fonts.html" . }}
 
   <!-- PrismJS -->
-  <script type="text/javascript" src="{{ .Site.BaseURL }}/js/prism.js"></script>
+  {{ $js := resources.Get "js/prism.js" }}
+  {{ $secureJS := $js | resources.Fingerprint "sha512" }}
+  <script type="text/javascript" src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
