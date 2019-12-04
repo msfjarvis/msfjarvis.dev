@@ -4,7 +4,7 @@ date = 2019-10-25T20:23:00Z
 slug = "why-i-went-back-to-the-gradle-groovy-dsl"
 tags = ["groovy", "gradle", "kotlin", "android"]
 title = "Why I went back to the Gradle Groovy DSL"
-
+description = "I was an early adopter of the Gradle Kotlin DSL, deploying it to multiple Android projects of mine, but lately it has been more trouble than I could care for. Here are my grievances with it."
 +++
 About an year ago when I first discovered the [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html), I was very quick to [jump](https://github.com/msfjarvis/viscerion/commit/c16d11a816c3c7e3f7bab51ef2f32569b6b657bf) [on](https://github.com/android-password-store/Android-Password-Store/commit/3c06063153d0b7f71998128dc6fb4e5967e33624) [that](https://github.com/substratum/substratum/commit/ebff9a3a88781d093565526b171d9d5b8e9c1bed) [train](https://github.com/substratum/substratum/commit/5065e082055cde19e41ee02920ca07d0e33c89f5). Now it feels like a mistake.
 
