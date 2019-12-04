@@ -1,7 +1,6 @@
 +++
 categories = ["hugo"]
 date = 2019-11-06T00:00:00Z
-draft = true
 slug = "deploying-hugo-sites-with-github-actions"
 tags = ["hugo", "github actions", "static sites"]
 title = "Deploying Hugo sites with GitHub actions"
