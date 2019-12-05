@@ -1,10 +1,11 @@
 +++
 categories = ["kotlin", "dev", "android", "teachingkotlin"]
-date = "2019-09-23T15:00:00+05:30"
+date = 2019-09-23T09:30:00Z
+description = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes, objects and how things like finality and staticity vary between Java and Kotlin."
 slug = "teaching-kotlin--classes-and-objects"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 1 - Classes and Objects and everything in between"
-description = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes, objects and how things like finality and staticity vary between Java and Kotlin."
+
 +++
 Classes in Kotlin closely mimic their Java counterparts in implementation, with some crucial changes that I will attempt to outline here.
 
@@ -12,7 +13,7 @@ Let's declare two identical classes in Kotlin and Java as a starting point. We'l
 
 Java:
 
-```java
+{{< highlight java >}}
 class Person {
   private final String name;
 
@@ -20,13 +21,13 @@ class Person {
     this.name = name;
   }
 }
-```
+{{< /highlight >}}
 
 Kotlin:
 
-```kotlin
+{{< highlight kotlin >}}
 class Person(val name: String)
-```
+{{< /highlight >}}
 
 The benefits of using Kotlin immediately start showing! But let's go over this in a sysmetatic fashion and break down each aspect of what makes Kotlin so great.
 
