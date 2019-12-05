@@ -20,7 +20,7 @@ NB: Grab a Personal Access Token from GitHub with the `write:packages` scope. Yo
 
 Copy the official integration step from GitHub's [guide](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages#authenticating-with-a-personal-access-token), into your Android library's `build.gradle` / `build.gradle.kts`. If you try to run `./gradlew publish` now, you'll run into errors. We'll be fixing that shortly. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/d69235577a1d4345cecb364a3a3d366bf894c5a6)\]
 
-```diff
+{{< highlight diff >}}
 --- library/build.gradle
 +++ library/build.gradle
 @@ -1,5 +1,6 @@
@@ -55,13 +55,13 @@ Copy the official integration step from GitHub's [guide](https://help.github.com
  dependencies {
    api deps.support.app_compat
    implementation deps.kotlin.stdlib8
-```
+{{< / highlight >}}
 
 #### Step 2
 
 Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/android-maven-publish) one. It provides us an Android component that's compatible with publications and precisely what we need. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/1452c4a0c15d394b73dc3384f02834788dfe1bda)\]
 
-```diff
+{{< highlight diff >}}
 --- build.gradle
 +++ build.gradle
 @@ -14,6 +14,7 @@ buildscript {
@@ -95,13 +95,13 @@ Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/
  
  apply from: "../dependencies.gradle"
  // apply from: "../bintrayconfig.gradle"
-```
+{{< / highlight >}}
 
 #### Step 3
 
 Switch to using the `android` component provided by `wup.digital.android-maven-publish`. This is the one we require to be able to upload an [AAR](https://developer.android.com/studio/projects/android-library) artifact. \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/7cc6fcd6ffa5774433bce76ac6929435dbbb77cc)\]
 
-```diff
+{{< highlight diff >}}
 --- library/build.gradle
 +++ library/build.gradle
 @@ -42,7 +42,7 @@ publishing {
@@ -113,15 +113,15 @@ Switch to using the `android` component provided by `wup.digital.android-maven-p
      }
    }
  }
-```
+{{< / highlight >}}
 
 #### Step 4
 
 Every Gradle/Maven dependency's address has three attributes, a group ID, an artifact ID, and a version.
 
-```groovy
+{{< highlight groovy >}}
 implementation 'com.example:my-fancy-library:1.0.0'
-```
+{{< / highlight >}}
 
 Here:
 
@@ -131,7 +131,7 @@ Here:
 
 We'll need to configure these too. I prefer using the `gradle.properties` file for this purpose since it's very easy to access variables from it, but if you have a favorite way of configuring build properties, use that instead! \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/cee74a5e0b3b76d1d7a2d4eb9636d80fb1db49d6)\]
 
-```diff
+{{< highlight diff >}}
 --- gradle.properties
 +++ gradle.properties
 @@ -19,3 +19,7 @@ android.useAndroidX=true
@@ -156,7 +156,7 @@ We'll need to configure these too. I prefer using the `gradle.properties` file f
      }
    }
  }
-```
+{{< / highlight >}}
 
 #### Step 5
 
@@ -164,7 +164,7 @@ Now all that's left to do is configure GitHub Actions. Go to the Secrets menu in
 
 Now, let's add the actual configuration that'll get Actions up and running.
 
-```diff
+{{< highlight diff >}}
 --- /dev/null
 +++ .github/workflows/publish_snapshot.yml
 @@ -0,0 +1,13 @@
@@ -181,7 +181,7 @@ Now, let's add the actual configuration that'll get Actions up and running.
 +      env:
 +        USERNAME: msfjarvis
 +        PASSWORD: ${{ secrets.PACKAGES_TOKEN }}
-```
+{{< / highlight >}}
 
 That's it! Once you push to GitHub, you'll see the [action running](https://github.com/msfjarvis/github-packages-deployment-sample/commit/42e1f6609bf9f2abe8e181296a57d86df648b4d4/checks?check_suite_id=322323808) in your repository's Actions tab and a [corresponding package](https://github.com/msfjarvis/github-packages-deployment-sample/packages/60429) in the Packages tab once the workflow finishes executing.
 
