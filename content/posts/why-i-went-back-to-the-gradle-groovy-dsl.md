@@ -24,7 +24,7 @@ Gradle doesn't seem to have invested any actual time in converting the original 
 
 Groovy
 
-```groovy
+{{< highlight groovy >}}
 android {
   compileSdkVersion 29
   buildToolsVersion = '29.0.2'
@@ -42,11 +42,11 @@ dependencies {
     force = true
   }
 }
-```
+{{< / highlight >}}
 
 Kotlin
 
-```groovy
+{{< highlight groovy >}}
 android {
   compileSdkVersion(29)
   buildToolsVersion = "29.0.2"
@@ -64,13 +64,13 @@ dependencies {
     isForce = true
   }
 }
-```
+{{< / highlight >}}
 
 I am definitely biased here, but this is not how an idiomatic Kotlin API looks like.
 
 What we should have gotten
 
-```groovy
+{{< highlight groovy >}}
 android {
   compileSdkVersion = 29
   buildToolsVersion = "29.0.2"
@@ -89,7 +89,7 @@ dependencies {
     force = true
   }
 }
-```
+{{< / highlight >}}
 
 Property access syntax and discoverable variable names should have been the norm since day one for it to actually be a good Kotlin DSL.
 

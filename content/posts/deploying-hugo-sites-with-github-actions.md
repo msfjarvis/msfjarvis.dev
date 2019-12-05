@@ -25,7 +25,7 @@ The first part of this endeavour involved finding a new way to move static asset
 
 To handle my two-sites-from-one-repo usecase, I setup a build staging -> publish staging -> build prod -> publish prod pipeline.
 
-```yaml
+{{< highlight yaml >}}
 - name: Build staging
   run: hugo --minify -DEFb=https://staging.msfjarvis.website
 
@@ -49,7 +49,7 @@ To handle my two-sites-from-one-repo usecase, I setup a build staging -> publish
     SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
     SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION_PROD }}
     SSH_PORT: ${{ secrets.SSH_PORT }}
-```
+{{< / highlight >}}
 
 You can find the `ci/deploy.sh` script [here](https://github.com/msfjarvis/msfjarvis.website/blob/src/ci/deploy.sh). It's a very basic script that sets up the SSH authentication and rsync's the built site over.
 
