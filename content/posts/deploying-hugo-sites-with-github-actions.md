@@ -7,7 +7,7 @@ title = "Deploying Hugo sites with GitHub Actions"
 description = "GitHub Actions are awesome! Learn how to use it for continuous delivery of your static sites."
 +++
 
-For the longest time, I have used the [caddy-git] middleware for [caddyserver](https://caddyserver.com) to constantly deploy my [Hugo](https://gohugo.io) site from [GitHub](https://github.com/msfjarvis/msfjarvis.website).
+For the longest time, I have used the [caddy-git] middleware for [caddyserver](https://caddyserver.com) to constantly deploy my [Hugo](https://gohugo.io) site from [GitHub](https://github.com/msfjarvis/msfjarvis.dev).
 
 But this approach had a few problems, notably force pushing (I know, shush) caused the repository to break because the plugin didn't support those. While not frequent, it was annoying enough to seek alternatives.
 
@@ -27,7 +27,7 @@ To handle my two-sites-from-one-repo usecase, I setup a build staging -> publish
 
 {{< highlight yaml >}}
 - name: Build staging
-  run: hugo --minify -DEFb=https://staging.msfjarvis.website
+  run: hugo --minify -DEFb=https://staging.msfjarvis.dev
 
 - name: Deploy to staging
   run: source $GITHUB_WORKSPACE/ci/deploy.sh
@@ -51,6 +51,6 @@ To handle my two-sites-from-one-repo usecase, I setup a build staging -> publish
     SSH_PORT: ${{ secrets.SSH_PORT }}
 {{< / highlight >}}
 
-You can find the `ci/deploy.sh` script [here](https://github.com/msfjarvis/msfjarvis.website/blob/src/ci/deploy.sh). It's a very basic script that sets up the SSH authentication and rsync's the built site over.
+You can find the `ci/deploy.sh` script [here](https://github.com/msfjarvis/msfjarvis.dev/blob/src/ci/deploy.sh). It's a very basic script that sets up the SSH authentication and rsync's the built site over.
 
 [caddy-git]: http://github.com/abiosoft/caddy-git
