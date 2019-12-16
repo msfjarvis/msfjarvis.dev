@@ -1,8 +1,7 @@
 +++
 categories = ["kotlin", "dev", "android", "teachingkotlin"]
-date = 2019-12-04T04:35:45Z
+date = 2019-12-16T18:20:45Z
 description = "Part 3 of #TeachingKotlin covers some subtle differences between Kotlin and Java that might affect your codebases as you start migrating to or writing new code in Kotlin."
-draft = true
 slug = "teachingkotlin-part-3--caveats-coming-from-java"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 3 - Caveats coming from Java"
