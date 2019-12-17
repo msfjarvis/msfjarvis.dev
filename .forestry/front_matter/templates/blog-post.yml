@@ -18,6 +18,7 @@ fields:
   name: categories
   label: categories
 pages:
+- content/posts/server-side-analytics-with-caddyserver-and-goaccess.md
 - content/posts/teachingkotlin-kotlin-for-android-java-developers.md
 - content/posts/teachingkotlin-part-1-classes-and-objects-and-everything-in-between.md
 - content/posts/teachingkotlin-part-2-variables.md
