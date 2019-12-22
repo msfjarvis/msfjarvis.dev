@@ -10,7 +10,7 @@ GitHub released the Package Registry beta in May of this year, and graduated it 
 
 Naturally, I was excited to try this out. The [documentation](https://help.github.com/en/github/managing-packages-with-github-packages/about-github-packages) is by no means lacking, but the [official instructions](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages) for using Packages with Gradle do not work for Android libraries. To make it compatible with Android libraries, some small but non-obvious edits are needed which I've documented here for everybody's benefit.
 
-**IMPORTANT**: GitHub Packages currently does **NOT** support unauthenticated access to packages, which means you will always require a personal access token with the `read:packages` scope to be able to download packages during build. I emailed GitHub support about this, and their reply is attached at the end of this post.
+> GitHub Packages currently does **NOT** support unauthenticated access to packages, which means you will always require a personal access token with the `read:packages` scope to be able to download packages during build. I emailed GitHub support about this, and their reply is attached at the end of this post.
 
 I've also created a [sample repository](https://github.com/msfjarvis/github-packages-deployment-sample/) with incremental commits corresponding to the steps given below, for people who prefer to see the code directly.
 
