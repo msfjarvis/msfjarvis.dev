@@ -1,7 +1,6 @@
 +++
 categories = ["webdev"]
 date = 2019-12-17T12:51:00Z
-draft = true
 slug = "serverside-stats-with-goaccess"
 tags = ["caddyserver", "goaccess", "analytics"]
 title = "Server-side analytics with Goaccess"
