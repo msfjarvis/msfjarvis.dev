@@ -4,6 +4,7 @@ date = 2019-12-17T12:51:00Z
 slug = "serverside-stats-with-goaccess"
 tags = ["caddyserver", "goaccess", "analytics"]
 title = "Server-side analytics with Goaccess"
+description = "Analytics platforms are often overwhelming and a privacy nightmare -- here's how to bring analytics to the backend with very simple tooling"
 
 +++
 Analytics are a very helpful aspect of any development. They allow developers to know what parts of their apps are visited the most often and can use more attention, and for bloggers to know what content does or does not resonate with their readers.
