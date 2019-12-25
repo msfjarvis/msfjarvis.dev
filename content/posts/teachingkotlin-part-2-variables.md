@@ -11,13 +11,13 @@ Even the variables in Kotlin are supercharged!
 
 Let's start with a simple [data class](https://kotlinlang.org/docs/reference/data-classes.html#data-classes) and see how the variables in there behave.
 
-{{< highlight kotlin >}}
+``` kotlin
 data class Student(val name: String, val age: Int, val subjects: ArrayList<String>)
-{{< / highlight >}}
+```
 
 To use the variables in this class, Kotlin let's you directly use the dot notation for accessing.
 
-{{< highlight kotlin >}}
+``` kotlin
 
 >>> val s1 = Student("Keith Hernandez", 21, arrayListOf("Mathematics", "Social Studies"))
 >>> println(s1.name)
@@ -27,19 +27,19 @@ Keith Hernandez
 >>> println(s1) // data classes automatically generate `toString` and `hashCode` 
 
 Student(name=Keith Hernandez, age=21, subjects=[Mathematics, Social Studies])
-{{< / highlight >}}
+```
 
 For Java callers, Kotlin also generates getters and setter methods.
 
-{{< highlight java >}}
+``` java
 final Student s1 = new Student("Keith Hernandez", 21, arrayListOf("Mathematics", "Social Studies"));
 System.out.println(s1.getName());
 System.out.println(s1);
-{{< / highlight >}}
+```
 
 The same properties apply to variables in non-data classes as well.
 
-{{< highlight kotlin >}}
+``` kotlin
 
 >>> class Item(id: Int, name: String) {
 
@@ -58,7 +58,7 @@ Line_4$Item@46fb460a
 
 >> >
 
-{{< / highlight >}}
+```
 
 As you can notice, the `toString` implementation is not identical to our data classes but that's a topic for another post. Back to variables!
 
@@ -66,7 +66,7 @@ As you can notice, the `toString` implementation is not identical to our data cl
 
 While Kotlin creates getters and setters automatically, we can customize their behaviour.
 
-{{< highlight kotlin >}}
+``` kotlin
 class Item(id: Int, name: String) {
     var itemId = id
     var itemName = name
@@ -80,18 +80,18 @@ class Item(id: Int, name: String) {
         return "id=$itemId,name=$itemName"
     }
 }
-{{< / highlight >}}
+```
 
 Let's take this for a spin in the Kotlin REPL and see how our `currentState` field behaves.
 
-{{< highlight kotlin >}}
+```kotlin
 >>> val item = Item(0, "Nails")
 >>> println(item)
 id=0,name=Nails
 >>> item.currentState = Pair(1, "Bricks")
 >>> println(item)
 id=1,name=Bricks
-{{< / highlight >}}
+```
 
 Notice how setting a new value to currentState mutates the other variables as well? That's because of our custom setter. These setters are identical to a normal top-level function except a reference to the field in question is available as the variable `field` for manipulation.
 
@@ -103,7 +103,7 @@ Kotlin's visiblity modifiers aren't very well explained. There's the standard `p
 
 `inner` is a modifier that only applies to classes declared within another one. It allows you to access members of the enclosing class. A sample might help explain this better.
 
-{{< highlight kotlin >}}
+```kotlin
 class Outer {
     private val bar: Int = 1
     inner class Inner {
@@ -112,7 +112,7 @@ class Outer {
 }
 
 val demo = Outer().Inner().foo() // == 1
-{{< / highlight >}}
+```
 
 The keyword `this` does not behave as some would normally expect in inner classes, go through the Kotlin documentation for `this` [here](https://kotlinlang.org/docs/reference/this-expressions.html) and I'll be happy to answer any further questions :)
 
