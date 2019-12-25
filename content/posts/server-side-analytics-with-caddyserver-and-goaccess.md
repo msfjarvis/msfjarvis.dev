@@ -5,8 +5,8 @@ draft = true
 slug = "serverside-stats-with-goaccess"
 tags = []
 title = "Server-side analytics with Goaccess"
-+++
 
++++
 Analytics are a very helpful aspect of any development. They allow developers to know what parts of their apps are visited the most often and can use more attention, and for bloggers to know what content does or does not resonate with their readers.
 
 There are many, many analytics providers and software stacks each with their specific pros and cons, but nearly all managed analytics come with the overarching concern of privacy of user data. [Google Analytics](https://analytics.google.com/) is a *huge* analytics vendor, with the capabilities to almost accurately extrapolate even the **age** of your visitors. That's nuts, and honestly scary.
@@ -24,7 +24,15 @@ To create a compelling analytics experience, we'll need to use Goaccess' `--real
 Goaccess supports most common webserver log formats, and [some more](https://goaccess.io/man#options) with the option to provide your own format if you're using custom solutions. I'm using `VCOMMON`, as that is the default log format of my webserver of choice, [Caddy](https://caddyserver.com). Here's the command executed by the systemd unit that I use for goaccess. I'll explain every option in a bit.
 
 ```bash
-goaccess --log-format=VCOMMON --ws-url=wss://stats.msfjarvis.dev/ws --output=${STATS_DIR}/index.html --log-file=/etc/logs/requests.log --no-query-string --anonymize-ip --double-decode --real-os --real-time-html
+goaccess --log-format=VCOMMON \
+         --ws-url=wss://stats.msfjarvis.dev/ws \
+         --output=${STATS_DIR}/index.html \
+         --log-file=/etc/logs/requests.log \
+         --no-query-string \
+         --anonymize-ip \
+         --double-decode \
+         --real-os \
+         --real-time-html
 ```
 
 - `--ws-url`: This option allows us to specify the path for our WebSocket server that's responsible for dispatching updates.
