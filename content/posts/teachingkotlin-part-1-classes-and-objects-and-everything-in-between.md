@@ -15,19 +15,19 @@ Java:
 
 {{< highlight java >}}
 class Person {
-    private final String name;
+  private final String name;
 
-    public Person(String name) {
-      this.name = name;
-    }
+  public Person(String name) {
+    this.name = name;
+  }
 }
-{{< / highlight >}}
+{{< /highlight >}}
 
 Kotlin:
 
 {{< highlight kotlin >}}
 class Person(val name: String)
-{{< / highlight >}}
+{{< /highlight >}}
 
 The benefits of using Kotlin immediately start showing! But let's go over this in a sysmetatic fashion and break down each aspect of what makes Kotlin so great.
 
@@ -41,13 +41,13 @@ The primary constructor cannot have any code so Kotlin provides something called
 
 {{< highlight kotlin >}}
 class Person(val name: String) {
-    init {
-      println("Invoking constructor!")
-    }
+  init {
+    println("Invoking constructor!")
+  }
 }
 
 val _ = Person("Matt")
-{{< / highlight >}}
+{{< /highlight >}}
 
 Moving on, let's add an optional age parameter to our classes, with a default value of 18. To make it convenient to see how different constructors affect values, we're also including an implementation of the `toString` method for some classing print debugging.
 
@@ -55,35 +55,36 @@ Java:
 
 {{< highlight java >}}
 class Person {
-    private final String name;
-    private int age = 18;
 
-    public Person(String name) {
-        this.name = name;
-    }
+  private final String name;
+  private int age = 18;
 
-    public Person(String name, int age) {
-      this(name);
-      this.age = age;
-    }
+  public Person(String name) {
+    this.name = name;
+  }
 
-    @Override
-    public String toString() {
-        return "Name=" + name + ",age=" + Integer.toString(age);
-    }
+  public Person(String name, int age) {
+    this(name);
+    this.age = age;
+  }
+
+  @Override
+  public String toString() {
+    return "Name=" + name + ",age=" + Integer.toString(age);
+  }
 }
-{{< / highlight >}}
+{{< /highlight >}}
 
 Kotlin:
 
 {{< highlight kotlin >}}
 class Person(val name: String, val age: Int = 18) {
-    override fun toString() : String {
-        // I'll go over string templates in a future post, hold me to it :)
-        return "Name=$name,age=$age"
-    }
+  override fun toString() : String {
+    // I'll go over string templates in a future post, hold me to it :)
+    return "Name=$name,age=$age"
+  }
 }
-{{< / highlight >}}
+{{< /highlight >}}
 
 Lots of new things here! Let's break them down.
 
@@ -101,11 +102,11 @@ An important note here is that constructors with default values don't directly w
 
 {{< highlight kotlin >}}
 class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
-    override fun toString() : String {
-        return "Name=$name,age=$age"
-    }
+  override fun toString() : String {
+    return "Name=$name,age=$age"
+  }
 }
-{{< / highlight >}}
+{{< /highlight >}}
 
 Doing this will generate constructors similar to how we previously wrote in Java, to allow both Kotlin and Java callers to work.
 
@@ -117,13 +118,13 @@ Java:
 
 {{< highlight java >}}
 public class Man extends Person { /* Class body */ } // Valid in Java
-{{< / highlight >}}
+{{< /highlight >}}
 
 Kotlin:
 
 {{< highlight kotlin >}}
 class Man(val firstName: String) : Person(firstName) // Errors!
-{{< / highlight >}}
+{{< /highlight >}}
 
 Trying it out in the Kotlin REPL
 
@@ -137,7 +138,7 @@ Trying it out in the Kotlin REPL
 error: this type is final, so it cannot be inherited from
 class Man(val firstName: String) : Person(firstName)
                                    ^
-{{< / highlight >}}
+{{< /highlight >}}
 
 Makes sense, since that's default for Kotlin. Let's add the `open` keyword to our definition of `Person` and try again.
 
@@ -150,7 +151,7 @@ Makes sense, since that's default for Kotlin. Let's add the `open` keyword to ou
 >>> class Man(val firstName: String) : Person(firstName)
 >>> println(Man("Henry"))
 Name=Henry,age=18
-{{< / highlight >}}
+{{< /highlight >}}
 
 And everything works as we'd expect it to. This is a behavior change that is confusing and undesirable to a lot of people, so Kotlin provides a compiler plugin to mark all classes as `open` by default. Check out the [`kotlin-allopen`](https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin) page for more information about how to configure the plugin for your needs.
 
@@ -164,20 +165,20 @@ Java:
 
 {{< highlight java >}}
 public static final class StringUtils {
-    public static String normalizePath(final String str) {
-        return str.replace("/document/primary:", "/sdcard/");
-    }
+  public static String normalizePath(final String str) {
+    return str.replace("/document/primary:", "/sdcard/");
+  }
 }
-{{< / highlight >}}
+{{< /highlight >}}
 
 Kotlin:
 
 {{< highlight kotlin >}}
 object StringUtils {
-    // I'll cover this declaration style too. It's just the first post!
-    fun normalizePath(str: String): String = str.replace("/document/primary:", "/sdcard/")
+  // I'll cover this declaration style too. It's just the first post!
+  fun normalizePath(str: String): String = str.replace("/document/primary:", "/sdcard/")
 }
-{{< / highlight >}}
+{{< /highlight >}}
 
 A recurring pattern with Kotlin is concise code, as you can see in this case.
 
