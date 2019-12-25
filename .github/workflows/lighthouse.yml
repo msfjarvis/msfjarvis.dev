@@ -12,14 +12,14 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Wait for deployment to finish
-      run: sleep 20
+      run: sleep 10
 
     - name: Audit URLs using Lighthouse
       uses: treosh/lighthouse-ci-action@v2
       with:
         urls: |
-          https://msfjarvis.website/
-          https://staging.msfjarvis.website
+          https://msfjarvis.dev/
+          https://staging.msfjarvis.dev
         budgetsPath: ./budgets.json
 
     - name: Save results
