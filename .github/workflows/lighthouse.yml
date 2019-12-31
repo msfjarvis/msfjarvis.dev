@@ -7,6 +7,7 @@ on:
 
 jobs:
   lighthouse-test:
+    if: "!contains(github.event.head_commit.message, '[skip staging]') && !contains(github.event.head_commit.message, '[skip deploy]') && !contains(github.event.head_commit.message, '[skip prod]')"
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
