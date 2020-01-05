@@ -58,4 +58,4 @@ This, I probably don't subscribe to anymore. Dagger was horrible to get on board
 
 ## To summarize
 
-Like RxJava, Dagger has become an industry standard of sorts and a required skill at a lot of Android positions so eventually you will end up needing to learn it anyway, so why wait? Dagger is not _terrible_, just badly presented. People have tried for years to make it easier to access but something about its complexity just doesn't click through to new users. I can't speak for people who've learned Java through books and/or college courses, but as a self-taught programmer who learnt by writing code and getting screamed at by the compiler, it was hard but not impossible.
+Like RxJava, Dagger has become an industry standard of sorts and a required skill at a lot of Android positions so eventually you will end up needing to learn it anyway, so why wait? Dagger is not _terrible_, just badly presented. People have tried for years to make it easier to access but something about its complexity just doesn't click through to new users. I want to eventually add to the barrage of blog posts trying to simplify Dagger to new users but that's for later :)
