@@ -28,7 +28,7 @@ It was great! I could get any dependency anywhere and that allowed me to write a
 
 ## The turning point
 
-Around mid-December 2019, [Arun](https://twitter.com/arunkumar_9t2) released the 0.1 version of his Dagger 2 dependency graph visualizer, [Scabbard](https://arunkumar.dev/introducing-scabbard-a-tool-to-visualize-dagger-2-dependency-graphs/). It looked **awesome**. I [retweeted it](https://twitter.com/MSF_Jarvis/status/1210856668310863872) and shoved in my residual Dagger hate for good measure because isn't that what the internet is for. I was [confident](https://twitter.com/MSF_Jarvis/status/1210866037056397312) that Dagger shall never find a place in my code and my friend [Sasikanth](https://twitter.com/its_sasikanth) (super smart dude, definitely worth following) was [hell-bent on ensuring otherwise](https://twitter.com/MSF_Jarvis/status/1210935581288517632?s=20).
+Around mid-December 2019, [Arun](https://twitter.com/arunkumar_9t2) released the 0.1 version of his Dagger 2 dependency graph visualizer, [Scabbard](https://arunkumar.dev/introducing-scabbard-a-tool-to-visualize-dagger-2-dependency-graphs/). It looked **awesome**. I [retweeted it](https://twitter.com/MSF_Jarvis/status/1210856668310863872) and shoved in my residual Dagger hate for good measure because what else is the internet for. I was [confident](https://twitter.com/MSF_Jarvis/status/1210866037056397312) that Dagger shall never find a place in my code and my friend [Sasikanth](https://twitter.com/its_sasikanth) (super smart dude, definitely worth following) was [hell-bent on ensuring otherwise](https://twitter.com/MSF_Jarvis/status/1210935581288517632?s=20).
 
 Together, we dug up my previous efforts and I started [a PR](https://github.com/msfjarvis/viscerion/pull/214) so he could review it and help me past the point I dropped out last time. He helped [me on GitHub](https://github.com/msfjarvis/viscerion/pull/214#pullrequestreview-336919368), privately on Telegram and together in about 2 days Viscerion was completely Koin-free and ready to kill. I put down my thoughts about the migration briefly [on the PR](https://github.com/msfjarvis/viscerion/pull/214#issuecomment-569541678), which I'll reproduce and expand on below.
 
@@ -42,7 +42,7 @@ Again, very strong opinion that I will continue to have. Being able to inject li
 
 >- Dagger can feel like a lot of boilerplate but some clever techniques can mitigate that.
 
-Because the Dagger documentation wasn't helpful, I didn't realise that a `Provides` annotated method and an `@Inject`ed constructor was an either-or situation and I didn't need to write both for a class to be injectable. Sasikanth [with the rescue again](https://github.com/msfjarvis/viscerion/pull/214#discussion_r361800427).
+Because the Dagger documentation wasn't helpful, I didn't realise that a @Provides annotated method and an @Inject'ed constructor was an either-or situation -- I didn't need to write both for a class to be injectable. Sasikanth [with the rescue again](https://github.com/msfjarvis/viscerion/pull/214#discussion_r361800427).
 
 >- Writing `inject` methods for every single class can feel like a drag because it is.
 
