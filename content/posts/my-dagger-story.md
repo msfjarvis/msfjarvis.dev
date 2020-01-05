@@ -1,14 +1,13 @@
 +++
-categories = []
-date = 2019-12-29T21:19:25+05:30
+categories = ["android"]
+date = 2019-12-29T15:49:25Z
+description = "Dagger is not the easiest tool to get on board with but it's almost worth the effort. Here's the story of my journey to not hating Dagger."
 draft = true
 slug = "my-dagger-story"
 tags = ["android", "dagger"]
 title = "My Dagger Story"
-description = "Dagger is not the easiest tool to get on board with but it's almost worth the effort. Here's the story of my journey to not hating Dagger."
+
 +++
-
-
 [Dagger] is infamous for very good reasons. It's complicated to use, the documentation is an absolute shitshow, and simpler 'alternatives' exist. While [Koin] and to a lesser extent [Kodein] do the job, they're still service locators at their core and don't automatically inject dependencies like Dagger does.
 
 ## Background
