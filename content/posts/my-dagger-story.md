@@ -54,8 +54,8 @@ I have no idea if that's even a good ability to begin with, so I chose to change
 
 > * I still do not _love_ Dagger. Fuck you Google.
 
-This, I probably don't subscribe to anymore. Dagger was horrible to get on board, but I am now in a position where I can find someone who's stuck like I was and help them come over the same way my friends helped me.
+This, I probably don't subscribe to anymore. Dagger was horrible to get started with, but I can now claim passing knowledge and familiarity with it, enough to be able to use it for simple projects and be comfortable while doing so.
 
 ## To summarize
 
-Like RxJava, Dagger has become an industry standard of sorts and a required skill at a lot of Android positions so eventually you will end up needing to learn it anyway, so why wait? Dagger is not _terrible_, just badly presented. People have tried for years to make it easier to access but something about its complexity just doesn't click through to new users. I want to eventually add to the barrage of blog posts trying to simplify Dagger to new users but that's for later :)
+Like RxJava, Dagger has become an industry standard of sorts and a required skill at a lot of Android positions, so eventually you might wind up needing to learn it anyway, so why wait? Dagger is not _terrible_, just badly presented. Learning from existing code is always helpful, and that was part of how I learned. Use my PR, and tweet me questions at [`@MSF_Jarvis`](https://twitter.com/MSF_Jarvis) and I'll do my best to help you like I was helped and hopefully we'll both learn something new 🤗
