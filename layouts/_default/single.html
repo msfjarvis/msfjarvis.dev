@@ -1,0 +1,18 @@
+{{ define "main" -}}
+<div class="post">
+  <h1>{{ .Title }}</h1>
+  <p class="post-date"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}">{{ .Date.Format "January 2, 2006" }}</time> | ~{{ .ReadingTime }} min read |
+  {{ range .Params.tags }}
+    <span class="tag"><a class="tag" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">#{{.}}</a> </span>
+  {{ end }}
+  </p>
+  {{- with .Content -}}
+    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor"> 🔗&#xFE0E;</a> ${3}` | safeHTML }}
+  {{- end -}}
+</div>
+
+{{ if .Site.DisqusShortname -}}
+<h2>Comments</h2>
+{{ template "_internal/disqus.html" . }}
+{{- end }}
+{{- end }}
