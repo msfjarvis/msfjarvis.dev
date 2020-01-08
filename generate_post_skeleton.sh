@@ -8,7 +8,7 @@ function create_post() {
         echo -e "\033[01;31mProviding a title is a must!\033[0m"
         return
     else
-        title="${@}"
+        title="${*}"
     fi
     postdate="$(date -Is)"
     postslug="$(echo "${title}" | tr -dc '[:alnum:][:space:]\n\r' | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g')"
@@ -18,4 +18,3 @@ function create_post() {
 }
 
 create_post "${@}"
-
