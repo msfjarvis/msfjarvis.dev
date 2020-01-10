@@ -9,6 +9,8 @@
   {{ .Content }}
 </div>
 
+{{ $syntax := resources.Get "css/syntax.css" | resources.ExecuteAsTemplate "syntax.css" . | minify | fingersyntax }}
+<link rel="stylesheet" href="{{ $syntax.RelPermalink }}" {{ printf "integrity=%q" $syntax.Data.Integrity | safeHTMLAttr }}>
 {{ if .Site.DisqusShortname -}}
 <h2>Comments</h2>
 {{ template "_internal/disqus.html" . }}
