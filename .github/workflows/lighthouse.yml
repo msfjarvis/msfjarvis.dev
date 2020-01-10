@@ -7,24 +7,16 @@ on:
 
 jobs:
   lighthouse-test:
-    if: "!contains(github.event.head_commit.message, '[skip staging]') && !contains(github.event.head_commit.message, '[skip deploy]') && !contains(github.event.head_commit.message, '[skip prod]')"
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@master
-
     - name: Wait for deployment to finish
       run: sleep 10
-
-    - name: Audit URLs using Lighthouse
-      uses: treosh/lighthouse-ci-action@v2
+    - name: Audit URL using Lighthouse
+      uses: jakejarvis/lighthouse-action@master
       with:
-        urls: |
-          https://msfjarvis.dev/
-          https://staging.msfjarvis.dev
-        budgetsPath: ./budgets.json
-
-    - name: Save results
-      uses: actions/upload-artifact@v1
+        url: 'https://msfjarvis.dev/'
+    - name: Upload results as an artifact
+      uses: actions/upload-artifact@master
       with:
-        name: lighthouse-results
-        path: '.lighthouseci'
+        name: report
+        path: './report'
