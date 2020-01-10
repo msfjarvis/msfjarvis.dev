@@ -8,6 +8,7 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-18.04
+    if: "!contains(github.event.head_commit.message, '[skip deploy]')"
     steps:
     - uses: actions/checkout@master
 
@@ -21,7 +22,7 @@ jobs:
       run: hugo --minify -DEFb=https://staging.msfjarvis.dev/
 
     - name: Deploy to staging
-      if: "!contains(github.event.head_commit.message, '[skip staging]') && !contains(github.event.head_commit.message, '[skip deploy]')"
+      if: "!contains(github.event.head_commit.message, '[skip staging]')"
       run: source $GITHUB_WORKSPACE/ci/deploy.sh
       env:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
@@ -34,7 +35,7 @@ jobs:
       run: hugo --minify
 
     - name: Deploy to prod
-      if: "!contains(github.event.head_commit.message, '[skip prod]') && !contains(github.event.head_commit.message, '[skip deploy]')"
+      if: "!contains(github.event.head_commit.message, '[skip prod]')"
       run: source $GITHUB_WORKSPACE/ci/deploy.sh
       env:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
