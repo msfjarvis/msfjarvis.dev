@@ -31,7 +31,7 @@
  * Update the foundational and global aspects of the page.
  */
 
-html {
+html html.font-loaded {
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
 }
 @media (min-width: 48em) {
@@ -79,8 +79,11 @@ html {
 .sidebar-about h1 {
   color: #fff;
   margin-top: 0;
-  font-family: "PT Sans", serif;
   font-size: 3.25rem;
+}
+
+html.fonts-loaded .sidebar-about h1 {
+  font-family: 'PT Sans', serif;
 }
 
 /* Sidebar nav */
