@@ -16,10 +16,12 @@
   <meta name="description" content="{{if .IsHome}}{{ $.Site.Params.description }}{{else}}{{.Description}}{{end}}" />
 
   <!-- CSS -->
-  <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/poole.css">
-  <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/hyde.css">
+  {{ $poole := resources.Get "css/poole.css" | resources.ExecuteAsTemplate "poole.css" . }}
+  {{ $hyde := resources.Get "css/hyde.css" | resources.ExecuteAsTemplate "hyde.css" . }}
+  {{ $print := resources.Get "css/print.css" | resources.ExecuteAsTemplate "print.css" . | minify | fingerprint }}
+  {{ $styles := slice $poole $hyde | resources.Concat "styles.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ printf "integrity=%q" $styles.Data.Integrity | safeHTMLAttr }}>
+  <link rel="stylesheet" href="{{ $print.RelPermalink }}" {{ printf "integrity=%q" $print.Data.Integrity | safeHTMLAttr }} media="print">
   {{ partial "head_fonts.html" . }}
 
   <!-- Icons -->
