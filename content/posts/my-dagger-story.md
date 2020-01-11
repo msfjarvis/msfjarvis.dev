@@ -1,6 +1,6 @@
 +++
 categories = ["android"]
-date = 2019-12-29T15:49:25Z
+date = 2020-01-11T21:25:25Z
 description = "Dagger is not the easiest tool to get on board with but it's almost worth the effort. Here's the story of my journey to not hating Dagger."
 slug = "my-dagger-story"
 tags = ["android", "dagger"]
@@ -37,7 +37,7 @@ I will die on this hill. Without Sasikanth's help I would have never gotten arou
 
 > * Koin's service locator pattern makes it far too easy to write bad code because you can inject anything anywhere.
 
-Again, very strong opinion that I will continue to have. Being able to inject lifecycle sensitive dependencies like `Context` to an `object` felt wrong and still does.
+Again, very strong opinion that I will continue to have. I overlooked a clean way of implementing a feature and went for a quick and dirty version because Koin allowed me the freedom to do it. Dagger forced me to re-evaluate my code and I ended up being able to extract all Android dependencies from that package and move it into a separate module.
 
 > * Dagger can feel like a lot of boilerplate but some clever techniques can mitigate that.
 
@@ -45,9 +45,9 @@ Because the Dagger documentation wasn't helpful, I didn't realise that a `Provid
 
 > * Writing `inject` methods for every single class can feel like a drag because it is.
 
-[I mean\...](https://github.com/msfjarvis/viscerion/blob/4a40f3692e62939d3b4c3693efe41ad03fb5f330/app/src/main/java/com/wireguard/android/di/AppComponent.kt#L69-L101)
+[I mean...](https://github.com/msfjarvis/viscerion/blob/4a40f3692e62939d3b4c3693efe41ad03fb5f330/app/src/main/java/com/wireguard/android/di/AppComponent.kt#L69-L101)
 
-> * Injecting into Kotlin `object`s appears to be a no-go. I opted to [refactor out the staticity where possible](https://github.com/msfjarvis/viscerion/pull/214/commits/9eb532521f51d0f7bb66a2a78aa1fc5688128a22), [pass injected dependencies to the function](https://github.com/msfjarvis/viscerion/commit/e23f878140d4bda9e2c54d6c2684e07994066fd6#diff-28007a5799b03e7b556f5bb942754031) or [fall back to \'dirty\' patterns](https://github.com/msfjarvis/viscerion/pull/214/commits/fc54ec6bb8e99ec639c6617765e814e12d91ea1a#diff-74f75ab44e1cd2909c4ec4d704bbbab7R65) as needed. Do what you feel like.
+> * Injecting into Kotlin `object`s appears to be a no-go. I opted to [refactor out the staticity where possible](https://github.com/msfjarvis/viscerion/pull/214/commits/9eb532521f51d0f7bb66a2a78aa1fc5688128a22), [pass injected dependencies to the function](https://github.com/msfjarvis/viscerion/commit/e23f878140d4bda9e2c54d6c2684e07994066fd6#diff-28007a5799b03e7b556f5bb942754031) or [fall back to 'dirty' patterns](https://github.com/msfjarvis/viscerion/pull/214/commits/fc54ec6bb8e99ec639c6617765e814e12d91ea1a#diff-74f75ab44e1cd2909c4ec4d704bbbab7R65) as needed. Do what you feel like.
 
 I have no idea if that's even a good ability to begin with, so I chose to change myself rather than fight the system.
 
