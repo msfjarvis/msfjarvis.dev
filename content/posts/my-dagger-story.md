@@ -2,7 +2,6 @@
 categories = ["android"]
 date = 2019-12-29T15:49:25Z
 description = "Dagger is not the easiest tool to get on board with but it's almost worth the effort. Here's the story of my journey to not hating Dagger."
-draft = true
 slug = "my-dagger-story"
 tags = ["android", "dagger"]
 title = "My Dagger Story"
@@ -58,4 +57,4 @@ This, I probably don't subscribe to anymore. Dagger was horrible to get started 
 
 ## To summarize
 
-Like RxJava, Dagger has become an industry standard of sorts and a required skill at a lot of Android positions, so eventually you might wind up needing to learn it anyway, so why wait? Dagger is not _terrible_, just badly presented. Learning from existing code is always helpful, and that was part of how I learned. Use my PR, and tweet me questions at [`@MSF_Jarvis`](https://twitter.com/MSF_Jarvis) and I'll do my best to help you like I was helped and hopefully we'll both learn something new :)
+Like RxJava, Dagger has become an industry standard of sorts and a required skill at a lot of Android positions, so eventually you might wind up needing to learn it anyway, so why wait? Dagger is not _terrible_, just badly presented. Learning from existing code is always helpful, and that was part of how I learned. Use my PR, and tweet me questions at [@MSF_Jarvis](https://twitter.com/MSF_Jarvis) and I'll do my best to help you like I was helped and hopefully we'll both learn something new :)
