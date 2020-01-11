@@ -45,9 +45,9 @@ Because the Dagger documentation wasn't helpful, I didn't realise that a `Provid
 
 > * Writing `inject` methods for every single class can feel like a drag because it is.
 
-[I mean...](https://github.com/msfjarvis/viscerion/blob/4a40f3692e62939d3b4c3693efe41ad03fb5f330/app/src/main/java/com/wireguard/android/di/AppComponent.kt#L69-L101)
+[I mean\...](https://github.com/msfjarvis/viscerion/blob/4a40f3692e62939d3b4c3693efe41ad03fb5f330/app/src/main/java/com/wireguard/android/di/AppComponent.kt#L69-L101)
 
-> * Injecting into Kotlin `object`s appears to be a no-go. I opted to [refactor out the staticity where possible](https://github.com/msfjarvis/viscerion/pull/214/commits/9eb532521f51d0f7bb66a2a78aa1fc5688128a22), [pass injected dependencies to the function](https://github.com/msfjarvis/viscerion/commit/e23f878140d4bda9e2c54d6c2684e07994066fd6#diff-28007a5799b03e7b556f5bb942754031) or [fall back to 'dirty' patterns](https://github.com/msfjarvis/viscerion/pull/214/commits/fc54ec6bb8e99ec639c6617765e814e12d91ea1a#diff-74f75ab44e1cd2909c4ec4d704bbbab7R65) as needed. Do what you feel like.
+> * Injecting into Kotlin `object`s appears to be a no-go. I opted to [refactor out the staticity where possible](https://github.com/msfjarvis/viscerion/pull/214/commits/9eb532521f51d0f7bb66a2a78aa1fc5688128a22), [pass injected dependencies to the function](https://github.com/msfjarvis/viscerion/commit/e23f878140d4bda9e2c54d6c2684e07994066fd6#diff-28007a5799b03e7b556f5bb942754031) or [fall back to \'dirty\' patterns](https://github.com/msfjarvis/viscerion/pull/214/commits/fc54ec6bb8e99ec639c6617765e814e12d91ea1a#diff-74f75ab44e1cd2909c4ec4d704bbbab7R65) as needed. Do what you feel like.
 
 I have no idea if that's even a good ability to begin with, so I chose to change myself rather than fight the system.
 
