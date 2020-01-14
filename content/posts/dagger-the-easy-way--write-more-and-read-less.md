@@ -17,3 +17,31 @@ I've setup a repository at [msfjarvis/dagger-the-easy-way](https://github.com/ms
 ## The mandatory theory
 
 I know, I know, I said there won't be any theoretical things here but some parts just have to be explained.
+
+### `Component`
+
+A Component defines an interface that Dagger constructs to know the entry points where dependencies can be injected. It also holds the component factory that instructs Dagger how to construct said component. A Component *also* holds the list of modules.
+
+### `Module`
+
+A Module is any logical unit that contributes to Dagger's object graph. In simpler terms, any `class` or `object` that has methods which tell Dagger how to construct a particular dependency, is annotated with `@Module`. Here's a simple code example (that we'll be using later as well).
+
+```kotlin
+@Module
+object AppModule {
+
+    @Reusable
+    @Provides
+    fun getSharedPrefs(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+}
+```
+
+You'll notice some additional annotations here that I haven't covered yet. These will be explained as we write some code later in this tutorial.
+
+## Getting Started
+
+To get started, clone the `boilerplate` branch of my repository which contains all the useless grunt work already done for you. Use `git clone --branch boilerplate https://github.com/msfjarvis/dagger-the-easy-way` if you're unfamiliar with branch selection during clone.
+
+The repo in this stage is very bare - it has the usual boilerplate and just one class, `MainActivity`.
+
+// TODO: Write the sample project and populate this further.
