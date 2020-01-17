@@ -1,11 +1,11 @@
 +++
 categories = ["android"]
-date = 2020-01-14T01:54:58+05:30
+date = 2020-01-17T20:37:05+05:30
 draft = true
-slug = "dagger-the-easy-way--write-more-and-read-less"
+slug = "dagger-the-easy-way--part-1"
 tags = ["android", "dagger", "tutorial"]
-title = "Dagger the easy way - write more and read less"
-description = "This is not going to be very great but it'll teach you enough to use Dagger so why the hell not."
+title = "Dagger the easy way - Part 1"
+description = "Dagger is universally intimidating to beginners and I want to change it."
 +++
 
 This is not your average coding tutorial. I'm going to show you how to write real-world Dagger code and skip all the shit about the implementation details of everything we're using and how Dagger does what it does with the code we give it to work with. If you're interested in that, read up elsewhere after this is done or just [poke me on Twitter](https://twitter.com/MSF_Jarvis) that you really, really wanna know the theoretical aspect of this and I'll grumble and consider it.
