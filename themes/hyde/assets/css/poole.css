@@ -71,6 +71,11 @@ a {
   color: #227bb9;
   text-decoration: none;
 }
+
+.hanchor {
+  color: inherit;
+}
+
 /* `:focus` is linked to `:hover` for basic accessibility */
 a:hover,
 a:focus {
