@@ -8,6 +8,7 @@ pygmentsUseClasses = true
   description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
   keywords = "homepage, blog, android, kotlin, programming"
   contentTypeName = "posts"
+  CommentoURL = "https://commento.msfjarvis.dev"
 
 [Menus]
   main = [
