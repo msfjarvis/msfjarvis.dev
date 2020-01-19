@@ -11,8 +11,8 @@
   {{- end -}}
 </div>
 
-{{ if .Site.DisqusShortname -}}
+{{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not .Site.IsServer)) -}}
 <h2>Comments</h2>
-{{ template "_internal/disqus.html" . }}
+{{ partial "commento.html" . }}
 {{- end }}
 {{- end }}
