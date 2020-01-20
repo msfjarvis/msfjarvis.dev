@@ -1,6 +1,6 @@
 +++
 categories = ["android"]
-date = 2020-01-17T20:37:05+05:30
+date = 2020-01-20T14:45:23+05:30
 draft = true
 slug = "dagger-the-easy-way--part-1"
 tags = ["android", "dagger", "tutorial"]
@@ -34,7 +34,7 @@ The repo in this stage is very bare - it has the usual boilerplate and just one 
 
 Switch to the `part-1` branch, which has a bit more in terms of commit history and code. This is what we're going to work with.
 
-## Setting up the things
+## Setting up the object graph
 
 Remember `Component` and `Module`? It's gonna come in handy here. 
 
@@ -69,5 +69,72 @@ object AppModule {
 
 Breaking this down: `Provides` tells Dagger to bind the return value of the method to the object graph, and `Reusable` tells Dagger that you want to use one copy of this as many times as you can, but it's _okay_ to create a new instance if that's not possible.
 
-If you pay attention to the [commit](https://github.com/msfjarvis/dagger-the-easy-way/commit/f1a60ffaf6f07f8654bde27fbd65bef08c248f4e) for this step, you'll see that we're also adding preferences to the `AppComponent`. This is just one of the many different patterns one can use with Dagger, and I'm using it just for the simplicity. We'll look into another pattern for the next part!
+If you pay attention to the [commit](https://github.com/msfjarvis/dagger-the-easy-way/commit/f1a60ffaf6f07f8654bde27fbd65bef08c248f4e) for this step, you'll see that we're also adding preferences to the `AppComponent`. This is just one of the many different patterns one can use with Dagger, and I'm using it just for the simplicity. We'll look into another way of doing this for the next part.
 
+## Initializing our component
+
+Now for Dagger to know when to create this graph, it needs to be able to know how to initialize the `Component` we wrote earlier. For this, we'll be adding a factory that constructs the `AppComponent`. Since we need a Context to be able to create `SharedPreferences`, we'll make our factory accept a context parameter. Here's how the finished `AppComponent looks like with the factory method.
+
+```kotlin
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent {
+
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance applicationContext: Context): AppComponent
+    }
+
+    val preferences: SharedPreferences
+}
+```
+
+The `BindsInstance` annotation tells Dagger that we'll be providing our own Context and that it does not have to know how to create one.
+
+As the parameter name suggests, we'll be using an application-scoped Context for this, so let's initialize the Component in an Application class. We'll be accessing our dependencies through this initialized component, and the Application class is always initialized first so that let's us avoid any situation where we try to refer to the component and find that it's null.
+
+Create an Application class, make it extend `android.app.Application`, and add it to the manifest ( [Reference commit](https://github.com/msfjarvis/dagger-the-easy-way/commit/25d4dc223bfafd40ac9801e23ca9b09526ed9362)).
+
+Now we'll be adding our component here. Since we'll be accessing it from other classes, we'll make it static. The Application class lives as long as our process does, so we're safe from a life-cycle perspective. Here's the finished `ExampleApplication` class.
+
+```kotlin
+class ExampleApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        component = DaggerAppComponent.factory().create(this)
+    }
+    companion object {
+        lateinit var component: AppComponent
+    }
+}
+```
+
+Notice the `DaggerAppComponent` class that did not exist before. This is a Dagger generated version of our `AppComponent` interface that is suitable for instantiation. This class holds the factory method we created before, and returns an instance of `AppComponent` that let's us access the dependencies we installed into the component. When we initialize our component, Dagger also intelligently creates all the dependencies in our graph. Now all that's left for us is to use the dependencies we declared in our app.
+
+## Injecting dependencies
+
+Head on over to `MainActivity` now. Notice that we initialize a `SharedPreferences` object there, which can be replaced with the one we asked Dagger to create for us. Let's do that!
+
+```diff
+ class MainActivity : AppCompatActivity() {
+
++    private val prefs = ExampleApplication.component.preferences
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main)
+-        val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+         if (prefs.getBoolean("first_start", true)) {
+             Toast.makeText(this, "First start!", Toast.LENGTH_LONG).show()
+             prefs.edit().putBoolean("first_start", false).apply()
+```
+
+And that's it. Really. Now you're using Dagger to provide a dependency. It's that simple!
+
+## Conclusion
+
+As you've seen here, using Dagger does not always have to involve complexity. Dagger can be used in projects of any size, of any complexity, and in any fashion that you deem fit. The example above is a very simple use of Dagger, and has scope for further improvement which we'll be looking into.
+
+This is my first time writing about using Dagger, having only [recently started using and liking it](/posts/my-dagger-story/). Please let me know about any parts that were too complex, factually incorrect or just lacking in any way, and I will be more than glad to improve this.
+
+In the next part, we'll be looking into constructor injection, why it's generally better, and how to inject dependencies into classes that we don't own (like activities and fragments) with the help of the `@Inject` annotation. Thanks for reading this far!
