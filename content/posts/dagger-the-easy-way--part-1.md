@@ -28,7 +28,7 @@ A Module is any logical unit that contributes to Dagger's object graph. In simpl
 
 ## Getting Started
 
-To get started, clone the `boilerplate` branch of my repository which contains all the useless grunt work already done for you. Use `git clone --branch boilerplate https://github.com/msfjarvis/dagger-the-easy-way` if you're unfamiliar with branch selection during clone.
+To get started, clone the repository which contains all the useless grunt work already done for you. Use `git clone https://github.com/msfjarvis/dagger-the-easy-way` if you're unfamiliar with branch selection during clone.
 
 The repo in this stage is very bare - it has the usual boilerplate and just one class, `MainActivity`. We're going to make this a bit more interesting shortly.
 
