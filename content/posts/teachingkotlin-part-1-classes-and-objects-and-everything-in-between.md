@@ -5,7 +5,7 @@ description = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes,
 slug = "teaching-kotlin--classes-and-objects"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 1 - Classes and Objects and everything in between"
-
+devLink = "https://dev.to/msfjarvis/teachingkotlin-part-1-classes-and-objects-and-everything-in-between-5bn0"
 +++
 Classes in Kotlin closely mimic their Java counterparts in implementation, with some crucial changes that I will attempt to outline here.
 

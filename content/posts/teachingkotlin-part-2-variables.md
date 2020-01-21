@@ -4,7 +4,8 @@ date = "2019-09-30T15:00:00+05:30"
 slug = "teaching-kotlin--variables"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 2 - Variables"
-description = "The second post in #TeachingKotlin series, this post goes over Kotlin's variables and their attributes, like visiblity and getters/setters."
+description = "The second post in #TeachingKotlin series, this post goes over Kotlin's variables and their attributes, like visibility and getters/setters."
+devLink = "https://dev.to/msfjarvis/teachingkotlin-part-2-variables-2api"
 +++
 
 Even the variables in Kotlin are supercharged!
@@ -62,9 +63,9 @@ Line_4$Item@46fb460a
 
 As you can notice, the `toString` implementation is not identical to our data classes but that's a topic for another post. Back to variables!
 
-## Customising getters and setters
+## Customizing getters and setters
 
-While Kotlin creates getters and setters automatically, we can customize their behaviour.
+While Kotlin creates getters and setters automatically, we can customize their behavior.
 
 ``` kotlin
 class Item(id: Int, name: String) {
@@ -95,9 +96,9 @@ id=1,name=Bricks
 
 Notice how setting a new value to currentState mutates the other variables as well? That's because of our custom setter. These setters are identical to a normal top-level function except a reference to the field in question is available as the variable `field` for manipulation.
 
-## Visiblity modifiers
+## Visibility modifiers
 
-Kotlin's visiblity modifiers aren't very well explained. There's the standard `public`, `private` and `protected`, but also the new `inner` and `internal`. I'll attempt to fill in those gaps.
+Kotlin's visibility modifiers aren't very well explained. There's the standard `public`, `private` and `protected`, but also the new `inner` and `internal`. I'll attempt to fill in those gaps.
 
 ### `inner`
 
