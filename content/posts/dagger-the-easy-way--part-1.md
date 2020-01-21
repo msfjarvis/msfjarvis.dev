@@ -5,6 +5,7 @@ slug = "dagger-the-easy-way--part-1"
 tags = ["android", "dagger", "tutorial"]
 title = "Dagger the easy way - Part 1"
 description = "Dagger is universally intimidating to beginners and I want to change it."
+devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-1-3l7b"
 +++
 
 This is not your average coding tutorial. I'm going to show you how to write actual Dagger code and skip all the scary and off-putting parts about the implementation details of the things we're using and how Dagger does everything under the hood. If you're interested in that, [poke me on Twitter](https://twitter.com/MSF_Jarvis) that you really, really wanna know the implementation details of this and I'll grumble and consider it.
