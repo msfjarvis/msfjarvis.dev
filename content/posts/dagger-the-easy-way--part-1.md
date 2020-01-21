@@ -1,7 +1,6 @@
 +++
 categories = ["android"]
 date = 2020-01-20T14:45:23+05:30
-draft = true
 slug = "dagger-the-easy-way--part-1"
 tags = ["android", "dagger", "tutorial"]
 title = "Dagger the easy way - Part 1"
