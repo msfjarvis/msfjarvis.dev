@@ -35,7 +35,7 @@ Switch to the `part-1` branch, which has a bit more in terms of commit history a
 
 ## Setting up the object graph
 
-Remember `Component` and `Module`? It's gonna come in handy here. 
+Remember `Component` and `Module`? It's gonna come in handy here.
 
 Start off with [adding the Dagger dependencies](https://github.com/msfjarvis/dagger-the-easy-way/commit/f86208b89cee2c05becd4341e1b209dc2479aa2f), then add an **empty** Component and Module, which we did [here](https://github.com/msfjarvis/dagger-the-easy-way/commit/f1604adb4e99f342b213cefa9fada21efb6f49a2).
 
@@ -72,7 +72,7 @@ If you pay attention to the [commit](https://github.com/msfjarvis/dagger-the-eas
 
 ## Initializing our component
 
-Now for Dagger to know when to create this graph, it needs to be able to know how to initialize the `Component` we wrote earlier. For this, we'll be adding a factory that constructs the `AppComponent`. Since we need a Context to be able to create `SharedPreferences`, we'll make our factory accept a context parameter. Here's how the finished `AppComponent looks like with the factory method.
+Now for Dagger to know when to create this graph, it needs to be able to know how to initialize the `Component` we wrote earlier. For this, we'll be adding a factory that constructs the `AppComponent`. Since we need a Context to be able to create `SharedPreferences`, we'll make our factory accept a context parameter. Here's how the finished `AppComponent` looks like with the factory method.
 
 ```kotlin
 @Singleton
