@@ -1,10 +1,16 @@
 {{ define "main" -}}
 <div class="post">
   <h1>{{ .Title }}</h1>
-  <p class="post-date"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}">{{ .Date.Format "January 2, 2006" }}</time> | ~{{ .ReadingTime }} min read |
-  {{ range .Params.tags }}
-    <span class="tag"><a class="tag" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">#{{.}}</a> </span>
-  {{ end }}
+  <p class="post-date">
+    <span><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z0700" }}">{{ .Date.Format "January 2, 2006" }}</time> | ~{{ .ReadingTime }} min read </span>
+    {{- with .Params.devLink -}}
+      | Also available on <a href="{{ . }}">dev.to</a>
+    {{- end -}}
+  </p>
+  <p>
+    {{ range .Params.tags }}
+    <button class="tag-button"><a class="tag-button" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">#{{.}}</a> </button>
+    {{ end }}
   </p>
   {{- with .Content -}}
     {{ . | replaceRE "(<h[1-2] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor"> 🔗&#xFE0E;</a> ${3}` | safeHTML }}
