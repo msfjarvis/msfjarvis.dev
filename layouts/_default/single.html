@@ -19,6 +19,6 @@
 
 {{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not .Site.IsServer)) -}}
 <h2>Comments</h2>
-{{ partial "commento.html" . }}
+{{ partialCached "commento.html" . }}
 {{- end }}
 {{- end }}

@@ -23,7 +23,7 @@
   {{ $styles := slice $poole $hyde $syntax | resources.Concat "styles.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ printf "integrity=%q" $styles.Data.Integrity | safeHTMLAttr }}>
   <link rel="stylesheet" href="{{ $print.RelPermalink }}" {{ printf "integrity=%q" $print.Data.Integrity | safeHTMLAttr }} media="print">
-  {{ partial "head_fonts.html" . }}
+  {{ partialCached "head_fonts.html" . }}
 
   <!-- Icons -->
   <link rel="shortcut icon" href="{{ .Site.BaseURL }}favicon-32x32.webp">
@@ -33,5 +33,5 @@
     {{ printf `<link href="%s" rel="%s" type="%s" title="%s" />` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }}
   {{ end -}}
 
-  {{ partial "hook_head_end.html" . }}
+  {{ partialCached "hook_head_end.html" . }}
 </head>
