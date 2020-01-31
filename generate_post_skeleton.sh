@@ -13,7 +13,7 @@ function create_post() {
     postdate="$(date -Is)"
     postslug="$(echo "${title}" | tr -dc '[:alnum:][:space:]\n\r' | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g')"
     filename="${postslug}.md"
-    printf "+++\ncategories = []\ndate = %s\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${filename}"
+    printf "+++\ncategories = []\ndate = %s\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\ndescription = \"\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${filename}"
     echo "content/posts/${filename} created!"
 }
 
