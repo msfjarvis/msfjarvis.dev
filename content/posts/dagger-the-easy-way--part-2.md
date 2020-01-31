@@ -12,6 +12,8 @@ Welcome back! In this post I'm taking a bit of detour from my planned schedule t
 
 Dagger 2 provides `@Scope` as a mechanism to handle scoping. Scoping allows you to keep an object instance for the duration of your scope.
 
+## Default scopes
+
 In the previous tutorial, we looked at _two_ scopes, namely `@Singleton` and `@Reusable`. Singleton does what its name suggests, and "caches" the dependency instance for the lifecycle of the `@Component`, and Reusable tells Dagger that while we'd prefer that a cached instance be used, we're fine if Dagger needs to create another one. The new Dagger 2 [user guide](https://dagger.dev/users-guide) does a pretty good job differentiating between Singleton, Reusable and unscoped dependencies which I'll reproduce here.
 
 ```java
@@ -39,6 +41,8 @@ class CoffeeFilter {
   @Inject CoffeeFilter() {}
 }
 ```
+
+## Why do we need scopes
 
 I'll do a small demo to show the difference between unscoped and singleton dependencies, then we'll move on to defining our own scopes.
 
@@ -118,7 +122,16 @@ Notice that we were handed the same instance. This is the power of scoping. It l
 
 Like Arun mentioned in the [additional notes](/posts/dagger-the-easy-way-part-1/#setting-up-the-object-graph) for the previous article, ensuring a singleton Component stays that way is the user's job. If you initialize the component again within the same scope, you'll get a new set of dependencies. That is part of why we store our component in the [Application](https://developer.android.com/reference/android/app/Application.html) class, because it is the singleton for our apps.
 
+## Creating our own scopes
+
+```kotlin
+@Scope
+@Retention
+annotation class ActivityScope
+```
+
 ### References
 
 - [Dagger 2: Scopes and Subcomponents](https://medium.com/tompee/dagger-2-scopes-and-subcomponents-d54d58511781)
-- [Dagger user's guide](https://dagger.dev/users-guide)
+- [Dagger User's Guide](https://dagger.dev/users-guide)
+- [Dependency injection with Dagger 2 - Custom scopes](https://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/)
