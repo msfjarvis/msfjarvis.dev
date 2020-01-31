@@ -1,4 +1,4 @@
-name: Hugo deployment
+name: Hugo deployment and Lighthouse testing
 
 on:
   push:
@@ -43,6 +43,16 @@ jobs:
         SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
         SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION_PROD }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
+
+    - name: Audit URL using Lighthouse
+      uses: docker://jakejarvis/lighthouse-action:latest
+      with:
+        url: 'https://msfjarvis.dev/'
+    - name: Upload results as an artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: report
+        path: './report'
 
 #    - name: Purge Cloudflare cache
 #      run: |
