@@ -83,8 +83,9 @@ class WarriorApplication : Application() {
 
 Running this on a device will print the following in your logcat
 
-```html
-D/WarriorApplication: Warrior 1 D/WarriorApplication: Warrior 2
+```kotlin
+D/WarriorApplication: Warrior 1
+D/WarriorApplication: Warrior 2
 ```
 
 Totally expected, because unscoped dependencies have no lifecycle in the component, and hence are created every time you ask for one. Let's make them all into Singletons and see how that changes things.
@@ -108,7 +109,7 @@ Totally expected, because unscoped dependencies have no lifecycle in the compone
 
 Running the same code again, we get
 
-```html
+```kotlin
 D/WarriorApplication: Warrior 1
 D/WarriorApplication: Warrior 1
 ```
