@@ -2,7 +2,7 @@
 categories = ["hugo", "webdev"]
 date = 2020-01-20T00:44:25+05:30
 slug = "integrating-comments-in-hugo-sites-with-commento"
-tags = ["hugo", "static sites", "comments", "commento.io"]
+tags = ["hugo", "static sites", "comments"]
 title = "Integrating comments in Hugo sites with commento"
 description = "Adding additional comment backends to Hugo is actually rather simple!"
 devLink = "https://dev.to/msfjarvis/integrating-comments-in-hugo-sites-with-commento-136f"
