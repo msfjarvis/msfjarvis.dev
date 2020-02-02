@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"{{with .Site.LanguageCode}} xml:lang="{{.}}" lang="{{.}}"{{end}}>
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  {{ hugo.Generator }}
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {{ if .IsHome -}}
+  <title>{{ .Site.Title }}</title>
+  {{- else -}}
+  <title>{{ .Title }} &middot; {{ .Site.Title }}</title>
+  {{- end }}
+  <meta name="description" content="{{if .IsHome}}{{ $.Site.Params.description }}{{else}}{{.Description}}{{end}}" />
+
+  <!-- CSS -->
+  {{ $poole := resources.Get "css/poole.css" | resources.ExecuteAsTemplate "poole.css" . }}
+  {{ $hyde := resources.Get "css/hyde.css" | resources.ExecuteAsTemplate "hyde.css" . }}
+  {{ $print := resources.Get "css/print.css" | resources.ExecuteAsTemplate "css/print.css" . | minify | fingerprint }}
+  {{ $syntax := resources.Get "css/syntax.css" | resources.ExecuteAsTemplate "syntax.css" . }}
+  {{ $styles := slice $poole $hyde $syntax | resources.Concat "css/styles.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ printf "integrity=%q" $styles.Data.Integrity | safeHTMLAttr }}>
+  <link rel="stylesheet" href="{{ $print.RelPermalink }}" {{ printf "integrity=%q" $print.Data.Integrity | safeHTMLAttr }} media="print">
+  {{ partialCached "head_fonts.html" . }}
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#212121" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ .Site.BaseURL}}apple-touch-icon.webp">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ .Site.BaseURL}}favicon-32x32.webp">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ .Site.BaseURL}}favicon-16x16.webp">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="{{ .Site.BaseURL }}favicon-32x32.webp">
+
+  <!-- RSS etc -->
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link href="%s" rel="%s" type="%s" title="%s" />` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }}
+  {{ end -}}
+
+  {{ partialCached "hook_head_end.html" . }}
+</head>
