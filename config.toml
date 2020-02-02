@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "Harsh Shandilya"
 theme = "hyde"
 pygmentsUseClasses = true
+author = "Harsh Shandilya"
 
 [params]
   description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
