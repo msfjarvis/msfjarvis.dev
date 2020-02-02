@@ -8,12 +8,38 @@
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Configure meta and title tags -->
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@msf_jarvis">
   {{ if .IsHome -}}
   <title>{{ .Site.Title }}</title>
-  {{- else -}}
+  <meta name="description" content="{{ $.Site.Params.description }}" />
+  <meta name="keywords" content="{{ $.Site.Params.Keywords }}">
+  <meta property="og:image" content="{{ .Site.BaseURL }}android-chrome-512x512.webp">
+  <meta property="og:url" content="{{ .Site.BaseURL }}">
+  <meta property="og:title" content="{{ .Site.Title }}">
+  <meta name="og:description" content="{{ $.Site.Params.description }}" />
+  <meta name="twitter:title" content="{{ .Site.Title }}">
+  <meta name="twitter:description" content="{{ $.Site.Params.description }}">
+  <meta name="twitter:url" content="{{ .Site.BaseURL }}">
+  <meta name="twitter:image:src" content="{{ .Site.BaseURL }}android-chrome-512x512.webp">
+  {{ else }}
   <title>{{ .Title }} &middot; {{ .Site.Title }}</title>
+  <meta name="description" content="{{ .Description }}">
+  <meta name="keywords" content="{{ range .Params.tags }}{{ . }},{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:title" content="{{ .Title }} &middot; {{ .Site.Title }}">
+  <meta name="og:description" content="{{ .Description }}">
+  <meta name="twitter:title" content="{{ .Title }} &middot; {{ .Site.Title }}">
+  <meta name="twitter:description" content="{{ .Description }}">
+  <meta name="twitter:url" content="{{ .Permalink }}">
+  {{ if .Params.SocialImage }}
+  <meta name="twitter:image:src" content="{{ .Site.BaseURL }}uploads/{{ .Params.SocialImage }}.png">
+  {{ else }}
+  <meta name="twitter:image:src" content="{{ .Site.BaseURL }}android-chrome-512x512.webp">
+  {{ end }}
   {{- end }}
-  <meta name="description" content="{{if .IsHome}}{{ $.Site.Params.description }}{{else}}{{.Description}}{{end}}" />
 
   <!-- CSS -->
   {{ $poole := resources.Get "css/poole.css" | resources.ExecuteAsTemplate "poole.css" . }}
