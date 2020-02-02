@@ -1,7 +1,7 @@
 baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = "hyde"
+theme = ["hugo-cloak-email", "hyde"]
 pygmentsUseClasses = true
 author = "Harsh Shandilya"
 

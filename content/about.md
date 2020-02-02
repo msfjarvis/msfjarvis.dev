@@ -20,4 +20,4 @@ I have presence on multiple social media/messaging platforms and I will respond 
 - [Twitter](https://twitter.com/MSF_Jarvis)
 - [Telegram](https://t.me/msfjarvis)
 
-I typically respond fastest to Telegram messages. For traditional email, use `me (at) msfjarvis (dot) dev`.
+I typically respond fastest to Telegram messages. For traditional email, use {{< cloakemail "me@msfjarvis.dev" >}}.
