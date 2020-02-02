@@ -6,6 +6,7 @@ tags = ["android", "gradle", "github", "packaging"]
 title = "Publishing an Android library to GitHub Packages"
 description = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
 devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
+socialImage = "github_packages_social"
 +++
 GitHub released the Package Registry beta in May of this year, and graduated it to public availability in Universe 2019, rebranded as [GitHub Packages](https://github.com/features/packages "GitHub Packages"). It supports NodeJS, Docker, Maven, Gradle, NuGet, and RubyGems. That's a LOT of ground covered for a service that's about one year old.
 
