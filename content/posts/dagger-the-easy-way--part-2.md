@@ -6,6 +6,7 @@ slug = "dagger-the-easy-way--part-2"
 tags = ["android", "dagger", "tutorial"]
 title = "Dagger the easy way - Part 2"
 description = "Let's extend the \"scope\" of these tutorials :)"
+socialImage = "dagger_made_easy_social"
 +++
 
 Welcome back! In this post I'm taking a bit of detour from my planned schedule to write about **scoping**. We'll _definitely_ cover constructor injection in the next part :)
