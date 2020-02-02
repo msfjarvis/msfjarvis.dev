@@ -1,13 +1,15 @@
 baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = ["hugo-cloak-email", "hyde"]
+theme = ["hugo-cloak-email", "hugo-social-metadata", "hyde"]
 pygmentsUseClasses = true
 author = "Harsh Shandilya"
 
 [params]
   description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
   keywords = "homepage, blog, android, kotlin, programming"
+  twitterUsername = "@msf_jarvis"
+  socialImage = "https://msfjarvis.dev/android-chrome-512x512.webp"
   contentTypeName = "posts"
   CommentoURL = "https://commento.msfjarvis.dev"
 
