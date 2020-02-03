@@ -1,7 +1,6 @@
 +++
 categories = ["hugo"]
 date = 2020-02-03T09:32:38+05:30
-draft = true
 slug = "adding-social-metadata-to-your-hugo-sites"
 tags = ["hugo", "webdev", "static sites"]
 title = "Adding social metadata to your Hugo sites"
