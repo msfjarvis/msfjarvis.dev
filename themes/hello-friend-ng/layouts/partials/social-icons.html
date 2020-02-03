@@ -1,9 +1,0 @@
-{{ range sort .}}
-&nbsp;
-{{ if .icon }}
-<a href="{{ .url }}" title="{{ .name | humanize }}" target="_blank" rel="noopener"><i class="{{ .icon }}" aria-hidden="true"></i></a>
-{{ else }}
-<a href="{{ .url }}" title="{{ .name | humanize }}" target="_blank" rel="noopener">{{ .name | humanize }}</a>
-{{ end }}
-&nbsp;
-{{ end }}
