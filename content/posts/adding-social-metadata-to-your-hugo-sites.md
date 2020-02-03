@@ -6,7 +6,7 @@ slug = "adding-social-metadata-to-your-hugo-sites"
 tags = ["hugo", "webdev", "static sites"]
 title = "Adding social metadata to your Hugo sites"
 description = "Optimize social media exposure with the right metadata for your site"
-socialImage = "uploads/hugo_metadata_social.png"
+socialImage = "uploads/hugo_metadata_social.webp"
 +++
 
 Metadata is data (information) about data.
@@ -17,9 +17,9 @@ This metadata can be used by browsers (how to display content or reload page), s
 
 Here's how your website will look like on Twitter with and without metadata.
 
-![No metadata](/uploads/hugo_metadata_no_meta.png)
+![No metadata](/uploads/hugo_metadata_no_meta.webp)
 
-![Correct metadata](/uploads/hugo_metadata_correct_meta.png)
+![Correct metadata](/uploads/hugo_metadata_correct_meta.webp)
 
 You be the judge of what you like better :)
 

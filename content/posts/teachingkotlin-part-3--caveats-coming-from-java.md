@@ -6,7 +6,7 @@ slug = "teachingkotlin-part-3--caveats-coming-from-java"
 tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 3 - Caveats coming from Java"
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-3-caveats-coming-from-java-2e1k"
-socialImage = "uploads/teachingkotlin_social.png"
+socialImage = "uploads/teachingkotlin_social.webp"
 +++
 When you start migrating your Java code to Kotlin, you will encounter multiple subtle changes that might catch you off guard. I'll document some of these gotchas that I and other people I follow have found and written about.
 

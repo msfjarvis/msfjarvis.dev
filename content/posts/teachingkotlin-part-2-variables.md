@@ -6,7 +6,7 @@ tags = ["android", "teachingkotlin", "kotlin"]
 title = "#TeachingKotlin Part 2 - Variables"
 description = "The second post in #TeachingKotlin series, this post goes over Kotlin's variables and their attributes, like visibility and getters/setters."
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-2-variables-2api"
-socialImage = "uploads/teachingkotlin_social.png"
+socialImage = "uploads/teachingkotlin_social.webp"
 +++
 
 Even the variables in Kotlin are supercharged!
