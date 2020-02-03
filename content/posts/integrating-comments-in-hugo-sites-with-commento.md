@@ -6,7 +6,7 @@ tags = ["hugo", "static sites", "comments"]
 title = "Integrating comments in Hugo sites with commento"
 description = "Adding additional comment backends to Hugo is actually rather simple!"
 devLink = "https://dev.to/msfjarvis/integrating-comments-in-hugo-sites-with-commento-136f"
-socialImage = "uploads/commento_social.png"
+socialImage = "uploads/commento_social.webp"
 +++
 
 Disqus is unequivocally the leader when it comes to hosted comments, and it works rather swimmingly with sites of all kinds with minimal hassle. But this ease has a gnarly flipside: [annoying referral links](https://stiobhart.net/2017-02-21-disqusting/) and a [huge bundle size](https://victorzhou.com/blog/replacing-disqus/) that significantly affects page load speeds.
@@ -19,11 +19,11 @@ Commento is open source just like Isso, but has a cloud-hosted option. I was int
 
 The interesting part! Hugo offers a Disqus template internally, but any other comment system's going to need some legwork done. Commento's integration code is just two lines, as you can see below.
 
-![Commento.io integration code](/uploads/commento_integration.png)
+![Commento.io integration code](/uploads/commento_integration.webp)
 
 Hugo offers a powerful tool called [partials](https://gohugo.io/templates/partials/#use-partials-in-your-templates) that allows injecting code into pages from another HTML file. I quickly created a partial with the integration code, scoped out the domain with a variable, and ended up with this.
 
-![Commento partial](/uploads/commento_partial.png)
+![Commento partial](/uploads/commento_partial.webp)
 
 With this saved as `layouts/partials/commento.html` and `CommentoURL` set in my `config.toml`, I set out to wire this into the posts. Because of a [pre-existing hack](https://github.com/msfjarvis/msfjarvis.dev/commit/5447bb36258934d6a5bc86be99ef91a9eeb9eb17) that I use for linkifying headings, I already had  the `single.html` file from my theme copied into `layouts/_default/single.html`. If you don't, copy it over and open it. Add the following lines, removing any mention of Disqus if you find it.
 

@@ -6,7 +6,7 @@ tags = ["android", "gradle", "github", "packaging"]
 title = "Publishing an Android library to GitHub Packages"
 description = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
 devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
-socialImage = "uploads/github_packages_social.png"
+socialImage = "uploads/github_packages_social.webp"
 +++
 GitHub released the Package Registry beta in May of this year, and graduated it to public availability in Universe 2019, rebranded as [GitHub Packages](https://github.com/features/packages "GitHub Packages"). It supports NodeJS, Docker, Maven, Gradle, NuGet, and RubyGems. That's a LOT of ground covered for a service that's about one year old.
 
@@ -191,6 +191,6 @@ That's it! Once you push to GitHub, you'll see the [action running](https://gith
 
 The requirement to authenticate for packages is a significant problem with GitHub Packages' adoption, giving an edge to solutions like [JitPack](https://jitpack.io) which handle the entire process automagically. As mentioned earlier, I did contact GitHub support about it and got this back.
 
-![GitHub support reply about authentication requirement for packages](/uploads/github_packages_support_response.png)
+![GitHub support reply about authentication requirement for packages](/uploads/github_packages_support_response.webp)
 
 My interpretation of this is quite simply that **it's gonna take a while**. I hope not :)
