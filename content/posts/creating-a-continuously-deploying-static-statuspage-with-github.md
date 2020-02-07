@@ -5,6 +5,8 @@ slug = "creating-a-continuously-deploying-static-statuspage-with-github"
 tags = ["webdev", "github actions", "github pages"]
 title = "Creating a continuously deploying static statuspage with GitHub"
 description = "GitHub Actions paired with GitHub Pages provides an excellent CD platform for a status page. Here's how I used it to create mine."
+devLink = "https://dev.to/msfjarvis/creating-a-continuously-deploying-static-statuspage-with-github-3ol2"
+socialImage = "/uploads/statuspage_social.png"
 +++
 
 A status page is essentially a web page that reports the health and uptime of an organization's various online services. [GitHub](https://www.githubstatus.com/) has one and so does [Cloudflare](https://www.cloudflarestatus.com/). Most of these are powered by an [Atlassian](https://www.atlassian.com/) product called [Statuspage](https://www.statuspage.io/) but it's not always the [cheapest solution](https://www.statuspage.io/pricing?tab=public).
