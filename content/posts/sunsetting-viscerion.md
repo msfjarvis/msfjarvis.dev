@@ -1,7 +1,6 @@
 +++
 categories = ["news"]
 date = 2020-02-09T13:37:53+05:30
-draft = true
 slug = "sunsetting-viscerion"
 tags = ["personal"]
 title = "Sunsetting Viscerion"
