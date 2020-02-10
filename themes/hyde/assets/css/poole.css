@@ -96,6 +96,19 @@ div.image_caption {
   color: #757575;
 }
 
+div.tag-container {
+  width: fit-content(300px);
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: 0rem;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 .tag-button {
   background-color: #202020;
   border: none;
