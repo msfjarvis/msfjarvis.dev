@@ -19,6 +19,7 @@ jobs:
         extended: true
 
     - name: Build staging
+      if: "!contains(github.event.head_commit.message, '[skip staging]')"
       run: hugo --minify -DEFb=https://staging.msfjarvis.dev/
 
     - name: Deploy to staging
@@ -32,6 +33,7 @@ jobs:
         SSH_PORT: ${{ secrets.SSH_PORT }}
 
     - name: Build prod
+      if: "!contains(github.event.head_commit.message, '[skip prod]')"
       run: hugo --minify
 
     - name: Deploy to prod
