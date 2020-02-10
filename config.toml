@@ -12,6 +12,7 @@ author = "Harsh Shandilya"
   socialImage = "android-chrome-512x512.webp"
   contentTypeName = "posts"
   commentoURL = "https://commento.msfjarvis.dev"
+  twitterCardType = "summary"
 
 [Menus]
   main = [
