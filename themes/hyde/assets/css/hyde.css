@@ -93,9 +93,6 @@ html {
 .sidebar-nav-item {
   display: block;
 }
-li.sidebar-nav-item:not(:last-child) {
-    margin-bottom: 10px;
-}
 a.sidebar-nav-item:hover,
 a.sidebar-nav-item:focus {
   text-decoration: underline;

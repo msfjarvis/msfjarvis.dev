@@ -9,9 +9,9 @@
 
     <nav>
       <ul class="sidebar-nav">
-        <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}">Home</a> </li>
+        <li><a href="{{ .Site.BaseURL }}">Home</a> </li>
         {{ range .Site.Menus.main -}}
-          <li class="sidebar-nav-item"><a href="{{.URL}}"> {{ .Name }} </a></li>
+          <li><a href="{{.URL}}"> {{ .Name }} </a></li>
         {{- end }}
       </ul>
     </nav>
