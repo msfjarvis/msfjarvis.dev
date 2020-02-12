@@ -17,6 +17,7 @@
 /*
  * Contents
  *
+ * Theme variables
  * Body resets
  * Custom type
  * Messages
@@ -28,6 +29,25 @@
  * Themes
  */
 
+/*
+ * Theme variables
+ */
+
+:root {
+  --background-color: white;
+  --text-color: #515151;
+  --heading-color: #313131;
+  --tag-background: #202020;
+  --tag-text-color: white;
+}
+
+[data-theme="dark"] {
+  --background-color: #202020;
+  --text-color: white;
+  --heading-color: #a1a1a1;
+  --tag-background: white;
+  --tag-text-color: #202020;
+}
 
 /*
  * Body resets
@@ -59,8 +79,8 @@ html {
 }
 
 body {
-  color: #515151;
-  background-color: #fff;
+  color: var(--text-color);
+  background-color: var(--background-color);
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
@@ -93,7 +113,7 @@ div.image_caption {
 }
 
 .tag {
-  color: #757575;
+  color: var(--tag-text-color);
 }
 
 div.tag-container {
@@ -110,9 +130,9 @@ div.tag-container {
 }
 
 .tag-button {
-  background-color: #202020;
+  background-color: var(--tag-background);
   border: none;
-  color: white;
+  color: var(--tag-text-color);
   padding: 7px 12px;
   text-align: center;
   text-decoration: none;
@@ -126,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5rem;
   font-weight: bold;
   line-height: 1.25;
-  color: #313131;
+  color: var(--heading-color);
   text-rendering: optimizeLegibility;
 }
 h1 {
