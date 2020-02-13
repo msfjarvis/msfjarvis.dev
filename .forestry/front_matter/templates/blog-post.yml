@@ -2,21 +2,42 @@
 label: Blog post
 hide_body: false
 fields:
-- type: datetime
-  name: date
-  label: date
-- type: text
-  name: title
-  label: title
-- type: text
-  name: slug
-  label: slug
-- type: list
-  name: tags
-  label: tags
 - type: list
   name: categories
-  label: categories
+  label: Categories
+  config:
+    use_select: false
+    min: '1'
+    max: '5'
+  description: Categories for posts
+- type: datetime
+  name: date
+  label: Date
+  description: Date of writing
+- type: text
+  name: slug
+  label: Post slug
+  description: URL slug
+- type: list
+  name: tags
+  label: Tags
+  description: Social media tags
+- type: text
+  name: title
+  label: Post title
+  description: Title of the post
+- name: description
+  type: text
+  config:
+    required: false
+  label: Description
+  description: Social media blurb
+- name: social_image
+  type: file
+  config:
+    maxSize: 250
+  label: Social image
+  description: Custom image for social media cards
 pages:
 - content/posts/server-side-analytics-with-caddyserver-and-goaccess.md
 - content/posts/teachingkotlin-kotlin-for-android-java-developers.md
