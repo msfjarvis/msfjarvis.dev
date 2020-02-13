@@ -5,6 +5,7 @@
     --tag-background: #202020;
     --tag-text-color: white;
     --blockquote-color: #7a7a7a;
+    --post-time-color: #757575;
 }
 
 [data-theme='dark'] {
@@ -14,6 +15,7 @@
     --tag-background: white;
     --tag-text-color: #202020;
     --blockquote-color: #bababa;
+    --post-time-color: #bababa;
 }
 
 div.image-caption {
@@ -53,4 +55,9 @@ div.tag-container {
     display: inline-block;
     font-size: 16px;
     border-radius: 8px;
+}
+
+.read-more-link {
+    color: #0091ff;
+    text-decoration: none;
 }
