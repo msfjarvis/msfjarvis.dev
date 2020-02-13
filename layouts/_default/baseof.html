@@ -2,12 +2,15 @@
   <body class="{{ .Site.Params.themeColor }} {{if .Site.Params.layoutReverse}}layout-reverse{{end}}">
   {{ partialCached "sidebar.html" . }}
     <main class="content container">
+    <label class="switch">
+      <input type="checkbox">
+      <div>
+        <span></span>
+      </div>
+    </label>
     {{ block "main" . -}}{{- end }}
     </main>
-
-    {{ template "_internal/google_analytics_async.html" . }}
   </body>
-  <!--
   <script>
   function switchTheme(e) {
     if (e.target.checked) {
@@ -20,12 +23,8 @@
   }
 
   const toggleSwitch = document.querySelector(
-    '.toggle input[type="checkbox"]'
+    '.switch input[type="checkbox"]'
   );
-
-  const currentTheme = localStorage.getItem("theme")
-    ? localStorage.getItem("theme")
-    : null;
 
   if (currentTheme) {
     document.documentElement.setAttribute("data-theme", currentTheme);
@@ -37,5 +36,4 @@
 
   toggleSwitch.addEventListener("change", switchTheme, false);
 </script>
--->
 </html>
