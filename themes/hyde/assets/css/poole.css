@@ -17,7 +17,6 @@
 /*
  * Contents
  *
- * Theme variables
  * Body resets
  * Custom type
  * Messages
@@ -28,28 +27,6 @@
  * Reverse layout
  * Themes
  */
-
-/*
- * Theme variables
- */
-
-:root {
-  --background-color: white;
-  --text-color: #515151;
-  --heading-color: #313131;
-  --tag-background: #202020;
-  --tag-text-color: white;
-  --blockquote-color: #7a7a7a;
-}
-
-[data-theme="dark"] {
-  --background-color: #202020;
-  --text-color: white;
-  --heading-color: white;
-  --tag-background: white;
-  --tag-text-color: #202020;
-  --blockquote-color: #bababa;
-}
 
 /*
  * Body resets
@@ -102,99 +79,6 @@ a {
 a:hover,
 a:focus {
   text-decoration: underline;
-}
-
-div.image-caption {
-  display: inline-block;
-  padding: 10px;
-  margin: 10px;
-  border: 2px solid #cccccc;
-  text-align: center;
-  font-size: 0.8em;
-  font-style: italic;
-}
-
-.tag {
-  color: var(--tag-text-color);
-}
-
-div.tag-container {
-  width: fit-content(300px);
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  scrollbar-width: 0rem;
-  white-space: nowrap;
-  overflow-y: hidden;
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-.tag-button {
-  background-color: var(--tag-background);
-  border: none;
-  color: var(--tag-text-color);
-  padding: 7px 12px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius:8px;
-}
-
-.theme-switch-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.theme-switch {
-  display: inline-block;
-  height: 34px;
-  position: relative;
-  width: 60px;
-}
-
-.theme-switch input {
-  display:none;
-}
-
-.slider {
-  background-color: #ccc;
-  bottom: 0;
-  cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: .4s;
-}
-
-.slider:before {
-  background-color: #fff;
-  bottom: 4px;
-  content: "";
-  height: 26px;
-  left: 4px;
-  position: absolute;
-  transition: .4s;
-  width: 26px;
-}
-
-input:checked + .slider {
-  background-color: #66bb6a;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }
 
 /* Headings */
