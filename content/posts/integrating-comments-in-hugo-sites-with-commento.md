@@ -19,11 +19,20 @@ Commento is open source just like Isso, but has a cloud-hosted option. I was int
 
 The interesting part! Hugo offers a Disqus template internally, but any other comment system's going to need some legwork done. Commento's integration code is just two lines, as you can see below.
 
-![Commento.io integration code](/uploads/commento_integration.webp)
+```html
+<div id="commento"></div>
+<script defer src="https://commento.example.com/js/commento.js">
+</script>
+```
 
 Hugo offers a powerful tool called [partials](https://gohugo.io/templates/partials/#use-partials-in-your-templates) that allows injecting code into pages from another HTML file. I quickly created a partial with the integration code, scoped out the domain with a variable, and ended up with this.
 
-![Commento partial](/uploads/commento_partial.webp)
+```html
+<div id="commento"></div>
+<script defer src="{{ .Site.Params.CommentoURL }}/js/commento.js">
+</script>
+<noscript>Please enable JavaScript to load the comments.</noscript>
+```
 
 With this saved as `layouts/partials/commento.html` and `CommentoURL` set in my `config.toml`, I set out to wire this into the posts. Because of a [pre-existing hack](https://github.com/msfjarvis/msfjarvis.dev/commit/5447bb36258934d6a5bc86be99ef91a9eeb9eb17) that I use for linkifying headings, I already had  the `single.html` file from my theme copied into `layouts/_default/single.html`. If you don't, copy it over and open it. Add the following lines, removing any mention of Disqus if you find it.
 
