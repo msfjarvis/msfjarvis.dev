@@ -28,7 +28,6 @@
  * Themes
  */
 
-
 /*
  * Body resets
  *
@@ -59,8 +58,8 @@ html {
 }
 
 body {
-  color: #515151;
-  background-color: #fff;
+  color: var(--text-color);
+  background-color: var(--background-color);
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
@@ -82,51 +81,12 @@ a:focus {
   text-decoration: underline;
 }
 
-div.image_caption {
-  display: inline-block;
-  padding: 10px;
-  margin: 10px;
-  border: 2px solid #cccccc;
-  text-align: center;
-  font-size: 0.8em;
-  font-style: italic;
-}
-
-.tag {
-  color: #757575;
-}
-
-div.tag-container {
-  width: fit-content(300px);
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  scrollbar-width: 0rem;
-  white-space: nowrap;
-  overflow-y: hidden;
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-.tag-button {
-  background-color: #202020;
-  border: none;
-  color: white;
-  padding: 7px 12px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius:8px;
-}
-
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5rem;
   font-weight: bold;
   line-height: 1.25;
-  color: #313131;
+  color: var(--heading-color);
   text-rendering: optimizeLegibility;
 }
 h1 {
@@ -232,7 +192,7 @@ pre code {
 blockquote {
   padding: .5rem 1rem;
   margin: .8rem 0;
-  color: #7a7a7a;
+  color: var(--blockquote-color);
   border-left: .25rem solid #e5e5e5;
 }
 blockquote p:last-child {
@@ -355,7 +315,7 @@ tbody tr:nth-child(odd) th {
 .page-title,
 .post-title,
 .post-title a {
-  color: #303030;
+  color: var(--heading-color);
 }
 .page-title,
 .post-title {
@@ -367,7 +327,7 @@ tbody tr:nth-child(odd) th {
   display: block;
   margin-top: -.5rem;
   margin-bottom: 1rem;
-  color: #757575;
+  color: var(--post-time-color);
 }
 
 /* Related posts */
