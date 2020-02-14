@@ -1,15 +1,15 @@
 :root {
-    --background-color: white;
-    --text-color: #515151;
-    --heading-color: #313131;
-    --tag-background: #202020;
-    --tag-text-color: white;
-    --blockquote-color: #7a7a7a;
-    --post-time-color: #757575;
+  --background-color: white;
+  --text-color: #515151;
+  --heading-color: #313131;
+  --tag-background: #202020;
+  --tag-text-color: white;
+  --blockquote-color: #7a7a7a;
+  --post-time-color: #757575;
 }
 
-@media(prefers-color-scheme: dark) {
-    :root {
+@media (prefers-color-scheme: dark) {
+  :root {
     --background-color: #121212;
     --text-color: #f0f0f0;
     --heading-color: white;
@@ -17,59 +17,59 @@
     --tag-text-color: #121212;
     --blockquote-color: #bababa;
     --post-time-color: #bababa;
-    }
+  }
 
-    .link {
+  .link {
     color: #0091ff;
     text-decoration: none;
-    }
+  }
 }
 
-[data-theme='dark'] {
-    --background-color: #121212;
-    --text-color: #f0f0f0;
-    --heading-color: white;
-    --tag-background: white;
-    --tag-text-color: #121212;
-    --blockquote-color: #bababa;
-    --post-time-color: #bababa;
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --heading-color: white;
+  --tag-background: white;
+  --tag-text-color: #121212;
+  --blockquote-color: #bababa;
+  --post-time-color: #bababa;
 }
 
 div.image-caption {
-    display: inline-block;
-    padding: 10px;
-    margin: 10px;
-    border: 2px solid #cccccc;
-    text-align: center;
-    font-size: 0.8em;
-    font-style: italic;
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #cccccc;
+  text-align: center;
+  font-size: 0.8em;
+  font-style: italic;
 }
 
 .tag {
-    color: var(--tag-text-color);
+  color: var(--tag-text-color);
 }
 
 div.tag-container {
-    width: fit-content(300px);
-    margin-bottom: 1rem;
-    overflow-x: auto;
-    scrollbar-width: 0rem;
-    white-space: nowrap;
-    overflow-y: hidden;
+  width: fit-content(300px);
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: 0rem;
+  white-space: nowrap;
+  overflow-y: hidden;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .tag-button {
-    background-color: var(--tag-background);
-    border: none;
-    color: var(--tag-text-color);
-    padding: 7px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 8px;
+  background-color: var(--tag-background);
+  border: none;
+  color: var(--tag-text-color);
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
 }
