@@ -8,6 +8,18 @@
     --post-time-color: #757575;
 }
 
+@media(prefers-color-scheme: dark) {
+    :root {
+    --background-color: #202020;
+    --text-color: #f0f0f0;
+    --heading-color: white;
+    --tag-background: white;
+    --tag-text-color: #202020;
+    --blockquote-color: #bababa;
+    --post-time-color: #bababa;
+    }
+}
+
 [data-theme='dark'] {
     --background-color: #202020;
     --text-color: #f0f0f0;
