@@ -46,6 +46,10 @@ jobs:
         SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION_PROD }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
 
+  lighthouse:
+    runs-on: ubuntu-latest
+    needs: [build-deploy]
+    steps:
     - name: Audit URL using Lighthouse
       uses: docker://jakejarvis/lighthouse-action:latest
       with:
