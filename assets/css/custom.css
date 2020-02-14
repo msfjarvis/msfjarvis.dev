@@ -18,6 +18,11 @@
     --blockquote-color: #bababa;
     --post-time-color: #bababa;
     }
+
+    .link {
+    color: #0091ff;
+    text-decoration: none;
+    }
 }
 
 [data-theme='dark'] {
@@ -67,9 +72,4 @@ div.tag-container {
     display: inline-block;
     font-size: 16px;
     border-radius: 8px;
-}
-
-.link {
-    color: #0091ff;
-    text-decoration: none;
 }
