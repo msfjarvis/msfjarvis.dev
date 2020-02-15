@@ -8,8 +8,9 @@
     {{- end -}}
   </p>
   <div class="tag-container">
+  Tags:
     {{ range .Params.tags }}
-    <button class="tag-button"><a class="tag-button" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">#{{.}}</a> </button>
+    <a class="tag" href="{{ "tags/" | absLangURL }}{{ . | urlize }}" target="_blank">#{{.}}</a>
     {{ end }}
   </div>
   {{- with .Content -}}
