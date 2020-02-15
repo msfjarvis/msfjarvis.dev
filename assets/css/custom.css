@@ -3,8 +3,6 @@
   --background-color: white;
   --text-color: #515151;
   --heading-color: #313131;
-  --tag-background: #202020;
-  --tag-text-color: white;
   --blockquote-color: #7a7a7a;
   --post-time-color: #757575;
 }
@@ -15,8 +13,6 @@
     --background-color: #202020;
     --text-color: #f0f0f0;
     --heading-color: white;
-    --tag-background: white;
-    --tag-text-color: #202020;
     --blockquote-color: #bababa;
     --post-time-color: #bababa;
   }
@@ -32,8 +28,6 @@
   --background-color: #202020;
   --text-color: #f0f0f0;
   --heading-color: white;
-  --tag-background: white;
-  --tag-text-color: #202020;
   --blockquote-color: #bababa;
   --post-time-color: #bababa;
 }
@@ -65,14 +59,9 @@ div.tag-container {
   display: none;
 }
 
-.tag-button {
-  background-color: var(--tag-background);
+.tag {
   border: none;
-  color: var(--tag-text-color);
-  padding: 7px 12px;
-  text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  border-radius: 8px;
 }
