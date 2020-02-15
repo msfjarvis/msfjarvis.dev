@@ -368,7 +368,6 @@ tbody tr:nth-child(odd) th {
   margin-left: -1rem;
   margin-right: -1rem;
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
-  font-display: swap;
   color: #ccc;
   text-align: center;
 }
