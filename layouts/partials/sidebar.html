@@ -25,8 +25,6 @@
   <script>
     const COLOR_MODE_KEY = '--color-mode';
     const modeToggleButton = document.querySelector('.js-mode-toggle');
-    const modeToggleText = document.querySelector('.js-mode-toggle-text');
-    const modeStatusElement = document.querySelector('.js-mode-status');
 
     const getCSSCustomProp = propKey => {
       let response = getComputedStyle(document.documentElement).getPropertyValue(propKey);
@@ -34,20 +32,6 @@
         response = response.replace(/\"/g, '').trim();
       }
       return response;
-    };
-    const applySetting = passedSetting => {
-      let currentSetting = passedSetting || localStorage.getItem(STORAGE_KEY);
-
-      if (currentSetting) {
-        document.documentElement.setAttribute('data-user-color-scheme', currentSetting);
-        setButtonLabelAndStatus(currentSetting);
-      } else {
-        setButtonLabelAndStatus(getCSSCustomProp(COLOR_MODE_KEY));
-      }
-    };
-    const setButtonLabelAndStatus = currentSetting => {
-      modeToggleText.innerText = `Enable ${currentSetting === 'dark' ? 'light' : 'dark'} mode`;
-      modeStatusElement.innerText = `Color mode is now "${currentSetting}"`;
     };
     const toggleSetting = () => {
       let currentSetting = localStorage.getItem(STORAGE_KEY);
