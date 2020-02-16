@@ -133,4 +133,6 @@ div.tag-container {
   margin: 0 0 0 0em;
   filter: var(--button-icon-filter);
   transform: translateY(1px); /* Optical adjustment */
+  transition: filter 500ms ease-in-out;
+  transition: background 250ms ease-in;
 }
