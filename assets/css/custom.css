@@ -65,3 +65,7 @@ div.tag-container {
   display: inline-block;
   font-size: 16px;
 }
+
+.heading-anchor {
+  color: inherit;
+}
