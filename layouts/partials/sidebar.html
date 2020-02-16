@@ -1,0 +1,74 @@
+<aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="{{ .Site.BaseURL }}"><h1>{{ .Site.Title }}</h1></a>
+      <p class="lead">
+      {{ with .Site.Params.description }} {{.}} {{ else }}An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.{{end}}
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}">Home</a> </li>
+        {{ range .Site.Menus.main -}}
+          <li class="sidebar-nav-item"><a href="{{.URL}}"> {{ .Name }} </a></li>
+        {{- end }}
+      </ul>
+    </nav>
+    <div class="user-toggle">
+    <button class="toggle-button js-mode-toggle">
+      <span class="toggle-button__icon" aria-hidden="true"></span>
+    </button>
+  </div>
+    <p>{{ with .Site.Params.copyright }}{{.}}{{ else }}&copy; {{ now.Format "2006"}}. All rights reserved. {{end}}</p>
+  </div>
+  <script>
+    const COLOR_MODE_KEY = '--color-mode';
+    const modeToggleButton = document.querySelector('.js-mode-toggle');
+    const modeToggleText = document.querySelector('.js-mode-toggle-text');
+    const modeStatusElement = document.querySelector('.js-mode-status');
+
+    const getCSSCustomProp = propKey => {
+      let response = getComputedStyle(document.documentElement).getPropertyValue(propKey);
+      if (response.length) {
+        response = response.replace(/\"/g, '').trim();
+      }
+      return response;
+    };
+    const applySetting = passedSetting => {
+      let currentSetting = passedSetting || localStorage.getItem(STORAGE_KEY);
+
+      if (currentSetting) {
+        document.documentElement.setAttribute('data-user-color-scheme', currentSetting);
+        setButtonLabelAndStatus(currentSetting);
+      } else {
+        setButtonLabelAndStatus(getCSSCustomProp(COLOR_MODE_KEY));
+      }
+    };
+    const setButtonLabelAndStatus = currentSetting => {
+      modeToggleText.innerText = `Enable ${currentSetting === 'dark' ? 'light' : 'dark'} mode`;
+      modeStatusElement.innerText = `Color mode is now "${currentSetting}"`;
+    };
+    const toggleSetting = () => {
+      let currentSetting = localStorage.getItem(STORAGE_KEY);
+      switch (currentSetting) {
+        case null:
+        currentSetting = getCSSCustomProp(COLOR_MODE_KEY) === 'dark' ? 'light' : 'dark';
+        break;
+        case 'light':
+        currentSetting = 'dark';
+        break;
+        case 'dark':
+        currentSetting = 'light';
+        break;
+      }
+      localStorage.setItem(STORAGE_KEY, currentSetting);
+      return currentSetting;
+    };
+    modeToggleButton.addEventListener('click', evt => {
+      evt.preventDefault();
+      applySetting(toggleSetting());
+    });
+    applySetting();
+  </script>
+</aside>
