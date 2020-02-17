@@ -16,16 +16,22 @@
       </ul>
     </nav>
     <div class="user-toggle">
-    <button class="toggle-button js-mode-toggle" aria-label="Dark theme switch">
-      <span class="toggle-button__icon" aria-hidden="true"></span>
-    </button>
-  </div>
-    <p>{{ with .Site.Params.copyright }}{{.}}{{ else }}&copy; {{ now.Format "2006"}}. All rights reserved. {{end}}</p>
+      <button class="toggle-button js-mode-toggle" aria-label="Dark theme switch">
+        <span class="toggle-button__icon" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
   <script>
     const COLOR_MODE_KEY = '--color-mode';
     const modeToggleButton = document.querySelector('.js-mode-toggle');
+    const STORAGE_KEY = 'user-color-scheme';
 
+    const applySetting = passedSetting => {
+      let currentSetting = passedSetting || localStorage.getItem(STORAGE_KEY);
+      if (currentSetting) {
+        document.documentElement.setAttribute('data-user-color-scheme', currentSetting);
+      }
+    };
     const getCSSCustomProp = propKey => {
       let response = getComputedStyle(document.documentElement).getPropertyValue(propKey);
       if (response.length) {
