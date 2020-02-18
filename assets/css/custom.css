@@ -98,10 +98,27 @@ div.tag-container {
   outline: none;
 }
 
-.user-toggle {
+.user-toggle, .user-toggle-desktop {
   margin: 2rem auto 0 auto;
   max-width: 20rem;
   text-align: center;
+}
+
+.dark-theme-label {
+  color: white;
+  margin: unset;
+}
+
+@media(max-width: 48em) {
+  .user-toggle-desktop {
+    display: none;
+  }
+}
+
+@media(min-width: 48em) {
+  .user-toggle {
+    display: none;
+  }
 }
 
 .toggle-button {
