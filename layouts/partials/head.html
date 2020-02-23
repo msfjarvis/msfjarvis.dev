@@ -17,10 +17,10 @@
   {{ $print := resources.Get "css/print.css" | resources.ExecuteAsTemplate "css/print.css" . | minify | fingerprint }}
   {{ $syntax := resources.Get "css/syntax.css" | resources.ExecuteAsTemplate "syntax.css" . }}
   {{ $custom := resources.Get "css/custom.css" | resources.ExecuteAsTemplate "custom.css" . }}
-  {{ $styles := slice $poole $hyde $syntax $custom | resources.Concat "css/styles.css" | minify | fingerprint }}
+  {{ $fonts := resources.Get "css/fonts.css" | resources.ExecuteAsTemplate "fonts.css" . }}
+  {{ $styles := slice $poole $hyde $syntax $custom $fonts | resources.Concat "css/styles.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ printf "integrity=%q" $styles.Data.Integrity | safeHTMLAttr }}>
   <link rel="stylesheet" href="{{ $print.RelPermalink }}" {{ printf "integrity=%q" $print.Data.Integrity | safeHTMLAttr }} media="print">
-  {{ partialCached "head_fonts.html" . }}
 
   <!-- PWA -->
   <meta name="theme-color" content="#212121" />
