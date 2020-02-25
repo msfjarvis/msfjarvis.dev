@@ -14,11 +14,13 @@
   <!-- CSS -->
   {{ $print := resources.Get "css/print.css" | resources.ExecuteAsTemplate "css/print.css" . | minify | fingerprint }}
   {{ $fonts := resources.Get "css/fonts.css" | resources.ExecuteAsTemplate "css/fonts.css" . | minify | fingerprint }}
+  {{ $carbon := resources.Get "css/carbon.css" | resources.ExecuteAsTemplate "css/carbon.css" . | minify | fingerprint }}
   {{ $poole := resources.Get "css/poole.css" | resources.ExecuteAsTemplate "poole.css" . }}
   {{ $hyde := resources.Get "css/hyde.css" | resources.ExecuteAsTemplate "hyde.css" . }}
   {{ $syntax := resources.Get "css/syntax.css" | resources.ExecuteAsTemplate "syntax.css" . }}
   {{ $custom := resources.Get "css/custom.css" | resources.ExecuteAsTemplate "custom.css" . }}
   {{ $styles := slice $poole $hyde $syntax $custom | resources.Concat "css/styles.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $carbon.RelPermalink }}" {{ printf "integrity=%q" $carbon.Data.Integrity | safeHTMLAttr }}>
   <link rel="stylesheet" href="{{ $fonts.RelPermalink }}" {{ printf "integrity=%q" $fonts.Data.Integrity | safeHTMLAttr }}>
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ printf "integrity=%q" $styles.Data.Integrity | safeHTMLAttr }}>
   <link rel="stylesheet" href="{{ $print.RelPermalink }}" {{ printf "integrity=%q" $print.Data.Integrity | safeHTMLAttr }} media="print">
