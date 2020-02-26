@@ -60,9 +60,13 @@ jobs:
         name: report
         path: './report'
 
-#    - name: Purge Cloudflare cache
-#      run: |
-#        curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" -H "X-Auth-Email: msfjarvis@gmail.com" -H "X-Auth-Key: ${CF_API_KEY}" -H "Content-Type: application/json" --data '{"purge_everything":true}'
-#      env:
-#        CF_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
-#        CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+  purge-cloudflare-cache:
+    runs-on: ubuntu-18.04
+    if: "contains(github.event.head_commit.message, '[purge cache]')"
+    steps:
+    - name: Purge Cloudflare cache
+      run: |
+        curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" -H "X-Auth-Email: msfjarvis@gmail.com" -H "X-Auth-Key: ${CF_API_KEY}" -H "Content-Type: application/json" --data '{"purge_everything":true}'
+      env:
+        CF_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+        CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
