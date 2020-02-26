@@ -1,4 +1,4 @@
-name: Hugo deployment and Lighthouse testing
+name: Deploy
 
 on:
   push:
