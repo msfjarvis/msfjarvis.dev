@@ -108,7 +108,7 @@ p {
 }
 
 strong {
-  color: #303030;
+  color: var(--strong-color);
 }
 
 

@@ -5,6 +5,7 @@
   --heading-color: #313131;
   --blockquote-color: #7a7a7a;
   --post-time-color: #757575;
+  --strong-color: #303030;
   --color-mode: 'light';
   --color-light: var(--background-color);
   --button-icon: var(--icon-moon);
@@ -28,6 +29,7 @@
     --heading-color: white;
     --blockquote-color: #bababa;
     --post-time-color: #bababa;
+    --strong-color: white;
     --color-mode: 'dark';
     --button-icon: var(--icon-sun);
     --button-icon-filter: var(--icon-sun-filter);
@@ -50,6 +52,7 @@
   --heading-color: white;
   --blockquote-color: #bababa;
   --post-time-color: #bababa;
+  --strong-color: white;
   --color-mode: 'dark';
   --button-icon: var(--icon-sun);
   --button-icon-filter: var(--icon-sun-filter);
