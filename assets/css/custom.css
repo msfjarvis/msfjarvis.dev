@@ -9,7 +9,6 @@
   --color-mode: 'light';
   --color-light: var(--background-color);
   --button-icon: var(--icon-moon);
-  --button-background: var(--sidebar-color);
   --button-icon-filter: var(--icon-moon-filter);
   --button-color: var(--color-dark);
   --icon-sun-filter: invert(0.61) sepia(0.8) saturate(5) hue-rotate(0deg) brightness(0.92);
@@ -33,7 +32,6 @@
     --color-mode: 'dark';
     --button-icon: var(--icon-sun);
     --button-icon-filter: var(--icon-sun-filter);
-    --button-background: var(--sidebar-color);
     --button-color: var(--color-dark);
     --border-color: var(--color-light-alpha);
     --toggle-button-label: "Disable dark mode";
@@ -56,7 +54,6 @@
   --color-mode: 'dark';
   --button-icon: var(--icon-sun);
   --button-icon-filter: var(--icon-sun-filter);
-  --button-background: var(--sidebar-color);
   --button-color: var(--color-dark);
   --border-color: var(--color-light-alpha);
   --toggle-button-label: "Disable dark mode";
@@ -133,7 +130,7 @@ div.tag-container {
 
 .toggle-button {
   display: inline-flex;
-  background: var(--button-background);
+  background: inherit;
   color: var(--button-color);
   border: none;
   font: inherit;
