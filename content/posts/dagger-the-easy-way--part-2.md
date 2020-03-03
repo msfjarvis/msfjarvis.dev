@@ -1,6 +1,6 @@
 +++
 categories = ["android"]
-date = 2020-01-31T11:18:15+05:30
+date = 2020-03-03T11:59:17+05:30
 draft = true
 slug = "dagger-the-easy-way--part-2"
 tags = ["android", "dagger", "tutorial"]
@@ -50,11 +50,11 @@ I'll do a small demo to show the difference between unscoped and singleton depen
 ```kotlin
 // AppComponent.kt
 
-data class Warrior(val name: String)
+data class Counter(val name: String)
 
 @Component(modules = [AppModule::class])
 interface AppComponent {
-  fun getWarrior(): Warrior
+  fun getCounter(): Counter
 }
 
 @Module
@@ -62,9 +62,9 @@ class AppModule {
   private var index = 0
 
   @Provides
-  fun provideWarrior(): Warrior {
+  fun provideCounter(): Counter {
     index++
-    return Warrior("Warrior $index")
+    return Counter("Counter $index")
   }
 }
 ```
@@ -72,16 +72,16 @@ class AppModule {
 These dependencies are all unscoped, along with the `AppComponent`. Knowing what we do about unscoped elements in a Dagger graph, predict the output of the following code:
 
 ```kotlin
-class WarriorApplication : Application() {
-  private val TAG = "WarriorApplication"
+class CounterApplication : Application() {
+  private val TAG = "CounterApplication"
 
   override fun onCreate() {
     super.onCreate()
     val appComponent = DaggerAppComponent.builder()
       .appModule(AppModule())
       .build()
-    Log.d(TAG, appComponent.getWarrior().name)
-    Log.d(TAG, appComponent.getWarrior().name)
+    Log.d(TAG, appComponent.getCounter().name)
+    Log.d(TAG, appComponent.getCounter().name)
   }
 }
 ```
@@ -89,50 +89,161 @@ class WarriorApplication : Application() {
 Running this on a device will print the following in your logcat
 
 ```kotlin
-D/WarriorApplication: Warrior 1
-D/WarriorApplication: Warrior 2
+D/CounterApplication: Counter 1
+D/CounterApplication: Counter 2
 ```
 
 Totally expected, because unscoped dependencies have no lifecycle in the component, and hence are created every time you ask for one. Let's make them all into Singletons and see how that changes things.
 
 ```diff
- data class Warrior(val name: String)
+ data class Counter(val name: String)
 
 +@Singleton
  @Component(modules = [AppModule::class])
  interface AppComponent {
-   fun getWarrior(): Warrior
+   fun getCounter(): Counter
 @@ -12,6 +13,7 @@ class AppModule {
    private var index = 0
 
    @Provides
 +  @Singleton
-   fun provideWarrior(): Warrior {
+   fun provideCounter(): Counter {
      index++
-     return Warrior("Warrior $index")
+     return Counter("Counter $index")
 ```
 
 Running the same code again, we get
 
 ```kotlin
-D/WarriorApplication: Warrior 1
-D/WarriorApplication: Warrior 1
+D/CounterApplication: Counter 1
+D/CounterApplication: Counter 1
 ```
 
 Notice that we were handed the same instance. This is the power of scoping. It lets us have singletons within the defined scope.
 
-Like Arun mentioned in the [additional notes](/posts/dagger-the-easy-way-part-1/#setting-up-the-object-graph) for the previous article, ensuring a singleton Component stays that way is the user's job. If you initialize the component again within the same scope, you'll get a new set of dependencies. That is part of why we store our component in the [Application](https://developer.android.com/reference/android/app/Application.html) class, because it is the singleton for our apps.
+Like Arun mentioned in the [additional notes](/posts/dagger-the-easy-way-part-1/#setting-up-the-object-graph) for the previous article, ensuring a singleton Component stays that way is the user's job. If you initialize the component again within the same scope, the new component instance will have a new set of instances. That is part of why we store our component in the [Application](https://developer.android.com/reference/android/app/Application.html) class, because it is the singleton for our apps.
 
 ## Creating our own scopes
 
+In its most basic form, a scope is an annotation class that itself has two annotations, `@Scope` and `@Retention`. Assuming we follow an MVP architecture (purely for nomenclature purposes, scoping is not necessarily tied to your architecture), let's create a scope for our `CounterPresenter`.
+
 ```kotlin
 @Scope
-@Retention
-annotation class ActivityScope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class CounterScreenScope
 ```
+
+Putting this annotation together with our presenter and our component, we get this:
+
+```kotlin
+class CounterPresenter(val counter: Counter)
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class CounterScreenScope
+
+@Module
+object CounterScreenModule {
+  @Provides
+  @CounterScreenScope
+  fun provideCounterPresenter(counter: Counter): CounterPresenter {
+    return CounterPresenter(counter)
+  }
+}
+
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent {
+  fun getCounter(): Counter
+  fun counterScreenComponent(counterScreenModule: CounterScreenModule) : CounterScreenComponent
+}
+
+@WarriorScreenScope
+@Subcomponent(modules = [CounterScreenModule::class])
+interface CounterScreenComponent {
+  fun inject(counterActivity: CounterActivity)
+}
+```
+
+Phew, a lot happened there. Let's break it down.
+
+```kotlin
+class CounterPresenter(val counter: Counter)
+```
+
+This is simply a class that represents our presenter. We don't care much for implementation details here, so the class does nothing.
+
+```kotlin
+@Module
+object CounterScreenModule {
+  @Provides
+  @CounterScreenScope
+  fun provideCounterPresenter(counter: Counter): CounterPresenter {
+    return CounterPresenter(counter)
+  }
+}
+```
+
+`CounterScreenModule` holds the provider method for our presenter. The method is annotated with `@CounterScreenScope` to indicate that we want to scope its lifetime to our screen.
+
+```kotlin
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent {
+  fun getCounter(): Counter
+  fun counterScreenComponent(counterScreenModule: CounterScreenModule) : CounterScreenComponent
+}
+```
+
+To our `AppComponent`, we've simply added a method to provide the `CounterScreenComponent`.
+
+```kotlin
+@WarriorScreenScope
+@Subcomponent(modules = [CounterScreenModule::class])
+interface CounterScreenComponent {
+  fun inject(counterActivity: CounterActivity)
+}
+```
+
+`CounterScreenComponent` is a [Subcomponent](https://dagger.dev/api/latest/dagger/Subcomponent.html). In simple, OOP terms, it's a Component that inherits from another Component. A Subcomponent can only have one parent, and the Subcomponent doesn't get to pick who, much like real life :P
+
+The parent Component is responsible for ensuring that all the dependencies of a Subcomponent are available, other than modules.
+
+## Putting it all together
+
+After setting up our Dagger graph, instantiating everything becomes pretty easy.
+
+```kotlin
+class CounterActivity : AppCompatActivity() {
+
+  private val TAG = "CounterActivity"
+
+  @Inject
+  lateinit var presenter: CounterPresenter
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+      setContentView(R.layout.activity_main)
+
+      val appComponent = DaggerAppComponent.builder()
+          .appModule(AppModule())
+          .build()
+
+      val counterScreenComponent = appComponent.counterScreenComponent(CounterScreenModule())
+      counterScreenComponent.inject(this)
+      Log.d(TAG, presenter.counter.name)
+    }
+}
+```
+
+Thanks to how our graph is laid out, it is very easy to get subcomponent instances from our parent components.
+
+## Closing Notes
+
+That's it for this tutorial! Scoping is a rather complex concept, and it took me a long (really, really long) time to grasp its concepts and put this together. Its perfectly fine to not understand it immediately, take your time, and refer to one of the reference articles that I used (listed below) to see if maybe their explanations work better for you. Dagger away!
 
 ### References
 
 - [Dagger 2: Scopes and Subcomponents](https://medium.com/tompee/dagger-2-scopes-and-subcomponents-d54d58511781)
 - [Dagger User's Guide](https://dagger.dev/users-guide)
-- [Dependency injection with Dagger 2 - Custom scopes](https://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/)
+- [Dependency injection with Dagger 2 - Custom scopes](https://mirekstanek.online/dependency-injection-with-dagger-2-custom-scopes/)
