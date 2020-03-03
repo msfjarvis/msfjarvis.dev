@@ -39,14 +39,14 @@ SELinux builds upon DAC-based restrictions and adds additional layers of restric
 
 Here's a sample denial that we'll attempt to resolve.
 
-```
+```java
 avc: denied { read write } for pid=29059 comm="i.tetherservice" name="ipa" dev="tmpfs" ino=11991
 scontext=u:r:system_app:s0 tcontext=u:object_r:ipa_dev:s0 tclass=chr_file permissive=0
 ```
 
 The policy rule to resolve it:
 
-```
+```java
 allow system_app ipa_dev:chr_file {read write};
 ```
 
