@@ -155,13 +155,16 @@ object CounterScreenModule {
 @Component(modules = [AppModule::class])
 interface AppComponent {
   fun getCounter(): Counter
-  fun counterScreenComponent(counterScreenModule: CounterScreenModule) : CounterScreenComponent
 }
 
 @WarriorScreenScope
 @Subcomponent(modules = [CounterScreenModule::class])
 interface CounterScreenComponent {
   fun inject(counterActivity: CounterActivity)
+  @Subcomponent.Factory
+  interface Factory {
+    fun create()
+  }
 }
 ```
 
