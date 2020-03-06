@@ -250,6 +250,56 @@ class MainActivity : AppCompatActivity() {
 
 Thanks to how our graph is laid out, it is very easy to get subcomponent instances from our parent components.
 
+## Alternative initialization
+
+We can also use a `@Subcomponent.Factory` for `CounterScreenComponent` to initialize it in a fashion similar to our `AppComponent` from the previous part. The diff from this change goes something like this:
+
+```diff
+diff --git app/src/main/java/dev/msfjarvis/daggertutorial/MainActivity.kt app/src/main/java/dev/msfjarvis/daggertutorial/MainActivity.kt
+index 4271d151da6e..425e8358902c 100644
+--- app/src/main/java/dev/msfjarvis/daggertutorial/MainActivity.kt
++++ app/src/main/java/dev/msfjarvis/daggertutorial/MainActivity.kt
+@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
+             .build()
+
+         val counterScreenComponent = appComponent
+-            .counterScreenComponent(CounterScreenModule())
++            .counterScreenComponentFactory
++            .create(CounterScreenModule())
+         counterScreenComponent.inject(this)
+         Log.d(TAG, presenter.counter.name)
+     }
+diff --git app/src/main/java/dev/msfjarvis/daggertutorial/di/AppComponent.kt app/src/main/java/dev/msfjarvis/daggertutorial/di/AppComponent.kt
+index 2fb831771ee8..72acea6f6f43 100644
+--- app/src/main/java/dev/msfjarvis/daggertutorial/di/AppComponent.kt
++++ app/src/main/java/dev/msfjarvis/daggertutorial/di/AppComponent.kt
+@@ -1,5 +1,6 @@
+ package dev.msfjarvis.daggertutorial.di
+
++import dagger.BindsInstance
+ import dagger.Component
+ import dagger.Module
+ import dagger.Provides
+@@ -28,12 +29,16 @@ class CounterScreenModule {
+ @Subcomponent(modules = [CounterScreenModule::class])
+ interface CounterScreenComponent {
+     fun inject(counterActivity: MainActivity)
++    @Subcomponent.Factory
++    interface Factory {
++        fun create(@BindsInstance counterScreenModule: CounterScreenModule): CounterScreenComponent
++    }
+ }
+
+ @Singleton
+ @Component(modules = [AppModule::class])
+ interface AppComponent {
+-    fun counterScreenComponent(counterScreenModule: CounterScreenModule): CounterScreenComponent
++    val counterScreenComponentFactory: CounterScreenComponent.Factory
+ }
+
+ @Module
+```
+
 ## Closing Notes
 
 That's it for this tutorial! Scoping is a rather complex concept, and it took me a long (really, really long) time to grasp its concepts and put this together. Its perfectly fine to not understand it immediately, take your time, and refer to one of the reference articles that I used (listed below) to see if maybe their explanations work better for you. Dagger away!
