@@ -1,12 +1,12 @@
 +++
 categories = ["android"]
-date = 2020-03-03T11:59:17+05:30
-draft = true
+date = 2020-03-06T11:04:05+05:30
 slug = "dagger-the-easy-way--part-2"
 tags = ["android", "dagger", "tutorial"]
 title = "Dagger the easy way - Part 2"
 description = "Let's extend the \"scope\" of these tutorials :)"
 socialImage = "uploads/dagger_made_easy_social.webp"
+devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-2-4p4m"
 +++
 
 Welcome back! In this post I'm taking a bit of detour from my planned schedule to write about **scoping**. We'll _definitely_ cover constructor injection in the next part :)
