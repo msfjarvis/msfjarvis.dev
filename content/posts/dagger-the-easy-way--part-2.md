@@ -11,6 +11,8 @@ socialImage = "uploads/dagger_made_easy_social.webp"
 
 Welcome back! In this post I'm taking a bit of detour from my planned schedule to write about **scoping**. We'll _definitely_ cover constructor injection in the next part :)
 
+> All the code from this post is available on GitHub: [msfjarvis/dagger-the-easy-way](https://github.com/msfjarvis/dagger-the-easy-way/commits/part-2)
+
 Dagger 2 provides `@Scope` as a mechanism to handle scoping. Scoping allows you to keep an object instance for the duration of your scope. This means that no matter how many times the object is requested from Dagger, it returns the same instance.
 
 ## Default scopes
