@@ -11,7 +11,7 @@ socialImage = "uploads/dagger_made_easy_social.webp"
 
 Welcome back! In this post I'm taking a bit of detour from my planned schedule to write about **scoping**. We'll _definitely_ cover constructor injection in the next part :)
 
-Dagger 2 provides `@Scope` as a mechanism to handle scoping. Scoping allows you to keep an object instance for the duration of your scope. This means that no matter how many times inject is called or the object is requested from Dagger, it returns the same instance.
+Dagger 2 provides `@Scope` as a mechanism to handle scoping. Scoping allows you to keep an object instance for the duration of your scope. This means that no matter how many times the object is requested from Dagger, it returns the same instance.
 
 ## Default scopes
 
@@ -133,17 +133,18 @@ In its most basic form, a scope is an annotation class that itself has two annot
 annotation class CounterScreenScope
 ```
 
-Putting this annotation together with our presenter and our component, we get this:
+Putting this annotation together with our presenter and our component, we finally get this:
 
 ```kotlin
-class CounterPresenter(val counter: Counter)
-
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
 annotation class CounterScreenScope
 
+data class Counter(val name: String)
+class CounterPresenter(val counter: Counter)
+
 @Module
-object CounterScreenModule {
+class CounterScreenModule {
   @Provides
   @CounterScreenScope
   fun provideCounterPresenter(counter: Counter): CounterPresenter {
@@ -151,19 +152,25 @@ object CounterScreenModule {
   }
 }
 
+@CounterScreenScope
+@Subcomponent(modules = [CounterScreenModule::class])
+interface CounterScreenComponent {
+  fun inject(counterActivity: MainActivity)
+}
+
 @Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
-  fun getCounter(): Counter
+  fun counterScreenComponent(counterScreenModule: CounterScreenModule): CounterScreenComponent
 }
 
-@WarriorScreenScope
-@Subcomponent(modules = [CounterScreenModule::class])
-interface CounterScreenComponent {
-  fun inject(counterActivity: CounterActivity)
-  @Subcomponent.Factory
-  interface Factory {
-    fun create()
+@Module
+class AppModule {
+  private var index = 0
+  @Provides
+  fun getCounter(): Counter {
+    index++
+    return Counter("Counter $index")
   }
 }
 ```
@@ -178,7 +185,7 @@ This is simply a class that represents our presenter. We don't care much for imp
 
 ```kotlin
 @Module
-object CounterScreenModule {
+class CounterScreenModule {
   @Provides
   @CounterScreenScope
   fun provideCounterPresenter(counter: Counter): CounterPresenter {
@@ -187,24 +194,23 @@ object CounterScreenModule {
 }
 ```
 
-`CounterScreenModule` holds the provider method for our presenter. The method is annotated with `@CounterScreenScope` to indicate that we want to scope its lifetime to our screen.
+`CounterScreenModule` holds the provider method for our presenter. The method is annotated with `@CounterScreenScope` to indicate that we want to scope its lifetime to our screen. Rather than being an `object` like our `AppModule`, it's a `class` because we need to instantiate it manually later.
 
 ```kotlin
 @Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
-  fun getCounter(): Counter
-  fun counterScreenComponent(counterScreenModule: CounterScreenModule) : CounterScreenComponent
+  fun counterScreenComponent(counterScreenModule: CounterScreenModule): CounterScreenComponent
 }
 ```
 
 To our `AppComponent`, we've simply added a method to provide the `CounterScreenComponent`.
 
 ```kotlin
-@WarriorScreenScope
+@CounterScreenScope
 @Subcomponent(modules = [CounterScreenModule::class])
 interface CounterScreenComponent {
-  fun inject(counterActivity: CounterActivity)
+  fun inject(counterActivity: MainActivity)
 }
 ```
 
@@ -217,9 +223,7 @@ The parent Component is responsible for ensuring that all the dependencies of a 
 After setting up our Dagger graph, instantiating everything becomes pretty easy.
 
 ```kotlin
-class CounterActivity : AppCompatActivity() {
-
-  private val TAG = "CounterActivity"
+class MainActivity : AppCompatActivity() {
 
   @Inject
   lateinit var presenter: CounterPresenter
@@ -229,13 +233,18 @@ class CounterActivity : AppCompatActivity() {
       setContentView(R.layout.activity_main)
 
       val appComponent = DaggerAppComponent.builder()
-          .appModule(AppModule())
-          .build()
+        .appModule(AppModule())
+        .build()
 
-      val counterScreenComponent = appComponent.counterScreenComponent(CounterScreenModule())
+      val counterScreenComponent = appComponent
+        .counterScreenComponent(CounterScreenModule())
       counterScreenComponent.inject(this)
       Log.d(TAG, presenter.counter.name)
-    }
+  }
+
+  companion object {
+    private const val TAG = "MainActivity"
+  }
 }
 ```
 
