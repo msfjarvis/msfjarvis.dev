@@ -1,1 +1,9 @@
-User-agent: * Disallow: 
+# Googlebot
+User-agent: Googlebot
+Disallow: /static/
+
+# Everybody else
+User-agent: *
+Allow: /
+
+Sitemap: https://msfjarvis.dev/sitemap.xml
