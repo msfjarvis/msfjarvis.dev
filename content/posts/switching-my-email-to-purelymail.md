@@ -56,7 +56,7 @@ I've been on PurelyMail for about a day now and poked around enough to have a co
 
 #### You pay for it
 
-By now everybody must have realized a simple fact: If you're not paying, you're the product. I do not wish to be a product. Your hard-earned money is more likely to keep companies from being shady than your emails. PurelyMail is a one man operation, which inspires more faith in me than Google's massive scale. Google does not care for a single user, PurelyMail will.
+By now everybody must have realized a simple fact: If you're not paying, you're the product. I do not wish to be a product. Your hard-earned money is more likely to keep companies from being shady than your emails. PurelyMail is a one man operation, which makes it more trustworthy to me than Google's massive scale. Google does not care for a single user, PurelyMail will.
 
 #### Transparency
 
