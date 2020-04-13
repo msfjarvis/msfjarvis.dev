@@ -1,7 +1,6 @@
 +++
 categories = ["email"]
 date = 2020-04-13T17:12:27+05:30
-draft = true
 slug = "switching-my-email-to-purelymail"
 tags = ["email", "purelymail"]
 title = "Switching my email to Purelymail"
