@@ -5,6 +5,7 @@ slug = "switching-my-email-to-purelymail"
 tags = ["email", "purelymail"]
 title = "Switching my email to Purelymail"
 description = "I recently moved from forwarding my email through Google to hosting it through Purelymail.com. Here are some thoughts about the process and the motivation behind it"
+devLink = "https://dev.to/msfjarvis/switching-my-email-to-purelymail-4l6i"
 +++
 
 Email is a very crucial part of my workflow, and I enjoy using it (and also why I'm beyond excited for what Basecamp has in store with [hey.com](https://hey.com)). I have switched emails a couple times over the many years I have had an internet presence, finally settling on {{< cloakemail "me@msfjarvis.dev" >}} when I bought my domain. There began the problem.
