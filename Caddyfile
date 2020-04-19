@@ -1,0 +1,48 @@
+(compression_config) {
+  gzip
+}
+
+(base_config) {
+  header / {
+    Content-Security-Policy "
+      base-uri 'none';
+      connect-src 'self' commento.msfjarvis.dev;
+      default-src 'none';
+      frame-ancestors 'none';
+      form-action 'self';
+      font-src 'self' data: fonts.gstatic.com commento.msfjarvis.dev;
+      img-src data: 'self' gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev;
+      object-src: 'none';
+      script-src 'self' commento.msfjarvis.dev;
+      style-src 'self' fonts.googleapis.com commento.msfjarvis.dev;
+    "
+    # Security related changes stolen from https://github.com/searx/searx-docker/blob/master/Caddyfile
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    X-XSS-Protection "1; mode=block"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "SAMEORIGIN"
+    Feature-Policy "accelerometer 'none';ambient-light-sensor 'none'; autoplay 'none';camera 'none';encrypted-media 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none'; speaker 'none';sync-xhr 'none';usb 'none';vr 'none'"
+    Referrer-Policy "no-referrer"
+  }
+}
+
+(proxy_config) {
+  try_duration 5s
+  transparent
+}
+
+:2015 {
+  tls off
+  import base_config
+  import compression_config
+  proxy / http://localhost:1313 {
+    import proxy_config
+  }
+}
+
+:2016 {
+  tls off
+  import base_config
+  import compression_config
+  root public
+}
