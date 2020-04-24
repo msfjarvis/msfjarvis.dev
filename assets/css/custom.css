@@ -4,6 +4,8 @@
   --text-color: #515151;
   --heading-color: #313131;
   --blockquote-color: #7a7a7a;
+  --inline-code-text-color: #b3555e;
+  --inline-code-background-color: #f9f9f9;
   --post-time-color: #757575;
   --strong-color: #303030;
   --code-background-color: #202020;
@@ -28,6 +30,8 @@
     --text-color: #f0f0f0;
     --heading-color: white;
     --blockquote-color: #bababa;
+    --inline-code-text-color: #b3555e;
+    --inline-code-background-color: #202020;
     --post-time-color: #bababa;
     --code-background-color: #000000;
     --strong-color: white;
@@ -51,6 +55,8 @@
   --text-color: #f0f0f0;
   --heading-color: white;
   --blockquote-color: #bababa;
+  --inline-code-text-color: #de4755;
+  --inline-code-background-color: #202020;
   --post-time-color: #bababa;
   --code-background-color: #000000;
   --strong-color: white;
