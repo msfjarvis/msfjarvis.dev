@@ -1,7 +1,6 @@
 +++
 title = "Uses"
 draft = true
-id = "uses"
 type = "standalone"
 layout = "standalone"
 +++
@@ -21,7 +20,18 @@ I also tend to use [nano](https://www.nano-editor.org/) for quick edits on the t
 
 ## Hardware
 
+### PC
+
 - CPU: Ryzen 5 1600 (6c/12t) @ 3.2 GHz
 - GPU: Nvidia GeForce GT 710
 - RAM: 8 + 8 (Kingston Value DDR4) + 16 (Kingston HyperX)
 - Motherboard: ASRock A320M Pro4
+
+### Laptop
+
+Lenovo IdeaPad 330-15ARR with a Ryzen 3 2200U CPU and Vega 3 graphics.
+
+### Phones
+
+- 128GB Google Pixel 2 running the latest stable release or developer preview of Android depending on what's newer
+- 64 GB Samsung M30s running OneUI 2.0 based on Android 10
