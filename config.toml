@@ -16,5 +16,6 @@ author = "Harsh Shandilya"
 [Menus]
   main = [
       {Name = "About", URL = "/about", Weight = 1},
-      {Name = "Projects", URL = "/projects", Weight = 2},
+      {Name = "Uses", URL = "/uses", Weight = 2},
+      {Name = "Projects", URL = "/projects", Weight = 3},
   ]
