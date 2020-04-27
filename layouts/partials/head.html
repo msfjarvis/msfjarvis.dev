@@ -19,18 +19,18 @@
   {{ $syntax := resources.Get "css/syntax.css" | resources.ExecuteAsTemplate "syntax.css" . }}
   {{ $custom := resources.Get "css/custom.css" | resources.ExecuteAsTemplate "custom.css" . }}
   {{ $styles := slice $poole $hyde $syntax $custom | resources.Concat "css/styles.css" | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $fonts.RelPermalink }}" {{ printf "integrity=%q" $fonts.Data.Integrity | safeHTMLAttr }}>
-  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" {{ printf "integrity=%q" $styles.Data.Integrity | safeHTMLAttr }}>
-  <link rel="stylesheet" href="{{ $print.RelPermalink }}" {{ printf "integrity=%q" $print.Data.Integrity | safeHTMLAttr }} media="print">
+  <link rel="stylesheet" type="text/css" href="{{ $fonts.RelPermalink }}" {{ printf "integrity=%q" $fonts.Data.Integrity | safeHTMLAttr }}>
+  <link rel="stylesheet" type="text/css" href="{{ $styles.RelPermalink }}" {{ printf "integrity=%q" $styles.Data.Integrity | safeHTMLAttr }}>
+  <link rel="stylesheet" type="text/css" href="{{ $print.RelPermalink }}" {{ printf "integrity=%q" $print.Data.Integrity | safeHTMLAttr }} media="print">
 
   <!-- PWA -->
   <meta name="theme-color" content="#212121" />
-  <link rel="apple-touch-icon" href="{{ .Site.BaseURL}}apple-touch-icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="{{ .Site.BaseURL}}apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ .Site.BaseURL}}favicon-32x32.webp">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ .Site.BaseURL}}favicon-16x16.webp">
 
   <!-- Icons -->
-  <link rel="shortcut icon" href="{{ .Site.BaseURL }}favicon-32x32.webp">
+  <link rel="shortcut icon" type="image/webp" href="{{ .Site.BaseURL }}favicon-32x32.webp">
 
   <!-- RSS etc -->
   {{ range .AlternativeOutputFormats -}}
