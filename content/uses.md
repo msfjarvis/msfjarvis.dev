@@ -5,8 +5,6 @@ type = "standalone"
 layout = "standalone"
 +++
 
-This website is built with [Hugo](https://github.com/gohugoio/hugo), deployed continuously by [GitHub Actions](https://github.com/features/actions) and served by [Caddy](https://caddyserver.com) behind [Cloudflare](https://cloudflare.com). I use a mix of local editing and the [Forestry](https://forestry.io) CMS for managing the content on the site.
-
 ## Editor + Terminal
 
 I use the `gnome-terminal` that ships with Linux Mint's Cinnamon Edition with `bash` and a custom prompt from [starship](https://starship.rs). The editor I use depends on what code I am working with:
@@ -16,7 +14,21 @@ I use the `gnome-terminal` that ships with Linux Mint's Cinnamon Edition with `b
 - Android: Android Studio
 - Kotlin (outside Android): IntelliJ IDEA
 
-I also tend to use [nano](https://www.nano-editor.org/) for quick edits on the terminal.
+I also tend to use [nano](https://www.nano-editor.org/) for quick edits on the terminal. Fight me.
+
+### CLI tooling
+
+My love for Rust extends deep into the CLI, and a lot of GNU tools are replaced with their Rust reimplementations for better performance and useful features. Notably, the replacements are:
+
+| GNU version | Rust version | Link                                            |
+| ----------- | ------------ | ----------------------------------------------- |
+| `cat`       | `bat`        | [GitHub](https://github.com/sharkdp/bat)        |
+| `cd`        | `zoxide`     | [GitHub](https://github.com/ajeetdsouza/zoxide) |
+| `du`        | `diskus`     | [GitHub](https://github.com/sharkdp/)           |
+| `find`      | `fd`         | [GitHub](https://github.com/sharkdp/fd)         |
+| `grep`      | `ripgrep`    | [GitHub](https://github.com/BurntSushi/ripgrep) |
+
+I have begun using [Homebrew](https://brew.sh) to maintain software on my machines so you can see most stuff I have on my PC in this [Brewfile](https://github.com/msfjarvis/dotfiles/blob/master/homebrew/Brewfile).
 
 ## Hardware
 
