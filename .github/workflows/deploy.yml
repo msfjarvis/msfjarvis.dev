@@ -34,7 +34,9 @@ jobs:
 
     - name: Build prod
       if: "!contains(github.event.head_commit.message, '[skip prod]')"
-      run: hugo --minify
+      run: |
+        rm -rf public/
+        hugo --minify
 
     - name: Deploy to prod
       if: "!contains(github.event.head_commit.message, '[skip prod]')"
