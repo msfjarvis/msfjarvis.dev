@@ -27,7 +27,7 @@ My love for Rust extends deep into the CLI, and a lot of GNU tools are replaced 
 | `find`      | `fd`         | [GitHub](https://github.com/sharkdp/fd)         |
 | `grep`      | `ripgrep`    | [GitHub](https://github.com/BurntSushi/ripgrep) |
 
-I have begun using [Homebrew](https://brew.sh) to maintain software on my machines so you can see most stuff I have on my PC in this [Brewfile](https://github.com/msfjarvis/dotfiles/blob/master/homebrew/Brewfile).
+~~I have begun using [Homebrew](https://brew.sh) to maintain software on my machines so you can see most stuff I have on my PC in this [Brewfile](https://github.com/msfjarvis/dotfiles/blob/master/homebrew/Brewfile).~~ I now officially despise Homebrew, and use [Nix](https://nixos.org/nix/) instead. Yes, I'm fickle, how'd you guess?
 
 ## Hardware
 
