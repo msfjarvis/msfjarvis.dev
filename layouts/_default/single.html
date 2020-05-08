@@ -8,10 +8,6 @@
     {{- end -}}
   </p>
   <div class="tag-container">
-  Tags:
-    {{ range .Params.tags }}
-    <a class="tag" href="{{ "tags/" | absLangURL }}{{ . | urlize }}" target="_blank">#{{.}}</a>
-    {{ end }}
   </div>
   {{- with .Content -}}
     {{ . | replaceRE "(<h[1-2] id=\"([^\"]+)\".+)(</h[1-9]+>)" `<a href="#${2}" class="heading-anchor" ariaLabel="Anchor"> ${1}</a> ${3}` | safeHTML }}
