@@ -1,7 +1,6 @@
 +++
 categories = ["webdev"]
 date = 2020-05-08T21:42:38+05:30
-draft = true
 slug = "how-cloudflare-proxies-cname-records"
 tags = ["#100DaysToOffload", "cloudflare"]
 title = "How Cloudflare proxies CNAME records"
