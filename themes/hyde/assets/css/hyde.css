@@ -141,6 +141,12 @@ a.sidebar-nav-item:focus {
   }
 }
 
+@media (min-width: 50em) {
+  .content {
+    margin-left: 22rem;
+    margin-right: 10rem;
+  }
+}
 
 /*
  * Reverse layout
