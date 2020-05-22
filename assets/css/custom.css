@@ -9,7 +9,6 @@
   --post-time-color: #757575;
   --strong-color: #303030;
   --code-background-color: #202020;
-  --color-mode: 'light';
   --color-light: var(--background-color);
   --button-icon: var(--icon-moon);
   --button-icon-filter: var(--icon-moon-filter);
@@ -26,32 +25,6 @@
   --sans-font: -apple-system,BlinkMacSystemFont,"avenir next",avenir,helvetica,"helvetica neue",ubuntu,roboto,noto,"segoe ui",arial,sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-user-color-scheme]) {
-    --sidebar-color: #121212;
-    --background-color: #202020;
-    --text-color: #f0f0f0;
-    --heading-color: white;
-    --blockquote-color: #bababa;
-    --inline-code-text-color: #f82439;
-    --inline-code-background-color: #202020;
-    --post-time-color: #bababa;
-    --code-background-color: #000000;
-    --strong-color: white;
-    --color-mode: 'dark';
-    --button-icon: var(--icon-sun);
-    --button-icon-filter: var(--icon-sun-filter);
-    --button-color: var(--color-dark);
-    --border-color: var(--color-light-alpha);
-    --toggle-button-label: "Disable dark mode";
-  }
-
-  .link {
-    color: #0091ff;
-    text-decoration: none;
-  }
-}
-
 [data-user-color-scheme='dark'] {
   --sidebar-color: #121212;
   --background-color: #202020;
@@ -63,7 +36,6 @@
   --post-time-color: #bababa;
   --code-background-color: #000000;
   --strong-color: white;
-  --color-mode: 'dark';
   --button-icon: var(--icon-sun);
   --button-icon-filter: var(--icon-sun-filter);
   --button-color: var(--color-dark);
