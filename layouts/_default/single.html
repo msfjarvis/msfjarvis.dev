@@ -9,9 +9,7 @@
   </p>
   <div class="tag-container">
   </div>
-  {{- with .Content -}}
-    {{ . | replaceRE "(<h[1-2] id=\"([^\"]+)\".+)(</h[1-9]+>)" `<a href="#${2}" class="heading-anchor" ariaLabel="Anchor"> ${1}</a> ${3}` | safeHTML }}
-  {{- end -}}
+  {{ .Content }}
 </div>
 
 {{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not .Site.IsServer)) -}}
