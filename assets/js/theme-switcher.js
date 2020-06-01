@@ -47,3 +47,11 @@ const toggleSetting = () => {
     });
 });
 applySetting();
+BLMBadge.init({
+    layout: 1,
+    theme: 'dark',
+    promoText: 'Send a donation ' + String.fromCodePoint(0x2192),
+    promoLink: 'https://minnesotafreedomfund.org/',
+    message: 'To be silent is to be complicit. Black lives matter.',
+    title: '#BlackLivesMatter',
+});

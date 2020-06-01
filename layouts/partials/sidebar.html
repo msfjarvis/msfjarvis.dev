@@ -28,6 +28,8 @@
       <h6 class="dark-theme-label"></h6>
     </div>
   </div>
+  {{ $blmbadge := resources.Get "js/blmbadge.js" | resources.ExecuteAsTemplate "js/blmbadge.js" . | minify | fingerprint }}
   {{ $themeSwitcher := resources.Get "js/theme-switcher.js" | resources.ExecuteAsTemplate "js/theme-switcher.js" . | minify | fingerprint }}
+  <script type="text/javascript" src="{{ $blmbadge.RelPermalink }}" {{ printf "integrity=%q" $blmbadge.Data.Integrity | safeHTMLAttr }}></script>
   <script type="text/javascript" src="{{ $themeSwitcher.RelPermalink }}" {{ printf "integrity=%q" $themeSwitcher.Data.Integrity | safeHTMLAttr }}></script>
 </aside>
