@@ -1,3 +1,4 @@
+const COLOR_MODE_KEY = '--color-mode';
 const STORAGE_KEY = 'user-color-scheme';
 const modeToggleButtonMobile = document.querySelector('.js-mode-toggle');
 const modeToggleButtonDesktop = document.querySelector(
@@ -13,12 +14,21 @@ const applySetting = (passedSetting) => {
         );
     }
 };
+const getCSSCustomProp = (propKey) => {
+    let response = getComputedStyle(document.documentElement).getPropertyValue(
+        propKey
+    );
+    if (response.length) {
+        response = response.replace(/\"/g, '').trim();
+    }
+    return response;
+};
 const toggleSetting = () => {
     let currentSetting = localStorage.getItem(STORAGE_KEY);
     switch (currentSetting) {
         case null:
-            const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            currentSetting = userPrefersDark ? 'dark' : 'light';
+            currentSetting =
+                getCSSCustomProp(COLOR_MODE_KEY) === 'dark' ? 'light' : 'dark';
             break;
         case 'light':
             currentSetting = 'dark';
