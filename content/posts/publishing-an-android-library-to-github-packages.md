@@ -8,6 +8,9 @@ description = "GitHub recently rolled out Packages to the general public, allowi
 devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
 socialImage = "uploads/github_packages_social.webp"
 +++
+
+>UPDATE(06/06/2020): The Android Gradle Plugin supports the Gradle Maven Publish plugin beginning version 4.0.0, so I've added the new process for this at the beginning of this guide. The previous post follows that section.
+
 GitHub released the Package Registry beta in May of this year, and graduated it to public availability in Universe 2019, rebranded as [GitHub Packages](https://github.com/features/packages "GitHub Packages"). It supports NodeJS, Docker, Maven, Gradle, NuGet, and RubyGems. That's a LOT of ground covered for a service that's about one year old.
 
 Naturally, I was excited to try this out. The [documentation](https://help.github.com/en/github/managing-packages-with-github-packages/about-github-packages) is by no means lacking, but the [official instructions](https://help.github.com/en/github/managing-packages-with-github-packages/configuring-gradle-for-use-with-github-packages) for using Packages with Gradle do not work for Android libraries. To make it compatible with Android libraries, some small but non-obvious edits are needed which I've documented here for everybody's benefit.
@@ -17,6 +20,50 @@ Naturally, I was excited to try this out. The [documentation](https://help.githu
 I've also created a [sample repository](https://github.com/msfjarvis/github-packages-deployment-sample/) with incremental commits corresponding to the steps given below, for people who prefer to see the code directly.
 
 NB: Grab a Personal Access Token from GitHub with the `write:packages` scope. You will be using this as authentication to deploy packages. I'll not delve deep into this, a Google search will point you in the right direction if you're not familiar with how to obtain one.
+
+>UPDATE(06/06/2020): The Android Gradle Plugin supports the Gradle Maven Publish plugin beginning version 4.0.0, so I've added the new process for this at the beginning of this guide. The previous post follows.
+
+### New deployment steps
+
+Since the `maven-publish` plugin now works with Android libraries, all you need to do is ensure you're on Gradle 6.5 and AGP 4.0.0, then configure as follows.
+
+```groovy
+apply plugin: 'maven-publish'
+
+afterEvaluate {
+  publishing {
+    repositories {
+      maven {
+        name = "GitHubPackages"
+          url = uri("https://maven.pkg.github.com/msfjarvis/github-packages-deployment-sample")
+          credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
+         }
+      }
+    }
+    publications {
+      release(MavenPublication) {
+        from components.release
+        groupId = "$GROUP"
+        artifactId = "deployment-sample-library"
+        version = "$VERSION"
+      }
+    }
+  }
+}
+```
+
+You still need to set some properties in `gradle.properties`
+
+```groovy
+GROUP=msfjarvis
+VERSION=0.1.0-SNAPSHOT
+```
+
+And that should be it! You can check the migration commit [here](https://github.com/msfjarvis/github-packages-deployment-sample/commit/260fd3154fd393d3969afd048dc2c77d03619b1d).
+
+### The old steps are as follows
 
 #### Step 1
 
