@@ -21,8 +21,6 @@ I've also created a [sample repository](https://github.com/msfjarvis/github-pack
 
 NB: Grab a Personal Access Token from GitHub with the `write:packages` scope. You will be using this as authentication to deploy packages. I'll not delve deep into this, a Google search will point you in the right direction if you're not familiar with how to obtain one.
 
->UPDATE(06/06/2020): The Android Gradle Plugin supports the Gradle Maven Publish plugin beginning version 4.0.0, so I've added the new process for this at the beginning of this guide. The previous post follows.
-
 ### New deployment steps
 
 Since the `maven-publish` plugin now works with Android libraries, all you need to do is ensure you're on Gradle 6.5 and AGP 4.0.0, then configure as follows.
