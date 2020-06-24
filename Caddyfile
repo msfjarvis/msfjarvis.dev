@@ -5,23 +5,23 @@
 (base_config) {
   header / {
     Content-Security-Policy "
-      base-uri 'none';
+      base-uri 'self';
       connect-src 'self' commento.msfjarvis.dev;
-      default-src 'none';
+      default-src 'self';
       frame-ancestors 'none';
-      form-action 'self';
-      font-src 'self' data: fonts.gstatic.com commento.msfjarvis.dev;
-      img-src data: 'self' gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev;
-      object-src: 'none';
-      script-src 'self' commento.msfjarvis.dev;
-      style-src 'self' fonts.googleapis.com commento.msfjarvis.dev;
+      frame-src https://github.com;
+      font-src 'self' data: commento.msfjarvis.dev stackpath.bootstrapcdn.com;
+      img-src 'self' data: gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev *.amazonaws.com;
+      object-src 'none';
+      script-src 'self' commento.msfjarvis.dev 'unsafe-inline';
+      style-src 'self' commento.msfjarvis.dev stackpath.bootstrapcdn.com 'unsafe-inline';
     "
     # Security related changes stolen from https://github.com/searx/searx-docker/blob/master/Caddyfile
     Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     X-XSS-Protection "1; mode=block"
     X-Content-Type-Options "nosniff"
     X-Frame-Options "SAMEORIGIN"
-    Feature-Policy "accelerometer 'none';ambient-light-sensor 'none'; autoplay 'none';camera 'none';encrypted-media 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none'; speaker 'none';sync-xhr 'none';usb 'none';vr 'none'"
+    Feature-Policy "accelerometer 'none'; autoplay 'none';camera 'none';encrypted-media 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none';sync-xhr 'none';usb 'none'"
     Referrer-Policy "no-referrer"
   }
 }
