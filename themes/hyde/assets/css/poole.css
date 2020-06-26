@@ -28,6 +28,7 @@
  * Themes
  */
 
+
 /*
  * Body resets
  *
@@ -58,8 +59,8 @@ html {
 }
 
 body {
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: #515151;
+  background-color: #fff;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
@@ -71,10 +72,53 @@ a {
   text-decoration: none;
 }
 
+.hanchor {
+  color: inherit;
+}
+
 /* `:focus` is linked to `:hover` for basic accessibility */
 a:hover,
 a:focus {
   text-decoration: underline;
+}
+
+div.image_caption {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #cccccc;
+  text-align: center;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.tag {
+  color: #757575;
+}
+
+div.tag-container {
+  width: fit-content(300px);
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: 0rem;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.tag-button {
+  background-color: #202020;
+  border: none;
+  color: white;
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius:8px;
 }
 
 /* Headings */
@@ -82,7 +126,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5rem;
   font-weight: bold;
   line-height: 1.25;
-  color: var(--heading-color);
+  color: #313131;
   text-rendering: optimizeLegibility;
 }
 h1 {
@@ -108,7 +152,7 @@ p {
 }
 
 strong {
-  color: var(--strong-color);
+  color: #303030;
 }
 
 
@@ -153,8 +197,8 @@ pre {
 code {
   padding: .25em .5em;
   font-size: 85%;
-  color: var(--inline-code-text-color);
-  background-color: var(--inline-code-background-color);
+  color: #b3555e;
+  background-color: #f9f9f9;
   border-radius: 3px;
 }
 pre {
@@ -168,7 +212,7 @@ pre {
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: var(--inline-code-background-color);
+  background-color: #f9f9f9;
 }
 pre code {
   padding: 0;
@@ -188,7 +232,7 @@ pre code {
 blockquote {
   padding: .5rem 1rem;
   margin: .8rem 0;
-  color: var(--blockquote-color);
+  color: #7a7a7a;
   border-left: .25rem solid #e5e5e5;
 }
 blockquote p:last-child {
@@ -305,7 +349,7 @@ th {
 .page-title,
 .post-title,
 .post-title a {
-  color: var(--heading-color);
+  color: #303030;
 }
 .page-title,
 .post-title {
@@ -317,7 +361,7 @@ th {
   display: block;
   margin-top: -.5rem;
   margin-bottom: 1rem;
-  color: var(--post-time-color);
+  color: #757575;
 }
 
 /* Related posts */

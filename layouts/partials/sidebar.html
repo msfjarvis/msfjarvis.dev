@@ -1,14 +1,7 @@
 <aside class="sidebar">
-  <div class="user-toggle-desktop">
-    <button class="toggle-button js-mode-toggle-desktop" aria-label="Dark theme switch">
-      <span class="toggle-button__icon" aria-hidden="true"></span>
-    </button>
-    <h6 class="dark-theme-label"></h6>
-  </div>
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <a href="{{ .Site.BaseURL }}"><h1>{{ .Site.Title }}</h1></a>
-      <iframe src="https://github.com/sponsors/msfjarvis/card" title="Sponsor msfjarvis" height="225" width="300" style="border: 0;"></iframe>
     </div>
 
     <nav>
@@ -19,15 +12,7 @@
         {{- end }}
       </ul>
     </nav>
-    <div class="user-toggle">
-      <button class="toggle-button js-mode-toggle" aria-label="Dark theme switch">
-        <span class="toggle-button__icon" aria-hidden="true"></span>
-      </button>
-      <h6 class="dark-theme-label"></h6>
-    </div>
   </div>
   {{ $blmbadge := resources.Get "js/blmbadge.js" | resources.ExecuteAsTemplate "js/blmbadge.js" . | minify | fingerprint }}
-  {{ $themeSwitcher := resources.Get "js/theme-switcher.js" | resources.ExecuteAsTemplate "js/theme-switcher.js" . | minify | fingerprint }}
   <script type="text/javascript" src="{{ $blmbadge.RelPermalink }}" {{ printf "integrity=%q" $blmbadge.Data.Integrity | safeHTMLAttr }}></script>
-  <script type="text/javascript" src="{{ $themeSwitcher.RelPermalink }}" {{ printf "integrity=%q" $themeSwitcher.Data.Integrity | safeHTMLAttr }}></script>
 </aside>
