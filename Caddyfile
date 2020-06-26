@@ -9,7 +9,7 @@
       connect-src 'self' commento.msfjarvis.dev;
       default-src 'self';
       frame-ancestors 'none';
-      frame-src https://github.com;
+      frame-src github.com;
       font-src 'self' data: commento.msfjarvis.dev stackpath.bootstrapcdn.com;
       img-src 'self' data: gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev *.amazonaws.com;
       object-src 'none';
