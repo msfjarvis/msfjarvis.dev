@@ -1,4 +1,4 @@
 <div class="image-caption">
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" />
-  <p>{{ .Text }}</p>
+  <img src="{{ .Destination | safeURL }}" alt="{{ .Text | safeHTML }}" />
+  <p>{{ .Text | safeHTML }}</p>
 </div>
