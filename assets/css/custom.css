@@ -24,3 +24,9 @@ div.tag-container {
 .heading-anchor {
   color: inherit;
 }
+
+pre.chroma {
+  padding: 30px;
+  margin: 10px;
+  border: 2px solid #cccccc;
+}
