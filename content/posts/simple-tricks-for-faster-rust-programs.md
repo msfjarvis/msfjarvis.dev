@@ -36,7 +36,9 @@ Note that this alone is not guaranteed to be helpful, and a lot of programs see 
 
 ## Cows!
 
-Rustaceans [love their cows](https://www.reddit.com/r/rust/comments/8o1pxh/the_secret_life_of_cows/).
+Rustaceans [love their cows](https://www.reddit.com/r/rust/comments/8o1pxh/the_secret_life_of_cows/). It's one of the most underrated APIs in the Rust stdlib. It's secret is relatively simple - it's a smart copy-on-write pointer. Or well, a smart clone-on-write pointer, as copy means something different in Rust.
+
+Given a data wrapped in a `std::borrow::Cow`, you can avoid cloning the data if you only want immutable read access, which saves memory and improves runtime performance as well. Over a large codebase, these savings pile up to create a noticeable enough difference.
 
 
 # References
