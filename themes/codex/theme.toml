@@ -1,0 +1,15 @@
+# theme.toml template for a Hugo theme
+# See https://github.com/gohugoio/hugoThemes#themetoml for an example
+
+name = "Codex"
+license = "MIT"
+licenselink = "https://github.com/jakewies/hugo-theme-codex/blob/master/LICENSE.md"
+description = "A minimal blog theme for hugo"
+homepage = "https://github.com/jakewies/hugo-theme-codex"
+tags = ["website", "starter", "blog"]
+features = ["blog"]
+min_version = "0.72.0"
+
+[author]
+  name = "Jake Wiesler"
+  homepage = "https://jakewiesler.com"
