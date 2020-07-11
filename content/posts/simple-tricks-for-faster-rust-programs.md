@@ -1,7 +1,6 @@
 +++
 categories = ["rust", "dev"]
 date = 2020-07-05T15:21:50
-draft = true
 slug = "simple-tricks-for-faster-rust-programs"
 tags = ["rust", "dev", "perf"]
 title = "Simple tricks for faster Rust programs"
