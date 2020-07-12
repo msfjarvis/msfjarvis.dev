@@ -20,7 +20,7 @@
               {{ end }}
           </article>
           {{ partial "tags.html" .}} {{ partial "post-pagination.html" .}}
-          {{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not .Site.IsServer)) -}}
+          {{ if and .Site.Params.CommentoURL -}}
           <h2>Comments</h2>
           {{ partialCached "commento.html" . }}
           {{- end }}
