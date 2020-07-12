@@ -6,7 +6,7 @@ pygmentsUseClasses = true
 author = "Harsh Shandilya"
 
 [params]
-  description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
+  description = "Android developer, Kotlin fanatic and wannabe Rustacean"
   keywords = "homepage, blog, android, kotlin, programming"
   twitterUsername = "@msf_jarvis"
   socialImage = "android-chrome-512x512.webp"
