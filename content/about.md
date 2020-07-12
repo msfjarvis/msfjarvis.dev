@@ -1,6 +1,8 @@
 +++
 title = "About Me"
 id = "about"
+type = "standalone"
+layout = "standalone"
 aliases = [
     "/about",
     "/contact",
