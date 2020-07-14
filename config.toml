@@ -11,7 +11,7 @@ author = "Harsh Shandilya"
   twitterUsername = "@msf_jarvis"
   socialImage = "android-chrome-512x512.webp"
   contentTypeName = "posts"
-  commentoURL = "https://commento.msfjarvis.dev"
+#  commentoURL = "https://commento.msfjarvis.dev"
 
 [[menu.main]]
   identifier = "about"
