@@ -1,7 +1,7 @@
 <ul class="tags__list">
-  {{ range $category, $value := $.Site.Taxonomies.categories }}
+  {{ range $tag, $value := $.Site.Taxonomies.tags }}
   <li class="tag__item">
-    <a class="tag__link" href="{{ "/categories/" | relLangURL}}{{ $category | urlize }}">{{ $category | urlize }} ({{ len $value }})</a>
+    <a class="tag__link" href="{{ "/tags/" | relLangURL}}{{ $tag | urlize }}">{{ $tag | urlize }} ({{ len $value }})</a>
   </li>
   {{ end }}  
 </ul>
