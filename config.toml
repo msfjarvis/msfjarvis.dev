@@ -2,7 +2,6 @@ baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
 theme = ["hugo-cloak-email", "hugo-social-metadata", "codex"]
-pygmentsUseClasses = true
 author = "Harsh Shandilya"
 
 [params]
