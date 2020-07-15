@@ -1,0 +1,36 @@
+{
+  "name": "hugo-theme-codex",
+  "version": "1.5.0",
+  "author": "Jake Wiesler",
+  "description": "A minimal blog theme for Hugo",
+  "license": "MIT",
+  "scripts": {
+    "develop": "hugo server -s ./exampleSite/",
+    "build:example": "hugo -s ./exampleSite/",
+    "format": "prettier ./ --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": ">=10",
+    "prettier": "^2.0.5"
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 2%"
+  ],
+  "homepage": "https://github.com/jakewies/hugo-theme-codex",
+  "bugs": "https://github.com/jakewies/hugo-theme-codex/issues",
+  "keywords": [
+    "hugo",
+    "blog",
+    "go"
+  ],
+  "lint-staged": {
+    "*.{js,css,scss}": "prettier --write"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jakewies",
+      "name": "Jake Wiesler",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/12075916?v=4",
+      "profile": "https://www.jakewiesler.com",
+      "contributions": [
+        "code",
+        "design",
+        "doc"
+      ]
+    },
+    {
+      "login": "chuxinh",
+      "name": "Chuxin Huang",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/30974572?v=4",
+      "profile": "https://www.chuxinhuang.com/",
+      "contributions": [
+        "doc",
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "kentnek",
+      "name": "Kent",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7024160?v=4",
+      "profile": "https://kentnek.com",
+      "contributions": [
+        "code",
+        "doc",
+        "design"
+      ]
+    },
+    {
+      "login": "somaniarushi",
+      "name": "Arushi Somani",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/54224195?v=4",
+      "profile": "https://github.com/somaniarushi",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "xvallspl",
+      "name": "Xavier Valls",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/867299?v=4",
+      "profile": "https://github.com/xvallspl",
+      "contributions": [
+        "doc",
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "pyvain",
+      "name": "Pyvain",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2924494?v=4",
+      "profile": "https://github.com/pyvain",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "jlebar",
+      "name": "Justin Lebar",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/150663?v=4",
+      "profile": "http://jlebar.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "aareet",
+      "name": "Aareet Shermon",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33654?v=4",
+      "profile": "https://www.aareet.com",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "dgnicholson",
+      "name": "dgnicholson",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6208288?v=4",
+      "profile": "https://github.com/dgnicholson",
+      "contributions": [
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "hugo-theme-codex",
+  "projectOwner": "jakewies",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
