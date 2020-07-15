@@ -19,8 +19,11 @@
                   {{ partial "math.html" . }}
               {{ end }}
           </article>
-          {{ partial "tags.html" .}} {{ partial "post-pagination.html" .}}
-          {{ template "_internal/disqus.html" . }}
+          {{ partial "tags.html" .}}
+          {{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not .Site.IsServer)) -}}
+          {{ partialCached "commento.html" . }}
+          {{- end }}
+          {{ partial "post-pagination.html" .}}
           <footer class="post__footer">
             {{ partial "social-icons.html" .}}
             <p>{{ replace .Site.Copyright "{year}" now.Year }}</p>
