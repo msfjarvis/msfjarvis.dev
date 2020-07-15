@@ -9,12 +9,12 @@
       connect-src 'self' commento.msfjarvis.dev;
       default-src 'self';
       frame-ancestors 'none';
-      frame-src github.com;
+      frame-src 'none';
       font-src 'self' data: commento.msfjarvis.dev stackpath.bootstrapcdn.com;
-      img-src 'self' data: gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev *.amazonaws.com;
+      img-src 'self' data: gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev;
       object-src 'none';
-      script-src 'self' commento.msfjarvis.dev 'unsafe-inline';
-      style-src 'self' commento.msfjarvis.dev stackpath.bootstrapcdn.com 'unsafe-inline';
+      script-src 'self' commento.msfjarvis.dev unpkg.com;
+      style-src 'self' commento.msfjarvis.dev stackpath.bootstrapcdn.com;
     "
     # Security related changes stolen from https://github.com/searx/searx-docker/blob/master/Caddyfile
     Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
