@@ -3,11 +3,12 @@ name: Deploy
 on:
   push:
     branches:
-    - codex
+    - src
 
 jobs:
   build-deploy:
     runs-on: ubuntu-18.04
+    if: "!contains(github.event.head_commit.message, '[skip deploy]')"
     steps:
     - uses: actions/checkout@master
 
@@ -31,6 +32,22 @@ jobs:
         SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION_STAGING }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
 
+    - name: Build prod
+      if: "!contains(github.event.head_commit.message, '[skip prod]')"
+      run: |
+        rm -rf public/
+        hugo --minify
+
+    - name: Deploy to prod
+      if: "!contains(github.event.head_commit.message, '[skip prod]')"
+      run: source $GITHUB_WORKSPACE/ci/deploy.sh
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+        SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION_PROD }}
+        SSH_PORT: ${{ secrets.SSH_PORT }}
+
   lighthouse:
     runs-on: ubuntu-latest
     needs: [build-deploy]
@@ -38,7 +55,7 @@ jobs:
     - name: Audit URL using Lighthouse
       uses: docker://jakejarvis/lighthouse-action:latest
       with:
-        url: 'https://staging.msfjarvis.dev/'
+        url: 'https://msfjarvis.dev/'
     - name: Upload results as an artifact
       uses: actions/upload-artifact@master
       with:
