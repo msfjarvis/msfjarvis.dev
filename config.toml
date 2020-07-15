@@ -7,7 +7,7 @@ author = "Harsh Shandilya"
 
 [params]
   description = "Android developer, Kotlin fanatic and wannabe Rustacean"
-  keywords = "homepage, blog, android, kotlin, programming"
+  keywords = "homepage, blog, android, kotlin, rust"
   twitterUsername = "@msf_jarvis"
   socialImage = "android-chrome-512x512.webp"
   contentTypeName = "posts"
