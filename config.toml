@@ -1,21 +1,38 @@
 baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = ["hugo-cloak-email", "hugo-social-metadata", "hyde"]
+theme = ["hugo-cloak-email", "hugo-social-metadata", "codex"]
 pygmentsUseClasses = true
 author = "Harsh Shandilya"
 
 [params]
-  description = "Android Developer, Kotlin fanatic and wannabe Rustacean"
+  description = "Android developer, Kotlin fanatic and wannabe Rustacean"
   keywords = "homepage, blog, android, kotlin, programming"
   twitterUsername = "@msf_jarvis"
   socialImage = "android-chrome-512x512.webp"
   contentTypeName = "posts"
   commentoURL = "https://commento.msfjarvis.dev"
 
-[Menus]
-  main = [
-      {Name = "About", URL = "/about", Weight = 1},
-      {Name = "Uses", URL = "/uses", Weight = 2},
-      {Name = "Projects", URL = "/projects", Weight = 3},
-  ]
+[[menu.main]]
+  identifier = "about"
+  name = "about"
+  title = "About"
+  url = "/"
+
+[[menu.main]]
+  identifier = "blog"
+  name = "blog"
+  title = "Blog"
+  url = "/posts"
+
+[[menu.main]]
+  identifier = "uses"
+  name = "uses"
+  title = "Uses"
+  url = "/uses"
+
+[[menu.main]]
+  identifier = "projects"
+  name = "projects"
+  title = "Projects"
+  url = "/projects"
