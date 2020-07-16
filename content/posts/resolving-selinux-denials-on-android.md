@@ -1,11 +1,10 @@
-
 +++
-date = "2019-06-08"
-title = "Understanding and resolving SELinux denials on Android"
+categories = ["android"]
+date = 2019-06-08
+description = "SELinux is not the easiest technology to navigate, and handling it in Android custom ROMs can be daunting to newcomers. This post breaks down the more complex aspects of it into easy to understand steps for people to follow along"
 slug = "understanding-and-resolving-selinux-denials-on-android"
 tags = ["android", "selinux", "linux"]
-categories = ["android"]
-description = "SELinux is not the easiest technology to navigate, and handling it in Android custom ROMs can be daunting to newcomers. This post breaks down the more complex aspects of it into easy to understand steps for people to follow along"
+title = "Understanding and resolving SELinux denials on Android"
 +++
 
 This blog post is mostly comprised of what used to be a [gist](https://gist.github.com) of mine. I decided it needs some additional reading on what exactly we're dealing with so a preface outlining what SELinux is and how to understand the rules we're writing has been added. The gist itself is from a time when I was far less knowledgeable and hence adjustments have been made accordingly, often with extra information.

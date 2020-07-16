@@ -1,11 +1,11 @@
 +++
 categories = ["rust", "dev"]
-date = 2020-07-05T15:21:50
+date = 2020-07-05
+description = "Rust programs are pretty fast on their own, but you can slightly augment their performance with some simple tricks."
 slug = "simple-tricks-for-faster-rust-programs"
+socialImage = "uploads/cuddlyferris.webp"
 tags = ["rust", "dev", "perf"]
 title = "Simple tricks for faster Rust programs"
-description = "Rust programs are pretty fast on their own, but you can slightly augment their performance with some simple tricks."
-socialImage = "uploads/cuddlyferris.webp"
 +++
 
 Rust is _pretty_ fast. Let's get that out of the way. But sometimes, _pretty_ fast is not fast enough.

@@ -1,6 +1,6 @@
 +++
 categories = ["kotlin", "dev", "android", "teachingkotlin"]
-date = 2019-09-23T09:30:00Z
+date = 2019-09-23
 description = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes, objects and how things like finality and staticity vary between Java and Kotlin."
 slug = "teaching-kotlin--classes-and-objects"
 tags = ["android", "teachingkotlin", "kotlin"]

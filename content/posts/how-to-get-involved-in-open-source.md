@@ -1,11 +1,11 @@
 +++
-date = "2019-05-31"
-title = "How to get involved in open source"
-slug = "how-to-get-involved-in-open-source"
-tags = ["open source"]
 categories = ["oss"]
+date = 2019-05-31
 description = "Starting with OSS can be daunting for many. Here's a recap of my experiences with OSS with some tips on how to get started yourself."
 devLink = "https://dev.to/msfjarvis/how-to-get-involved-with-open-source-4h42"
+tags = ["open source"]
+title = "How to get involved in open source"
+slug = "how-to-get-involved-in-open-source"
 +++
 
 The most common question I get when I recommend open source as a launching pad for budding developers is "Where do I start?".

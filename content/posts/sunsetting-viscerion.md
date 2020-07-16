@@ -1,11 +1,11 @@
 +++
 categories = ["news"]
-date = 2020-02-09T13:37:53+05:30
+date = 2020-02-09
+description = "The Viscerion experiment that started more than a year ago is now coming to an end. Here's what's happening."
 slug = "sunsetting-viscerion"
+socialImage = "uploads/viscerion_social.webp"
 tags = ["personal"]
 title = "Sunsetting Viscerion"
-description = "The Viscerion experiment that started more than a year ago is now coming to an end. Here's what's happening."
-socialImage = "uploads/viscerion_social.webp"
 +++
 
 Viscerion is one of my more known and loved apps that I myself continue to enjoy working on and using. The project started back in 2018 following a short stint with WireGuard working on their own Android app, and is now being shut down.
