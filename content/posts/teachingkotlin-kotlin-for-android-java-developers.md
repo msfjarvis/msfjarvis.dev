@@ -1,6 +1,6 @@
 +++
 categories = ["teachingkotlin", "kotlin", "dev", "android"]
-date = "2019-09-20
+date = 2019-09-20
 description = "Kotlin's been great for me -- and millions others, as evident by its explosive growth. Long-time Java developers may feel hesitant to give it a shot. This series aims to smoothen this transition, letting people know what benefits they might reap from Kotlin, and what differences should they be careful about."
 devLink = "https://dev.to/msfjarvis/teachingkotlin-kotlin-for-android-java-developers-1fo3"
 slug = "teaching-kotlin--kotlin-for-android-java-developers"
