@@ -10,7 +10,7 @@ function create_post() {
     else
         title="${*}"
     fi
-    postdate="$(date -Is)"
+    postdate="$(date +%Y-%m-%d)"
     postslug="$(echo "${title}" | tr -dc '[:alnum:][:space:]\n\r' | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g')"
     filename="${postslug}.md"
     printf "+++\ncategories = []\ndate = %s\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\ndescription = \"\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${filename}"
