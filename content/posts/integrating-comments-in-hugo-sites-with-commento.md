@@ -1,12 +1,12 @@
 +++
 categories = ["hugo", "webdev"]
-date = 2020-01-20T00:44:25+05:30
-slug = "integrating-comments-in-hugo-sites-with-commento"
-tags = ["hugo", "static sites", "comments", "commento.io"]
-title = "Integrating comments in Hugo sites with commento"
+date = 2020-01-20
 description = "Adding additional comment backends to Hugo is actually rather simple!"
 devLink = "https://dev.to/msfjarvis/integrating-comments-in-hugo-sites-with-commento-136f"
+slug = "integrating-comments-in-hugo-sites-with-commento"
 socialImage = "uploads/commento_social.webp"
+tags = ["hugo", "static sites", "comments", "commento.io"]
+title = "Integrating comments in Hugo sites with commento"
 +++
 
 Disqus is unequivocally the leader when it comes to hosted comments, and it works rather swimmingly with sites of all kinds with minimal hassle. But this ease has a gnarly flipside: [annoying referral links](https://stiobhart.net/2017-02-21-disqusting/) and a [huge bundle size](https://victorzhou.com/blog/replacing-disqus/) that significantly affects page load speeds.

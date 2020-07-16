@@ -1,12 +1,12 @@
 +++
 categories = ["android"]
-date = 2020-01-20T14:45:23+05:30
-slug = "dagger-the-easy-way--part-1"
-tags = ["android", "dagger", "tutorial"]
-title = "Dagger the easy way - Part 1"
+date = 2020-01-20
 description = "Dagger is universally intimidating to beginners and I want to change it."
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-1-3l7b"
+slug = "dagger-the-easy-way--part-1"
 socialImage = "uploads/dagger_made_easy_social.webp"
+tags = ["android", "dagger", "tutorial"]
+title = "Dagger the easy way - Part 1"
 +++
 
 > Updated on 22 Jan 2020 with some additional comments from [@arunkumar_9t2](https://twitter.com/arunkumar_9t2). Look out for them as block quotes similar to this one.
