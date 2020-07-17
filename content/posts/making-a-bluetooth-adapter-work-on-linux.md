@@ -4,6 +4,7 @@ date = 2020-07-17
 description = "Getting a USB Bluetooth dongle to function properly on Linux proved to be somewhat of a trip, which I'm documenting here."
 draft = true
 slug = "making-a-bluetooth-adapter-work-on-linux"
+socialImage = "uploads/bluetooth_social.webp"
 tags = ["bluetooth", "linux", "bt-audio"]
 title = "Making a Bluetooth adapter work on Linux"
 +++
