@@ -20,11 +20,11 @@ Thanks to this combination of factors, things got weird. I tried a bunch of thin
 
 You're gonna need 1) a GUI to handle BT devices, b) the PulseAudio module for Bluetooth. For the GUI I used [blueberry](http://packages.linuxmint.com/search.php?release=ulyana&section=main&keyword=blueberry), and [pulseaudio-module-bluetooth](https://packages.ubuntu.com/focal/pulseaudio-module-bluetooth) for PulseAudio support.
 
-I did `apt install -y blueberry pulseaudio-module-bluetooth` to get these on Linux Mint, you can do whatever your distro's preferred package handling method is.
+I did `apt install -y blueberry pulseaudio-module-bluetooth` to get these on Linux Mint, you should use whatever your distro's preferred package management interface is.
 
 ### Fixing up the kernel (optional)
 
-I mentioned earlier that I run a very slimmed down config, which means nothing that I didn't already use was enabled. This included Bluetooth, so I went ahead and enabled all the configs for it [here](https://msfjarvis.dev/g/linux/992c2d8bce8b). If everything works out, your dmesg should contain these lines
+I mentioned earlier that I run a very slimmed down config, which means nothing that I didn't already use was enabled. This included Bluetooth, so I went ahead and enabled all the configs for it [here](https://msfjarvis.dev/g/linux/992c2d8bce8b), then installed the new kernel and rebooted into it. You shouldn't need to do this if you do not run a custom kernel. To be completely sure, check your dmesg for Bluetooth initialization logs:
 
 ```shell
 $ dmesg | rg Bluetooth
@@ -41,8 +41,6 @@ $ dmesg | rg Bluetooth
 [    0.327119] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
 [    0.327120] Bluetooth: HIDP socket layer initialized
 ```
-
-If you run your distro's kernel, you shouldn't need to make any changes.
 
 ### Wrapping up
 
@@ -73,6 +71,6 @@ Below it, add `/usr/bin/pactl load-module module-bluetooth-discover` so the fina
     /usr/bin/pactl load-module module-bluetooth-discover
 ```
 
-This will manually load the module when X11 triggers PulseAudio init. This is more a hail mary, and if you want, you can test without it but it won't hurt to add it anyway.
+This will manually load the module when X11 triggers PulseAudio init. This should ideally not be required so you can try without this change, but it won't break anything if you add it anyway.
 
 Once done, reboot your computer and you should be able to pair and connect to devices and play audio through them.
