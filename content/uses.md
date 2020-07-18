@@ -23,7 +23,7 @@ My love for Rust extends deep into the CLI, and a lot of GNU tools are replaced 
 | ----------- | ------------ | ----------------------------------------------- |
 | `cat`       | `bat`        | [GitHub](https://github.com/sharkdp/bat)        |
 | `cd`        | `zoxide`     | [GitHub](https://github.com/ajeetdsouza/zoxide) |
-| `du`        | `diskus`     | [GitHub](https://github.com/sharkdp/)           |
+| `du`        | `diskus`     | [GitHub](https://github.com/sharkdp/diskus)     |
 | `find`      | `fd`         | [GitHub](https://github.com/sharkdp/fd)         |
 | `grep`      | `ripgrep`    | [GitHub](https://github.com/BurntSushi/ripgrep) |
 
