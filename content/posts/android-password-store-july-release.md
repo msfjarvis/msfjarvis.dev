@@ -47,6 +47,10 @@ Previously, Password Store would only correctly handle decryption in this situat
 
 Over the past few releases we've been hard at work improving the password edit flow, making it more accessible and 'obvious' to users and simultaneously prevent any hidden footguns from souring the experience. We received a bug report about [file renaming](https://msfjarvis.dev/aps/issue/928) having unexpected behavior that caused destructive actions in the store, and in response we [now have better safeguards against this](https://msfjarvis.dev/aps/pr/929) and have improved the UI to make things more clear to users.
 
+## Export passwords asynchronously
+
+Previously the password export would run on the main thread and potentially cause not responding errors. This is now rectified, and the export now occurs in an entirely separate process to prevent this.
+
 ## UI fixes
 
 A bunch of UI feedback was provided to us after the last major release and we've worked to address it in this one. Long file/folder names now correctly wrap across lines, and the error UI for wrong password/passphrase is now aesthetically correct [[PR](https://msfjarvis.dev/aps/pr/892)].
