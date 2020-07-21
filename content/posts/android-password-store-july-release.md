@@ -79,4 +79,8 @@ The biometric authentication UI flow has been updated to render the authenticati
 
 # In conclusion
 
-There are a lot more changes in this release than those included in this post, which you can check out [here](https://github.com/android-password-store/Android-Password-Store/milestone/10). We're constantly at work improving APS and all constructive feedback helps us create a better experience for users and ourselves, so please keep it coming (over email, if it's a suggestion. Play Store reviews are not good for back-and-forth communication). See you next month!
+There are a lot more changes in this release than those included in this post, which you can check out [here](https://github.com/android-password-store/Android-Password-Store/milestone/10). We're constantly at work improving APS and all constructive feedback helps us create a better experience for users and ourselves, so please keep it coming (over email, if it's a suggestion. Play Store reviews are not good for back-and-forth communication).
+
+Lastly, Android Password Store development thrives on your donations. You can sponsor the project on [Open Collective](https://opencollective.com/Android-Password-Store), or me directly through GitHub Sponsors by clicking [here](https://github.com/sponsors/msfjarvis?o=esc). GitHub Sponsors on Tier 2 and above get expedited triage times and priority on issues :)
+
+See you next month!
