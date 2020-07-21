@@ -9,13 +9,13 @@ tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store July release"
 +++
 
-As promised, looong release notes for the [v1.10.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.10.0) build of Android Password Store that is going out right now on the Play Store and to F-Droid in the coming days. This is a massive one even compared to our previous v1.9.0 major release, which was our largest release till date. Let's dive into the changes :)
+[As promised](https://twitter.com/MSF_Jarvis/status/1278002765046804480), here are detailed release notes for the [v1.10.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.10.0) build of Android Password Store that is going out right now on the Play Store and to F-Droid in the coming days. This is a massive one even compared to our previous v1.9.0 major release, which was our largest release when it went out. Let's dive into the changes!
 
 ## New features
 
 ### TOTP support
 
-I [removed support for HOTP and TOTP secrets](https://msfjarvis.dev/aps/pr/806) back in v1.9.0 due to multiple reasons, a) it was blocking important refactoring efforts, b) it had zero test coverage, and c) none of the maintainers used it. Play Store reviews reminded us that they do not care what we think, and demanded the feature's return. I stuck to our decision as maintainers for a while, but active members of the pass community like [erayd](https://github.com/erayd) (who happens to be the maintainer for [browserpass](https://github.com/browserpass)!) provided good, actionable feedback allowing us to [bring back TOTP](https://msfjarvis.dev/aps/pr/890) support into APS.
+I [removed support for HOTP and TOTP secrets](https://msfjarvis.dev/aps/pr/806) back in v1.9.0 due to multiple reasons, a) it was blocking important refactoring efforts, b) it had zero test coverage, and c) none of the maintainers used it. Play Store reviews swiftly reminded us that people did use the feature even in its wonky state, and demanded its return. I stuck to our decision as maintainers for a while, but active members of the pass community like [erayd](https://github.com/erayd) (who happens to be the maintainer for [browserpass](https://github.com/browserpass)!) were able to convince us otherwise and provided good, actionable feedback allowing us to [bring back TOTP](https://msfjarvis.dev/aps/pr/890) support into APS, better than ever before.
 
 The new implementation is backed by a solid suite of tests and contains new features like the ability to import TOTP URIs using QR codes, being able to Autofill them into webpages as well as extracting OTPs from SMSes (not available on F-Droid due to GMS dependencies for SMS monitoring).
 
@@ -23,7 +23,7 @@ The new implementation is backed by a solid suite of tests and contains new feat
 
 With our ongoing efforts to switch over from the dated [Jsch](http://www.jcraft.com/jsch/) SSH library to the more up-to-date and maintained [SSHJ](https://github.com/hierynomus/sshj), we now fully support ED25519 and ECDSA keys! You no longer need to rely on RSA to authenticate from your phone to your Git host :)
 
-In a future release, we'll be bringing more improvements to this area including generating and storing SSH keys in the [Android Keystore](https://source.android.com/security/keystore/) for enhanced security.
+In a future release, we'll be bringing more improvements to this area including generating and storing SSH keys in the [Android Keystore](https://source.android.com/security/keystore/) for enhanced security as well support for .
 
 ### Proper support for per-directory keys
 
@@ -37,9 +37,9 @@ store
     └── .gpg-id <-- contains the key FGHIJ56789
 ```
 
-In this directory structure, `pass generate subdirectory1/example.com` will use the key `FGHIJ56789`, and `pass generate example.com` will use `ABCDE12345`.
+In this directory structure, `pass generate subdirectory1/example.com` will use the `FGHIJ56789` key, and `pass generate example.com` will use `ABCDE12345`.
 
-Previously, Password Store would only correctly handle decryption in this situation, and fail to select the right key for encrypting. The workaround for this was to select the right key in settings before creating a password. That's pretty stupid, and we're sorry you had to do that earlier. Now, Password Store uses an algorithm similar to the `pass` CLI to find the correct `.gpg-id` file and read the key from it. GnuPG is more 'forgiving', if you will, in what type of values it can work with so there's a slim chance that your current workflow might now be broken. If this happens, please either file an issue over on the [GitHub repository](https://msfjarvis.dev/aps) or email us at [aps@msfjarvis.dev](mailto://aps@msfjarvis.dev) and we'll resolve it ASAP.
+Previously, Password Store would only correctly handle decryption in this situation, and fail to select the right key for encrypting. The workaround for this was to manually select the key from settings that you wished to use, before creating a password. That's pretty stupid, and we're sorry you had to do that earlier. Now, Password Store uses an algorithm similar to the `pass` CLI to find the correct `.gpg-id` file and read the key from it. GnuPG is more 'forgiving', if you will, in what type of key values it can work with so there's a slim chance that your current workflow might now be broken. If this happens, please immediately either file an issue over on the [GitHub repository](https://msfjarvis.dev/aps) or email us at [aps@msfjarvis.dev](mailto://aps@msfjarvis.dev) with as much detail as you can and we'll resolve it ASAP.
 
 # Bugfixes
 
@@ -49,7 +49,7 @@ Over the past few releases we've been hard at work improving the password edit f
 
 ## Export passwords asynchronously
 
-Previously the password export would run on the main thread and potentially cause not responding errors. This is now rectified, and the export now occurs in an entirely separate process to prevent this.
+Previously the password export would run on the main thread and potentially cause the app to completely freeze and throw a 'Password Store is not responding error'. This has been rectified, and the export now occurs in an entirely separate process.
 
 ## UI fixes
 
@@ -67,15 +67,15 @@ Right off the bat, you will notice a brand new icon for Password Store. This was
 
 ![New icon](/uploads/aps_banner.webp)
 
-To complement the new icon, we've also updated our color scheme to use an accent that matches our icon.
+To complement the new icon, we've also updated our color scheme to better suit this new branding.
 
 ## Simplified XkPasswd implementation
 
-While revisiting our UI during the icon change, we realised that the alternate XkPasswd password generator option we introduced back in v1.6.0 was a tad too complicated to use with a lot more knobs and switches than necessary. This has now been fixed, and we hope that it's now at a level of accessibility that allows more users to try it out.
+While revisiting our UI during the icon change, we realised that the alternate XkPasswd password generator option we introduced back in v1.6.0 was a tad too complicated to use with a lot more knobs and switches than necessary. This has been fixed, and we hope that it's now at a level of accessibility that allows more users to try it out.
 
 ## Improvements to biometric lock transition and password list UI
 
-The biometric authentication UI flow has been updated to render the authentication dialog over a transparent screen before starting the app upon successful authentication. We've also retouched the password list to remove the leading icons as we have been consistently receiving numerous comments about them being unnecessary and a bit ugly. In v1.4.0 we introduced child counts and iconographic hints to directories that we feel are more than sufficient to communicate the difference between them and password files. We welcome all feedback about these changes at [aps@msfjarvis.dev](mailto://aps@msfjarvis.dev).
+The biometric authentication UI flow has been updated to show the authentication dialog over a transparent screen, before starting the app upon success. We've also retouched the password list to remove the leading icons, as we have been consistently receiving numerous comments about them being unnecessary and a bit ugly. In v1.4.0 we introduced child counts and iconographic hints to directories, and we feel they are more than sufficient to communicate the difference between them and password files. We welcome all feedback about these changes at [aps@msfjarvis.dev](mailto://aps@msfjarvis.dev).
 
 # In conclusion
 
