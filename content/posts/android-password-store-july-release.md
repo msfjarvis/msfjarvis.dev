@@ -39,7 +39,7 @@ store
 
 In this directory structure, `pass generate subdirectory1/example.com` will use the `FGHIJ56789` key, and `pass generate example.com` will use `ABCDE12345`.
 
-Previously, Password Store would only correctly handle decryption in this situation, and fail to select the right key for encrypting. The workaround for this was to manually select the key from settings that you wished to use, before creating a password. That's pretty stupid, and we're sorry you had to do that earlier. Now, Password Store uses an algorithm similar to the `pass` CLI to find the correct `.gpg-id` file and read the key from it. GnuPG is more 'forgiving', if you will, in what type of key values it can work with so there's a slim chance that your current workflow might now be broken. If this happens, please immediately either file an issue over on the [GitHub repository](https://msfjarvis.dev/aps) or email us at [aps@msfjarvis.dev](mailto://aps@msfjarvis.dev) with as much detail as you can and we'll resolve it ASAP.
+Previously, Password Store would only correctly handle decryption in this situation, and fail to select the right key for encrypting. The workaround for this was to manually select the key from settings that you wished to use, before creating a password. That's pretty stupid, and we're sorry you had to do that earlier. Now, Password Store uses an algorithm similar to the `pass` CLI to find the correct `.gpg-id` file and read the key from it. GnuPG is more 'forgiving', if you will, in what type of key values it can work with so there's a slim chance that your current workflow might now be broken. If this happens, please immediately either file an issue over on the [GitHub repository](https://msfjarvis.dev/aps) or email us at {{< cloakemail "aps@msfjarvis.dev" >}} with as much detail as you can and we'll resolve it ASAP.
 
 # Bugfixes
 
@@ -75,7 +75,7 @@ While revisiting our UI during the icon change, we realised that the alternate X
 
 ## Improvements to biometric lock transition and password list UI
 
-The biometric authentication UI flow has been updated to show the authentication dialog over a transparent screen, before starting the app upon success. We've also retouched the password list to remove the leading icons, as we have been consistently receiving numerous comments about them being unnecessary and a bit ugly. In v1.4.0 we introduced child counts and iconographic hints to directories, and we feel they are more than sufficient to communicate the difference between them and password files. We welcome all feedback about these changes at [aps@msfjarvis.dev](mailto://aps@msfjarvis.dev).
+The biometric authentication UI flow has been updated to show the authentication dialog over a transparent screen, before starting the app upon success. We've also retouched the password list to remove the leading icons, as we have been consistently receiving numerous comments about them being unnecessary and a bit ugly. In v1.4.0 we introduced child counts and iconographic hints to directories, and we feel they are more than sufficient to communicate the difference between them and password files. We welcome all feedback about these changes at {{< cloakemail "me@msfjarvis.dev" >}}.
 
 # In conclusion
 
