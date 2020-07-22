@@ -1,6 +1,6 @@
 +++
 categories = ["aps"]
-date = 2020-07-20
+date = 2020-07-22
 description = "Long form release notes for the Android Password Store July release"
 draft = true
 slug = "aps-july-release"
