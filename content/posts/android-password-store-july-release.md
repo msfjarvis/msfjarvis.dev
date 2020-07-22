@@ -4,7 +4,7 @@ date = 2020-07-20
 description = "Long form release notes for the Android Password Store July release"
 draft = true
 slug = "aps-july-release"
-socialImage = "/uploads/aps_banner.webp"
+socialImage = "uploads/aps_banner.webp"
 tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store July release"
 +++
