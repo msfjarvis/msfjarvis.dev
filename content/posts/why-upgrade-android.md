@@ -15,7 +15,7 @@ A couple days ago I tweeted this out, partly in response to a security conscious
 
 I completely stand by what I said, and for good reason. Android upgrades bring massive changes to the platform, improving security against both known and unknown threats. You sign off that benefit when you buy into an incompetent OEM's cheap phones, and it has become a bit too 'normal' than anybody would prefer.
 
-That's not what we're going to talk about, though. This post is going to be purely about privacy, and how it has changed, nay, improved, over the years of Android. My apps support a minimum of Android 6, so I will begin with the next version, Android 7 and go through Google's release notes and singling out privacy related changes.
+That's not what we're going to talk about, though. This post is going to be purely about privacy, and how it has changed, nay, improved, over the years of Android. My apps support a minimum of Android 6, so I will begin with the next version, Android 7, and go through Google's release notes, singling out privacy related changes.
 
 ## Android 7
 
