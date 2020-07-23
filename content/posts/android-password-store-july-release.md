@@ -22,7 +22,7 @@ The new implementation is backed by a solid suite of tests and contains new feat
 
 With our ongoing efforts to switch over from the dated [Jsch](http://www.jcraft.com/jsch/) SSH library to the more up-to-date and maintained [SSHJ](https://github.com/hierynomus/sshj), we now fully support ED25519 and ECDSA keys! You no longer need to rely on RSA to authenticate from your phone to your Git host :)
 
-In a future release, we'll be bringing more improvements to this area including generating and storing SSH keys in the [Android Keystore](https://source.android.com/security/keystore/) for enhanced security as well support for .
+In a future release, we'll be bringing more improvements to this area including generating and storing SSH keys in the [Android Keystore](https://source.android.com/security/keystore/) for enhanced security as well as support for fallback authentication.
 
 ### Proper support for per-directory keys
 
