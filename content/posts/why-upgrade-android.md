@@ -1,8 +1,7 @@
 +++
 categories = ["android"]
-date = 2020-07-22
+date = 2020-07-23
 description = "(Mostly) everybody agrees that Android upgrades are good, but how very crucial they are to security and privacy often gets overlooked. Let's dig into that."
-draft = true
 slug = "why-upgrade-android"
 socialImage = "uploads/why_upgrade_android_social.webp"
 tags = ["android", "updates", "security", "privacy"]
