@@ -64,7 +64,7 @@ Requesting access to the device serial number [now requires phone state permissi
 
 ### Scoped Storage
 
-Probably the most controversial change in 10, Scoped Storage segragated the device storage into scopes and [gave apps access to them without needing extra permissions](https://developer.android.com/about/versions/10/privacy/changes#scoped-storage).
+Probably the most controversial change in 10, Scoped Storage segregated the device storage into scopes and [gave apps access to them without needing extra permissions](https://developer.android.com/about/versions/10/privacy/changes#scoped-storage).
 
 ### Explicit background permission access
 
