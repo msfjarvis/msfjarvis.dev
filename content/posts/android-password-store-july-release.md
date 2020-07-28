@@ -6,6 +6,7 @@ slug = "aps-july-release"
 socialImage = "uploads/aps_banner.webp"
 tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store July release"
+toc = true
 +++
 
 [As promised](https://twitter.com/MSF_Jarvis/status/1278002765046804480), here are detailed release notes for the [v1.10.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.10.0) build of Android Password Store that is going out right now on the Play Store and to F-Droid in the coming days. This is a massive one even compared to our previous v1.9.0 major release, which was our largest release when it went out. Let's dive into the changes!

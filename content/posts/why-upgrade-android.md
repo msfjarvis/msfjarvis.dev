@@ -7,6 +7,7 @@ slug = "why-upgrade-android"
 socialImage = "uploads/why_upgrade_android_social.webp"
 tags = ["android", "updates", "security", "privacy"]
 title = "Why upgrade Android?"
+toc = true
 +++
 
 A couple days ago I tweeted this out, partly in response to a security conscious user who was quick to point out why a particular feature had to be added to APS, but failed to realise the fact that the problem wouldn't even exist if they were running the latest version of Android (we'll talk about the behavior change that fixed it later here).
