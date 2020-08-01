@@ -18,20 +18,6 @@ jobs:
         hugo-version: '0.73.0'
         extended: true
 
-    - name: Build staging
-      if: "!contains(github.event.head_commit.message, '[skip staging]')"
-      run: hugo --minify -DEFb=https://staging.msfjarvis.dev/
-
-    - name: Deploy to staging
-      if: "!contains(github.event.head_commit.message, '[skip staging]')"
-      run: source $GITHUB_WORKSPACE/ci/deploy.sh
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-        SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
-        SERVER_DESTINATION: ${{ secrets.SERVER_DESTINATION_STAGING }}
-        SSH_PORT: ${{ secrets.SSH_PORT }}
-
     - name: Build prod
       if: "!contains(github.event.head_commit.message, '[skip prod]')"
       run: |
