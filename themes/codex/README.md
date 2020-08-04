@@ -88,7 +88,7 @@ You can also create additional social icons by:
       # ...
       reddit = "<url to your reddit>"
    
-      iconTitles = ["Reddit"]
+      iconOrder = ["Reddit"]
    ```
 
 Make sure that the icon title must match the icon's file name. If the title contains more than one word, say "My Awesome Site",
@@ -149,8 +149,7 @@ Then, put your posts under "content/photos".
 
 ### Custom styling
 
-In your site's folder, create `assets/scss/custom.scss` and put your custom styling there. For example, the snippet below 
-changes the dot's color on your About page to blue:
+You have two options for custom styling. The first is to create an `assets/scss/custom.scss` in your project and put your custom styling there. For example, the snippet below changes the dot's color on your About page to blue:
 
 ```scss
 // custom.scss
@@ -174,6 +173,15 @@ You can even use Hugo variables/params in your custom styles too!
     fancy = "#f06292"
 ```
 
+The second option is to use the supported scss overrides. You can do this by creating an `assets/scss/overrides/scss` file in your project. The following overrides are supported:
+
+```scss
+// overrides.scss
+
+// The primary accent color used throughout the site
+$primary: ''
+```
+
 ### Tags
 
 Right now `hugo-theme-codex` uses the `tags` taxonomy for blog posts. You can view all the blog posts of a given tag by going to `/tags/:tag-name`, where `:tag-name` is the name of your tag.
@@ -189,7 +197,7 @@ Check out the [CONTRIBUTORS.md file](https://github.com/jakewies/hugo-theme-code
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -213,6 +221,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://msfjarvis.dev"><img src="https://avatars0.githubusercontent.com/u/13348378?v=4" width="100px;" alt=""/><br /><sub><b>Harsh Shandilya</b></sub></a><br /><a href="https://github.com/jakewies/hugo-theme-codex/commits?author=msfjarvis" title="Code">💻</a></td>
     <td align="center"><a href="https://twitter.com/ProfessorLogout"><img src="https://avatars3.githubusercontent.com/u/13572444?v=4" width="100px;" alt=""/><br /><sub><b>Marco Kamner</b></sub></a><br /><a href="https://github.com/jakewies/hugo-theme-codex/commits?author=ProfessorLogout" title="Code">💻</a></td>
     <td align="center"><a href="https://ewen.io/"><img src="https://avatars3.githubusercontent.com/u/10872821?v=4" width="100px;" alt=""/><br /><sub><b>ewen</b></sub></a><br /><a href="https://github.com/jakewies/hugo-theme-codex/commits?author=ewenme" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/SanchithHegde"><img src="https://avatars2.githubusercontent.com/u/22217505?v=4" width="100px;" alt=""/><br /><sub><b>Sanchith Hegde</b></sub></a><br /><a href="https://github.com/jakewies/hugo-theme-codex/commits?author=SanchithHegde" title="Code">💻</a> <a href="https://github.com/jakewies/hugo-theme-codex/commits?author=SanchithHegde" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://soeren.codes"><img src="https://avatars1.githubusercontent.com/u/5760400?v=4" width="100px;" alt=""/><br /><sub><b>Sören Johanson</b></sub></a><br /><a href="https://github.com/jakewies/hugo-theme-codex/commits?author=CER10TY" title="Code">💻</a></td>
   </tr>
 </table>
 
