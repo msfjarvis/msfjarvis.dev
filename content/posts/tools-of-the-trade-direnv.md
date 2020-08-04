@@ -24,7 +24,7 @@ What direnv does, is improve the experience with things like [12 factor apps](ht
 
 I have a separate account for proprietary work related things [here](https://github.com/hshandilya-navana), which means that any GitHub tooling I use now needs to be configured with separate credentials for when I'm interacting with work repositories. Bummer!
 
-`direnv` makes this simpler by allowing for environment variables to be set for those repositories only. I mostly use the official GitHub CLI from [here](https://github.com/cli/cli) to interact with the remote repo, so providing a separate GitHub token is just a matter of setting the `GITHUB_TOKEN` environment variable to one that is allowed to interact with the current repo. With direnv, its just a matter of creating a `.envrc` file in the repository directory with this:
+`direnv` makes this simpler by allowing for environment variables to be set for those repositories only. I mostly use the official GitHub CLI from [here](https://github.com/cli/cli) to interact with the remote repo, so providing a separate GitHub token is just a matter of setting the `GITHUB_TOKEN` environment variable to one that is allowed to interact with the current repo. With direnv, all you need to do is create a `.envrc` file in the repository directory with this:
 
 ```bash
 export GITHUB_TOKEN=<redacted>
