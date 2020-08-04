@@ -9,11 +9,11 @@
       connect-src 'self' commento.msfjarvis.dev;
       default-src 'self';
       frame-ancestors 'none';
-      frame-src 'none';
-      font-src 'self' data: commento.msfjarvis.dev stackpath.bootstrapcdn.com;
-      img-src 'self' data: gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev;
+      frame-src asciinema.org github.com platform.twitter.com;
+      font-src 'self' data: commento.msfjarvis.dev;
+      img-src 'self' data: gfycat.com imgur.com *.imgur.com commento.msfjarvis.dev syndication.twitter.com;
       object-src 'none';
-      script-src 'self' commento.msfjarvis.dev unpkg.com;
+      script-src 'self' asciinema.org commento.msfjarvis.dev platform.twitter.com unpkg.com;
       style-src 'self' commento.msfjarvis.dev 'unsafe-inline';
     "
     # Security related changes stolen from https://github.com/searx/searx-docker/blob/master/Caddyfile
