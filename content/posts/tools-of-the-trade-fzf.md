@@ -11,12 +11,48 @@ title = "Tools of the trade: fzf"
 
 In this second post, let's talk about [fzf](https://github.com/junegunn/fzf).
 
-# What is fzf?
+## What is fzf?
 
 In its simplest form, `fzf` is a **f**u**zz**y **f**inder. It lets you search through files, folders, any line-based text using a simple fuzzy and/or regex backed system.
 
-Usage can be very straightforward: just type `fzf`.
+On-demand, `fzf` can also be super fancy.
 
-{{< asciinema zlWZPYualoELZxruMRIln9eZw >}}
+## Why do I use it?
+
+Becaue `fzf` is a search tool, you can use it to find files and folders. My most common use-case for it is a simple bash function that goes like this:
+
+```bash
+fao () {
+  local ARG;
+  ARG="${1}";
+  if [ -z "${ARG}" ]; then
+    nano "$(fzf)";
+  else
+    nano "$(fzf -q"${ARG}")";
+  fi
+}
+```
+
+It starts up a fzf session and then opens up the selected file in `nano`.
+
+{{< asciinema o0oYpW84PCAYr1QimLKksxRvW >}}
 
 By default, `fzf` is a full-screen tool and takes up the entire height of your terminal. I've restricted it to 40% of that, as it looks a bit nicer IMO. You can make more such changes by setting the `FZF_DEFAULT_OPTS` environment variable as described in the [layout section](https://github.com/junegunn/fzf#layout) of the fzf docs.
+
+But that's not all! You can get _real_ fancy with `fzf`.
+
+For example, check out the output of `fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'` [here](https://asciinema.org/a/WFFx2negPw5iXbCZe1YlAZeqj) (a bit too wide to embed here :()
+
+> `bat` is a `cat(1)` clone with syntax highlighting and other nifty features, and also a tool I use on the daily. We'll probably be covering it soon :)
+
+You can also bind arbitrary keys to actions with relative ease.
+
+{{< asciinema sso3dAYuqI7TH0aRcYRPBRmTv >}}
+
+The syntax as evident, is pretty simple
+
+```<key-shortcut>:execute(<command>)<+abort>```
+
+The `+abort` there is optional, and signals `fzf` that we want to exit after running the command. Detailed instructions area available in the `fzf` [README](https://github.com/junegunn/fzf#readme).
+
+And that's it from me. Tweet at me at [@MSF_Jarvis](https://twitter.com/MSF_Jarvis) with any fancy `fzf` recipes you come up with!
