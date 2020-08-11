@@ -22,7 +22,8 @@ On-demand, `fzf` can also be super fancy.
 Becaue `fzf` is a search tool, you can use it to find files and folders. My most common use-case for it is a simple bash function that goes like this:
 
 ```bash
-fao () {
+# find-and-open, gedit? Sorry I'll just stop.
+function fao() {
   local ARG;
   ARG="${1}";
   if [ -z "${ARG}" ]; then
@@ -35,7 +36,7 @@ fao () {
 
 It starts up a fzf session and then opens up the selected file in `nano`.
 
-{{< asciinema o0oYpW84PCAYr1QimLKksxRvW >}}
+{{< asciinema gCwYg97C1NbRVgCUK0Dd1byVl >}}
 
 By default, `fzf` is a full-screen tool and takes up the entire height of your terminal. I've restricted it to 40% of that, as it looks a bit nicer IMO. You can make more such changes by setting the `FZF_DEFAULT_OPTS` environment variable as described in the [layout section](https://github.com/junegunn/fzf#layout) of the fzf docs.
 
@@ -47,11 +48,13 @@ For example, check out the output of `fzf --preview 'bat --style=numbers --color
 
 You can also bind arbitrary keys to actions with relative ease.
 
-{{< asciinema sso3dAYuqI7TH0aRcYRPBRmTv >}}
+{{< asciinema l7OPG4xQv5QVtvyxQfmly2eiE >}}
 
 The syntax as evident, is pretty simple
 
-```<key-shortcut>:execute(<command>)<+abort>```
+```
+<key-shortcut>:execute(<command>)<+abort>
+```
 
 The `+abort` there is optional, and signals `fzf` that we want to exit after running the command. Detailed instructions area available in the `fzf` [README](https://github.com/junegunn/fzf#readme).
 
