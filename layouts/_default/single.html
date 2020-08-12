@@ -25,8 +25,7 @@
           {{- end }}
           {{ partial "post-pagination.html" .}}
           <footer class="post__footer">
-            {{ partial "social-icons.html" .}}
-            <p>{{ replace .Site.Copyright "{year}" now.Year }}</p>
+            {{ partial "openring.html" . }}
           </footer>
           </div>
       </div>
