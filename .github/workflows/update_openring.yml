@@ -1,0 +1,20 @@
+name: Update openring data
+on:
+  schedule:
+    - cron: '0 0 * * 6'
+
+jobs:
+  update-publicsuffix-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run openring
+        run: ./scripts/openring.sh
+
+      - name: Commit and push changes
+        run: |
+          git add layouts/partials/openring.html
+          git commit --message "layouts: update openring"
+          git push origin src
