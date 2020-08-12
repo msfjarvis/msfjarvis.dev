@@ -23,9 +23,11 @@
           {{ partialCached "commento.html" . }}
           {{- end }}
           {{ partial "post-pagination.html" .}}
+          {{ if or .Site.BuildDrafts .Site.IsServer -}}
           <footer class="post__footer">
             {{ partial "openring.html" . }}
           </footer>
+          {{- end }}
           </div>
       </div>
       {{ if .Params.toc }}
