@@ -1,7 +1,7 @@
 name: Update openring data
 on:
   schedule:
-    - cron: '0 0 * * 6'
+    - cron: '0 0 * * *'
 
 jobs:
   update-publicsuffix-data:
@@ -10,8 +10,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.15'
+
+      - name: Install openring
+        run: go get git.sr.ht/~sircmpwn/openring
+
       - name: Run openring
         run: ./scripts/openring.sh
+
+      - name: Initialize git config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
 
       - name: Commit and push changes
         run: |
