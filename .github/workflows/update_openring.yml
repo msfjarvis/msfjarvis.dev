@@ -4,7 +4,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  update-publicsuffix-data:
+  regenerate-openring-html:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
