@@ -38,7 +38,7 @@ jobs:
         uses: thomaseizinger/create-pull-request@1.0.0
         if: env.UPDATED == 'true'
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           head: bot/update-openring
           base: src
           title: 'openring sync'
