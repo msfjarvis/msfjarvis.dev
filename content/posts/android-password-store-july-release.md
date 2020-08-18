@@ -13,19 +13,19 @@ toc = true
 
 ## New features
 
-### TOTP support
+## TOTP support
 
 I [removed support for HOTP and TOTP secrets](https://msfjarvis.dev/aps/pr/806) back in v1.9.0 due to multiple reasons, a) it was blocking important refactoring efforts, b) it had zero test coverage, and c) none of the maintainers used it. Play Store reviews swiftly reminded us that people did use the feature even in its wonky state, and demanded its return. I stuck to our decision as maintainers for a while, but active members of the pass community like [erayd](https://github.com/erayd) (who happens to be the maintainer for [browserpass](https://github.com/browserpass)!) were able to convince us otherwise and provided good, actionable feedback allowing us to [bring back TOTP](https://msfjarvis.dev/aps/pr/890) support into APS, better than ever before.
 
 The new implementation is backed by a solid suite of tests and contains new features like the ability to import TOTP URIs using QR codes, being able to Autofill them into webpages as well as extracting OTPs from SMSes (not available on F-Droid due to GMS dependencies for SMS monitoring).
 
-### Support for ED25519/ECDSA keys
+## Support for ED25519/ECDSA keys
 
 With our ongoing efforts to switch over from the dated [Jsch](http://www.jcraft.com/jsch/) SSH library to the more up-to-date and maintained [SSHJ](https://github.com/hierynomus/sshj), we now fully support ED25519 and ECDSA keys! You no longer need to rely on RSA to authenticate from your phone to your Git host :)
 
 In a future release, we'll be bringing more improvements to this area including generating and storing SSH keys in the [Android Keystore](https://source.android.com/security/keystore/) for enhanced security as well as support for fallback authentication.
 
-### Proper support for per-directory keys
+## Proper support for per-directory keys
 
 [pass](https://www.passwordstore.org/) has a neat feature where it allows you to use a separate GPG key for a subdirectory, such as for sharing passwords across a team. It achieves this by looking for a `.gpg-id` file starting from the current directory, up to the root of the store. The first file it finds is what it uses as the key for the GPG operations.
 
