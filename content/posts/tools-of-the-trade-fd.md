@@ -1,8 +1,7 @@
 +++
 categories = ["tools-of-the-trade"]
-date = 2020-08-17
+date = 2020-08-18
 description = "Probably the final post of this series? Let's talk about fd!"
-draft = true
 slug = "tools-of-the-trade-fd"
 socialImage = "/uploads/tools-of-the-trade-fd.webp"
 tags = ["fd", "cli-tools", "tools-of-the-trade"]
