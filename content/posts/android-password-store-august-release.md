@@ -46,3 +46,20 @@ Many, many people reported being unable to edit/create passwords and the app abr
 
 ![OpenKeychain installation prompt](/uploads/aps-august-release-missing-openkeychain.webp)
 
+## External storage fixes
+
+A couple of regressions resulted in cloning to external storage being completely broken. This has now been fixed alongwith a workaround for a possible freezing scenario during deletion of existing files from the selected directory. We've also improved the UX around cloning to external to be more straightforward and reliable.
+
+# Misc changes
+
+- Final APK size has been slightly reduced
+- Restored dividers in the password list
+- Users will be notified when a push operation had nothing to push
+- On new installations, passwords will not be automatically copied to the clipboard.
+- When creating a new directory, you can now nest them, i.e. when creating `directory1/subdirectory`, `directory1` does not need to exist beforehand.
+
+# Conclusion
+
+There are more smaller improvements peppered around. We're constantly making improvements and adding new features, and welcome all constructive feedback through [Gitter](https://gitter.im/android-password-store/public) or [GitHub issues](https://github.com/android-password-store/Android-Password-Store/issues).
+
+Lastly, Android Password Store development thrives on your donations. You can sponsor the project on [Open Collective](https://opencollective.com/Android-Password-Store), or me directly through GitHub Sponsors by clicking [here](https://github.com/sponsors/msfjarvis?o=esc). GitHub Sponsors on Tier 2 and above get expedited triage times and priority on issues. You can now also buy features, faster support with issues as well as quicker bugfixes through our [xs:code](https://xscode.com/msfjarvis/Android-Password-Store) page.
