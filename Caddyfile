@@ -35,14 +35,5 @@
   tls off
   import base_config
   import compression_config
-  proxy / http://localhost:1313 {
-    import proxy_config
-  }
-}
-
-:2016 {
-  tls off
-  import base_config
-  import compression_config
   root public
 }
