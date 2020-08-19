@@ -18,7 +18,7 @@ Previously you'd have to set the URL to your repository across multiple fields l
 
 ![Single URL field in repository information](/uploads/aps-august-release-single-url-field.webp)
 
-### Custom branch support
+## Custom branch support
 
 A long-requested feature ([from 2017](https://msfjarvis.dev/aps/issue/298)!) has been the ability to change the default branch that APS uses. It was previously hard-coded to `master`, which was an issue for people who don't use that term or who keep separate stores on separate branches of their repository and would like to be able to switch easily. Now you can set the branch while cloning or make the change by setting it in the git server config screen, then using the 'Hard reset to remote branch' option in Git utils to switch to it.
 
@@ -50,13 +50,23 @@ Many, many people reported being unable to edit/create passwords and the app abr
 
 A couple of regressions resulted in cloning to external storage being completely broken. This has now been fixed alongwith a workaround for a possible freezing scenario during deletion of existing files from the selected directory. We've also improved the UX around cloning to external to be more straightforward and reliable.
 
+## Creating nested directories
+
+Previously, attempting to create directories like `directory1/subdirectory` would fail if `directory1` didn't already exist. This has now been fixed.
+
 # Misc changes
 
-- Final APK size has been slightly reduced
-- Restored dividers in the password list
-- Users will be notified when a push operation had nothing to push
-- On new installations, passwords will not be automatically copied to the clipboard.
-- When creating a new directory, you can now nest them, i.e. when creating `directory1/subdirectory`, `directory1` does not need to exist beforehand.
+## UI/UX tweaks
+
+We're constantly working towards a better UI for APS, and to that end we've made some more improvements in this release. The password list now has dividers between individual items, and the parent path that was previously only shown on files now also does on directories. We hope this will help reduce ambiguity in results when searching, for example when you have a `github.com` subdirectory in both `work` and `personal` categories and need to find the right one quickly.
+
+A longstanding to-do has been addressed as well, where the user will now be notified after a push operation if there was nothing to be pushed. Previously this would just do nothing which wasn't very intuitive.
+
+We've completely rewritten the Git operation code to use a simpler progress UI and cleaner patterns which made a lot of these improvements possible.
+
+## Disabling keyboard copy by default
+
+The default behaviour of automatically copying to clipboard was both a bit insecure on most devices (w.r.t. unfettered clipboard access before Q) as well as counterproductive for some use-cases. In light of these, we've flipped the default for clipboard copy to off. Existing users will not have their settings changed.
 
 # Conclusion
 
