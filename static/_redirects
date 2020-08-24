@@ -1,6 +1,7 @@
 /caesium-stable            https://dl.msfjarvis.dev/caesium/wahoo/stable/updater.json
 /caesium-beta              https://dl.msfjarvis.dev/caesium/wahoo/beta/updater.json
 /caesium-alpha             https://dl.msfjarvis.dev/caesium/wahoo/alpha/updater.json
+/aps                       https://github.com/Android-Password-Store/android-password-store
 /aps/issue/*               https://github.com/Android-Password-Store/android-password-store/issue/:splat
 /aps/pr/*                  https://github.com/Android-Password-Store/android-password-store/pull/:splat
 /g/*                       https://github.com/msfjarvis/:splat
