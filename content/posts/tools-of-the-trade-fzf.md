@@ -8,7 +8,7 @@ tags = ["fzf", "cli-tools", "tools-of-the-trade"]
 title = "Tools of the trade: fzf"
 +++
 
-In this second post, let's talk about [fzf](https://github.com/junegunn/fzf).
+In the second post of [this series](/categories/tools-of-the-trade/), let's talk about [fzf](https://github.com/junegunn/fzf).
 
 ## What is fzf?
 
@@ -58,3 +58,5 @@ The syntax as evident, is pretty simple
 The `+abort` there is optional, and signals `fzf` that we want to exit after running the command. Detailed instructions are available in the `fzf` [README](https://github.com/junegunn/fzf#readme).
 
 And that's it from me. Tweet at me at [@MSF_Jarvis](https://twitter.com/MSF_Jarvis) with any fancy `fzf` recipes you come up with!
+
+This was part 2 of the [Tools of the trade](/categories/tools-of-the-trade/) series.
