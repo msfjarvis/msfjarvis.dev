@@ -8,7 +8,7 @@ tags = ["fd", "cli-tools", "tools-of-the-trade"]
 title = "Tools of the trade: fd"
 +++
 
-Continuing [this series](/categories/tools-of-the-trade/), let's talk about [`fd`](https://github.com/sharkdp/fd).
+Continuing [this series](/categories/tools-of-the-trade/), let's talk about [fd](https://github.com/sharkdp/fd).
 
 ## What is fd?
 
