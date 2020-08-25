@@ -16,16 +16,16 @@ title = "Tools of the trade: fd"
 
 Other than the obvious speed benefits, one of the most critical improvements you'll notice in your workflow with `fd` is the presence of good defaults. By default `fd` ignores hidden files and folders, and respects `.gitignore` and similar files. Here's a small comparison to show you the differences between `fd` and `find(1)`'s default behaviors.
 
-Running both `find` and `fd` on the repository for this website, then piping the results into [bin.msfjarvis.dev](https://bin.msfjarvis.dev):
+Running both `find` and `fd` on the repository for this website, then piping the results into [del.dog](https://del.dog):
 
 ```bash
 $ find | paste
-https://bin.msfjarvis.dev/~5f3a9ecd2757e30018410cf5/raw
+https://del.dog/raw/greconillo
 ```
 
 ```bash
 $ fd | paste
-https://bin.msfjarvis.dev/~5f3a9f672757e30018410cf6/raw
+https://del.dog/raw/thelerrell
 ```
 
 If you check both those links, you'll observe that `find(1)` has a significantly higher number of results compared to `fd`. Looking closely, you'll also notice that `find(1)` has dumped the entire `.git` directory into the results as well, alongwith the `public` directory of Hugo which contains the built site. These are surely important directories, but you almost **never** want to search through your `.git` directory or build artifacts. `fd` shines here by excluding them automatically, while being significantly faster than `find(1)` even when they're both returning the exact number of results.
