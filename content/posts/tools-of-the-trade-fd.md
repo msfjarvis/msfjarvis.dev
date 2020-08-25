@@ -8,9 +8,11 @@ tags = ["fd", "cli-tools", "tools-of-the-trade"]
 title = "Tools of the trade: fd"
 +++
 
+Continuing [this series](/categories/tools-of-the-trade/), let's talk about [`fd`](https://github.com/sharkdp/fd).
+
 ## What is fd?
 
-[`fd`](https://github.com/sharkdp/fd) is an extremely fast replacement for the GNU coreutils' `find(1)` tool. It's written in Rust, and is built for humans, arguably unlike `find(1)`.
+`fd` is an extremely fast replacement for the GNU coreutils' `find(1)` tool. It's written in Rust, and is built for humans, arguably unlike `find(1)`.
 
 ## Why do I use it?
 
@@ -75,3 +77,5 @@ Already feels like home!
 [hub](https://hub.github.com) is a `git` wrapper that provides some handy features on top like `sync` which updates all locally checked out branches from their upstream remotes. You can re-implement this with some leg work but I'll leave that as an exercise for you.
 
 And that's about it! Let me know what you think of `fd` and if you're switching to it, over on [Twitter](https://twitter.com/MSF_Jarvis).
+
+This was part 3 of the [Tools of the trade](/categories/tools-of-the-trade/) series.
