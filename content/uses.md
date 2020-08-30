@@ -1,5 +1,7 @@
 +++
 title = "Uses"
+type = "standalone"
+layout = "standalone"
 +++
 
 ## Editor + Terminal
