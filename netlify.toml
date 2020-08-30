@@ -9,3 +9,5 @@
   Referrer-Policy = "no-referrer"
 [[plugins]]
   package = "netlify-plugin-algolia-export"
+    [plugins.inputs]
+      exclude = ['''^\/viscerion-privacy''', '''^\/aps-privacy''', '''^\/tags.*''', '''^\/categories.*''']
