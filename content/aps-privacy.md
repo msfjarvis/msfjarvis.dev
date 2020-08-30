@@ -1,6 +1,8 @@
 +++
 title = "Android Password Store Privacy Policy"
 id = "aps-privacy"
+type = "standalone"
+layout = "standalone"
 +++
 
 ## Privacy Policy

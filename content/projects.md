@@ -1,6 +1,8 @@
 +++
 title = "Projects"
 id = "projects"
+type = "standalone"
+layout = "standalone"
 +++
 
 Over the years I have worked on and contributed to various projects in the Android community. My personal projects can be found on [GitHub](https://github.com/msfjarvis),
