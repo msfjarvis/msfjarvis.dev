@@ -18,7 +18,7 @@ On-demand, `fzf` can also be super fancy.
 
 ## Why do I use it?
 
-Becaue `fzf` is a search tool, you can use it to find files and folders. My most common use-case for it is a simple bash function that goes like this:
+Because `fzf` is a search tool, you can use it to find files and folders. My most common use-case for it is a simple bash function that goes like this:
 
 ```bash
 # find-and-open, gedit? Sorry I'll just stop.
