@@ -35,14 +35,12 @@ jobs:
       - name: Commit and push changes
         run: |
           git add layouts/partials/openring.html
-          git commit --message "layouts: update openring"
 
-      - name: Create update PR
-        uses: thomaseizinger/create-pull-request@1.0.0
-        if: env.UPDATED == 'true'
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          head: bot/update-openring
+          commit-message: 'layouts: update openring data'
+          branch: update-openring
           base: src
-          title: 'openring sync'
-          body: 'Re-run openring update script'
+          title: Periodic openring sync
+          assignees: msfjarvis
