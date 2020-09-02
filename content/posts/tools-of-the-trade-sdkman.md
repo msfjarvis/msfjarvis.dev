@@ -39,7 +39,7 @@ I do:
 export JAVA_HOME="${JAVA_HOME/current/8.0.262-zulu}"
 ```
 
-for the same end result, but a lot faster. The difference in speed ends up coming from SDKMAN working over symlinks compared to my direnv workaround just replacing the value of a variable.
+for the same end result, but a lot faster.
 
 And that's really it! SDKMAN's pretty neat, but for the most part it just stays out of your way and thus there's not a lot to talk about it. The next post's gonna be much more hands-on :-)
 
