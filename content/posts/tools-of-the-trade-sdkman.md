@@ -1,8 +1,7 @@
 +++
 categories = ["tools-of-the-trade"]
-date = 2020-08-31
+date = 2020-09-02
 description = "Bringing this series back on popular demand, we're here to talk about SDKMAN!"
-draft = true
 slug = "tools-of-the-trade-sdkman"
 socialImage = "uploads/tools-of-the-trade-sdkman.webp"
 tags = ["sdkman", "cli-tools", "tools-of-the-trade"]
@@ -34,7 +33,9 @@ I do:
 
 ```bash
 # .envrc
-# In bash, doing `${VARIABLE/src/dest}` replaces `src` with `dest` in `${VARIABLE}`, but you still need to write it back manually (hence the `export`)
+# In bash, doing `${VARIABLE/src/dest}` replaces `src` with
+# `dest` in `${VARIABLE}`, but you still need to write it
+# back manually (hence the `export`).
 export JAVA_HOME="${JAVA_HOME/current/8.0.262-zulu}"
 ```
 
