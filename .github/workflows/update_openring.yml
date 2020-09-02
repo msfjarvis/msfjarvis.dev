@@ -2,6 +2,9 @@ name: Update openring data
 on:
   schedule:
     - cron: '0 0 * * *'
+  push:
+    branches:
+      - openring-test
 
 jobs:
   regenerate-openring-html:
