@@ -20,6 +20,7 @@
           </article>
           {{ partial "tags.html" .}}
           {{ partial "post-pagination.html" .}}
+          {{ partial "sponsors.html" .}}
           {{ if or .Site.BuildDrafts .Site.IsServer -}}
           <footer class="post__footer">
             {{ partial "openring.html" . }}
