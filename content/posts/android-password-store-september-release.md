@@ -7,7 +7,6 @@ socialImage = "uploads/aps_banner.webp"
 tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store September release"
 toc = true
-draft = true
 +++
 
 Continuing with this new-ish tradition we have going here, here are the detailed release notes for the [v1.12.0](https://github.com/Android-Password-Store/android-password-store/releases/tag/v1.12.0) release.
@@ -15,6 +14,10 @@ Continuing with this new-ish tradition we have going here, here are the detailed
 > Multiple important announcements at the end of the page, make sure to read the whole thing!
 
 # New features
+
+## Extend Autofill support to more browsers
+
+[Devin J. Pohly](https://github.com/djpohly) and [Rounak Dutta](https://github.com/rounakdatta) collectively contributed support for 3 new Chromium-based browsers: [Bromite](https://www.bromite.org/), [Ungoogled Chromium](https://git.droidware.info/wchen342/ungoogled-chromium-android) and [Kiwi](https://kiwibrowser.com/).
 
 ## Allow sorting by recently used
 
@@ -28,15 +31,21 @@ Another, [even older](https://msfjarvis.dev/aps/issue/284) feature request has f
 
 The old SSH key generation has been [scrapped and rewritten](https://msfjarvis.dev/aps/pr/1070) to use safer cryptographic curves: RSA-3072, NIST's P-256 and ED25519. Users are now also afforded the choice to secure access to this key via device biometrics. Once enabled, you will be prompted to authenticate via your device lock each time the SSH key is needed by the app.
 
-But that's not it! On supported devices, this key will be stored in the device's dedicated keystore hardware which is extra-resistant to both rooting and security exploits.
+On supported devices, this key will be stored in the device's dedicated keystore hardware which is extra-resistant to both rooting and security exploits.
+
+The [wiki](https://github.com/android-password-store/Android-Password-Store/wiki) has been refreshed with updated guidance and documentation on SSH key handling.
 
 ## Fallback authentication for SSH
 
 SSH servers are often configured to have multiple authentication methods, where you first attempt to authenticate with private keys and if that fails, fall back to passwords. This wasn't previously supported in APS, which would quit after the first failure. We've changed that to now offer the option of entering a password if the server is configured to fall back to it.
 
-## Rewritten onboarding flow
+## Rewritten and redesigned onboarding flow
 
-In a multi-step refactoring process, the initial flow of setting up the app has been completely revamped. The internals were completely overhauled to improve stability, weed out some gnarly hacks, and make the whole thing easier to test and understand. Maintainer [Aditya Wasan](https://github.com/Skrilltrax) did a fabulous job giving the [entire thing a facelift](https://msfjarvis.dev/aps/pr/1099). It's real pretty ✨
+In a multi-step refactoring process, the initial flow of setting up the app has been completely revamped. The internals were completely overhauled to improve stability, weed out some gnarly hacks, and make the whole thing easier to test and understand. Maintainer [Aditya Wasan](https://github.com/Skrilltrax) did a fabulous job giving the [UI a facelift](https://msfjarvis.dev/aps/pr/1099). It's real pretty now ✨
+
+## Show hidden folders now also shows hidden directories
+
+Our old 'Show hidden folders' feature has now been simplified to show _all_ hidden files and folders in the repository. It is intended to make it easier to perform trivial maintenance tasks that would normally require access to a PC.
 
 # Bugfixes
 
