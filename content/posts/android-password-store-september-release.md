@@ -9,7 +9,7 @@ title = "Android Password Store September release"
 toc = true
 +++
 
-Continuing with this new-ish tradition we have going here, here are the detailed release notes for the [v1.12.0](https://github.com/Android-Password-Store/android-password-store/releases/tag/v1.12.0) release.
+Continuing with this new-ish tradition we have going, here are the detailed release notes for the [v1.12.0](https://github.com/Android-Password-Store/android-password-store/releases/tag/v1.12.0) release.
 
 > Multiple important announcements at the end of the page, make sure to read the whole thing!
 
