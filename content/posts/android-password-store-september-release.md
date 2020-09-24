@@ -29,11 +29,7 @@ Another, [even older](https://msfjarvis.dev/aps/issue/284) feature request has f
 
 ### SSH key generation and handling improvements
 
-The old SSH key generation has been [scrapped and rewritten](https://msfjarvis.dev/aps/pr/1070) to use safer cryptographic curves: RSA-3072, NIST's P-256 and ED25519. Users are now also afforded the choice to secure access to this key via device biometrics. Once enabled, you will be prompted to authenticate via your device lock each time the SSH key is needed by the app.
-
-On supported devices, this key will be stored in the device's dedicated keystore hardware which is extra-resistant to both rooting and security exploits.
-
-The [wiki](https://github.com/android-password-store/Android-Password-Store/wiki) has been refreshed with updated guidance and documentation on SSH key handling.
+The old SSH key generation has been [scrapped and rewritten](https://msfjarvis.dev/aps/pr/1070) to use a set of safer cryptographic curve options that span the distance between widely supported and very secure. The [wiki page](https://github.com/android-password-store/Android-Password-Store/wiki/Generate-SSH-Key) has been updated for these changes with information on how we're securing access to the actual SSH keys, like storing the key file in the Android Keystore and requiring screen lock authentication before the key can be used.
 
 ### Fallback authentication for SSH
 
