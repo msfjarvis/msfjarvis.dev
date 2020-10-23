@@ -28,9 +28,11 @@ Before we close the gates on our regularly scheduled releases, our focus has bee
 
 ### Add option to automatically sync repository
 
-This too, has been a [consistent request](https://github.com/android-password-store/Android-Password-Store/issues/277) in the past. While our implementation does not exactly match what was requested, we feel it's good enough to be shipped. You now have the option to sync your repository on every launch to ensure things are always up-to-date when you get in the app.
+~~This too, has been a [consistent request](https://github.com/android-password-store/Android-Password-Store/issues/277) in the past. While our implementation does not exactly match what was requested, we feel it's good enough to be shipped. You now have the option to sync your repository on every launch to ensure things are always up-to-date when you get in the app.~~
 
-![App launch screen showing the repository being synced](/uploads/aps-october-release-syncing-repository.webp)
+Due to multiple bugs, this feature has been rolled back in [v1.13.1](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.13.1).
+
+<!--![App launch screen showing the repository being synced](/uploads/aps-october-release-syncing-repository.webp)-->
 
 ## Fixes
 
