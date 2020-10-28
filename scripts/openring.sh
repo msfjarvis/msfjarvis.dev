@@ -8,7 +8,7 @@ openring \
   -s https://jakewharton.com/feed.xml \
   -s https://joebirch.co/feed/ \
   -s https://publicobject.com/rss/ \
-  -s https://mrandri19.github.io/feed.xml \
   -s https://blog.jessfraz.com/index.xml \
+  -s https://coroutinedispatcher.com/index.xml \
   < openring/in.html \
   > layouts/partials/openring.html
