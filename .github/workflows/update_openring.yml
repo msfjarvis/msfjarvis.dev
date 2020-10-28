@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
 
       - name: Setup Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@37335c7bb261b353407cff977110895fa0b4f7d8
         with:
           go-version: '^1.15'
 
@@ -27,17 +27,14 @@ jobs:
           git config user.email noreply@github.com
 
       - name: Compare changes
-        run: if [[ $(git diff --stat) != '' ]]; then echo "::set-env name=UPDATED::true"; fi
-
-      - name: Commit and push changes
-        run: |
-          git add layouts/partials/openring.html
+        run: if [[ $(git diff --stat) != '' ]]; then echo "UPDATED=true" >> $GITHUB_ENV; fi
 
       - name: Create Pull Request
+        if: env.UPDATED == 'true'
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: 'layouts: update openring data'
-          branch: update-openring
+          author: GitHub Actions <noreply@github.com>
           base: src
+          branch: update-openring
+          commit-message: 'layouts: update openring data'
           title: Periodic openring sync
-          assignees: msfjarvis
