@@ -14,6 +14,10 @@ fields:
   name: date
   label: Date
   description: Date of writing
+  config:
+    date_format: YYYY-MM-DD
+    export_format: YYYY-MM-DD
+  default: now
 - type: text
   name: slug
   label: Post slug
@@ -35,7 +39,7 @@ fields:
 - name: social_image
   type: file
   config:
-    maxSize: 250
+    maxSize: 64
   label: Social image
   description: Custom image for social media cards
 pages:
