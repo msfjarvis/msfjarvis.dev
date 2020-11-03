@@ -44,3 +44,4 @@ pages:
 - content/posts/teachingkotlin-part-1-classes-and-objects-and-everything-in-between.md
 - content/posts/teachingkotlin-part-2-variables.md
 - content/posts/why-i-went-back-to-the-gradle-groovy-dsl.md
+- content/posts/why-should-you-be-using-kotlin-s-explicit-api-mode-for-your-library-projects.md
