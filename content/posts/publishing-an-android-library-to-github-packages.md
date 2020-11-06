@@ -88,7 +88,7 @@ afterEvaluate {
 }
 ```
 
-You still need to set some properties in `gradle.properties`
+Then, set the `GROUP` and `VERSION` properties in `gradle.properties`
 
 ```groovy
 GROUP=msfjarvis
@@ -96,6 +96,8 @@ VERSION=0.1.0-SNAPSHOT
 ```
 
 And that should be it! You can check the migration commit [here](https://github.com/msfjarvis/github-packages-deployment-sample/commit/260fd3154fd393d3969afd048dc2c77d03619b1d).
+
+When you are ready to publish, run `./gradlew -Pgpr.user=<username> -Pgpr.key=<personal access token> publish` from your repository and everything should correctly deploy.
 
 ### For AGP < 4.0.0
 
