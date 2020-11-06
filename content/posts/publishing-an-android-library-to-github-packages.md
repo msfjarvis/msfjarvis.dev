@@ -75,7 +75,7 @@ afterEvaluate {
     publications {
       // Simple convenience function to hide the nullability of `findProperty`.
       private fun getProperty(key: String): String {
-        return findProperty(key)?.toString() ?: error("Failed to find property for $propertyName")
+        return findProperty(key)?.toString() ?: error("Failed to find property for $key")
       }
       create<MavenPublication>("release") {
         from(components.getByName("release"))
