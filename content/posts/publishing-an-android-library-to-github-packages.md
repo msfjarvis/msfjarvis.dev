@@ -19,7 +19,7 @@ Naturally, I was excited to try this out. The [documentation](https://help.githu
 
 I've also created a [sample repository](https://github.com/msfjarvis/github-packages-deployment-sample/) with incremental commits corresponding to the steps given below, for people who prefer to see the code directly.
 
-NB: Grab a Personal Access Token from GitHub with the `write:packages` scope. You will be using this as authentication to deploy packages. I'll not delve deep into this, a Google search will point you in the right direction if you're not familiar with how to obtain one.
+To be able to deploy packages, you will require a Personal Access Token from GitHub with the `write:packages` scope. Follow the steps [here](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token#creating-a-token) to create the token if you have never done so before.
 
 ### For AGP >= 4.0.0
 
