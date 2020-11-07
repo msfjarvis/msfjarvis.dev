@@ -35,11 +35,11 @@ afterEvaluate {
     repositories {
       maven {
         name = "GitHubPackages"
-          url = uri("https://maven.pkg.github.com/msfjarvis/github-packages-deployment-sample")
-          credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
-         }
+        url = uri("https://maven.pkg.github.com/msfjarvis/github-packages-deployment-sample")
+        credentials {
+          username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+          password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
+        }
       }
     }
     publications {
@@ -65,11 +65,11 @@ afterEvaluate {
     repositories {
       maven {
         name = "GitHubPackages"
-          url = uri("https://maven.pkg.github.com/msfjarvis/github-packages-deployment-sample")
-          credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
-         }
+        url = uri("https://maven.pkg.github.com/msfjarvis/github-packages-deployment-sample")
+        credentials {
+          username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+          password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
+        }
       }
     }
     publications {
