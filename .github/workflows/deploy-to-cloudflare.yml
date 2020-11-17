@@ -1,0 +1,63 @@
+name: Deploy to Cloudflare Workers Sites
+
+on:
+  push:
+    branches:
+      - src
+
+jobs:
+  deploy-main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
+
+      - name: Setup Latest Version of Hugo
+        uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build Hugo Site
+        run: |
+          hugo --minify --gc
+
+      - name: Publish to Cloudflare Workers Sites
+        run: |
+          echo "prefix = \"${HOME}\"" > ~/.npmrc
+          npm install -g @cloudflare/wrangler
+          mkdir -p ~/.wrangler/config/
+          echo "api_token=\"${CF_API_TOKEN}\"" > ~/.wrangler/config/default.toml
+          ./scripts/decrypt-secret.sh config/wrangler-main.toml.enc wrangler.toml ${SECRETS_ENC_KEY}
+          ~/bin/wrangler publish
+        env:
+          SECRETS_ENC_KEY: ${{ secrets.SECRETS_ENC_KEY }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
+
+      - name: Setup Latest Version of Hugo
+        uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build Hugo Site
+        run: |
+          hugo --minify --gc -D
+
+      - name: Publish to Cloudflare Workers Sites
+        run: |
+          echo "prefix = \"${HOME}\"" > ~/.npmrc
+          npm install -g @cloudflare/wrangler
+          mkdir -p ~/.wrangler/config/
+          echo "api_token=\"${CF_API_TOKEN}\"" > ~/.wrangler/config/default.toml
+          ./scripts/decrypt-secret.sh config/wrangler-staging.toml.enc wrangler.toml ${SECRETS_ENC_KEY}
+          ~/bin/wrangler publish
+        env:
+          SECRETS_ENC_KEY: ${{ secrets.SECRETS_ENC_KEY }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
