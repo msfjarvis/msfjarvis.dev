@@ -1,2 +1,6 @@
 public/
 resources/
+dist/
+msfjarvis-dev/
+msfjarvis-dev-staging/
+wrangler.toml
