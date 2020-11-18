@@ -1,6 +1,8 @@
 public/
 resources/
 dist/
-msfjarvis-dev/
-msfjarvis-dev-staging/
+node_modules/
+transpiled/
+worker/
+package-lock.json
 wrangler.toml
