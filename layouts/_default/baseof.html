@@ -55,8 +55,8 @@
   {{ $script := resources.Get "js/index.js" | minify | fingerprint }}
   <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity | safeHTMLAttr }}" crossorigin="anonymous"></script>
   {{ block "scripts" . }} {{ end }}
-  <script async defer src="https://insights.msfjarvis.dev/latest.js"></script>
-  <noscript><img src="https://insights.msfjarvis.dev/noscript.gif" alt=""/></noscript>
+  <script data-skip-dnt="true" async defer src="https://insights.msfjarvis.dev/latest.js"></script>
+  <noscript><img src="https://insights.msfjarvis.dev/noscript.gif?ignore-dnt=true" alt=""/></noscript>
 </body>
 
 </html>
