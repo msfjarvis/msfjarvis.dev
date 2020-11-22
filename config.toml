@@ -4,6 +4,7 @@ title = "Harsh Shandilya"
 theme = ["hugo-social-metadata", "codex"]
 pygmentsUseClasses = true
 author = "Harsh Shandilya"
+ignoreErrors = ["error-remote-getjson"]
 
 [params]
   description = "Android developer, Kotlin fanatic and wannabe Rustacean"
