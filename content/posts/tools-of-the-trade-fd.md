@@ -76,6 +76,6 @@ Already feels like home!
 
 [hub](https://hub.github.com) is a `git` wrapper that provides some handy features on top like `sync` which updates all locally checked out branches from their upstream remotes. You can re-implement this with some leg work but I'll leave that as an exercise for you.
 
-And that's about it! Let me know what you think of `fd` and if you're switching to it, over on [Twitter](https://twitter.com/MSF_Jarvis).
+And that's about it! Let me know what you think of `fd` and if you're switching to it, over on [Twitter](https://twitter.com/msfjarvis).
 
 This was part 3 of the [Tools of the trade](/categories/tools-of-the-trade/) series.

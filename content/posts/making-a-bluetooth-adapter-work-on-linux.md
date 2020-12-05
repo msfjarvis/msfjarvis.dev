@@ -14,7 +14,7 @@ I made a couple of purchases yesterday, including a Bluetooth speaker and a USB 
 -   It runs a customized build of the Zen kernel with a very slimmed down config
 -   It has never had Bluetooth connectivity before
 
-Thanks to this combination of factors, things got weird. I tried a bunch of things before getting it working, so it is entirely possible that I miss some steps that were important but I didn't think so while writing this. Please let me know on [Twitter](https://twitter.com/MSF_Jarvis) if these steps didn't work for you and I'll try to fix this post.
+Thanks to this combination of factors, things got weird. I tried a bunch of things before getting it working, so it is entirely possible that I miss some steps that were important but I didn't think so while writing this. Please let me know on [Twitter](https://twitter.com/msfjarvis) if these steps didn't work for you and I'll try to fix this post.
 
 ### Getting the right packages
 
