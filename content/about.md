@@ -15,7 +15,7 @@ I am 21 year old Android developer with more than 4 years of experience building
 
 I have presence on multiple social media/messaging platforms and I will respond to DMs/mentions as long as you [don't ask to ask](https://dontasktoask.com/) and express your intent clearly.
 
-- [Twitter](https://twitter.com/MSF_Jarvis)
+- [Twitter](https://twitter.com/msfjarvis)
 - [Telegram](https://t.me/msfjarvis)
 
 I typically respond fastest to Telegram messages. For traditional email, use [me@msfjarvis.dev](mailto:me@msfjarvis.dev).

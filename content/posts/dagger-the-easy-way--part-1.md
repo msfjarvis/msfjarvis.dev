@@ -11,7 +11,7 @@ title = "Dagger the easy way - Part 1"
 
 > Updated on 22 Jan 2020 with some additional comments from [@arunkumar_9t2](https://twitter.com/arunkumar_9t2). Look out for them as block quotes similar to this one.
 
-This is not your average coding tutorial. I'm going to show you how to write actual Dagger code and skip all the scary and off-putting parts about the implementation details of the things we're using and how Dagger does everything under the hood. If you're interested in that, [poke me on Twitter](https://twitter.com/MSF_Jarvis) that you really, really wanna know the implementation details of this and I'll grumble and consider it.
+This is not your average coding tutorial. I'm going to show you how to write actual Dagger code and skip all the scary and off-putting parts about the implementation details of the things we're using and how Dagger does everything under the hood. If you're interested in that, [poke me on Twitter](https://twitter.com/msfjarvis) that you really, really wanna know the implementation details of this and I'll grumble and consider it.
 
 With that out of the way, onwards to the actual content. We're going to be building a very simple app that does just one thing, show a Toast with some text depending on whether it was the first run or not. Nothing super fancy here, but with some overkill abstraction I'll hopefully be able to demonstrate a straightforward and understandable use of Dagger.
 
