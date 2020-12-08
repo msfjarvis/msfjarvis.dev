@@ -5,10 +5,10 @@ description = "Building libraries is hard, and keeping track of your public API 
 draft = true
 slug = "tips-for-building-kotlin-libraries"
 social_image = "/uploads/kotlin_800x320.png"
-tags = []
+tags = ["android", "kotlin", "libraries"]
 title = "Tips and tricks for building libraries in Kotlin"
-+++
 
++++
 Building a library is arguably a far more involved task than building an application. You need to be _extra_ mindful of your dependencies, and ensure that you are not breaking source and/or binary compatibility unintentionally. When doing so in Kotlin, you may also need to also provide an idiomatic API surface for Java callers if you're offering JVM support.
 
 I have _some_ experience building libraries, and have had the fortune of seeing a **lot** of other, much smarter people do it. This post aims to serve as a collection of what I've learned by doing things myself and observing others, that will hopefully be helpful to people trying their hand at library development.
