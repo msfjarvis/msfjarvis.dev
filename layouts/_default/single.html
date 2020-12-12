@@ -20,8 +20,8 @@
           </article>
           {{ partial "tags.html" .}}
           {{ partial "post-pagination.html" .}}
-          {{ partial "sponsors.html" .}}
-          {{ if or .Site.BuildDrafts .Site.IsServer -}}
+          {{ if not .Site.IsServer -}}
+              {{ partial "sponsors.html" .}}
           {{- end }}
           </div>
       </div>
