@@ -6,6 +6,7 @@ draft = true
 slug = "manually-parsing-json-with-moshi"
 tags = ["moshi", "json parsing", "android", "kotlin"]
 title = "Manually parsing JSON with Moshi"
+toc = true
 +++
 
 ### What is Moshi?
@@ -16,9 +17,9 @@ Unlike Gson, Moshi has excellent Kotlin support and supports both reflection bas
 
 ### What is an adapter?
 
-An adapter is Moshi-speak for a class that, given an object of type `T`, contains methods of the signatures `@FromJson fun fromJson(reader: JsonReader): T?` and `@ToJson fun toJson(writer: JsonWriter, value: T?)`. `fromJson` is responsible for taking a JSON document and constructing an instance of our type, and `toJson` is given a `writer` that can create JSON and `value`, the object that needs to be converted to JSON.
+An adapter is Moshi-speak for a class that can convert JSON into an object and an instance of that object into JSON. There are multiple types of JSON adapters supported by Moshi. The first is the one demonstrated in their README which contains two methods annotated `@ToJson` and `@FromJson`. The former takes an instance of the object and returns a String, and the latter takes a String and returns an instance of the object. This is the simplest type, and should be used for non-complex types that typically can be represented in simpler forms. [Here's the example Moshi uses](https://github.com/square/moshi#custom-type-adapters), and should be all the introduction you need for this particular type.
 
-> The actual method names can be anything, the to and from prefix just make it easier to follow.
+The other type is similar to what Moshi generates for its kapt-generated adapters, but leverages the `@ToJson`/`@FromJson` annotations. The method signatures here are a bit verbose, and these are the ones we're going to try to build.
 
 ### Why write your own adapters?
 
@@ -75,6 +76,11 @@ With less effort than one might think! Let's put down the basic building blocks.
 
 ```kotlin
 class TextPartsJsonAdapter {
+    // Moshi is flexible about the parameters of these two methods, and for simpler types you will find it easier
+    // to follow the example from the Moshi README which does not use JsonReader/JsonWriter and instead directly
+    // converts items to and from their String representations. The method names are also not enforced, as Moshi
+    // only uses the annotations to find relevant methods.
+
     @FromJson
     fun fromJson(reader: JsonReader): TextParts? {
         TODO("Not implemented")
@@ -87,7 +93,7 @@ class TextPartsJsonAdapter {
 }
 ```
 
-Now we're ready to start parsing. First, let's implement the `toJson` part, where we take an instance of the object and then try to write the equivalent JSON for it.
+Now we're ready to start parsing. First, let's implement the `toJson` part, where we take an instance of the object and then try to write the equivalent JSON for it. Since this is comparatively easier, I'm going to do it in one go and leave comments inline to explain what's happening.
 
 ```kotlin
 @ToJson
@@ -162,7 +168,7 @@ Same as writing JSON, we need to start by making an object.
  }
 ```
 
-We have a fixed set of keys that we expect to read, so go ahead and configure a couple instances of `JsonReader.Options` that we will use to find them in this JSON.
+We have a fixed set of keys that we expect to read, so go ahead and configure a couple instances of `JsonReader.Options` that we will use to find the keys in this JSON.
 
 ```diff
 +val topLevelKeys = JsonReader.Options.of("heading", "extras")
@@ -193,9 +199,11 @@ And we're set. You'll see the significance of the Options objects now.
      TODO("Not implemented")
 ```
 
-`reader.hasNext()` is going to continue iterating through the document's tokens until it's completed, which lets us look through the entire document for the parts we need. The `selectName(JsonReader.Options)` method will return the index of a matched key, so `0` there means that the `heading` key was found. In response to that, we want to read it as a string and throw if it is null (since it's non-nullable in `TextParts`). The `Util.unexpectedNull` method is a little nicety that is part of Moshi's internals and is used by its codegen'd adapters to provide better error messages and we're going to do the same.
+`reader.hasNext()` is going to continue iterating through the document's tokens until it's completed, which lets us look through the entire document for the parts we need. The `selectName(JsonReader.Options)` method will return the index of a matched key, so `0` there means that the `heading` key was found. In response to that, we want to read it as a string and throw if it is null (since it's non-nullable in `TextParts`). The `Util.unexpectedNull` method is a little nicety that is part of Moshi's internals and is used by its kapt-generated adapters to provide better error messages and we're going to do the same.
 
 ```diff
+                 0 -> heading = readString() ?: throw Util.unexpectedNull(
+                     "heading",
                      "text",
                      this
                  )
