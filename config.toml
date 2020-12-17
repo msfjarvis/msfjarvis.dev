@@ -52,6 +52,11 @@ ignoreErrors = ["error-remote-getjson"]
   icon = "twitter"
   url = "https://twitter.com/msfjarvis"
 
+[[params.social]]
+  name = "RSS"
+  icon = "rss"
+  url = "/index.xml"
+
 # Enable tags.
 [taxonomies]
   tag = "tags"
