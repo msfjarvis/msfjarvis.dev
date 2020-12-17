@@ -1,8 +1,8 @@
 +++
 title = "Projects"
 id = "projects"
-type = "standalone"
-layout = "standalone"
+type = "page"
+date = "2020-11-21"
 +++
 
 Over the years I have worked on and contributed to various projects in the Android community. My personal projects can be found on [GitHub](https://github.com/msfjarvis), some of the prominent ones are:

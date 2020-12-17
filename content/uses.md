@@ -1,8 +1,8 @@
 +++
 layout = "standalone"
 title = "Uses"
-type = "standalone"
-
+type = "page"
+date = "2020-10-31"
 +++
 ## Editor + Terminal
 

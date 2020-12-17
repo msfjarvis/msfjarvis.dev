@@ -1,17 +1,22 @@
 baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = ["hugo-social-metadata", "codex"]
-pygmentsUseClasses = true
+theme = ["hugo-social-metadata", "ezhil"]
+pygmentsstyle = "tango"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
 author = "Harsh Shandilya"
 ignoreErrors = ["error-remote-getjson"]
 
 [params]
   description = "Android developer, Kotlin fanatic and wannabe Rustacean"
+  subtitle = "Android developer, Kotlin fanatic and wannabe Rustacean"
   keywords = "homepage, blog, android, kotlin, rust"
   twitterUsername = "@msf_jarvis"
   socialImage = "android-chrome-512x512.webp"
-  contentTypeName = "posts"
+  mainSections = ["posts"]
+  mode = "light"
+  featherIconsCDN = true
 
 [[menu.main]]
   identifier = "about"
@@ -36,3 +41,17 @@ ignoreErrors = ["error-remote-getjson"]
   name = "projects"
   title = "Projects"
   url = "/projects"
+
+[[params.social]]
+  name = "Github"
+  icon = "github"
+  url = "https://github.com/msfjarvis"
+
+[[params.social]]
+  name = "Twitter"
+  icon = "twitter"
+  url = "https://twitter.com/msfjarvis"
+
+# Enable tags.
+[taxonomies]
+  tag = "tags"
