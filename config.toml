@@ -2,7 +2,7 @@ baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
 theme = ["hugo-social-metadata", "ezhil"]
-pygmentsUseClasses = true
+pygmentsstyle = "tango"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 author = "Harsh Shandilya"
@@ -15,10 +15,8 @@ ignoreErrors = ["error-remote-getjson"]
   twitterUsername = "@msf_jarvis"
   socialImage = "android-chrome-512x512.webp"
   mainSections = ["posts"]
-  mode = "auto"
+  mode = "light"
   featherIconsCDN = true
-  customCSS = "css/light-theme-syntax.css"
-  customDarkCSS = "css/dark-theme-syntax.css"
 
 [[menu.main]]
   identifier = "about"
