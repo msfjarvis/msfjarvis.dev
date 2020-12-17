@@ -51,7 +51,7 @@ jobs:
 
       - name: Build Hugo Site
         run: |
-          hugo --minify --gc -D
+          hugo --minify --gc -D --baseUrl 'https://staging.msfjarvis.dev/'
 
       - name: Publish to Cloudflare Workers Sites
         run: |
