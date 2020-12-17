@@ -60,3 +60,4 @@ ignoreErrors = ["error-remote-getjson"]
 # Enable tags.
 [taxonomies]
   tag = "tags"
+  category = "categories"
