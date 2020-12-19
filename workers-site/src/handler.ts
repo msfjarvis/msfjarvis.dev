@@ -4,7 +4,7 @@ const GITHUB_USERNAME = 'msfjarvis'
 const APS_SLUG = 'Android-Password-Store/Android-Password-Store'
 const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`
 const APS_GITHUB_URL = `https://github.com/${APS_SLUG}`
-const CSP_POLICY = "base-uri 'self'; connect-src 'self'; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: gfycat.com imgur.com *.imgur.com syndication.twitter.com; object-src 'none'; script-src 'self' asciinema.org cdn.jsdelivr.net platform.twitter.com unpkg.com; style-src 'self' cdn.jsdelivr.net fonts.googleapis.com 'nonce-MZSWC5DVOJSS23TPNZRWKCQ=';";
+const CSP_POLICY = "base-uri 'self'; connect-src 'self'; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: gfycat.com imgur.com *.imgur.com syndication.twitter.com; object-src 'none'; script-src 'self' asciinema.org cdn.jsdelivr.net platform.twitter.com unpkg.com 'nonce-MZSWC5DVOJSS23TPNZRWKCQ='; style-src 'self' cdn.jsdelivr.net fonts.googleapis.com;";
 const FEATURE_POLICY = "accelerometer 'none'; autoplay 'none';camera 'none';encrypted-media 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none';sync-xhr 'none';usb 'none'"
 const PERMISSIONS_POLICY = "accelerometer=() autoplay=() camera=() encrypted-media=() geolocation=() gyroscope=() magnetometer=() microphone=() midi=() payment=() picture-in-picture=() sync-xhr=() usb=()"
 
