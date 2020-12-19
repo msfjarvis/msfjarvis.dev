@@ -6,6 +6,7 @@ const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`
 const APS_GITHUB_URL = `https://github.com/${APS_SLUG}`
 const CSP_POLICY = "base-uri 'self'; connect-src 'self'; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com; font-src 'self' data:; img-src 'self' data: gfycat.com imgur.com *.imgur.com syndication.twitter.com; object-src 'none'; script-src 'self' asciinema.org platform.twitter.com unpkg.com; style-src 'self' cdn.jsdelivr.net fonts.googleapis.com 'sha256-T5xaPlQfl1etSoFCqKdmLNHpv3NOQn2KQJoj6Pduxg4=';"
 const FEATURE_POLICY = "accelerometer 'none'; autoplay 'none';camera 'none';encrypted-media 'none'; geolocation 'none';gyroscope 'none';magnetometer 'none';microphone 'none';midi 'none';payment 'none';picture-in-picture 'none';sync-xhr 'none';usb 'none'"
+const PERMISSIONS_POLICY = "accelerometer=() autoplay=() camera=() encrypted-media=() geolocation=() gyroscope=() magnetometer=() microphone=() midi=() payment=() picture-in-picture=() sync-xhr=() usb=()"
 
 export async function handleRequest(event: FetchEvent): Promise<Response> {
   return redirectGitHub(event)
@@ -20,9 +21,9 @@ async function getPageFromKV(event: FetchEvent): Promise<Response> {
     response.headers.set('X-Content-Type-Options', 'nosniff')
     response.headers.set('X-Frame-Options', 'DENY')
     response.headers.set('Referrer-Policy', 'no-referrer-when-downgrade')
-    response.headers.set('Feature-Policy', 'none')
     response.headers.set('Content-Security-Policy', CSP_POLICY)
     response.headers.set('Feature-Policy', FEATURE_POLICY)
+    response.headers.set('Permissions-Policy', PERMISSIONS_POLICY)
     return response
   } catch (e) {
     try {
