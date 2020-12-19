@@ -19,7 +19,7 @@ async function getPageFromKV(event: FetchEvent): Promise<Response> {
     response.headers.set('X-XSS-Protection', '1; mode=block')
     response.headers.set('X-Content-Type-Options', 'nosniff')
     response.headers.set('X-Frame-Options', 'DENY')
-    response.headers.set('Referrer-Policy', 'unsafe-url')
+    response.headers.set('Referrer-Policy', 'no-referrer-when-downgrade')
     response.headers.set('Feature-Policy', 'none')
     response.headers.set('Content-Security-Policy', CSP_POLICY)
     response.headers.set('Feature-Policy', FEATURE_POLICY)
