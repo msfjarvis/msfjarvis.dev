@@ -75,20 +75,22 @@ With less effort than one might think! Let's put down the basic building blocks.
 
 ```kotlin
 class TextPartsJsonAdapter {
-    // Moshi is flexible about the parameters of these two methods, and for simpler types you will find it easier
-    // to follow the example from the Moshi README which does not use JsonReader/JsonWriter and instead directly
-    // converts items to and from their String representations. The method names are also not enforced, as Moshi
-    // only uses the annotations to find relevant methods.
+  // Moshi is flexible about the parameters of these two methods, and for simpler types
+  // you will find it easier to follow the example from the Moshi README which does not
+  // use JsonReader/JsonWriter and instead directly converts items to and from their String
+  // representations. The method names are also not enforced, as Moshi only uses the 
+  // annotations to find relevant methods. The internal implementation of how they do it
+  // can be found here: https://git.io/JLwnb
 
-    @FromJson
-    fun fromJson(reader: JsonReader): TextParts? {
-        TODO("Not implemented")
-    }
+  @FromJson
+  fun fromJson(reader: JsonReader): TextParts? {
+    TODO("Not implemented")
+  }
 
-    @ToJson
-    fun toJson(writer: JsonWriter: value: TextParts?) {
-        TODO("Not implemented")
-    }
+  @ToJson
+  fun toJson(writer: JsonWriter: value: TextParts?) {
+    TODO("Not implemented")
+  }
 }
 ```
 
@@ -97,46 +99,46 @@ Now we're ready to start parsing. First, let's implement the `toJson` part, wher
 ```kotlin
 @ToJson
 fun toJson(writer: JsonWriter: value: TextParts?) {
-    // Null values shouldn't arrive to the adapter, this error lets callers know
-    // what builder options need to be passed to the Moshi.Builder() instance
-    // to avoid this particular situation.
-    if (value == null) {
-        throw NullPointerException("value was null! Wrap in .nullSafe() to write nullable values.")
+  // Null values shouldn't arrive to the adapter, this error lets callers know
+  // what builder options need to be passed to the Moshi.Builder() instance
+  // to avoid this particular situation.
+  if (value == null) {
+    throw NullPointerException("value was null! Wrap in .nullSafe() to write nullable values.")
+  }
+  // Use the Kotlin `with` scoping method so we don't need to call
+  // all methods with the `writer.` prefix.
+  with(writer) {
+    // Start the JSON object.
+    beginObject()
+
+    // Since our `extras` field is nullable, and our backend will send
+    // it as a literal null rather than skip it, we want null values to
+    // be written into the final JSON.
+    serializeNulls = true
+
+    // Create a JSON field with the name 'heading'
+    name("heading")
+
+    // Set the value of the 'heading' field to the actual heading
+    value(value.heading)
+
+    // Create the 'extras' field
+    name("extras")
+    if (value.body != null) {
+      // If the body text exists, then start a new object and add a
+      // body field
+      beginObject()
+      name("body")
+      value(value.bodyText)
+      endObject()
+    } else {
+      // Otherwise we put down a literal null
+      nullValue()
     }
-    // Use the Kotlin `with` scoping method so we don't need to call
-    // all methods with the `writer.` prefix.
-    with(writer) {
-        // Start the JSON object.
-        beginObject()
 
-        // Since our `extras` field is nullable, and our backend will send
-        // it as a literal null rather than skip it, we want null values to 
-        // be written into the final JSON.
-        serializeNulls = true
-
-        // Create a JSON field with the name 'heading'
-        name("heading")
-
-        // Set the value of the 'heading' field to the actual heading
-        value(value.heading)
-
-        // Create the 'extras' field
-        name("extras")
-        if (value.body != null) {
-            // If the body text exists, then start a new object and add a 
-            // body field
-            beginObject()
-            name("body")
-            value(value.bodyText)
-            endObject()
-        } else {
-            // Otherwise we put down a literal null
-            nullValue()
-        }
-
-        // End the top-level object.
-        endObject()
-    }
+    // End the top-level object.
+    endObject()
+  }
 }
 ```
 
@@ -146,7 +148,7 @@ Anyways, that's the object -> JSON part sorted. Now let's try to do the reverse.
 
 ```kotlin
 fun fromJson(reader: JsonReader): TextParts? {
-    TODO("Not implemented")
+  TODO("Not implemented")
 }
 ```
 
@@ -155,15 +157,15 @@ Same as writing JSON, we need to start by making an object.
 
 ```diff
  fun fromJson(reader: JsonReader): TextParts? {
-+    // We'll be constructing the object at the end so these
-+    // will store the values we read.
-+    var heading: String? = null
-+    var body: String? = null
-+    with(reader) {
-+        beginObject()
-+        endObject()
-+    }
-     TODO("Not implemented")
++  // We'll be constructing the object at the end so these
++  // will store the values we read.
++  var heading: String? = null
++  var body: String? = null
++  with(reader) {
++    beginObject()
++    endObject()
++  }
+   TODO("Not implemented")
  }
 ```
 
@@ -174,93 +176,94 @@ We have a fixed set of keys that we expect to read, so go ahead and configure a 
 +val extrasKeys = JsonReader.Options.of("body")
 +
  fun fromJson(reader: JsonReader): TextParts? {
-     // We'll be constructing the object at the end so these
-     // will store the values we read.
+   // We'll be constructing the object at the end so these
+   // will store the values we read.
 ```
 
 And we're set. You'll see the significance of the Options objects now.
 
 ```diff
-     var body: String? = null
-     with(reader) {
-         beginObject()
-+        while(hasNext()) {
-+            when(selectName(topLevelKeys)) {
-+                0 -> heading = readString() ?: throw Util.unexpectedNull(
-+                    "heading",
-+                    "text",
-+                    this
-+                )
-+            }
-+        }
-         endObject()
-     }
-     TODO("Not implemented")
+   var body: String? = null
+   with(reader) {
+     beginObject()
++    while(hasNext()) {
++      when(selectName(topLevelKeys)) {
++        0 -> heading = readString() ?: throw Util.unexpectedNull(
++          "heading",
++          "text",
++          this
++        )
++      }
++    }
+     endObject()
+   }
+   TODO("Not implemented")
 ```
 
 `reader.hasNext()` is going to continue iterating through the document's tokens until it's completed, which lets us look through the entire document for the parts we need. The `selectName(JsonReader.Options)` method will return the index of a matched key, so `0` there means that the `heading` key was found. In response to that, we want to read it as a string and throw if it is null (since it's non-nullable in `TextParts`). The `Util.unexpectedNull` method is a little nicety that is part of Moshi's internals and is used by its kapt-generated adapters to provide better error messages and we're going to do the same.
 
 ```diff
-                 0 -> heading = readString() ?: throw Util.unexpectedNull(
-                     "heading",
-                     "text",
-                     this
-                 )
-+                -1 -> {
-+                    // Skip unknown values
-+                    reader.skipName()
-+                    reader.skipValue()
-+                }
-             }
-         }
-         endObject()
+         0 -> heading = readString() ?: throw Util.unexpectedNull(
+           "heading",
+           "text",
+           this
+         )
++        -1 -> {
++          // Skip unknown values
++          reader.skipName()
++          reader.skipValue()
++        }
+       }
+     }
+     endObject()
 
 ```
 
 When I said that `selectName` returns the index of the matched key, I didn't mention that it returns -1 when it comes across a key that isn't in the Options object. Since we don't care about them, we're going to skip both their name and value and continue right on ahead. Now, we're going to try and parse that inner `extras` object. A lot is about to happen quickly, but bear with me as I explain things.
 
 ```diff
-                     "text",
-                     this
-                 )
-+                1 -> {
-+                    // "extras" is nullable, so we first try to see if it is null.
-+                    // If it isn't, this will throw and we can then safely assume
-+                    // a non-null value and proceed.
-+                    try {
-+                        reader.nextNull<Any>()
-+                    } catch (_: JsonDataException) {
-+                        reader.beginObject()
-+                        while (reader.hasNext()) {
-+                            when (reader.selectName(extrasKeys)) {
-+                                0 -> body = reader.nextString()
-+                                -1 -> {
-+                                    // Skip unknown values
-+                                    reader.skipName()
-+                                    reader.skipValue()
-+                                }
-+                            }
-+                        }
-+                        reader.endObject()
-+                    }
+           "text",
+           this
+         )
++        1 -> {
++          // "extras" is nullable, so we first try to see if it is null.
++          // If it isn't, this will throw and we can then safely assume
++          // a non-null value and proceed.
++          try {
++            reader.nextNull<Any>()
++          } catch (_: JsonDataException) {
++            reader.beginObject()
++            while (reader.hasNext()) {
++              when (reader.selectName(extrasKeys)) {
++                0 -> body = reader.nextString()
++                -1 -> {
++                  // Skip unknown values
++                  reader.skipName()
++                  reader.skipValue()
 +                }
-                 -1 -> {
-                     // Skip unknown values
-                     reader.skipName()
-                     reader.skipValue()
++              }
++            }
++            reader.endObject()
++          }
++        }
+         -1 -> {
+           // Skip unknown values
+           reader.skipName()
+           reader.skipValue()
 
 ```
 
 Now that you look at it, not really that different from what we did above. The only new thing here is the `nextNull` method, which simply tries to find a null value and throws the `JsonDataException` if the value wasn't null.
 
 ```diff
-         }
-         endObject()
      }
--    TODO("Not implemented")
-+    // Satisfy the typechecker and throw in case the JSON body didn't contain the 'heading' field at all
-+    require(heading != null) { "heading must not be null" }
-+    return TextParts(heading, body)
+     endObject()
+   }
+-  TODO("Not implemented")
++  // Satisfy the typechecker and throw in case the JSON body
++  // didn't contain the 'heading' field at all
++  require(heading != null) { "heading must not be null" }
++  return TextParts(heading, body)
  }
 
 ```
@@ -269,101 +272,101 @@ And that's it! The final adapter is going to look like this
 
 ```kotlin
 class TextPartsJsonAdapter {
-    val topLevelKeys = JsonReader.Options.of("heading", "extras")
-    val extrasKeys = JsonReader.Options.of("body")
+  val topLevelKeys = JsonReader.Options.of("heading", "extras")
+  val extrasKeys = JsonReader.Options.of("body")
 
-    @FromJson
-    fun fromJson(reader: JsonReader): TextParts? {
-        // We'll be constructing the object at the end so these
-        // will store the values we read.
-        var heading: String? = null
-        var body: String? = null
-        with(reader) {
-            beginObject()
-            while(hasNext()) {
-                when(selectName(topLevelKeys)) {
-                    0 -> heading = readString() ?: throw Util.unexpectedNull(
-                        "heading",
-                        "text",
-                        this
-                    )
-                    1 -> {
-                        // "extras" is nullable, so we first try to see if it is null.
-                        // If it isn't, this will throw and we can then safely assume
-                        // a non-null value and proceed.
-                        try {
-                            reader.nextNull<Any>()
-                        } catch (_: JsonDataException) {
-                            reader.beginObject()
-                            while (reader.hasNext()) {
-                                when (reader.selectName(extrasKeys)) {
-                                    0 -> body = reader.nextString()
-                                    else -> {
-                                        // Skip unknown
-                                        reader.skipName()
-                                        reader.skipValue()
-                                    }
-                                }
-                            }
-                            reader.endObject()
-                        }
-                    }
-                    -1 -> {
-                        reader.skipName()
-                        reader.skipValue()
-                    }
+  @FromJson
+  fun fromJson(reader: JsonReader): TextParts? {
+    // We'll be constructing the object at the end so these
+    // will store the values we read.
+    var heading: String? = null
+    var body: String? = null
+    with(reader) {
+      beginObject()
+      while(hasNext()) {
+        when(selectName(topLevelKeys)) {
+          0 -> heading = readString() ?: throw Util.unexpectedNull(
+            "heading",
+            "text",
+            this
+          )
+          1 -> {
+            // "extras" is nullable, so we first try to see if it is null.
+            // If it isn't, this will throw and we can then safely assume
+            // a non-null value and proceed.
+            try {
+              reader.nextNull<Any>()
+            } catch (_: JsonDataException) {
+              reader.beginObject()
+              while (reader.hasNext()) {
+                when (reader.selectName(extrasKeys)) {
+                  0 -> body = reader.nextString()
+                  else -> {
+                    // Skip unknown
+                    reader.skipName()
+                    reader.skipValue()
+                  }
                 }
+              }
+              reader.endObject()
             }
-            endObject()
+          }
+          -1 -> {
+            reader.skipName()
+            reader.skipValue()
+          }
         }
-        // Satisfy the typechecker and throw in case the JSON body didn't contain the 'heading' field at all
-        require(heading != null) { "heading must not be null" }
-        return TextParts(heading, body)
+      }
+      endObject()
     }
+    // Satisfy the typechecker and throw in case the JSON body
+    // didn't contain the 'heading' field at all
+    require(heading != null) { "heading must not be null" }
+    return TextParts(heading, body)
+  }
 
-    @ToJson
-    fun toJson(writer: JsonWriter: value: TextParts?) {
-        // Null values shouldn't arrive to the adapter, this error lets callers know
-        // what builder options need to be passed to the Moshi.Builder() instance
-        // to avoid this particular situation.
-        if (value == null) {
-            throw NullPointerException("value was null! Wrap in .nullSafe() to write nullable values.")
-        }
-        // Use the Kotlin `with` scoping method so we don't need to call
-        // all methods with the `writer.` prefix.
-        with(writer) {
-            // Start the JSON object.
-            beginObject()
-
-            // Since our `extras` field is nullable, and our backend will send
-            // it as a literal null rather than skip it, we want null values to 
-            // be written into the final JSON.
-            serializeNulls = true
-
-            // Create a JSON field with the name 'heading'
-            name("heading")
-
-            // Set the value of the 'heading' field to the actual heading
-            value(value.heading)
-
-            // Create the 'extras' field
-            name("extras")
-            if (value.body != null) {
-                // If the body text exists, then start a new object and add a 
-                // body field
-                beginObject()
-                name("body")
-                value(value.bodyText)
-                endObject()
-            } else {
-                // Otherwise we put down a literal null
-                nullValue()
-            }
-
-            // End the top-level object.
-            endObject()
-        }
+  @ToJson
+  fun toJson(writer: JsonWriter: value: TextParts?) {
+    // Null values shouldn't arrive to the adapter, this error lets callers know
+    // what builder options need to be passed to the Moshi.Builder() instance
+    // to avoid this particular situation.
+    if (value == null) {
+      throw NullPointerException("value was null! Wrap in .nullSafe() to write nullable values.")
     }
+    // Use the Kotlin `with` scoping method so we don't need to call
+    // all methods with the `writer.` prefix.
+    with(writer) {
+      // Start the JSON object.
+      beginObject()
+
+      // Since our `extras` field is nullable, and our backend will send
+      // it as a literal null rather than skip it, we want null values to
+      // be written into the final JSON.
+      serializeNulls = true
+
+      // Create a JSON field with the name 'heading'
+      name("heading")
+
+      // Set the value of the 'heading' field to the actual heading
+      value(value.heading)
+
+      // Create the 'extras' field
+      name("extras")
+      if (value.body != null) {
+        // If the body text exists, then start a new object and add a body field
+        beginObject()
+        name("body")
+        value(value.bodyText)
+        endObject()
+      } else {
+        // Otherwise we put down a literal null
+        nullValue()
+      }
+
+      // End the top-level object.
+      endObject()
+    }
+  }
 }
 ```
 
