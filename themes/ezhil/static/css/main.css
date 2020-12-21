@@ -132,7 +132,7 @@ h6 {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 ul {
@@ -197,7 +197,7 @@ pre code {
   
 
 .wrapper {
-    max-width: 760px;
+    max-width: 960px;
     margin: 0 auto;
 }
 
@@ -389,7 +389,7 @@ table th, table td {
     border: 1px solid #dddddd;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 967px) {
     body {
         padding: 20px;
     }
