@@ -3,6 +3,7 @@ categories = ["kotlin", "android"]
 date = 2020-12-21
 description = "Moshi is a fast and powerful JSON parsing library for the JVM and Android. Today we look into manually parsing JSON to and from Java/Kotlin classes"
 slug = "manually-parsing-json-with-moshi"
+social_image = "/uploads/moshi_social.webp"
 tags = ["moshi", "json parsing", "android", "kotlin"]
 title = "Manually parsing JSON with Moshi"
 toc = true
