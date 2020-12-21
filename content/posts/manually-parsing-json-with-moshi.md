@@ -211,8 +211,8 @@ And we're set. You'll see the significance of the Options objects now.
          )
 +        -1 -> {
 +          // Skip unknown values
-+          reader.skipName()
-+          reader.skipValue()
++          skipName()
++          skipValue()
 +        }
        }
      }
@@ -231,26 +231,26 @@ When I said that `selectName` returns the index of the matched key, I didn't men
 +          // If it isn't, this will throw and we can then safely assume
 +          // a non-null value and proceed.
 +          try {
-+            reader.nextNull<Any>()
++            nextNull<Any>()
 +          } catch (_: JsonDataException) {
-+            reader.beginObject()
-+            while (reader.hasNext()) {
-+              when (reader.selectName(extrasKeys)) {
-+                0 -> body = reader.nextString()
++            beginObject()
++            while (hasNext()) {
++              when (selectName(extrasKeys)) {
++                0 -> body = nextString()
 +                -1 -> {
 +                  // Skip unknown values
-+                  reader.skipName()
-+                  reader.skipValue()
++                  skipName()
++                  skipValue()
 +                }
 +              }
 +            }
-+            reader.endObject()
++            endObject()
 +          }
 +        }
          -1 -> {
            // Skip unknown values
-           reader.skipName()
-           reader.skipValue()
+           skipName()
+           skipValue()
 
 ```
 
@@ -296,25 +296,25 @@ class TextPartsJsonAdapter {
             // If it isn't, this will throw and we can then safely assume
             // a non-null value and proceed.
             try {
-              reader.nextNull<Any>()
+              nextNull<Any>()
             } catch (_: JsonDataException) {
-              reader.beginObject()
-              while (reader.hasNext()) {
-                when (reader.selectName(extrasKeys)) {
-                  0 -> body = reader.nextString()
+              beginObject()
+              while (hasNext()) {
+                when (selectName(extrasKeys)) {
+                  0 -> body = nextString()
                   else -> {
                     // Skip unknown
-                    reader.skipName()
-                    reader.skipValue()
+                    skipName()
+                    skipValue()
                   }
                 }
               }
-              reader.endObject()
+              endObject()
             }
           }
           -1 -> {
-            reader.skipName()
-            reader.skipValue()
+            skipName()
+            skipValue()
           }
         }
       }
