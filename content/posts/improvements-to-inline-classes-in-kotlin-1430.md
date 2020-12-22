@@ -2,7 +2,6 @@
 categories = ["kotlin"]
 date = 2020-12-22
 description = "Kotlin 1.4.30 is poised to improve on multiple pain points with inline classes, making them more generally useful. Let's look at these changes!"
-draft = true
 slug = "improvements-to-inline-classes-in-kotlin-1-4-30"
 socialImage = "/uploads/kotlin_social.webp"
 tags = ["kotlin", "inline classes"]
