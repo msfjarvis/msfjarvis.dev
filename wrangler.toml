@@ -10,6 +10,6 @@ bucket = "./public"
 entry-point = "workers-site"
 
 [env.production]
-name = "msfjarvis-dev"
+name = "msfjarvis-dev-prod"
 route = "msfjarvis.dev/*"
 vars = { BASE_URL = "https://msfjarvis.dev/" }
