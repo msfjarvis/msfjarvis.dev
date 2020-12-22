@@ -6,6 +6,7 @@
 
 {{ if not .Site.IsServer }}
 {{ template "_internal/google_analytics_async.html" . }}
+{{ partial "simple_analytics.html" . }}
 {{ end }}
 {{- with .Site.Params.Social -}}
 <script nonce="MZSWC5DVOJSS23TPNZRWKCQ=">feather.replace()</script>
