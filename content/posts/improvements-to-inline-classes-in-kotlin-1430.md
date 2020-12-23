@@ -25,7 +25,7 @@ This is _fine_, but there are hidden performance costs. Classes are initialized 
 inline class EmailAddress(val value: String)
 ```
 
-This will result in the EmailAddress wrapper being erased at runtime into direct access of the underlying `value` field. The rules around this are not as simple as "`inline` means it will be inlined", and I recommend reading the [representation of inline classes] documentation to get a better idea.
+This will result in the EmailAddress wrapper being erased at runtime into direct access of the underlying `value` field. The rules around this are not as simple as "`inline` means it will always be inlined", and I recommend reading the [representation of inline classes] documentation to get a better idea of what particular situations the compiler can optimize.
 
 ## Upcoming improvements for inline classes
 
@@ -44,7 +44,7 @@ inline class EmailAddress(val value: String) {
 }
 ```
 
-On Kotlin 1.4.20, this will fail to compile with `Inline class cannot have an initializer block`. Being able to check values going into `inline` classes is valuable because ultimately most of us will be wrapping primitive types into these classes and will frequently have restrictions on what is valid.
+On Kotlin 1.4.20, this will fail to compile with `Inline class cannot have an initializer block`. This change is valuable because ultimately most of us will be wrapping primitive types into these classes and will frequently have restrictions on what is valid, so being able to validate is extremely helpful to catch invalid values early.
 
 ### Primary constructor can be made non-public
 
