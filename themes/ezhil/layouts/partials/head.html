@@ -1,3 +1,8 @@
+<script nonce="ONQV6ZLWMVXHIX3IMVQWIZLSL5RWY2LDNMFA====">
+function item_click(name) {
+	sa_event(`header_click_${name}`);
+}
+</script>
 <div class="header">
 	<base href="{{ .Site.BaseURL }}">
 	<h1 class="site-title"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
@@ -8,7 +13,7 @@
 		<nav class="nav social">
 			<ul class="flat">
 				{{- range $index, $key := .Site.Params.Social -}}
-				<a href="{{ $key.url }}" title="{{ $key.name }}"><i data-feather="{{ $key.icon }}"></i></a>
+				<a href="{{ $key.url }}" title="{{ $key.name }}" onclick="item_click({{ $key.icon }})"><i data-feather="{{ $key.icon }}"></i></a>
 				{{- end -}}
 			</ul>
 		</nav>
