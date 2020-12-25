@@ -23,12 +23,4 @@
 			{{ end }}
 		</ul>
 	</nav>
-	<script nonce="ONQV6ZLWMVXHIX3IMVQWIZLSL5RWY2LDNMFA====">
-	function item_click(name) {
-		sa_event(`header_click_${name}`);
-	}
-	{{- range $index, $key := .Site.Params.Social -}}
-		document.getElementById("{{ $key.icon }}-header").addEventListener('click', item_click("{{ $key.icon }}"));
-	{{- end -}}
-	</script>
 </div>
