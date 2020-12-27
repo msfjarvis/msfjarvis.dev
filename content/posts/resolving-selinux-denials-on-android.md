@@ -48,13 +48,13 @@ How did I construct the rule?
 
 First, you need to identify the process/device which attempted the action which raised the denial.
 
-The [Gentoo wiki](https://wiki.gentoo.org/wiki/SELinux/Tutorials/Where_to_find_SELinux_permission_denial_details) has an amazing entry on how to understand an individual denial entry in the log, which I strongly recommend reading. The rest of this section will assume that you have read this page, because you really should have, or at the very least the **Disecting the AVC denial** section.
+The [Gentoo wiki](https://wiki.gentoo.org/wiki/SELinux/Tutorials/Where_to_find_SELinux_permission_denial_details) has an amazing entry on how to understand an individual denial entry in the log, which I strongly recommend reading. The rest of this section will assume that you have read this page, because you really should have, or at the very least the ***Disecting the AVC denial*** section.
 
 The source context is where this illegal access originated. In our case, it is **system_app**.
 
-The target context and target class combined tell us what resource did the source context try to access before it was blocked. In our example, that'll be `ipa_dev:chr_file`.
+The target context and target class combined tell us what resource did the source context try to access before it was blocked. In our example, that'll be **ipa_dev:chr_file**.
 
-Finally, the permission that was requested. In this example it is a set: **{read write}**. In most cases it will be just one permission, like `read`/`exec`/`write`.
+Finally, the permission that was requested. In this example it is a set: **{read write}**. In most cases it will be just one permission, like **read**, **exec** or **write**.
 
 Put this all together and you get the final sepolicy rule.
 
