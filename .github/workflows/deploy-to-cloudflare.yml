@@ -3,7 +3,7 @@ name: Deploy to Cloudflare Workers Sites
 on:
   push:
     branches:
-      - src
+      - main
 
 jobs:
   deploy-main:
