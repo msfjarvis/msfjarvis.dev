@@ -17,6 +17,8 @@ ignoreErrors = ["error-remote-getjson"]
   mainSections = ["posts"]
   mode = "light"
   featherIconsCDN = true
+  utterancesRepo = "msfjarvis/msfjarvis.dev"
+  utterancesTheme = "github-light"
 
 [[menu.main]]
   identifier = "about"

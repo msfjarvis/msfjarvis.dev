@@ -27,6 +27,9 @@
 				{{ end }}
 			{{ end }}
 		</div>
+		{{- if isset .Site.Params "utterancesrepo" -}}
+		{{ partial "utterances.html" . }}
+		{{- end -}}
 		{{- $.Scratch.Set "isDisqus" true -}}
 
 		<!-- Disable if content type is excluded in config -->
