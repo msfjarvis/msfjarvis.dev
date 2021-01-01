@@ -6,10 +6,18 @@ body {
     font-size: 16px;
 }
 
-a, a:hover {
+a {
+    color: #a00;
+    text-decoration-style: solid;
+    text-decoration-color: #a00;
+    text-decoration-thickness: .125em;
+    text-underline-offset: 1.5px;
+    word-break: break-word;
+}
+
+a:hover, .linkplain {
     color: #a00;
     text-decoration: none;
-    word-break: break-word;
 }
 
 html,button,input,select,textarea {
@@ -77,15 +85,6 @@ blockquote cite {
 
 blockquote em {
     font-weight: 600;
-}
-
-a,a:hover {
-    color: #a00;
-    text-decoration: none
-}
-
-a:hover {
-    text-decoration: underline
 }
 
 h1,h2,h3,h4,h5,h6 {
