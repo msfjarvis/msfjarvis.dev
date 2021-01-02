@@ -21,11 +21,11 @@ My love for Rust extends deep into the CLI, and a lot of GNU tools are replaced 
 
 | GNU version | Rust version | Link |
 | --- | --- | --- |
-| cat | bat | GitHub |
-| cd | zoxide | GitHub |
-| du | diskus | GitHub |
-| find | fd | GitHub |
-| grep | ripgrep | GitHub |
+| cat | bat | [GitHub](https://github.com/sharkdp/bat) |
+| cd | zoxide | [GitHub](https://github.com/ajeetdsouza/zoxide) |
+| du | diskus | [GitHub](https://github.com/sharkdp/diskus) |
+| find | fd | [GitHub](https://github.com/sharkdp/fd) |
+| grep | ripgrep | [GitHub](https://github.com/BurntSushi/ripgrep) |
 
 ~~I have begun using~~ [~~Homebrew~~](https://brew.sh) ~~to maintain software on my machines so you can see most stuff I have on my PC in this~~ [~~Brewfile~~](https://github.com/msfjarvis/dotfiles/blob/master/homebrew/Brewfile)~~.~~ I now officially despise Homebrew, and use [Nix](https://nixos.org/nix/) instead. Yes, I'm fickle, how'd you guess?
 
