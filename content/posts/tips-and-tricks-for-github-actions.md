@@ -36,7 +36,7 @@ The `on.schedule.cron` trigger here is doing the main job here of accepting a cr
 
 Mine is a very naive example of how you can use cron triggers to automate parts of your workflow. The [Rust](https://github.com/rust-lang) project uses these same triggers to implement a significantly important aspect of their daily workings. Rust maintains a repository called [glacier](https://github.com/rust-lang/glacier) which contains a list of internal compiler errors (ICEs) and code fragments to reproduce each of them. Using a similar cron trigger, this repository checks each new nightly release of Rust to see if any of these compiler crashes were resolved silently by a refactor. When it comes across a ICE that was fixed (compiles correctly or fails with errors rather than crashing), it files a [pull request](https://github.com/rust-lang/glacier/pulls?q=is%3Apr+author%3Aapp%2Fgithub-actions+sort%3Aupdated-desc) moving the reproduction file to the `fixed` pile. It's a *very* smart and effective use of the cron feature!
 
-## Running jobs based on commit message requirements
+## Running jobs based on commit message
 
 Continuous delivery is great, but sometimes you want slightly more control. Rather than run a deployment task on each push to your repository, what if you want it to only run when a specific keyword is in the commit message? Actions has support for this natively, and the deployment pipeline of this very site relies on this feature.
 
@@ -58,7 +58,7 @@ jobs:
     # Set up wrangler and push to the staging environment
 ```
 
-This snippet defines a job that is only executed when the top commit of the push contains the text `[deploy]` in its message, and another that only runs when the commit message contains `[staging]`. Together, these let me control if I want a change to not be immediately deployed, deployed to only the main site, deployed to the staging site, or to both at the same time. So now I can update a draft post without a full re-deployment of the main site, or make a quick edit to a published post that doesn't need to be reflected on the staging environment. It also allows me to control my writes into the Cloudflare Workers KV network, since it is rather easy run afoul of the daily writes quota after a handful of back to back staging + prod deployments. I'd pay to have a insanely higher writes quota, but it happens so rarely that it's not really worth it.
+This snippet defines a job that is only executed when the top commit of the push contains the text `[deploy]` in its message, and another that only runs when the commit message contains `[staging]`. Together, these let me control if I want a change to not be immediately deployed, deployed to either the main or staging site, or to both at the same time. So now I can update a draft post without a full re-deployment of the main site, or make a quick edit to a published post that doesn't need to be reflected in the staging environment.
 
 ## Testing across multiple configurations in parallel
 
@@ -102,7 +102,7 @@ This will automatically generate 9 (3 platforms * 3 Rust channels) parallel jobs
 
 Since you can define more than one job in one Actions workflow, you can also leverage that functionality to define more complex requirements for their execution. More real world examples!
 
-LeakCanary has a checks job that runs on each push to the main branch and on each pull request, and they wanted to add back support for snapshot deployment to finally retire Travis CI. To make this happen, I simply added a new job to the same workflow, and made it run only on push events. For added safety, I made the deployment job have a dependency on the tests job. This ensures that there won't be a snapshot deployment until all tests are passing on main, which is always a good thing. The relevant parts of the workflow configuration are here:
+LeakCanary has a checks job that runs on each push to the main branch and on each pull request, and they wanted to add support for snapshot deployment to finally retire Travis CI. To make this happen, I simply added a new job to the same workflow, and made it run only on push events. For added guarantees, I also made the deployment job have a dependency on the checks job. This ensures that there won't be a snapshot deployment until all tests are passing on main. The relevant parts of the workflow configuration are here:
 
 ```yaml
 on:
