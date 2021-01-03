@@ -121,3 +121,41 @@ jobs:
   # Run after the 'checks' job has passed
   needs: [checks]
 ```
+
+# Mitigating security concerns wih Actions
+
+GitHub Actions benefits from a vibrant ecosystem of user-authored actions, which opens it up to equal opportunities for abuse. It is relatively easy to work around the common ones, and I'm going to outline them here. I'm no authority on security, and these recommendations are based on a combination of my reading and understanding. These *should* be helpful, but this list is not exhaustive, and you should exercise all the caution you can.
+
+## Use exact commit hashes rather than tags
+
+Tags are moving qualifiers, and can be force pushed at any moment. If the repository for an Action you use in your workflows is compromised, the tag you use could be force pushed with a malicious version that exfiltrates secrets to a third-party server. Auditing the source of a repository at a given tag, then using the SHA1 commit hash it currently points to as the version alleviates that concern due to it being extremely difficult to fake a new commit with the exact hash.
+
+To get the commit hash for a specific tag, head to the Releases page of the repository, then click the short SHA1 hash below the tag name and copy the full hash from the URL.
+
+> // TBD: image
+
+An alternative to this approach is to vendor each third-party action you use into your own repository, and then use the local copy as the source. This puts you in charge of manually syncing to each version, but allows you to use the safer "Only allow actions from within this repository" option in your repository's Actions settings. Having to manually sync with each release also gives you slightly better visibility into the changes between versions since they'd be available in a single PR diff.
+
+To use an Action from a local directory, replace the `uses:` line with the relative path to the local copy in the repository.
+
+```diff
+job:
+  checks:
+    - name: Checkout repository
+    # Assuming the copy of actions/checkout is at .github/actions/checkout
+-   - uses: actions/checkout@v2
++   - uses: ./.github/actions/checkout
+```
+
+## Replace `pull_request_target` with `pull_request`
+
+`pull_request_target` grants a PR access to a github token that can write to your repository, exposing your code to modification by a malicious third-party who simply needs to open a PR against your repository. Most people will already be on `pull_request`, but if you are not, audit your requirements and make the switch.
+
+```diff
+-on: [push, pull_request_target]
++on: [push, pull_request]
+```
+
+{{< horizontal_line >}}
+
+And that's the end of this far too long post. If you read it all, I thank you for your patience. I'm still learning about Actions, and if you have a similar trick that I did not cover here, I'd love to hear about it! Comment below or just tweet at me on [@msfjarvis](https://twitter.com/msfjarvis) :)
