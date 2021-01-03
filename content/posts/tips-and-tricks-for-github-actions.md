@@ -17,7 +17,7 @@ Let's go over some things that you can do with Actions, and we'll end it with so
 
 ## Running workflows based on a cron trigger
 
-GitHub Actions can trigger the execution of a workflow in response to a large list of events as given [here](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows), one of them being a cron schedule. Let's see how we can use the schedule feature to automate repetetive tasks.
+GitHub Actions can trigger the execution of a workflow in response to a large list of events as given [here](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows), one of them being a cron schedule. Let's see how we can use the schedule feature to automate repetitive tasks.
 
 For [Android Password Store](https://msfjarvis.dev/aps), we maintain a list of known [public suffixes](https://publicsuffix.org/) to be able efficiently detect the 'base' domain of the website we're autofilling into. This list changes frequently, and we typically sync our repository with the latest copy on a weekly basis. Actions enables us to do this automatically:
 
