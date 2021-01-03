@@ -17,7 +17,9 @@ Let's go over some things that you can do with Actions, and we'll end it with so
 
 ## Running workflows based on a cron trigger
 
-For [Android Password Store](https://msfjarvis.dev/aps), we maintain a list of known [public suffixes](https://publicsuffix.org/) to be able to do efficient detection of the 'base' domain of the website we're autofilling into. This list changes frequently, and we typically sync our repository with the latest copy on a weekly basis. Actions enables us to do this automatically, like this:
+GitHub Actions can trigger the execution of a workflow in response to a large list of events as given [here](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows), one of them being a cron schedule. Let's see how we can use the schedule feature to automate repetetive tasks.
+
+For [Android Password Store](https://msfjarvis.dev/aps), we maintain a list of known [public suffixes](https://publicsuffix.org/) to be able efficiently detect the 'base' domain of the website we're autofilling into. This list changes frequently, and we typically sync our repository with the latest copy on a weekly basis. Actions enables us to do this automatically:
 
 ```yaml
 name: Update Publix Suffix List data
@@ -30,9 +32,9 @@ jobs:
   # The actual workflow doing the update job
 ```
 
-The `on.schedule.cron` trigger here is doing the main job here of accepting a cron expression ([crontab.guru](https://crontab.guru/) let's you write your own with ease), which defines how often this workflow executes. In [my case](https://crontab.guru/#0_*_*_*_6), you can see that it executes at 12AM on every Saturday. Going through the merged pull requests in APS, you will notice that the [publicsuffixlist pull requests](https://github.com/android-password-store/Android-Password-Store/pulls?q=is%3Apr+is%3Amerged+sort%3Aupdated-desc+label%3APSL) indeed happen at intervals of at least 7 days.
+Putting the cron expression into [crontab guru](https://crontab.guru/#0_*_*_*_6), you can see that it executes at 12AM on every Saturday. Going through the merged pull requests in APS, you will also notice that the [publicsuffixlist pull requests](https://github.com/android-password-store/Android-Password-Store/pulls?q=is%3Apr+is%3Amerged+sort%3Aupdated-desc+label%3APSL) indeed happen no sooner than 7 days apart.
 
-Mine is a very naive example of how you can use cron triggers to automate parts of your workflow. The [Rust](https://github.com/rust-lang) project uses these same triggers to implement a significantly important aspect of their daily workings. Rust maintains a repository called [glacier](https://github.com/rust-lang/glacier) which contains a list of internal compiler errors (ICEs) and code fragments to reproduce each of them. Using a similar cron trigger, this repository checks each new nightly release of Rust to see if any of these compiler crashes were resolved silently by a refactor. When it comes across a ICE that was fixed (compiles correctly or fails with errors rather than crashing), it files a [pull request](https://github.com/rust-lang/glacier/pulls?q=is%3Apr+author%3Aapp%2Fgithub-actions+sort%3Aupdated-desc) moving the reproduction file to the `fixed` pile. It's a *very* smart and effective use of the cron feature!
+Mine is a very naive example of how you can use cron triggers to automate parts of your workflow. The [Rust](https://github.com/rust-lang) project uses these same triggers to implement a significantly more important aspect of their daily workings. Rust maintains a repository called [glacier](https://github.com/rust-lang/glacier) which contains a list of internal compiler errors (ICEs) and code fragments to reproduce each of them. Using a similar cron trigger, this repository checks each new nightly release of Rust to see if any of these compiler crashes were resolved silently by a refactor. When it comes across a ICE that was fixed (compiles correctly or fails with errors rather than crashing the compiler), it files a [pull request](https://github.com/rust-lang/glacier/pulls?q=is%3Apr+author%3Aapp%2Fgithub-actions+sort%3Aupdated-desc) moving the reproduction file to the `fixed` pile.
 
 ## Running jobs based on commit message
 
@@ -96,13 +98,13 @@ jobs:
         toolchain: ${{ matrix.rust }}
 ```
 
-This will automatically generate 9 (3 platforms * 3 Rust channels) parallel jobs to test this entire configuration, without requiring us to manually define them. [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) at its finest :)
+This will automatically generate 9 (3 platforms * 3 Rust channels) parallel jobs to test this entire configuration, without requiring us to manually define each of them. [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) at its finest :)
 
 ## Make a job run after another
 
-By default, jobs defined in a workflow file run in parallel. However, we might need a more sequential order of execution for some cases, and GHA does include support for this case. Let's try another real world example:.
+By default, jobs defined in a workflow file run in parallel. However, we might need a more sequential order of execution for some cases, and GHA does include support for this case. Let's try another real world example!
 
-[LeakCanary](https://github.com/square/leakcanary) has a [checks job](https://github.com/square/leakcanary/blob/f5343aca6e019994f7e69a28fac14ca18e071b88/.github/workflows/main.yml) that runs on each push to the main branch and on each pull request. They wanted to add support for snapshot deployment, in order to finally retire Travis CI. To make this happen, I simply added a [new job](https://github.com/square/leakcanary/pull/2044/commits/a6f6c204559396120836b27c0b2a46d3e444c728) to the same workflow, and made it run only on push events. For added confidence, I also made the deployment job have a dependency on the checks job, which ensures that there won't be a snapshot deployment until all tests are passing on main. The relevant parts of the workflow configuration are here:
+[LeakCanary](https://github.com/square/leakcanary) has a [checks job](https://github.com/square/leakcanary/blob/f5343aca6e019994f7e69a28fac14ca18e071b88/.github/workflows/main.yml) that runs on each push to the main branch and on each pull request. They wanted to add support for snapshot deployment, in order to finally retire Travis CI. To make this happen, I simply added a [new job](https://github.com/square/leakcanary/pull/2044/commits/a6f6c204559396120836b27c0b2a46d3e444c728) to the same workflow, having it run only on push events and have a dependency on the checks job. This ensures that there won't be a snapshot deployment until all tests are passing on the main branch. The relevant parts of the workflow configuration are here:
 
 ```yaml
 on:
@@ -128,13 +130,20 @@ GitHub Actions benefits from a vibrant ecosystem of user-authored actions, which
 
 ## Use exact commit hashes rather than tags
 
-Tags are moving qualifiers, and can be [force pushed at any moment](https://julienrenaux.fr/2019/12/20/github-actions-security-risk/). If the repository for an Action you use in your workflows is compromised, the tag you use could be force pushed with a malicious version that exfiltrates secrets to a third-party server. Auditing the source of a repository at a given tag, then using the SHA1 commit hash it currently points to as the version alleviates that concern due to it being extremely difficult to fake a new commit with the exact hash.
+Tags are moving qualifiers, and can be [force pushed at any moment](https://julienrenaux.fr/2019/12/20/github-actions-security-risk/). If the repository for an Action you use in your workflows is compromised, the tag you use could be force pushed with a malicious version that can send your repository secrets to a third-party server. Auditing the source of a repository at a given tag, then using the SHA1 commit hash it currently points to as the version addresses that concern due to it being nearly impossible to fake a new commit with the exact hash.
 
 To get the commit hash for a specific tag, head to the Releases page of the repository, then click the short SHA1 hash below the tag name and copy the full hash from the URL.
 
 ![A tag along with its commit hash](/uploads/actions_tips_tricks_commit_hash.webp)
 
 > {{< sub "Here, the commit hash is feb985e. Ideally, you want to click that link and copy the full hash from the URL" >}}
+
+```diff
+job:
+  checks:
+-   - uses: burrunan/gradle-cache-actions@v1.6
+ +  - uses: burrunan/gradle-cache-actions@feb985ecf49f57f54f31920821a50d0394faf122
+```
 
 ### Alternate solution
 
@@ -153,7 +162,7 @@ job:
 
 ## Replace `pull_request_target` with `pull_request`
 
-`pull_request_target` grants a PR access to a github token that can write to your repository, exposing your code to modification by a malicious third-party who simply needs to open a PR against your repository. Most people will already be using the safe `pull_request` event, but if you are not, audit your requirements for `pull_request_target` and make the switch.
+[`pull_request_target`](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request_target) grants a PR access to a github token that can write to your repository, exposing your code to modification by a malicious third-party who simply needs to open a PR against your repository. Most people will already be using the safe [`pull_request`](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request) event, but if you are not, audit your requirements for `pull_request_target` and make the switch.
 
 ```diff
 -on: [push, pull_request_target]
