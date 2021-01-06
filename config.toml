@@ -16,7 +16,6 @@ ignoreErrors = ["error-remote-getjson"]
   socialImage = "android-chrome-512x512.webp"
   mainSections = ["posts"]
   mode = "light"
-  featherIconsCDN = true
   utterancesRepo = "msfjarvis/msfjarvis.dev"
   utterancesTheme = "github-light"
 
