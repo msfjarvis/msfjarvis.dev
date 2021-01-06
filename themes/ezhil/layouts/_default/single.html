@@ -27,7 +27,7 @@
 				{{ end }}
 			{{ end }}
 		</div>
-		{{- if isset .Site.Params "utterancesrepo" -}}
+		{{- if and (isset .Site.Params "utterancesrepo") (and (not .Site.IsServer) (not .Site.BuildDrafts)) -}}
 		{{ partial "utterances.html" . }}
 		{{- end -}}
 		{{- $.Scratch.Set "isDisqus" true -}}
