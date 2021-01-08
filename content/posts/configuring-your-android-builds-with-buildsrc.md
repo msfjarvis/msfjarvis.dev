@@ -82,5 +82,5 @@ class ExamplePlugin : Plugin<Project> {
 
 To see if this is working, try running `./gradlew tasks` again. It should cause the build to fail when configuring the app project because of the `TODO()` method.
 
-[precompiled script plugin]: https://docs.gradle.org/current/userguide/custom_plugins.html#sec:precompiled_plugins
-[performance improvements]: https://docs.gradle.org/current/release-notes.html#performance-improvements
+[precompiled script plugin]: https://docs.gradle.org/6.8/userguide/custom_plugins.html#sec:precompiled_plugins
+[performance improvements]: https://docs.gradle.org/6.8/release-notes.html#performance-improvements
