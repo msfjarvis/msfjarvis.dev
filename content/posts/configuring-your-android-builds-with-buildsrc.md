@@ -10,7 +10,7 @@ title = "Configuring your Android builds with buildSrc"
 
 With the introduction of the Gradle Kotlin DSL a while ago and the more recent [performance improvements] to massively improve its compile times, it is a good time to consider using buildSrc for configuring your builds.
 
-The simplest way to do this is through a [precompiled script plugin], where you create a Gradle plugin to your `buildSrc` directory itself as opposed to including it from a remote repository.
+The simplest way to do this is through a Gradle plugin created directly in your `buildSrc` directory itself as opposed to including it from a remote repository.
 
 
 ## Creating your first Gradle plugin
@@ -82,5 +82,4 @@ class ExamplePlugin : Plugin<Project> {
 
 To see if this is working, try running `./gradlew tasks` again. It should cause the build to fail when configuring the app project because of the `TODO()` method.
 
-[precompiled script plugin]: https://docs.gradle.org/6.8/userguide/custom_plugins.html#sec:precompiled_plugins
 [performance improvements]: https://docs.gradle.org/6.8/release-notes.html#performance-improvements
