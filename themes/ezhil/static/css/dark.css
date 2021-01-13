@@ -25,7 +25,16 @@ h1,h2,h3,h4,h5,h6 {
 	color: #ddd;
 }
 
-a,a:hover {
+a {
+	color: #ff7979;
+	text-decoration-style: solid;
+	text-decoration-color: #ff7979;
+	text-decoration-thickness: .125em;
+	text-underline-offset: 1.5px;
+	word-break: break-word;
+}
+
+a:hover, .linkplain {
 	color: #ff7979;
 	text-decoration: none;
 }
@@ -34,10 +43,6 @@ a,a:hover {
 .site-description a:hover {
 	color: #ddd;
 	text-decoration: underline;
-}
-
-a:hover {
-	opacity: 0.8;
 }
 
 .post-tags .tags a {
@@ -64,10 +69,10 @@ table th {
 }
 
 table th, table td {
-    padding: 10px 20px;
-    border: 1px solid #666;
+	padding: 10px 20px;
+	border: 1px solid #666;
 }
 
 pre code {
-  display: inline-block
+	display: inline-block
 }
