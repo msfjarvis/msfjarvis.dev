@@ -1,19 +1,13 @@
 name: Deploy to Cloudflare Workers Sites
 
 on:
-  workflow_dispatch:
-    inputs:
-      env:
-        description: 'Environment to publish into'
-        required: true
-        default: 'staging'
   push:
     branches:
       - main
 
 jobs:
   deploy-main:
-    if: "contains(github.event.head_commit.message, '[deploy]') || ${{ github.event.inputs.env == 'prod' }}"
+    if: "contains(github.event.head_commit.message, '[deploy]')"
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +37,7 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
 
   deploy-staging:
-    if: "contains(github.event.head_commit.message, '[staging]') || ${{ github.event.inputs.env == 'staging' }}"
+    if: "contains(github.event.head_commit.message, '[staging]')"
     runs-on: ubuntu-latest
 
     steps:
