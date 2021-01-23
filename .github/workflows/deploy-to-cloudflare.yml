@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
+      - name: Checkout source
+        uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
 
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
@@ -41,7 +42,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
+      - name: Checkout source
+        uses: actions/checkout@c952173edf28a2bd22e1a4926590c1ac39630461
 
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
