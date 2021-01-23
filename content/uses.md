@@ -44,5 +44,6 @@ Lenovo IdeaPad 330-15ARR with a Ryzen 3 2200U CPU and Vega 3 graphics.
 
 ### Phones
 
+* 128GB Google Pixel 4a running Android 11.
 * 128GB Google Pixel 2 running Android 11.
-* 64 GB Samsung M30s running OneUI 2.0 based on Android 10.
+* ~~64 GB Samsung M30s running OneUI 2.0 based on Android 10.~~ Gave it to my Mom since I wasn't using it.
