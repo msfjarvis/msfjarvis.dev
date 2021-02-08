@@ -8,6 +8,8 @@ tags = ["kotlin", "inline classes"]
 title = "Improvements to inline classes in Kotlin 1.4.30"
 +++
 
+> UPDATE(08/02/2021): Both these changes have been released in Kotlin 1.4.30 for all currently supported targets including Kotlin/Native.
+
 ## What are inline classes?
 
 [Inline classes] are a Kotlin language feature introduced in Kotlin 1.3 that allow creating no-cost 'wrapper' classes. This is best understood with an example.
