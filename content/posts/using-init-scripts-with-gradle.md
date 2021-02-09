@@ -27,7 +27,7 @@ So, what can you add here? Almost anything!
 On my machines, I currently have two init scripts. One that automatically adds Ben Manes' [gradle-versions-plugin] (also where I first discovered init scripts!), and another that does the same for Miłosz Lewandowski's [can-i-drop-jetifier]. The scripts look something like this
 
 ```groovy
-// $HOME/init.d/can-i-drop-jetifier.gradle
+// /home/msfjarvis/.gradle/init.d/can-i-drop-jetifier.gradle
 
 initscript {
   repositories {
