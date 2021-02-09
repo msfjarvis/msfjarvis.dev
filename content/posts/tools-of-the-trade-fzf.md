@@ -3,7 +3,7 @@ categories = ["tools-of-the-trade"]
 date = 2020-08-10
 description = "Continuing this series, let's talk about fzf."
 slug = "tools-of-the-trade-fzf"
-socialImage = "uploads/tools-of-the-trade-fzf.png"
+socialImage = "uploads/tools-of-the-trade-fzf.webp"
 tags = ["fzf", "cli-tools", "tools-of-the-trade"]
 title = "Tools of the trade: fzf"
 +++

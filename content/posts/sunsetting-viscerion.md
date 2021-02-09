@@ -3,7 +3,7 @@ categories = ["news"]
 date = 2020-02-09
 description = "The Viscerion experiment that started more than a year ago is now coming to an end. Here's what's happening."
 slug = "sunsetting-viscerion"
-socialImage = "uploads/viscerion_social.png"
+socialImage = "uploads/viscerion_social.webp"
 tags = ["personal"]
 title = "Sunsetting Viscerion"
 +++

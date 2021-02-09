@@ -4,7 +4,7 @@ date = 2020-11-21T00:00:00Z
 description = "Building libraries is hard, and keeping track of your public API surface harder. Kotlin 1.4's explicit API mode tries to make the latter not be difficult anymore."
 draft = true
 slug = "tips-for-building-kotlin-libraries"
-socialImage = "/uploads/kotlin_social.png"
+socialImage = "/uploads/kotlin_social.webp"
 tags = ["android", "kotlin", "libraries"]
 title = "Tips and tricks for building libraries in Kotlin"
 

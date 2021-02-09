@@ -5,7 +5,7 @@ description = "Rust is an amazing systems language that is on an explosive rise 
 devLink = "https://dev.to/msfjarvis/tools-for-effective-rust-development-3mb4"
 title = "Tools for effective Rust development"
 slug = "tools-for-effective-rust-development"
-socialImage = "uploads/rust_social.png"
+socialImage = "uploads/rust_social.webp"
 tags = ["dev", "rust"]
 +++
 

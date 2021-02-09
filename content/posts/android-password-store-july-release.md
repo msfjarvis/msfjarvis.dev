@@ -3,7 +3,7 @@ categories = ["aps"]
 date = 2020-07-22
 description = "Long form release notes for the Android Password Store July release"
 slug = "aps-july-release"
-socialImage = "uploads/aps_banner.png"
+socialImage = "uploads/aps_banner.webp"
 tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store July release"
 toc = true
@@ -65,7 +65,7 @@ We've been aggressively refactoring the codebase to use modern APIs like [Activi
 
 Right off the bat, you will notice a brand new icon for Password Store. This was created for us by [Radek Błędowski](https://twitter.com/RKBDI), go check him out!
 
-![New icon](/uploads/aps_banner.png)
+![New icon](/uploads/aps_banner.webp)
 
 To complement the new icon, we've also updated our color scheme to better suit this new branding.
 

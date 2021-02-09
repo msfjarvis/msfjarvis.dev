@@ -13,12 +13,11 @@ ignoreErrors = ["error-remote-getjson"]
   subtitle = "Android developer, Kotlin fanatic and wannabe Rustacean"
   keywords = "homepage, blog, android, kotlin, rust"
   twitterUsername = "@msf_jarvis"
-  socialImage = "android-chrome-512x512.png"
+  socialImage = "android-chrome-512x512.webp"
   mainSections = ["posts"]
   mode = "light"
   utterancesRepo = "msfjarvis/msfjarvis.dev"
   utterancesTheme = "github-light"
-  twitterCardType = "summary"
 
 [[menu.main]]
   identifier = "about"

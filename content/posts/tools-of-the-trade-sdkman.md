@@ -3,7 +3,7 @@ categories = ["tools-of-the-trade"]
 date = 2020-09-02
 description = "Bringing this series back on popular demand, we're here to talk about SDKMAN!"
 slug = "tools-of-the-trade-sdkman"
-socialImage = "uploads/tools-of-the-trade-sdkman.png"
+socialImage = "uploads/tools-of-the-trade-sdkman.webp"
 tags = ["sdkman", "cli-tools", "tools-of-the-trade"]
 title = "Tools of the trade: SDKMAN!"
 +++
