@@ -49,6 +49,8 @@ You'll notice that the `apply plugin:` syntax is using the actual class name rat
 
 Like everything in software, there are some problems you might run into, specifically with the `init.d`-based setup.
 
+Since applying a plugin now requires knowing the plugin class, you'll need to do some digging into each plugin's source code that you wish to apply. A quick way to find it is searching for `Plugin<Project>` in the GitHub repository which will locate plugin classes.
+
 If a project already has a plugin applied that you have configured in your `$GRADLE_USER_HOME/init.d` directory, it will fail the build with a classpath clash. The solution is to either rename the file in `init.d` to prevent it from being picked up by Gradle (`mv can-i-drop-jetifier.gradle can-i-drop-jetifier.gradle.disabled`), or to temporarily remove it from the project in question.
 
 If you have an actual solution for this, please let me know on [Twitter] or post a comment below :)
