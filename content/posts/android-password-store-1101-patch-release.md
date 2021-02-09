@@ -3,7 +3,7 @@ categories = ["aps"]
 date = 2020-07-23
 description = "Long form release notes for the Android Password Store v1.10.1 patch release"
 slug = "aps-1.10.1-release"
-socialImage = "uploads/aps_banner.webp"
+socialImage = "uploads/aps_banner.png"
 tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store 1.10.1 patch release"
 +++
