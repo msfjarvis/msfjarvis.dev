@@ -3,7 +3,7 @@ categories = ["github-actions"]
 date = 2021-01-02T00:00:00Z
 description = "GitHub Actions is a power CI/CD platform that can do a lot more than your traditional CI systems. Here's some tips to get you started with exploring its true potential."
 slug = "github-actions-tips-tricks"
-socialImage = "/uploads/actions_social.webp"
+socialImage = "/uploads/actions_social.png"
 tags = ["tips and tricks", "github actions", "schedules", "jobs", "workflows"]
 title = "Tips and Tricks for GitHub Actions"
 +++
@@ -133,7 +133,7 @@ Tags are moving qualifiers, and can be [force pushed at any moment](https://juli
 
 To get the commit hash for a specific tag, head to the Releases page of the repository, then click the short SHA1 hash below the tag name and copy the full hash from the URL.
 
-![A tag along with its commit hash](/uploads/actions_tips_tricks_commit_hash.webp)
+![A tag along with its commit hash](/uploads/actions_tips_tricks_commit_hash.png)
 
 > {{< sub "Here, the commit hash is feb985e. Ideally, you want to click that link and copy the full hash from the URL" >}}
 

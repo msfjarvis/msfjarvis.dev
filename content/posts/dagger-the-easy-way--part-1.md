@@ -4,7 +4,7 @@ date = 2020-01-20
 description = "Dagger is universally intimidating to beginners and I want to change it."
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-1-3l7b"
 slug = "dagger-the-easy-way--part-1"
-socialImage = "uploads/dagger_made_easy_social.webp"
+socialImage = "uploads/dagger_made_easy_social.png"
 tags = ["android", "dagger", "tutorial"]
 title = "Dagger the easy way - Part 1"
 +++

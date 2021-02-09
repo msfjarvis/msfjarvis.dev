@@ -4,7 +4,7 @@ date = 2020-02-05
 description = "GitHub Actions paired with GitHub Pages provides an excellent CD platform for a status page. Here's how I used it to create mine."
 devLink = "https://dev.to/msfjarvis/creating-a-continuously-deploying-static-statuspage-with-github-3ol2"
 slug = "creating-a-continuously-deploying-static-statuspage-with-github"
-socialImage = "uploads/statuspage_social.webp"
+socialImage = "uploads/statuspage_social.png"
 tags = ["webdev", "github actions", "github pages"]
 title = "Creating a continuously deploying static statuspage with GitHub"
 +++
@@ -19,15 +19,15 @@ For hobbyist projects without any real budget (like this site and the couple oth
 
 - First thing that you want to do is to setup the `CNAME` record that will let GitHub Pages service your status page to a subdomain of your website. Head to your domain registrar (Cloudflare for me) and add a CNAME record for `<your github username>.github.io`
 
-![CNAME record for status.msfjarvis.dev at Cloudflare](/uploads/statuspage_cname_record.webp)
+![CNAME record for status.msfjarvis.dev at Cloudflare](/uploads/statuspage_cname_record.png)
 
 - Next, create a GitHub repository that will hold the Actions workflow for generating your status page as well as the actual status page itself. This repo can be private, as the generated sites are always publicly available.
 
-![GitHub repository for our status page](/uploads/statuspage_github_repo.webp)
+![GitHub repository for our status page](/uploads/statuspage_github_repo.png)
 
 - Clone this empty repository. Now create a file with the name of `CNAME` and enter your custom domain into it. This lets GitHub Pages know where to redirect users if they ever access the site through your `.github.io` subdomain. Commit this file.
 
-![CNAME file in repository](/uploads/statuspage_cname_file.webp)
+![CNAME file in repository](/uploads/statuspage_cname_file.png)
 
 - A quick glance at the static_status README will inform you about the `config` file that it uses to configure itself, and status_hostname_list.txt which has a list of all services it needs to check. `config` is easy to understand and modify, so I'll skip it (you can diff [mine](https://github.com/msfjarvis/status.msfjarvis.dev/blob/master/config) with upstream and use the changes to educate yourself should the need arise). This part should be very straightforward, though I did encounter a problem where using `ping` as the detection mechanism caused sites to falsely report as down. Switching to `curl` resolved the issue.
 
