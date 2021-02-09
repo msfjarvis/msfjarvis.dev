@@ -3,7 +3,7 @@ categories = ["aps"]
 date = 2020-08-18
 description = "Long form release notes for the Android Password Store August release"
 slug = "aps-august-release"
-socialImage = "uploads/aps_banner.png"
+socialImage = "uploads/aps_banner.webp"
 tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store August release"
 +++
@@ -16,7 +16,7 @@ Continuing this new tradition, here are the detailed release notes for the [v1.1
 
 Previously you'd have to set the URL to your repository across multiple fields like username, server, repository name and what not. Annoying! These things make sense to us as developers, but users should not have to be dealing with all that complexity when all they want to do is enter a single URL. We've received numerous bug reports over time as a result of people misunderstanding and ultimately misconfiguring things when exposed to this hellscape. Thanks to some *amazing* work from Fabian, we now have a single URL field for users to fill into.
 
-![Single URL field in repository information](/uploads/aps-august-release-single-url-field.png)
+![Single URL field in repository information](/uploads/aps-august-release-single-url-field.webp)
 
 ## Custom branch support
 
@@ -26,7 +26,7 @@ A long-requested feature ([from 2017](https://msfjarvis.dev/aps/issue/298)!) has
 
 We made a number of UI improvements in this area for the last series, and for this release the original contributor [glowinthedark](https://github.com/glowinthedark) has returned to add the ability to append extra symbols and numbers to the password. Sometimes you'll see sites that require that each password have at least 1 symbol and 1 number to agree with some arbitrary logic's idea of a 'secure' password, and while it can be done manually, automatic is just better :)
 
-![XkPasswd generator with the new symbol/number append option](/uploads/aps-august-release-xkpasswd.png)
+![XkPasswd generator with the new symbol/number append option](/uploads/aps-august-release-xkpasswd.webp)
 
 To add 1 symbol and 1 number to the end of a password, input `sd` and press generate. Each instance of `s` means one symbol, and `d` means one digit. Together these can be put together in any order and in any amount to create passwords conforming to any arbitrary snake-oil check. Remember, in passwords, length is king!
 
@@ -34,7 +34,7 @@ To add 1 symbol and 1 number to the end of a password, input `sd` and press gene
 
 In the last major release we added support for [per-directory keys](/posts/aps-july-release/#proper-support-for-per-directory-keys). Building upon this, we now have support for also setting the key for a subdirectory when creating it.
 
-![Create folder dialog but key selection checkbox](/uploads/aps-august-release-subdir-key-support.png)
+![Create folder dialog but key selection checkbox](/uploads/aps-august-release-subdir-key-support.webp)
 
 When selected, you will be prompted to select a key from OpenKeychain that will then be written into `your-new-directory/.gpg-id` which makes it compatible with all `pass` compliant apps.
 
@@ -44,7 +44,7 @@ When selected, you will be prompted to select a key from OpenKeychain that will 
 
 Many, many people reported being unable to edit/create passwords and the app abruptly crashing. This is pretty bad UX, and we've now fixed it. Users will be prompted to install OpenKeychain and once you install and return to Password Store, the app will pick up from where you left and continue the operation. Pretty neat, even if I say so myself :)
 
-![OpenKeychain installation prompt](/uploads/aps-august-release-missing-openkeychain.png)
+![OpenKeychain installation prompt](/uploads/aps-august-release-missing-openkeychain.webp)
 
 ## External storage fixes
 
