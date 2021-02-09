@@ -18,6 +18,7 @@ ignoreErrors = ["error-remote-getjson"]
   mode = "light"
   utterancesRepo = "msfjarvis/msfjarvis.dev"
   utterancesTheme = "github-light"
+  twitterCardType = "summary"
 
 [[menu.main]]
   identifier = "about"
