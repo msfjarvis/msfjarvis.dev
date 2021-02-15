@@ -16,6 +16,32 @@ First of all, as the [official Gradle documentation] states, "init scripts" are 
 
 They are regular build scripts seen elsewhere in Gradle, but are executed *before* the build starts. They can be used to register external listeners, add plugins to the build or specify machine-specific properties such as the location of a particular SDK required to build the project.
 
+
+# Using init scripts, the official way
+
+Gradle recommends using init scripts with the `--init-script` flag on each Gradle invocation. For example, you might want to include a couple extra tasks for yourself in a Gradle build without modifying the source of the project. To do this, define whatever you want in a separate Gradle file that will be used as an init script.
+
+```kotlin
+// init.gradle.kts
+class EvaluationListenerPlugin : Plugin<Gradle> {
+	override fun apply(target: Gradle) {
+		target.projectsEvaluated {
+			println("Project evaluation completed")
+		}
+	}
+}
+
+apply<EvaluationListenerPlugin>()
+```
+
+Then it can be used like this
+
+```
+$ gradle --init-script init.gradle.kts
+```
+
+and somewhere in the output you'll see our "Project evaluation completed" line.
+
 However, you can also use them to apply common configurations to *every* Gradle project on your machine, *automatically*.
 
 # (Ab)using init scripts for fun and profit
@@ -26,24 +52,24 @@ So, what can you add here? Almost anything!
 
 On my machines, I currently have two init scripts. One that automatically adds Ben Manes' [gradle-versions-plugin] (also where I first discovered init scripts!), and another that does the same for Miłosz Lewandowski's [can-i-drop-jetifier]. The scripts look something like this
 
-```groovy
-// /home/msfjarvis/.gradle/init.d/can-i-drop-jetifier.gradle
+```kotlin
+// $HOME/.gradle/init.d/can-i-drop-jetifier.gradle.kts
 
 initscript {
   repositories {
     gradlePluginPortal()
   }
   dependencies {
-    classpath "com.github.plnice:canidropjetifier:0.5"
+    classpath("com.github.plnice:canidropjetifier:0.5")
   }
 }
 
 allprojects {
-  apply plugin: com.github.plnice.canidropjetifier.CanIDropJetifierPlugin
+  apply<com.github.plnice.canidropjetifier.CanIDropJetifierPlugin>()
 }
 ```
 
-You'll notice that the `apply plugin:` syntax is using the actual class name rather than just the plugin name, which I believe is the only way to actually apply plugins from an init script.
+You'll notice that the `apply` syntax is using the actual class name rather than just the plugin name, which I believe is the only way to actually apply plugins from an init script.
 
 # Caveats
 
