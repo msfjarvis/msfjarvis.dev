@@ -16,7 +16,9 @@ However, I can say for a fact that being able to press 'r' on the keyboard and b
 
 ## Widgets are easy to build and extend
 
-The core and material libraries included in Flutter are great for building design systems at a rapid pace, and theming has been very easy in my experience compared to Android's XML-based approach and the often confusing distinctions between _themes_ and _styles_. The explicit distinction between stateful and stateless widgets can feel welcome to some, but after having used [Jetpack Compose] for a few months, I feel that Flutter could be doing more to handle this by itself.
+The core and material libraries included in Flutter are great for building design systems at a rapid pace, and theming has been very easy in my experience compared to Android's XML-based approach and the often confusing distinctions between _themes_ and _styles_.
+
+The explicit distinction between stateful and stateless widgets can feel welcome to some, but after having used [Jetpack Compose] for a few months, I feel that Flutter could be doing more to handle the differences by itself rather than punt it onto users.
 
 ## Dart is...eh
 
