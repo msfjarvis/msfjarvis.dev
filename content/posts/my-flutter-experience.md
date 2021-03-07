@@ -22,7 +22,41 @@ The core and material libraries included in Flutter are great for building desig
 
 :warning: Hot take alert :warning:
 
-Dart as a language still feels like it hasn't escaped its JavaScript roots. It has a lot of _implicit_ features that are not always desirable, such as [implicit interfaces] and most notably: [dynamic failsafe for type inference]. One could argue that rather than filling in with `dynamic`, the system should report that type inference failed and ask for the user to annotate the type themselves. The language also does not support [sum types], which makes modeling some situations harder than it needs to be. There are community developed libraries to fill in some of these gaps ([sum_types]), but they often involve codegen, which is another pain-point.
+Dart as a language still feels like it hasn't escaped its JavaScript roots. It has a lot of _implicit_ features that are not always desirable, such as [implicit interfaces] and most notably: [dynamic failsafe for type inference]. One can argue that the type system should simply fail compilation if type inference fails and ask for the user to annotate the type themselves. This is what a lot of languages do! However, Dart opted for a weird middle ground where it will sometimes generate an error and sometimes assume the type to be `dynamic`, which basically means "anything". This lack of consistency leaves the door open for a variety of subtle type related bugs that would be resolved by always throwing an error.
+
+I'm not usually one to argue about subjective aspects like syntax, but I have to say I found Dart's syntax to be rather convoluted. I'll just drop an example here and move on, since this is a really pedantic talking point.
+
+```dart
+// Given MyWidget1...
+class MyWidget1 {
+  final String param1;
+  final int param2;
+
+  MyWidget1(this.param1, this.param2);
+}
+
+// ... it can only be initialised as:
+final widget = new MyWidget1("Param 1", 2);
+
+// However, if I slightly change the constructor...
+class MyWidget2 {
+  final String param1;
+  final int param2;
+
+  MyWidget2(this.param1, {this.param2});
+}
+
+//... it can now only be initialised with an explicit name for param2
+final widget1 = new MyWidget2("Param 1", param2: 2);
+
+// The braces in the constructor also change the meaning of the parameters
+final widget2 = new MyWidget2("Param 1");
+
+// This code will compile fine, because parameters inside braces are optional.
+// You can change that by annotating the parameter with @required.
+```
+
+The language also does not support [sum types], which makes modeling a variety of real-world situations much harder. There are community developed libraries to fill in some of these gaps ([sum_types]), but they involve codegen, which is another pain-point.
 
 ## Flutter tooling is (for the most part) great
 
