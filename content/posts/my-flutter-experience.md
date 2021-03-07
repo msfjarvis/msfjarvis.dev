@@ -12,7 +12,7 @@ title = "My Flutter experience as an Android developer"
 
 Not much to say there, it really is great! The lack of IDE support for previewing your UIs is more than made up by being able to press one key and see it on your device instead. The catch: it requires you to use a debug build which usually means janky performance, and sometimes borderline unusable levels of UI sluggishness depending on how many widgets you have on your screen. I've also noticed that subsequent hot reloads seem to exacerbate the UI slowness to the point where 4-5 hot reloads in you will need to restart your app to have things move on the screen again.
 
-However, I can say for a fact that being able to press 'r' on the keyboard and being immediately guaranteed that the code you wrote is what generated the UI you're seeing is great. No more "okay I'll do a clean rebuild and see if my changes show up" which, while a **lot** less frequent now, continues to be a thing in Android.
+However, I can say for a fact that being able to press 'r' on the keyboard and being immediately guaranteed that the code you wrote is what generated the UI you're seeing is great. No more "let me do a clean build and see if that fixes it" which, while a **lot** less frequent now, continues to be a thing in Android.
 
 ## Widgets are easy to build and extend
 
