@@ -53,7 +53,7 @@ jobs:
 
       - name: Build Hugo Site
         run: |
-          hugo --minify --gc -D --baseUrl 'https://staging.msfjarvis.dev/'
+          hugo --minify --gc -D --baseUrl 'https://drafts.msfjarvis.dev/'
 
       - name: Publish to Cloudflare Workers Sites
         run: |

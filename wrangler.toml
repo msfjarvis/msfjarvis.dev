@@ -2,8 +2,8 @@ name = "msfjarvis-dev-staging"
 type = "webpack"
 webpack_config = "webpack.config.js"
 workers_dev = false
-route = "staging.msfjarvis.dev/*"
-vars = { BASE_URL = "https://staging.msfjarvis.dev/" }
+route = "drafts.msfjarvis.dev/*"
+vars = { BASE_URL = "https://drafts.msfjarvis.dev/" }
 
 [site]
 bucket = "./public"
