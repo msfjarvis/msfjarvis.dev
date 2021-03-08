@@ -46,6 +46,8 @@ if (_logoutResult) {
 
 An explicit type and the 'if null' operator bandaid the situation for now.
 
+Extension functions exist in Dart, but in my experience IDEs are unable to offer autocomplete for them like I have come to expect from Kotlin. You'll first need to import the file defining your `extension` (Dart has a designated keyword for extension functions) before you can use them. This sours the experience for me as a Kotlin developer where I've come to expect my IDE to surface extension functions via completion suggestions.
+
 I'm not usually one to argue about subjective aspects like syntax, but I have to say I found Dart's syntax to be rather convoluted. I'll just drop an example here and move on, since this is a really pedantic talking point.
 
 ```dart
