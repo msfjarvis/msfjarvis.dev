@@ -26,6 +26,26 @@ The explicit distinction between stateful and stateless widgets can feel welcome
 
 Dart as a language still feels like it hasn't escaped its JavaScript roots. It has a lot of _implicit_ features that are not always desirable, such as [implicit interfaces] and most notably: [dynamic failsafe for type inference]. One can argue that the type system should simply fail compilation if type inference fails and ask for the user to annotate the type themselves. This is what a lot of languages do! However, Dart opted for a weird middle ground where it will sometimes generate an error and sometimes assume the type to be `dynamic`, which basically means "anything". This lack of consistency leaves the door open for a variety of subtle type related bugs that would be resolved by always throwing an error.
 
+A lot of the Flutter APIs suffer significantly from this type unsafety. Anything that requires a `Navigator` result is implicitly typed to `dynamic`, and can fail at runtime for a variety of reasons. A simple real world example from our codebase:
+
+```dart
+final _logoutResult = await showDialog(context: context, child: LogoutDialog());
+if (_logoutResult) {
+  _startLogout();
+}
+```
+
+What happened here was that while we did return boolean values from `LogoutDialog` when the yes/no buttons were tapped, we did not do that for when the dialog is dismissed by tapping outside it. I could not find an API within `AlertDialog` that would allow me to respond to this particular event, so I had to opt for simply working around the type system:
+
+```dart
+final bool _logoutResult = await showDialog(context: context, child: LogoutDialog()) ?? false;
+if (_logoutResult) {
+  _startLogout();
+}
+```
+
+An explicit type and the 'if null' operator bandaid the situation for now.
+
 I'm not usually one to argue about subjective aspects like syntax, but I have to say I found Dart's syntax to be rather convoluted. I'll just drop an example here and move on, since this is a really pedantic talking point.
 
 ```dart
