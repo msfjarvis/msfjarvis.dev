@@ -46,6 +46,8 @@ if (_logoutResult) {
 
 An explicit type and the 'if null' operator bandaid the situation for now.
 
+Dart has support for generics, but you are free to omit them in declarations and in most cases, you guessed it, Dart will pepper in `dynamic`. This to me makes generics a real [footgun] in the language.
+
 Extension functions exist in Dart, but in my experience IDEs are unable to offer autocomplete for them like I have come to expect from Kotlin. You'll first need to import the file defining your `extension` (Dart has a designated keyword for extension functions) before you can use them. This sours the experience for me as a Kotlin developer where I've come to expect my IDE to surface extension functions via completion suggestions.
 
 I'm not usually one to argue about subjective aspects like syntax, but I have to say I found Dart's syntax to be rather convoluted. I'll just drop an example here and move on, since this is a really pedantic talking point.
@@ -104,3 +106,4 @@ While this has been a rant-esque post, I do find Flutter to be a generally pleas
 [sum_types]: https://pub.dev/packages/sum_types
 [`build_runner` docs]: https://pub.dev/packages/build_runner#source-control
 [Flutter 2.0]: https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65
+[footgun]: https://en.wiktionary.org/wiki/footgun#:~:text=footgun%20(plural%20footguns),shooting%20themselves%20in%20the%20foot.
