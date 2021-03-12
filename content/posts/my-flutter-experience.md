@@ -8,11 +8,13 @@ tags = ["androiddev", "dart", "flutter", "kotlin"]
 title = "My Flutter experience as an Android developer"
 +++
 
+Over the past month I've been helping Sasikanth and the rest of the [Simple] team at Obvious in building the mobile app for [Pause]. We chose Flutter as our framework to build it in, both out of organisational needs (wanting iOS and Android apps at the same time) as well as an experiment in evaluating how our teams feel about Flutter and if it's a viable option for us. It's been a fun journey so far, and there are some very pronounced differences between building native Android apps and using Flutter that were interesting to observe and adapt to.
+
 ## Hot reload is great! (when it works)
 
-Not much to say there, it really is great! The lack of IDE support for previewing your UIs is more than made up by being able to press one key and see it on your device instead. The catch: it requires you to use a debug build which usually means janky performance, and sometimes borderline unusable levels of UI sluggishness depending on how many widgets you have on your screen. I've also noticed that subsequent hot reloads seem to exacerbate the UI slowness to the point where 4-5 hot reloads in you will need to restart your app to have things move on the screen again.
+Not much to say there, it really is great! The lack of IDE support for previewing your UIs is more than made up by being able to press one key and see it on your device instead. The catch: it requires you to use a debug build which usually means janky performance (notably bad on Android, not so much on iOS). Release builds do not suffer from this, since they're compiled ahead-of-time.  I’ve also noticed that subsequent hot reloads seem to exacerbate the UI slowness to the point where 4-5 hot reloads in you will need to restart your app to have things move on the screen again.
 
-However, I can say for a fact that being able to press 'r' on the keyboard and being immediately guaranteed that the code you wrote is what generated the UI you're seeing is great. No more "let me do a clean build and see if that fixes it" which, while a **lot** less frequent now, continues to be a thing in Android.
+However, I can say for a fact that being able to save your on your computer and seeing it on the device within seconds is amazing. I have also found that Flutter essentially never has build cache issues, so no more “let me do a clean build and see if that fixes it” which, while a *lot* less frequent now, continues to be a thing in Android.
 
 ## Widgets are easy to build and extend
 
@@ -96,8 +98,9 @@ Switching between Flutter versions is also an experience, to say the least. `flu
 
 ## Closing notes.
 
-While this has been a rant-esque post, I do find Flutter to be a generally pleasant way to build cross-platform apps. With the web target reaching stable in [Flutter 2.0], it is now an even more lucrative option for new projects to become available on multiple platforms with a single team. As an Android developer, I will still be leaning towards [Jetpack Compose] for Android-only projects. Maybe the reasons for that can form another blogpost in the future :)
+While this is a rant-esque post, I do find Flutter to be a generally pleasant way to build cross-platform apps. With the web target reaching stable in [Flutter 2.0], it is now an even more lucrative option for new projects to become available on multiple platforms with a single team. However as an Android developer, I will still be leaning towards [Jetpack Compose] for Android-only projects. Maybe the reasons for that can form another blogpost in the future :)
 
+[Simple]: https://simple.org
 [Pause]: https://getpause.com
 [Jetpack Compose]: https://d.android.com/jetpack/compose
 [Implicit interfaces]: https://dart.dev/guides/language/language-tour#implicit-interfaces
