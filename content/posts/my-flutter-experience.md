@@ -16,11 +16,13 @@ Not much to say there, it really is great! The lack of IDE support for previewin
 
 However, I can say for a fact that being able to save your on your computer and seeing it on the device within seconds is amazing. I have also found that Flutter essentially never has build cache issues, so no more “let me do a clean build and see if that fixes it” which, while a *lot* less frequent now, continues to be a thing in Android.
 
-## Widgets are easy to build and extend
+## Widgets are a mixed bag
 
 The core and material libraries included in Flutter are great for building design systems at a rapid pace, and theming has been very easy in my experience compared to Android's XML-based approach and the often confusing distinctions between _themes_ and _styles_.
 
-The explicit distinction between stateful and stateless widgets can feel welcome to some, but after having used [Jetpack Compose] for a few months, I feel that Flutter could be doing more to handle the differences by itself rather than punt it onto users.
+The explicit distinction between stateful and stateless widgets can feel welcome to some, but after having used [Jetpack Compose] for a few months, I feel that Flutter could be doing more to handle the differences by itself rather than punt it onto users. I'm not entirely convinced that nobody's been confused between `StatefulWidget` and `StatelessWidget`, because 'state' by itself is a difficult concept to internalize. On the subject of state, Flutter has a [5 part document] that ends with a list of 12 different libraries and APIs which are your options for doing state management. This is insane! In comparison, [state in Jetpack Compose] is a one page overview that explains each term you're encountering, the core APIs for what you want to do with state, and enlists common mistakes that admittedly I too have made when I first tried Compose. These are good docs!
+
+Flutter developers create state management libraries at nearly the same rate as JavaScript developers create web frameworks. Maybe try educating first? :)
 
 ## Dart is...eh
 
@@ -110,3 +112,5 @@ While this is a rant-esque post, I do find Flutter to be a generally pleasant wa
 [`build_runner` docs]: https://pub.dev/packages/build_runner#source-control
 [Flutter 2.0]: https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65
 [footgun]: https://en.wiktionary.org/wiki/footgun#:~:text=footgun%20(plural%20footguns),shooting%20themselves%20in%20the%20foot.
+[5 part document]: https://flutter.dev/docs/development/data-and-backend/state-mgmt
+[state in Jetpack Compose]: https://d.android.com/jetpack/compose/state
