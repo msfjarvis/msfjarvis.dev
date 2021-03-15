@@ -16,13 +16,18 @@ Not much to say there, it really is great! The lack of IDE support for previewin
 
 However, I can say for a fact that being able to save your on your computer and seeing it on the device within seconds is amazing. I have also found that Flutter essentially never has build cache issues, so no more “let me do a clean build and see if that fixes it” which, while a *lot* less frequent now, continues to be a thing in Android.
 
-## Widgets are a mixed bag
+## Widgets are a mixed bag kneecapped by poor documentation
 
 The core and material libraries included in Flutter are great for building design systems at a rapid pace, and theming has been very easy in my experience compared to Android's XML-based approach and the often confusing distinctions between _themes_ and _styles_.
 
 The explicit distinction between stateful and stateless widgets can feel welcome to some, but after having used [Jetpack Compose] for a few months, I feel that Flutter could be doing more to handle the differences by itself rather than punt it onto users. I'm not entirely convinced that nobody's been confused between `StatefulWidget` and `StatelessWidget`, because 'state' by itself is a difficult concept to internalize. On the subject of state, Flutter has a [5 part document] that ends with a list of 12 different libraries and APIs which are your options for doing state management. This is insane! In comparison, [state in Jetpack Compose] is a one page overview that explains each term you're encountering, the core APIs for what you want to do with state, and enlists common mistakes that admittedly I too have made when I first tried Compose. These are good docs!
 
-Flutter developers create state management libraries at nearly the same rate as JavaScript developers create web frameworks. Maybe try educating first? :)
+<!-- Flutter developers create state management libraries at nearly the same rate as JavaScript developers create web frameworks. Maybe try educating first? :) -->
+<!-- Maybe too much snark-->
+
+Flutter also glosses over side effects, which I find particularly distressing. Thinking declaratively means that individual units must be free of side effects, yet there are times when a side effect is necessary and you want a structured way of dispatching one. Flutter mentions side effects a total of two times on its website, on the [architectural overview] page, and doesn't actually explain how to dispatch one. Contrast that with the Compose [Lifecycle and side-effects] documentation which explains everything you'd want to know on the topic. Again, good docs!
+
+Thinking in declarative and functional terms is not immediately straightforward for everyone, and while Jetpack Compose had a very clear goal of onboarding Android developers which may have driven their excellent documentation around these concepts, Flutter too needs to come to grips with the reality that a) not everyone's first foray into application programming is Dart, and b) Developers from other platforms will have more questions than "What is the exact 1:1 mapping of everything from X to Flutter?". There's a good reason Compose docs include the '[Thinking in Compose]' page.
 
 ## Dart is...eh
 
@@ -114,3 +119,6 @@ While this is a rant-esque post, I do find Flutter to be a generally pleasant wa
 [footgun]: https://en.wiktionary.org/wiki/footgun#:~:text=footgun%20(plural%20footguns),shooting%20themselves%20in%20the%20foot.
 [5 part document]: https://flutter.dev/docs/development/data-and-backend/state-mgmt
 [state in Jetpack Compose]: https://d.android.com/jetpack/compose/state
+[architectural overview]: https://flutter.dev/docs/resources/architectural-overview
+[lifecycle and side-effects]: https://d.android.com/jetpack/compose/lifecycle
+[thinking in compose]: https://developer.android.com/jetpack/compose/mental-model
