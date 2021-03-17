@@ -189,7 +189,7 @@ And we're set. You'll see the significance of the Options objects now.
      beginObject()
 +    while(hasNext()) {
 +      when(selectName(topLevelKeys)) {
-+        0 -> heading = readString() ?: throw Util.unexpectedNull(
++        0 -> heading = nextString() ?: throw Util.unexpectedNull(
 +          "heading",
 +          "text",
 +          this
@@ -204,7 +204,7 @@ And we're set. You'll see the significance of the Options objects now.
 `reader.hasNext()` is going to continue iterating through the document's tokens until it's completed, which lets us look through the entire document for the parts we need. The `selectName(JsonReader.Options)` method will return the index of a matched key, so `0` there means that the `heading` key was found. In response to that, we want to read it as a string and throw if it is null (since it's non-nullable in `TextParts`). The `Util.unexpectedNull` method is a little nicety that is part of Moshi's internals and is used by its kapt-generated adapters to provide better error messages and we're going to do the same.
 
 ```diff
-         0 -> heading = readString() ?: throw Util.unexpectedNull(
+         0 -> heading = nextString() ?: throw Util.unexpectedNull(
            "heading",
            "text",
            this
@@ -286,7 +286,7 @@ class TextPartsJsonAdapter {
       beginObject()
       while(hasNext()) {
         when(selectName(topLevelKeys)) {
-          0 -> heading = readString() ?: throw Util.unexpectedNull(
+          0 -> heading = nextString() ?: throw Util.unexpectedNull(
             "heading",
             "text",
             this
