@@ -100,27 +100,27 @@ Apps no longer have [silent access to screen contents](https://developer.android
 
 ### Storage changes
 
--   Apps targeting Android 11 are [no longer allowed to opt out of scoped storage](https://developer.android.com/preview/privacy/storage#scoped-storage).
+-   Apps targeting Android 11 are [no longer allowed to opt out of scoped storage](https://developer.android.com/about/versions/11/privacy/storage#scoped-storage).
 
--   All encompassing access to a large set of directories and files is [completely disabled](https://developer.android.com/preview/privacy/storage#file-directory-restrictions), including the root of the internal storage, the `Download` folder, and the data and obb subdirectories of the `Android` folder.
+-   All encompassing access to a large set of directories and files is [completely disabled](https://developer.android.com/about/versions/11/privacy/storage#file-directory-restrictions), including the root of the internal storage, the `Download` folder, and the data and obb subdirectories of the `Android` folder.
 
 ### Permission changes
 
--   Location, microphone and camera related permissions can now [be granted on a one-off basis](https://developer.android.com/preview/privacy/permissions#one-time), meaning they'll automatically get revoked when the app process exits.
+-   Location, microphone and camera related permissions can now [be granted on a one-off basis](https://developer.android.com/about/versions/11/privacy/permissions#one-time), meaning they'll automatically get revoked when the app process exits.
 
--   Apps that are not used for a few months will [have their permissions automatically revoked](https://developer.android.com/preview/privacy/permissions#auto-reset).
+-   Apps that are not used for a few months will [have their permissions automatically revoked](https://developer.android.com/about/versions/11/privacy/permissions#auto-reset).
 
--   A new `READ_PHONE_NUMBERS` permission [has been added](https://developer.android.com/preview/privacy/permissions#phone-numbers) to call certain APIs that expose phone numbers.
+-   A new `READ_PHONE_NUMBERS` permission [has been added](https://developer.android.com/about/versions/11/privacy/permissions#phone-numbers) to call certain APIs that expose phone numbers.
 
 ### Location changes
 
--   [One time access](https://developer.android.com/preview/privacy/location#one-time-access) is now an option for location, allowing users to not grant persistent access when they don't wish to.
+-   [One time access](https://developer.android.com/about/versions/11/privacy/location#one-time-access) is now an option for location, allowing users to not grant persistent access when they don't wish to.
 
--   Background location needs to [be requested separately now](https://developer.android.com/preview/privacy/location#background-location) and asking for it together with foreground location will throw an exception.
+-   Background location needs to [be requested separately now](https://developer.android.com/about/versions/11/privacy/location#background-location) and asking for it together with foreground location will throw an exception.
 
 ### Data access auditing
 
-To allow apps to audit their own usage of user data, [a new callback is provided](https://developer.android.com/preview/privacy/data-access-auditing#log-access). Apps can implement it and then log all accesses to see if there's any unexpected data use that needs to be resolved.
+To allow apps to audit their own usage of user data, [a new callback is provided](https://developer.android.com/about/versions/11/privacy/data-access-auditing#log-access). Apps can implement it and then log all accesses to see if there's any unexpected data use that needs to be resolved.
 
 ### Redacted MAC addresses
 
