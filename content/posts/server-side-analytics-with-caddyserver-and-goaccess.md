@@ -20,7 +20,7 @@ Goaccess is an **open-source**, **real-time** web log analyzer. In other words, 
 
 ## The setup
 
-To create a compelling analytics experience, we'll need to use Goaccess' `--real-time-html` option, that creates an HTML report, and an accompanying `WebSocket` server that will dispatch a request to update the page data every time goaccess parses updated logs. When we're done, the result will look similar to [stats.msfjarvis.dev](https://stats.msfjarvis.dev), which shows statistics for my blog. Here's a peek at Goaccess' terminal visualizer, to get an idea about the datasets you can expect from the web version.
+To create a compelling analytics experience, we'll need to use Goaccess' `--real-time-html` option, that creates an HTML report, and an accompanying `WebSocket` server that will dispatch a request to update the page data every time goaccess parses updated logs. Here's a peek at Goaccess' terminal visualizer, to get an idea about the datasets you can expect from the web version.
 
 ![Goaccess in the terminal](/uploads/goaccess_terminal.webp)
 
@@ -28,7 +28,7 @@ Goaccess supports most common webserver log formats, and [some more](https://goa
 
 ```bash
 goaccess --log-format=VCOMMON \
-         --ws-url=wss://stats.msfjarvis.dev/ws \
+         --ws-url=wss://stats.example.com/ws \
          --output=${STATS_DIR}/index.html \
          --log-file=/etc/logs/requests.log \
          --no-query-string \
@@ -49,7 +49,7 @@ goaccess --log-format=VCOMMON \
 The final step in this process is to expose the local WebSocket server to the `/ws` endpoint of your domain to allow real-time updates to work. Here's how I do it in Caddy.
 
 ```bash
-https://stats.msfjarvis.dev/ws {
+https://stats.example.com/ws {
     proxy / localhost:7890 {
        websocket
     }

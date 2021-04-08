@@ -21,7 +21,7 @@ I personally find `cargo-edit` useful in projects with a lot of dependencies as 
 
 ## cargo-clippy
 
-[cargo-clippy] is an advanced linter for Rust that brings together **331** ([at the time of writing](https://rust-lang.github.io/rust-clippy/list/index.html)) different lints in one package that's built and maintained by the Rust team.
+[cargo-clippy] is an advanced linter for Rust that brings together **331** ([at the time of writing](https://rust-lang.github.io/rust-clippy/stable/index.html)) different lints in one package that's built and maintained by the Rust team.
 
 I've found it to be a great help alongside the official documentation and ["the book"](https://doc.rust-lang.org/book/) as a way of writing cleaner and more efficient Rust code. As a beginner Rustacean, I find it very helpful in breaking away from my patterns from other languages and using more "rust-y" constructs and expressions in my code.
 
