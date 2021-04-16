@@ -5,7 +5,7 @@ const APS_SLUG = 'Android-Password-Store/Android-Password-Store'
 const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`
 const APS_GITHUB_URL = `https://github.com/${APS_SLUG}`
 const CSP_POLICY = "base-uri 'self'; connect-src 'self' insights.msfjarvis.dev utteranc.es; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com utteranc.es; font-src 'self'; img-src 'self' data: gfycat.com imgur.com *.imgur.com insights.msfjarvis.dev syndication.twitter.com; object-src 'none'; script-src 'self' asciinema.org platform.twitter.com utteranc.es 'nonce-MZSWC5DVOJSS23TPNZRWKCQ=' 'nonce-NFXHG2LHNB2HGLTNONTGUYLSOZUXGLTEMV3AU==='; style-src 'self' 'unsafe-inline';";
-const PERMISSIONS_POLICY = "accelerometer=(), autoplay=(), camera=(), encrypted-media=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), sync-xhr=(), usb=()"
+const PERMISSIONS_POLICY = "accelerometer=(), autoplay=(), camera=(), encrypted-media=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), sync-xhr=(), usb=()"
 
 export async function handleRequest(event: FetchEvent): Promise<Response> {
   return redirectGitHub(event)
