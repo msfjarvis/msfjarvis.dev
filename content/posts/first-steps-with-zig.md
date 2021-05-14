@@ -1,7 +1,7 @@
 +++
 categories = ["zig"]
 date = 2021-05-14
-description = "I decided to learn Zig, and here's how I'm preparing for it."
+description = "I've decided to learn Zig, and here's how I'm preparing for it."
 slug = "first-steps-with-zig"
 tags = ["zig", "learn"]
 title = "First steps with Zig"
@@ -11,12 +11,11 @@ title = "First steps with Zig"
 
 # Compiler and IDE setup
 
-The [installing Zig] page recommends that while using the Zig stable releases is fine for evaluating it, their [stable release cadence] matches LLVM's ~6 months which means they often rendered outdated by the fast pace of Zig development.
+The [installing Zig] page recommends that while using the Zig stable releases is fine for evaluating it, their [stable release cadence] matches LLVM's ~6 months which means they are often rendered outdated by the fast pace of Zig development.
 
-Since I wanted to stick with using [Nix] to manage my temporary Zig environment, I went with the stable 0.7.1 release available on nixpkgs.
+Since I wanted to stick with using [Nix] to manage my (currently) temporary Zig environment, I went with the stable 0.7.1 release available on nixpkgs.
 
-A quick `nix-shell -p zig` later, I now had access to the Zig compiler
-
+A quick `nix-shell -p zig` later, I now had access to the Zig compiler.
 
 ```shell
 ➜ nix-shell -p zig
@@ -24,12 +23,15 @@ A quick `nix-shell -p zig` later, I now had access to the Zig compiler
 0.7.1
 ```
 
-To be able to use VSCode for writing Zig, I also installed the official [zls] language server for Zig. This did get me go-to-declaration support for the standard library, but not syntax highlighting.
+To be able to use VSCode for writing Zig, I also installed the official [zls] language server for Zig. This did get me go-to-declaration support for the standard library, but not syntax highlighting. I'm not sure if that's intended, or a bug with my local setup.
 
 # Learning resources
 
-The Zig team frankly admits that they do not have the resources to maintain extensive learning resources yet, but did link to [ziglearn.org] which seems like the next best thing. There is a [rustlings] counterpart in [ziglings], and the [standard library reference] also exists along with a [language reference] for people who prefer to learn that way. There's something for everyone, and you'll notice most of the **good** learning content is community sourced as opposed to Rust which has an official [book] and maintains the [rustlings] repository as a first-party member of the Rust ecosystem.
+The Zig team frankly admits that they do not yet have the resources to maintain extensive learning resources, but the Zig community has stepped forward to fill in those gaps. [ziglearn.org] is a great jumping off point for people who prefer to learn language basics directly, and there is a [rustlings] counterpart in [ziglings] for learning by looking at code.
 
+On the official side of things, you get the [standard library reference] as one would expect, as well as a fairly detailed [language reference].
+
+This is in contrast with Rust, which has an officially maintained [book] and maintains [rustlings] as a first-party learning resource. They do however are a significantly larger and older team, so maybe with sufficient funding we'll see Zig be able to devote effort towards this as well.
 
 # Your first program
 
@@ -42,9 +44,10 @@ info: Created src/main.zig
 info: Next, try `zig build --help` or `zig build run`
 ```
 
-The `build.zig` file presumably describes to the `zig` CLI how to build this program, and `src/main.zig` is our application code. Here's what `zig init-exe` gives you for a "hello world" program:
+The `build.zig` file appears to describe to the `zig` CLI how to build this program, and `src/main.zig` is our application code. Here's what `zig init-exe` gives you for a "hello world" program:
 
 ```zig
+// src/main.zig
 const std = @import("std");
 
 pub fn main() anyerror!void {
