@@ -23,7 +23,7 @@ A quick `nix-shell -p zig` later, I now had access to the Zig compiler.
 0.7.1
 ```
 
-To be able to use VSCode for writing Zig, I also installed the official [zls] language server for Zig. This did get me go-to-declaration support for the standard library, but not syntax highlighting. I'm not sure if that's intended, or a bug with my local setup.
+To be able to use VSCode for writing Zig, I also installed the official [zls] language server for Zig. This did get me go-to-declaration support for the standard library, ~~but not syntax highlighting. I'm not sure if that's intended, or a bug with my local setup~~. Syntax highlighting is also present, thanks to Lewis Gaul for his suggestion of using the `tiehuis.zig` extension.
 
 # Learning resources
 
