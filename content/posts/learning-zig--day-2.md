@@ -130,7 +130,7 @@ fn mayError(shouldError: bool) anyerror!u32 {
 Being able to turn off runtime safety features (like bounds checking) in specific blocks is pretty interesting! Not sure if I'll ever have a valid use for it though...
 
 
-## Conclusion
+# Conclusion
 
 I like most of what I've seen so far in Zig. Aside from the issues I mentioned above, the lack of string type is a very confusing thing for me. I've kinda come to expect it everywhere based on my previous experiences with Python, Java, Kotlin, and Rust; but maybe I'll now learn to appreciate how every character on my screen is just numbers :D.
 
