@@ -25,6 +25,10 @@ async function getPageFromKV(event: FetchEvent): Promise<Response> {
     response.headers.set('Referrer-Policy', 'no-referrer-when-downgrade')
     response.headers.set('Content-Security-Policy', CSP_POLICY)
     response.headers.set('Permissions-Policy', PERMISSIONS_POLICY)
+    const url = event.request.url;
+    if (url.endsWith("css") || url.endsWith("js") || url.endsWith("ttf")) {
+      response.headers.set('Cache-Control', 'public, max-age=31536000');
+    }
     return response
   } catch (e) {
     try {
