@@ -46,6 +46,16 @@ With the visual fixes out of the way, I went in and cleaned up the themes and st
 
 We use a third-party library by [Max Rumpf] called [ModernAndroidPreferences] for our settings UI, and it hard-coded the use of AppCompat dialogs. Max was extremely helpful and made that customisable for us over the weekend which allowed us to use the appropriate Material You dialogs consistently. Huge thanks to Max, and check out his library! <3
 
+## Screenshots!
+
+### Before
+
+![Screenshot gallery of a few APS screens before the Material 3 migration](/uploads/aps_m2_gallery.webp)
+
+### After
+
+![Screenshot gallery of a few APS screens after the Material 3 migration](/uploads/aps_m3_gallery.webp)
+
 ## Closing notes
 
 APS is a very low-effort app when it comes to UI work. We do not have a custom design system, everything follows Material to a T, and we try to stay in that lane. Our migration took me around 9 hours of work over two days, most of which was really spent on menial work such as manually checking all layouts for hard-coded styles and replacing them with attributes. This isn't representative of what this process would look like for any project which rolls its own design system on top of Material, since they have a lot more to do before they can even _begin_ the migration of their screens.
@@ -62,5 +72,5 @@ I'd like to thank the Material Design team once more for the fabulous work they 
 [twitter]: https://twitter.com/msfjarvis
 [chips]: https://material.io/components/chips
 [accessibility issue]: https://github.com/android-password-store/Android-Password-Store/issues/1261
-[Max Rumpf]: https://github.com/maxr1998
-[ModernAndroidPreferences]: https://github.com/Maxr1998/ModernAndroidPreferences
+[max rumpf]: https://github.com/maxr1998
+[modernandroidpreferences]: https://github.com/Maxr1998/ModernAndroidPreferences
