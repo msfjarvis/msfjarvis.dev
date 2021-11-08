@@ -43,7 +43,9 @@ There were a lot more smaller changes that were made to address the remaining vi
 
 ## The final stretch
 
-With the visual fixes out of the way, I went in and cleaned up the themes and styles. I commonized shared attributes such as fonts and widget styles, created M3 variants of other special-purpose themes we had, and got rid of all the now unused M2 theming. Overall, the PR touched 60+ separate files and generated a final diff of `+603,-314` lines.
+With the visual fixes out of the way, I went in and cleaned up the themes and styles. I commonized shared attributes such as fonts and widget styles, created M3 variants of other special-purpose themes we had, and got rid of all the now unused M2 theming. Overall, the PR touched 60+ separate files and generated a final diff of `+603,-314` lines. The PR can be seen [here](https://msfjarvis.dev/aps/pr/1532).
+
+We use a third-party library by [Max Rumpf] called [ModernAndroidPreferences] for our settings UI, and it hard-coded the use of AppCompat dialogs. Max was extremely helpful and made that customisable for us over the weekend which allowed us to use the appropriate Material You dialogs consistently. Huge thanks to Max, and check out his library! <3
 
 ## Closing notes
 
@@ -61,3 +63,5 @@ I'd like to thank the Material Design team once more for the fabulous work they 
 [twitter]: https://twitter.com/msfjarvis
 [chips]: https://material.io/components/chips
 [accessibility issue]: https://github.com/android-password-store/Android-Password-Store/issues/1261
+[Max Rumpf]: https://github.com/maxr1998
+[ModernAndroidPreferences]: https://github.com/Maxr1998/ModernAndroidPreferences
