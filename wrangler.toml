@@ -4,6 +4,7 @@ webpack_config = "webpack.config.js"
 workers_dev = false
 route = "drafts.msfjarvis.dev/*"
 vars = { BASE_URL = "https://drafts.msfjarvis.dev/" }
+compatibility_date = "2021-11-08"
 
 [site]
 bucket = "./public"
