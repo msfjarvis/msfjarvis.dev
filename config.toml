@@ -1,12 +1,16 @@
 baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = ["hugo-social-metadata", "ezhil"]
+theme = ["github.com/msfjarvis/hugo-social-metadata", "ezhil"]
 pygmentsstyle = "tango"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 author = "Harsh Shandilya"
 ignoreErrors = ["error-remote-getjson"]
+
+[module]
+[[module.imports]]
+  path = "github.com/msfjarvis/hugo-social-metadata"
 
 [params]
   description = "Android developer, Kotlin fanatic and wannabe Rustacean"
