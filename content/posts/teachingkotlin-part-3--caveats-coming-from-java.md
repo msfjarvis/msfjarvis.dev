@@ -14,7 +14,7 @@ When you start migrating your Java code to Kotlin, you will encounter multiple s
 
 Java's `java.lang.String#split` [method](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#split-java.lang.String-) takes a `String` as it's first argument and creates a `Regex` out of it before attempting to split. Kotlin, however, has two variants of this method. One takes a `String` and uses it as a plaintext delimiter, and the other takes a `Regex` behaving like the Java method we mentioned earlier. Code that was directly converted from Java to Kotlin will fail to accommodate this difference, so be on the lookout.
 
-{{< tweet 1202077283579826176 >}}
+{{< tweet user="msfjarvis" id="1202077283579826176" >}}
 
 ## Runtime asserts
 

@@ -5,3 +5,4 @@ node_modules/
 transpiled/
 worker/
 package-lock.json
+.hugo_build.lock

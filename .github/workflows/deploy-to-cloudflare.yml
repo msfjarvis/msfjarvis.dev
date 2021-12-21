@@ -17,10 +17,15 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.91.0'
           extended: true
 
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17.5'
+
       - name: Build Hugo Site
+        shell: bash
         run: |
           hugo --minify --gc
 
@@ -48,10 +53,15 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.91.0'
           extended: true
 
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17.5'
+  
       - name: Build Hugo Site
+        shell: bash
         run: |
           hugo --minify --gc -D --baseUrl 'https://drafts.msfjarvis.dev/'
 

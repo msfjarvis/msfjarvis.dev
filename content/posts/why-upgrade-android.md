@@ -12,7 +12,7 @@ toc = true
 
 A couple days ago I tweeted this out, partly in response to a security conscious user who was quick to point out why a particular feature had to be added to APS, but failed to realise the fact that the problem wouldn't even exist if they were running the latest version of Android (we'll talk about the behavior change that fixed it later here).
 
-{{< twitter 1285661151104323584 >}}
+{{< tweet user="msfjarvis" id="1285661151104323584" >}}
 
 I completely stand by what I said, and for good reason. Android upgrades bring massive changes to the platform, improving security against both known and unknown threats. You sign off that benefit when you buy into an incompetent OEM's cheap phones, and it has become a bit too 'normal' than anybody would prefer.
 
