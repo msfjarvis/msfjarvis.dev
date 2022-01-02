@@ -1,9 +1,10 @@
 import { getAssetFromKV } from '@cloudflare/kv-asset-handler'
 
 const GITHUB_USERNAME = 'msfjarvis'
-const APS_SLUG = 'Android-Password-Store/Android-Password-Store'
-const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`
-const APS_GITHUB_URL = `https://github.com/${APS_SLUG}`
+const APS_SLUG = 'Android-Password-Store'
+const GITHUB_URL = `https://github.com`
+const MY_GITHUB = `${GITHUB_URL}/${GITHUB_USERNAME}`
+const APS_GITHUB_URL = `https://github.com/${APS_SLUG}/${APS_SLUG}`
 const CSP_POLICY = "base-uri 'self'; connect-src 'self' insights.msfjarvis.dev utteranc.es; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com utteranc.es; font-src 'self'; img-src 'self' data: gfycat.com imgur.com *.imgur.com insights.msfjarvis.dev syndication.twitter.com; object-src 'none'; script-src 'self' asciinema.org platform.twitter.com utteranc.es insights.msfjarvis.dev 'nonce-MZSWC5DVOJSS23TPNZRWKCQ='; style-src 'self' 'unsafe-inline';";
 const PERMISSIONS_POLICY = "accelerometer=(), autoplay=(), camera=(), encrypted-media=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), sync-xhr=(), usb=()"
 
@@ -54,19 +55,19 @@ async function redirectGitHub(event: FetchEvent): Promise<Response> {
     case 'g':
       switch (urlParts.length) {
         case 1:
-          return Response.redirect(GITHUB_URL, 301)
+          return Response.redirect(MY_GITHUB, 301);
         case 2:
-          return Response.redirect(`${GITHUB_URL}/${urlParts[1]}`, 301)
+          return Response.redirect(`${MY_GITHUB}/${urlParts[1]}`, 301);
         case 3:
           return Response.redirect(
-            `${GITHUB_URL}/${urlParts[1]}/commit/${urlParts[2]}`,
+            `${MY_GITHUB}/${urlParts[1]}/commit/${urlParts[2]}`,
             301,
-          )
+          );
         case 4:
           return Response.redirect(
-            `${GITHUB_URL}/${urlParts[1]}/issues/${urlParts[3]}`,
+            `${MY_GITHUB}/${urlParts[1]}/issues/${urlParts[3]}`,
             301,
-          )
+          );
       }
     case 'aps':
       switch (urlParts.length) {
@@ -76,12 +77,32 @@ async function redirectGitHub(event: FetchEvent): Promise<Response> {
           return Response.redirect(
             `${APS_GITHUB_URL}/commit/${urlParts[1]}`,
             301,
-          )
+          );
         case 3:
           return Response.redirect(
             `${APS_GITHUB_URL}/issues/${urlParts[2]}`,
             301,
-          )
+          );
+      }
+    case 'apsg':
+      switch (urlParts.length) {
+        case 1:
+          return Response.redirect(APS_GITHUB_URL, 301);
+        case 2:
+          return Response.redirect(
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}`,
+            301,
+          );
+        case 3:
+          return Response.redirect(
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/commit/${urlParts[2]}`,
+            301,
+          );
+        case 4:
+          return Response.redirect(
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/issues/${urlParts[3]}`,
+            301,
+          );
       }
       default:
         return getPageFromKV(event)
