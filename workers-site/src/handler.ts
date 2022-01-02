@@ -30,7 +30,7 @@ async function getPageFromKV(event: FetchEvent): Promise<Response> {
       response.headers.set('Cache-Control', 'public, max-age=31536000');
     }
     return response
-  } catch (e) {
+  } catch (e: unknown) {
     try {
       let notFoundResponse = await getAssetFromKV(event, {
         mapRequestToAsset: (req) =>
@@ -41,8 +41,11 @@ async function getPageFromKV(event: FetchEvent): Promise<Response> {
         status: 404,
       })
     } catch (e) {}
-    return new Response(e.message || e.toString(), { status: 500 })
+    if (e instanceof Error) {
+      return new Response(e.message || e.toString(), { status: 500 });
+    }
   }
+  return new Response("Failed to load page", { status: 500 });
 }
 
 async function redirectGitHub(event: FetchEvent): Promise<Response> {
