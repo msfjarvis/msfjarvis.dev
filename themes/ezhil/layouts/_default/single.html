@@ -16,11 +16,11 @@
 
 		<div class="post-tags">
 			{{ if ne .Type "page" }}
-				{{ if gt .Params.tags 0 }}
+				{{ if gt .Params.categories 0 }}
 					<nav class="nav tags">
 							<ul class="flat">
-								{{ range .Params.tags }}
-								<li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+								{{ range .Params.categories }}
+								<li><a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
 								{{ end }}
 							</ul>
 					</nav>
