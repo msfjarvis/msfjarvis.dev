@@ -4,7 +4,7 @@ date = 2021-08-14
 description = "Everyone uses Git their way. This is how I do it."
 draft = true
 slug = "how-i-use-git"
-tags = ["git"]
+tags = ["developer workflow"]
 title = "How I use Git"
 +++
 

@@ -4,7 +4,7 @@ date = 2020-07-05
 description = "Rust programs are pretty fast on their own, but you can slightly augment their performance with some simple tricks."
 slug = "simple-tricks-for-faster-rust-programs"
 socialImage = "uploads/cuddlyferris.webp"
-tags = ["rust", "dev", "perf"]
+tags = ["perf"]
 title = "Simple tricks for faster Rust programs"
 +++
 

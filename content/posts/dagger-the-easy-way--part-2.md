@@ -5,7 +5,7 @@ description = "Let's extend the \"scope\" of these tutorials :)"
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-2-4p4m"
 slug = "dagger-the-easy-way--part-2"
 socialImage = "uploads/dagger_made_easy_social.webp"
-tags = ["android", "dagger", "tutorial"]
+tags = ["dagger", "tutorial"]
 title = "Dagger the easy way - Part 2"
 +++
 

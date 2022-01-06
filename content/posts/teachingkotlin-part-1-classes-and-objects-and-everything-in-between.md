@@ -1,9 +1,9 @@
 +++
-categories = ["kotlin", "dev", "android", "teachingkotlin"]
+categories = ["kotlin", "android", "teachingkotlin"]
 date = 2019-09-23
 description = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes, objects and how things like finality and staticity vary between Java and Kotlin."
 slug = "teaching-kotlin--classes-and-objects"
-tags = ["android", "teachingkotlin", "kotlin"]
+tags = []
 title = "#TeachingKotlin Part 1 - Classes and Objects and everything in between"
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-1-classes-and-objects-and-everything-in-between-5bn0"
 socialImage = "uploads/teachingkotlin_social.webp"

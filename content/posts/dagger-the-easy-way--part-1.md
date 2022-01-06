@@ -5,7 +5,7 @@ description = "Dagger is universally intimidating to beginners and I want to cha
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-1-3l7b"
 slug = "dagger-the-easy-way--part-1"
 socialImage = "uploads/dagger_made_easy_social.webp"
-tags = ["android", "dagger", "tutorial"]
+tags = ["dagger", "tutorial"]
 title = "Dagger the easy way - Part 1"
 +++
 

@@ -4,7 +4,7 @@ date = 2020-04-13
 description = "I recently moved from forwarding my email through Google to hosting it through Purelymail.com. Here are some thoughts about the process and the motivation behind it"
 devLink = "https://dev.to/msfjarvis/switching-my-email-to-purelymail-4l6i"
 slug = "switching-my-email-to-purelymail"
-tags = ["email", "purelymail"]
+tags = ["purelymail"]
 title = "Switching my email to Purelymail"
 +++
 

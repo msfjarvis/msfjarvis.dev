@@ -5,7 +5,7 @@ description = "Building libraries is hard, and keeping track of your public API 
 draft = true
 slug = "tips-for-building-kotlin-libraries"
 socialImage = "/uploads/kotlin_social.webp"
-tags = ["android", "kotlin", "libraries"]
+tags = ["libraries"]
 title = "Tips and tricks for building libraries in Kotlin"
 
 +++

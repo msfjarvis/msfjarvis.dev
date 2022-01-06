@@ -5,7 +5,7 @@ description = "Kotlin's been great for me -- and millions others, as evident by 
 devLink = "https://dev.to/msfjarvis/teachingkotlin-kotlin-for-android-java-developers-1fo3"
 slug = "teaching-kotlin--kotlin-for-android-java-developers"
 socialImage = "uploads/teachingkotlin_social.webp"
-tags = ["teachingkotlin", "android", "kotlin"]
+tags = []
 title = "#TeachingKotlin - Kotlin for Android Java developers"
 +++
 Anybody familiar with my work knows that I am a fan of the [Kotlin](https://kotlinlang.org/ "Kotlin") programming language, especially it's interoperability with Java with respect to Android. I'll admit, I've not been a fan since day one. The abundant lambdas worried me and everything being that much shorter to implement was confusing to a person whose first real programming task was in the Java programming language.
