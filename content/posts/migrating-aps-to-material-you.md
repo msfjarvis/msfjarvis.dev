@@ -3,7 +3,7 @@ categories = ["aps"]
 date = 2021-11-06
 description = "I recently migrated Password Store to Material You, Google's latest iteration of Material Design. Here's how it went."
 slug = "migrating-aps-to-material-you"
-tags = ["android", "android-password-store"]
+tags = ["android-password-store"]
 title = "Migrating APS to Material You"
 socialImage = "uploads/m3-social.webp"
 +++

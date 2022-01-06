@@ -5,7 +5,7 @@ description = "GitHub recently rolled out Packages to the general public, allowi
 devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
 slug = "publishing-an-android-library-to-github-packages"
 socialImage = "uploads/github_packages_social.webp"
-tags = ["android", "gradle", "github", "packaging"]
+tags = ["gradle", "github", "packaging"]
 title = "Publishing an Android library to GitHub Packages"
 +++
 

@@ -1,10 +1,10 @@
 +++
-categories = ["hugo"]
+categories = ["hugo", "github-actions"]
 date = 2019-12-04
 description = "GitHub Actions are awesome! Learn how to use it for continuous delivery of your static sites."
 slug = "deploying-hugo-sites-with-github-actions"
 socialImage = "uploads/actions_social.webp"
-tags = ["hugo", "github actions", "static sites"]
+tags = ["static sites"]
 title = "Deploying Hugo sites with GitHub Actions"
 +++
 

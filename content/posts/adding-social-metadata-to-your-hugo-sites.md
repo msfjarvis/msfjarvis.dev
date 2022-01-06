@@ -1,9 +1,9 @@
 +++
-categories = ["hugo"]
+categories = ["hugo", "webdev"]
 date = 2020-02-03
 description = "Optimize social media exposure with the right metadata for your site"
 slug = "adding-social-metadata-to-your-hugo-sites"
-tags = ["hugo", "webdev", "static sites"]
+tags = ["static sites"]
 title = "Adding social metadata to your Hugo sites"
 socialImage = "uploads/hugo_metadata_social.webp"
 +++

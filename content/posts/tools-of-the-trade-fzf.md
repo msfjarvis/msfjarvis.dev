@@ -4,7 +4,7 @@ date = 2020-08-10
 description = "Continuing this series, let's talk about fzf."
 slug = "tools-of-the-trade-fzf"
 socialImage = "uploads/tools-of-the-trade-fzf.webp"
-tags = ["fzf", "cli-tools", "tools-of-the-trade"]
+tags = ["fzf", "cli-tools"]
 title = "Tools of the trade: fzf"
 +++
 

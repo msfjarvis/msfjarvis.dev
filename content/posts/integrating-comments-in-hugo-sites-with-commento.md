@@ -5,7 +5,7 @@ description = "Adding additional comment backends to Hugo is actually rather sim
 devLink = "https://dev.to/msfjarvis/integrating-comments-in-hugo-sites-with-commento-136f"
 slug = "integrating-comments-in-hugo-sites-with-commento"
 socialImage = "uploads/commento_social.webp"
-tags = ["hugo", "static sites", "comments", "commento.io"]
+tags = ["static sites", "comments", "commento.io"]
 title = "Integrating comments in Hugo sites with commento"
 +++
 
