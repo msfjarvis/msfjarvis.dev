@@ -12,6 +12,11 @@
     "esModuleInterop": true,
     "types": ["@cloudflare/workers-types"]
   },
-  "include": ["./workers-site/src/*.ts", "./workers-site/test/*.ts", "./workers-site/src/**/*.ts", "./workers-site/test/**/*.ts"],
+  "include": [
+    "./workers-site/src/*.ts",
+    "./workers-site/test/*.ts",
+    "./workers-site/src/**/*.ts",
+    "./workers-site/test/**/*.ts"
+  ],
   "exclude": ["node_modules/", "dist/"]
 }
