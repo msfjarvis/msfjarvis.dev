@@ -11,7 +11,7 @@ toc = true
 
 ### What is Moshi?
 
-[Moshi] is a fast and powerful JSON parsing library for the JVM and Android, built by the former creators of Google's Gson to address some of its shortcomings and to have an alternative that was actively maintained. 
+[Moshi] is a fast and powerful JSON parsing library for the JVM and Android, built by the former creators of Google's Gson to address some of its shortcomings and to have an alternative that was actively maintained.
 
 Unlike Gson, Moshi has excellent Kotlin support and supports both reflection based parsing and a kapt-backed codegen backend that eliminates the runtime performance cost in favor of generating adapters during build time. The `kotlin-reflect` dependency required for doing reflection-based parsing can add up to 1.8 mB to the final binary, so it's recommended to use the codegen method if possible.
 
@@ -43,7 +43,7 @@ println(TextPartsJsonAdapter(moshi).toJson(text))
 What this means is, given a JSON object that looks like this
 
 ```json
-{"heading":"This is the heading","body":"And this is the body"}
+{ "heading": "This is the heading", "body": "And this is the body" }
 ```
 
 We can get an instance of `TextParts` that looks like this
@@ -55,7 +55,10 @@ val text = TextParts("This is the heading", "And this is the body")
 Cool! Now, let's make things unfortunate. Imagine your backend team is stretched thin, and due to a limitation with how they initially built their database schema, you can only get the above JSON in this form
 
 ```json
-{"heading":"This is the heading","extras":{"body":"And this is the body"}}
+{
+  "heading": "This is the heading",
+  "extras": { "body": "And this is the body" }
+}
 ```
 
 If you try to parse this with the old `TextPartsJsonAdapter`, your app is going to crash, because the JSON and its Kotlin representation have diverged. The equivalent Kotlin for this new JSON is going to be something like this:
@@ -79,7 +82,7 @@ class TextPartsJsonAdapter {
   // Moshi is flexible about the parameters of these two methods, and for simpler types
   // you will find it easier to follow the example from the Moshi README which does not
   // use JsonReader/JsonWriter and instead directly converts items to and from their String
-  // representations. The method names are also not enforced, as Moshi only uses the 
+  // representations. The method names are also not enforced, as Moshi only uses the
   // annotations to find relevant methods. The internal implementation of how they do it
   // can be found here: https://git.io/JLwnb
 
@@ -143,7 +146,7 @@ fun toJson(writer: JsonWriter: value: TextParts?) {
 }
 ```
 
-Parsing JSON manually is relatively easy to screw up and Moshi will let you know if you get nesting wrong (missed a closing `endObject()` or `endArray()`) and other easily detectable problems, but you should definitely have tests for all possible cases. I'll let the readers do that on their own, but if you *really* need to see an example then scream at me on [Twitter] and I'll do something about it.
+Parsing JSON manually is relatively easy to screw up and Moshi will let you know if you get nesting wrong (missed a closing `endObject()` or `endArray()`) and other easily detectable problems, but you should definitely have tests for all possible cases. I'll let the readers do that on their own, but if you _really_ need to see an example then scream at me on [Twitter] and I'll do something about it.
 
 Anyways, that's the object -> JSON part sorted. Now let's try to do the reverse. Here's where we are as of now.
 
@@ -154,7 +157,6 @@ fun fromJson(reader: JsonReader): TextParts? {
 ```
 
 Same as writing JSON, we need to start by making an object.
-
 
 ```diff
  fun fromJson(reader: JsonReader): TextParts? {
@@ -372,7 +374,6 @@ class TextPartsJsonAdapter {
 ```
 
 This is certainly a lengthy job to do, and this blog post is a result of nearly 8 hours I spent writing JSON adapters by hand. Certainly not recommended if avoidable, but sometimes you just need to. When it comes to it, now you hopefully know how :)
-
 
 [gson]: https://github.com/google/gson
 [json spec]: https://TODO

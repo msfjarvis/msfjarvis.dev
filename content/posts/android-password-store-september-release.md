@@ -57,13 +57,13 @@ While still potentially finicky, we're now confident that this is ready to be sh
 
 As always, there are a handful of Quality of Life changes to make the app more enjoyable to use:
 
--   When retrying password authentication, the option to see what you're typing would be obscured by the error icon for wrong password. This has been remedied, and the error state will now be cleared as soon as you enter anything into the password field.
--   Authentication modes will now be dynamically hidden and shown based on the URL's schema so you're aware of what methods you have for authentication for any given remote repository.
--   Since decryption can sometimes take a couple seconds due to how OpenKeychain works, we now hide the action buttons at the top of the screen until the decrypt operation has completed since using the buttons before that can leave the app in an odd state.
--   Users will be prompted if they need to provide a username in their URLs. For example, if your repository is at `https://github.com/john.doe/passwords`, you will have to change the URL to `https://john.doe@github.com/john.doe/passwords` for HTTPS authentication to work.
--   If it appears that an SSH URL contains a custom port but does not specify the `ssh://` schema, the user will be prompted to accept a quickfix that does it for them.
--   Pressing the save button is no longer necessary to save changes to authentication mode.
--   TOTP values might sometimes be outdated because we always wait 30 seconds to generate a new one. Now the app will calculate the time left before the first generated value goes stale, generate a new one once it does, and then resume the 30 second cycle.
+- When retrying password authentication, the option to see what you're typing would be obscured by the error icon for wrong password. This has been remedied, and the error state will now be cleared as soon as you enter anything into the password field.
+- Authentication modes will now be dynamically hidden and shown based on the URL's schema so you're aware of what methods you have for authentication for any given remote repository.
+- Since decryption can sometimes take a couple seconds due to how OpenKeychain works, we now hide the action buttons at the top of the screen until the decrypt operation has completed since using the buttons before that can leave the app in an odd state.
+- Users will be prompted if they need to provide a username in their URLs. For example, if your repository is at `https://github.com/john.doe/passwords`, you will have to change the URL to `https://john.doe@github.com/john.doe/passwords` for HTTPS authentication to work.
+- If it appears that an SSH URL contains a custom port but does not specify the `ssh://` schema, the user will be prompted to accept a quickfix that does it for them.
+- Pressing the save button is no longer necessary to save changes to authentication mode.
+- TOTP values might sometimes be outdated because we always wait 30 seconds to generate a new one. Now the app will calculate the time left before the first generated value goes stale, generate a new one once it does, and then resume the 30 second cycle.
 
 There's definitely more fixes here, but we ended up rewriting, breaking and fixing so many things for this release that it's hard to tell what was actually broken in the previous release and what is just us fixing regressions during refactoring. We've been busy :)
 
@@ -78,4 +78,3 @@ Our excellent Autofill capabilities are now bundled as a separate Android librar
 Based on the issues raised in the repository and the support emails I've received, the maintainers have come to the conclusion that nearly all users who choose to store their pass repositories in their device storage or external SD card as opposed to the app's private, hidden directory are not users of Git and rely on solutions like Syncthing and Nextcloud to keep the repository in sync with their other devices.
 
 As such, we are now in the process of removing Git support from these repositories. We've carefully evaluated how we want to do this, and have started with removing the ability to clone repositories to public storage in this release. If this doesn't blow up in our faces, we will be completing the transition in v1.13.0. If you believe the change adversely affects your usage of the app, we wanna know! Drop a comment on [GitHub](https://msfjarvis.dev/aps/issue/1118) and we will do our best to either propose an alternative for your use case or entirely scrap our plans if we discover that our initial inferences were misguided.
-

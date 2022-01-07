@@ -24,7 +24,7 @@ For [Android Password Store](https://msfjarvis.dev/aps), we maintain a list of k
 name: Update Publix Suffix List data
 on:
   schedule:
-    - cron: '0 0 * * 6'
+    - cron: "0 0 * * 6"
 
 jobs:
   update-publicsuffix-data:
@@ -65,8 +65,8 @@ The core logic of this operation is composed of three parts. The [github context
 
 Jobs in a workflow run in parallel by default, and GitHub comes with an amazing matrix functionality that can automatically generate multiple jobs for you from a single definition. Take this specific example:
 
-|         |      Windows      |      MacOS      |      Ubuntu      |
-|---------|-------------------|-----------------|------------------|
+|         | Windows           | MacOS           | Ubuntu           |
+| ------- | ----------------- | --------------- | ---------------- |
 | Stable  | Windows + Stable  | MacOS + Stable  | Ubuntu + Stable  |
 | Beta    | Windows + Beta    | MacOS + Beta    | Ubuntu + Beta    |
 | Nightly | Windows + Nightly | MacOS + Nightly | Ubuntu + Nightly |
@@ -89,15 +89,15 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions-rs/toolchain@v1
-      with:
-        profile: minimal
-        components: rustfmt, clippy
-        # Installs the Rust toolchain for the channel picked by the matrix
-        toolchain: ${{ matrix.rust }}
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          components: rustfmt, clippy
+          # Installs the Rust toolchain for the channel picked by the matrix
+          toolchain: ${{ matrix.rust }}
 ```
 
-This will automatically generate 9 (3 platforms * 3 Rust channels) parallel jobs to test this entire configuration, without requiring us to manually define each of them. [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) at its finest :)
+This will automatically generate 9 (3 platforms \* 3 Rust channels) parallel jobs to test this entire configuration, without requiring us to manually define each of them. [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) at its finest :)
 
 ## Make a job run after another
 
@@ -125,7 +125,7 @@ jobs:
 
 # Mitigating security concerns with Actions
 
-GitHub Actions benefits from a vibrant ecosystem of user-authored actions, which opens it up to equal opportunities for abuse. It is relatively easy to work around the common ones, and I'm going to outline them here. I'm no authority on security, and these recommendations are based on a combination of my reading and understanding. These *should* be helpful, but this list is not exhaustive, and you should exercise all the caution you can.
+GitHub Actions benefits from a vibrant ecosystem of user-authored actions, which opens it up to equal opportunities for abuse. It is relatively easy to work around the common ones, and I'm going to outline them here. I'm no authority on security, and these recommendations are based on a combination of my reading and understanding. These _should_ be helpful, but this list is not exhaustive, and you should exercise all the caution you can.
 
 ## Use exact commit hashes rather than tags
 

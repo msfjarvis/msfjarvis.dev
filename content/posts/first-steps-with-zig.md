@@ -59,12 +59,12 @@ Cheeky.
 
 This post is just a brief overview of how I went about setting things up for learning Zig. I intend to post more detailed blogs as I progress :)
 
-[Zig]: https://ziglang.org
-[Rust]: https://rust-lang.org
-[documented their experience with Zig]: https://kevinlynagh.com/rust-zig/
-[installing Zig]: https://ziglang.org/learn/getting-started/#installing-zig
+[zig]: https://ziglang.org
+[rust]: https://rust-lang.org
+[documented their experience with zig]: https://kevinlynagh.com/rust-zig/
+[installing zig]: https://ziglang.org/learn/getting-started/#installing-zig
 [stable release cadence]: https://ziglang.org/learn/getting-started/#tagged-release-or-nightly-build
-[Nix]: https://nixos.org/
+[nix]: https://nixos.org/
 [zls]: https://github.com/zigtools/zls
 [ziglearn.org]: https://ziglearn.org/
 [rustlings]: https://github.com/rust-lang/rustlings

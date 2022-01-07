@@ -34,11 +34,11 @@ Earlier this year we had migrated a selection UI in one of our screens to use [C
 
 There were a lot more smaller changes that were made to address the remaining visual bugs
 
--   Our onboarding flow was using an incorrect interpretation of `?attr/colorPrimary` for theming, and was migrated to use `?android:attr/colorBackground`
--   A lot of screens were using hard-coded colors, which were migrated to theme attributes
--   Many screens used hard-coded styles for buttons and text fields, and were also migrated to theme attributes
--   Multiple layouts also referenced typography styles directly and were migrated to the corresponding M3 attributes, based on the mapping table in the "[Migration to Material 3]" article.
--   System bars and Toolbar had to be given explicit styles and colors to match the "flat" aesthetic from our M2 designs.
+- Our onboarding flow was using an incorrect interpretation of `?attr/colorPrimary` for theming, and was migrated to use `?android:attr/colorBackground`
+- A lot of screens were using hard-coded colors, which were migrated to theme attributes
+- Many screens used hard-coded styles for buttons and text fields, and were also migrated to theme attributes
+- Multiple layouts also referenced typography styles directly and were migrated to the corresponding M3 attributes, based on the mapping table in the "[Migration to Material 3]" article.
+- System bars and Toolbar had to be given explicit styles and colors to match the "flat" aesthetic from our M2 designs.
 
 ## The final stretch
 

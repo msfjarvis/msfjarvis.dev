@@ -8,6 +8,7 @@ socialImage = "uploads/teachingkotlin_social.webp"
 tags = []
 title = "#TeachingKotlin Part 3 - Caveats coming from Java"
 +++
+
 When you start migrating your Java code to Kotlin, you will encounter multiple subtle changes that might catch you off guard. I'll document some of these gotchas that I and other people I follow have found and written about.
 
 ## Splitting strings
@@ -18,31 +19,31 @@ Java's `java.lang.String#split` [method](https://docs.oracle.com/javase/8/docs/a
 
 ## Runtime asserts
 
-Square's [Jesse Wilson](https://twitter.com/jessewilson) found through an [OkHttp bug](https://github.com/square/okhttp/issues/5586) that Kotlin's `assert` function differs from Java's in a very critical way - the asserted expression is *always* executed. He's written about it on his blog which you can check out for a proper write up: [Kotlin’s Assert Is Not Like Java’s Assert](https://publicobject.com/2019/11/18/kotlins-assert-is-not-like-javas-assert/).
+Square's [Jesse Wilson](https://twitter.com/jessewilson) found through an [OkHttp bug](https://github.com/square/okhttp/issues/5586) that Kotlin's `assert` function differs from Java's in a very critical way - the asserted expression is _always_ executed. He's written about it on his blog which you can check out for a proper write up: [Kotlin’s Assert Is Not Like Java’s Assert](https://publicobject.com/2019/11/18/kotlins-assert-is-not-like-javas-assert/).
 
 TL; DR Java's `assert` checks the `java.lang.Class#desiredAssertionStatus` method **before** executing the expression, but Kotlin does it **after** which results in unnecessary, potentially significant overhead.
 
 {{< highlight java >}}
 // Good :)
 @Override void flush() {
-  if (Http2Stream.class.desiredAssertionStatus()) {
-    if (!Thread.holdsLock(Http2Stream.this) == false) {
-      throw new AssertionError();
-    }
-  }
-  ...
+if (Http2Stream.class.desiredAssertionStatus()) {
+if (!Thread.holdsLock(Http2Stream.this) == false) {
+throw new AssertionError();
+}
+}
+...
 }
 {{< / highlight >}}
 
 {{< highlight kotlin >}}
 // Bad :(
 override fun flush() {
-  if (!Thread.holdsLock(this@Http2Stream) == false) {
-    if (Http2Stream::class.java.desiredAssertionStatus()) {
-      throw AssertionError()
-    }
-  }
-  ...
+if (!Thread.holdsLock(this@Http2Stream) == false) {
+if (Http2Stream::class.java.desiredAssertionStatus()) {
+throw AssertionError()
+}
+}
+...
 }
 {{< / highlight >}}
 

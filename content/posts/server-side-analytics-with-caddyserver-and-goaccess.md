@@ -8,6 +8,7 @@ socialImage = "uploads/goaccess_social.webp"
 tags = ["caddyserver", "goaccess", "analytics"]
 title = "Server-side analytics with Goaccess"
 +++
+
 Analytics are a very helpful aspect of any development. They allow developers to know what parts of their apps are visited the most often and can use more attention, and for bloggers to know what content does or does not resonate with their readers.
 
 There are many, many analytics providers and software stacks each with their specific pros and cons, but nearly all managed analytics come with the overarching concern of privacy of user data. [Google Analytics](https://analytics.google.com/) is a _huge_ analytics vendor, with the capabilities to almost accurately extrapolate even the **age** of your visitors. That's nuts, and honestly scary.
@@ -38,13 +39,13 @@ goaccess --log-format=VCOMMON \
          --real-time-html
 ```
 
-* `--ws-url`: This option allows us to specify the path for our WebSocket server that's responsible for dispatching updates.
-* `--output`: File to dump HTML reports into.
-* `--log-file`: The source file to read logs from.
-* `--no-query-string`: Does not parse the query string from URLs (`example.org/contact?utm_source=twitter` => `example.org/contact`). This can greatly decrease memory consumption and is often not helpful.
-* `--double-decode`: Attempts to decode values like user-agent, request and referrer that are often encoded twice.
-* `--real-os`: Displays the real OS names behind the browsers.
-* `--real-time-html`: The hero of the show -- the option that makes our analytics real-time and self-updating in the browser.
+- `--ws-url`: This option allows us to specify the path for our WebSocket server that's responsible for dispatching updates.
+- `--output`: File to dump HTML reports into.
+- `--log-file`: The source file to read logs from.
+- `--no-query-string`: Does not parse the query string from URLs (`example.org/contact?utm_source=twitter` => `example.org/contact`). This can greatly decrease memory consumption and is often not helpful.
+- `--double-decode`: Attempts to decode values like user-agent, request and referrer that are often encoded twice.
+- `--real-os`: Displays the real OS names behind the browsers.
+- `--real-time-html`: The hero of the show -- the option that makes our analytics real-time and self-updating in the browser.
 
 The final step in this process is to expose the local WebSocket server to the `/ws` endpoint of your domain to allow real-time updates to work. Here's how I do it in Caddy.
 

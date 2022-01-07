@@ -53,12 +53,11 @@ I have never worked with `union`s, but [tagged unions] gave me awful ideas about
 
 Zig's type coercion syntax is nicer than Rust's, though the lack of a runtime error concerned me initially. Rust's [TryInto] trait is explicit about the fact that the conversion is fallible, and thus returns a [Result]. Zig on the other hand attempts to validate these conversions at compile-time. Given this code:
 
-
 ```zig
 fn returnsNum() u32 {
     return 1_00_000;
 }
- 
+
 test "typecast" {
     testing.expect(@TypeOf(@as(u8, returnsNum())) == u8);
 }
@@ -105,14 +104,14 @@ Everything following optionals was either uncontroversial or too powerful/low le
 
 [Chapter 2] introduces JSON, which we'll need for our eventual healthchecks.io library, so I'm looking forward to it! I do have work tomorrow, so we'll have to see if I can keep up the daily streak :)
 
-[Yesterday's post]: /posts/learning-zig--day-2
+[yesterday's post]: /posts/learning-zig--day-2
 [chapter 1]: https://ziglearn.org/chapter-1/
 [many-item pointers]: https://ziglearn.org/chapter-1/#many-item-pointers
 [pointer-sized integers]: https://ziglearn.org/chapter-1/#pointer-sized-integers
 [sealed classes]: https://kotlinlang.org/docs/sealed-classes.html
 [tagged unions]: https://ziglang.org/documentation/master/#Tagged-union
-[TryInto]: https://doc.rust-lang.org/std/convert/trait.TryInto.html
-[Result]: https://doc.rust-lang.org/std/result/enum.Result.html
-[Optionals]: https://ziglang.org/documentation/master/#Optionals
-[Option]: https://doc.rust-lang.org/std/option/enum.Option.html
+[tryinto]: https://doc.rust-lang.org/std/convert/trait.TryInto.html
+[result]: https://doc.rust-lang.org/std/result/enum.Result.html
+[optionals]: https://ziglang.org/documentation/master/#Optionals
+[option]: https://doc.rust-lang.org/std/option/enum.Option.html
 [chapter 2]: https://ziglearn.org/chapter-2/

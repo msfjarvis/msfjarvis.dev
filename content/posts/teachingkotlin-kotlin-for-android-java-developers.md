@@ -8,6 +8,7 @@ socialImage = "uploads/teachingkotlin_social.webp"
 tags = []
 title = "#TeachingKotlin - Kotlin for Android Java developers"
 +++
+
 Anybody familiar with my work knows that I am a fan of the [Kotlin](https://kotlinlang.org/ "Kotlin") programming language, especially it's interoperability with Java with respect to Android. I'll admit, I've not been a fan since day one. The abundant lambdas worried me and everything being that much shorter to implement was confusing to a person whose first real programming task was in the Java programming language.
 
 As I leaped over the initial hurdle of hesitation and really got into Kotlin, I was mindblown. Everything is so much better! Being able to break away from Java's explicit verbosity into letting the language do things for you is a bit daunting at first but over time you'll come to appreciate the time you save and in turn how many potential problems you can avoid by simply not having to do everything yourself. [Can't have bugs if you don't write code](https://github.com/kelseyhightower/nocode) :p

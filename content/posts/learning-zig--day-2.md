@@ -11,11 +11,9 @@ In the [previous post] I documented how I went about setting up my Zig environme
 
 My preferred method of learning new languages is rebuilding an existing project in them, like I did when going from [Python] to [Kotlin] to [Rust]. For Zig, I've elected to rebuild my [healthchecks-rs] library. It's something I use on a day-to-day basis for keeping an eye on my backup jobs, and it would be a great addition to the [healthchecks.io ecosystem].
 
-
 # Getting the basics down
 
 Among the resources enlisted on the Zig [getting started] page, I opted to go with [ziglearn.org] for learning the ropes of the language. It is concise yet detailed, and the chapter-wise breakdown makes for great mental "checkpoints", much like the [Rust book].
-
 
 For this post I'm going through [chapter 1].
 
@@ -25,7 +23,7 @@ I'm going to use this section to jot down my thoughts about Zig, broken down by 
 
 ## Assignment
 
-The presence of `undefined` is *very* interesting to me. It appears to be functionally identical to Rust's [Default trait], as shown in this snippet (had to skip to structs for this since I was so curious about it).
+The presence of `undefined` is _very_ interesting to me. It appears to be functionally identical to Rust's [Default trait], as shown in this snippet (had to skip to structs for this since I was so curious about it).
 
 ```zig
 const std = @import("std");
@@ -66,7 +64,6 @@ const implicitly_sized_array[_]u8 = {};
 ```
 
 Rust also [disallows this](https://play.rust-lang.org/?version=nightly&mode=debug&edition=2018&gist=f27a1a0b20feebe3e6d0a3417f25ce45), but the error is surprisingly worse than with Zig. Rust's resident diagnostics magician Esteban [assures me](https://twitter.com/ekuber/status/1393566561005314048) this is a regression and is being tracked.
-
 
 The only problem I encountered here was that I can't figure out how to print an array!
 
@@ -116,11 +113,11 @@ I like how easy it is to define errors, but the syntax feels kinda icky. Having 
 const NumericError = error{};
 
 fn mayError(shouldError: bool) anyerror!u32 {
-    return if (shouldError) 
-        // This is different from what I'm accustomed to as a user of 
+    return if (shouldError)
+        // This is different from what I'm accustomed to as a user of
         // Either/Result type monads.
         error.NumericError
-    else 
+    else
         10;
 }
 ```
@@ -129,24 +126,22 @@ fn mayError(shouldError: bool) anyerror!u32 {
 
 Being able to turn off runtime safety features (like bounds checking) in specific blocks is pretty interesting! Not sure if I'll ever have a valid use for it though...
 
-
 # Conclusion
 
 I like most of what I've seen so far in Zig. Aside from the issues I mentioned above, the lack of string type is a very confusing thing for me. I've kinda come to expect it everywhere based on my previous experiences with Python, Java, Kotlin, and Rust; but maybe I'll now learn to appreciate how every character on my screen is just numbers :D.
 
 I was very easily distracted today, so I only made it a third of the way in 3 hours for a chapter that is supposed to take 1 hour for the whole thing. Hoping to finish it tomorrow!
 
-
 [previous post]: /posts/first-steps-with-zig
-[Python]: https://msfjarvis.dev/g/walls-manager
-[Kotlin]: https://msfjarvis.dev/g/walls-bot
-[Rust]: https://msfjarvis.dev/g/walls-bot-rs
+[python]: https://msfjarvis.dev/g/walls-manager
+[kotlin]: https://msfjarvis.dev/g/walls-bot
+[rust]: https://msfjarvis.dev/g/walls-bot-rs
 [healthchecks-rs]: https://msfjarvis.dev/g/healthchecks-rs
 [healthchecks.io ecosystem]: https://healthchecks.io/docs/resources/
 [getting started]: https://ziglang.org/learn/getting-started/
 [ziglearn.org]: https://ziglearn.org/
-[Rust book]: https://doc.rust-lang.org/book/
+[rust book]: https://doc.rust-lang.org/book/
 [chapter 1]: https://ziglearn.org/chapter-1/
-[Default trait]: https://doc.rust-lang.org/std/default/trait.Default.html
-[PR that overhauls formatting]: https://github.com/ziglang/zig/pull/6870
+[default trait]: https://doc.rust-lang.org/std/default/trait.Default.html
+[pr that overhauls formatting]: https://github.com/ziglang/zig/pull/6870
 [`unreachable`]: https://ziglearn.org/chapter-1/#unreachable
