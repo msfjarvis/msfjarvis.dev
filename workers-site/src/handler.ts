@@ -89,7 +89,7 @@ async function redirectGitHub(event: FetchEvent): Promise<Response> {
     case "apsg":
       switch (urlParts.length) {
         case 1:
-          return Response.redirect(APS_GITHUB_URL, 301);
+          return Response.redirect(`${GITHUB_URL}/${APS_SLUG}`, 301);
         case 2:
           return Response.redirect(
             `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}`,
