@@ -22,7 +22,6 @@ class EmailAddress(val value: String)
 
 This is _fine_, but there are hidden performance costs. Classes are initialized on the heap, and fields are much cheaper, fields of primitive types even more so. We only really need to be able to call some `String`s an `EmailAddress`, so we can make this class `inline`.
 
-
 ```kotlin
 inline class EmailAddress(val value: String)
 ```
@@ -59,7 +58,7 @@ inline class EmailAddress @PublishedApi
 internal constructor(private val value: String) {
   override fun toString(): String = value
   companion object {
-    
+
     fun parse(string: String): EmailAddress {
       check(string.contains('@')) { "invalid email address." }
       return EmailAddress(string)
@@ -73,7 +72,6 @@ _Weeeeeeeeeeeeeeeeeeeeeeeeeee_
 Yeah. What's happening here is that we've made the constructor of `EmailAddress` `internal` to restrict its use to the current module, but annotated it with [`@PublishedApi`] which makes it legal to use in public inline functions. Read the docs for the [`@PublishedApi`] annotation to get a better idea about what this means for you, since it's out of scope here.
 
 Doing this allows us to have an `EmailAddress` type that can be used to verify that a `String` is a valid email and then have that information be carried downstream as the value's type. Why is having the type important? Allow me to refer you to "[Aiming for correctness with types]", provided you have a free hour or so. It's worth it.
-
 
 [inline classes]: https://kotlinlang.org/docs/reference/inline-classes.html#inline-classes
 [representation of inline classes]: https://kotlinlang.org/docs/reference/inline-classes.html#representation

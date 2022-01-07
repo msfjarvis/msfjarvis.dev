@@ -8,6 +8,7 @@ title = "#TeachingKotlin Part 1 - Classes and Objects and everything in between"
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-1-classes-and-objects-and-everything-in-between-5bn0"
 socialImage = "uploads/teachingkotlin_social.webp"
 +++
+
 Classes in Kotlin closely mimic their Java counterparts in implementation, with some crucial changes that I will attempt to outline here.
 
 Let's declare two identical classes in Kotlin and Java as a starting point. We'll be making changes to them alongside to show how different patterns are implemented in the two languages.
@@ -16,11 +17,11 @@ Java:
 
 {{< highlight java >}}
 class Person {
-  private final String name;
+private final String name;
 
-  public Person(String name) {
-    this.name = name;
-  }
+public Person(String name) {
+this.name = name;
+}
 }
 {{< /highlight >}}
 
@@ -42,12 +43,12 @@ The primary constructor cannot have any code so Kotlin provides something called
 
 {{< highlight kotlin >}}
 class Person(val name: String) {
-  init {
-    println("Invoking constructor!")
-  }
+init {
+println("Invoking constructor!")
+}
 }
 
-val _ = Person("Matt")
+val \_ = Person("Matt")
 {{< /highlight >}}
 
 Moving on, let's add an optional age parameter to our classes, with a default value of 18. To make it convenient to see how different constructors affect values, we're also including an implementation of the `toString` method for some classing print debugging.
@@ -57,22 +58,22 @@ Java:
 {{< highlight java >}}
 class Person {
 
-  private final String name;
-  private int age = 18;
+private final String name;
+private int age = 18;
 
-  public Person(String name) {
-    this.name = name;
-  }
+public Person(String name) {
+this.name = name;
+}
 
-  public Person(String name, int age) {
-    this(name);
-    this.age = age;
-  }
+public Person(String name, int age) {
+this(name);
+this.age = age;
+}
 
-  @Override
-  public String toString() {
-    return "Name=" + name + ",age=" + Integer.toString(age);
-  }
+@Override
+public String toString() {
+return "Name=" + name + ",age=" + Integer.toString(age);
+}
 }
 {{< /highlight >}}
 
@@ -80,10 +81,10 @@ Kotlin:
 
 {{< highlight kotlin >}}
 class Person(val name: String, val age: Int = 18) {
-  override fun toString() : String {
-    // I'll go over string templates in a future post, hold me to it :)
-    return "Name=$name,age=$age"
-  }
+override fun toString() : String {
+// I'll go over string templates in a future post, hold me to it :)
+return "Name=$name,age=$age"
+}
 }
 {{< /highlight >}}
 
@@ -103,9 +104,9 @@ An important note here is that constructors with default values don't directly w
 
 {{< highlight kotlin >}}
 class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
-  override fun toString() : String {
-    return "Name=$name,age=$age"
-  }
+override fun toString() : String {
+return "Name=$name,age=$age"
+}
 }
 {{< /highlight >}}
 
@@ -118,7 +119,7 @@ In Kotlin, all classes are final by default, and cannot be inherited while Java 
 Java:
 
 {{< highlight java >}}
-public class Man extends Person { /* Class body */ } // Valid in Java
+public class Man extends Person { /_ Class body _/ } // Valid in Java
 {{< /highlight >}}
 
 Kotlin:
@@ -130,29 +131,33 @@ class Man(val firstName: String) : Person(firstName) // Errors!
 Trying it out in the Kotlin REPL
 
 {{< highlight kotlin >}}
->>> class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
-...   override fun toString() : String {
-...     return "Name=$name,age=$age"
-...   }
-... }
->>> class Man(val firstName: String) : Person(firstName)
-error: this type is final, so it cannot be inherited from
-class Man(val firstName: String) : Person(firstName)
+
+> > > class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
+> > > ... override fun toString() : String {
+> > > ... return "Name=$name,age=$age"
+> > > ... }
+> > > ... }
+> > > class Man(val firstName: String) : Person(firstName)
+> > > error: this type is final, so it cannot be inherited from
+> > > class Man(val firstName: String) : Person(firstName)
+
                                    ^
+
 {{< /highlight >}}
 
 Makes sense, since that's default for Kotlin. Let's add the `open` keyword to our definition of `Person` and try again.
 
 {{< highlight kotlin >}}
->>> open class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
-...   override fun toString() : String {
-...     return "Name=$name,age=$age"
-...   }
-... }
->>> class Man(val firstName: String) : Person(firstName)
->>> println(Man("Henry"))
-Name=Henry,age=18
-{{< /highlight >}}
+
+> > > open class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
+> > > ... override fun toString() : String {
+> > > ... return "Name=$name,age=$age"
+> > > ... }
+> > > ... }
+> > > class Man(val firstName: String) : Person(firstName)
+> > > println(Man("Henry"))
+> > > Name=Henry,age=18
+> > > {{< /highlight >}}
 
 And everything works as we'd expect it to. This is a behavior change that is confusing and undesirable to a lot of people, so Kotlin provides a compiler plugin to mark all classes as `open` by default. Check out the [`kotlin-allopen`](https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin) page for more information about how to configure the plugin for your needs.
 
@@ -166,9 +171,9 @@ Java:
 
 {{< highlight java >}}
 public static final class StringUtils {
-  public static String normalizePath(final String str) {
-    return str.replace("/document/primary:", "/sdcard/");
-  }
+public static String normalizePath(final String str) {
+return str.replace("/document/primary:", "/sdcard/");
+}
 }
 {{< /highlight >}}
 
@@ -176,8 +181,8 @@ Kotlin:
 
 {{< highlight kotlin >}}
 object StringUtils {
-  // I'll cover this declaration style too. It's just the first post!
-  fun normalizePath(str: String): String = str.replace("/document/primary:", "/sdcard/")
+// I'll cover this declaration style too. It's just the first post!
+fun normalizePath(str: String): String = str.replace("/document/primary:", "/sdcard/")
 }
 {{< /highlight >}}
 

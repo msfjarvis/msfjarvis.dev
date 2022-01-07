@@ -9,7 +9,7 @@ tags = ["gradle", "github", "packaging"]
 title = "Publishing an Android library to GitHub Packages"
 +++
 
->UPDATE(06/06/2020): The Android Gradle Plugin supports Gradle's inbuilt `maven-publish` plugin since version 4.0.0, so I've added the updated process for utilising it at the beginning of this guide. The previous post follows that section.
+> UPDATE(06/06/2020): The Android Gradle Plugin supports Gradle's inbuilt `maven-publish` plugin since version 4.0.0, so I've added the updated process for utilising it at the beginning of this guide. The previous post follows that section.
 
 GitHub released the Package Registry beta in May of this year, and graduated it to public availability in Universe 2019, rebranded as [GitHub Packages](https://github.com/features/packages "GitHub Packages"). It supports NodeJS, Docker, Maven, Gradle, NuGet, and RubyGems. That's a LOT of ground covered for a service that's about one year old.
 
@@ -55,6 +55,7 @@ afterEvaluate {
 ```
 
 For Kotlin:
+
 ```kotlin
 plugins {
   id("maven-publish")
@@ -112,13 +113,13 @@ Copy the official integration step from GitHub's [guide](https://help.github.com
  apply plugin: "com.android.library"
  apply plugin: "kotlin-android"
 +apply plugin: "maven-publish"
- 
+
  apply from: "../dependencies.gradle"
  // apply from: "../bintrayconfig.gradle"
 @@ -28,6 +29,24 @@ android {
    }
  }
- 
+
 +publishing {
 +  repositories {
 +    maven {
@@ -156,7 +157,7 @@ Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/
 +    classpath deps.gradle_plugins.android_maven_publish
    }
  }
- 
+
 --- dependencies.gradle
 +++ dependencies.gradle
 @@ -12,7 +12,8 @@ ext.deps = [
@@ -167,7 +168,7 @@ Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/
 +        kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.60",
 +        android_maven_publish: "digital.wup:android-maven-publish:3.6.2"
      ],
- 
+
      kotlin: [
 
 --- library/build.gradle
@@ -177,7 +178,7 @@ Switch out the `maven-publish` plugin with [this](https://github.com/wupdigital/
  apply plugin: "kotlin-android"
 -apply plugin: "maven-publish"
 +apply plugin: "digital.wup.android-maven-publish"
- 
+
  apply from: "../dependencies.gradle"
  // apply from: "../bintrayconfig.gradle"
 ```
@@ -210,9 +211,9 @@ implementation 'com.example:my-fancy-library:1.0.0'
 
 Here:
 
-* Group ID: `com.example`
-* Artifact ID: `my-fancy-library`
-* Version: `1.0.0`
+- Group ID: `com.example`
+- Artifact ID: `my-fancy-library`
+- Version: `1.0.0`
 
 We'll need to configure these too. I prefer using the `gradle.properties` file for this purpose since it's very easy to access variables from it, but if you have a favorite way of configuring build properties, use that instead! \[[Commit link](https://github.com/msfjarvis/github-packages-deployment-sample/commit/cee74a5e0b3b76d1d7a2d4eb9636d80fb1db49d6)\]
 

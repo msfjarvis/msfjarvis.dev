@@ -30,14 +30,35 @@ After coming across [this list](https://github.com/budparr/awesome-hugo#theme-co
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@msfjarvis" />
-<meta name="description" content="Optimize social media exposure with the right metadata for your site" />
+<meta
+  name="description"
+  content="Optimize social media exposure with the right metadata for your site"
+/>
 <meta name="keywords" content="hugo,webdev,static sites," />
-<meta property="og:url" content="https://msfjarvis.dev/posts/adding-social-metadata-to-your-hugo-sites/" />
-<meta property="og:title" content="Adding social metadata to your Hugo sites &middot; Harsh Shandilya" />
-<meta name="twitter:title" content="Adding social metadata to your Hugo sites &middot; Harsh Shandilya" />
-<meta name="og:description" content="Optimize social media exposure with the right metadata for your site" />
-<meta name="twitter:description" content="Optimize social media exposure with the right metadata for your site" />
-<meta name="twitter:url" content="https://msfjarvis.dev/posts/adding-social-metadata-to-your-hugo-sites/" />
+<meta
+  property="og:url"
+  content="https://msfjarvis.dev/posts/adding-social-metadata-to-your-hugo-sites/"
+/>
+<meta
+  property="og:title"
+  content="Adding social metadata to your Hugo sites &middot; Harsh Shandilya"
+/>
+<meta
+  name="twitter:title"
+  content="Adding social metadata to your Hugo sites &middot; Harsh Shandilya"
+/>
+<meta
+  name="og:description"
+  content="Optimize social media exposure with the right metadata for your site"
+/>
+<meta
+  name="twitter:description"
+  content="Optimize social media exposure with the right metadata for your site"
+/>
+<meta
+  name="twitter:url"
+  content="https://msfjarvis.dev/posts/adding-social-metadata-to-your-hugo-sites/"
+/>
 <meta name="twitter:image:src" content="android-chrome-512x512.webp" />
 ```
 

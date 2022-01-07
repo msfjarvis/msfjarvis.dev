@@ -96,14 +96,13 @@ Before GitHub had the [GitHub CLI][4], it had [hub][5]. `hub` wraps `git` and ad
 
 ## git-quickfix
 
-[`git-quickfix`][9] is another Git extension, which allows moving commits to a new branch quickly. The most common use case for it is this: Imagine you're working on a feature branch, and notice a small problem that is unrelated to your current branch. `git-quickfix` would allow you to make a commit on your current branch, then *move it to a new branch* in just one command.
+[`git-quickfix`][9] is another Git extension, which allows moving commits to a new branch quickly. The most common use case for it is this: Imagine you're working on a feature branch, and notice a small problem that is unrelated to your current branch. `git-quickfix` would allow you to make a commit on your current branch, then _move it to a new branch_ in just one command.
 
 // Add asciinema recording
 
 ## `gh`
 
 [`gh`][4] is GitHub's very own CLI for interacting with their platform. Since my day-to-day work revolves around GitHub, `gh` is extremely helpful is being able to triage issues, raise PRs, view the status of CI jobs and much more. Definitely a must-have if you're a terminal fiend and use GitHub!
-
 
 [1]: https://msfjarvis.dev/g/dotfiles
 [2]: https://github.com/so-fancy/diff-so-fancy

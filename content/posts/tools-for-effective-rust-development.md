@@ -41,7 +41,7 @@ Being a beginner, the ability for code to be checked within the editor and not r
 
 So this is my list of must-have tooling that has helped me continuously improve as a Rustacean. I'm VERY curious to hear what others are using! I opted to stick with official tools where possible since they've proven very reliable and I seem to find considerably more help online with them, but I'd love to try out non-official alternatives that offer significant benefits :)
 
-[Rust]: https://rust-lang.org/
+[rust]: https://rust-lang.org/
 [cargo-edit]: https://github.com/killercup/cargo-edit
 [cargo-clippy]: https://github.com/rust-lang/rust-clippy
 [rustfmt]: https://github.com/rust-lang/rustfmt

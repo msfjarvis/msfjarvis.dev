@@ -24,8 +24,8 @@ lto = "fat"
 
 This makes the following changes to the `release` profile:
 
--   Forces `rustc` to build the entire crate as a single unit, which lets LLVM make smarter decisions about optimization thanks to all the code being together.
--   Switches LTO to the `fat` variant. In `fat` mode, LTO will perform [optimization across the entire dependency graph](https://doc.rust-lang.org/rustc/codegen-options/index.html#lto) as opposed to the default option of doing it just to the local crate.
+- Forces `rustc` to build the entire crate as a single unit, which lets LLVM make smarter decisions about optimization thanks to all the code being together.
+- Switches LTO to the `fat` variant. In `fat` mode, LTO will perform [optimization across the entire dependency graph](https://doc.rust-lang.org/rustc/codegen-options/index.html#lto) as opposed to the default option of doing it just to the local crate.
 
 ## Use a different memory allocator
 
@@ -69,6 +69,6 @@ abs_all(&mut input);
 
 # References
 
--   Pascal Hertleif's [blog](https://deterministic.space/) - He's a very popular and active Rust developer and writes amazing, insightful articles.
--   Amos Wenger's [blog](https://fasterthanli.me) - Amos' articles often go over important topics like API design through a comparison angle between Rust and another language to highlight differences and benefits to each approach.
--   Stjepan Glavina's [blog](https://stjepang.github.io/) - He's done a lot of interesting perf-related work including optimising sorting in the stdlib and building async libraries. His writeups for the library work are very intriguing and go into great detail about the process.
+- Pascal Hertleif's [blog](https://deterministic.space/) - He's a very popular and active Rust developer and writes amazing, insightful articles.
+- Amos Wenger's [blog](https://fasterthanli.me) - Amos' articles often go over important topics like API design through a comparison angle between Rust and another language to highlight differences and benefits to each approach.
+- Stjepan Glavina's [blog](https://stjepang.github.io/) - He's done a lot of interesting perf-related work including optimising sorting in the stdlib and building async libraries. His writeups for the library work are very intriguing and go into great detail about the process.

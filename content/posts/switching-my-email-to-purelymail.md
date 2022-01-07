@@ -78,7 +78,7 @@ Because PurelyMail has no bells and whistles, you won't be penalized on the feat
 
 #### You pay for it
 
-I am in a fortunate position where I can pay for things solely based on principle, without having to worry *too* much. Not everybody is similarly blessed, or you may simply have technical issues with being able to pay online for internet things. Stripe and PayPal are not available globally, and fees are often insane. I completely understand.
+I am in a fortunate position where I can pay for things solely based on principle, without having to worry _too_ much. Not everybody is similarly blessed, or you may simply have technical issues with being able to pay online for internet things. Stripe and PayPal are not available globally, and fees are often insane. I completely understand.
 
 #### Roundcube is great, but it ain't no GMail
 

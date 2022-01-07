@@ -8,13 +8,13 @@ tags = ["relnotes", "oss", "android-password-store"]
 title = "Android Password Store August release"
 +++
 
-Continuing this new tradition, here are the detailed release notes for the [v1.11.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.11.0) build of  of Android Password Store that is going out right now on the Play Store and to F-Droid in the coming days. The overall focus of this release has been to improve UX and resolve bugs. Regular feature development has already resumed for next month's release where we'll be bringing [Android Keystore](https://source.android.com/security/keystore) backed SSH key generation as well as a rewritten OpenKeychain integration for SSH connections.
+Continuing this new tradition, here are the detailed release notes for the [v1.11.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.11.0) build of of Android Password Store that is going out right now on the Play Store and to F-Droid in the coming days. The overall focus of this release has been to improve UX and resolve bugs. Regular feature development has already resumed for next month's release where we'll be bringing [Android Keystore](https://source.android.com/security/keystore) backed SSH key generation as well as a rewritten OpenKeychain integration for SSH connections.
 
 # New features
 
 ## One URL field to rule them all
 
-Previously you'd have to set the URL to your repository across multiple fields like username, server, repository name and what not. Annoying! These things make sense to us as developers, but users should not have to be dealing with all that complexity when all they want to do is enter a single URL. We've received numerous bug reports over time as a result of people misunderstanding and ultimately misconfiguring things when exposed to this hellscape. Thanks to some *amazing* work from Fabian, we now have a single URL field for users to fill into.
+Previously you'd have to set the URL to your repository across multiple fields like username, server, repository name and what not. Annoying! These things make sense to us as developers, but users should not have to be dealing with all that complexity when all they want to do is enter a single URL. We've received numerous bug reports over time as a result of people misunderstanding and ultimately misconfiguring things when exposed to this hellscape. Thanks to some _amazing_ work from Fabian, we now have a single URL field for users to fill into.
 
 ![Single URL field in repository information](/uploads/aps-august-release-single-url-field.webp)
 
