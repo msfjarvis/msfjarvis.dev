@@ -21,7 +21,7 @@ ignoreErrors = ["error-remote-getjson"]
   twitterUsername = "@msfjarvis"
   socialImage = "android-chrome-512x512.webp"
   mainSections = ["posts"]
-  mode = "light"
+  mode = "auto"
   utterancesRepo = "msfjarvis/msfjarvis.dev"
   utterancesTheme = "github-light"
 
