@@ -36,7 +36,7 @@
 				{{ end }}
 			</div>
 
-        {{- if and (isset .Site.Params "utterancesrepo") (and (not .Site.IsServer) (not .Site.BuildDrafts)) -}}
+        {{- if and (isset .Site.Params "utterancesrepo") (and (not (eq .Type "page")) (and (not .Site.IsServer) (not .Site.BuildDrafts))) -}}
         {{ partial "utterances.html" . }}
         {{- end -}}
  		</div>
