@@ -2,6 +2,8 @@
 title = "Viscerion Privacy Policy"
 id = "viscerion-privacy"
 type = "page"
+ShowReadingTime = false
+ShowToc = false
 +++
 
 ## Privacy Policy

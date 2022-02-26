@@ -1,7 +1,8 @@
 +++
-layout = "standalone"
 title = "Uses"
 type = "page"
+ShowReadingTime = false
+ShowToc = false
 +++
 
 ## Editor + Terminal

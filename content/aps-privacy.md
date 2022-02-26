@@ -2,6 +2,8 @@
 title = "Android Password Store Privacy Policy"
 id = "aps-privacy"
 type = "page"
+ShowReadingTime = false
+ShowToc = false
 +++
 
 ## Privacy Policy

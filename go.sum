@@ -1,4 +1,4 @@
-github.com/knadh/hugo-ink v1.0.1-0.20220109072942-d3dad55ecb77 h1:m38vQPPtPf7c/o4uWnFGV3WDKxaPuS284Z/rXlKShNY=
-github.com/knadh/hugo-ink v1.0.1-0.20220109072942-d3dad55ecb77/go.mod h1:sUbc+cWg9QmDA9NjJYewZ8ooDE/bgCTgtO81Z+0DbTY=
+github.com/adityatelange/hugo-PaperMod v0.0.0-20220215143121-43c810c3e20b h1:Nvugtfla//gBAQ8PIZ8Pt+Rsjm67GsUiegjzJ3mc6jo=
+github.com/adityatelange/hugo-PaperMod v0.0.0-20220215143121-43c810c3e20b/go.mod h1:HCHxNMKYdGafUYjVV3ICiAqznZK2yH0iI53jqcDFDdQ=
 github.com/msfjarvis/hugo-social-metadata v1.0.0 h1:mfLnus8iznPGiyFkJC93eCWr1PrdiNyv2BSONX1ZQVg=
 github.com/msfjarvis/hugo-social-metadata v1.0.0/go.mod h1:VfkrQTa9Gvdja58swLlBZz2/7ZEoj5nk9xt0pJAhfVo=
