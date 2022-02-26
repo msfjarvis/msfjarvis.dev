@@ -1,3 +1,4 @@
+{{- if and (isset .Site.Params "utterancesrepo") (and (not (eq .Type "page")) (and (not .Site.IsServer) (not .Site.BuildDrafts))) -}}
 <script src="https://utteranc.es/client.js"
         repo="{{ .Site.Params.UtterancesRepo }}"
         issue-term="pathname"
@@ -5,3 +6,4 @@
         crossorigin="anonymous"
         async>
 </script>
+{{- end -}}

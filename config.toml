@@ -1,51 +1,68 @@
 baseurl = "https://msfjarvis.dev/"
 languageCode = "en-us"
 title = "Harsh Shandilya"
-theme = ["github.com/msfjarvis/hugo-social-metadata", "github.com/knadh/hugo-ink"]
-pygmentsstyle = "tango"
+theme = ["github.com/msfjarvis/hugo-social-metadata", "github.com/adityatelange/hugo-PaperMod"]
+pygmentsstyle = "dracula"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 author = "Harsh Shandilya"
 ignoreErrors = ["error-remote-getjson"]
+paginate = 5
+enableInlineShortcodes = true
+enableRobotsTXT = true
+enableEmoji = true
 
 [module]
 [[module.imports]]
   path = "github.com/msfjarvis/hugo-social-metadata"
 [[module.imports]]
-  path = "github.com/knadh/hugo-ink"
+  path = "github.com/adityatelange/hugo-PaperMod"
 
 [params]
   description = "Android developer, Kotlin fanatic and wannabe Rustacean"
   subtitle = "Android developer, Kotlin fanatic and wannabe Rustacean"
-  keywords = "homepage, blog, android, kotlin, rust"
+  keywords = [
+    "homepage",
+    "blog",
+    "android",
+    "kotlin",
+    "rust",
+  ]
+  # Set default theme and remove toggle
+  defaultTheme = "dark"
+  disableThemeToggle = true
+  # Set parameters for social metadata
   twitterUsername = "@msfjarvis"
   socialImage = "android-chrome-512x512.webp"
-  mainSections = ["posts"]
-  mode = "light"
+  # Turn on Utterances-backed comments
+  comments = true
   utterancesRepo = "msfjarvis/msfjarvis.dev"
   utterancesTheme = "github-light"
+  # Configure the theme
+  ShowReadingTime = true
+  ShowFullTextinRSS = true
+  ShowCodeCopyButtons = true
+  ShowBreadCrumbs = true
+  disableSpecial1stPost = true
+  ShowPostNavLinks = true
+  ShowToc = true
+  # Required for search engine indexers
+  env = "production"
 
 [[menu.main]]
-  identifier = "about"
-  name = "about"
-  title = "About"
+  name = "About"
   url = "/about"
 
 [[menu.main]]
-  identifier = "blog"
-  name = "blog"
-  title = "Blog"
+  name = "Blog"
   url = "/posts"
 
 [[menu.main]]
-  identifier = "uses"
-  name = "uses"
-  title = "Uses"
+  name = "Uses"
   url = "/uses"
 
 [[params.social]]
   name = "Github"
-  icon = "github"
   url = "https://github.com/msfjarvis"
 
 [[params.social]]
