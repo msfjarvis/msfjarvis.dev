@@ -37,6 +37,13 @@ jobs:
         env:
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
 
+      - name: Notify search engines of sitemap updates
+        shell: bash
+        run: |
+          SITEMAP_URL="https://msfjarvis.dev/sitemap.xml"
+          curl "https://google.com/ping?sitemap=${SITEMAP_URL}"
+          curl "https://www.bing.com/ping?sitemap=${SITEMAP_URL}"
+
   deploy-staging:
     if: "contains(github.event.head_commit.message, '[staging]')"
     runs-on: ubuntu-latest
