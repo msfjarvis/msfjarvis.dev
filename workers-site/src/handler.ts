@@ -8,7 +8,7 @@ const APS_GITHUB_URL = `https://github.com/${APS_SLUG}/${APS_SLUG}`;
 const CSP_POLICY =
   "base-uri 'self'; connect-src 'self' insights.msfjarvis.dev utteranc.es; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com utteranc.es; font-src 'self' fonts.gstatic.com; img-src 'self' data: gfycat.com imgur.com *.imgur.com insights.msfjarvis.dev syndication.twitter.com; object-src 'none'; script-src 'self' asciinema.org platform.twitter.com utteranc.es insights.msfjarvis.dev 'sha256-/nV291Na1MuGRmAF5BCX/72e5aDh6O5wnlvisox+3Ts=' 'sha256-a72MzDH/lZnJJFjeA4unJdesRzjwr3TeZVNYucgNkJk=' 'sha256-X5avg43RTxt2cSum+E3xICbowEMaOBxeBiNh05CXDTY=' 'sha256-4O+m6kk1wMpldFXFB8ldHkY/86U5xWfKtcSWERnGmhA='; style-src 'self' fonts.googleapis.com 'unsafe-inline';";
 const PERMISSIONS_POLICY =
-  "accelerometer=(), autoplay=(), camera=(), encrypted-media=(), geolocation=(), gyroscope=(), interest-cohort=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), sync-xhr=(), usb=()";
+  "accelerometer=(), autoplay=(), camera=(), encrypted-media=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), sync-xhr=(), usb=()";
 
 export async function handleRequest(event: FetchEvent): Promise<Response> {
   return redirectGitHub(event);
