@@ -10,13 +10,48 @@ ShowReadingTime = false
 ShowToc = false
 +++
 
-I am 21 year old Android developer with more than 4 years of experience building apps and library of various sizes. I love working with [Kotlin](https://github.com/msfjarvis?utf8=%E2%9C%93&tab=repositories&q=&type=&language=kotlin) and have gotten familiar with [Rust](https://github.com/msfjarvis?utf8=%E2%9C%93&tab=repositories&q=&type=&language=rust) as well. Some of my work in open-source is documented on the [projects page](/projects), and the rest of them can be found on my [GitHub](https://github.com/msfjarvis) profile. The latest copy of my resume can be found [here](/resume.pdf).
+I'm an Android and Kotlin developer with over 4 years of experience building apps and SDKs of varying sizes.
 
-# Contacting me
+I'm based out of Ghaziabad, India.
 
-I have presence on multiple social media/messaging platforms and I will respond to DMs/mentions as long as you [don't ask to ask](https://dontasktoask.com/) and express your intent clearly.
+### Work
 
-- [Twitter](https://twitter.com/msfjarvis)
-- [Telegram](https://t.me/msfjarvis)
+Presently, I am a Product Engineer at [Obvious] where I work with [Swiggy] to build client libraries for their new design system. Before that I worked at [Navana Tech] and [PRJKT Development LLC].
 
-I typically respond fastest to Telegram messages. For traditional email, use [me@msfjarvis.dev](mailto:me@msfjarvis.dev).
+For more details you can find the latest version of [my resume here].
+
+### Interests
+
+Things I spend my time reading over, tinkering with and learning about.
+
+- Open-Source Technologies
+- Rust
+- Kotlin Multiplatform
+
+### Projects
+
+A few ideas that I've gone ahead and built in my spare time. You can support them if you like by [donating here].
+
+- [Android Password Store]: A password manager for Android aiming to be fully compatible with the [pass] format.
+- [Claw]: A Kotlin multiplatform app for read-only access to [lobste.rs].
+- [healthchecks-rs]: A Rust library for interacting with [healthchecks.io] and a couple CLI tools that utilise it.
+
+### Contact
+
+I'd be happy to write back if you'd like to send me an [email]. Otherwise you can follow me on [Twitter] or [Github].
+
+[obvious]: https://obvious.in
+[swiggy]: https://swiggy.com
+[navana tech]: https://navanatech.in
+[prjkt development llc]: https://prjkt.io
+[my resume here]: https://msfjarvis.dev/resume.pdf
+[donating here]: https://github.com/sponsors/msfjarvis
+[android password store]: https://passwordstore.app
+[pass]: https://passwordstore.org
+[claw]: https://msfjarvis.dev/g/compose-lobsters
+[lobste.rs]: https://lobste.rs
+[healthchecks-rs]: https://msfjarvis.dev/g/healthchecks-rs
+[healthchecks.io]: https://healthchecks.io
+[email]: mailto:me@msfjarvis.dev
+[twitter]: https://twitter.com/msfjarvis
+[github]: https://msfjarvis.dev/g
