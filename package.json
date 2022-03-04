@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "NODE_ENV=development npm run build",
-    "format": "prettier --write '**/*.{ts,js,css,json,md}'",
+    "format": "prettier --write '**/*.{ts,js,css,json,md}' --ignore-path .gitignore",
     "transpile": "tsc --project ./test"
   },
   "author": "Harsh Shandilya <me@msfjarvis.dev>",
