@@ -2,7 +2,6 @@
 categories = ["rust"]
 date = 2021-10-17
 description = "Some tips on building static binaries of Rust projects targeting Linux"
-draft = false
 slug = "building-static-rust-binaries-for-linux"
 tags = ["rust static linking", "rust static binary", "rust build static binary"]
 title = "Building static Rust binaries for Linux"
