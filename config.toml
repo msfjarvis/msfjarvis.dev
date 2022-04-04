@@ -37,7 +37,7 @@ enableEmoji = true
   # Turn on Utterances-backed comments
   comments = true
   utterancesRepo = "msfjarvis/msfjarvis.dev"
-  utterancesTheme = "github-light"
+  utterancesTheme = "proton-dark"
   # Configure the theme
   ShowReadingTime = true
   ShowFullTextinRSS = true
