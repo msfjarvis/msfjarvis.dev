@@ -28,7 +28,7 @@ So, what's the solution?
 
 ### Setting up gphotos-cdp
 
-> Disclaimer: I've only tested this on Linux. This *should* be doable on other platforms, but it's not relevant to my needs so I will not be investigating that.
+> Disclaimer: I've only tested this on Linux. This _should_ be doable on other platforms, but it's not relevant to my needs so I will not be investigating that.
 
 Ideally you'd want to run this tool on a schedule on a NAS or a server to keep archiving images automatically as they get added to your Google Photos. I run this on a server provided by my friend [David] on a daily schedule.
 
@@ -64,10 +64,10 @@ Then you can go ahead and start [gphotos-cdp] with
   -headless \ # Run Chrome in headless mode so it works on servers and such
   -dldir ~/photos # Download everything to ~/photos
 ```
+
 ### Monitoring
 
 With anything built on such a brittle foundation, it's useful to be able to constantly monitor that things are working as they should. Through [healthchecks.io] you can easily set up alerts to notify you of failures running the tool or unintentional gaps in whatever schedule you run the tool on. I use my [healthchecks-monitor] tool paired with [crontab] to run [gphotos-cdp] every day and have configured [healthchecks.io] to notify me via Telegram when it fails. The script run by [crontab] looks like this
-
 
 ```bash
 #!/usr/bin/env bash
@@ -78,7 +78,6 @@ HEALTHCHECKS_USERAGENT=crontab \
   --logs \ # Record execution logs on healthchecks in case of failure, to help with debugging
   --exec "~/go/bin/gphotos-cdp -v -dev -headless -dldir ~/photos"
 ```
-s
 [takeout]: https://takeout.google.com/
 [photos.google.com]: https://photos.google.com/
 [gphotos-cdp]: https://github.com/perkeep/gphotos-cdp
