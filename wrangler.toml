@@ -5,6 +5,9 @@ workers_dev = false
 route = "drafts.msfjarvis.dev/*"
 vars = { BASE_URL = "https://drafts.msfjarvis.dev/" }
 compatibility_date = "2021-11-08"
+kv_namespaces = [
+  { binding = "NAMESPACE", id = "43d755465f4642ccb30b1bdce031d1da" }
+]
 
 [site]
 bucket = "./public"
@@ -14,3 +17,6 @@ entry-point = "workers-site"
 name = "msfjarvis-dev-prod"
 route = "msfjarvis.dev/*"
 vars = { BASE_URL = "https://msfjarvis.dev/" }
+kv_namespaces = [
+  { binding = "NAMESPACE", id = "303799a857b0490482dabaf6c9ed0af8" }
+]
