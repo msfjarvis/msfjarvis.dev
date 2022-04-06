@@ -93,8 +93,8 @@ Hopefully this setup causes you minimal grief and allows you to back up your pre
 [takeout]: https://takeout.google.com/
 [photos.google.com]: https://photos.google.com/
 [gphotos-cdp]: https://github.com/perkeep/gphotos-cdp
-[Chrome DevTools Protocol]: https://chromedevtools.github.io/devtools-protocol/
-[this GitHub comment]: https://github.com/perkeep/gphotos-cdp/issues/1#issuecomment-567378082
+[chrome devtools protocol]: https://chromedevtools.github.io/devtools-protocol/
+[this github comment]: https://github.com/perkeep/gphotos-cdp/issues/1#issuecomment-567378082
 [golang]: https://go.dev
 [healthchecks.io]: https://healthchecks.io
 [healthchecks-monitor]: https://msfjarvis.dev/g/healthchecks-rs
