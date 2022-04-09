@@ -51,59 +51,64 @@ async function getPageFromKV(event: FetchEvent): Promise<Response> {
   return new Response("Failed to load page", { status: 500 });
 }
 
+async function recordStatsAndRedirect(url: string): Promise<Response> {
+  const key = `stats_${url}`;
+  var _count = await NAMESPACE.get(key);
+  if (_count == null) {
+    _count = "0";
+  }
+  var count = parseInt(_count);
+  count += 1;
+  await NAMESPACE.put(key, `${count}`);
+  return Response.redirect(url, 301);
+}
+
 async function redirectGitHub(event: FetchEvent): Promise<Response> {
   const urlParts = event.request.url.replace(BASE_URL, "").split("/");
   switch (urlParts[0]) {
     case "g":
       switch (urlParts.length) {
         case 1:
-          return Response.redirect(MY_GITHUB, 301);
+          return recordStatsAndRedirect(MY_GITHUB);
         case 2:
-          return Response.redirect(`${MY_GITHUB}/${urlParts[1]}`, 301);
+          return recordStatsAndRedirect(`${MY_GITHUB}/${urlParts[1]}`);
         case 3:
-          return Response.redirect(
-            `${MY_GITHUB}/${urlParts[1]}/commit/${urlParts[2]}`,
-            301
+          return recordStatsAndRedirect(
+            `${MY_GITHUB}/${urlParts[1]}/commit/${urlParts[2]}`
           );
         case 4:
-          return Response.redirect(
-            `${MY_GITHUB}/${urlParts[1]}/issues/${urlParts[3]}`,
-            301
+          return recordStatsAndRedirect(
+            `${MY_GITHUB}/${urlParts[1]}/issues/${urlParts[3]}`
           );
       }
     case "aps":
       switch (urlParts.length) {
         case 1:
-          return Response.redirect(APS_GITHUB_URL, 301);
+          return recordStatsAndRedirect(APS_GITHUB_URL);
         case 2:
-          return Response.redirect(
-            `${APS_GITHUB_URL}/commit/${urlParts[1]}`,
-            301
+          return recordStatsAndRedirect(
+            `${APS_GITHUB_URL}/commit/${urlParts[1]}`
           );
         case 3:
-          return Response.redirect(
-            `${APS_GITHUB_URL}/issues/${urlParts[2]}`,
-            301
+          return recordStatsAndRedirect(
+            `${APS_GITHUB_URL}/issues/${urlParts[2]}`
           );
       }
     case "apsg":
       switch (urlParts.length) {
         case 1:
-          return Response.redirect(`${GITHUB_URL}/${APS_SLUG}`, 301);
+          return recordStatsAndRedirect(`${GITHUB_URL}/${APS_SLUG}`);
         case 2:
-          return Response.redirect(
-            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}`,
-            301
+          return recordStatsAndRedirect(
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}`
           );
         case 3:
-          return Response.redirect(
-            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/commit/${urlParts[2]}`,
-            301
+          return recordStatsAndRedirect(
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/commit/${urlParts[2]}`
           );
         case 4:
-          return Response.redirect(
-            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/issues/${urlParts[3]}`,
-            301
+          return recordStatsAndRedirect(
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/issues/${urlParts[3]}`
           );
       }
     default:
