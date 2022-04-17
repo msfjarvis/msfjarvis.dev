@@ -41,8 +41,7 @@ Gradle's official sample linked above mentions `buildSrc` as the location for yo
 
 The solution to all of these problems is [composite builds], and [Josef Raska has a fantastic article] that thoroughly explains the shortcomings of `buildSrc` and how composite builds solve them.
 
-A deep dive on how to go about setting up your Gradle build is slightly out of scope for this post (I will write about it in the future), so for now I will have to point you towards an amazing resource by Jendrik Johannes aptly titled [idiomatic-gradle] that is structured as an example of how the Gradle build of a real-world project would be organized with a [video series] to to along with it.
-
+A full explainer on the topic is slightly out of scope for this post, but I can wholeheartedly endorse Jendrik Johannes' [idiomatic-gradle] repository as an example of setting up the Gradle build of a real-world project while leveraging features introduced in recent versions of Gradle. I highly recommend also checking out their 'Understanding Gradle' [video series].
 
 ## Why would you want to make binary plugins out of convention plugins
 
