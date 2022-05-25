@@ -8,5 +8,6 @@ pkgs.mkShell {
     imagemagick
     nodejs-16_x
     wrangler
+    yarn
   ];
 }
