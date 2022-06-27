@@ -17,7 +17,7 @@ function create_post() {
     return
   }
   filename="${postslug}.md"
-  printf "+++\ncategories = []\ndate = %s\ndescription = \"\"\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${filename}"
+  printf "+++\ncategories = []\ndate = %s\nsummary = \"\"\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${filename}"
   echo "content/posts/${filename} created!"
 }
 
