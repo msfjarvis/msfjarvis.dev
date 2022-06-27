@@ -16,7 +16,7 @@ I'm based out of Ghaziabad, India.
 
 ### Work
 
-Presently, I am a Product Engineer at [Obvious] where I work with [Swiggy] to build client libraries for their new design system. Before that I worked at [Navana Tech] and [PRJKT Development LLC].
+Presently, I am a Product Engineer at [Obvious] where I work with on client projects surrounding design systems. Before that I worked at [Navana Tech] and [PRJKT Development LLC].
 
 For more details you can find the latest version of [my resume here].
 
@@ -41,7 +41,6 @@ A few ideas that I've gone ahead and built in my spare time. You can support the
 I'd be happy to write back if you'd like to send me an [email]. Otherwise you can follow me on [Twitter] or [Github].
 
 [obvious]: https://obvious.in
-[swiggy]: https://swiggy.com
 [navana tech]: https://navanatech.in
 [prjkt development llc]: https://prjkt.io
 [my resume here]: https://msfjarvis.dev/resume.pdf
