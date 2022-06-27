@@ -1,7 +1,7 @@
 +++
 categories = ["android"]
 date = 2019-11-21
-description = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
+summary = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
 devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
 slug = "publishing-an-android-library-to-github-packages"
 socialImage = "uploads/github_packages_social.webp"

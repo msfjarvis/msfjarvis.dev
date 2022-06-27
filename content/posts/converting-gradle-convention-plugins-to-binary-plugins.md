@@ -1,7 +1,7 @@
 +++
 categories = ["gradle"]
 date = 2022-04-17
-description = "Gradle's convention plugins are a fantastic way to share common build configuration, why not take them a step further?"
+summary = "Gradle's convention plugins are a fantastic way to share common build configuration, why not take them a step further?"
 slug = "converting-gradle-convention-plugins-to-binary-plugins"
 tags = ["convention plugins", "gradle build logic"]
 title = "Converting Gradle convention plugins to binary plugins"

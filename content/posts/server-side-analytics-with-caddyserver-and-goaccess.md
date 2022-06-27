@@ -1,7 +1,7 @@
 +++
 categories = ["webdev"]
 date = 2019-12-17
-description = "Analytics platforms are often overwhelming and a privacy nightmare -- here's how to bring analytics to the backend with very simple tooling"
+summary = "Analytics platforms are often overwhelming and a privacy nightmare -- here's how to bring analytics to the backend with very simple tooling"
 devLink = "https://dev.to/msfjarvis/server-side-analytics-with-goaccess-pg8"
 slug = "serverside-stats-with-goaccess"
 socialImage = "uploads/goaccess_social.webp"

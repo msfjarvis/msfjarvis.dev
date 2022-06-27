@@ -1,7 +1,7 @@
 +++
 categories = ["android"]
 date = 2020-01-20
-description = "Dagger is universally intimidating to beginners and I want to change it."
+summary = "Dagger is universally intimidating to beginners and I want to change it."
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-1-3l7b"
 slug = "dagger-the-easy-way--part-1"
 socialImage = "uploads/dagger_made_easy_social.webp"

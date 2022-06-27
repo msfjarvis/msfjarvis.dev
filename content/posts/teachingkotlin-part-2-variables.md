@@ -1,7 +1,7 @@
 +++
 categories = ["kotlin", "android", "teachingkotlin"]
 date = 2019-09-30
-description = "The second post in #TeachingKotlin series, this post goes over Kotlin's variables and their attributes, like visibility and getters/setters."
+summary = "The second post in #TeachingKotlin series, this post goes over Kotlin's variables and their attributes, like visibility and getters/setters."
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-2-variables-2api"
 slug = "teaching-kotlin--variables"
 socialImage = "uploads/teachingkotlin_social.webp"

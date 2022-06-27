@@ -1,7 +1,7 @@
 +++
 categories = ["hugo", "webdev"]
 date = 2020-01-20
-description = "Adding additional comment backends to Hugo is actually rather simple!"
+summary = "Adding additional comment backends to Hugo is actually rather simple!"
 devLink = "https://dev.to/msfjarvis/integrating-comments-in-hugo-sites-with-commento-136f"
 slug = "integrating-comments-in-hugo-sites-with-commento"
 socialImage = "uploads/commento_social.webp"

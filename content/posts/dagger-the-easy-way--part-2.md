@@ -1,7 +1,7 @@
 +++
 categories = ["android"]
 date = 2020-03-06
-description = "Let's extend the \"scope\" of these tutorials :)"
+summary = "Let's extend the \"scope\" of these tutorials :)"
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-2-4p4m"
 slug = "dagger-the-easy-way--part-2"
 socialImage = "uploads/dagger_made_easy_social.webp"

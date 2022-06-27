@@ -1,7 +1,7 @@
 +++
 categories = ["webdev", "github-actions"]
 date = 2020-02-05
-description = "GitHub Actions paired with GitHub Pages provides an excellent CD platform for a status page. Here's how I used it to create mine."
+summary = "GitHub Actions paired with GitHub Pages provides an excellent CD platform for a status page. Here's how I used it to create mine."
 devLink = "https://dev.to/msfjarvis/creating-a-continuously-deploying-static-statuspage-with-github-3ol2"
 slug = "creating-a-continuously-deploying-static-statuspage-with-github"
 socialImage = "uploads/statuspage_social.webp"

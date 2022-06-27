@@ -1,7 +1,7 @@
 +++
 categories = ["rust"]
 date = 2019-09-07
-description = "Rust is an amazing systems language that is on an explosive rise thanks to its memory safety guarantees and fast, iterative development. In this post, I recap some of the tooling that I use with Rust to make coding in it even more fun and intuitive"
+summary = "Rust is an amazing systems language that is on an explosive rise thanks to its memory safety guarantees and fast, iterative development. In this post, I recap some of the tooling that I use with Rust to make coding in it even more fun and intuitive"
 devLink = "https://dev.to/msfjarvis/tools-for-effective-rust-development-3mb4"
 title = "Tools for effective Rust development"
 slug = "tools-for-effective-rust-development"

@@ -1,7 +1,7 @@
 +++
 categories = ["how-to"]
 date = 2022-04-04
-description = "Putting your media into Google Photos is easy, taking it out, not as much."
+summary = "Putting your media into Google Photos is easy, taking it out, not as much."
 slug = "backing-up-your-content-from-google-photos"
 socialImage = "/uploads/google-photos-backup.webp"
 tags = ["backup", "google photos", "gphotos-cdp"]
