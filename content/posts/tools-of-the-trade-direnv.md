@@ -1,7 +1,7 @@
 +++
 categories = ["tools-of-the-trade"]
 date = 2020-08-04
-description = "In the first post in the new 'Tools of the trade' series, we talk about direnv."
+summary = "In the first post in the new 'Tools of the trade' series, we talk about direnv."
 slug = "tools-of-the-trade-direnv"
 socialImage = "uploads/tools-of-the-trade-direnv.webp"
 tags = ["direnv", "cli-tools"]

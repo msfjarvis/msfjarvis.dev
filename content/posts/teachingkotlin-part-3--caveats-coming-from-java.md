@@ -1,7 +1,7 @@
 +++
 categories = ["kotlin", "android", "teachingkotlin"]
 date = 2019-12-16
-description = "Part 3 of #TeachingKotlin covers some subtle differences between Kotlin and Java that might affect your codebases as you start migrating to or writing new code in Kotlin."
+summary = "Part 3 of #TeachingKotlin covers some subtle differences between Kotlin and Java that might affect your codebases as you start migrating to or writing new code in Kotlin."
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-3-caveats-coming-from-java-2e1k"
 slug = "teachingkotlin-part-3--caveats-coming-from-java"
 socialImage = "uploads/teachingkotlin_social.webp"

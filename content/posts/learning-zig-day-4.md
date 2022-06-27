@@ -1,7 +1,7 @@
 +++
 categories = ["zig"]
 date = 2021-05-18
-description = "Brushing up on standards"
+summary = "Brushing up on standards"
 slug = "learning-zig--day-4"
 tags = ["learn"]
 title = "Learning Zig - Day 4"

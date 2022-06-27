@@ -1,7 +1,7 @@
 +++
 categories = ["aps"]
 date = 2020-08-18
-description = "Long form release notes for the Android Password Store August release"
+summary = "Long form release notes for the Android Password Store August release"
 slug = "aps-august-release"
 socialImage = "uploads/aps_banner.webp"
 tags = ["relnotes", "oss", "android-password-store"]
