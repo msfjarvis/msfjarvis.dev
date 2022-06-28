@@ -105,11 +105,9 @@ If like me you need to publish these to [Maven Central], you'll need slightly mo
 > +configure<MavenPublishBaseExtension> {
 > +  group = requireNotNull(project.findProperty("GROUP"))
 > +  version = requireNotNull(project.findProperty("VERSION_NAME"))
-> +  mavenPublishing {
-> +    publishToMavenCentral(SonatypeHost.DEFAULT)
-> +    signAllPublications()
-> +    configure(JavaLibrary(JavadocJar.Empty()))
-> +  }
+> +  publishToMavenCentral(SonatypeHost.DEFAULT)
+> +  signAllPublications()
+> +  configure(JavaLibrary(JavadocJar.Empty()))
 > +  pomFromGradleProperties()
 > +}
 > + 
