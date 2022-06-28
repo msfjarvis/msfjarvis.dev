@@ -26,7 +26,7 @@ I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-c
 
 - CPU: Ryzen 5 1600 (6c/12t) @ 3.2 GHz
 - GPU: Nvidia GeForce GTX 1650 Super
-- RAM: 8 + 8 (Kingston Value DDR4) + 16 (Kingston HyperX)
+- RAM: 16GB (Kingston HyperX)
 - Motherboard: ASRock A320M Pro4
 
 ### Laptop
