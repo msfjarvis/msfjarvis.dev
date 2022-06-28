@@ -13,6 +13,7 @@ socialImage = "uploads/gradle-social.webp"
 Gradle's [convention plugins] are a powerful feature that allow creating simple, reusable Gradle plugins that can be used across your multi-module projects to ensure all modules of a certain type are configured the same way. As an example, if you want to enforce that none of your Android library projects contain a `BuildConfig` class then the convention plugin for it could look something like this:
 
 > `com.example.android-library.gradle.kts`
+>
 > ```groovy
 > plugins {
 >   id("com.android.library)
@@ -28,6 +29,7 @@ Gradle's [convention plugins] are a powerful feature that allow creating simple,
 Then in your modules, you can use this plugin like so:
 
 > `library-module/build.gradle.kts`
+>
 > ```groovy
 > plugins {
 >   id ("com.example.android-library")
@@ -57,6 +59,7 @@ This also makes it significantly easier to share convention plugins between proj
 To their credit, Gradle supports this ability very well and you can actually publish all plugins within a build/project with minimal configuration. The changes required to publish [Android Password Store]'s convention plugins for Android are:
 
 > `build-logic/android-plugins/build.gradle.kts`
+>
 > ```diff
 > -plugins { `kotlin-dsl` }
 > +plugins {
@@ -74,6 +77,7 @@ After that you can run `gradle -p build-logic publishToMavenLocal` and it will J
 If like me you need to publish these to [Maven Central], you'll need slightly more setup since it enforces multiple security and publishing related best practices. Here's how I use [gradle-maven-publish-plugin] to configure the same (`gradle.properties` changes omitted for brevity, the GitHub repository explains what you need):
 
 > `build-logic/settings.gradle.kts`
+>
 > ```diff
 > +pluginManagement {
 > +  repositories {
@@ -88,13 +92,14 @@ If like me you need to publish these to [Maven Central], you'll need slightly mo
 > ```
 
 > `build-logic/android-plugins/build.gradle.kts`
+>
 > ```diff
 > +import com.vanniktech.maven.publish.JavadocJar
 > +import com.vanniktech.maven.publish.JavaLibrary
 > +import com.vanniktech.maven.publish.MavenPublishBaseExtension
 > +import com.vanniktech.maven.publish.SonatypeHost
 > +import org.gradle.kotlin.dsl.provideDelegate
-> + 
+> +
 > -plugins { `kotlin-dsl` }
 > +plugins {
 > +  `kotlin-dsl`
@@ -110,7 +115,7 @@ If like me you need to publish these to [Maven Central], you'll need slightly mo
 > +  configure(JavaLibrary(JavadocJar.Empty()))
 > +  pomFromGradleProperties()
 > +}
-> + 
+> +
 > + afterEvaluate {
 > +  signing {
 > +    val signingKey: String? by project
@@ -122,12 +127,12 @@ If like me you need to publish these to [Maven Central], you'll need slightly mo
 
 This will populate your POM files with the properties required by Maven Central and sign all artifacts with PGP.
 
-
 ## Consuming your new binary plugins
 
 With your convention plugins converted to shiny new binary plugins, you might be inclined to start using them like so:
 
 > `autofill-parser/build.gradle.kts`
+>
 > ```diff
 >  plugins {
 > -  id("com.github.android-password-store.published-android-library")
@@ -146,6 +151,7 @@ However, this fails because `kotlin-android` and `kotlin-library` plugins resolv
 The way to resolve this problem is to define the plugin versions in your `settings.gradle.kts` file, where these classpath conflicts will be resolved automatically by Gradle:
 
 > `settings.gradle.kts`
+>
 > ```diff
 > @@ -14,6 +14,25 @@ pluginManagement {
 >      mavenCentral()
