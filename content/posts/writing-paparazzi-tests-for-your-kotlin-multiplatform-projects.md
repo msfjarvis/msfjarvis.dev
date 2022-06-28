@@ -119,6 +119,7 @@ class UserProfileTest {
       MaterialTheme(colorScheme = theme.colors) { UserProfile() }
     }
   }
+}
 ```
 
 [paparazzi]: https://github.com/cashapp/paparazzi
