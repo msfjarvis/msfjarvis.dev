@@ -4,10 +4,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy built site to"
+        required: true
+        type: "string"
 
 jobs:
   deploy-main:
-    if: "contains(github.event.head_commit.message, '[deploy]')"
+    if: "contains(github.event.head_commit.message, '[deploy]') || github.event.inputs.environment == '[deploy]'"
     runs-on: ubuntu-latest
 
     steps:
@@ -45,7 +51,7 @@ jobs:
           curl "https://www.bing.com/ping?sitemap=${SITEMAP_URL}"
 
   deploy-staging:
-    if: "contains(github.event.head_commit.message, '[staging]')"
+    if: "contains(github.event.head_commit.message, '[staging]') || github.event.inputs.environment == '[staging]'"
     runs-on: ubuntu-latest
 
     steps:
