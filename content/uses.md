@@ -10,7 +10,7 @@ ShowToc = false
 I use the `gnome-terminal` that ships with Linux Mint's Cinnamon Edition with `bash` and a custom prompt from [starship](https://starship.rs). The editor I use depends on what code I am working with:
 
 - Web, Python: VS Code
-- Rust: VS Code with rust-analyzer
+- Rust: VS Code with rust-analyzer or IntelliJ IDEA with intellij-rust
 - Android: Android Studio
 - Kotlin: IntelliJ IDEA
 
@@ -24,14 +24,14 @@ I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-c
 
 ### PC
 
-- CPU: Ryzen 5 1600 (6c/12t) @ 3.2 GHz
+- CPU: Ryzen 5 1600 (6C/12T) @ 3.2 GHz
 - GPU: Nvidia GeForce GTX 1650 Super
-- RAM: 16GB (Kingston HyperX)
+- RAM: 32GB (16GB Kingston HyperX + 16GB Corsair Vengeance LPX)
 - Motherboard: ASRock A320M Pro4
 
 ### Laptop
 
-2020 M1 MacBook
+2020 M1 MacBook Pro
 
 ### Phone
 
