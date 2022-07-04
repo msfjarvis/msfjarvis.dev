@@ -4,5 +4,14 @@
     "config:base",
     "github>msfjarvis/shared-workflows//renovate/automerge"
   ],
+  "regexManagers": [
+    {
+      "description": "Update versions in Actions files",
+      "fileMatch": [".yml$"],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?)\s(depName=(?<depName>.*?))?\s.*-version: '(?<currentValue>.*?)'"
+      ]
+    }
+  ],
   "commitMessageSuffix": "[staging]"
 }
