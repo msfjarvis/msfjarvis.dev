@@ -3,5 +3,6 @@
   "extends": [
     "config:base",
     "github>msfjarvis/shared-workflows//renovate/automerge"
-  ]
+  ],
+  "commitMessageSuffix": "[staging]"
 }
