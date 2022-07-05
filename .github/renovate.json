@@ -4,10 +4,34 @@
     "config:base",
     "github>msfjarvis/shared-workflows//renovate/automerge"
   ],
+  "packageRules": [
+    {
+      "managers": [
+        "github-actions"
+      ],
+      "packagePatterns": [
+        "^cloudflare/wrangler-action"
+      ],
+      "enabled": false
+    },
+    {
+      "managers": [
+        "npm"
+      ],
+      "packagePatterns": [
+        "^source-map-loader",
+        "^ts-loader",
+        "^webpack"
+      ],
+      "enabled": false
+    }
+  ],
   "regexManagers": [
     {
       "description": "Update versions in Actions files",
-      "fileMatch": [".yml$"],
+      "fileMatch": [
+        ".yml$"
+      ],
       "matchStrings": [
         "datasource=(?<datasource>.*?)\s(depName=(?<depName>.*?))?\s.*-version: '(?<currentValue>.*?)'"
       ]
