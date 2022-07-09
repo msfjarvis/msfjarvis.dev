@@ -19,7 +19,7 @@ I've [sent a PR] to Paparazzi that will resolve this issue, and in the mean time
 
 To begin, we'll need a new Gradle module for our Paparazzi tests. Since Paparazzi doesn't understand Kotlin Multiplatform yet, we're gonna hide that aspect of our project and present it a pure Android library project. Set up the module like so:
 
-```plain
+```kotlin
 // paparazzi-tests/build.gradle.kts
 plugins {
   id("com.android.library")
@@ -33,7 +33,7 @@ android {
 
 Now, add dependencies in this module to the modules that contain the composables you'd like to test. As you might have guessed, this approach currently limits you to only being able to test public composables. However, if you're trying to test the UI exposed by a "common" module like I am, that might not be such a big deal.
 
-```plain
+```kotlin
 // paparazzi-tests/build.gradle.kts
 dependencies {
   testImplementation(projects.common)
@@ -42,7 +42,7 @@ dependencies {
 
 And that's pretty much it! You can now be off to the races and start writing your tests:
 
-```plain
+```kotlin
 // paparazzi-tests/src/test/kotlin/UserProfileTest.kt
 class UserProfileTest {
   @get:Rule val paparazzi = Paparazzi()
@@ -71,7 +71,7 @@ Consult the [Paparazzi documentation] for the Gradle tasks reference and customi
 
 If you use `./gradlew check` in your CI, our new module will be tested in both release and debug build types. This is fairly redundant, so you can disable the release build type altogether:
 
-```plain
+```kotlin
 // paparazzi-tests/build.gradle.kts
 androidComponents {
   beforeVariants { variant ->
@@ -84,7 +84,7 @@ androidComponents {
 
 You will run into [this issue] if you use JDK 12 or above to run Paparazzi-backed tests. I've [started working] on a fix for it upstream, in the mean time it can be worked around by forcing the test tasks to run with JDK 11.
 
-```plain
+```kotlin
 // paparazzi-tests/build.gradle.kts
 tasks.withType<Test>().configureEach {
   javaLauncher.set(javaToolchains.launcherFor {
@@ -97,7 +97,7 @@ tasks.withType<Test>().configureEach {
 
 Using an enum and Google's [TestParameterInjector] you can write a single test and have it run against all your themes.
 
-```plain
+```kotlin
 // paparazzi-tests/src/test/kotlin/Theme.kt
 import androidx.compose.material3.ColorScheme
 
@@ -107,7 +107,7 @@ enum class Theme(val colors: ColorScheme) {
 }
 ```
 
-```plain
+```kotlin
 // paparazzi-tests/src/test/kotlin/UserProfileTest.kt
 @RunWith(TestParameterInjector::class)
 class UserProfileTest {
