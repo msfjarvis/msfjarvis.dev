@@ -122,26 +122,6 @@ class UserProfileTest {
 }
 ```
 
-### Upgrading to Kotlin 1.7.0 and beyond
-
-As of writing, Paparazzi 1.0.0 ships with Compose Compiler 1.2.0-alpha05, which means it is only compatible with Kotlin 1.6.20 and nothing else. To work around this, you can add an explicit dependency to the newer Compose Compiler that supports the version of Kotlin you are using.
-
-```toml
-// gradle/libs.versions.toml
-[libs]
-androidx-compose-compiler = "androidx.compose.compiler:compiler:1.2.0"
-```
-
-```diff
-// paparazzi-tests/build.gradle.kts
- dependencies {
-+  // Workaround for Paparazzi using an older Compose Compiler dependency
-+  add("kotlinCompilerPluginClasspath", libs.androidx.compose.compiler)
-   testImplementation(kotlin("test-junit"))
-   testImplementation(libs.kotlinx.datetime)
-   testImplementation(libs.testparameterinjector)
-```
-
 [paparazzi]: https://github.com/cashapp/paparazzi
 [compose]: https://d.android.com/jetpack/compose
 [compose-jb]: https://github.com/jetbrains/compose-jb
