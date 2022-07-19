@@ -6,7 +6,7 @@ const GITHUB_URL = `https://github.com`;
 const MY_GITHUB = `${GITHUB_URL}/${GITHUB_USERNAME}`;
 const APS_GITHUB_URL = `https://github.com/${APS_SLUG}/${APS_SLUG}`;
 const CSP_POLICY =
-  "base-uri 'self'; connect-src 'self' insights.msfjarvis.dev utteranc.es; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com utteranc.es; font-src 'self' fonts.gstatic.com; img-src 'self' data: gfycat.com imgur.com *.imgur.com insights.msfjarvis.dev syndication.twitter.com; object-src 'none'; script-src 'self' 'unsafe-hashes' asciinema.org platform.twitter.com utteranc.es insights.msfjarvis.dev 'sha256-/nV291Na1MuGRmAF5BCX/72e5aDh6O5wnlvisox+3Ts=' 'sha256-X5avg43RTxt2cSum+E3xICbowEMaOBxeBiNh05CXDTY=' 'sha256-z2izUJPvGYTnFTpFb7prEv2Soyt9qIS/B/aWU80v7As='; style-src 'self' fonts.googleapis.com 'unsafe-inline';";
+  "base-uri 'self'; connect-src 'self' insights.msfjarvis.dev utteranc.es; default-src 'self'; frame-ancestors 'none'; frame-src asciinema.org github.com platform.twitter.com utteranc.es; font-src 'self' fonts.gstatic.com; img-src 'self' data: gfycat.com imgur.com *.imgur.com insights.msfjarvis.dev syndication.twitter.com; object-src 'none'; script-src 'self' 'unsafe-hashes' asciinema.org platform.twitter.com utteranc.es insights.msfjarvis.dev 'sha256-/nV291Na1MuGRmAF5BCX/72e5aDh6O5wnlvisox+3Ts=' 'sha256-X5avg43RTxt2cSum+E3xICbowEMaOBxeBiNh05CXDTY=' 'sha256-z2izUJPvGYTnFTpFb7prEv2Soyt9qIS/B/aWU80v7As='; style-src 'self' fonts.googleapis.com 'unsafe-inline'; frame-ancestors 'self';";
 const PERMISSIONS_POLICY =
   "accelerometer=(), autoplay=(), camera=(), encrypted-media=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), sync-xhr=(), usb=()";
 
