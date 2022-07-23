@@ -23,14 +23,12 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          # renovate: datasource=github-releases depName=gohugoio/hugo
           hugo-version: '0.91.0'
           extended: true
 
       - uses: actions/setup-go@v3
         with:
-          # renovate: datasource=golang-version
-          go-version: '1.17.5'
+          go-version-file: 'go.mod'
 
       - name: Build Hugo Site
         shell: bash
@@ -63,14 +61,12 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          # renovate: datasource=github-releases depName=gohugoio/hugo
           hugo-version: '0.91.0'
           extended: true
 
       - uses: actions/setup-go@v3
         with:
-          # renovate: datasource=golang-version
-          go-version: '1.17.5'
+          go-version-file: 'go.mod'
   
       - name: Build Hugo Site
         shell: bash
