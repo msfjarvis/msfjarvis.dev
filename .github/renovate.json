@@ -24,17 +24,23 @@
         "^webpack"
       ],
       "enabled": false
+    },
+    {
+      "packageNames": ["gohugoio/hugo"],
+      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
     }
   ],
   "regexManagers": [
     {
-      "description": "Update versions in Actions files",
+      "description": "Update Hugo version in Actions workflows",
       "fileMatch": [
         ".yml$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?)\s(depName=(?<depName>.*?))?\s.*-version: '(?<currentValue>.*?)'"
-      ]
+        "hugo-version: '(?<currentValue>.*?)'"
+      ],
+      "depNameTemplate": "gohugoio/hugo",
+      "datasourceTemplate": "github-releases"
     }
   ],
   "commitMessageSuffix": "[staging]"
