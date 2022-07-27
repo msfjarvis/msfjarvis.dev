@@ -46,6 +46,8 @@ enableEmoji = true
   disableSpecial1stPost = true
   ShowPostNavLinks = true
   ShowToc = true
+  ShowShareButtons = true
+  ShareButtons = [ "twitter", "reddit", "telegram" ]
   # Required for search engine indexers
   env = "production"
 
