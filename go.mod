@@ -1,6 +1,6 @@
 module github.com/msfjarvis/msfjarvis.dev
 
-go 1.18
+go 1.19
 
 require (
 	github.com/adityatelange/hugo-PaperMod v0.0.0-20220717061433-87ffee9fcf6d // indirect
