@@ -33,13 +33,15 @@ jobs:
       - name: Build Hugo Site
         shell: bash
         run: |
+          yarn install
           hugo --minify --gc
 
       - name: Publish to Cloudflare Workers Sites
-        uses: cloudflare/wrangler-action@1.3.0
+        uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          environment: 'production'
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: publish --env production
         env:
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
 
@@ -71,11 +73,14 @@ jobs:
       - name: Build Hugo Site
         shell: bash
         run: |
+          yarn install
           hugo --minify --gc -D --baseUrl 'https://drafts.msfjarvis.dev/'
 
       - name: Publish to Cloudflare Workers Sites
         uses: cloudflare/wrangler-action@1.3.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: publish
         env:
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}

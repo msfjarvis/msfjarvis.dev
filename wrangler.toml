@@ -1,6 +1,4 @@
 name = "msfjarvis-dev-staging"
-type = "webpack"
-webpack_config = "webpack.config.js"
 workers_dev = false
 route = "drafts.msfjarvis.dev/*"
 vars = { BASE_URL = "https://drafts.msfjarvis.dev/" }
@@ -8,10 +6,13 @@ compatibility_date = "2021-11-08"
 kv_namespaces = [
   { binding = "NAMESPACE", id = "43d755465f4642ccb30b1bdce031d1da" }
 ]
+main = "dist/worker.production.js"
+
+[build]
+command = "yarn run build"
 
 [site]
 bucket = "./public"
-entry-point = "workers-site"
 
 [env.production]
 name = "msfjarvis-dev-prod"
