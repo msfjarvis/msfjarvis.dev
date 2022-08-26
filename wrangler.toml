@@ -4,7 +4,7 @@ route = "drafts.msfjarvis.dev/*"
 vars = { BASE_URL = "https://drafts.msfjarvis.dev/" }
 compatibility_date = "2021-11-08"
 kv_namespaces = [
-  { binding = "NAMESPACE", id = "43d755465f4642ccb30b1bdce031d1da" }
+  { binding = "NAMESPACE", id = "43d755465f4642ccb30b1bdce031d1da", preview_id = "d2c0bff9f5584c938131063c9a702611" },
 ]
 main = "dist/worker.production.js"
 
