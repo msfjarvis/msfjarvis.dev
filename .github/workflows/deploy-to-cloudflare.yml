@@ -23,7 +23,7 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.102.1'
+          hugo-version: '0.102.2'
           extended: true
 
       - uses: actions/setup-go@v3
@@ -63,7 +63,7 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.102.1'
+          hugo-version: '0.102.2'
           extended: true
 
       - uses: actions/setup-go@v3
