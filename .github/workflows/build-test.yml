@@ -11,15 +11,15 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
 
       - name: Setup Latest Version of Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@c03b5dbed22245418539b65eb9a3b1d5fdd9a0a6 # tag=v2
         with:
           hugo-version: '0.102.3'
           extended: true
 
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@268d8c0ca0432bb2cf416faae41297df9d262d7f # tag=v3
         with:
           go-version-file: 'go.mod'
 
