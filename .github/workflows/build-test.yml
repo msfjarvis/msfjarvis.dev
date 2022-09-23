@@ -16,7 +16,7 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@c03b5dbed22245418539b65eb9a3b1d5fdd9a0a6 # tag=v2
         with:
-          hugo-version: '0.103.1'
+          hugo-version: '0.104.0'
           extended: true
 
       - uses: actions/setup-go@268d8c0ca0432bb2cf416faae41297df9d262d7f # tag=v3
