@@ -28,7 +28,7 @@
     },
     {
       "packageNames": ["gohugoio/hugo"],
-      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
+      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)"
     }
   ],
   "regexManagers": [
