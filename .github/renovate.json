@@ -35,10 +35,12 @@
     {
       "description": "Update Hugo version in Actions workflows",
       "fileMatch": [
-        ".yml$"
+        ".yml$",
+        ".toml$"
       ],
       "matchStrings": [
-        "hugo-version: '(?<currentValue>.*?)'"
+        "hugo-version: '(?<currentValue>.*?)'",
+        "HUGO_VERSION = \"(?<currentValue>.*?)\""
       ],
       "depNameTemplate": "gohugoio/hugo",
       "datasourceTemplate": "github-releases"
