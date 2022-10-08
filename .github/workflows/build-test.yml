@@ -1,4 +1,4 @@
-name: Build worker and website
+name: Build website
 
 on:
   push:
@@ -27,5 +27,3 @@ jobs:
         shell: bash
         run: |
           hugo --minify --gc
-          yarn install
-          yarn run build

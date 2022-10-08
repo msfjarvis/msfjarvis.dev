@@ -7,26 +7,6 @@
   ],
   "packageRules": [
     {
-      "managers": [
-        "github-actions"
-      ],
-      "packagePatterns": [
-        "^cloudflare/wrangler-action"
-      ],
-      "enabled": false
-    },
-    {
-      "managers": [
-        "npm"
-      ],
-      "packagePatterns": [
-        "^source-map-loader",
-        "^ts-loader",
-        "^webpack"
-      ],
-      "enabled": false
-    },
-    {
       "packageNames": ["gohugoio/hugo"],
       "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)"
     }
@@ -34,10 +14,7 @@
   "regexManagers": [
     {
       "description": "Update Hugo version in Actions workflows",
-      "fileMatch": [
-        ".yml$",
-        ".toml$"
-      ],
+      "fileMatch": [".yml$", ".toml$"],
       "matchStrings": [
         "hugo-version: '(?<currentValue>.*?)'",
         "HUGO_VERSION = \"(?<currentValue>.*?)\""
