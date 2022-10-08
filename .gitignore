@@ -6,3 +6,6 @@ transpiled/
 worker/
 .hugo_build.lock
 yarn.lock
+
+# Local Netlify folder
+.netlify

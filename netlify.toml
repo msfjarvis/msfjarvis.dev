@@ -4,3 +4,7 @@
 
 [build.environment]
   HUGO_VERSION = "0.104.3"
+
+[[edge_functions]]
+path = "/*"
+function = "root"
