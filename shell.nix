@@ -7,6 +7,5 @@ pkgs.mkShell {
     hugo
     imagemagick
     nodejs-16_x
-    wrangler
   ];
 }
