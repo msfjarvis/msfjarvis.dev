@@ -8,3 +8,8 @@
 [[edge_functions]]
 path = "/*"
 function = "root"
+
+
+[[edge_functions]]
+function = "webfinger"
+path = "/.well-known/webfinger"
