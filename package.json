@@ -6,9 +6,14 @@
   "main": "index.js",
   "scripts": {
     "build": "hugo",
-    "dev": "hugo serve"
+    "dev": "hugo serve",
+    "format": "prettier --write '**/*.{ts,js,css,json,md}' --ignore-path .gitignore"
   },
   "author": "Harsh Shandilya <me@msfjarvis.dev>",
   "license": "MIT OR Apache-2.0",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "netlify-cli": "^12.2.0",
+    "prettier": "^2.7.1"
+  }
 }

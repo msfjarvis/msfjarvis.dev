@@ -8,7 +8,7 @@ const APS_GITHUB_URL = `https://github.com/${APS_SLUG}/${APS_SLUG}`;
 
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
-  const urlParts = url.pathname.split("/").filter(entry => entry != "");
+  const urlParts = url.pathname.split("/").filter((entry) => entry != "");
   switch (urlParts[0]) {
     case "g":
       switch (urlParts.length) {
