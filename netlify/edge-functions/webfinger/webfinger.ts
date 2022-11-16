@@ -1,13 +1,18 @@
+import { Status } from "https://deno.land/std@0.136.0/http/http_status.ts";
 import type { Context } from "https://edge.netlify.com";
 
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   const resourceParam = url.searchParams.get("resource");
-  context.log(`resourceParam=${resourceParam}`);
   if (resourceParam === null) {
-    return context.json({
-      error: "No 'resource' query parameter was provided",
-    });
+    return context.json(
+      {
+        error: "No 'resource' query parameter was provided",
+      },
+      {
+        status: Status.BadRequest,
+      }
+    );
   } else {
     const re = /acct:(.*)@msfjarvis.dev/;
     if (resourceParam.match(re) !== null) {
@@ -36,9 +41,14 @@ export default async (request: Request, context: Context) => {
         ],
       });
     } else {
-      return context.json({
-        error: "This domain only works for @msfjarvis.dev requests",
-      });
+      return context.json(
+        {
+          error: "This domain only works for @msfjarvis.dev requests",
+        },
+        {
+          status: Status.BadRequest,
+        }
+      );
     }
   }
 };
