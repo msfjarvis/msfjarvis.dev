@@ -2,7 +2,6 @@ import { Status } from "https://deno.land/std@0.136.0/http/http_status.ts";
 import type { Context } from "https://edge.netlify.com";
 
 export default async (request: Request, context: Context) => {
-  const re = /acct:(.*)@msfjarvis.dev/;
   const url = new URL(request.url);
   const resourceParam = url.searchParams.get("resource");
   if (resourceParam === null) {
@@ -14,10 +13,10 @@ export default async (request: Request, context: Context) => {
         status: Status.BadRequest,
       }
     );
-  } else if (resourceParam.match(re) === null) {
+  } else if (resourceParam !== "acct:harsh@msfjarvis.dev") {
     return context.json(
       {
-        error: "This domain only works for @msfjarvis.dev requests",
+        error: "An invalid identity was requested",
       },
       {
         status: Status.BadRequest,
