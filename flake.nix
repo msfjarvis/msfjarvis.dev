@@ -27,11 +27,18 @@
             nodejs-16_x
             yarn
           ];
-          commands = [{
-            name = "dev";
-            category = "development";
-            command = "${pkgs.yarn}/bin/yarn run dev";
-          }];
+          commands = [
+            {
+              name = "dev";
+              category = "development";
+              command = "${pkgs.yarn}/bin/yarn run dev";
+            }
+            {
+              name = "build";
+              category = "deployment";
+              command = "${pkgs.yarn}/bin/yarn run build";
+            }
+          ];
         };
       });
 }
