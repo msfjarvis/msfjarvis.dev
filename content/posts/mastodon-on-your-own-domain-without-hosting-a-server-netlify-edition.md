@@ -61,7 +61,7 @@ With this in hand, now we can get started on wiring this up into our website.
 First, create an Edge Function using the Netlify CLI. Here's the options I chose.
 
 ```
-➜ yarn exec ntl functions:create --name webfinger1
+➜ yarn exec ntl functions:create --name webfinger
 ? Select the type of function you'd like to create: Edge function (Deno)
 ? Select the language of your function: TypeScript
 ? Pick a template: typescript-json
