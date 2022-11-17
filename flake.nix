@@ -32,11 +32,13 @@
               name = "dev";
               category = "development";
               command = "${pkgs.yarn}/bin/yarn run dev";
+              help = "Run the Hugo development server";
             }
             {
               name = "build";
               category = "deployment";
               command = "${pkgs.yarn}/bin/yarn run build";
+              help = "Build the site";
             }
           ];
         };
