@@ -18,7 +18,7 @@ My terminal-based text editor of choice is currently [micro](https://micro-edito
 
 ### Development environment
 
-I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-community/home-manager) to maintain my development environment and dotfiles. My current Nix configuration can be found in my [dotfiles repo](https://github.com/msfjarvis/dotfiles/blob/main/nixos/home-manager.nix).
+I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-community/home-manager) to maintain my development environment and dotfiles. My current Nix configuration can be found in my [dotfiles repo](https://github.com/msfjarvis/dotfiles/blob/main/nixos/ryzenbox-configuration.nix).
 
 ## Hardware
 
@@ -29,10 +29,6 @@ I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-c
 - RAM: 32GB (16GB Kingston HyperX + 16GB Corsair Vengeance LPX)
 - Motherboard: ASRock A320M Pro4
 
-### Laptop
-
-2020 M1 MacBook Pro
-
 ### Phone
 
-- 128GB Google Pixel 4a running Android 12.
+- 128GB Google Pixel 7 running Android 13.
