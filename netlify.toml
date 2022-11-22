@@ -2,6 +2,13 @@
   command = "hugo"
   publish = "public"
 
+[dev]
+  command = "hugo serve"
+  targetPort = 1313
+  port = 8888
+  publish = "public"
+  autoLaunch = false
+
 [build.environment]
   HUGO_VERSION = "0.106.0"
 
