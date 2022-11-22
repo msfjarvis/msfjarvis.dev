@@ -31,7 +31,7 @@
             {
               name = "dev";
               category = "development";
-              command = "hugo serve -D";
+              command = "yarn exec ntl dev";
               help = "Run the Hugo development server";
             }
             {
