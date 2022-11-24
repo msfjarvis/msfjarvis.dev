@@ -10,7 +10,7 @@
   autoLaunch = false
 
 [build.environment]
-  HUGO_VERSION = "0.106.0"
+  HUGO_VERSION = "0.107.0"
 
 [[edge_functions]]
 path = "/*"
