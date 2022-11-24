@@ -2,7 +2,11 @@
   description = "The source behind msfjarvis.dev";
 
   inputs = {
-    devshell.url = "github:numtide/devshell/master";
+    devshell = {
+      url = "github:numtide/devshell/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     flake-utils.url = "github:numtide/flake-utils/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
   };
