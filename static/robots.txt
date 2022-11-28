@@ -1,6 +1,8 @@
 # Googlebot
 User-agent: Googlebot
+Allow:
 Disallow: /static/
+Disallow: /.well-known/webfinger
 
 # Everybody else
 User-agent: *
