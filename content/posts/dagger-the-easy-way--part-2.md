@@ -123,7 +123,7 @@ D/CounterApplication: Counter 1
 
 Notice that we were handed the same instance. This is the power of scoping. It lets us have singletons within the defined scope.
 
-Like Arun mentioned in the [additional notes](/posts/dagger-the-easy-way-part-1/#setting-up-the-object-graph) for the previous article, ensuring a singleton Component stays that way is the user's job. If you initialize the component again within the same scope, the new component instance will have a new set of instances. That is part of why we store our component in the [Application](https://developer.android.com/reference/android/app/Application.html) class, because it is the singleton for our apps.
+Like Arun mentioned in the [additional notes](/posts/dagger-the-easy-way--part-1/#setting-up-the-object-graph) for the previous article, ensuring a singleton Component stays that way is the user's job. If you initialize the component again within the same scope, the new component instance will have a new set of instances. That is part of why we store our component in the [Application](https://developer.android.com/reference/android/app/Application.html) class, because it is the singleton for our apps.
 
 ## Creating our own scopes
 
