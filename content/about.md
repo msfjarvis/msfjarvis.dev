@@ -10,15 +10,13 @@ ShowReadingTime = false
 ShowToc = false
 +++
 
-I'm an Android and Kotlin developer with over 4 years of experience building apps and SDKs of varying sizes.
-
-I'm based out of Ghaziabad, India.
+I'm an Android and Kotlin developer with over 5 years of experience building apps that have scaled up to hundreds of thousands daily active users and design systems for some of the largest startups in India.
 
 ### Work
 
-Presently, I am a Product Engineer at [Obvious] where I work with on client projects surrounding design systems. Before that I worked at [Navana Tech] and [PRJKT Development LLC].
+I am currently on a break, looking for my next job either within India or in the EU.
 
-For more details you can find the latest version of [my resume here].
+You can find the latest version of [my resume here].
 
 ### Interests
 
@@ -38,11 +36,8 @@ A few ideas that I've gone ahead and built in my spare time. You can support the
 
 ### Contact
 
-I'd be happy to write back if you'd like to send me an [email]. Otherwise you can follow me on [Twitter] or [Github].
+I'd be happy to write back if you'd like to send me an [email]. Otherwise you can follow me on [Mastodon] or [Github].
 
-[obvious]: https://obvious.in
-[navana tech]: https://navanatech.in
-[prjkt development llc]: https://prjkt.io
 [my resume here]: https://msfjarvis.dev/resume.pdf
 [donating here]: https://github.com/sponsors/msfjarvis
 [android password store]: https://passwordstore.app
@@ -52,5 +47,5 @@ I'd be happy to write back if you'd like to send me an [email]. Otherwise you ca
 [healthchecks-rs]: https://msfjarvis.dev/g/healthchecks-rs
 [healthchecks.io]: https://healthchecks.io
 [email]: mailto:me@msfjarvis.dev
-[twitter]: https://twitter.com/msfjarvis
+[mastodon]: https://androiddev.social/@msfjarvis
 [github]: https://msfjarvis.dev/g
