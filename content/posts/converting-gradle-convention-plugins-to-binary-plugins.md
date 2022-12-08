@@ -16,7 +16,7 @@ Gradle's [convention plugins] are a powerful feature that allow creating simple,
 >
 > ```groovy
 > plugins {
->   id("com.android.library)
+>   id("com.android.library")
 > }
 >
 > android {
