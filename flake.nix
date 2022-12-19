@@ -27,7 +27,7 @@
             git
             go
             hugo
-            imagemagick
+            libwebp
             nodejs-16_x
             yarn
           ];
