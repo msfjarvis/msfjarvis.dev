@@ -142,6 +142,6 @@ This is what the flake looked like for me after all this
 }
 ```
 
-It's probably not idiomatic Nix (for some definion of idiomatic) but the entire thing has been a trial and error anyway so :shrug:
+It's probably not idiomatic Nix (for some definition of idiomatic) but the entire thing has been a trial and error anyway so :shrug:
 
 I'm very much a noob when it comes to Nix so any feedback is very welcome and appreciated!

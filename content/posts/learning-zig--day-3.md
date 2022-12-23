@@ -29,7 +29,7 @@ On a syntactic level, Zig enums are closer to Kotlin than to Rust w.r.t. declari
 
 ## Structs
 
-The syntax note from enums applies here as well, with an additional nicety about pointers. Specifically, a struct function that accepts a pointer value will automatically derefence the value inside the function body. This only goes one level deep though, so keep that in mind.
+The syntax note from enums applies here as well, with an additional nicety about pointers. Specifically, a struct function that accepts a pointer value will automatically dereference the value inside the function body. This only goes one level deep though, so keep that in mind.
 
 ```zig
 const Rectangle = struct {
