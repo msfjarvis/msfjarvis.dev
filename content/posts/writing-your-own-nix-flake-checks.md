@@ -49,7 +49,7 @@ I needed a space separated list of my shell scripts to pass to shfmt and shellch
 
 Here I ran into my first problem: Nix expects every derivation to generate an output which meant this doesn't actually build.
 
-```
+```plaintext
 ➜ nix flake check
 error: flake attribute 'checks.fmt-check.outPath' is not a derivation
 ```
