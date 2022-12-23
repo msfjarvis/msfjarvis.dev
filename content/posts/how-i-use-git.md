@@ -26,7 +26,7 @@ My `.gitconfig` file can be found in my dotfiles [here][1]. Most of the settings
 
 ![diff-so-fancy rendering the diff of a commit][3]
 
-- `pretty.fixes` adds a ['pretty'][10] format called `fixes` which lists commits in the style that is used by the Linux kernel developers to link to the commits which introduced the bug they're fixing in their current commit. It adds a chain of historical reference to identify common bug patterns that are repeatedly occuring, which can then allow teams to devise ways of avoiding them.
+- `pretty.fixes` adds a ['pretty'][10] format called `fixes` which lists commits in the style that is used by the Linux kernel developers to link to the commits which introduced the bug they're fixing in their current commit. It adds a chain of historical reference to identify common bug patterns that are repeatedly occurring, which can then allow teams to devise ways of avoiding them.
 
 ```
 ➜ git log --pretty=fixes

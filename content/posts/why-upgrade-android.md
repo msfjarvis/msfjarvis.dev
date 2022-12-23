@@ -82,7 +82,7 @@ Connecting to a Wi-FI network now uses a [randomized MAC address](https://develo
 
 ### Removal of access to non-resettable identifiers
 
-Access to identifiers such as IMEI and serial was [restricted to priviledged apps](https://developer.android.com/about/versions/10/privacy/changes#non-resettable-device-ids) which means apps served by the Play Store can no longer see them.
+Access to identifiers such as IMEI and serial was [restricted to privileged apps](https://developer.android.com/about/versions/10/privacy/changes#non-resettable-device-ids) which means apps served by the Play Store can no longer see them.
 
 ### Restriction on clipboard access
 
@@ -124,7 +124,7 @@ To allow apps to audit their own usage of user data, [a new callback is provided
 
 ### Redacted MAC addresses
 
-Unpriviledged apps targetting SDK 30 will no longer be able to get the device's real MAC address.
+Unpriviledged apps targeting SDK 30 will no longer be able to get the device's real MAC address.
 
 # Closing notes
 

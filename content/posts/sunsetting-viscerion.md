@@ -14,7 +14,7 @@ Viscerion is one of my more known and loved apps that I myself continue to enjoy
 
 ## The story behind Viscerion
 
-When I initially started this project, it was called WireGuard-KT, and as the dumb and literal name suggests, began with me rewriting the app into Kotlin. I was not a huge fan of Kotlin at that point in time, but was eager to learn and this was the perfect oppurtunity. My ambitions were rather too lofty for the upstream project at that time and they had to let me go from the internship position, presenting the option to pursue everything I had planned, in a personal capacity.
+When I initially started this project, it was called WireGuard-KT, and as the dumb and literal name suggests, began with me rewriting the app into Kotlin. I was not a huge fan of Kotlin at that point in time, but was eager to learn and this was the perfect opportunity. My ambitions were rather too lofty for the upstream project at that time and they had to let me go from the internship position, presenting the option to pursue everything I had planned, in a personal capacity.
 
 When I was working on the upstream app, I was seeding builds of my staging branches to a group of friends, who also became the first users/testers of WireGuard-KT. They encouraged me to publish the app to the Play Store which has since been unpublished over copyright concerns about the similarity of the name and resulted in the rebranding of the project as Viscerion.
 
