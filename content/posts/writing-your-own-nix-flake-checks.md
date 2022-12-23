@@ -45,6 +45,8 @@ outputs = {
   });
 ```
 
+I needed a space separated list of my shell scripts to pass to shfmt and shellcheck, so I used a library function from nixpkgs called `concatStringsSep` that takes a list, and concatenates it together with the given separator. That's the `files` binding declared in the snippet above.
+
 Here I ran into my first problem: Nix expects every derivation to generate an output which meant this doesn't actually build.
 
 ```
