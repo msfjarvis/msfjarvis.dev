@@ -132,6 +132,7 @@ export default async (request: Request, context: Context) => {
   }
 };
 ```
+
 And that's it! You can test it out as below to verify things work as expected.
 
 ```json
