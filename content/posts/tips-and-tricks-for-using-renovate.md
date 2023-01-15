@@ -22,7 +22,7 @@ There are times where you're sticking with an older version of a package (tempor
 
 ```json
 {
-  packageRules: [
+  "packageRules": [
     {
       managers: ["gradle"],
       packagePatterns: ["^com.squareup.okhttp3"],
@@ -55,7 +55,7 @@ R﻿enovate already includes preset configurations for [monorepos](https://githu
 
 Sometimes there are cases where you may need to set an upper bound on a package dependency to avoid breaking changes or regressions. Renovate offers intuitive support for the same.
 
-````json
+```json
   "packageRules": [
     {
       "matchPackageNames": ["com.android.tools.build:gradle"],
