@@ -24,9 +24,9 @@ There are times where you're sticking with an older version of a package (tempor
 {
   "packageRules": [
     {
-      managers: ["gradle"],
-      packagePatterns: ["^com.squareup.okhttp3"],
-      enabled: false,
+      "managers": ["gradle"],
+      "packagePatterns": ["^com.squareup.okhttp3"],
+      "enabled": false,
     },
   ],
 }
