@@ -1,2 +1,13 @@
 <script data-skip-dnt="true" async defer src="https://insights.msfjarvis.dev/latest.js"></script>
 <noscript><img src="https://insights.msfjarvis.dev/noscript.gif" alt=""/></noscript>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
