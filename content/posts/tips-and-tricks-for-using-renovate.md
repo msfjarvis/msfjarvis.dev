@@ -32,9 +32,9 @@ There are times where you're sticking with an older version of a package (tempor
 }
 ```
 
-## G﻿rouping updates together
+## Grouping updates together
 
-R﻿enovate already includes preset configurations for [monorepos](https://github.com/renovatebot/renovate/blob/b4d1ad8e5210017a3550c9da4342b0953a70330a/lib/config/presets/internal/monorepo.ts) that publish multiple packages with identical versions, but you can also easily add more of your own. As an example, here's how you can combine updates of the serde crate and its derive macro.
+Renovate already includes preset configurations for [monorepos](https://github.com/renovatebot/renovate/blob/b4d1ad8e5210017a3550c9da4342b0953a70330a/lib/config/presets/internal/monorepo.ts) that publish multiple packages with identical versions, but you can also easily add more of your own. As an example, here's how you can combine updates of the serde crate and its derive macro.
 
 ```json
   "packageRules": [
@@ -51,7 +51,7 @@ R﻿enovate already includes preset configurations for [monorepos](https://githu
   ]
 ```
 
-#﻿# Set a semver range for upgrades
+## Set a semver range for upgrades
 
 Sometimes there are cases where you may need to set an upper bound on a package dependency to avoid breaking changes or regressions. Renovate offers intuitive support for the same.
 
@@ -73,7 +73,7 @@ For example, you can specify the version of Hugo to build your Netlify site with
 ```toml
 [build.environment]
   HUGO_VERSION = "0.109.0"
-```﻿
+```
 
 This is how the relevant configuration might look like with Renovate
 
@@ -89,15 +89,15 @@ This is how the relevant configuration might look like with Renovate
       "datasourceTemplate": "github-releases"
     }
   ],
-```﻿
+```
 
-Y﻿ou can read more about Regex Managers [here](https://docs.renovatebot.com/modules/manager/regex/).
+You can read more about Regex Managers [here](https://docs.renovatebot.com/modules/manager/regex/).
 
-#﻿# Making your GitHub Actions usage more secure
+## Making your GitHub Actions usage more secure
 
-A﻿ccording to GitHub's [official recommendations](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions), you should be using exact commit SHAs instead of tags for third-party actions. However, this is a pain to do manually. Instead, allow Renovate to manage it for you!
+According to GitHub's [official recommendations](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions), you should be using exact commit SHAs instead of tags for third-party actions. However, this is a pain to do manually. Instead, allow Renovate to manage it for you!
 
-`﻿``json
+```json
 {
   "extends": [
     "config:base",
@@ -105,4 +105,38 @@ A﻿ccording to GitHub's [official recommendations](https://docs.github.com/en/a
     "helpers:pinGitHubActionDigests",
  ﻿ ]
 }﻿
-`﻿``
+```
+
+## Automatically merging compatible updates
+
+Every person with a JavaScript project has definitely loved getting 20 PRs from Dependabot about arbitrary transitive dependencies that they didn't even realise they had. With Renovate, that pain can also be automated away if you have a robust enough test suite to permit automatic merging of minor updates.
+
+```json
+{
+  "automergeType": "branch",
+  "packageRules": [
+    {
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": ["minor", "patch", "digest", "lockFileMaintenance"],
+      "automerge": true
+    },
+  ]
+}
+```
+
+With this configuration, Renovate will push compatible updates to `renovate/$depName` branches and merge it automatically to your main branch if CI runs on the branch and passes. To make that happen, you will also need to update your GitHub Actions workflows.
+
+```diff
+ name: Run tests
+ on:
+   pull_request:
+     branches:
+       - main
++  push:
++    branches:
++      - renovate/**
+```
+
+## Closing notes
+
+This list currently consists exclusively of things I've used in my own projects. There is way more you can achieve with Renovate, and I recommend going through the docs at [docs.renovatebot.com](https://docs.renovatebot.com/) to find any useful knobs for the language ecosystem you wish to use it with. If you come across something interesting not covered here, let me know either below or on Mastodon at [@msfjarvis@androiddev.social](https://androiddev.social/@msfjarvis)!
