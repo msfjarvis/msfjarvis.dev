@@ -37,6 +37,7 @@ There are times where you're sticking with an older version of a package (tempor
 Renovate already includes preset configurations for [monorepos](https://github.com/renovatebot/renovate/blob/b4d1ad8e5210017a3550c9da4342b0953a70330a/lib/config/presets/internal/monorepo.ts) that publish multiple packages with identical versions, but you can also easily add more of your own. As an example, here's how you can combine updates of the serde crate and its derive macro.
 
 ```json
+{
   "packageRules": [
     {
       "managers": [
@@ -49,6 +50,7 @@ Renovate already includes preset configurations for [monorepos](https://github.c
       "groupName": "serde"
     }
   ]
+}
 ```
 
 ## Set a semver range for upgrades
@@ -56,12 +58,14 @@ Renovate already includes preset configurations for [monorepos](https://github.c
 Sometimes there are cases where you may need to set an upper bound on a package dependency to avoid breaking changes or regressions. Renovate offers intuitive support for the same.
 
 ```json
+{
   "packageRules": [
     {
       "matchPackageNames": ["com.android.tools.build:gradle"],
       "allowedVersions": "<=7.4.0"
     }
   ]
+}
 ```
 
 ## Supporting non-standard dependency declarations
@@ -78,6 +82,7 @@ For example, you can specify the version of Hugo to build your Netlify site with
 This is how the relevant configuration might look like with Renovate
 
 ```json
+{
   "regexManagers": [
     {
       "description": "Update Hugo version in Netlify config",
@@ -88,7 +93,8 @@ This is how the relevant configuration might look like with Renovate
       "depNameTemplate": "gohugoio/hugo",
       "datasourceTemplate": "github-releases"
     }
-  ],
+  ]
+}
 ```
 
 You can read more about Regex Managers [here](https://docs.renovatebot.com/modules/manager/regex/).
