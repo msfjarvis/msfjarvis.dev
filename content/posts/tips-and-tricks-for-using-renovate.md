@@ -92,3 +92,17 @@ This is how the relevant configuration might look like with Renovate
 ```﻿
 
 Y﻿ou can read more about Regex Managers [here](https://docs.renovatebot.com/modules/manager/regex/).
+
+#﻿# Making your GitHub Actions usage more secure
+
+A﻿ccording to GitHub's [official recommendations](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions), you should be using exact commit SHAs instead of tags for third-party actions. However, this is a pain to do manually. Instead, allow Renovate to manage it for you!
+
+`﻿``json
+{
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    "helpers:pinGitHubActionDigests",
+ ﻿ ]
+}﻿
+`﻿``
