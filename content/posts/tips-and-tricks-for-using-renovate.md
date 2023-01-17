@@ -1,11 +1,11 @@
 ---
 categories:
   - automation
-date: 2023-01-15T09:15:15.950Z
+date: 2023-01-17T19:32:18.074Z
 summary: Renovate is an extremely powerful tool for keeping your dependencies
   up-to-date, and its flexibility is often left unexplored. I'm hoping to change
   that.
-draft: true
+draft: false
 slug: tips-and-tricks-for-using-renovate
 tags:
   - dependency-management
