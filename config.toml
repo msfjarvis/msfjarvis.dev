@@ -32,7 +32,6 @@ enableEmoji = true
   defaultTheme = "dark"
   disableThemeToggle = true
   # Set parameters for social metadata
-  twitterUsername = "@msfjarvis"
   socialImage = "android-chrome-512x512.webp"
   # Turn on Utterances-backed comments
   comments = true
@@ -47,7 +46,7 @@ enableEmoji = true
   ShowPostNavLinks = true
   ShowToc = true
   ShowShareButtons = true
-  ShareButtons = [ "twitter", "reddit", "telegram" ]
+  ShareButtons = [ "reddit", "telegram" ]
   # Required for search engine indexers
   env = "production"
 
