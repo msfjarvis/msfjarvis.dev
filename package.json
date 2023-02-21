@@ -13,7 +13,7 @@
   "license": "MIT OR Apache-2.0",
   "dependencies": {},
   "devDependencies": {
-    "netlify-cli": "^12.2.6",
+    "netlify-cli": "^13.0.0",
     "prettier": "^2.7.1"
   }
 }
