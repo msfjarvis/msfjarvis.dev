@@ -62,16 +62,17 @@ enableEmoji = true
   name = "Uses"
   url = "/uses"
 
-[[params.social]]
+[[params.socialIcons]]
   name = "Github"
+  icon = "github"
   url = "https://github.com/msfjarvis"
 
-[[params.social]]
-  name = "Twitter"
-  icon = "twitter"
-  url = "https://twitter.com/msfjarvis"
+[[params.socialIcons]]
+  name = "Mastodon"
+  icon = "mastodon"
+  url = "https://androiddev.social/@msfjarvis"
 
-[[params.social]]
+[[params.socialIcons]]
   name = "RSS"
   icon = "rss"
   url = "/index.xml"
