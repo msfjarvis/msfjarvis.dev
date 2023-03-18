@@ -27,13 +27,9 @@
           name = "blog-dev-shell";
           bash = { interactive = ""; };
           packages = with pkgs; [
-            deno
             git
             go
             hugo
-            libwebp
-            nodejs-16_x
-            yarn
           ];
           commands = [
             {
