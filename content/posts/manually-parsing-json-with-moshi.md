@@ -146,7 +146,7 @@ fun toJson(writer: JsonWriter: value: TextParts?) {
 }
 ```
 
-Parsing JSON manually is relatively easy to screw up and Moshi will let you know if you get nesting wrong (missed a closing `endObject()` or `endArray()`) and other easily detectable problems, but you should definitely have tests for all possible cases. I'll let the readers do that on their own, but if you _really_ need to see an example then scream at me on [Twitter] and I'll do something about it.
+Parsing JSON manually is relatively easy to screw up and Moshi will let you know if you get nesting wrong (missed a closing `endObject()` or `endArray()`) and other easily detectable problems, but you should definitely have tests for all possible cases. I'll let the readers do that on their own, but if you _really_ need to see an example then let me know below.
 
 Anyways, that's the object -> JSON part sorted. Now let's try to do the reverse. Here's where we are as of now.
 
@@ -378,4 +378,3 @@ This is certainly a lengthy job to do, and this blog post is a result of nearly 
 [gson]: https://github.com/google/gson
 [json spec]: https://TODO
 [moshi]: https://github.com/square/moshi
-[twitter]: https://twitter.com/msfjarvis
