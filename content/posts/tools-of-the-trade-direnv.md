@@ -10,8 +10,6 @@ title = "Tools of the trade: direnv"
 
 This post was supposed to be a monolith directory of all the CLI-based tooling that I use to get things done throughout my day, but it turned out to be just a bit too long so I elected to split it out into separate posts.
 
-{{< tweet user="msfjarvis" id="1289965196992114689" >}}
-
 Let's talk about [direnv](https://github.com/direnv/direnv).
 
 ## What is direnv?

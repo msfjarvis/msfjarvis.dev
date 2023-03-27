@@ -9,7 +9,7 @@ title = "Android Password Store October release"
 toc = true
 +++
 
-We're back with yet another release! As I tweeted [earlier this month](https://twitter.com/msfjarvis/status/1314943278173745152), this is going to our last release for a while. There's a lot of work left to be done, and we're simply not big enough a team to have these larger changes be done separately from our main development. We'll still be doing bugfix releases if and when required, so please do file bug reports as and when you encounter issues.
+We're back with yet another release! As I shared earlier this month, this is going to our last release for a while. There's a lot of work left to be done, and we're simply not big enough a team to have these larger changes be done separately from our main development. We'll still be doing bugfix releases if and when required, so please do file bug reports as and when you encounter issues.
 
 ## New features
 

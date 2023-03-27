@@ -10,11 +10,9 @@ title = "Why upgrade Android?"
 toc = true
 +++
 
-A couple days ago I tweeted this out, partly in response to a security conscious user who was quick to point out why a particular feature had to be added to APS, but failed to realise the fact that the problem wouldn't even exist if they were running the latest version of Android (we'll talk about the behavior change that fixed it later here).
+A couple days ago I came across a security conscious user who was quick to point out why a particular feature had to be added to APS, but failed to realise the fact that the problem wouldn't even exist if they were running the latest version of Android (we'll talk about the behavior change that fixed it later here).
 
-{{< tweet user="msfjarvis" id="1285661151104323584" >}}
-
-I completely stand by what I said, and for good reason. Android upgrades bring massive changes to the platform, improving security against both known and unknown threats. You sign off that benefit when you buy into an incompetent OEM's cheap phones, and it has become a bit too 'normal' than anybody would prefer.
+Android upgrades bring massive changes to the platform, improving security against both known and unknown threats. You sign off that benefit when you buy into an incompetent OEM's cheap phones, and it has become a bit too 'normal' than anybody would prefer.
 
 That's not what we're going to talk about, though. This post is going to be purely about privacy, and how it has changed, nay, improved, over the years of Android. My apps support a minimum of Android 6, so I will begin with the next version, Android 7, and go through Google's release notes, singling out privacy related changes.
 

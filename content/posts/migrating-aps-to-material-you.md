@@ -18,7 +18,7 @@ APS has had some design work done to it but for the most part remains the culmin
 
 I began with scouring through the resources in the conveniently isolated [M3 website], where the Material Design team has helpfully created a lot of great tools and content to help developers and designers through the process. There's the "[Migration to Material 3]" blog post, and the [Material Theme Builder] to generate palettes/styles/themes for apps, for both Jetpack Compose and Android's View-based system. These were extremely helpful in getting a headstart on the whole process. It's all documented in the commit history of the [migration PR] but I figure some additional context can't hurt.
 
-Once I had the themes in, I decided to take the opportunity to also introduce a custom typeface. The app has been using Roboto since forever and it felt like it was time to spice things up. I decided to go with [Manrope] since it is a font I've previously used and found to be excellent for visual appeal and accessibility. I'm still not a 100% confident in my choice, so if people have better options in mind I'd love to know down in the comments or through [Twitter].
+Once I had the themes in, I decided to take the opportunity to also introduce a custom typeface. The app has been using Roboto since forever and it felt like it was time to spice things up. I decided to go with [Manrope] since it is a font I've previously used and found to be excellent for visual appeal and accessibility. I'm still not a 100% confident in my choice, so if people have better options in mind I'd love to know down in the comments.
 
 Once the new font face was in, I opted to enable dynamic colors. Admittedly not the right choice, since I should've validated the "default" palette first but that's what I did ¯\\_(ツ)_/¯.
 
@@ -69,7 +69,6 @@ I'd like to thank the Material Design team once more for the fabulous work they 
 [material theme builder]: https://material.io/blog/material-theme-builder
 [migration pr]: https://github.com/android-password-store/Android-Password-Store/pull/1532/commits
 [manrope]: https://fonts.google.com/specimen/Manrope#about
-[twitter]: https://twitter.com/msfjarvis
 [chips]: https://material.io/components/chips
 [accessibility issue]: https://github.com/android-password-store/Android-Password-Store/issues/1261
 [max rumpf]: https://github.com/maxr1998

@@ -7,7 +7,7 @@ tags = ["learn"]
 title = "Learning Zig - Day 4"
 +++
 
-[So much for hope]. Either way, we're back at it! Today I'll be getting familiar with common patterns in Zig like providing explicit allocators and learn about more of the standard library. This is of course, [chapter 2] of the ZigLearn.org curriculum.
+Today I'll be getting familiar with common patterns in Zig like providing explicit allocators and learn about more of the standard library. This is of course, [chapter 2] of the ZigLearn.org curriculum.
 
 # Thoughts™️
 
@@ -43,7 +43,6 @@ I skipped through the parts about HashMaps, Stacks, sorting and iterators since 
 
 Overall, I'm liking everything I'm seeing. Very excited to start building things in Zig!
 
-[so much for hope]: https://twitter.com/msfjarvis/status/1393977222990426114
 [chapter 2]: https://ziglearn.org/chapter-2/
 [libcore]: https://doc.rust-lang.org/core/index.html
 [the embedded rust book]: https://docs.rust-embedded.org/book/intro/no-std.html

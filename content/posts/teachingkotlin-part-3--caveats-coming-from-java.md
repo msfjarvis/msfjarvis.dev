@@ -15,37 +15,33 @@ When you start migrating your Java code to Kotlin, you will encounter multiple s
 
 Java's `java.lang.String#split` [method](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#split-java.lang.String-) takes a `String` as it's first argument and creates a `Regex` out of it before attempting to split. Kotlin, however, has two variants of this method. One takes a `String` and uses it as a plaintext delimiter, and the other takes a `Regex` behaving like the Java method we mentioned earlier. Code that was directly converted from Java to Kotlin will fail to accommodate this difference, so be on the lookout.
 
-{{< tweet user="msfjarvis" id="1202077283579826176" >}}
-
 ## Runtime asserts
 
 Square's [Jesse Wilson](https://twitter.com/jessewilson) found through an [OkHttp bug](https://github.com/square/okhttp/issues/5586) that Kotlin's `assert` function differs from Java's in a very critical way - the asserted expression is _always_ executed. He's written about it on his blog which you can check out for a proper write up: [Kotlin’s Assert Is Not Like Java’s Assert](https://publicobject.com/2019/11/18/kotlins-assert-is-not-like-javas-assert/).
 
 TL; DR Java's `assert` checks the `java.lang.Class#desiredAssertionStatus` method **before** executing the expression, but Kotlin does it **after** which results in unnecessary, potentially significant overhead.
 
-{{< highlight java >}}
+```java
 // Good :)
 @Override void flush() {
-if (Http2Stream.class.desiredAssertionStatus()) {
-if (!Thread.holdsLock(Http2Stream.this) == false) {
-throw new AssertionError();
+  if (Http2Stream.class.desiredAssertionStatus()) {
+    if (!Thread.holdsLock(Http2Stream.this) == false) {
+      throw new AssertionError();
+    }
+  }
 }
-}
-...
-}
-{{< / highlight >}}
+```
 
-{{< highlight kotlin >}}
+```kotlin
 // Bad :(
 override fun flush() {
-if (!Thread.holdsLock(this@Http2Stream) == false) {
-if (Http2Stream::class.java.desiredAssertionStatus()) {
-throw AssertionError()
+  if (!Thread.holdsLock(this@Http2Stream) == false) {
+    if (Http2Stream::class.java.desiredAssertionStatus()) {
+      throw AssertionError()
+    }
+  }
 }
-}
-...
-}
-{{< / highlight >}}
+```
 
 ## Binary incompatibility challenges
 
