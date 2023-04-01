@@ -1,3 +1,4 @@
+# Hugo
 public/
 resources/
 dist/
@@ -5,6 +6,7 @@ node_modules/
 transpiled/
 worker/
 .hugo_build.lock
+_vendor/
 
 # Local Netlify folder
 .netlify
