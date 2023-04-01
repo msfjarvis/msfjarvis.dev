@@ -14,17 +14,9 @@ I'm an Android and Kotlin developer with over 5 years of experience building app
 
 ### Work
 
-I am currently on a break, looking for my next job either within India or in the EU.
+I currently work at [Dyte] as an SDK Tooling engineer, primarily focusing on developer experience work for the mobile team.
 
 You can find the latest version of [my resume here].
-
-### Interests
-
-Things I spend my time reading over, tinkering with and learning about.
-
-- Open-Source Technologies
-- Rust
-- Kotlin Multiplatform
 
 ### Projects
 
@@ -38,6 +30,7 @@ A few ideas that I've gone ahead and built in my spare time. You can support the
 
 I'd be happy to write back if you'd like to send me an [email]. Otherwise you can follow me on [Mastodon] or [Github].
 
+[dyte]: https://dyte.io
 [my resume here]: https://msfjarvis.dev/resume.pdf
 [donating here]: https://github.com/sponsors/msfjarvis
 [android password store]: https://passwordstore.app
