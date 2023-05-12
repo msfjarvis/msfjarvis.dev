@@ -5,7 +5,6 @@
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     flake-compat = {
       url = "github:edolstra/flake-compat";
