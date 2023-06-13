@@ -29,6 +29,9 @@
             git
             go
             hugo
+            libwebp
+            nodejs
+            yarn
           ];
           commands = [
             {
