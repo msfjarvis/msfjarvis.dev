@@ -1,18 +1,19 @@
 {
   description = "The source behind msfjarvis.dev";
 
-  inputs = {
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-    flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+  inputs.systems.url = "github:msfjarvis/flake-systems";
+
+  inputs.devshell.url = "github:numtide/devshell";
+  inputs.devshell.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.devshell.inputs.systems.follows = "systems";
+
+  inputs.flake-compat.url = "github:nix-community/flake-compat";
+  inputs.flake-compat.flake = false;
+
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.flake-utils.inputs.systems.follows = "systems";
 
   outputs = { self, devshell, flake-utils, nixpkgs, ... }:
     flake-utils.lib.eachDefaultSystem (system:
