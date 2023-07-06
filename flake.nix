@@ -15,39 +15,44 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.flake-utils.inputs.systems.follows = "systems";
 
-  outputs = { self, devshell, flake-utils, nixpkgs, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ devshell.overlays.default ];
-        };
-      in {
-        devShell = pkgs.devshell.mkShell {
-          name = "blog-dev-shell";
-          bash = { interactive = ""; };
-          packages = with pkgs; [
-            git
-            go
-            hugo
-            libwebp
-            nodejs
-            yarn
-          ];
-          commands = [
-            {
-              name = "dev";
-              category = "development";
-              command = "hugo server -D";
-              help = "Run the Hugo development server";
-            }
-            {
-              name = "build";
-              category = "deployment";
-              command = "hugo";
-              help = "Build the site";
-            }
-          ];
-        };
-      });
+  outputs = {
+    self,
+    devshell,
+    flake-utils,
+    nixpkgs,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [devshell.overlays.default];
+      };
+    in {
+      devShell = pkgs.devshell.mkShell {
+        name = "blog-dev-shell";
+        bash = {interactive = "";};
+        packages = with pkgs; [
+          git
+          go
+          hugo
+          libwebp
+          nodejs
+          yarn
+        ];
+        commands = [
+          {
+            name = "dev";
+            category = "development";
+            command = "hugo server -D";
+            help = "Run the Hugo development server";
+          }
+          {
+            name = "build";
+            category = "deployment";
+            command = "hugo";
+            help = "Build the site";
+          }
+        ];
+      };
+    });
 }
