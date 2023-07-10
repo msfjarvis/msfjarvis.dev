@@ -57,6 +57,7 @@ enableEmoji = true
   showBreadCrumbs = true
   showCodeCopyButtons = true
   showRssButtonInSectionTermList = true
+  ShowFullTextinRSS = true
   showToc = true
 
 [params.editPost]
