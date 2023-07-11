@@ -85,7 +85,7 @@ enableEmoji = true
 [[params.socialIcons]]
   name = "RSS"
   icon = "rss"
-  url = "/index.xml"
+  url = "/posts/index.xml"
 
 # Enable tags.
 [taxonomies]
