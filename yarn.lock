@@ -161,9 +161,9 @@
     readable-stream "^4.0.0"
 
 "@grpc/grpc-js@^1.7.1", "@grpc/grpc-js@^1.7.3":
-  version "1.8.17"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.17.tgz#a3a2f826fc033eae7d2f5ee41e0ab39cee948838"
-  integrity sha512-DGuSbtMFbaRsyffMf+VEkVu8HkSXEUfO3UyGJNtqxW9ABdtTIA+2UXAJpwbJS+xfQxuwqLUeELmL6FuZkOqPxw==
+  version "1.8.18"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.18.tgz#fdbf2728064fd3db7e72e970372db28bd0f6fafb"
+  integrity sha512-2uWPtxhsXmVgd8WzDhfamSjHpZDXfMjMDciY6VRTq4Sn7rFzazyf0LLDa0oav+61UHIoEZb4KKaAV6S7NuJFbQ==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
@@ -241,9 +241,9 @@
   integrity sha512-Xs/4RZltsAL7pkvaNStUQt7netTkyxrS0K+RILcVr3TRMS/ToOg4I6uNfhB9SlGsnWBym4U+EaXq0f0cEMNkHA==
 
 "@mapbox/node-pre-gyp@^1.0.5":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.10.tgz#8e6735ccebbb1581e5a7e652244cadc8a844d03c"
-  integrity sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.11.tgz#417db42b7f5323d79e93b34a6d7a2a12c0df43fa"
+  integrity sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==
   dependencies:
     detect-libc "^2.0.0"
     https-proxy-agent "^5.0.0"
@@ -382,9 +382,9 @@
     yargs "^17.6.0"
 
 "@netlify/config@^20.6.0":
-  version "20.6.1"
-  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-20.6.1.tgz#1a16d644fefd08901c9a604763ecfd22797d6288"
-  integrity sha512-NVVPYEJhooyBWmLOiu/o9mVO7R95plgDLXLFhfQ2EIpjrjTTYU1BFTvvZF+SlQ42rBiIMPLVdHMe4O89hWQ5lg==
+  version "20.6.3"
+  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-20.6.3.tgz#3137dd0e518411e8e1ce36814bc6b670c6e20b53"
+  integrity sha512-0pfljbl9lRJqqU6F8q+Ef0WKe9rXp01sOvBlGNzQvW4CXCymX70Yq/jDG79qy7dtDy90uIzy5K31ppcN8fz98Q==
   dependencies:
     chalk "^5.0.0"
     cron-parser "^4.1.0"
@@ -695,10 +695,15 @@
   dependencies:
     execa "^6.0.0"
 
-"@netlify/serverless-functions-api@1.5.1", "@netlify/serverless-functions-api@^1.5.1":
+"@netlify/serverless-functions-api@1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@netlify/serverless-functions-api/-/serverless-functions-api-1.5.1.tgz#8087e130f0f9391b917286cd941de16ecf2bb98a"
   integrity sha512-c8RjIu+fkpfOGLaW0Z0iFG39GUK7sCa6M3Qy3fqouMpT00TaiheiyssnnDZGSLkNp4o+UtbRnITB1zuwDeHMLw==
+
+"@netlify/serverless-functions-api@^1.5.1":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@netlify/serverless-functions-api/-/serverless-functions-api-1.5.2.tgz#cb78ad64c1474b70c14c14fcc06ad832c1cd86f8"
+  integrity sha512-E9ZqnuWwGftXgO0JhGOl6h05bpnrH5EswQOuHIdTXBmhi4LedXjTNZ6xoSMgnhsE+x13WWq2P0yhaAl8Ly9lKw==
 
 "@netlify/zip-it-and-ship-it@9.13.0":
   version "9.13.0"
@@ -1231,9 +1236,9 @@
     any-observable "^0.3.0"
 
 "@sindresorhus/is@^5.2.0":
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-5.4.1.tgz#c4383ce702fb90531c3d310506bab89e70427c53"
-  integrity sha512-axlrvsHlHlFmKKMEg4VyvMzFr93JWJj4eIfXY1STVuO2fsImCa7ncaiG5gC8HKOX590AW5RtRsC41/B+OfrSqw==
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-5.5.2.tgz#cbfd816d556b941f65d32cfc6d708359b826e7ea"
+  integrity sha512-8ZMK+V6YpeZFfW6hU9uAeWVuq8v3t7BaG276gIO+kVqnAcLrHCXdFUOf7kgouyfAarkZtuavIqY3RsXTsTWviw==
 
 "@sindresorhus/slugify@^2.0.0":
   version "2.2.1"
@@ -1328,9 +1333,9 @@
   integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "20.4.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.1.tgz#a6033a8718653c50ac4962977e14d0f984d9527d"
-  integrity sha512-JIzsAvJeA/5iY6Y/OxZbv1lUcc8dNSE77lb2gnBH+/PJ3lFR1Ccvgwl5JWnHAkNHcRsT0TbpVOsiMKZ1F/yyJg==
+  version "20.4.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.2.tgz#129cc9ae69f93824f92fac653eebfb4812ab4af9"
+  integrity sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==
 
 "@types/normalize-package-data@^2.4.1":
   version "2.4.1"
@@ -2721,9 +2726,9 @@ destroy@1.2.0:
   integrity sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==
 
 detect-libc@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.1.tgz#e1897aa88fa6ad197862937fbc0441ef352ee0cd"
-  integrity sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.2.tgz#8ccf2ba9315350e1241b88d0ac3b0e1fbd99605d"
+  integrity sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==
 
 detective-amd@^5.0.2:
   version "5.0.2"
@@ -3242,9 +3247,9 @@ fastest-levenshtein@1.0.16:
   integrity sha512-eRnCtTTtGZFpQCwhJiUOuxPQWRXVKYDn0b2PeHfXL6/Zi53SLAzAHfVhVWK2AryC/WH05kGfxhFIPvTF0SXQzg==
 
 fastify-plugin@^4.0.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-4.5.0.tgz#8b853923a0bba6ab6921bb8f35b81224e6988d91"
-  integrity sha512-79ak0JxddO0utAXAQ5ccKhvs6vX2MGyHHMMsmZkBANrq3hXc1CHzvNPHOcvTsVMEPl5I+NT+RO4YKMGehOfSIg==
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-4.5.1.tgz#44dc6a3cc2cce0988bc09e13f160120bbd91dbee"
+  integrity sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==
 
 fastify@4.17.0:
   version "4.17.0"
@@ -4464,9 +4469,9 @@ keep-func-props@^4.0.0:
     mimic-fn "^4.0.0"
 
 keyv@^4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.5.2.tgz#0e310ce73bf7851ec702f2eaf46ec4e3805cce56"
-  integrity sha512-5MHbFaKn8cNSmVW7BYnijeAVlE4cYA/SVkifVgrh7yotnfhKmjuXpDKjrABLnT0SfHWV21P8ow07OGfRrNDg8g==
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.5.3.tgz#00873d2b046df737963157bd04f294ca818c9c25"
+  integrity sha512-QCiSav9WaX1PgETJ+SpNnx2PRRapJ/oRSXM4VO5OGYGSjrxbKPVFVhB3l2OCbLCk329N8qyAtsJjSjvVBWzEug==
   dependencies:
     json-buffer "3.0.1"
 
@@ -5075,9 +5080,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^15.0.0:
-  version "15.9.0"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-15.9.0.tgz#360c0de423ae6093c6000372214112c7324f953b"
-  integrity sha512-AqeT+3vb8dWErhVBtso7VjxGdszwaWH9AGnwn8tvyknjxN+qNtlXGb5PxcfI1COaL2BlSphMMGjt/jl7C1NBkQ==
+  version "15.9.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-15.9.1.tgz#bd87f4aea5a640bc954dd366b246b15b683b7771"
+  integrity sha512-R9a1se5n2yDEs5mWyEF1TBGEEMUuQ8ejQywt1HFjIL3wU/SEZPN0rEhmj8e1pM8+wBBhLeTA+PCjGE85N8jtUQ==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
@@ -5774,9 +5779,9 @@ postcss-values-parser@^6.0.2:
     quote-unquote "^1.0.0"
 
 postcss@^8.4.23:
-  version "8.4.25"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.25.tgz#4a133f5e379eda7f61e906c3b1aaa9b81292726f"
-  integrity sha512-7taJ/8t2av0Z+sQEvNzCkpDynl0tX3uJMCODi6nT3PfASC7dYCWV9aQ+uiCf+KBD4SEFcu+GvJdGdwzQ6OSjCw==
+  version "8.4.26"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.26.tgz#1bc62ab19f8e1e5463d98cf74af39702a00a9e94"
+  integrity sha512-jrXHFF8iTloAenySjM/ob3gSj7pCu0Ji49hnjqzsgSRa50hkWCKD0HQ+gMNJkW38jBI68MpAAg7ZWwHwX8NMMw==
   dependencies:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
@@ -7101,9 +7106,9 @@ type-fest@^2.0.0, type-fest@^2.11.2, type-fest@^2.12.2, type-fest@^2.13.0, type-
   integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
 
 type-fest@^3.0.0:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-3.13.0.tgz#b088347ae73779a750c461694b264340c4c8c0d7"
-  integrity sha512-Gur3yQGM9qiLNs0KPP7LPgeRbio2QTt4xXouobMCarR0/wyW3F+F/+OWwshg3NG0Adon7uQfSZBpB46NfhoF1A==
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-3.13.1.tgz#bb744c1f0678bea7543a2d1ec24e83e68e8c8706"
+  integrity sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==
 
 type-is@~1.6.18:
   version "1.6.18"
