@@ -44,7 +44,7 @@ enableEmoji = true
   disableXML = true
 
 [params]
-  defaultTheme = "dark"
+  defaultTheme = "auto"
   description = "Recovering Android and Kotlin developer, amateur Rustacean"
   socialImage = "android-chrome-512x512.webp"
 
