@@ -11,9 +11,9 @@
     chalk "^2.4.2"
 
 "@babel/helper-validator-identifier@^7.22.5":
-  version "7.22.15"
-  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.22.15.tgz#601fa28e4cc06786c18912dca138cec73b882044"
-  integrity sha512-4E/F9IIEi8WR94324mbDUMo074YTheJmd7eZF5vITTeYchqAi6sYXRLHUVsmkdmY4QjfKTcB2jB7dVP3NaBElQ==
+  version "7.22.19"
+  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.22.19.tgz#2f34ab1e445f5b95e2e6edfe50ea2449e610583a"
+  integrity sha512-Tinq7ybnEPFFXhlYOYFiSjespWQk0dq2dRNAiMdRTOYQzEGqnnNyrTxPYHP5r6wGjlF1rFgABdDV0g8EwD6Qbg==
 
 "@babel/highlight@^7.22.13":
   version "7.22.13"
@@ -280,9 +280,9 @@
     readable-stream "^4.0.0"
 
 "@grpc/grpc-js@^1.7.1", "@grpc/grpc-js@^1.7.3":
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.9.2.tgz#151148f6485eab8fb13fe53042d25f4ffa9c7d09"
-  integrity sha512-Lf2pUhNTaviEdEaGgjU+29qw3arX7Qd/45q66F3z1EV5hroE6wM9xSHPvjB8EY+b1RmKZgwnLWXQorC6fZ9g5g==
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.9.3.tgz#811cc49966ab7ed96efa31d213e80d671fd13839"
+  integrity sha512-b8iWtdrYIeT5fdZdS4Br/6h/kuk0PW5EVBUGk1amSbrpL8DlktJD43CdcCWwRdd6+jgwHhADSbL9CsNnm6EUPA==
   dependencies:
     "@grpc/proto-loader" "^0.7.8"
     "@types/node" ">=12.12.47"
@@ -1451,9 +1451,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "20.6.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.0.tgz#9d7daa855d33d4efec8aea88cd66db1c2f0ebe16"
-  integrity sha512-najjVq5KN2vsH2U/xyh2opaSEz6cZMR2SetLIlxlj08nOcmPOemJmUK2o4kUzfLqfrWE0PIrNeE16XhYDd3nqg==
+  version "20.6.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.1.tgz#8b589bba9b2af0128796461a0979764562687e6f"
+  integrity sha512-4LcJvuXQlv4lTHnxwyHQZ3uR9Zw2j7m1C9DfuwoTFQQP4Pmu04O6IfLYgMmHoOCt0nosItLLZAH+sOrRE0Bo8g==
 
 "@types/normalize-package-data@^2.4.1":
   version "2.4.1"
@@ -5201,9 +5201,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^16.0.0:
-  version "16.3.2"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-16.3.2.tgz#1d2a40d7e1ca0250cedfac9fec73165dc3695fe7"
-  integrity sha512-9zOwzwff56uANASos011dxIks/Fmh+6QD4Pj5q+4rRKXv2m2tNeKmuVVe/VpIhLjJhBTjk4G3aZ9OatV1KbS4g==
+  version "16.3.3"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-16.3.3.tgz#ab6896e9c0372ccc1b81990d536186a7cf47c50c"
+  integrity sha512-tIjkG1PuYSTrrN0JFYvyuHDYx2/W5VGbIz/6/1QFB63ZM2ZInkCspGbotjEEsZxNymrp1XDuuBBHawbBff6sIg==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
@@ -6318,9 +6318,9 @@ resolve-url@^0.2.1:
   integrity sha512-ZuF55hVUQaaczgOIwqWzkEcEidmlD/xl44x1UZnhOXcYuFN2S6+rcxpG+C1N3So0wvNI3DmJICUFfu2SxhBmvg==
 
 resolve@^1.22.1:
-  version "1.22.4"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.4.tgz#1dc40df46554cdaf8948a486a10f6ba1e2026c34"
-  integrity sha512-PXNdCiPqDqeUou+w1C2eTQbNfxKSuMxqTCuvlmmMsk1NWHL5fRrhY6Pl0qEYYc6+QqGClco1Qj8XnjPego4wfg==
+  version "1.22.5"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.5.tgz#a83c145cf04ffcd19b1f3f5f9e0ae8b9053f0615"
+  integrity sha512-qWhv7PF1V95QPvRoUGHxOtnAlEvlXBylMZcjUR9pAumMmveFtcHJRXGIr+TkjfNJVQypqv2qcDiiars2y1PsSg==
   dependencies:
     is-core-module "^2.13.0"
     path-parse "^1.0.7"
