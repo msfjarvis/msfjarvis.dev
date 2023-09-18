@@ -5201,9 +5201,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^16.0.0:
-  version "16.3.5"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-16.3.5.tgz#1da8fe55a5dfdcac70177860f327f8f0c304208c"
-  integrity sha512-kz/jFgufUQtMQa+sxExmw26VbzJuaK6ecTtfzOqDyRzRtL31Au0+HMA368Jx3wYGpJLcmDwvFHWPWeKTkmh8Ag==
+  version "16.3.6"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-16.3.6.tgz#3c197afc42048f0e310ab6ec1c1a6d0484b50f04"
+  integrity sha512-fXQx0MqMRv8jnu0ftCOZM8rG5Fd0a1eji4dpUeJNWGfEY8c3lfJPy3PKJ6kebdG/y8lddVF1z5/5j1i4z+uhyQ==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
