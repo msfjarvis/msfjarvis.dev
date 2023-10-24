@@ -7,8 +7,14 @@ draft: true
 ---
 Square's Retrofit is best known for being the gold standard of REST clients in the JVM/Android ecosystem, but it's excellent API design also lends itself to great extensibility which we will leverage today.
 
+
+
 While trying to implement post search functionality in [Claw](https://msfjarvis.dev/g/compose-lobsters), my [lobste.rs](https://lobste.rs) client I stumbled into a *tiny* problem: there was no API! lobste.rs has a [web-based search](https://lobste.rs/search) but no equivalent mechanism via the JSON API I was using for doing everything else within the app.
 
-Thankfully, lobste.rs has a fairly JavaScript-free front-end which makes it a suitable candidate for HTML scraping. The search page used URL query parameters to specify the search term which made it quite easy to reliably construct a URL which would contain the posts we were interested in, and it looked something like this: `/search?q={query}&what=stories&order=newest&page={page}`.
+
+
+The search page uses URL query parameters to specify the search term which made it quite easy to reliably construct a URL which would contain the posts we were interested in, and it looked something like this: `/search?q={query}&what=stories&order=newest&page={page}`.
+
+
 
 Retrofit has a [Converter](https://github.com/square/retrofit/blob/40c4326e2c608a07d2709bfe9544cb1d12850d11/retrofit/src/main/java/retrofit2/Converter.java) API which lets users convert request/response bodies to and from their HTTP representations. We will leverage this to convert the raw HTML body we will receive from the search page into a list of LobstersPost objects.
