@@ -1,7 +1,3 @@
-[build]
-  command = "hugo"
-  publish = "public"
-
 [dev]
   command = "hugo serve"
   targetPort = 1313
