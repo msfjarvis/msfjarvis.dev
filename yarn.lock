@@ -398,10 +398,10 @@
   resolved "https://registry.yarnpkg.com/@netlify/binary-info/-/binary-info-1.0.0.tgz#cd0d86fb783fb03e52067f0cd284865e57be86c8"
   integrity sha512-4wMPu9iN3/HL97QblBsBay3E1etIciR84izI3U+4iALY+JHCrI+a2jO0qbAZ/nxKoegypYEaiiqWXylm+/zfrw==
 
-"@netlify/blobs@^4.0.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@netlify/blobs/-/blobs-4.2.0.tgz#0bc45a454e3a0dccc7461fcddf7a4c412e985f85"
-  integrity sha512-yGrvaSVYNiol6pRWFIs2enkTmgzD07fohmyO0h/NSqu1zxorIeFn8mA7UhxCxY1iW28OGm7TpExykSh/j7ht7A==
+"@netlify/blobs@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@netlify/blobs/-/blobs-6.3.0.tgz#caac3b948b316bd58742801bbf4963c511bc4f15"
+  integrity sha512-EcgttqwH7kmK5B9RO8hRwAx/pkO9RwfFoRl+B38UNiFN6L4T46Q9Vhxnp3EzXQxn7Le1RpwFnXhd+UAhyZod+g==
 
 "@netlify/build-info@7.11.1":
   version "7.11.1"
@@ -418,16 +418,16 @@
     yaml "^2.1.3"
     yargs "^17.6.0"
 
-"@netlify/build@29.26.3":
-  version "29.26.3"
-  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-29.26.3.tgz#6598514ed23dbc1abfca52c1f03c2dd9fe8535e6"
-  integrity sha512-4VVI6i0r+tBClvuuYwF4wlIMWFs0UNDaEZSHl4sKnjy6V6loxUrdVCIyHsH2lDjFeXxRbqoT8GkOoNZQ+hjFHw==
+"@netlify/build@29.26.6":
+  version "29.26.6"
+  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-29.26.6.tgz#597d03c8c3a73563a0bd05730782fc993b487278"
+  integrity sha512-NAnlCgvX6rmeEakKil6F06nMY0sXwRW0LumC8Mhnl5+b4SKTb9U2px97aBnWX5BXGa2T1RYHGuXjd+Vuefrc9A==
   dependencies:
     "@bugsnag/js" "^7.0.0"
     "@honeycombio/opentelemetry-node" "^0.5.0"
     "@netlify/cache-utils" "^5.1.5"
-    "@netlify/config" "^20.9.0"
-    "@netlify/edge-bundler" "10.1.0"
+    "@netlify/config" "^20.10.0"
+    "@netlify/edge-bundler" "10.1.2"
     "@netlify/framework-info" "^9.8.10"
     "@netlify/functions-utils" "^5.2.40"
     "@netlify/git-utils" "^5.1.1"
@@ -494,37 +494,7 @@
     path-exists "^5.0.0"
     readdirp "^3.4.0"
 
-"@netlify/config@20.9.0":
-  version "20.9.0"
-  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-20.9.0.tgz#b6664414da1f12ed56f7a4137f7887658bb644dd"
-  integrity sha512-+bKrRDhoUiZbAbdILPtlF5tmR1Ttt6plHQawQVByw9fHaQZ0Kxh6hA896sVFgkR1wGqu2v/5OFhH2t9eJO0nuw==
-  dependencies:
-    chalk "^5.0.0"
-    cron-parser "^4.1.0"
-    deepmerge "^4.2.2"
-    dot-prop "^7.0.0"
-    execa "^6.0.0"
-    fast-safe-stringify "^2.0.7"
-    figures "^5.0.0"
-    filter-obj "^5.0.0"
-    find-up "^6.0.0"
-    indent-string "^5.0.0"
-    is-plain-obj "^4.0.0"
-    js-yaml "^4.0.0"
-    map-obj "^5.0.0"
-    netlify "^13.1.10"
-    netlify-headers-parser "^7.1.2"
-    netlify-redirect-parser "^14.2.0"
-    node-fetch "^3.3.1"
-    omit.js "^2.0.2"
-    p-locate "^6.0.0"
-    path-type "^5.0.0"
-    toml "^3.0.0"
-    tomlify-j0.4 "^3.0.0"
-    validate-npm-package-name "^4.0.0"
-    yargs "^17.6.0"
-
-"@netlify/config@^20.9.0":
+"@netlify/config@20.10.0", "@netlify/config@^20.10.0":
   version "20.10.0"
   resolved "https://registry.yarnpkg.com/@netlify/config/-/config-20.10.0.tgz#df51f277c7eaa984105f4e90c3ea676b935c5df3"
   integrity sha512-7CNoL5IPSRBzDVzxuQgltZ71D/vZ/oYR29sfN8EXjAFOZPSLtnZgborcPa9V9BXLN4N5h0hFp2A26lnnCttEFg==
@@ -554,37 +524,7 @@
     validate-npm-package-name "^4.0.0"
     yargs "^17.6.0"
 
-"@netlify/edge-bundler@10.1.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@netlify/edge-bundler/-/edge-bundler-10.1.0.tgz#caf48de83851826f638df6f609ecdf73e45e1b9a"
-  integrity sha512-l8Stf7RarqgOp6Py43DxG5PI/PLqgkFX0c3TXTDzekgP5G811QxxgIfEHc347Zm0bQAdZiO9F/iTXEAH2InB9Q==
-  dependencies:
-    "@import-maps/resolve" "^1.0.1"
-    "@vercel/nft" "^0.24.3"
-    ajv "^8.11.2"
-    ajv-errors "^3.0.0"
-    better-ajv-errors "^1.2.0"
-    common-path-prefix "^3.0.0"
-    env-paths "^3.0.0"
-    esbuild "0.19.5"
-    execa "^6.0.0"
-    find-up "^6.3.0"
-    get-package-name "^2.2.0"
-    get-port "^6.1.2"
-    is-path-inside "^4.0.0"
-    jsonc-parser "^3.2.0"
-    node-fetch "^3.1.1"
-    node-stream-zip "^1.15.0"
-    p-retry "^5.1.1"
-    p-wait-for "^4.1.0"
-    path-key "^4.0.0"
-    regexp-tree "^0.1.24"
-    semver "^7.3.8"
-    tmp-promise "^3.0.3"
-    urlpattern-polyfill "8.0.2"
-    uuid "^9.0.0"
-
-"@netlify/edge-bundler@^10.1.0":
+"@netlify/edge-bundler@10.1.2":
   version "10.1.2"
   resolved "https://registry.yarnpkg.com/@netlify/edge-bundler/-/edge-bundler-10.1.2.tgz#80718dab9fa31e84145e44f64adc5fa038855329"
   integrity sha512-OMAESYuDhfjugGI5uuDODpHQtHhjKkm7eI4R9R6TQoU27ga3zqcLw7rEEO17cNzIte1ZPCsH4cj/LJyMVMa3lA==
@@ -733,7 +673,7 @@
   resolved "https://registry.yarnpkg.com/@netlify/node-cookies/-/node-cookies-0.1.0.tgz#dda912ba618527695cf519fafa221c5e6777c612"
   integrity sha512-OAs1xG+FfLX0LoRASpqzVntVV/RpYkgpI0VrUnw2u0Q1qiZUzcPffxRK8HF3gc4GjuhG5ahOEMJ9bswBiZPq0g==
 
-"@netlify/open-api@^2.19.1", "@netlify/open-api@^2.26.0":
+"@netlify/open-api@^2.26.0":
   version "2.26.0"
   resolved "https://registry.yarnpkg.com/@netlify/open-api/-/open-api-2.26.0.tgz#cdc8033371079955501f4b9a5323f2dcd76741c2"
   integrity sha512-B7q+ySzQm6rJhaGbY0Pzqnb1p3FsBqwiPLnLtA17JgTsqmXgQ7j6OQImW9fRJy/Al1ob9M6Oxng/FA2c7aIW1g==
@@ -4446,9 +4386,9 @@ ieee754@^1.1.13, ieee754@^1.2.1:
   integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
 
 ignore@^5.2.0, ignore@^5.2.4:
-  version "5.2.4"
-  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.4.tgz#a291c0c6178ff1b960befe47fcdec301674a6324"
-  integrity sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.0.tgz#67418ae40d34d6999c95ff56016759c718c82f78"
+  integrity sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==
 
 image-meta@^0.2.0:
   version "0.2.0"
@@ -4550,10 +4490,10 @@ ipaddr.js@1.9.1:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
-ipx@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/ipx/-/ipx-2.0.2.tgz#a259a8800f0a1afb7b0d12b1e53f86c1675aa3c5"
-  integrity sha512-avedYlD04mN3alN4BYoXtZuMrQP/Fln86uN1hUFRCjzIZxl7Et3oKX+V1YTEodFvPs8tk5NAQJXZeowu0OgOKQ==
+ipx@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ipx/-/ipx-2.0.1.tgz#06515452b317241076b22e40763267c43efead65"
+  integrity sha512-+EyZiVNosYr3hu3F5+5GripTBLjKmSPTvcy3YdT4zxlhqHQJ2gUopLGxpfv9Wd11YgeiPh53ysbtG+ZNIOVF4A==
   dependencies:
     "@fastify/accept-negotiator" "^1.1.0"
     citty "^0.1.4"
@@ -4567,7 +4507,7 @@ ipx@^2.0.1:
     ofetch "^1.3.3"
     pathe "^1.1.1"
     sharp "^0.32.6"
-    svgo "^3.0.3"
+    svgo "^3.0.2"
     ufo "^1.3.1"
     unstorage "^1.9.0"
     xss "^1.0.14"
@@ -4893,7 +4833,7 @@ js-tokens@^4.0.0:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
-js-yaml@^4.0.0, js-yaml@^4.1.0:
+js-yaml@4.1.0, js-yaml@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
   integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
@@ -5072,7 +5012,7 @@ listhen@^1.5.5:
     untun "^0.1.2"
     uqr "^0.1.2"
 
-listr2@^7.0.2:
+listr2@7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/listr2/-/listr2-7.0.2.tgz#3aa3e1549dfaf3c57ab5eeaba754da3b87f33063"
   integrity sha512-rJysbR9GKIalhTbVL2tYbF2hVyDnrf7pFUZBwjPaMIdadYHmeT+EVi/Bu3qd7ETQPahTotg2WRCatXwRBW554g==
@@ -5599,17 +5539,17 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.3.2"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.3.2.tgz#82e013e22548dcdcd9cb06965bb2b2a977392ce2"
-  integrity sha512-paYy2tAn5+GqpglIKul1JQVqC7ZQz6NYK5BfN1yDmcZ1ObwWYU1tPqWWj70+vuqxEm2WNULjE1Er4UikRLlxWw==
+  version "17.4.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.4.0.tgz#77422fed7f48d8fa65f2e6a4226b0a795467fe26"
+  integrity sha512-6FDal2yH1F7L4ix/Fb6f9cBq3G1xmTa+53t08u9AN5CQgsgAxxI7hF4ljLEpixOru46McIKzLoPjFh5I7iKJOw==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
-    "@netlify/blobs" "^4.0.0"
-    "@netlify/build" "29.26.3"
+    "@netlify/blobs" "^6.3.0"
+    "@netlify/build" "29.26.6"
     "@netlify/build-info" "7.11.1"
-    "@netlify/config" "20.9.0"
-    "@netlify/edge-bundler" "^10.1.0"
+    "@netlify/config" "20.10.0"
+    "@netlify/edge-bundler" "10.1.2"
     "@netlify/local-functions-proxy" "1.1.1"
     "@netlify/zip-it-and-ship-it" "9.26.1"
     "@octokit/rest" "19.0.13"
@@ -5661,23 +5601,23 @@ netlify-cli@^17.0.0:
     https-proxy-agent "5.0.1"
     inquirer "6.5.2"
     inquirer-autocomplete-prompt "1.4.0"
-    ipx "^2.0.1"
+    ipx "2.0.1"
     is-docker "3.0.0"
     is-stream "3.0.0"
     is-wsl "2.2.0"
     isexe "2.0.0"
-    js-yaml "^4.1.0"
+    js-yaml "4.1.0"
     jsonwebtoken "9.0.1"
     jwt-decode "3.1.2"
     lambda-local "2.1.2"
-    listr2 "^7.0.2"
+    listr2 "7.0.2"
     locate-path "7.2.0"
     lodash "4.17.21"
     log-symbols "5.1.0"
     log-update "5.0.1"
     minimist "1.2.8"
     multiparty "4.2.3"
-    netlify "13.1.10"
+    netlify "13.1.11"
     netlify-headers-parser "7.1.2"
     netlify-redirect-parser "14.2.0"
     netlify-redirector "0.5.0"
@@ -5705,14 +5645,14 @@ netlify-cli@^17.0.0:
     through2-map "3.0.0"
     to-readable-stream "3.0.0"
     toml "3.0.0"
-    tomlify-j0.4 "^3.0.0"
+    tomlify-j0.4 "3.0.0"
     ulid "2.3.0"
     unixify "1.0.0"
     update-notifier "6.0.2"
     uuid "9.0.0"
     wait-port "1.0.4"
     write-file-atomic "5.0.1"
-    zod "^3.22.4"
+    zod "3.22.4"
 
 netlify-headers-parser@7.1.2, netlify-headers-parser@^7.1.2:
   version "7.1.2"
@@ -5742,20 +5682,7 @@ netlify-redirector@0.5.0:
   resolved "https://registry.yarnpkg.com/netlify-redirector/-/netlify-redirector-0.5.0.tgz#9611dd8497dab4e13d9f6a6f1595b9528b9e7abf"
   integrity sha512-4zdzIP+6muqPCuE8avnrgDJ6KW/2+UpHTRcTbMXCIRxiRmyrX+IZ4WSJGZdHPWF3WmQpXpy603XxecZ9iygN7w==
 
-netlify@13.1.10:
-  version "13.1.10"
-  resolved "https://registry.yarnpkg.com/netlify/-/netlify-13.1.10.tgz#27520caf8582bd3c12d961e46b723f614c1d9b28"
-  integrity sha512-ByFz8S08HWVKd9r/lkTahZX7xSq4IRyPCUvuaduI4GHyQaSWEdVNK1krC05vlhL9W0SzDn8Yjowh0Ru4PKrOYw==
-  dependencies:
-    "@netlify/open-api" "^2.19.1"
-    lodash-es "^4.17.21"
-    micro-api-client "^3.3.0"
-    node-fetch "^3.0.0"
-    omit.js "^2.0.2"
-    p-wait-for "^4.0.0"
-    qs "^6.9.6"
-
-netlify@^13.1.10, netlify@^13.1.11:
+netlify@13.1.11, netlify@^13.1.11:
   version "13.1.11"
   resolved "https://registry.yarnpkg.com/netlify/-/netlify-13.1.11.tgz#f5151bbd5e05cd5a67713f89c05a57dd6377b599"
   integrity sha512-exrD6cqwo5avDNtU7YT9iuN0+yoW+aaEUxvr/39oP36wZRKreoPm6KNVisTR9d4lXrPeUG8XI+rERuLhwMQmdw==
@@ -6325,9 +6252,9 @@ pino-std-serializers@^6.0.0:
   integrity sha512-cHjPPsE+vhj/tnhCy/wiMh3M3z3h/j15zHQX+S9GkTBgqJuTuJzYJ4gUyACLhDaJ7kk9ba9iRDmbH2tJU03OiA==
 
 pino@^8.5.0:
-  version "8.16.1"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-8.16.1.tgz#dcaf82764b1a27f24101317cdd6453e96290f1d9"
-  integrity sha512-3bKsVhBmgPjGV9pyn4fO/8RtoVDR8ssW1ev819FsRXlRNgW8gR/9Kx+gCK4UPWd4JjrRDLWpzd/pb1AyWm3MGA==
+  version "8.16.2"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-8.16.2.tgz#7a906f2d9a8c5b4c57412c9ca95d6820bd2090cd"
+  integrity sha512-2advCDGVEvkKu9TTVSa/kWW7Z3htI/sBKEZpqiHk6ive0i/7f5b1rsU8jn0aimxqfnSz5bj/nOYkwhBUn5xxvg==
   dependencies:
     atomic-sleep "^1.0.0"
     fast-redact "^3.1.1"
@@ -7469,7 +7396,7 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-svgo@^3.0.3:
+svgo@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-3.0.3.tgz#8cdfece6d4a0dc1dc116766d806daf817c1798b8"
   integrity sha512-X4UZvLhOglD5Xrp834HzGHf8RKUW0Ahigg/08yRO1no9t2NxffOkMiQ0WmaMIbaGlVTlSst2zWANsdhz5ybXgA==
@@ -7708,7 +7635,7 @@ toml@3.0.0, toml@^3.0.0:
   resolved "https://registry.yarnpkg.com/toml/-/toml-3.0.0.tgz#342160f1af1904ec9d204d03a5d61222d762c5ee"
   integrity sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==
 
-tomlify-j0.4@^3.0.0:
+tomlify-j0.4@3.0.0, tomlify-j0.4@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/tomlify-j0.4/-/tomlify-j0.4-3.0.0.tgz#99414d45268c3a3b8bf38be82145b7bba34b7473"
   integrity sha512-2Ulkc8T7mXJ2l0W476YC/A209PR38Nw8PuaCNtk9uI3t1zzFdGQeWYGQvmj2PZkVvRC/Yoi4xQKMRnWc/N29tQ==
@@ -7814,9 +7741,9 @@ typescript@^5.0.0, typescript@^5.0.4:
   integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
 
 ufo@^1.3.0, ufo@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.3.1.tgz#e085842f4627c41d4c1b60ebea1f75cdab4ce86b"
-  integrity sha512-uY/99gMLIOlJPwATcMVYfqDSxUR9//AUcgZMzwfSTJPDKzA1S8mX4VLqa+fiAtveraQUBCz4FFcwVZBGbwBXIw==
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.3.2.tgz#c7d719d0628a1c80c006d2240e0d169f6e3c0496"
+  integrity sha512-o+ORpgGwaYQXgqGDwd+hkS4PuZ3QnmqMMxRuajK/a38L6fTpcE5GPIfrf+L/KemFzfUpeUQc1rRS1iDBozvnFA==
 
 uid-safe@2.1.5:
   version "2.1.5"
@@ -8267,7 +8194,7 @@ zip-stream@^5.0.1:
     compress-commons "^5.0.1"
     readable-stream "^3.6.0"
 
-zod@^3.22.4:
+zod@3.22.4:
   version "3.22.4"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
   integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==
