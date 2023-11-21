@@ -75,9 +75,9 @@
     "@bugsnag/node" "^7.19.0"
 
 "@bugsnag/js@^7.0.0", "@bugsnag/js@^7.20.0":
-  version "7.21.0"
-  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.21.0.tgz#0a8a9a61a43cf9b552dc70341ed49ee9da46a8f3"
-  integrity sha512-fFTR7cRBSlLtwa1wPTse92igZUEX2V95KyGGCXq2qb2F2w6hJ6oJDxA0BMPS8qqsciYXRjbfn8HX+TFgO1oErg==
+  version "7.22.2"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.22.2.tgz#4cd91c77e9e4657b8a952fad34eee40382753c81"
+  integrity sha512-HgKzjkwzMQKyokIFnyRMChONxM9AoR24Sk76tWcqIdFagE0bhnTgSn3qYT2bRVNODtWyQHiW6qjOOpgOM3Mjlw==
   dependencies:
     "@bugsnag/browser" "^7.21.0"
     "@bugsnag/node" "^7.19.0"
@@ -691,9 +691,9 @@
     execa "^6.0.0"
 
 "@netlify/serverless-functions-api@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@netlify/serverless-functions-api/-/serverless-functions-api-1.12.0.tgz#b8ba310e6fdac9bf1f0e974856eb60f97d294e4d"
-  integrity sha512-LJt2gHzLQMgJLsLG9Chbu2Pxxi7Yzbj3Xcd9QlThvUlD7kf4nAr3lzzRJMZqo77rVNmfQX11W1uvGMSlduiKeA==
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@netlify/serverless-functions-api/-/serverless-functions-api-1.12.1.tgz#fb926f62377d84719c70f9a4493f3d04d6f6e7dc"
+  integrity sha512-+G9cTltqfH54dF4dLqoEOV2P4qTIY8dM9blUVqg+NtVTXyuadzgpHqtffhVeyeLytVnTx1238kWJUe+sV3bnlg==
   dependencies:
     "@netlify/node-cookies" "^0.1.0"
     urlpattern-polyfill "8.0.2"
@@ -1541,9 +1541,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "20.9.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.9.2.tgz#002815c8e87fe0c9369121c78b52e800fadc0ac6"
-  integrity sha512-WHZXKFCEyIUJzAwh3NyyTHYSR35SevJ6mZ1nWwJafKtiQbqRTIKSRcw3Ma3acqgsent3RRDqeVwpHntMk+9irg==
+  version "20.9.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.9.3.tgz#e089e1634436f676ff299596c9531bd2b59fffc6"
+  integrity sha512-nk5wXLAXGBKfrhLB0cyHGbSqopS+nz0BUgZkUQqSHSSgdee0kssp1IAqlQOu333bW+gMNs2QREx7iynm19Abxw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1568,9 +1568,9 @@
   integrity sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==
 
 "@types/yargs@^16.0.0":
-  version "16.0.8"
-  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-16.0.8.tgz#0d57a5a491d85ae75d372a32e657b1779b86c65d"
-  integrity sha512-1GwLEkmFafeb/HbE6pC7tFlgYSQ4Iqh2qlWCq8xN+Qfaiaxr2PcLfuhfRFRYqI6XJyeFoLYyKnhFbNsst9FMtQ==
+  version "16.0.9"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-16.0.9.tgz#ba506215e45f7707e6cbcaf386981155b7ab956e"
+  integrity sha512-tHhzvkFXZQeTECenFoRljLBYPZJ7jAVxqqtEI0qTLOmuultnFp4I9yKE17vTuhf7BkhCu7I4XuemPgikDVuYqA==
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -5537,9 +5537,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.5.3"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.5.3.tgz#5c8b29fabc378f0c7ce411ce23e7c1adf0b47dd8"
-  integrity sha512-zvOlYZeD62/9USgMH0f9PMu5Yn+qEdAw8dxuviUauXDt77+SH58tBdHJtCW0Kq/YGpnkkljWI4cIh6dkcCHPQQ==
+  version "17.6.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.6.0.tgz#6177e855c64d966e9b138c91e525f6dc4fea86a5"
+  integrity sha512-o51J6HAejvgpuneVuM5R3cqZDpsAwSL7BLfVkrrngp5Kn2O1bXEwUA2uwODDacUr5SZV5e2eICV15ffny7mQ3g==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
