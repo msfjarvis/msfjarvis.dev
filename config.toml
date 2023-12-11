@@ -84,6 +84,11 @@ enableEmoji = true
   url = "https://androiddev.social/@msfjarvis"
 
 [[params.socialIcons]]
+  name = "Gitea"
+  icon = "gitea"
+  url = "https://git.msfjarvis.dev/"
+
+[[params.socialIcons]]
   name = "RSS"
   icon = "rss"
   url = "/posts/index.xml"
