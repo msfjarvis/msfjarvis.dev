@@ -52,6 +52,7 @@ enableEmoji = true
   utterancesRepo = "msfjarvis/msfjarvis.dev"
 
   showShareButtons = true
+  shareButtons = ["linkedin",  "reddit", "telegram"]
   showReadingTime = true
   showPostNavLinks = true
   showBreadCrumbs = true
