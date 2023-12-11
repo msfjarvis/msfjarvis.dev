@@ -61,7 +61,7 @@ enableEmoji = true
   showToc = true
 
 [params.editPost]
-  url = "https://github.com/msfjarvis/msfjarvis.dev/tree/main/content/"
+  url = "https://github.com/msfjarvis/msfjarvis.dev/edit/main/content/"
   text = "Suggest Changes"
   appendFilePath = true
 
