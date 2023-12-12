@@ -111,7 +111,7 @@ This is what the flake looked like for me after all this
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils/master";
+    flake-utils.url = "github:numtide/flake-utils/main";
   };
 
   outputs = {
