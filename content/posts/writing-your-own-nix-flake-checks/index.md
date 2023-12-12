@@ -33,6 +33,7 @@ outputs = {
     fmt-check = pkgs.stdenv.mkDerivation {
       name = "fmt-check";
       src = ./.;
+      doCheck = true;
       nativeBuildInputs = with pkgs; [alejandra shellcheck shfmt];
       checkPhase = ''
         shfmt -d -s -i 2 -ci ${files}
@@ -67,6 +68,7 @@ index b7fef3b99110..a531a30ad88e 100644
          name = "fmt-check";
 +        dontBuild = true;
          src = ./.;
+         doCheck = true;
          nativeBuildInputs = with pkgs; [alejandra shellcheck shfmt];
          checkPhase = ''
 @@ -25,6 +26,11 @@
@@ -128,6 +130,7 @@ This is what the flake looked like for me after all this
         name = "fmt-check";
         dontBuild = true;
         src = ./.;
+        doCheck = true;
         nativeBuildInputs = with pkgs; [alejandra shellcheck shfmt];
         checkPhase = ''
           shfmt -d -s -i 2 -ci ${files}
