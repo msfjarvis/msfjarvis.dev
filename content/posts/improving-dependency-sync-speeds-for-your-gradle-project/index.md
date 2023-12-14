@@ -6,6 +6,7 @@ summary: Waiting for Gradle to download dependencies before your IDE becomes
   process.
 draft: true
 ---
+
 Android developers are intimately familiar with the ritual of staring at your IDE for tens of minutes while Gradle imports the project before they can start working. While not fully avoidable, there are many ways to improve the situation. For small to medium projects, the time spent on this import phase is largely dominated by dependency downloads.
 
 ## Obtaining a baseline
@@ -82,12 +83,12 @@ For the `dependencyResolutionManagement` block, JitPack is very likely to only h
 
 With the minor changes made above we have already significantly improved on our failed requests metric, but why stop at good when we can have *perfect*.
 
-Gradle's repositories APIs also support the notion of specifying the expected "contents" of individual repositories, which tells Gradle what groups of dependencies are supposed to be available in what repositories. This allows it to prevent redundant work and significantly boosts sync performance.
+Gradle's repositories APIs also support the notion of specifying the expected "contents" of individual repositories, which tells Gradle what groups of dependencies are supposed to be available in what repositories. This allows it to prevent redundant network requests and significantly boosts sync performance.
 
 There are two major distinctions that can be expressed for such filters:
 
-* Declaring that a repository *only* contains certain dependencies
-* Declaring that certain dependencies can *only* be resolved from certain repositories
+* Declaring that a repository *only* contains certain artifacts ([`exclusiveContent`])
+* Declaring that certain artifacts can *only* be resolved from certain repositories ([`content`])
 
 The difference is subtle, but should become clearer shortly as we start hacking on our setup.
 
@@ -111,7 +112,165 @@ For our plugins block, we want gMaven to supply AGP and everything else can come
  }
 ```
 
-The `includeGroupsAndSubgroups` API used above is a very recent addition, so make sure you're using the current Gradle release.
+The [`includeGroupsAndSubgroups`] API used above is a very recent addition, so make sure you're using the current Gradle release.
+
+For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filters mentioned earlier, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from `androidx.dev`, while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
+
+```diff
+ dependencyResolutionManagement {
+   repositories {
+-     google()
++     google {
++       content {
++         includeGroupAndSubgroups("androidx")
++         includeGroupAndSubgroups("com.android")
++         includeGroupAndSubgroups("com.google")
++       }
++     }
++    maven("https://androidx.dev/storage/compose-compiler/repository") {
++      name = "Compose Compiler Snapshots"
++      content { includeGroup("androidx.compose.compiler") }
++    }
+     mavenCentral()
+     maven("https://jitpack.io")
+     maven("https://oss.sonatype.org/content/repositories/snapshots/")
+   }
+ }
+```
+
+This setup tells Gradle the specific artifacts present in these repositories but does not enforce any restrictions on which repository said artifacts can come from. Now, if I use a pre-release version of the Compose Compiler, Gradle will first try to look it up in [gMaven] and then fall back to the `androidx.dev` repository.
+
+In the above example we also see [JitPack] being mentioned, which we only wish to use for specific dependencies. This can be done with an [`exclusiveContent`] filter:
+
+```diff
+dependencyResolutionManagement {
+  repositories {
+    google {
+      content {
+        includeGroupAndSubgroups("androidx")
+        includeGroupAndSubgroups("com.android")
+        includeGroupAndSubgroups("com.google")
+      }
+    }
+    maven("https://androidx.dev/storage/compose-compiler/repository") {
+      name = "Compose Compiler Snapshots"
+      content { includeGroup("androidx.compose.compiler") }
+    }
+    mavenCentral()
+-    maven("https://jitpack.io")
++    exclusiveContent {
++      forRepository { maven("https://jitpack.io") { name = "JitPack" } }
++      filter { includeGroup("com.github.requery") }
++    }
+    maven("https://oss.sonatype.org/content/repositories/snapshots/")
+  }
+}
+```
+
+The Sonatype OSS snapshots repository is only intended to be used for snapshot releases of dependencies we'd otherwise source from Maven Central, so we can indicate to Gradle to only search for snapshots in there with a [`mavenContent`] directive:
+
+```diff
+dependencyResolutionManagement {
+  repositories {
+    google {
+      content {
+        includeGroupAndSubgroups("androidx")
+        includeGroupAndSubgroups("com.android")
+        includeGroupAndSubgroups("com.google")
+      }
+    }
+    maven("https://androidx.dev/storage/compose-compiler/repository") {
+      name = "Compose Compiler Snapshots"
+      content { includeGroup("androidx.compose.compiler") }
+    }
+    mavenCentral()
+    maven("https://jitpack.io")
+    exclusiveContent {
+      forRepository { maven("https://jitpack.io") { name = "JitPack" } }
+      filter { includeGroup("com.github.requery") }
+    }
+-    maven("https://oss.sonatype.org/content/repositories/snapshots/")
++    maven("https://oss.sonatype.org/content/repositories/snapshots/") {
++      name = "Sonatype Snapshots"
++      mavenContent {
++        snapshotsOnly()
++      }
++    }
+  }
+}
+```
+
+### Bonus section: Kotlin Multiplatform
+
+If you're working with Kotlin Multiplatform, these directions will sadly not cover all the dependencies being fetched during your build. There's a YouTrack issue ([KT-51379]) that you can subscribe to for updates on this, but in the mean time here's the missing bits:
+
+```kotlin
+dependencyResolutionManagement {
+  repositories {
+    // workaround for https://youtrack.jetbrains.com/issue/KT-51379
+    exclusiveContent {
+      forRepository {
+        ivy("https://download.jetbrains.com/kotlin/native/builds") {
+          name = "Kotlin Native"
+          patternLayout {
+            listOf(
+                "macos-x86_64",
+                "macos-aarch64",
+                "osx-x86_64",
+                "osx-aarch64",
+                "linux-x86_64",
+                "windows-x86_64",
+              )
+              .forEach { os ->
+                listOf("dev", "releases").forEach { stage ->
+                  artifact("$stage/[revision]/$os/[artifact]-[revision].[ext]")
+                }
+              }
+          }
+          metadataSources { artifact() }
+        }
+      }
+      filter { includeModuleByRegex(".*", ".*kotlin-native-prebuilt.*") }
+    }
+    exclusiveContent {
+      forRepository {
+        ivy("https://nodejs.org/dist/") {
+          name = "Node Distributions at $url"
+          patternLayout { artifact("v[revision]/[artifact](-v[revision]-[classifier]).[ext]") }
+          metadataSources { artifact() }
+          content { includeModule("org.nodejs", "node") }
+        }
+      }
+      filter { includeGroup("org.nodejs") }
+    }
+    exclusiveContent {
+      forRepository {
+        ivy("https://github.com/yarnpkg/yarn/releases/download") {
+          name = "Yarn Distributions at $url"
+          patternLayout { artifact("v[revision]/[artifact](-v[revision]).[ext]") }
+          metadataSources { artifact() }
+          content { includeModule("com.yarnpkg", "yarn") }
+        }
+      }
+      filter { includeGroup("com.yarnpkg") }
+    }
+  }
+}
+```
+
+If you're not using a JavaScript target in your project, it should be safe to skip the NodeJS and Yarn repositories but it's probably easier to keep it configured ahead of time in case you adopt JavaScript in the future.
+
+## Conclusion
+
+These are the before and after numbers for a couple projects that I implemented these improvements in:
+
+// Add before/after screenshots of mobile-core as a KMP project
+
+// Add before/after screenshots of compose-lobsters as an Android project
+
+The exact percentage improvement you can expect can vary depending on how many dependencies you have as well as how many repositories were previously declared and in what order, but you should most definitely see a noticeable difference consistently.
+
+Like and subscribe, and hit that notification bell so you don't miss my next post some time within this decade (hopefully).
 
 [downloads info]: https://developer.android.com/studio/releases/past-releases/as-giraffe-release-notes#download-info-sync
 [pom]: https://maven.apache.org/pom.html
@@ -122,3 +281,8 @@ The `includeGroupsAndSubgroups` API used above is a very recent addition, so mak
 [maven central]: https://repo1.maven.org/maven2/
 [gMaven]: https://maven.google.com/web/index.html
 [jitpack]: https://jitpack.io
+[`includegroupsandsubgroups`]: //gradle/docs/
+[`content`]: //gradle/docs/
+[`mavencontent`]: //gradle/docs/
+[`exclusivecontent`]: //gradle/docs/
+[KT-51379]: https://youtrack.jetbrains.com/issue/KT-51379
