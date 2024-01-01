@@ -15,11 +15,12 @@ To get an idea for how long it actually takes your project to fetch its dependen
 
 In Android Studio, create a new run configuration with a commonly used task that will require your entire dependency tree, such as `assembleDebug` and specify the `--refresh-dependencies` flag so that it looks like this:
 
-// insert Run configuration window screenshot
+{{< figure src="run-configuration.png" title="The Android Studio Run configuration window configured with the task ':android:assembleDebug --refresh-dependencies'" >}}
 
-When you run this task, you'll see the Build tool window at the bottom get populated with logs of Gradle downloading dependencies and the Downloads info tab will start accumulating the statistics for it. Once the task is complete, you should end up with something that looks like this:
 
-// insert Download info tool window screenshot
+When you run this task, you'll see the Build tool window at the bottom get populated with logs of Gradle downloading dependencies and the Downloads info tab will start accumulating the statistics for it.
+
+{{< figure src="download-info.png" title="Download info window showing a list of network requests and their sources while the task is running" >}}
 
 ## How Gradle fetches your dependencies
 
@@ -102,8 +103,8 @@ For our plugins block, we want gMaven to supply AGP and everything else can come
 +    exclusiveContent { // Filter of the first kind
 +      forRepository { google() } // Specify the repository this applies to
 +      filter { // Start specifying what dependencies are *only* found in this repo
-+        includeGroupAndSubgroups("androidx")
-+        includeGroupAndSubgroups("com.android")
++        includeGroupByRegex("androidx.*")
++        includeGroupByRegex("com.android.*")
 +        includeGroup("com.google.testing.platform")
 +      }
 +    }
@@ -112,7 +113,7 @@ For our plugins block, we want gMaven to supply AGP and everything else can come
  }
 ```
 
-The [`includeGroupsAndSubgroups`] API used above is a very recent addition, so make sure you're using the current Gradle release.
+Ideally this is better handled by the [`includeGroupAndSubgroups`] API, but it has [a critical bug] that prevents us from using it in this setup.
 
 For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filters mentioned earlier, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from `androidx.dev`, while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
 
@@ -122,9 +123,9 @@ For other dependencies that are governed by the `dependencyResolutionManagement`
 -     google()
 +     google {
 +       content {
-+         includeGroupAndSubgroups("androidx")
-+         includeGroupAndSubgroups("com.android")
-+         includeGroupAndSubgroups("com.google")
++         includeGroupByRegex("androidx.*")
++         includeGroupByRegex("com.android.*")
++         includeGroupByRegex("com.google.*")
 +       }
 +     }
 +    maven("https://androidx.dev/storage/compose-compiler/repository") {
@@ -147,9 +148,9 @@ dependencyResolutionManagement {
   repositories {
     google {
       content {
-        includeGroupAndSubgroups("androidx")
-        includeGroupAndSubgroups("com.android")
-        includeGroupAndSubgroups("com.google")
+        includeGroupByRegex("androidx.*")
+        includeGroupByRegex("com.android.*")
+        includeGroupByRegex("com.google.*")
       }
     }
     maven("https://androidx.dev/storage/compose-compiler/repository") {
@@ -174,9 +175,9 @@ dependencyResolutionManagement {
   repositories {
     google {
       content {
-        includeGroupAndSubgroups("androidx")
-        includeGroupAndSubgroups("com.android")
-        includeGroupAndSubgroups("com.google")
+        includeGroupByRegex("androidx.*")
+        includeGroupByRegex("com.android.*")
+        includeGroupByRegex("com.google.*")
       }
     }
     maven("https://androidx.dev/storage/compose-compiler/repository") {
@@ -281,8 +282,9 @@ Like and subscribe, and hit that notification bell so you don't miss my next pos
 [maven central]: https://repo1.maven.org/maven2/
 [gMaven]: https://maven.google.com/web/index.html
 [jitpack]: https://jitpack.io
-[`includegroupsandsubgroups`]: //gradle/docs/
-[`content`]: //gradle/docs/
-[`mavencontent`]: //gradle/docs/
-[`exclusivecontent`]: //gradle/docs/
+[`includegroupandsubgroups`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-inclusive-repository-content-descriptor/include-group-and-subgroups.html
+[a critical bug]: https://github.com/gradle/gradle/issues/26569
+[`content`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-artifact-repository/content.html?query=abstract%20fun%20content(configureAction:%20Action%3Cout%20Any%3E)
+[`mavencontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-maven-artifact-repository/maven-content.html?query=abstract%20fun%20mavenContent(configureAction:%20Action%3Cout%20Any%3E)
+[`exclusivecontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.dsl/-repository-handler/exclusive-content.html?query=abstract%20fun%20exclusiveContent(action:%20Action%3Cout%20Any%3E)
 [KT-51379]: https://youtrack.jetbrains.com/issue/KT-51379
