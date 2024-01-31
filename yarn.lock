@@ -372,10 +372,10 @@
   resolved "https://registry.yarnpkg.com/@netlify/blobs/-/blobs-6.4.2.tgz#e0f0e74bbf44055ddb79a50a438b339084c9302e"
   integrity sha512-MccXfC/b8vRr5FWJTvMN7L3aBgtrbhNLWQsSu802C/R2Gmlb5C9/OC0IY4i0+BEZ8rS+F4TU/8NQsVlqHHVESQ==
 
-"@netlify/build-info@7.11.5":
-  version "7.11.5"
-  resolved "https://registry.yarnpkg.com/@netlify/build-info/-/build-info-7.11.5.tgz#5338b17f5de8ffcbd61d80af1119a8db5850d941"
-  integrity sha512-uZIlBVUHgJuW46iSAEgI2WOAFFhzufhvTrLzuNsXFSo2/v79rEfjYI2lnuknkihgjVSyrmxAjMfWFzpaQjNGyQ==
+"@netlify/build-info@7.12.0":
+  version "7.12.0"
+  resolved "https://registry.yarnpkg.com/@netlify/build-info/-/build-info-7.12.0.tgz#7db828805c7957e293920313ff6c28b2398f1a4a"
+  integrity sha512-sYL/IIWYcZIqY+8W+2AysWnHB0PG7iUSJz9yb3aGSp40WaYsrjw69GUkw6GPRkcNxS/VR8a8eHL6ISlwYw/ONw==
   dependencies:
     "@bugsnag/js" "^7.20.0"
     dot-prop "^7.2.0"
@@ -1062,9 +1062,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*":
-  version "20.11.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.10.tgz#6c3de8974d65c362f82ee29db6b5adf4205462f9"
-  integrity sha512-rZEfe/hJSGYmdfX9tvcPMYeYPW2sNl50nsw4jZmRcaG0HIAb0WYEpsB05GOb53vjqpyE9GUhlDQ4jLSoB5q9kg==
+  version "20.11.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.13.tgz#188263ee2c8d590e181d3f5bfa7e485a932957cb"
+  integrity sha512-5G4zQwdiQBSWYTDAH1ctw2eidqdhMJaNsiIDKHFr55ihz5Trl2qqR8fdrT732yPBho5gkNxXm67OxWFBqX9aPg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -5002,15 +5002,15 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.15.5"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.15.5.tgz#25c2a8f2d3e36dbf8158cadedb595e91cdc4cbc4"
-  integrity sha512-6UUSJRxZiimwgx9ASpYowcpzXM0yheJr9S4bBdHD23KL6GV4amE1J2e76lAcdfv6+Z/+uTHPbeR8uCEU/Tusnw==
+  version "17.15.6"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.15.6.tgz#022b1fa73bc279e38af9d90854f2b6e3695a9317"
+  integrity sha512-fAz46Za7tV90xIpsfmZD/g6Yo7IvrhEdQ0PJlp+vXLPeyW0kaIGnuq5EgNYLOYasBTNV9LMwXW2qBGO/7biOjA==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
     "@netlify/blobs" "6.4.2"
     "@netlify/build" "29.33.3"
-    "@netlify/build-info" "7.11.5"
+    "@netlify/build-info" "7.12.0"
     "@netlify/config" "20.10.2"
     "@netlify/edge-bundler" "11.2.2"
     "@netlify/local-functions-proxy" "1.1.1"
