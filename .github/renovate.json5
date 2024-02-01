@@ -21,6 +21,15 @@
       ],
       "depNameTemplate": "gohugoio/hugo",
       "datasourceTemplate": "github-releases"
+    },
+    {
+      "description": "Update Decap CMS",
+      "fileMatch": ["static/admin/index.html"],
+      "matchStrings": [
+        "\/decap-cms@(?<currentValue>.*?)\/dist"
+      ],
+      "depNameTemplate": "decap-cms",
+      "datasourceTemplate": "npm"
     }
   ],
   "commitMessageSuffix": "[staging]"
