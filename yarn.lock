@@ -387,15 +387,15 @@
     yaml "^2.1.3"
     yargs "^17.6.0"
 
-"@netlify/build@29.33.4":
-  version "29.33.4"
-  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-29.33.4.tgz#34fc494c497e4652974cd437cd0b8fa52ab66272"
-  integrity sha512-pB0NDP0VoBNUKpe4XnmnjmDtzRVXxJgzgZ+vk2fNmvI81Ta+fSC+oHSURaxugHKvF2yFOzFgsV8FUlIlk3o5Eg==
+"@netlify/build@29.33.5":
+  version "29.33.5"
+  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-29.33.5.tgz#0be6694e5f5f6ecc952e17f6897c728960b0f689"
+  integrity sha512-aQvzWA0ENJjeSPj/HmZj1tT6dzrpn3C5DtZ+tOEOTe6N6wPDVqg0W25tnuRlwpxrQpapb4v6rci3vh8sfSkPVA==
   dependencies:
     "@bugsnag/js" "^7.0.0"
     "@netlify/blobs" "^6.4.2"
     "@netlify/cache-utils" "^5.1.5"
-    "@netlify/config" "^20.10.3"
+    "@netlify/config" "^20.11.0"
     "@netlify/edge-bundler" "11.2.2"
     "@netlify/framework-info" "^9.8.10"
     "@netlify/functions-utils" "^5.2.49"
@@ -465,10 +465,10 @@
     path-exists "^5.0.0"
     readdirp "^3.4.0"
 
-"@netlify/config@20.10.3", "@netlify/config@^20.10.3":
-  version "20.10.3"
-  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-20.10.3.tgz#ff3312a811f4b54f514c18acbae23d8d11a7d637"
-  integrity sha512-MZAvf6BWMBk3MpMeqjrZoI8EUjHIVJTHSFRlRn8/QROHyUgO9XWTZL892MKJZE3mgu1YP0iQP4rVkzidAikTQA==
+"@netlify/config@20.11.0", "@netlify/config@^20.11.0":
+  version "20.11.0"
+  resolved "https://registry.yarnpkg.com/@netlify/config/-/config-20.11.0.tgz#78a1adcd8349982b24d3e9540f5018da7d88d3cb"
+  integrity sha512-MjWSgtVCtWpAb0CRmro0sfC6SiIJd37eRHSFggEyX9bSI8JytpDUt3J8wpiS4z+LhpFDp+IKAZ1pionbVvXiUw==
   dependencies:
     chalk "^5.0.0"
     cron-parser "^4.1.0"
@@ -1062,9 +1062,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*":
-  version "20.11.15"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.15.tgz#b853a86cfedbc768360c552b4653302b4e7417bf"
-  integrity sha512-gscmuADZfvNULx1eyirVbr3kVOVZtpQtzKMCZpeSZcN6MfbkRXAR4s9/gsQ4CzxLHw6EStDtKLNtSDL3vbq05A==
+  version "20.11.16"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.16.tgz#4411f79411514eb8e2926f036c86c9f0e4ec6708"
+  integrity sha512-gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1146,9 +1146,9 @@
     resolve-from "^5.0.0"
 
 "@vercel/nft@^0.26.0":
-  version "0.26.2"
-  resolved "https://registry.yarnpkg.com/@vercel/nft/-/nft-0.26.2.tgz#c5018201dbb324d7fac455be6cee03d34ebd9ce8"
-  integrity sha512-bxe2iShmKZi7476xYamyKvhhKwQ6JPEtQ2FSq1AjMUH2buMd8LQMkdoHinTqZYc+1sMTh3G0ARdjzNvV1FEisA==
+  version "0.26.3"
+  resolved "https://registry.yarnpkg.com/@vercel/nft/-/nft-0.26.3.tgz#9d8f5195565d67e0fc478a9d611e3236e1512c68"
+  integrity sha512-h1z/NN9ppS4YOKwSgBoopJlhm7tS2Qb/9Ld1HXjDpvvTE7mY0xVD8nllXs+RihD9uTGJISOIMzp18Eg0EApaMA==
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.5"
     "@rollup/pluginutils" "^4.0.0"
@@ -2762,6 +2762,11 @@ error-stack-parser@^2.0.2, error-stack-parser@^2.0.3:
   dependencies:
     stackframe "^1.3.4"
 
+es-errors@^1.0.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/es-errors/-/es-errors-1.3.0.tgz#05f75a25dab98e4fb1dcd5e1472c0546d5057c8f"
+  integrity sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==
+
 es-module-lexer@^1.0.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-1.4.1.tgz#41ea21b43908fe6a287ffcbe4300f790555331f5"
@@ -3459,10 +3464,11 @@ get-caller-file@^2.0.5:
   integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
 
 get-intrinsic@^1.0.2, get-intrinsic@^1.1.3, get-intrinsic@^1.2.1, get-intrinsic@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.2.2.tgz#281b7622971123e1ef4b3c90fd7539306da93f3b"
-  integrity sha512-0gSo4ml/0j98Y3lngkFEot/zhiCeWsbYIlZ+uZOVgzLyLaUw7wxUL+nCTP0XJvJg1AXulJRI3UJi8GsbDuxdGA==
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.2.3.tgz#9d2d284a238e62672f556361e7d4e1a4686ae50e"
+  integrity sha512-JIcZczvcMVE7AUOP+X72bh8HqHBRxFdz5PDHYtNG/lE3yk9b3KZBJlwFcTyPYjg3L4RLLmZJzvjxhaZVapxFrQ==
   dependencies:
+    es-errors "^1.0.0"
     function-bind "^1.1.2"
     has-proto "^1.0.1"
     has-symbols "^1.0.3"
@@ -5002,16 +5008,16 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.15.7"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.15.7.tgz#d8d42fc9e4684cce44e5bb0faee6c05c01bb53d5"
-  integrity sha512-OxqsMSZdUt7iJDLi4WMWbDqnuzRcYim6FnmfrilzqAQ2kPRDuL9gb7/sNiSc0sKBpqhbKOoTaaECVfivTD+5xg==
+  version "17.16.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.16.0.tgz#874550ef2d3dfbcd03e0e27cb639335848b1790c"
+  integrity sha512-OjYRW/tf6r1wA7pm4OnvXdOXdud0U5MXdy46pnST0Se4xRN2g/lZuPIrme4OfsoETMK5uK+D2tRqpAaH+PP09g==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
     "@netlify/blobs" "6.4.2"
-    "@netlify/build" "29.33.4"
+    "@netlify/build" "29.33.5"
     "@netlify/build-info" "7.12.0"
-    "@netlify/config" "20.10.3"
+    "@netlify/config" "20.11.0"
     "@netlify/edge-bundler" "11.2.2"
     "@netlify/local-functions-proxy" "1.1.1"
     "@netlify/zip-it-and-ship-it" "9.29.0"
@@ -5715,9 +5721,9 @@ pino-std-serializers@^6.0.0:
   integrity sha512-cHjPPsE+vhj/tnhCy/wiMh3M3z3h/j15zHQX+S9GkTBgqJuTuJzYJ4gUyACLhDaJ7kk9ba9iRDmbH2tJU03OiA==
 
 pino@^8.5.0:
-  version "8.17.2"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-8.17.2.tgz#0ed20175623a69d31664a1e8a5f85476272224be"
-  integrity sha512-LA6qKgeDMLr2ux2y/YiUt47EfgQ+S9LznBWOJdN3q1dx2sv0ziDLUBeVpyVv17TEcGCBuWf0zNtg3M5m1NhhWQ==
+  version "8.18.0"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-8.18.0.tgz#f2bfbb4e827ed2049ee1e88372268efdcd1505f6"
+  integrity sha512-Mz/gKiRyuXu4HnpHgi1YWdHQCoWMufapzooisvFn78zl4dZciAxS+YeRkUxXl1ee/SzU80YCz1zpECCh4oC6Aw==
   dependencies:
     atomic-sleep "^1.0.0"
     fast-redact "^3.1.1"
@@ -6661,9 +6667,9 @@ stdin-discarder@^0.1.0:
     bl "^5.0.0"
 
 streamx@^2.15.0:
-  version "2.15.6"
-  resolved "https://registry.yarnpkg.com/streamx/-/streamx-2.15.6.tgz#28bf36997ebc7bf6c08f9eba958735231b833887"
-  integrity sha512-q+vQL4AAz+FdfT137VF69Cc/APqUbxy+MDOImRrMvchJpigHj9GksgDU2LYbO9rx7RX6osWgxJB2WxhYv4SZAw==
+  version "2.15.7"
+  resolved "https://registry.yarnpkg.com/streamx/-/streamx-2.15.7.tgz#a12fe09faa3fda2483e8044c406b72286994a138"
+  integrity sha512-NPEKS5+yjyo597eafGbKW5ujh7Sm6lDLHZQd/lRSz6S0VarpADBJItqfB4PnwpS+472oob1GX5cCY9vzfJpHUA==
   dependencies:
     fast-fifo "^1.1.0"
     queue-tick "^1.0.1"
@@ -7437,9 +7443,9 @@ windows-release@^5.0.1:
     execa "^5.1.1"
 
 winston-transport@^4.5.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/winston-transport/-/winston-transport-4.6.0.tgz#f1c1a665ad1b366df72199e27892721832a19e1b"
-  integrity sha512-wbBA9PbPAHxKiygo7ub7BYRiKxms0tpfU2ljtWzb3SjRjv5yl6Ozuy/TkXf00HTAt+Uylo3gSkNwzc4ME0wiIg==
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/winston-transport/-/winston-transport-4.7.0.tgz#e302e6889e6ccb7f383b926df6936a5b781bd1f0"
+  integrity sha512-ajBj65K5I7denzer2IYW6+2bNIVqLGDHqDw3Ow8Ohh+vdW+rv4MZ6eiDvHoKhfJFZ2auyN8byXieDDJ96ViONg==
   dependencies:
     logform "^2.3.2"
     readable-stream "^3.6.0"
