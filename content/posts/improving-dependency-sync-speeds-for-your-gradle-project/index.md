@@ -113,21 +113,21 @@ For our plugins block, we want gMaven to supply AGP and everything else can come
  }
 ```
 
-Ideally this is better handled by the [`includeGroupAndSubgroups`] API, but it has [a critical bug] that prevents us from using it in this setup.
+Ideally this is better handled by the [`includeGroupAndSubgroups`] API, but it has [a critical bug] that prevents us from using it right now. This is slated to be fixed in Gradle 8.7, and I will update the post when that is released.
 
 For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filters mentioned earlier, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from `androidx.dev`, while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
 
 ```diff
  dependencyResolutionManagement {
    repositories {
--     google()
-+     google {
-+       content {
-+         includeGroupByRegex("androidx.*")
-+         includeGroupByRegex("com.android.*")
-+         includeGroupByRegex("com.google.*")
-+       }
-+     }
+-    google()
++    google {
++      content {
++        includeGroupByRegex("androidx.*")
++        includeGroupByRegex("com.android.*")
++        includeGroupByRegex("com.google.*")
++      }
++    }
 +    maven("https://androidx.dev/storage/compose-compiler/repository") {
 +      name = "Compose Compiler Snapshots"
 +      content { includeGroup("androidx.compose.compiler") }
@@ -190,13 +190,12 @@ dependencyResolutionManagement {
       forRepository { maven("https://jitpack.io") { name = "JitPack" } }
       filter { includeGroup("com.github.requery") }
     }
--    maven("https://oss.sonatype.org/content/repositories/snapshots/")
-+    maven("https://oss.sonatype.org/content/repositories/snapshots/") {
-+      name = "Sonatype Snapshots"
-+      mavenContent {
-+        snapshotsOnly()
-+      }
-+    }
+    maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+      name = "Sonatype Snapshots"
++     mavenContent {
++       snapshotsOnly()
++     }
+    }
   }
 }
 ```
@@ -284,8 +283,10 @@ Like and subscribe, and hit that notification bell so you don't miss my next pos
 [configurations]: https://docs.gradle.org/current/userguide/declaring_dependencies.html
 [version catalog]: https://docs.gradle.org/current/userguide/platforms.html#sub:central-declaration-of-dependencies
 [maven central]: https://repo1.maven.org/maven2/
+[maven central snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/squareup/sqldelight/
 [gMaven]: https://maven.google.com/web/index.html
 [jitpack]: https://jitpack.io
+[jetpack compose compiler]: https://developer.android.com/jetpack/androidx/releases/compose-compiler
 [`includegroupandsubgroups`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-inclusive-repository-content-descriptor/include-group-and-subgroups.html
 [a critical bug]: https://github.com/gradle/gradle/issues/26569
 [`content`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-artifact-repository/content.html?query=abstract%20fun%20content(configureAction:%20Action%3Cout%20Any%3E)
