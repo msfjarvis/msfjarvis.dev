@@ -35,6 +35,7 @@
           git
           go
           hugo
+          hyperlink
           libwebp
           nodejs
           yarn
