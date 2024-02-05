@@ -263,11 +263,15 @@ If you're not using a JavaScript target in your project, it should be safe to sk
 
 ## Conclusion
 
-These are the before and after numbers for a couple projects that I implemented these improvements in:
+These are the before and after numbers for a project I did this for at work.
 
-// Add before/after screenshots of mobile-core as a KMP project
+### Before
 
-// Add before/after screenshots of compose-lobsters as an Android project
+{{< figure src="before-fixes.png" title="The Android Studio Dependency Sync window, of note is the total sync duration of 5 minutes and 56 seconds of which 1 minute and 30 seconds went into failed network requests" >}}
+
+### After
+
+{{< figure src="after-fixes.png" title="The Android Studio Dependency Sync window, now showing the total sync taking only 3 minutes and 17 seconds with 0 failed requests" >}}
 
 The exact percentage improvement you can expect can vary depending on how many dependencies you have as well as how many repositories were previously declared and in what order, but you should most definitely see a noticeable difference consistently.
 
