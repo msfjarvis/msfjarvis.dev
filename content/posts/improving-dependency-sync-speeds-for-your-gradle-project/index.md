@@ -24,9 +24,7 @@ When you run this task, you'll see the Build tool window at the bottom get popul
 
 ## How Gradle fetches your dependencies
 
-Gradle's dependency resolution relies on a set of user-defined repositories that are used to search for the requested dependencies, from where it will obtain the [POM] or [Gradle Module Metadata] to identify the dependencies of that dependency. This keeps happening in a recursive fashion until there is a full [Directed Acyclic Graph] of dependencies where the terminal nodes are dependencies with no other child deps.
-
-Once this graph has been computed, Gradle will start downloading them as and when specific [configurations] are requested by the build itself. For the purposes of this article, you don't need to know too much about configurations other than the fact that when you write `implementation(libs.androidx.core)` in your buildscript, `implementation` is the configuration to which you're adding the dependency specified by the `androidx-core` key in your [version catalog].
+The Gradle documentation for [dependency resolution] explains in some depth how the version conflict resolution and caching systems work, but the important part for us is that dependencies are searched for in the repositories declared by the user, **in order**. This is crucial, since it can dramatically affect the total duration of your dependency resolution as we will explore below.
 
 ## A quick attempt at optimisation
 
@@ -43,16 +41,17 @@ pluginManagement {
 
 dependencyResolutionManagement {
   repositories {
-    maven("https://jitpack.io")
+    maven("https://jitpack.io") { name = "JitPack" }
     google()
     mavenCentral()
-    maven("https://oss.sonatype.org/content/repositories/snapshots/")
+    maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+      name = "Sonatype snapshots
+    }
   }
 }
 ```
 
-This tells Gradle that you want plugin dependencies to be looked up from [Maven Central] and [gMaven], and for all other dependencies to come from [JitPack], [gMaven], [Maven Central], or the [Maven Central snapshots] repository; **in that order**. This ordering is crucial, because the first
-simple tweak you can make is to reorder these based on what part of your dependencies you expect to come from what repository.
+This tells Gradle that you want plugin dependencies to be looked up from [Maven Central] and [gMaven], and for all other dependencies to come from [JitPack], [gMaven], [Maven Central], or the [Maven Central snapshots] repository; **in that order**. The first simple tweak you can make is to reorder these based on how many of your dependencies you expect to come from what repository.
 
 For example, in a typical Android build most of your plugin classpath will be dominated by the Android Gradle Plugin (AGP), so you'd want gMaven to be come first so that Gradle does not try to find it on Maven Central.
 
@@ -71,11 +70,13 @@ For the `dependencyResolutionManagement` block, JitPack is very likely to only h
 ```diff
  dependencyResolutionManagement {
    repositories {
--    maven("https://jitpack.io")
+-    maven("https://jitpack.io") { name = "JitPack" }
      google()
      mavenCentral()
-+    maven("https://jitpack.io")
-     maven("https://oss.sonatype.org/content/repositories/snapshots/")
++    maven("https://jitpack.io") { name = "JitPack" }
+     maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+       name = "Sonatype snapshots
+     }
    }
  }
 ```
@@ -88,12 +89,12 @@ Gradle's repositories APIs also support the notion of specifying the expected "c
 
 There are two major distinctions that can be expressed for such filters:
 
-* Declaring that a repository *only* contains certain artifacts ([`exclusiveContent`])
-* Declaring that certain artifacts can *only* be resolved from certain repositories ([`content`])
+* Declaring that certain artifacts can *only* be resolved from certain repositories ([`exclusiveContent`])
+* Declaring that a repository *only* contains certain artifacts ([`content`])
 
 The difference is subtle, but should become clearer shortly as we start hacking on our setup.
 
-For our plugins block, we want gMaven to supply AGP and everything else can come from Maven Central. Here's how to achieve that:
+For our plugins block, we want only gMaven to supply AGP and everything else can come from Maven Central. Here's how to achieve that:
 
 ```diff
  // settings.gradle.kts
@@ -113,9 +114,9 @@ For our plugins block, we want gMaven to supply AGP and everything else can come
  }
 ```
 
-Ideally this is better handled by the [`includeGroupAndSubgroups`] API, but it has [a critical bug] that prevents us from using it right now. This is slated to be fixed in Gradle 8.7, and I will update the post when that is released.
+Ideally this is better handled by the [`includeGroupAndSubgroups`] API rather than a regular expression, but it has [a critical bug] that prevents us from using it right now. This is slated to be fixed in Gradle 8.7, and I will update the post when that is released.
 
-For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filters mentioned earlier, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from `androidx.dev`, while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
+For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filter mentioned earlier, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from `androidx.dev`, while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
 
 ```diff
  dependencyResolutionManagement {
@@ -133,15 +134,17 @@ For other dependencies that are governed by the `dependencyResolutionManagement`
 +      content { includeGroup("androidx.compose.compiler") }
 +    }
      mavenCentral()
-     maven("https://jitpack.io")
-     maven("https://oss.sonatype.org/content/repositories/snapshots/")
+     maven("https://jitpack.io") { name = "JitPack" }
+     maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+       name = "Sonatype snapshots
+     }
    }
  }
 ```
 
 This setup tells Gradle the specific artifacts present in these repositories but does not enforce any restrictions on which repository said artifacts can come from. Now, if I use a pre-release version of the Compose Compiler, Gradle will first try to look it up in [gMaven] and then fall back to the `androidx.dev` repository.
 
-In the above example we also see [JitPack] being mentioned, which we only wish to use for specific dependencies. This can be done with an [`exclusiveContent`] filter:
+In the above example we also see [JitPack] being mentioned, which we only wish to use for a specific dependency that's unavailable elsewhere. This can be done with an [`exclusiveContent`] filter:
 
 ```diff
 dependencyResolutionManagement {
@@ -158,7 +161,7 @@ dependencyResolutionManagement {
       content { includeGroup("androidx.compose.compiler") }
     }
     mavenCentral()
--    maven("https://jitpack.io")
+-    maven("https://jitpack.io") { name = "JitPack" }
 +    exclusiveContent {
 +      forRepository { maven("https://jitpack.io") { name = "JitPack" } }
 +      filter { includeGroup("com.github.requery") }
@@ -262,24 +265,23 @@ If you're not using a JavaScript target in your project, it should be safe to sk
 
 ## Conclusion
 
-These are the before and after numbers for a project I did this for at work.
+The exact percentage improvement you can expect can vary depending on how many dependencies you have as well as how many repositories were previously declared and in what order, but you should most definitely see a noticeable difference consistently. These are the before and after numbers for a project I optimised for my day job.
 
 ### Before
 
-{{< figure src="before-fixes.png" title="The Android Studio Dependency Sync window, of note is the total sync duration of 5 minutes and 56 seconds of which 1 minute and 30 seconds went into failed network requests" >}}
+{{< figure src="before-fixes.png" title="The Android Studio Dependency Sync window, showing a total sync duration of 5 minutes and 56 seconds of which 1 minute and 30 seconds went into failed network requests" >}}
 
 ### After
 
 {{< figure src="after-fixes.png" title="The Android Studio Dependency Sync window, now showing the total sync taking only 3 minutes and 17 seconds with 0 failed requests" >}}
 
-The exact percentage improvement you can expect can vary depending on how many dependencies you have as well as how many repositories were previously declared and in what order, but you should most definitely see a noticeable difference consistently.
 
 Like and subscribe, and hit that notification bell so you don't miss my next post some time within this decade (hopefully).
 
 [downloads info]: https://developer.android.com/studio/releases/past-releases/as-giraffe-release-notes#download-info-sync
 [pom]: https://maven.apache.org/pom.html
 [gradle module metadata]: https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html
-[directed acyclic graph]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+[dependency resolution]: https://docs.gradle.org/current/userguide/dependency_resolution.html#sec:how-gradle-downloads-deps
 [configurations]: https://docs.gradle.org/current/userguide/declaring_dependencies.html
 [version catalog]: https://docs.gradle.org/current/userguide/platforms.html#sub:central-declaration-of-dependencies
 [maven central]: https://repo1.maven.org/maven2/
