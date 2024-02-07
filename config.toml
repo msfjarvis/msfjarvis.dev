@@ -68,6 +68,11 @@ enableEmoji = true
 
 [params.assets]
   disableHLJS = true
+  favicon = "favicon.ico"
+  favicon16x16 = "favicon-16x16.webp"
+  favicon32x32 = "favicon-32x32.webp"
+  apple_touch_icon = "apple-touch-icon.png"
+  safari_pinned_tab = "mask-icon.svg"
 
 [params.homeInfoParams]
   title = "Hi 👋, I am Harsh"

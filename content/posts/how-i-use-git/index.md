@@ -106,7 +106,7 @@ Before GitHub had the [GitHub CLI][4], it had [hub][5]. `hub` wraps `git` and ad
 
 [1]: https://msfjarvis.dev/g/dotfiles
 [2]: https://github.com/so-fancy/diff-so-fancy
-[3]: ./uploads/diff-so-fancy-screenshot.webp
+[3]: /uploads/diff-so-fancy-screenshot.webp
 [4]: https://cli.github.com/
 [5]: https://hub.github.com/
 [6]: https://github.com/tummychow/git-absorb
