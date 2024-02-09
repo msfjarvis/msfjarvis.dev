@@ -27,3 +27,9 @@ status = 200
 from = "/sitemap.xml"
 to = "/sitemap.xml"
 status = 200
+
+[[headers]]
+  for = "/pretty-feed-v3.xsl"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
