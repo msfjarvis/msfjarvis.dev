@@ -4953,9 +4953,9 @@ mkdirp@^1.0.3:
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
 mlly@^1.2.0, mlly@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/mlly/-/mlly-1.5.0.tgz#8428a4617d54cc083d3009030ac79739a0e5447a"
-  integrity sha512-NPVQvAY1xr1QoVeG0cy8yUYC7FQcOx6evl/RjT1wL5FvzPnzOysoqB/jmx/DhssT2dYa8nxECLAaFI/+gVLhDQ==
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/mlly/-/mlly-1.6.0.tgz#0ecfbddc706857f5e170ccd28c6b0b9c81d3f548"
+  integrity sha512-YOvg9hfYQmnaB56Yb+KrJE2u0Yzz5zR+sLejEvF4fzwzV1Al6hkf2vyHTwqCRyv0hCi9rVCqVoXpyYevQIRwLQ==
   dependencies:
     acorn "^8.11.3"
     pathe "^1.1.2"
@@ -5067,9 +5067,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.16.4"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.16.4.tgz#624768b838f1afd8c00468dfe233bfc698b45614"
-  integrity sha512-W1bKXIsA72ItJKIVv6KuHyZa9kfSTyYtw3YVTEV5pWuiZfeONe4P2dE6QgAWHMb9KO+Gzp+TY9t+RBr/AaOyiw==
+  version "17.17.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.17.0.tgz#ca0ed39383d73c9241cf33f505c91e35f2563cfc"
+  integrity sha512-dM15h9PeWmZaxiwkrrDCgpIQpBtnomwQdsgSync7yQHl0XcxSa78K3P5GbugdHkLqi7mq0GaXez9QDbVFXcTsA==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
