@@ -5073,9 +5073,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.17.2"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.17.2.tgz#bece9fae26d88f59c611a6364bcf4650e579ad7f"
-  integrity sha512-IvjHS67dE3ITtRtiLElTOee1PreW+gtpqkEMO6gccnlY109j84G6wK0g6H7wieOHNBx/RTlX1MOFM28+pThKIQ==
+  version "17.18.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.18.0.tgz#12877539d3ed3e70a5eb910b4b01a9ebd695f907"
+  integrity sha512-xRB5vHk8rPk7Ivzxa7bTeh000af/rHKcWzursCX6Reoted5Dd4BP7KDrl1kxkvVrUHq08aHVtER2qpNQP4JNgw==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
