@@ -722,6 +722,45 @@
     urlpattern-polyfill "8.0.2"
     yargs "^17.0.0"
 
+"@netlify/zip-it-and-ship-it@9.30.0":
+  version "9.30.0"
+  resolved "https://registry.yarnpkg.com/@netlify/zip-it-and-ship-it/-/zip-it-and-ship-it-9.30.0.tgz#df1818c2a5f55ca126f322bf3b3165ff287452a2"
+  integrity sha512-R0v1/vDjjizB4em4YvigqIRj4ZAdcp18svajvcDp6OhB6pt76LZ/RlPEEPq4sGfpQRUpdmapNdnQDNHHReyXug==
+  dependencies:
+    "@babel/parser" "^7.22.5"
+    "@babel/types" "7.23.6"
+    "@netlify/binary-info" "^1.0.0"
+    "@netlify/serverless-functions-api" "^1.14.0"
+    "@vercel/nft" "^0.23.0"
+    archiver "^6.0.0"
+    common-path-prefix "^3.0.0"
+    cp-file "^10.0.0"
+    es-module-lexer "^1.0.0"
+    esbuild "0.19.11"
+    execa "^6.0.0"
+    fast-glob "^3.3.2"
+    filter-obj "^5.0.0"
+    find-up "^6.0.0"
+    glob "^8.0.3"
+    is-builtin-module "^3.1.0"
+    is-path-inside "^4.0.0"
+    junk "^4.0.0"
+    locate-path "^7.0.0"
+    merge-options "^3.0.4"
+    minimatch "^9.0.0"
+    normalize-path "^3.0.0"
+    p-map "^5.0.0"
+    path-exists "^5.0.0"
+    precinct "^11.0.0"
+    require-package-name "^2.0.1"
+    resolve "^2.0.0-next.1"
+    semver "^7.3.8"
+    tmp-promise "^3.0.2"
+    toml "^3.0.0"
+    unixify "^1.0.0"
+    urlpattern-polyfill "8.0.2"
+    yargs "^17.0.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -5073,9 +5112,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.18.0"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.18.0.tgz#12877539d3ed3e70a5eb910b4b01a9ebd695f907"
-  integrity sha512-xRB5vHk8rPk7Ivzxa7bTeh000af/rHKcWzursCX6Reoted5Dd4BP7KDrl1kxkvVrUHq08aHVtER2qpNQP4JNgw==
+  version "17.18.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.18.1.tgz#45adac3d7b4b532e236277da64ae150c883010f1"
+  integrity sha512-j2db1wS4f3WUsBqXmBIlLC3bbjxxGQl3szFjTeLdM9tAHPBPM9mXsUXmmRuaQmyqSTCNmCR7zNPpBBB+p1MiLQ==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
@@ -5085,7 +5124,7 @@ netlify-cli@^17.0.0:
     "@netlify/config" "20.12.1"
     "@netlify/edge-bundler" "11.2.2"
     "@netlify/local-functions-proxy" "1.1.1"
-    "@netlify/zip-it-and-ship-it" "9.29.2"
+    "@netlify/zip-it-and-ship-it" "9.30.0"
     "@octokit/rest" "19.0.13"
     ansi-escapes "6.2.0"
     ansi-styles "6.2.1"
