@@ -1220,9 +1220,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/node@*":
-  version "20.11.27"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.27.tgz#debe5cfc8a507dd60fe2a3b4875b1604f215c2ac"
-  integrity sha512-qyUZfMnCg1KEz57r7pzFtSGt49f6RPkPBis3Vo4PbS7roQEDn22hiHzl/Lo1q4i4hDEgBJmBF/NTNg2XR0HbFg==
+  version "20.11.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.28.tgz#4fd5b2daff2e580c12316e457473d68f15ee6f66"
+  integrity sha512-M/GPWVS2wLkSkNHVeLkrF2fD5Lx5UC4PxA0uZcKc6QqbIQUJyW1jVjueJYi1z8n0I5PxYrtpnPnWglE+y9A0KA==
   dependencies:
     undici-types "~5.26.4"
 
@@ -5235,9 +5235,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.19.3"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.19.3.tgz#1a2f915ad376257dc4cf2a101d782a3012b315a6"
-  integrity sha512-m6ELMrNOpx3ArVPomVrnhrYooavcTzF7j5BmKpe7I1OEbMN8t1TKS2pJgiJMA5mg76L4Fl8YUzq1RS9RQ67pjA==
+  version "17.19.4"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.19.4.tgz#c0f26ea0cbc3ba34bf9536fa0fb56a236946bc45"
+  integrity sha512-00JOpNQS4qoHuQoxZZLeBLkya3wFBTb+zQ0cpsaVmaHs9pGWoCjdv7AGCBSrxThfkvuM1CHWmSLFKLd0eTvhXA==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
@@ -7417,9 +7417,9 @@ typescript@^5.0.0, typescript@^5.0.4:
   integrity sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==
 
 ufo@^1.3.0, ufo@^1.3.2, ufo@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.4.0.tgz#39845b31be81b4f319ab1d99fd20c56cac528d32"
-  integrity sha512-Hhy+BhRBleFjpJ2vchUNN40qgkh0366FWJGqVLYBHev0vpHTrXSA0ryT+74UiW6KWsldNurQMKGqCm1M2zBciQ==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.5.0.tgz#a6f358bf16d4f847d830f23395768638bc21c632"
+  integrity sha512-c7SxU8XB0LTO7hALl6CcE1Q92ZrLzr1iE0IVIsUa9SlFfkn2B2p6YLO6dLxOj7qCWY98PB3Q3EZbN6bEu8p7jA==
 
 uid-safe@2.1.5:
   version "2.1.5"
