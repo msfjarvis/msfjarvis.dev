@@ -5272,9 +5272,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.20.0"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.20.0.tgz#1606ad42c1af711c06e08c61b0bc6593fc19d2b6"
-  integrity sha512-SABN+Rmjy+rX1Yi9sLZGxcaJ8gDQO+axcZINU79ETb84p5uBAP3ILJaMyFgn/ZgXRFyFDadSqDpzaP/pvbgHbg==
+  version "17.20.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.20.1.tgz#2b357812d4d901eda16a12ba44f50efa71a05f16"
+  integrity sha512-Hj71m61PGteCk27t8y3O0y8JqFmMuPCitbVfDK1V/Ro+U6zUDsVQUFO3v4sEeoB8s/QOLhXZn/2NHu/sBUlDNQ==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
@@ -5451,9 +5451,9 @@ node-domexception@^1.0.0:
   integrity sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==
 
 node-fetch-native@^1.6.1, node-fetch-native@^1.6.2, node-fetch-native@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/node-fetch-native/-/node-fetch-native-1.6.3.tgz#93d7cd8ade3deec98bc873938b365a1b661fb575"
-  integrity sha512-5kvcZPQYJBlUPgHxG0L8RJ52wiu2Sn5RAXBJlU6xPv8X+4MbeOxJ8Do9NFzD1RaWDDc1OF2VtBTgo+OKzg01uA==
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/node-fetch-native/-/node-fetch-native-1.6.4.tgz#679fc8fd8111266d47d7e72c379f1bed9acff06e"
+  integrity sha512-IhOigYzAKHd244OC0JIMIUrjzctirCmPkaIfhDeGcEETWof5zKYUW7e7MYvChGWh/4CJeXEgsRyGzuF334rOOQ==
 
 node-fetch@2.6.12:
   version "2.6.12"
@@ -7169,9 +7169,9 @@ tar-stream@^3.0.0, tar-stream@^3.1.4, tar-stream@^3.1.5:
     streamx "^2.15.0"
 
 tar@^6.1.11:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.2.0.tgz#b14ce49a79cb1cd23bc9b016302dea5474493f73"
-  integrity sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.2.1.tgz#717549c541bc3c2af15751bea94b1dd068d4b03a"
+  integrity sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
