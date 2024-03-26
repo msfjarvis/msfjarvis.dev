@@ -495,10 +495,10 @@
   resolved "https://registry.yarnpkg.com/@netlify/blobs/-/blobs-6.5.0.tgz#8a5a2119e09c551b97418a14cc834a9d56ec73ec"
   integrity sha512-wRFlNnL/Qv3WNLZd3OT/YYqF1zb6iPSo8T31sl9ccL1ahBxW1fBqKgF4b1XL7Z+6mRIkatvcsVPkWBcO+oJMNA==
 
-"@netlify/build-info@7.13.0":
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/@netlify/build-info/-/build-info-7.13.0.tgz#ed0b12685e9f448fb014f2abdbd12adb2f53b2cf"
-  integrity sha512-rVwq9HGp72mLjSzmyHXMwmKBtArbZYdvLMnqIdiTOVJDOC7nL8mce1JQhHC4DI0dNe/3k3xfzceeKPeeNY993A==
+"@netlify/build-info@7.13.2":
+  version "7.13.2"
+  resolved "https://registry.yarnpkg.com/@netlify/build-info/-/build-info-7.13.2.tgz#8700e782c038640193b0d5ae67c20d3d38d14a62"
+  integrity sha512-smzhIgcms6Z/v2cct90l8ncBbnA5kvknj5/quhwyM6UHUycgMKFlA22qkB0KLj9shwL1Lkh7iQW751JwhSaP9g==
   dependencies:
     "@bugsnag/js" "^7.20.0"
     "@iarna/toml" "^2.2.5"
@@ -510,24 +510,23 @@
     yaml "^2.1.3"
     yargs "^17.6.0"
 
-"@netlify/build@29.36.3":
-  version "29.36.3"
-  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-29.36.3.tgz#0d1543749fa21872c139580a4f846fc0e57f2d91"
-  integrity sha512-WLJB98MVt1jfHuUZq3dg2RvqbThTtbrs/0zOyjFq0b3TVMic7CyOnVfDOz78pfwLwbojZM0PW+AVBh5hHkRJVA==
+"@netlify/build@29.36.6":
+  version "29.36.6"
+  resolved "https://registry.yarnpkg.com/@netlify/build/-/build-29.36.6.tgz#90a244f71b6f96744fce6e6151cb0daaebe0edae"
+  integrity sha512-crNoY5Vr7tAodBfYdz8weM+NTw5q6W6ArkowNw6QhKXa4iRXT5MY6H0c2ztsge9o5gAYs55bDhBpKiPcZlzDlA==
   dependencies:
     "@bugsnag/js" "^7.0.0"
     "@netlify/blobs" "^6.5.0"
     "@netlify/cache-utils" "^5.1.5"
     "@netlify/config" "^20.12.1"
     "@netlify/edge-bundler" "11.3.0"
-    "@netlify/framework-info" "^9.8.10"
+    "@netlify/framework-info" "^9.8.11"
     "@netlify/functions-utils" "^5.2.51"
     "@netlify/git-utils" "^5.1.1"
-    "@netlify/opentelemetry-utils" "^1.0.2"
+    "@netlify/opentelemetry-utils" "^1.0.3"
     "@netlify/plugins-list" "^6.75.0"
     "@netlify/run-utils" "^5.1.1"
     "@netlify/zip-it-and-ship-it" "9.29.2"
-    "@opentelemetry/api" "~1.7.0"
     "@sindresorhus/slugify" "^2.0.0"
     ansi-escapes "^6.0.0"
     chalk "^5.0.0"
@@ -647,10 +646,10 @@
     urlpattern-polyfill "8.0.2"
     uuid "^9.0.0"
 
-"@netlify/framework-info@^9.8.10":
-  version "9.8.10"
-  resolved "https://registry.yarnpkg.com/@netlify/framework-info/-/framework-info-9.8.10.tgz#a18589f132dafb5cb7f86c05a9895b9118633fe1"
-  integrity sha512-VT8ejAaB/XU2xRpdpQinHUO1YL3+BMx6LJ49wJk2u9Yq/VI1/gYCi5VqbqTHBQXJUlOi84YuiRlrDBsLpPr8eg==
+"@netlify/framework-info@^9.8.11":
+  version "9.8.11"
+  resolved "https://registry.yarnpkg.com/@netlify/framework-info/-/framework-info-9.8.11.tgz#a4b4740b906e7c59c853a8eaaf9a7067a2258a71"
+  integrity sha512-8NuvzQQVeU36PRilWqijiIWmjy6JZcqbKooGQ4bNgH/26YNdS+tN5gOWGWVYnRHgdmBUCycyYrM5h1Srwnq3hQ==
   dependencies:
     ajv "^8.12.0"
     filter-obj "^5.0.0"
@@ -771,7 +770,7 @@
   resolved "https://registry.yarnpkg.com/@netlify/open-api/-/open-api-2.28.0.tgz#11f22423decd54e563a4c79135ffd21e1abed86f"
   integrity sha512-lSx9yVn5mzTS7u9aevQyDRoWaHJYNl15B7CU373g8We39wW8fGh4sdNY7ciPWshf42FblOVlBdoasn/LpzquXg==
 
-"@netlify/opentelemetry-utils@^1.0.2":
+"@netlify/opentelemetry-utils@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@netlify/opentelemetry-utils/-/opentelemetry-utils-1.0.3.tgz#fa526022f21b2a5da8c1212c380a4231b296eb28"
   integrity sha512-1kpJ9lrCXkdhRy4DXf7H0MySOQ8K+8aAwl1aJGztMrq62luoN9qOAbZ5cnTpQHzBUfxveikWB32YuryNA42B8g==
@@ -1006,10 +1005,10 @@
   dependencies:
     "@octokit/openapi-types" "^18.0.0"
 
-"@opentelemetry/api@~1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.7.0.tgz#b139c81999c23e3c8d3c0a7234480e945920fc40"
-  integrity sha512-AdY5wvN0P2vXBi3b29hxZgSFvdhdxPB9+f0B6s//P9Q8nibRWeA3cHm8UmLpio9ABigkVHJ5NMPk+Mz8VCCyrw==
+"@opentelemetry/api@~1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.8.0.tgz#5aa7abb48f23f693068ed2999ae627d2f7d902ec"
+  integrity sha512-I/s6F7yKUDdtMsoBWXJe8Qz40Tui5vsuKCWJEWVL+5q9sSWRzzx6v2KeNsOBEwd94j0eWkpWCH4yB6rZg9Mf0w==
 
 "@parcel/watcher-android-arm64@2.4.1":
   version "2.4.1"
@@ -1170,9 +1169,9 @@
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
 "@tsconfig/node10@^1.0.7":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.9.tgz#df4907fc07a886922637b15e02d4cebc4c0021b2"
-  integrity sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.10.tgz#b7ebd3adfa7750628d100594f6726b054d2c33b2"
+  integrity sha512-PiaIWIoPvO6qm6t114ropMCagj6YAF24j9OkCA2mJDXFnlionEwhsBCJ8yek4aib575BI3OkART/90WsgHgLWw==
 
 "@tsconfig/node12@^1.0.7":
   version "1.0.11"
@@ -1494,12 +1493,10 @@ ansi-align@^3.0.1:
   dependencies:
     string-width "^4.1.0"
 
-ansi-escapes@6.2.0, ansi-escapes@^6.0.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-6.2.0.tgz#8a13ce75286f417f1963487d86ba9f90dccf9947"
-  integrity sha512-kzRaCqXnpzWs+3z5ABPQiVke+iq0KXkHo8xiWV4RPTi5Yli0l97BEQuhXV1s7+aSU/fu1kUuxgS4MsQ0fRuygw==
-  dependencies:
-    type-fest "^3.0.0"
+ansi-escapes@6.2.1, ansi-escapes@^6.0.0:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-6.2.1.tgz#76c54ce9b081dad39acec4b5d53377913825fb0f"
+  integrity sha512-4nJ3yixlEthEJ9Rk4vPcdBRkZvQZlYyu8j4/Mqz5sgIkddmEnH2Yj2ZrnP9S3tQOvSNRUIgVNF/1yPpRAGNRig==
 
 ansi-escapes@^3.2.0:
   version "3.2.0"
@@ -2974,9 +2971,9 @@ es-errors@^1.3.0:
   integrity sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==
 
 es-module-lexer@^1.0.0:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-1.4.2.tgz#ba1a62255ff9b41023aaf9bd08c016a5f1a3fef3"
-  integrity sha512-7nOqkomXZEaxUDJw21XZNtRk739QvrPSoZoRtbsEfcii00vdzZUh6zh1CQwHhrib8MdEtJfv5rJiGeb4KuV/vw==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-1.5.0.tgz#4878fee3789ad99e065f975fdd3c645529ff0236"
+  integrity sha512-pqrTKmwEIgafsYZAGw9kszYzmagcE/n4dbgwGWLEXg7J4QFJVQRBld8j3Q3GNez79jzxZshq0bcT962QHOghjw==
 
 es6-promisify@^6.0.0:
   version "6.1.1"
@@ -5272,21 +5269,22 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
 netlify-cli@^17.0.0:
-  version "17.20.1"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.20.1.tgz#2b357812d4d901eda16a12ba44f50efa71a05f16"
-  integrity sha512-Hj71m61PGteCk27t8y3O0y8JqFmMuPCitbVfDK1V/Ro+U6zUDsVQUFO3v4sEeoB8s/QOLhXZn/2NHu/sBUlDNQ==
+  version "17.21.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-17.21.1.tgz#6d218e2d8b04c522c7f204063298727d7c81d080"
+  integrity sha512-B8QveV55h2dFCTnk5LInVW1MiXPINTQ61IkEtih15CVYpvVSQy+he8M6hdpucq83VqaF/phaJkb3Si2ligOxxw==
   dependencies:
     "@bugsnag/js" "7.20.2"
     "@fastify/static" "6.10.2"
     "@netlify/blobs" "7.0.1"
-    "@netlify/build" "29.36.3"
-    "@netlify/build-info" "7.13.0"
+    "@netlify/build" "29.36.6"
+    "@netlify/build-info" "7.13.2"
     "@netlify/config" "20.12.1"
     "@netlify/edge-bundler" "11.3.0"
     "@netlify/local-functions-proxy" "1.1.1"
     "@netlify/zip-it-and-ship-it" "9.30.0"
     "@octokit/rest" "19.0.13"
-    ansi-escapes "6.2.0"
+    "@opentelemetry/api" "~1.8.0"
+    ansi-escapes "6.2.1"
     ansi-styles "6.2.1"
     ansi-to-html "0.7.2"
     ascii-table "0.0.9"
@@ -6235,9 +6233,9 @@ quote-unquote@^1.0.0:
   integrity sha512-twwRO/ilhlG/FIgYeKGFqyHhoEhqgnKVkcmqMKi2r524gz3ZbDTcyFt38E9xjJI2vT+KbRNHVbnJ/e0I25Azwg==
 
 radix3@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/radix3/-/radix3-1.1.1.tgz#60a56876ffec62c88a22396a6a1c4c7efe9eb4b1"
-  integrity sha512-yUUd5VTiFtcMEx0qFUxGAv5gbMc1un4RvEO1JZdP7ZUl/RHygZK6PknIKntmQRZxnMY3ZXD2ISaw1ij8GYW1yg==
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/radix3/-/radix3-1.1.2.tgz#fd27d2af3896c6bf4bcdfab6427c69c2afc69ec0"
+  integrity sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==
 
 random-bytes@~1.0.0:
   version "1.0.0"
@@ -7413,15 +7411,10 @@ type-fest@^2.0.0, type-fest@^2.11.2, type-fest@^2.12.2, type-fest@^2.13.0, type-
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.19.0.tgz#88068015bb33036a598b952e55e9311a60fd3a9b"
   integrity sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==
 
-type-fest@^3.0.0:
-  version "3.13.1"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-3.13.1.tgz#bb744c1f0678bea7543a2d1ec24e83e68e8c8706"
-  integrity sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==
-
 type-fest@^4.6.0, type-fest@^4.7.1:
-  version "4.13.1"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.13.1.tgz#166cba29f0aef1dde7d16cce1d17a1444bfdc3ad"
-  integrity sha512-ASMgM+Vf2cLwDMt1KXSkMUDSYCxtckDJs8zsaVF/mYteIsiARKCVtyXtcK38mIKbLTctZP8v6GMqdNaeI3fo7g==
+  version "4.14.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.14.0.tgz#46f9a358e605f0ec5ca99ab83deaa7257a7ae379"
+  integrity sha512-on5/Cw89wwqGZQu+yWO0gGMGu8VNxsaW9SB2HE8yJjllEk7IDTwnSN1dUVldYILhYPN5HzD7WAaw2cc/jBfn0Q==
 
 type-is@~1.6.18:
   version "1.6.18"
@@ -7743,9 +7736,9 @@ winston-transport@^4.7.0:
     triple-beam "^1.3.0"
 
 winston@^3.10.0:
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-3.12.0.tgz#a5d965a41d3dc31be5408f8c66e927958846c0d0"
-  integrity sha512-OwbxKaOlESDi01mC9rkM0dQqQt2I8DAUMRLZ/HpbwvDXm85IryEHgoogy5fziQy38PntgZsLlhAYHz//UPHZ5w==
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-3.13.0.tgz#e76c0d722f78e04838158c61adc1287201de7ce3"
+  integrity sha512-rwidmA1w3SE4j0E5MuIufFhyJPBDG7Nu71RkZor1p2+qHvJSZ9GYDA81AyleQcZbh/+V6HjeBdfnTZJm9rSeQQ==
   dependencies:
     "@colors/colors" "^1.6.0"
     "@dabh/diagnostics" "^2.0.2"
