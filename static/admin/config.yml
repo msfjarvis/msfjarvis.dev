@@ -7,13 +7,14 @@ collections:
   - name: 'blog'
     label: 'Blog'
     folder: 'content/posts'
+    path: '{{slug}}/index.md'
     create: true
     slug: '{{slug}}'
     editor:
       preview: false
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - { label: 'Publish Date', name: 'date', widget: 'datetime', picker_utc: true }
       - { label: 'Description', name: 'summary', widget: 'string' }
       - { label: 'Draft', name: 'draft', widget: 'boolean' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
