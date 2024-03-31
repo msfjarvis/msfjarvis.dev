@@ -12,7 +12,8 @@ tags:
   - renovate
 title: Tips and tricks for using Renovate
 ---
-[Mend Renovate](https://www.mend.io/free-developer-tools/renovate/) is a free to use dependency update management service powered by the open-source [renovate](https://github.com/renovatebot/renovate), and is a compelling alternative to GitHub's blessed solution for this problem space: [Dependabot](https://docs.github.com/en/code-security/dependabot). Renovate offers a significantly larger suite of supported language ecosystems compared to Dependabot as well as fine-grained control over where it finds dependencies, how it chooses updated versions, and a lot more. TL;DR: Renovate is a massive upgrade over Dependabot and you should evaluate it if *any* aspect of Dependabot has caused you grief, there's a good chance Renovate does it better.
+
+[Mend Renovate](https://www.mend.io/free-developer-tools/renovate/) is a free to use dependency update management service powered by the open-source [renovate](https://github.com/renovatebot/renovate), and is a compelling alternative to GitHub's blessed solution for this problem space: [Dependabot](https://docs.github.com/en/code-security/dependabot). Renovate offers a significantly larger suite of supported language ecosystems compared to Dependabot as well as fine-grained control over where it finds dependencies, how it chooses updated versions, and a lot more. TL;DR: Renovate is a massive upgrade over Dependabot and you should evaluate it if _any_ aspect of Dependabot has caused you grief, there's a good chance Renovate does it better.
 
 I'm collecting some tips here about "fancy" things I've done using Renovate that may be helpful to other folks. You'll be able to find more details about all of these in their very high quality docs at [docs.renovatebot.com](https://docs.renovatebot.com/).
 
@@ -26,9 +27,9 @@ There are times where you're sticking with an older version of a package (tempor
     {
       "managers": ["gradle"],
       "packagePatterns": ["^com.squareup.okhttp3"],
-      "enabled": false,
-    },
-  ],
+      "enabled": false
+    }
+  ]
 }
 ```
 
@@ -40,13 +41,8 @@ Renovate already includes preset configurations for [monorepos](https://github.c
 {
   "packageRules": [
     {
-      "managers": [
-        "cargo"
-      ],
-      "matchPackagePatterns": [
-        "serde",
-        "serde_derive"
-      ],
+      "managers": ["cargo"],
+      "matchPackagePatterns": ["serde", "serde_derive"],
       "groupName": "serde"
     }
   ]
@@ -87,9 +83,7 @@ This is how the relevant configuration might look like with Renovate
     {
       "description": "Update Hugo version in Netlify config",
       "fileMatch": [".toml$"],
-      "matchStrings": [
-        "HUGO_VERSION = \"(?<currentValue>.*?)\""
-      ],
+      "matchStrings": ["HUGO_VERSION = \"(?<currentValue>.*?)\""],
       "depNameTemplate": "gohugoio/hugo",
       "datasourceTemplate": "github-releases"
     }
@@ -108,9 +102,9 @@ According to GitHub's [official recommendations](https://docs.github.com/en/acti
   "extends": [
     "config:base",
     ":dependencyDashboard",
-    "helpers:pinGitHubActionDigests",
- ﻿ ]
-}﻿
+    "helpers:pinGitHubActionDigests"
+  ]
+}
 ```
 
 ## Automatically merging compatible updates
@@ -125,7 +119,7 @@ Every person with a JavaScript project has definitely loved getting 20 PRs from 
       "description": "Automerge non-major updates",
       "matchUpdateTypes": ["minor", "patch", "digest", "lockFileMaintenance"],
       "automerge": true
-    },
+    }
   ]
 }
 ```

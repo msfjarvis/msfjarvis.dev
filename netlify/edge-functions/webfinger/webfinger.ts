@@ -11,7 +11,7 @@ export default async (request: Request, context: Context) => {
       },
       {
         status: Status.BadRequest,
-      }
+      },
     );
   } else if (resourceParam !== "acct:harsh@msfjarvis.dev") {
     return context.json(
@@ -20,7 +20,7 @@ export default async (request: Request, context: Context) => {
       },
       {
         status: Status.BadRequest,
-      }
+      },
     );
   } else {
     return context.json({

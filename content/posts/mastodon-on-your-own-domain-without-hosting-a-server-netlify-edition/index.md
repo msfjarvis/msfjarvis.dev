@@ -91,7 +91,7 @@ export default async (request: Request, context: Context) => {
       },
       {
         status: Status.BadRequest,
-      }
+      },
     );
     // I want to be searchable as `@harsh@msfjarvis.dev`, so I only
     // allow requests that set the resource query param to this value.
@@ -102,7 +102,7 @@ export default async (request: Request, context: Context) => {
       },
       {
         status: Status.BadRequest,
-      }
+      },
     );
   } else {
     // Here's the JSON object we got earlier

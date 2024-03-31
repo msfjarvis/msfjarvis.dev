@@ -38,11 +38,11 @@ export default async (request: Request, context: Context) => {
           return redirect(`${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}`);
         case 3:
           return redirect(
-            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/commit/${urlParts[2]}`
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/commit/${urlParts[2]}`,
           );
         case 4:
           return redirect(
-            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/issues/${urlParts[3]}`
+            `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/issues/${urlParts[3]}`,
           );
       }
     default:
