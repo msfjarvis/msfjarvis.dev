@@ -1,4 +1,4 @@
-github.com/adityatelange/hugo-PaperMod v0.0.0-20231210070605-e0fc64c43e8f h1:f+YeYKNnRlma+NrgGtinVOd4ER4DHi4QcIOjoodEuIw=
-github.com/adityatelange/hugo-PaperMod v0.0.0-20231210070605-e0fc64c43e8f/go.mod h1:HCHxNMKYdGafUYjVV3ICiAqznZK2yH0iI53jqcDFDdQ=
-github.com/msfjarvis/hugo-social-metadata v1.0.0 h1:mfLnus8iznPGiyFkJC93eCWr1PrdiNyv2BSONX1ZQVg=
-github.com/msfjarvis/hugo-social-metadata v1.0.0/go.mod h1:VfkrQTa9Gvdja58swLlBZz2/7ZEoj5nk9xt0pJAhfVo=
+github.com/adityatelange/hugo-PaperMod v0.0.0-20240316195851-dad94ab4b7c5 h1:yczLu4cdgnLAiRHGQuxTP86WHfEvip4IAkcKT/2HocE=
+github.com/adityatelange/hugo-PaperMod v0.0.0-20240316195851-dad94ab4b7c5/go.mod h1:HCHxNMKYdGafUYjVV3ICiAqznZK2yH0iI53jqcDFDdQ=
+github.com/msfjarvis/hugo-social-metadata v1.0.1 h1:cnFLbgfEfiDGC7iFUTZ+Y6ME0Lw9rAARMjn4emfb4wQ=
+github.com/msfjarvis/hugo-social-metadata v1.0.1/go.mod h1:VfkrQTa9Gvdja58swLlBZz2/7ZEoj5nk9xt0pJAhfVo=
