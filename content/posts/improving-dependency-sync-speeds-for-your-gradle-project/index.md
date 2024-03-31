@@ -28,11 +28,11 @@ To get an idea for how long it actually takes your project to fetch its dependen
 
 In Android Studio, create a new run configuration for Gradle's in-built `dependencies` task that will resolve all configurations and give us a more representative number. The `--refresh-dependencies` flag will force a full re-download to ensure caches do not affect our benchmarks:
 
-{{< figure src="run-configuration.png" title="The Android Studio Run configuration window configured with the task ':android:dependencies --refresh-dependencies'" >}}
+{{< figure src="run-configuration.webp" title="The Android Studio Run configuration window configured with the task ':android:dependencies --refresh-dependencies'" >}}
 
 When you run this task, you'll see the Build tool window at the bottom get populated with logs of Gradle downloading dependencies and the Downloads info tab will start accumulating the statistics for it.
 
-{{< figure src="download-info.png" title="Download info window showing a list of network requests and their sources while the task is running" >}}
+{{< figure src="download-info.webp" title="Download info window showing a list of network requests and their sources while the task is running" >}}
 
 ## How Gradle fetches your dependencies
 
@@ -283,11 +283,11 @@ The exact percentage improvement you can expect can vary depending on how many d
 
 ### Before
 
-{{< figure src="before-fixes.png" title="The Android Studio Dependency Sync window, showing a total sync duration of 5 minutes and 56 seconds of which 1 minute and 30 seconds went into failed network requests" >}}
+{{< figure src="before-fixes.webp" title="The Android Studio Dependency Sync window, showing a total sync duration of 5 minutes and 56 seconds of which 1 minute and 30 seconds went into failed network requests" >}}
 
 ### After
 
-{{< figure src="after-fixes.png" title="The Android Studio Dependency Sync window, now showing the total sync taking only 3 minutes and 17 seconds with 0 failed requests" >}}
+{{< figure src="after-fixes.webp" title="The Android Studio Dependency Sync window, now showing the total sync taking only 3 minutes and 17 seconds with 0 failed requests" >}}
 
 Like and subscribe, and hit that notification bell so you don't miss my next post some time within this decade (hopefully).
 
