@@ -1,21 +1,34 @@
 ---
 title: Improving dependency sync speeds for your Gradle project
-date: 2023-12-09T14:46:07.031Z
+date: 2024-03-30T21:43:07.031Z
 summary: Waiting for Gradle to download dependencies before your IDE becomes
   usable is a constant pain for developers. Here are some tips to speed up that
   process.
-draft: true
 ---
 
-Android developers are intimately familiar with the ritual of staring at your IDE for tens of minutes while Gradle imports the project before they can start working. While not fully avoidable, there are many ways to improve the situation. For small to medium projects, the time spent on this import phase is largely dominated by dependency downloads.
+Android developers are intimately familiar with the ritual of staring at your IDE for tens of minutes while Gradle imports a new project before they can start working on it. While not fully avoidable, there are many ways to improve the situation. For small to medium projects, the time spent on this import phase can be largely dominated by dependency downloads.
+
+## Preface
+
+This post is going to assume some things about you and your project, but you should be fine even if these aren't true for you.
+
+- You're somewhat comfortable mucking around with Gradle
+- Your project is using Gradle 8.7, the latest as of writing
+
+If you're stuck on a lower version of Gradle, you will hit [this bug] with the code samples in the post. Replacing all calls to `includeGroupAndSubgroups` with `includeGroupByRegex` can let you work around it temporarily (Note the addition of the `.*` at the end):
+
+```diff
+- includeGroupAndSubgroups("com.example")
++ includeGroupByRegex("com.example.*")
+```
 
 ## Obtaining a baseline
 
 To get an idea for how long it actually takes your project to fetch its dependencies and to establish a baseline to compare improvements again, we can leverage Android Studio's relatively new [Downloads Info] view to see how many network requests are being made and how many of those are failing and contributing to our slower build. Gradle has a `--refresh-dependencies` flag which ignores its existing cache of downloaded dependencies and redownloads them from the remote repositories which will allow us to get consistent results, barring network and disk fluctuations.
 
-In Android Studio, create a new run configuration with a commonly used task that will require your entire dependency tree, such as `assembleDebug` and specify the `--refresh-dependencies` flag so that it looks like this:
+In Android Studio, create a new run configuration for Gradle's in-built `dependencies` task that will resolve all configurations and give us a more representative number. The `--refresh-dependencies` flag will force a full re-download to ensure caches do not affect our benchmarks:
 
-{{< figure src="run-configuration.png" title="The Android Studio Run configuration window configured with the task ':android:assembleDebug --refresh-dependencies'" >}}
+{{< figure src="run-configuration.png" title="The Android Studio Run configuration window configured with the task ':android:dependencies --refresh-dependencies'" >}}
 
 When you run this task, you'll see the Build tool window at the bottom get populated with logs of Gradle downloading dependencies and the Downloads info tab will start accumulating the statistics for it.
 
@@ -23,7 +36,11 @@ When you run this task, you'll see the Build tool window at the bottom get popul
 
 ## How Gradle fetches your dependencies
 
-The Gradle documentation for [dependency resolution] explains in some depth how the version conflict resolution and caching systems work, but the important part for us is that dependencies are searched for in the repositories declared by the user, **in order**. This is crucial, since it can dramatically affect the total duration of your dependency resolution as we will explore below.
+The Gradle documentation for [dependency resolution] explains in some depth how the version conflict resolution and caching systems work, but that's pretty jargon-heavy and too much of a detour from what we're really here to do so I'll just Spark Notes™️ it and move on to more fun stuff.
+
+- Gradle requires declaring **repositories** where dependencies are fetched from.
+- Dependencies are looked up in each repository, **in declaration order**, until they are found in one.
+- Gradle makes a lot of network requests as part of this lookup, and it is in our interest to reduce them.
 
 ## A quick attempt at optimisation
 
@@ -52,7 +69,7 @@ dependencyResolutionManagement {
 
 This tells Gradle that you want plugin dependencies to be looked up from [Maven Central] and [gMaven], and for all other dependencies to come from [JitPack], [gMaven], [Maven Central], or the [Maven Central snapshots] repository; **in that order**. The first simple tweak you can make is to reorder these based on how many of your dependencies you expect to come from what repository.
 
-For example, in a typical Android build most of your plugin classpath will be dominated by the Android Gradle Plugin (AGP), so you'd want gMaven to be come first so that Gradle does not try to find it on Maven Central.
+For example, in a typical Android build most of your plugin classpath will be dominated by the Android Gradle Plugin (AGP), so you'd want gMaven to be come first so that Gradle does not waste time trying to find AGP on Maven Central.
 
 ```diff
  pluginManagement {
@@ -86,10 +103,10 @@ With the minor changes made above we have already significantly improved on our 
 
 Gradle's repositories APIs also support the notion of specifying the expected "contents" of individual repositories, which tells Gradle what groups of dependencies are supposed to be available in what repositories. This allows it to prevent redundant network requests and significantly boosts sync performance.
 
-There are two major distinctions that can be expressed for such filters:
+These filters can be of two types:
 
-- Declaring that certain artifacts can _only_ be resolved from certain repositories ([`exclusiveContent`])
-- Declaring that a repository _only_ contains certain artifacts ([`content`])
+- Declaring that certain artifacts can _only_ be resolved from certain repositories: [`exclusiveContent`]
+- Declaring that a repository _only_ contains certain artifacts: [`content`]
 
 The difference is subtle, but should become clearer shortly as we start hacking on our setup.
 
@@ -100,7 +117,7 @@ For our plugins block, we want only gMaven to supply AGP and everything else can
  pluginManagement {
    repositories {
 -    google()
-+    exclusiveContent { // Filter of the first kind
++    exclusiveContent { // First type of filter
 +      forRepository { google() } // Specify the repository this applies to
 +      filter { // Start specifying what dependencies are *only* found in this repo
 +        includeGroupAndSubgroups("androidx")
@@ -113,7 +130,7 @@ For our plugins block, we want only gMaven to supply AGP and everything else can
  }
 ```
 
-For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filter mentioned earlier, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from `androidx.dev`, while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
+For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filter, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from [androidx.dev], while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
 
 ```diff
  dependencyResolutionManagement {
@@ -141,7 +158,7 @@ For other dependencies that are governed by the `dependencyResolutionManagement`
 
 This setup tells Gradle the specific artifacts present in these repositories but does not enforce any restrictions on which repository said artifacts can come from. Now, if I use a pre-release version of the Compose Compiler, Gradle will first try to look it up in [gMaven] and then fall back to the `androidx.dev` repository.
 
-In the above example we also see [JitPack] being mentioned, which we only wish to use for a specific dependency that's unavailable elsewhere. This can be done with an [`exclusiveContent`] filter:
+In the above example we also see [JitPack] being mentioned, which we only wish to use for a specific dependency that's unavailable elsewhere. The [`exclusiveContent`] filter is precisely for this use case:
 
 ```diff
 dependencyResolutionManagement {
@@ -289,3 +306,5 @@ Like and subscribe, and hit that notification bell so you don't miss my next pos
 [`mavencontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-maven-artifact-repository/maven-content.html?query=abstract%20fun%20mavenContent(configureAction:%20Action%3Cout%20Any%3E)
 [`exclusivecontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.dsl/-repository-handler/exclusive-content.html?query=abstract%20fun%20exclusiveContent(action:%20Action%3Cout%20Any%3E)
 [KT-51379]: https://youtrack.jetbrains.com/issue/KT-51379
+[androidx.dev]: https://androidx.dev/storage/compose-compiler/repository
+[this bug]: https://github.com/gradle/gradle/issues/26569
