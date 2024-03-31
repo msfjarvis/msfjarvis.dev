@@ -54,6 +54,12 @@
             help = "Build the site";
           }
         ];
+        env = [
+          {
+            name = "DEVSHELL_NO_MOTD";
+            value = 1;
+          }
+        ];
       };
     });
 }
