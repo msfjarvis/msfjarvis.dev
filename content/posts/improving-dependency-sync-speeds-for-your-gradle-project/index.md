@@ -17,7 +17,6 @@ In Android Studio, create a new run configuration with a commonly used task that
 
 {{< figure src="run-configuration.png" title="The Android Studio Run configuration window configured with the task ':android:assembleDebug --refresh-dependencies'" >}}
 
-
 When you run this task, you'll see the Build tool window at the bottom get populated with logs of Gradle downloading dependencies and the Downloads info tab will start accumulating the statistics for it.
 
 {{< figure src="download-info.png" title="Download info window showing a list of network requests and their sources while the task is running" >}}
@@ -28,7 +27,7 @@ The Gradle documentation for [dependency resolution] explains in some depth how 
 
 ## A quick attempt at optimisation
 
-In the previous section I started off by mentioning **repositories**, which define *where* Gradle will look for dependencies. The repositories setup for a typical Android project might look something like this:
+In the previous section I started off by mentioning **repositories**, which define _where_ Gradle will look for dependencies. The repositories setup for a typical Android project might look something like this:
 
 ```kotlin
 // settings.gradle.kts
@@ -83,14 +82,14 @@ For the `dependencyResolutionManagement` block, JitPack is very likely to only h
 
 ## Going for zero
 
-With the minor changes made above we have already significantly improved on our failed requests metric, but why stop at good when we can have *perfect*.
+With the minor changes made above we have already significantly improved on our failed requests metric, but why stop at good when we can have _perfect_.
 
 Gradle's repositories APIs also support the notion of specifying the expected "contents" of individual repositories, which tells Gradle what groups of dependencies are supposed to be available in what repositories. This allows it to prevent redundant network requests and significantly boosts sync performance.
 
 There are two major distinctions that can be expressed for such filters:
 
-* Declaring that certain artifacts can *only* be resolved from certain repositories ([`exclusiveContent`])
-* Declaring that a repository *only* contains certain artifacts ([`content`])
+- Declaring that certain artifacts can _only_ be resolved from certain repositories ([`exclusiveContent`])
+- Declaring that a repository _only_ contains certain artifacts ([`content`])
 
 The difference is subtle, but should become clearer shortly as we start hacking on our setup.
 
@@ -104,8 +103,8 @@ For our plugins block, we want only gMaven to supply AGP and everything else can
 +    exclusiveContent { // Filter of the first kind
 +      forRepository { google() } // Specify the repository this applies to
 +      filter { // Start specifying what dependencies are *only* found in this repo
-+        includeGroupByRegex("androidx.*")
-+        includeGroupByRegex("com.android.*")
++        includeGroupAndSubgroups("androidx")
++        includeGroupAndSubgroups("com.android")
 +        includeGroup("com.google.testing.platform")
 +      }
 +    }
@@ -113,8 +112,6 @@ For our plugins block, we want only gMaven to supply AGP and everything else can
    }
  }
 ```
-
-Ideally this is better handled by the [`includeGroupAndSubgroups`] API rather than a regular expression, but it has [a critical bug] that prevents us from using it right now. This is slated to be fixed in Gradle 8.7, and I will update the post when that is released.
 
 For other dependencies that are governed by the `dependencyResolutionManagement` block, the setup is similar. To demonstrate the usage of the second kind of filter mentioned earlier, we're introducing an additional constraint: assume the build relies on the [Jetpack Compose Compiler], and we go back and forth between stable and pre-release builds of it. The pre-release builds can only be obtained from `androidx.dev`, while the stable builds only exist on [gMaven]. If we tried to use `exclusiveContent` here, it would make Gradle only check one of the declared repositories for the artifact and fail if it doesn't find it there. To allow this fallback, we instead use a `content` filter as follows.
 
@@ -124,9 +121,9 @@ For other dependencies that are governed by the `dependencyResolutionManagement`
 -    google()
 +    google {
 +      content {
-+        includeGroupByRegex("androidx.*")
-+        includeGroupByRegex("com.android.*")
-+        includeGroupByRegex("com.google.*")
++        includeGroupAndSubgroups("androidx")
++        includeGroupAndSubgroups("com.android")
++        includeGroupAndSubgroups("com.google")
 +      }
 +    }
 +    maven("https://androidx.dev/storage/compose-compiler/repository") {
@@ -151,9 +148,9 @@ dependencyResolutionManagement {
   repositories {
     google {
       content {
-        includeGroupByRegex("androidx.*")
-        includeGroupByRegex("com.android.*")
-        includeGroupByRegex("com.google.*")
+        includeGroupAndSubgroups("androidx")
+        includeGroupAndSubgroups("com.android")
+        includeGroupAndSubgroups("com.google")
       }
     }
     maven("https://androidx.dev/storage/compose-compiler/repository") {
@@ -178,9 +175,9 @@ dependencyResolutionManagement {
   repositories {
     google {
       content {
-        includeGroupByRegex("androidx.*")
-        includeGroupByRegex("com.android.*")
-        includeGroupByRegex("com.google.*")
+        includeGroupAndSubgroups("androidx")
+        includeGroupAndSubgroups("com.android")
+        includeGroupAndSubgroups("com.google")
       }
     }
     maven("https://androidx.dev/storage/compose-compiler/repository") {
@@ -275,7 +272,6 @@ The exact percentage improvement you can expect can vary depending on how many d
 
 {{< figure src="after-fixes.png" title="The Android Studio Dependency Sync window, now showing the total sync taking only 3 minutes and 17 seconds with 0 failed requests" >}}
 
-
 Like and subscribe, and hit that notification bell so you don't miss my next post some time within this decade (hopefully).
 
 [downloads info]: https://developer.android.com/studio/releases/past-releases/as-giraffe-release-notes#download-info-sync
@@ -289,8 +285,6 @@ Like and subscribe, and hit that notification bell so you don't miss my next pos
 [gMaven]: https://maven.google.com/web/index.html
 [jitpack]: https://jitpack.io
 [jetpack compose compiler]: https://developer.android.com/jetpack/androidx/releases/compose-compiler
-[`includegroupandsubgroups`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-inclusive-repository-content-descriptor/include-group-and-subgroups.html
-[a critical bug]: https://github.com/gradle/gradle/issues/26569
 [`content`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-artifact-repository/content.html?query=abstract%20fun%20content(configureAction:%20Action%3Cout%20Any%3E)
 [`mavencontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-maven-artifact-repository/maven-content.html?query=abstract%20fun%20mavenContent(configureAction:%20Action%3Cout%20Any%3E)
 [`exclusivecontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.dsl/-repository-handler/exclusive-content.html?query=abstract%20fun%20exclusiveContent(action:%20Action%3Cout%20Any%3E)
