@@ -4,6 +4,7 @@ date: 2024-03-30T21:43:07.031Z
 summary: Waiting for Gradle to download dependencies before your IDE becomes
   usable is a constant pain for developers. Here are some tips to speed up that
   process.
+socialImage: "uploads/gradle-social.webp"
 ---
 
 Android developers are intimately familiar with the ritual of staring at your IDE for tens of minutes while Gradle imports a new project before they can start working on it. While not fully avoidable, there are many ways to improve the situation. For small to medium projects, the time spent on this import phase can be largely dominated by dependency downloads.
