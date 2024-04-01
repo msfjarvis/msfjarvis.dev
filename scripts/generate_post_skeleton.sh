@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 function create_post() {
-  local title filename postslug postdate
+  local title postslug postdate
   if [ $# -lt 1 ]; then
     echo -e "\033[01;31mProviding a title is a must!\033[0m"
     return
@@ -16,9 +16,9 @@ function create_post() {
     echo -e "\033[01;31mProviding a title is a must!\033[0m"
     return
   }
-  filename="${postslug}.md"
-  printf "+++\ncategories = []\ndate = %s\nsummary = \"\"\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${filename}"
-  echo "content/posts/${filename} created!"
+  mkdir -p content/posts/"${postslug}"
+  printf "+++\ncategories = []\ndate = %s\nsummary = \"\"\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${postslug}"/index.md
+  echo "content/posts/${postslug} created!"
 }
 
 create_post "${@}"
