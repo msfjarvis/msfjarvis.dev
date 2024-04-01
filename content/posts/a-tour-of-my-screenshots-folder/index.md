@@ -2,7 +2,6 @@
 categories = ["april-cools"]
 date = 2024-04-01
 summary = "The history of my Minecraft adventures as told by my screenshots folder"
-draft = true
 slug = "a-tour-of-my-screenshots-folder"
 tags = ["april-cools", "minecraft"]
 title = "A tour of my screenshots folder"
