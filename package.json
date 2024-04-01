@@ -7,7 +7,7 @@
   "scripts": {
     "build": "hugo",
     "dev": "hugo serve",
-    "format": "prettier --write '**/*.{ts,js,json,md}' --ignore-path .gitignore"
+    "format": "prettier --write '**/*.{ts,js,json,md,code-snippets}' --ignore-path .gitignore"
   },
   "author": "Harsh Shandilya <me@msfjarvis.dev>",
   "license": "MIT OR Apache-2.0",

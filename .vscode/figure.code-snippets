@@ -1,0 +1,10 @@
+{
+  "Hugo figure": {
+    "scope": "markdown",
+    "prefix": "",
+    "body": [
+      "{{<figure src=\"\" alt=\"\" title=\"Date taken: \" loading=\"lazy\">}}",
+    ],
+    "description": "Add a Hugo figure shortcode",
+  },
+}
