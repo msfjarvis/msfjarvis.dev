@@ -1,11 +1,9 @@
----
-title: Using Retrofit to disguise scraping as a REST API
-date: 2023-09-13T07:08:10.659Z
-summary: We've all used Retrofit to interact with REST APIs for as long as we
-  can remember, but what if there was no API?
-draft: true
----
-
++++
+title = "Using Retrofit to disguise scraping as a REST API"
+date = "2023-09-13T07:08:10.659Z"
+summary = "We've all used Retrofit to interact with REST APIs for as long as we can remember, but what if there was no API?"
+draft = true
++++
 Square's Retrofit is best known for being the gold standard of REST clients in the JVM/Android ecosystem, but it's excellent API design also lends itself to great extensibility which we will leverage today.
 
 While trying to implement post search functionality in [Claw](https://msfjarvis.dev/g/compose-lobsters), my [lobste.rs](https://lobste.rs) client I stumbled into a _tiny_ problem: there was no API! lobste.rs has a [web-based search](https://lobste.rs/search) but no equivalent mechanism via the JSON API I was using for doing everything else within the app.
