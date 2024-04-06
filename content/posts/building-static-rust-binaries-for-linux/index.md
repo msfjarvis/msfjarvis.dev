@@ -1,11 +1,11 @@
 +++
-categories = ["rust"]
 date = 2021-10-17
 summary = "Some tips on building static binaries of Rust projects targeting Linux"
+categories = ["rust"]
 slug = "building-static-rust-binaries-for-linux"
-tags = ["rust static linking", "rust static binary", "rust build static binary"]
 title = "Building static Rust binaries for Linux"
-socialImage = "uploads/rust_social.webp"
+tags = ["rust static linking", "rust static binary", "rust build static binary"]
+socialImage = "rust_social.webp"
 +++
 
 Rust has supported producing statically linked binaries since [RFC #1721] which proposed the `target-feature=+crt-static` flag to statically link the platform C library into the final binary. This was initially only supported for Windows MSVC and the MUSL C library. While MUSL works for _most_ people, it

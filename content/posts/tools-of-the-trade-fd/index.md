@@ -1,11 +1,11 @@
 +++
-categories = ["tools-of-the-trade"]
 date = 2020-08-18
 summary = "Probably the final post of this series? Let's talk about fd!"
+categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-fd"
-socialImage = "uploads/tools-of-the-trade-fd.webp"
-tags = ["fd", "cli-tools"]
 title = "Tools of the trade: fd"
+tags = ["fd", "cli-tools"]
+socialImage = "tools-of-the-trade-fd.webp"
 +++
 
 Continuing [this series](/categories/tools-of-the-trade/), let's talk about [fd](https://github.com/sharkdp/fd).

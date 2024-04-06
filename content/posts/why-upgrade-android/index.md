@@ -1,13 +1,13 @@
 +++
-categories = ["android"]
-date = 2020-07-23
 summary = "(Mostly) everybody agrees that Android upgrades are good, but how very crucial they are to security and privacy often gets overlooked. Let's dig into that."
-devLink = "https://dev.to/msfjarvis/why-upgrade-android-557f"
-slug = "why-upgrade-android"
-socialImage = "uploads/why_upgrade_android_social.webp"
-tags = ["updates", "security", "privacy"]
-title = "Why upgrade Android?"
 toc = true
+slug = "why-upgrade-android"
+date = 2020-07-23
+socialImage = "why_upgrade_android_social.webp"
+devLink = "https://dev.to/msfjarvis/why-upgrade-android-557f"
+title = "Why upgrade Android?"
+categories = ["android"]
+tags = ["updates", "security", "privacy"]
 +++
 
 A couple days ago I came across a security conscious user who was quick to point out why a particular feature had to be added to APS, but failed to realise the fact that the problem wouldn't even exist if they were running the latest version of Android (we'll talk about the behavior change that fixed it later here).

@@ -1,12 +1,12 @@
 +++
-categories = ["webdev"]
-date = 2019-12-17
 summary = "Analytics platforms are often overwhelming and a privacy nightmare -- here's how to bring analytics to the backend with very simple tooling"
-devLink = "https://dev.to/msfjarvis/server-side-analytics-with-goaccess-pg8"
 slug = "serverside-stats-with-goaccess"
-socialImage = "uploads/goaccess_social.webp"
-tags = ["caddyserver", "goaccess", "analytics"]
+date = 2019-12-17
+socialImage = "goaccess_social.webp"
+devLink = "https://dev.to/msfjarvis/server-side-analytics-with-goaccess-pg8"
 title = "Server-side analytics with Goaccess"
+categories = ["webdev"]
+tags = ["caddyserver", "goaccess", "analytics"]
 +++
 
 Analytics are a very helpful aspect of any development. They allow developers to know what parts of their apps are visited the most often and can use more attention, and for bloggers to know what content does or does not resonate with their readers.
@@ -23,7 +23,7 @@ Goaccess is an **open-source**, **real-time** web log analyzer. In other words, 
 
 To create a compelling analytics experience, we'll need to use Goaccess' `--real-time-html` option, that creates an HTML report, and an accompanying `WebSocket` server that will dispatch a request to update the page data every time goaccess parses updated logs. Here's a peek at Goaccess' terminal visualizer, to get an idea about the datasets you can expect from the web version.
 
-![Goaccess in the terminal](/uploads/goaccess_terminal.webp)
+![Goaccess in the terminal](goaccess_terminal.webp)
 
 Goaccess supports most common webserver log formats, and [some more](https://goaccess.io/man#options) with the option to provide your own format if you're using custom solutions. I'm using `VCOMMON`, as that is the default log format of my webserver of choice, [Caddy](https://caddyserver.com). Here's the command executed by the systemd unit that I use for goaccess. I'll explain every option in a bit.
 

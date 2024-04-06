@@ -1,12 +1,12 @@
 +++
-categories = ["aps"]
-date = 2020-07-22
 summary = "Long form release notes for the Android Password Store July release"
-slug = "aps-july-release"
-socialImage = "uploads/aps_banner.webp"
-tags = ["relnotes", "oss", "android-password-store"]
-title = "Android Password Store July release"
 toc = true
+slug = "aps-july-release"
+title = "Android Password Store July release"
+date = 2020-07-22
+categories = ["aps"]
+tags = ["relnotes", "oss", "android-password-store"]
+socialImage = "aps_banner.webp"
 +++
 
 As promised, here are detailed release notes for the [v1.10.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.10.0) build of Android Password Store that is going out right now on the Play Store and to F-Droid in the coming days. This is a massive one even compared to our previous v1.9.0 major release, which was our largest release when it went out. Let's dive into the changes!
@@ -65,7 +65,7 @@ We've been aggressively refactoring the codebase to use modern APIs like [Activi
 
 Right off the bat, you will notice a brand new icon for Password Store. This was created for us by [Radek Błędowski](https://twitter.com/RKBDI), go check him out!
 
-![New icon](/uploads/aps_banner.webp)
+![New icon](aps_banner.webp)
 
 To complement the new icon, we've also updated our color scheme to better suit this new branding.
 

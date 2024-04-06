@@ -1,12 +1,12 @@
 +++
-categories = ["android"]
-date = 2019-11-21
 summary = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
-devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
 slug = "publishing-an-android-library-to-github-packages"
-socialImage = "uploads/github_packages_social.webp"
-tags = ["gradle", "github", "packaging"]
+date = 2019-11-21
+socialImage = "github_packages_social.webp"
+devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
 title = "Publishing an Android library to GitHub Packages"
+categories = ["android"]
+tags = ["gradle", "github", "packaging"]
 +++
 
 > UPDATE(06/06/2020): The Android Gradle Plugin supports Gradle's inbuilt `maven-publish` plugin since version 4.0.0, so I've added the updated process for utilising it at the beginning of this guide. The previous post follows that section.
@@ -275,6 +275,6 @@ That's it! Once you push to GitHub, you'll see the [action running](https://gith
 
 The requirement to authenticate for packages is a significant problem with GitHub Packages' adoption, giving an edge to solutions like [JitPack](https://jitpack.io) which handle the entire process automagically. As mentioned earlier, I did contact GitHub support about it and got this back.
 
-![GitHub support reply about authentication requirement for packages](/uploads/github_packages_support_response.webp)
+![GitHub support reply about authentication requirement for packages](github_packages_support_response.webp)
 
 My interpretation of this is quite simply that **it's gonna take a while**. I hope not :)

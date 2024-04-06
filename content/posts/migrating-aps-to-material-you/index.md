@@ -1,11 +1,11 @@
 +++
-categories = ["aps"]
 date = 2021-11-06
 summary = "I recently migrated Password Store to Material You, Google's latest iteration of Material Design. Here's how it went."
+categories = ["aps"]
 slug = "migrating-aps-to-material-you"
-tags = ["android-password-store"]
 title = "Migrating APS to Material You"
-socialImage = "uploads/m3-social.webp"
+tags = ["android-password-store"]
+socialImage = "m3-social.webp"
 +++
 
 With much fanfare, Google released the next iteration of Material Design: **Material You**. It's received mixed reviews, but I found it extremely pleasant to use and the homogeneity of Google apps following the platform colors felt great. That's what prompted me to update APS to Material You and join in :)
@@ -50,11 +50,11 @@ We use a third-party library by [Max Rumpf] called [ModernAndroidPreferences] fo
 
 ### Before
 
-![Screenshot gallery of a few APS screens before the Material 3 migration](/uploads/aps_m2_gallery.webp)
+![Screenshot gallery of a few APS screens before the Material 3 migration](aps_m2_gallery.webp)
 
 ### After
 
-![Screenshot gallery of a few APS screens after the Material 3 migration](/uploads/aps_m3_gallery.webp)
+![Screenshot gallery of a few APS screens after the Material 3 migration](aps_m3_gallery.webp)
 
 ## Closing notes
 

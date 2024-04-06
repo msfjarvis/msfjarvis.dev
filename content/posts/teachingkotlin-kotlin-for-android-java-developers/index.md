@@ -1,12 +1,12 @@
 +++
-categories = ["teachingkotlin", "kotlin", "dev", "android"]
-date = 2019-09-20
 summary = "Kotlin's been great for me -- and millions others, as evident by its explosive growth. Long-time Java developers may feel hesitant to give it a shot. This series aims to smoothen this transition, letting people know what benefits they might reap from Kotlin, and what differences should they be careful about."
-devLink = "https://dev.to/msfjarvis/teachingkotlin-kotlin-for-android-java-developers-1fo3"
 slug = "teaching-kotlin--kotlin-for-android-java-developers"
-socialImage = "uploads/teachingkotlin_social.webp"
-tags = []
+date = 2019-09-20
+socialImage = "teachingkotlin_social.webp"
+devLink = "https://dev.to/msfjarvis/teachingkotlin-kotlin-for-android-java-developers-1fo3"
 title = "#TeachingKotlin - Kotlin for Android Java developers"
+categories = ["teachingkotlin", "kotlin", "dev", "android"]
+tags = []
 +++
 
 Anybody familiar with my work knows that I am a fan of the [Kotlin](https://kotlinlang.org/ "Kotlin") programming language, especially it's interoperability with Java with respect to Android. I'll admit, I've not been a fan since day one. The abundant lambdas worried me and everything being that much shorter to implement was confusing to a person whose first real programming task was in the Java programming language.

@@ -1,11 +1,11 @@
 +++
-categories = ["tools-of-the-trade"]
 date = 2020-08-04
 summary = "In the first post in the new 'Tools of the trade' series, we talk about direnv."
+categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-direnv"
-socialImage = "uploads/tools-of-the-trade-direnv.webp"
-tags = ["direnv", "cli-tools"]
 title = "Tools of the trade: direnv"
+tags = ["direnv", "cli-tools"]
+socialImage = "tools-of-the-trade-direnv.webp"
 +++
 
 This post was supposed to be a monolith directory of all the CLI-based tooling that I use to get things done throughout my day, but it turned out to be just a bit too long so I elected to split it out into separate posts.

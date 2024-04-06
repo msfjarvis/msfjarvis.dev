@@ -1,12 +1,12 @@
 +++
-categories = ["android"]
-date = 2020-03-06
 summary = "Let's extend the \"scope\" of these tutorials :)"
-devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-2-4p4m"
 slug = "dagger-the-easy-way--part-2"
-socialImage = "uploads/dagger_made_easy_social.webp"
-tags = ["dagger", "tutorial"]
+date = 2020-03-06
+socialImage = "dagger_made_easy_social.webp"
+devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-2-4p4m"
 title = "Dagger the easy way - Part 2"
+categories = ["android"]
+tags = ["dagger", "tutorial"]
 +++
 
 Welcome back! In this post I'm taking a bit of detour from my planned schedule to write about **scoping**. We'll _definitely_ cover constructor injection in the next part :)

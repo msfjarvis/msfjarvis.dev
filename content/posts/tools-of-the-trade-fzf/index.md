@@ -1,11 +1,11 @@
 +++
-categories = ["tools-of-the-trade"]
 date = 2020-08-10
 summary = "Continuing this series, let's talk about fzf."
+categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-fzf"
-socialImage = "uploads/tools-of-the-trade-fzf.webp"
-tags = ["fzf", "cli-tools"]
 title = "Tools of the trade: fzf"
+tags = ["fzf", "cli-tools"]
+socialImage = "tools-of-the-trade-fzf.webp"
 +++
 
 In the second post of [this series](/categories/tools-of-the-trade/), let's talk about [fzf](https://github.com/junegunn/fzf).

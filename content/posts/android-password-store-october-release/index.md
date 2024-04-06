@@ -1,12 +1,12 @@
 +++
-categories = ["aps"]
-date = 2020-10-22
 summary = "Long form release notes for the  Android Password Store  October release"
-slug = "aps-october-release"
-socialImage = "uploads/aps_banner.webp"
-tags = ["relnotes", "oss", "android-password-store"]
-title = "Android Password Store October release"
 toc = true
+slug = "aps-october-release"
+title = "Android Password Store October release"
+date = 2020-10-22
+categories = ["aps"]
+tags = ["relnotes", "oss", "android-password-store"]
+socialImage = "aps_banner.webp"
 +++
 
 We're back with yet another release! As I shared earlier this month, this is going to our last release for a while. There's a lot of work left to be done, and we're simply not big enough a team to have these larger changes be done separately from our main development. We'll still be doing bugfix releases if and when required, so please do file bug reports as and when you encounter issues.
@@ -17,7 +17,7 @@ We're back with yet another release! As I shared earlier this month, this is goi
 
 Creating a new store from the app previously created an unusable store, because we never configured a GPG key in the `.gpg-id` file. This has now been remedied in two ways: empty `.gpg-id` files are correctly handled as invalid and included in our quickfix solution, and creating a new store will now request you to select a key and then write it into the `.gpg-id` file. Here's what the key selection screen looks like:
 
-![GPG key selection screen from the APS October release](/uploads/aps-october-release-gpg-key-selection.webp)
+![GPG key selection screen from the APS October release](aps-october-release-gpg-key-selection.webp)
 
 ### Allow configuring an HTTPS proxy
 
@@ -32,7 +32,7 @@ Before we close the gates on our regularly scheduled releases, our focus has bee
 
 Due to multiple bugs, this feature has been rolled back in [v1.13.1](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.13.1).
 
-<!--![App launch screen showing the repository being synced](/uploads/aps-october-release-syncing-repository.webp)-->
+<!--![App launch screen showing the repository being synced](aps-october-release-syncing-repository.webp)-->
 
 ## Fixes
 
