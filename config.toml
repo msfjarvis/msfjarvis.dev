@@ -79,23 +79,28 @@ enableEmoji = true
   content = "Recovering Android and Kotlin developer, amateur Rustacean"
 
 [[params.socialIcons]]
-  name = "GitHub"
-  icon = "github"
+  title = "GitHub"
+  name = "github"
   url = "https://github.com/msfjarvis"
 
 [[params.socialIcons]]
-  name = "Mastodon"
-  icon = "mastodon"
+  title = "Mastodon (Android)"
+  name = "mastodon"
   url = "https://androiddev.social/@msfjarvis"
 
 [[params.socialIcons]]
-  name = "Gitea"
-  icon = "gitea"
+  title = "Mastodon (Gaming)"
+  name = "mastodon"
+  url = "https://mstdn.games/@msfjarvis"
+
+[[params.socialIcons]]
+  title = "Gitea"
+  name = "gitea"
   url = "https://git.msfjarvis.dev/"
 
 [[params.socialIcons]]
-  name = "RSS"
-  icon = "rss"
+  title = "RSS"
+  name = "rss"
   url = "/index.xml"
 
 # Enable tags.
