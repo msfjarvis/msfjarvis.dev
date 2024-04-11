@@ -96,7 +96,7 @@ enableEmoji = true
 [[params.socialIcons]]
   title = "Gitea"
   name = "gitea"
-  url = "https://git.msfjarvis.dev/"
+  url = "https://git.msfjarvis.dev/explore/repos"
 
 [[params.socialIcons]]
   title = "RSS"
