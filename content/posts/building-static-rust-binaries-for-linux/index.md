@@ -27,7 +27,7 @@ RUSTFLAGS='-C target-feature=+crt-static' cargo build --release --target x86_64-
 
 ## Other potential problems
 
-You may be unable to statically link your binary even after all this, due to dependencies that _mandate_ dynamic linking. In some cases this is avoidable, such as using [rustls] in place of OpenSSL for cryptography, and [hyper] in place of bindings to cURL for HTTP, not so much in others. Thanks to the convention of native-linking crates using the `-sys` suffix in their name it is fairly simple to find if your build has dependencies that dynamically link to libraries. Using `cargo`'s native `tree` subcommand and `grep`ing (or [ripgrep]ing for me), you can locate native dependencies. Running `cargo tree | rg -- -sys` against [androidx-release-watcher]'s `v4.1.0` release gives us this:
+You may be unable to statically link your binary even after all this, due to dependencies that _mandate_ dynamic linking. In some cases this is avoidable, such as using [rustls] in place of OpenSSL for cryptography, and [reqwest] or [ureq] in place of bindings to cURL for HTTP, not so much in others. Thanks to the convention of native-linking crates using the `-sys` suffix in their name it is fairly simple to find if your build has dependencies that dynamically link to libraries. Using `cargo`'s native `tree` subcommand and `grep`ing (or [ripgrep]ing for me), you can locate native dependencies. Running `cargo tree | rg -- -sys` against [androidx-release-watcher]'s `v4.1.0` release gives us this:
 
 ```bash
 $ cargo tree | rg -- -sys
@@ -48,10 +48,11 @@ This indicates curl, zlib, openssl, and libnghttp2 as well as a bunch of WASM-re
 [statically link against glibc]: https://github.com/rust-lang/rust/issues/65447
 [were confused by this]: https://github.com/rust-lang/rust/issues/78210
 [rust issue #78210]: https://github.com/rust-lang/rust/issues/78210#issuecomment-714776007
-[rustls]: https://github.com/rustls/rustls
-[hyper]: https://hyper.rs
-[ripgrep]: https://github.com/BurntSushi/ripgrep
+[rustls]: https://crates.io/crates/rustls
+[reqwest]: https://crates.io/crates/reqwest
+[ureq]: https://crates.io/crates/ureq
+[ripgrep]: https://crates.io/crates/ripgrep
 [androidx-release-watcher]: https://msfjarvis.dev/g/androidx-release-watcher
-[surf]: https://github.com/http-rs/surf
-[async-std]: https://github.com/async-rs/async-std
+[surf]: https://crates.io/crates/surf
+[async-std]: https://crates.io/crates/async-std
 [this build feature]: https://msfjarvis.dev/g/androidx-release-watcher/b67a212106d8
