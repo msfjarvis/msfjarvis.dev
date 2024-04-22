@@ -6,7 +6,7 @@
   autoLaunch = false
 
 [build.environment]
-  HUGO_VERSION = "0.125.2"
+  HUGO_VERSION = "0.125.3"
   NODE_VERSION = "18"
 
 [[edge_functions]]
