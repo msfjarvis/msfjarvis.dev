@@ -35,7 +35,7 @@ Hugo offers a powerful tool called [partials](https://gohugo.io/templates/partia
 With this saved as `layouts/partials/commento.html` and `CommentoURL` set in my `config.toml`, I set out to wire this into the posts. Because of a [pre-existing hack](https://github.com/msfjarvis/msfjarvis.dev/commit/5447bb36258934d6a5bc86be99ef91a9eeb9eb17) that I use for linkifying headings, I already had the `single.html` file from my theme copied into `layouts/_default/single.html`. If you don't, copy it over and open it. Add the following lines, removing any mention of Disqus if you find it.
 
 ```go
-{{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not .Site.IsServer)) -}}
+{{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not hugo.IsServer)) -}}
 <h2>Comments</h2>
 {{ partial "commento.html" . }}
 {{- end }}
@@ -44,7 +44,7 @@ With this saved as `layouts/partials/commento.html` and `CommentoURL` set in my 
 With this, the comments section is only loaded when CommentoURL is defined, and the site is not running in server mode. This allows me to exclude showing comments when using the preview server on [Forestry](https://forestry.io) (highly recommended CMS for Hugo, by far my personal favorite). Since I also have a copy of my site with drafts enabled hosted on a separate subdomain, I had to factor that into the partial as well. Here's what I deploy on my own website.
 
 ```go
-{{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not .Site.IsServer)) -}}
+{{ if and .Site.Params.CommentoURL (and (not .Site.BuildDrafts) (not hugo.IsServer)) -}}
 <!-- Rest is identical to the previous -->
 ```
 
