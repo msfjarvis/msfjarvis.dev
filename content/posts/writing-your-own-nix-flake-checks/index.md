@@ -1,6 +1,7 @@
 +++
 categories = ["nix"]
 date = 2022-12-18
+lastmod = 2024-06-04
 summary = "Quick how-to for writing ad-hoc checks for your own Nix Flakes"
 slug = "writing-your-own-nix-flake-checks"
 tags = ["nix", "nix flakes", "flake checks"]
