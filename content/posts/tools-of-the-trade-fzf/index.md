@@ -5,7 +5,7 @@ categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-fzf"
 title = "Tools of the trade: fzf"
 tags = ["fzf", "cli-tools"]
-socialImage = "tools-of-the-trade-fzf.webp"
+images = [ "tools-of-the-trade-fzf.webp" ]
 +++
 
 In the second post of [this series](/categories/tools-of-the-trade/), let's talk about [fzf](https://github.com/junegunn/fzf).

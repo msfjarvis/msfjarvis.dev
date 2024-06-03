@@ -2,7 +2,7 @@
 summary = "GitHub Actions paired with GitHub Pages provides an excellent CD platform for a status page. Here's how I used it to create mine."
 slug = "creating-a-continuously-deploying-static-statuspage-with-github"
 date = 2020-02-05
-socialImage = "statuspage_social.webp"
+images = [ "statuspage_social.webp" ]
 devLink = "https://dev.to/msfjarvis/creating-a-continuously-deploying-static-statuspage-with-github-3ol2"
 title = "Creating a continuously deploying static statuspage with GitHub"
 categories = ["webdev", "github-actions"]

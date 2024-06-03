@@ -2,7 +2,7 @@
 summary = "Analytics platforms are often overwhelming and a privacy nightmare -- here's how to bring analytics to the backend with very simple tooling"
 slug = "serverside-stats-with-goaccess"
 date = 2019-12-17
-socialImage = "goaccess_social.webp"
+images = [ "goaccess_social.webp" ]
 devLink = "https://dev.to/msfjarvis/server-side-analytics-with-goaccess-pg8"
 title = "Server-side analytics with Goaccess"
 categories = ["webdev"]

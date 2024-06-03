@@ -5,7 +5,7 @@ categories = ["aps"]
 slug = "migrating-aps-to-material-you"
 title = "Migrating APS to Material You"
 tags = ["android-password-store"]
-socialImage = "m3-social.webp"
+images = [ "m3-social.webp" ]
 +++
 
 With much fanfare, Google released the next iteration of Material Design: **Material You**. It's received mixed reviews, but I found it extremely pleasant to use and the homogeneity of Google apps following the platform colors felt great. That's what prompted me to update APS to Material You and join in :)

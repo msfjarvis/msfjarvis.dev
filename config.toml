@@ -38,7 +38,7 @@ enableEmoji = true
   env = "production"
   defaultTheme = "auto"
   description = "Recovering Android and Kotlin developer, amateur Rustacean"
-  socialImage = "android-chrome-512x512.webp"
+  images = ["android-chrome-512x512.webp"]
 
   comments = true
   utterancesRepo = "msfjarvis/msfjarvis.dev"

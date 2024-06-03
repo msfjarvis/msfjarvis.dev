@@ -2,7 +2,7 @@
 summary = "Dagger is not the easiest tool to get on board with but it's almost worth the effort. Here's the story of my journey to not hating Dagger."
 slug = "my-dagger-story"
 date = 2020-01-11
-socialImage = "dagger_story_social.webp"
+images = [ "dagger_story_social.webp" ]
 devLink = "https://dev.to/msfjarvis/my-dagger-story-2go0"
 title = "My Dagger Story"
 categories = ["android"]

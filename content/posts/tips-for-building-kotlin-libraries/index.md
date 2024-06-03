@@ -6,7 +6,7 @@ title = "Tips and tricks for building libraries in Kotlin"
 date = 2020-11-21T00:00:00.000Z
 categories = ["android", "kotlin"]
 tags = ["libraries"]
-socialImage = "kotlin_social.webp"
+images = [ "kotlin_social.webp" ]
 +++
 
 Building a library is arguably a far more involved task than building an application. You need to be _extra_ mindful of your dependencies, and ensure that you are not breaking source and/or binary compatibility unintentionally. When doing so in Kotlin, you may also need to also provide an idiomatic API surface for Java callers if you're offering JVM support.

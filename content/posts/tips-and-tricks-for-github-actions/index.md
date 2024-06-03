@@ -5,7 +5,7 @@ categories = ["github-actions"]
 slug = "github-actions-tips-tricks"
 title = "Tips and Tricks for GitHub Actions"
 tags = ["tips and tricks", "schedules", "jobs", "workflows"]
-socialImage = "actions_social.webp"
+images = [ "actions_social.webp" ]
 +++
 
 GitHub Actions has grown at a rapid pace, and has become the CI platform of choice for most open source projects. The recent changes to Travis CI's pricing for open source is certainly bound to accelerate this even more.

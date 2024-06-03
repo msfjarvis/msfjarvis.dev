@@ -5,7 +5,7 @@ categories = ["hugo", "github-actions"]
 slug = "deploying-hugo-sites-with-github-actions"
 title = "Deploying Hugo sites with GitHub Actions"
 tags = ["static sites"]
-socialImage = "actions_social.webp"
+images = [ "actions_social.webp" ]
 +++
 
 For the longest time, I have used the [caddy-git] middleware for [caddyserver](https://caddyserver.com) to constantly deploy my [Hugo](https://gohugo.io) site from [GitHub](https://github.com/msfjarvis/msfjarvis.dev).

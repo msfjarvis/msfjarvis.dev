@@ -6,7 +6,7 @@ title = "Android Password Store October release"
 date = 2020-10-22
 categories = ["aps"]
 tags = ["relnotes", "oss", "android-password-store"]
-socialImage = "aps_banner.webp"
+images = [ "aps_banner.webp" ]
 +++
 
 We're back with yet another release! As I shared earlier this month, this is going to our last release for a while. There's a lot of work left to be done, and we're simply not big enough a team to have these larger changes be done separately from our main development. We'll still be doing bugfix releases if and when required, so please do file bug reports as and when you encounter issues.

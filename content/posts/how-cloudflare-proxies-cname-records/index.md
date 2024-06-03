@@ -5,7 +5,7 @@ categories = ["webdev"]
 slug = "how-cloudflare-proxies-cname-records"
 title = "How Cloudflare proxies CNAME records"
 tags = ["cloudflare"]
-socialImage = "cf_proxy_social.webp"
+images = [ "cf_proxy_social.webp" ]
 +++
 
 As people who've read my previous post would know, I recently started using [Purelymail](https://purelymail.com/) for my email needs (the how and why of it can be found [here](/posts/switching-my-email-to-purelymail/)). I also mentioned there, that Cloudflare's proxy-by-default nature caused Purelymail to not detect my CNAME settings and disabling the proxy did the job. I contacted Purelymail's Scott about this and he eventually pushed a fix out that \*should\* have fixed it, but since he did not have a Cloudflare account, he couldn't verify this exact case.

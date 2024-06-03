@@ -5,7 +5,7 @@ categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-sdkman"
 title = "Tools of the trade: SDKMAN!"
 tags = ["sdkman", "cli-tools"]
-socialImage = "tools-of-the-trade-sdkman.webp"
+images = [ "tools-of-the-trade-sdkman.webp" ]
 +++
 
 In the fourth post of [this series](/categories/tools-of-the-trade/), we're talking about [SDKMAN!](https://sdkman.io).

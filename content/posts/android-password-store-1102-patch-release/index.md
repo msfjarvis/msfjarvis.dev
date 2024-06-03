@@ -5,7 +5,7 @@ categories = ["aps"]
 slug = "aps-1.10.2-release"
 title = "Android Password Store 1.10.2 patch release"
 tags = ["relnotes", "oss", "android-password-store"]
-socialImage = "aps_banner.webp"
+images = [ "aps_banner.webp" ]
 +++
 
 Exactly one week after the [previous patch release](/posts/aps-1.10.1-release), we have another small release fixing a few bugs that were deemed too high-priority for our usual release cadence.

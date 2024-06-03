@@ -5,7 +5,7 @@ categories = ["rust", "dev"]
 slug = "simple-tricks-for-faster-rust-programs"
 title = "Simple tricks for faster Rust programs"
 tags = ["perf"]
-socialImage = "cuddlyferris.webp"
+images = [ "cuddlyferris.webp" ]
 +++
 
 Rust is _pretty_ fast. Let's get that out of the way. But sometimes, _pretty_ fast is not fast enough.
