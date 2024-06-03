@@ -150,3 +150,44 @@ This is what the flake looked like for me after all this
 It's probably not idiomatic Nix (for some definition of idiomatic) but the entire thing has been a trial and error anyway so :shrug:
 
 I'm very much a noob when it comes to Nix so any feedback is very welcome and appreciated!
+
+### Alternative solution (June 2024 update)
+
+The above 'hack' can also be changed to use [pkgs.runCommand](https://nixos.org/manual/nixpkgs/stable/#trivial-builder-runCommand) which I recently learned about.
+
+```nix
+{
+  description = "A very basic flake";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils/main";
+  };
+
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {inherit system;};
+      files = pkgs.lib.concatStringsSep " " [
+        # Individual shell scripts from the repository
+      ];
+      # Variant of runCommand intended for commands
+      # that run quickly and will be slowed down by
+      # the network round-trip.
+      fmt-check = pkgs.runCommandLocal "fmt-check" {
+        src = ./.;
+        nativeBuildInputs = with pkgs; [alejandra shellcheck shfmt];
+      } ''
+          shfmt -d -s -i 2 -ci ${files}
+          alejandra -c .
+          shellcheck -x ${files}
+          mkdir "$out"
+        '';
+    in {
+      checks = {inherit fmt-check;};
+    });
+}
+```
