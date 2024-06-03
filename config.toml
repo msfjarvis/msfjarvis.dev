@@ -12,18 +12,9 @@ enableEmoji = true
 
 [markup]
   [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ''
-    hl_inline = false
-    lineAnchors = ''
-    lineNoStart = 1
-    lineNos = false
-    lineNumbersInTable = true
+    pygmentsUseClasses = true
+    pygmentsCodefences = true
     noClasses = false
-    noHl = false
-    tabWidth = 4
 
 [[menu.main]]
   name = "About"

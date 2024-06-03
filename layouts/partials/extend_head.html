@@ -1,5 +1,3 @@
 <link rel="me" href="https://androiddev.social/@msfjarvis">
 <link rel="me" href="https://mstdn.games/@msfjarvis">
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" async></script>
-{{ $style := resources.Get "syntax.css" | resources.Minify | resources.Fingerprint }}
-<link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}" rel="preload stylesheet" as="style">
