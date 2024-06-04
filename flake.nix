@@ -37,8 +37,6 @@
           hugo
           hyperlink
           libwebp
-          nodejs
-          yarn
         ];
         commands = [
           {
