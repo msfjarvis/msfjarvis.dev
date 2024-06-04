@@ -7,6 +7,7 @@ tags = ["gradle", "kotlin-multiplatform", "perf"]
 images = [ "gradle-social.webp" ]
 draft = false
 +++
+
 Android developers are intimately familiar with the ritual of staring at your IDE for tens of minutes while Gradle imports a new project before they can start working on it. While not fully avoidable, there are many ways to improve the situation. For small to medium projects, the time spent on this import phase can be largely dominated by dependency downloads.
 
 ## Preface

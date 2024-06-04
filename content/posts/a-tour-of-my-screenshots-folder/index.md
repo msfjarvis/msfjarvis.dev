@@ -82,7 +82,7 @@ When the Sniffers were added to the game I just had to get them, and obviously t
 
 {{<figure src="incomplete-end-island-ring.webp" alt="Top down shot of the main End island, showing a Prismarine ring going through all the end gateways which are illuminated by Prismarine Lights" title="Date taken: March 28, 2024" loading="lazy">}}
 
-I envisioned a continous ring of Prismarine walkways around all the End gateways to be a cool way to get to them rather than just pillaring up but I biffed the "circle" so many times that it's kinda stalled at the moment. 
+I envisioned a continous ring of Prismarine walkways around all the End gateways to be a cool way to get to them rather than just pillaring up but I biffed the "circle" so many times that it's kinda stalled at the moment.
 
 ## All Trimmed Up
 
@@ -107,7 +107,6 @@ For some reason Minecraft likes to spawn Nether Fossils that look way too much l
 {{<figure src="chunk-pruned-portal.webp" alt="A Nether portal with its left side of Obsidian blocks missing but the portal is still intact" title="Date taken: June 12, 2023" loading="lazy">}}
 
 I manually prune unused chunks before Minecraft updates in order to let them regenerate with the updated terrain and accidentally sliced off this portal as it happened to be on a chunk boundary. It's all the way back at my starter base so it does not see much use, but it's there.
-
 
 ## The end...?
 
