@@ -7,10 +7,10 @@ ShowToc = false
 
 ## Editor + Terminal
 
-I use the `gnome-terminal` that ships with Linux Mint's Cinnamon Edition with `bash` and a custom prompt from [starship](https://starship.rs). The editor I use depends on what code I am working with:
+I use GNOME Console with `bash` and a lightly customized [starship](https://starship.rs) prompt. The editor I use depends on what code I am working with:
 
 - Web, Python: VS Code
-- Rust: VS Code with rust-analyzer or IntelliJ IDEA with intellij-rust
+- Rust: VS Code with rust-analyzer
 - Android: Android Studio
 - Kotlin: IntelliJ IDEA
 
@@ -18,18 +18,19 @@ My terminal-based text editor of choice is currently [micro](https://micro-edito
 
 ### Development environment
 
-I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-community/home-manager) to maintain my development environment and dotfiles. My current Nix configuration can be found in my [dotfiles repo](https://github.com/msfjarvis/dotfiles/blob/main/nixos/ryzenbox-configuration.nix).
+I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-community/home-manager) to maintain my development environment and dotfiles. My current Nix/NixOS configuration can be found in my [dotfiles repo](https://github.com/msfjarvis/dotfiles).
 
 ## Hardware
 
-### PC
+### Desktop PC
 
-- CPU: Ryzen 5 1600 (6C/12T) @ 3.2 GHz
-- GPU: Nvidia GeForce GTX 1650 Super
-- RAM: 16GB Kingston HyperX
-- Motherboard: ASRock A320M Pro4
-- SSD: 250GB Samsung 860 EVO
+- CPU: AMD Ryzen 9 7900X (24) @ 5.733GHz
+- GPU: NVIDIA GeForce RTX 4070 Ti
+- RAM: 32GB Kingston HyperX
+- Motherboard: Gigabyte Technology Co., Ltd. B650M GAMING X AX
+- OS: NixOS
 
 ### Phone
 
-- 128GB Google Pixel 7 running Android 13.
+- 128GB Google Pixel 8 running Android 15.
+- 128GB Google Pixel 4a running LineageOS 21
