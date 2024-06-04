@@ -40,7 +40,6 @@ Memory: 7909MiB
 
 All these machines run NixOS unstable, and are updated every weekend. The configurations are fully open source and can be found in my [dotfiles](https://github.com/msfjarvis/dotfiles) repo. I use [deploy-rs](https://github.com/serokell/deploy-rs) to push out built configurations to crusty whose weak ass CPU can't really build its own NixOS configuration, and wailord usually does local builds.
 
-
 # Networking
 
 ryzenbox and crusty are both on my home network and can access each other over LAN, while wailord is hosted in the EU and has to be accessed over the Internet. All machines are hooked up to Tailscale and their SSH ACL grants set up one-way SSH access from ryzenbox to crusty and wailord.
