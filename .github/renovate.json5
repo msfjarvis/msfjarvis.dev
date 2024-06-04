@@ -35,7 +35,7 @@
       "description": "Update dprint TypeScript plugin",
       "fileMatch": ["dprint.json"],
       "matchStrings": [
-        "typescript-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+        "typescript-(?<currentValue>.*?).wasm",
       ],
       "depNameTemplate": "dprint/dprint-plugin-typescript",
       "datasourceTemplate": "github-releases",
@@ -44,7 +44,7 @@
       "description": "Update dprint JSON plugin",
       "fileMatch": ["dprint.json"],
       "matchStrings": [
-        "json-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+        "json-(?<currentValue>.*?).wasm",
       ],
       "depNameTemplate": "dprint/dprint-plugin-json",
       "datasourceTemplate": "github-releases",
@@ -53,7 +53,7 @@
       "description": "Update dprint Markdown plugin",
       "fileMatch": ["dprint.json"],
       "matchStrings": [
-        "markdown-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+        "markdown-(?<currentValue>.*?).wasm",
       ],
       "depNameTemplate": "dprint/dprint-plugin-markdown",
       "datasourceTemplate": "github-releases",
@@ -62,7 +62,7 @@
       "description": "Update dprint TOML plugin",
       "fileMatch": ["dprint.json"],
       "matchStrings": [
-        "toml-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+        "toml-(?<currentValue>.*?).wasm",
       ],
       "depNameTemplate": "dprint/dprint-plugin-toml",
       "datasourceTemplate": "github-releases",
