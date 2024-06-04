@@ -10,7 +10,7 @@ ShowReadingTime = false
 ShowToc = false
 +++
 
-I'm an Android and Kotlin developer with over 5 years of experience building apps that have scaled up to hundreds of thousands daily active users and design systems for some of the largest startups in India.
+I'm an Android and Kotlin developer with 8 years of experience building apps that have scaled up to hundreds of thousands daily active users and design systems for some of the largest startups in India.
 
 ### Work
 
