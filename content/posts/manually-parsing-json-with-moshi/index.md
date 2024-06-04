@@ -219,7 +219,6 @@ And we're set. You'll see the significance of the Options objects now.
        }
      }
      endObject()
-
 ```
 
 When I said that `selectName` returns the index of the matched key, I didn't mention that it returns -1 when it comes across a key that isn't in the Options object. Since we don't care about them, we're going to skip both their name and value and continue right on ahead. Now, we're going to try and parse that inner `extras` object. A lot is about to happen quickly, but bear with me as I explain things.
@@ -253,7 +252,6 @@ When I said that `selectName` returns the index of the matched key, I didn't men
            // Skip unknown values
            skipName()
            skipValue()
-
 ```
 
 Now that you look at it, not really that different from what we did above. The only new thing here is the `nextNull` method, which simply tries to find a null value and throws the `JsonDataException` if the value wasn't null.
@@ -268,7 +266,6 @@ Now that you look at it, not really that different from what we did above. The o
 +  require(heading != null) { "heading must not be null" }
 +  return TextParts(heading, body)
  }
-
 ```
 
 And that's it! The final adapter is going to look like this

@@ -1,18 +1,17 @@
 [dev]
-  command = "hugo serve"
-  targetPort = 1313
-  port = 8888
-  publish = "public"
-  autoLaunch = false
+command = "hugo serve"
+targetPort = 1313
+port = 8888
+publish = "public"
+autoLaunch = false
 
 [build.environment]
-  HUGO_VERSION = "0.126.3"
-  NODE_VERSION = "18"
+HUGO_VERSION = "0.126.3"
+NODE_VERSION = "18"
 
 [[edge_functions]]
 path = "/*"
 function = "root"
-
 
 [[edge_functions]]
 function = "webfinger"
@@ -29,7 +28,7 @@ to = "/sitemap.xml"
 status = 200
 
 [[headers]]
-  for = "/pretty-feed-v3.xsl"
-  [headers.values]
-    Content-Type = "application/xml; charset=utf-8"
-    X-Content-Type-Options = "nosniff"
+for = "/pretty-feed-v3.xsl"
+[headers.values]
+Content-Type = "application/xml; charset=utf-8"
+X-Content-Type-Options = "nosniff"

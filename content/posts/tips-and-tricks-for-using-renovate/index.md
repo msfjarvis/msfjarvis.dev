@@ -66,7 +66,7 @@ For example, you can specify the version of Hugo to build your Netlify site with
 
 ```toml
 [build.environment]
-  HUGO_VERSION = "0.109.0"
+HUGO_VERSION = "0.109.0"
 ```
 
 This is how the relevant configuration might look like with Renovate

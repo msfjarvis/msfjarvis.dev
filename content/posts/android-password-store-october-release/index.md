@@ -1,5 +1,5 @@
 +++
-summary = "Long form release notes for the  Android Password Store  October release"
+summary = "Long form release notes for the Android Password Store October release"
 toc = true
 slug = "aps-october-release"
 title = "Android Password Store October release"
@@ -42,7 +42,7 @@ For a large set of connection related errors, the failure message would simply b
 
 ### Use Git's default user and email when none are configured
 
-We don't force users to set a name and email before they make any changes requiring Git commits, but somewhere in the last couple releases we regressed our behavior around this. Rather than the `root <root@localhost>` committer, we were incorrectly using empty strings resulting in all commits being authored by ` <>`. This has now been resolved, and your commit history will now be adorned by `root@localhost` once more (but seriously, just set your name and email already).
+We don't force users to set a name and email before they make any changes requiring Git commits, but somewhere in the last couple releases we regressed our behavior around this. Rather than the `root <root@localhost>` committer, we were incorrectly using empty strings resulting in all commits being authored by `<>`. This has now been resolved, and your commit history will now be adorned by `root@localhost` once more (but seriously, just set your name and email already).
 
 ### Improvements around phishing detection UX
 

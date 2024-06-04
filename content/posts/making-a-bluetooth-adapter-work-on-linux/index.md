@@ -57,18 +57,18 @@ It means that if the module is discovered, it will be loaded. On older versions 
 Next, open up `/usr/bin/start-pulseaudio-x11` in the same way. Look for this:
 
 ```bash
-    if [ x"$SESSION_MANAGER" != x ] ; then
-        /usr/bin/pactl load-module module-x11-xsmp "display=$DISPLAY xauthority=$XAUTHORITY session_manager=$SESSION_MANAGER" > /dev/null
-    fi
+if [ x"$SESSION_MANAGER" != x ] ; then
+    /usr/bin/pactl load-module module-x11-xsmp "display=$DISPLAY xauthority=$XAUTHORITY session_manager=$SESSION_MANAGER" > /dev/null
+fi
 ```
 
 Below it, add `/usr/bin/pactl load-module module-bluetooth-discover` so the final result looks like this:
 
 ```bash
-    if [ x"$SESSION_MANAGER" != x ] ; then
-        /usr/bin/pactl load-module module-x11-xsmp "display=$DISPLAY xauthority=$XAUTHORITY session_manager=$SESSION_MANAGER" > /dev/null
-    fi
-    /usr/bin/pactl load-module module-bluetooth-discover
+if [ x"$SESSION_MANAGER" != x ] ; then
+    /usr/bin/pactl load-module module-x11-xsmp "display=$DISPLAY xauthority=$XAUTHORITY session_manager=$SESSION_MANAGER" > /dev/null
+fi
+/usr/bin/pactl load-module module-bluetooth-discover
 ```
 
 This will manually load the module when X11 triggers PulseAudio init. This should ideally not be required so you can try without this change, but it won't break anything if you add it anyway.

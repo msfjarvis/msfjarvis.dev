@@ -3,8 +3,8 @@ title = "About Me"
 id = "about"
 type = "page"
 aliases = [
-    "/about",
-    "/contact",
+"/about",
+"/contact",
 ]
 ShowReadingTime = false
 ShowToc = false

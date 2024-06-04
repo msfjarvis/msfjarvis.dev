@@ -20,7 +20,6 @@ data class Student(val name: String, val age: Int, val subjects: ArrayList<Strin
 To use the variables in this class, Kotlin let's you directly use the dot notation for accessing.
 
 ```kotlin
-
 >>> val s1 = Student("Keith Hernandez", 21, arrayListOf("Mathematics", "Social Studies"))
 >>> println(s1.name)
 
@@ -42,7 +41,6 @@ System.out.println(s1);
 The same properties apply to variables in non-data classes as well.
 
 ```kotlin
-
 >>> class Item(id: Int, name: String) {
 
 ...     val itemId = id
@@ -59,7 +57,6 @@ The same properties apply to variables in non-data classes as well.
 Line_4$Item@46fb460a
 
 >> >
-
 ```
 
 As you can notice, the `toString` implementation is not identical to our data classes but that's a topic for another post. Back to variables!

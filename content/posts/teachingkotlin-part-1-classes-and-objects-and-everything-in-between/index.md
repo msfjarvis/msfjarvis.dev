@@ -132,16 +132,16 @@ Trying it out in the Kotlin REPL
 
 {{< highlight kotlin >}}
 
-> > > class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
-> > > ... override fun toString() : String {
-> > > ... return "Name=$name,age=$age"
-> > > ... }
-> > > ... }
-> > > class Man(val firstName: String) : Person(firstName)
-> > > error: this type is final, so it cannot be inherited from
-> > > class Man(val firstName: String) : Person(firstName)
+> class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
+> ... override fun toString() : String {
+> ... return "Name=$name,age=$age"
+> ... }
+> ... }
+> class Man(val firstName: String) : Person(firstName)
+> error: this type is final, so it cannot be inherited from
+> class Man(val firstName: String) : Person(firstName)
 
-                                   ^
+    ^
 
 {{< /highlight >}}
 
@@ -149,15 +149,15 @@ Makes sense, since that's default for Kotlin. Let's add the `open` keyword to ou
 
 {{< highlight kotlin >}}
 
-> > > open class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
-> > > ... override fun toString() : String {
-> > > ... return "Name=$name,age=$age"
-> > > ... }
-> > > ... }
-> > > class Man(val firstName: String) : Person(firstName)
-> > > println(Man("Henry"))
-> > > Name=Henry,age=18
-> > > {{< /highlight >}}
+> open class Person @JvmOverloads constructor(val name: String, val age: Int = 18) {
+> ... override fun toString() : String {
+> ... return "Name=$name,age=$age"
+> ... }
+> ... }
+> class Man(val firstName: String) : Person(firstName)
+> println(Man("Henry"))
+> Name=Henry,age=18
+> {{< /highlight >}}
 
 And everything works as we'd expect it to. This is a behavior change that is confusing and undesirable to a lot of people, so Kotlin provides a compiler plugin to mark all classes as `open` by default. Check out the [`kotlin-allopen`](https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin) page for more information about how to configure the plugin for your needs.
 

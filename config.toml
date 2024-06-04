@@ -11,91 +11,91 @@ buildExpired = false
 enableEmoji = true
 
 [markup]
-  [markup.highlight]
-    pygmentsUseClasses = true
-    pygmentsCodefences = true
-    noClasses = false
+[markup.highlight]
+pygmentsUseClasses = true
+pygmentsCodefences = true
+noClasses = false
 
 [[menu.main]]
-  name = "About"
-  url = "/about"
-  weight = 5
+name = "About"
+url = "/about"
+weight = 5
 
 [[menu.main]]
-  name = "Blog"  
-  url = "/posts"
-  weight = 10
+name = "Blog"
+url = "/posts"
+weight = 10
 
 [[menu.main]]
-  name = "Uses"
-  url = "/uses"
-  weight = 15
+name = "Uses"
+url = "/uses"
+weight = 15
 
 [minify]
-  disableXML = true
+disableXML = true
 
 [params]
-  env = "production"
-  defaultTheme = "auto"
-  description = "Recovering Android and Kotlin developer, amateur Rustacean"
-  images = ["android-chrome-512x512.webp"]
+env = "production"
+defaultTheme = "auto"
+description = "Recovering Android and Kotlin developer, amateur Rustacean"
+images = ["android-chrome-512x512.webp"]
 
-  comments = true
-  utterancesRepo = "msfjarvis/msfjarvis.dev"
+comments = true
+utterancesRepo = "msfjarvis/msfjarvis.dev"
 
-  showShareButtons = true
-  shareButtons = ["linkedin",  "reddit", "telegram"]
-  showReadingTime = true
-  showPostNavLinks = true
-  showBreadCrumbs = true
-  showCodeCopyButtons = true
-  showRssButtonInSectionTermList = true
-  ShowFullTextinRSS = true
-  showToc = true
+showShareButtons = true
+shareButtons = ["linkedin", "reddit", "telegram"]
+showReadingTime = true
+showPostNavLinks = true
+showBreadCrumbs = true
+showCodeCopyButtons = true
+showRssButtonInSectionTermList = true
+ShowFullTextinRSS = true
+showToc = true
 
 [params.editPost]
-  url = "https://github.com/msfjarvis/msfjarvis.dev/edit/main/content/"
-  text = "Suggest Changes"
-  appendFilePath = true
+url = "https://github.com/msfjarvis/msfjarvis.dev/edit/main/content/"
+text = "Suggest Changes"
+appendFilePath = true
 
 [params.assets]
-  disableHLJS = true
-  favicon = "favicon.ico"
-  favicon16x16 = "favicon-16x16.webp"
-  favicon32x32 = "favicon-32x32.webp"
-  apple_touch_icon = "apple-touch-icon.png"
-  safari_pinned_tab = "mask-icon.svg"
+disableHLJS = true
+favicon = "favicon.ico"
+favicon16x16 = "favicon-16x16.webp"
+favicon32x32 = "favicon-32x32.webp"
+apple_touch_icon = "apple-touch-icon.png"
+safari_pinned_tab = "mask-icon.svg"
 
 [params.homeInfoParams]
-  title = "Hi 👋, I am Harsh"
-  content = "Recovering Android and Kotlin developer, amateur Rustacean"
+title = "Hi 👋, I am Harsh"
+content = "Recovering Android and Kotlin developer, amateur Rustacean"
 
 [[params.socialIcons]]
-  title = "GitHub"
-  name = "github"
-  url = "https://github.com/msfjarvis"
+title = "GitHub"
+name = "github"
+url = "https://github.com/msfjarvis"
 
 [[params.socialIcons]]
-  title = "Mastodon (Android)"
-  name = "mastodon"
-  url = "https://androiddev.social/@msfjarvis"
+title = "Mastodon (Android)"
+name = "mastodon"
+url = "https://androiddev.social/@msfjarvis"
 
 [[params.socialIcons]]
-  title = "Mastodon (Gaming)"
-  name = "mastodon"
-  url = "https://mstdn.games/@msfjarvis"
+title = "Mastodon (Gaming)"
+name = "mastodon"
+url = "https://mstdn.games/@msfjarvis"
 
 [[params.socialIcons]]
-  title = "Gitea"
-  name = "gitea"
-  url = "https://git.msfjarvis.dev/explore/repos"
+title = "Gitea"
+name = "gitea"
+url = "https://git.msfjarvis.dev/explore/repos"
 
 [[params.socialIcons]]
-  title = "RSS"
-  name = "rss"
-  url = "/index.xml"
+title = "RSS"
+name = "rss"
+url = "/index.xml"
 
 # Enable tags.
 [taxonomies]
-  tag = "tags"
-  category = "categories"
+tag = "tags"
+category = "categories"
