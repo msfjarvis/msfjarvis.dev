@@ -3,12 +3,12 @@
   "extends": [
     "config:base",
     "helpers:pinGitHubActionDigests",
-    "github>msfjarvis/shared-workflows//renovate/automerge"
+    "github>msfjarvis/shared-workflows//renovate/automerge",
   ],
   "packageRules": [
     {
       "packageNames": ["gohugoio/hugo"],
-      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)"
+      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
     }
   ],
   "regexManagers": [
@@ -17,20 +17,56 @@
       "fileMatch": [".yml$", ".toml$"],
       "matchStrings": [
         "hugo-version: '(?<currentValue>.*?)'",
-        "HUGO_VERSION = \"(?<currentValue>.*?)\""
+        "HUGO_VERSION = \"(?<currentValue>.*?)\"",
       ],
       "depNameTemplate": "gohugoio/hugo",
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "github-releases",
     },
     {
       "description": "Update Decap CMS",
       "fileMatch": ["static/admin/index.html"],
       "matchStrings": [
-        "\/decap-cms@(?<currentValue>.*?)\/dist"
+        "\/decap-cms@(?<currentValue>.*?)\/dist",
       ],
       "depNameTemplate": "decap-cms",
-      "datasourceTemplate": "npm"
-    }
+      "datasourceTemplate": "npm",
+    },
+    {
+      "description": "Update dprint TypeScript plugin",
+      "fileMatch": ["dprint.json"],
+      "matchStrings": [
+        "typescript-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+      ],
+      "depNameTemplate": "dprint/dprint-plugin-typescript",
+      "datasourceTemplate": "github-releases",
+    },
+    {
+      "description": "Update dprint JSON plugin",
+      "fileMatch": ["dprint.json"],
+      "matchStrings": [
+        "json-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+      ],
+      "depNameTemplate": "dprint/dprint-plugin-json",
+      "datasourceTemplate": "github-releases",
+    },
+    {
+      "description": "Update dprint Markdown plugin",
+      "fileMatch": ["dprint.json"],
+      "matchStrings": [
+        "markdown-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+      ],
+      "depNameTemplate": "dprint/dprint-plugin-markdown",
+      "datasourceTemplate": "github-releases",
+    },
+    {
+      "description": "Update dprint TOML plugin",
+      "fileMatch": ["dprint.json"],
+      "matchStrings": [
+        "toml-(?<currentValue>\d{1,}\.\d{2,}\.\d{1,}?).wasm",
+      ],
+      "depNameTemplate": "dprint/dprint-plugin-toml",
+      "datasourceTemplate": "github-releases",
+    },
   ],
-  "commitMessageSuffix": "[staging]"
+  "commitMessageSuffix": "[staging]",
 }
