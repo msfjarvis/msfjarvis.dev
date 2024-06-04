@@ -32,6 +32,7 @@
         name = "blog-dev-shell";
         bash = {interactive = "";};
         packages = with pkgs; [
+          dprint
           git
           go
           hugo
@@ -40,16 +41,22 @@
         ];
         commands = [
           {
+            name = "build";
+            category = "deployment";
+            command = "hugo";
+            help = "Build the site";
+          }
+          {
             name = "dev";
             category = "development";
             command = "hugo server -D";
             help = "Run the Hugo development server";
           }
           {
-            name = "build";
-            category = "deployment";
-            command = "hugo";
-            help = "Build the site";
+            name = "format";
+            category = "development";
+            command = "dprint fmt";
+            help = "Format this repository";
           }
         ];
         env = [
