@@ -46,12 +46,10 @@ ryzenbox and crusty are both on my home network and can access each other over L
 
 # Services
 
-**wailord** bears the brunt of my self-hosting escapades and hosts basically everything that is accessible over the Internet. The services running on it are listed below:
+**wailord** bears the brunt of my self-hosting escapades and hosts basically everything that is accessible over the Internet. The *public* services running on it are listed below:
 
-- [Attic](https://docs.attic.rs) at [https://cache.msfjarvis.dev](https://cache.msfjarvis.dev) to serve as the binary cache for my systems
 - [Betula](https://betula.mycorrhiza.wiki/) at [https://links.msfjarvis.dev](https://links.msfjarvis.dev) as my primary bookmark manager
 - [Gitea](https://gitea.com) at [https://git.msfjarvis.dev/](https://git.msfjarvis.dev/) as a backup Git host which mirrors my GitHub repositories
-- [Grafana](https://grafana.com) at [https://grafana.msfjarvis.dev](https://grafana.msfjarvis.dev) to monitor system health
 - [Miniflux](https://miniflux.app) at [https://read.msfjarvis.dev](https://read.msfjarvis.dev) to function as my RSS reader
 
 **crusty** being the weak boy he is only runs QBittorrent on the internal Tailscale domain for completely legal torrenting :D
