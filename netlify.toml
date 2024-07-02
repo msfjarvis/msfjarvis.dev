@@ -28,7 +28,15 @@ to = "/sitemap.xml"
 status = 200
 
 [[headers]]
+for = "/*"
+[headers.values]
+Content-Security-Policy = "script-src identity.netlify.com insights.msfjarvis.dev 'unsafe-inline'"
+Referrer-Policy = 'strict-origin-when-cross-origin'
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
+X-XSS-Protection = '1; mode=block'
+
+[[headers]]
 for = "/pretty-feed-v3.xsl"
 [headers.values]
 Content-Type = "application/xml; charset=utf-8"
-X-Content-Type-Options = "nosniff"
