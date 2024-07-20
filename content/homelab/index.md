@@ -52,6 +52,6 @@ ryzenbox and crusty are both on my home network and can access each other over L
 - [Gitea](https://gitea.com) at [https://git.msfjarvis.dev/](https://git.msfjarvis.dev/) as a backup Git host which mirrors my GitHub repositories
 - [Miniflux](https://miniflux.app) at [https://read.msfjarvis.dev](https://read.msfjarvis.dev) to function as my RSS reader
 
-**crusty** being the weak boy he is only runs QBittorrent on the internal Tailscale domain for completely legal torrenting :D
+~~**crusty** being the weak boy he is only runs QBittorrent on the internal Tailscale domain for completely legal torrenting :D~~ currently out of commission due to a reboot bug.
 
 **ryzenbox** does not run much in the way of persistent services. It has a periodic systemd job running [gphotos-cdp](https://github.com/msfjarvis/gphotos-cdp) to back up my Google Photos library, and [Glance](https://github.com/glanceapp/glance) to be an informational pinned tab in my browser.
