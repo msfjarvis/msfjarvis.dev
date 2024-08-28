@@ -46,7 +46,7 @@ ryzenbox and crusty are both on my home network and can access each other over L
 
 # Services
 
-**wailord** bears the brunt of my self-hosting escapades and hosts basically everything that is accessible over the Internet. The *public* services running on it are listed below:
+**wailord** bears the brunt of my self-hosting escapades and hosts basically everything that is accessible over the Internet. The _public_ services running on it are listed below:
 
 - [Betula](https://betula.mycorrhiza.wiki/) at [https://links.msfjarvis.dev](https://links.msfjarvis.dev) as my primary bookmark manager
 - [Gitea](https://gitea.com) at [https://git.msfjarvis.dev/](https://git.msfjarvis.dev/) as a backup Git host which mirrors my GitHub repositories

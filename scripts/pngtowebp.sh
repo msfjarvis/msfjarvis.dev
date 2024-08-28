@@ -9,5 +9,5 @@ function convert_to_webp() {
   fd -tf png$ "${DIR:?}" -X rm -v
 }
 
-convert_to_webp static/uploads
+# convert_to_webp static/uploads
 convert_to_webp content/posts
