@@ -6,6 +6,7 @@ categories = ["dev"]
 tags = ["git"]
 images = ["git-social.webp"]
 +++
+
 When I asked for suggestions about note-taking apps [back in May](https://androiddev.social/@msfjarvis/112378523734491769) I wasn't fully convinced I'd be able to stick with it, but nearly 6 months later it has probably been the thing I've been most consistent about. Anyways, here's a rather short list of Git things off the ['TIL'](https://dictionary.cambridge.org/us/dictionary/english/til) list in my Logseq graph.
 
 # `git add`
@@ -26,6 +27,7 @@ git rm --cached path/to/module
 ```
 
 In order, this
+
 1. [`deinit`](https://git-scm.com/docs/git-submodule#Documentation/git-submodule.txt-deinit-f--force--all--ltpathgt82308203) removes the checkout of the submodule and removes it from `.git/config`
 2. Deletes the bare repository Git creates of the submodule which is used to generate the actual checkout
 3. Edits your `.gitmodules` file to remove the submodule entry
@@ -38,7 +40,7 @@ At this point you can commit the changes and hopefully never deal with a submodu
 
 While trying to configure [pass-git-helper](https://github.com/languitar/pass-git-helper) to authenticate with my [personal Git forge](https://git.msfjarvis.dev/explore/repos) I ended up learning a bit about how Git interacts with credential helpers
 
-Git credential helpers work via writing and reading from stdin and stdout which helped me debug an issue I was having with pass-git-helper. To get a credential helper to spit out the password, it needs to be called with `get` as the first argument and pass in some basic key=value data. The interaction looks somewhat like given below, with `<` indicating the stdin of the credential helper and `>` indicating its stdout. 
+Git credential helpers work via writing and reading from stdin and stdout which helped me debug an issue I was having with pass-git-helper. To get a credential helper to spit out the password, it needs to be called with `get` as the first argument and pass in some basic key=value data. The interaction looks somewhat like given below, with `<` indicating the stdin of the credential helper and `>` indicating its stdout.
 
 ```
 # for URL https://git.msfjarvis.dev/msfjarvis/super-private
