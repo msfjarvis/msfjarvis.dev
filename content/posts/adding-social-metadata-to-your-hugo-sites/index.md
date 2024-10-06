@@ -5,7 +5,6 @@ categories = ["hugo", "webdev"]
 slug = "adding-social-metadata-to-your-hugo-sites"
 title = "Adding social metadata to your Hugo sites"
 tags = ["static sites"]
-images = [ "hugo_metadata_social.webp" ]
 +++
 
 Metadata is data (information) about data.

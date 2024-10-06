@@ -6,7 +6,6 @@ title = "Android Password Store September release"
 date = 2020-09-21
 categories = ["aps"]
 tags = ["relnotes", "oss", "android-password-store"]
-images = [ "aps_banner.webp" ]
 +++
 
 Continuing with this new-ish tradition we have going, here are the detailed release notes for the [v1.12.0](https://github.com/Android-Password-Store/android-password-store/releases/tag/v1.12.0) release.

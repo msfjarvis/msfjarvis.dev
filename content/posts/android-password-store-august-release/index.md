@@ -5,7 +5,6 @@ categories = ["aps"]
 slug = "aps-august-release"
 title = "Android Password Store August release"
 tags = ["relnotes", "oss", "android-password-store"]
-images = [ "aps_banner.webp" ]
 +++
 
 Continuing this new tradition, here are the detailed release notes for the [v1.11.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.11.0) build of of Android Password Store that is going out right now on the Play Store and to F-Droid in the coming days. The overall focus of this release has been to improve UX and resolve bugs. Regular feature development has already resumed for next month's release where we'll be bringing [Android Keystore](https://source.android.com/security/keystore) backed SSH key generation as well as a rewritten OpenKeychain integration for SSH connections.

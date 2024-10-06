@@ -5,7 +5,6 @@ categories = ["linux"]
 slug = "making-a-bluetooth-adapter-work-on-linux"
 title = "Making a Bluetooth adapter work on Linux"
 tags = ["bluetooth", "bt-audio"]
-images = [ "bluetooth_social.webp" ]
 +++
 
 I made a couple of purchases yesterday, including a Bluetooth speaker and a USB Bluetooth dongle to pair it to my computer. Now here's a couple things that you need to know about said computer:

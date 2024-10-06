@@ -5,7 +5,6 @@ categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-direnv"
 title = "Tools of the trade: direnv"
 tags = ["direnv", "cli-tools"]
-images = [ "tools-of-the-trade-direnv.webp" ]
 +++
 
 This post was supposed to be a monolith directory of all the CLI-based tooling that I use to get things done throughout my day, but it turned out to be just a bit too long so I elected to split it out into separate posts.

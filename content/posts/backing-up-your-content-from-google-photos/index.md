@@ -5,7 +5,6 @@ categories = ["how-to"]
 slug = "backing-up-your-content-from-google-photos"
 title = "Backing up your content from Google Photos"
 tags = ["backup", "google photos", "gphotos-cdp"]
-images = [ "google-photos-backup.webp" ]
 +++
 
 Google Photos has established itself as one of the most popular photo storage services, and like a typical Google service, it makes it impressively difficult to get your data back out of it :D

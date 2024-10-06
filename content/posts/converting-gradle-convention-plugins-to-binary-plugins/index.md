@@ -5,7 +5,6 @@ categories = ["gradle"]
 slug = "converting-gradle-convention-plugins-to-binary-plugins"
 title = "Converting Gradle convention plugins to binary plugins"
 tags = ["convention plugins", "gradle"]
-images = [ "gradle-social.webp" ]
 +++
 
 ### Introduction

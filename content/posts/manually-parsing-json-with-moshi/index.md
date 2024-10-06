@@ -6,7 +6,6 @@ title = "Manually parsing JSON with Moshi"
 date = 2020-12-21
 categories = ["kotlin", "android"]
 tags = ["moshi", "json parsing", "moshi read json from file"]
-images = [ "moshi_social.webp" ]
 +++
 
 ### What is Moshi?
