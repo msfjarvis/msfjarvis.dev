@@ -17,8 +17,6 @@ As of 2024-08-28, `caddy-tailscale` is not packaged in Nixpkgs, so we'll need to
 A very simple way to write the package definition for `caddy-tailscale` is to copy the one for the `caddy` package [from Nixpkgs](https://github.com/NixOS/nixpkgs/blob/171f57eca66a997e61d2111b4ac897bd05ce5da3/pkgs/by-name/ca/caddy/package.nix) and change its `src` attribute to point to the `tailscale/caddy-tailscale` repository. This is what the diff looks like after the change:
 
 ```diff
-@@ -18,16 +18,16 @@ let
- in
  buildGoModule {
    pname = "caddy";
 -  inherit version;
@@ -46,7 +44,6 @@ A very simple way to write the package definition for `caddy-tailscale` is to co
 Assuming you've saved the package definition from above as `caddy-tailscale.nix` in your NixOS configuration directory, you can then integrate it into the [`services.caddy`](https://nixos.org/manual/nixos/stable/options#opt-services.caddy.enable) option in NixOS like so:
 
 ```diff
-@@ -90,6 +90,7 @@
    services.caddy = {
      enable = true;
 +    package = pkgs.callPackage ./caddy-tailscale.nix { };
