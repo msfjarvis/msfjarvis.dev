@@ -52,7 +52,3 @@ $ pass-git-helper get
 > username=msfjarvis
 > password=hunter2
 ```
-
-# Conclusion
-
-I've used Git for 7+ years at this point so it's rarer to come across things that are new to me but I still get the occasional pleasant surprise :D
