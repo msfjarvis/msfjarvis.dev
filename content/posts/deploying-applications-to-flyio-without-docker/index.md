@@ -28,14 +28,14 @@ You're also going to need a Fly.io token to authenticate with registry.fly.io. W
 
 First we need to build the image. With Nix it is as easy as running `nix build .#container` (since I declare the OCI image as a [package](https://github.com/msfjarvis/linkleaner/blob/69564ab458abe77e55d090d29ff970a68c1a985c/flake.nix#L83-L93) in my Nix configuration) which will generate a symlink at `./result` pointing to a Docker image tarball.
 
-```
+```bash
 ➜ ls -l result
-lrwxrwxrwx msfjarvis users 74 B Sat Oct  5 19:31:52 2024  result ⇒ /nix/store/h0jgv00fg68d7gsaadd11ydpk6wxxn8w-docker-image-linkleaner.tar.gz
+result ⇒ /nix/store/h0jgv00fg68d7gsaadd11ydpk6wxxn8w-docker-image-linkleaner.tar.gz
 ```
 
 Now to the actual deployment: assuming your app is already set up (`fly apps create`), you just need to copy this image over to their registry and trigger a new deployment. `skopeo` makes this rather easy.
 
-```
+```bash
 skopeo \
   # Remove the need for a policy file since we only need this for a one off thing
   --insecure-policy \
@@ -57,7 +57,7 @@ This will print a bunch of stuff while it's doing its thing and upon success you
 
 And that's more or less it! You can now proceed with the usual Fly.io deployment process of running `flyctl deploy` and it'll be able to find the image and run your application:
 
-```
+```bash
 ➜ flyctl deploy
 ==> Verifying app config
 Validating /home/msfjarvis/code/linkleaner/fly.toml
