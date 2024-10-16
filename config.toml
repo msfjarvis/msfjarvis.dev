@@ -52,6 +52,7 @@ showCodeCopyButtons = true
 showRssButtonInSectionTermList = true
 ShowFullTextinRSS = true
 showToc = true
+social = true
 
 [params.editPost]
 url = "https://github.com/msfjarvis/msfjarvis.dev/edit/main/content/"
