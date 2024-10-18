@@ -1,6 +1,5 @@
 baseURL = "https://msfjarvis.dev/"
 title = "Harsh Shandilya"
-paginate = 10
 theme = ["github.com/adityatelange/hugo-PaperMod"]
 
 enableInlineShortcodes = true
@@ -9,6 +8,9 @@ buildDrafts = false
 buildFuture = false
 buildExpired = false
 enableEmoji = true
+
+[pagination]
+pagerSize = 10
 
 [markup]
 [markup.highlight]
