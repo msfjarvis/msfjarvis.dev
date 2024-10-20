@@ -1,6 +1,7 @@
 +++
 title = "Assorted Git things"
 date = "2024-10-01T08:27:00.000Z"
+lastmod = "2024-10-01T08:27:00.000Z"
 summary = "A running log of Git concepts I've learned since I started journaling"
 categories = ["dev"]
 tags = ["git"]

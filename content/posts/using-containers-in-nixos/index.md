@@ -1,6 +1,7 @@
 +++
 title = "Using containers in NixOS"
 date = "2023-12-08T11:27:39.010Z"
+lastmod = "2023-12-08T11:27:39.010Z"
 summary = "NixOS allows running arbitrary Docker containers declaratively, these are some of my notes on my usage of this functionality."
 draft = true
 +++

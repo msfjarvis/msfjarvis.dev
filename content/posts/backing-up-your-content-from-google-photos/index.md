@@ -1,5 +1,6 @@
 +++
 date = 2022-04-04
+lastmod = 2022-04-04
 summary = "Putting your media into Google Photos is easy, taking it out, not as much."
 categories = ["how-to"]
 slug = "backing-up-your-content-from-google-photos"

@@ -1,6 +1,7 @@
 +++
 title = "Improving dependency sync speeds for your Gradle project"
 date = "2024-03-30T21:43:07.031Z"
+lastmod = "2024-03-30T21:43:07.031Z"
 summary = "Waiting for Gradle to download dependencies is so 2023"
 categories = ["gradle"]
 tags = ["gradle", "kotlin-multiplatform", "perf"]

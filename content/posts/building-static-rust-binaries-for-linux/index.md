@@ -1,5 +1,6 @@
 +++
 date = 2021-10-17
+lastmod = 2021-10-17
 summary = "Some tips on building static binaries of Rust projects targeting Linux"
 categories = ["rust"]
 slug = "building-static-rust-binaries-for-linux"

@@ -1,5 +1,6 @@
 +++
 date = 2020-02-09
+lastmod = 2020-02-09
 summary = "The Viscerion experiment that started more than a year ago is now coming to an end. Here's what's happening."
 categories = ["news"]
 slug = "sunsetting-viscerion"

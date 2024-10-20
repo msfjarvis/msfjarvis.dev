@@ -1,5 +1,6 @@
 +++
 date = 2021-11-06
+lastmod = 2021-11-06
 summary = "I recently migrated Password Store to Material You, Google's latest iteration of Material Design. Here's how it went."
 categories = ["aps"]
 slug = "migrating-aps-to-material-you"

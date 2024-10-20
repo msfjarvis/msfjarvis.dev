@@ -1,6 +1,7 @@
 +++
 categories = ["git"]
 date = 2021-08-14
+lastmod = 2021-08-14
 summary = "Everyone uses Git their way. This is how I do it."
 draft = true
 slug = "how-i-use-git"

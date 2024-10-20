@@ -1,6 +1,7 @@
 +++
 title = "Using Retrofit to disguise scraping as a REST API"
 date = "2023-09-13T07:08:10.659Z"
+lastmod = "2023-09-13T07:08:10.659Z"
 summary = "We've all used Retrofit to interact with REST APIs for as long as we can remember, but what if there was no API?"
 draft = true
 +++

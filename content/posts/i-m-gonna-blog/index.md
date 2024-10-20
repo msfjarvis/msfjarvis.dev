@@ -1,6 +1,7 @@
 +++
 categories = []
 date = 2019-05-30
+lastmod = 2019-05-30
 slug = "i-m-gonna-blog"
 tags = []
 title = "I'm gonna blog!"

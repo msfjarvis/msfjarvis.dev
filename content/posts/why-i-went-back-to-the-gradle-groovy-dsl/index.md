@@ -1,6 +1,7 @@
 +++
 categories = ["kotlin", "android"]
 date = 2019-10-25
+lastmod = 2019-10-25
 summary = "I was an early adopter of the Gradle Kotlin DSL, deploying it to multiple Android projects of mine, but lately it has been more trouble than I could care for. Here are my grievances with it."
 devLink = "https://dev.to/msfjarvis/why-i-went-back-to-the-gradle-groovy-dsl-4jf4"
 slug = "why-i-went-back-to-the-gradle-groovy-dsl"

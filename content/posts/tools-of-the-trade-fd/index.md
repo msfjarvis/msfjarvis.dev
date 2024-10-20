@@ -1,5 +1,6 @@
 +++
 date = 2020-08-18
+lastmod = 2020-08-18
 summary = "Probably the final post of this series? Let's talk about fd!"
 categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-fd"

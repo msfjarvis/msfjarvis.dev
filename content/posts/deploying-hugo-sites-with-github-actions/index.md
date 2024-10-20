@@ -1,5 +1,6 @@
 +++
 date = 2019-12-04
+lastmod = 2019-12-04
 summary = "GitHub Actions are awesome! Learn how to use it for continuous delivery of your static sites."
 categories = ["hugo", "github-actions"]
 slug = "deploying-hugo-sites-with-github-actions"

@@ -1,6 +1,7 @@
 +++
 title = "Tips and tricks for using Renovate"
 date = "2023-01-17T19:32:18.074Z"
+lastmod = "2023-01-17T19:32:18.074Z"
 summary = "Renovate is an extremely powerful tool for keeping your dependencies up-to-date, and its flexibility is often left unexplored. I'm hoping to change that"
 categories = ["automation"]
 tags = ["dependency-management", "renovate"]

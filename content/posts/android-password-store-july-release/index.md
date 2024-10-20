@@ -4,6 +4,7 @@ toc = true
 slug = "aps-july-release"
 title = "Android Password Store July release"
 date = 2020-07-22
+lastmod = 2020-07-22
 categories = ["aps"]
 tags = ["relnotes", "oss", "android-password-store"]
 +++

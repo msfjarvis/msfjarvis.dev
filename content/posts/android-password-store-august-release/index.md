@@ -1,5 +1,6 @@
 +++
 date = 2020-08-18
+lastmod = 2020-08-18
 summary = "Long form release notes for the Android Password Store August release"
 categories = ["aps"]
 slug = "aps-august-release"

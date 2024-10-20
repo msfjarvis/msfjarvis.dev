@@ -1,6 +1,7 @@
 +++
 categories = ["april-cools"]
 date = 2024-04-01
+lastmod = 2024-04-01
 summary = "The history of my Minecraft adventures as told by my screenshots folder"
 slug = "a-tour-of-my-screenshots-folder"
 tags = ["april-cools", "minecraft"]

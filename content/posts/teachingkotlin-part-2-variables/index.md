@@ -2,6 +2,7 @@
 summary = "The second post in #TeachingKotlin series, this post goes over Kotlin's variables and their attributes, like visibility and getters/setters."
 slug = "teaching-kotlin--variables"
 date = 2019-09-30
+lastmod = 2019-09-30
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-2-variables-2api"
 title = "#TeachingKotlin Part 2 - Variables"
 categories = ["kotlin", "android", "teachingkotlin"]

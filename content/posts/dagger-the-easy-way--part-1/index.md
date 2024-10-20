@@ -2,6 +2,7 @@
 summary = "Dagger is universally intimidating to beginners and I want to change it."
 slug = "dagger-the-easy-way--part-1"
 date = 2020-01-20
+lastmod = 2020-01-20
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-1-3l7b"
 title = "Dagger the easy way - Part 1"
 categories = ["android"]

@@ -1,6 +1,7 @@
 +++
 categories = ["devops"]
 date = 2024-10-05
+lastmod = 2024-10-05
 summary = "A quick guide to deploying apps to Fly.io without a local Docker installation"
 draft = false
 slug = "deploying-applications-to-flyio-without-docker"

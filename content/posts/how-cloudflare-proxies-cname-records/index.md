@@ -1,5 +1,6 @@
 +++
 date = 2020-05-08
+lastmod = 2020-05-08
 summary = "Everybody probably understands how Cloudflare proxies A/AAAA records, but how it proxies CNAME records is also pretty interesting. Let's dive into how that happens and why it can often break other products that need you to set CNAME records."
 categories = ["webdev"]
 slug = "how-cloudflare-proxies-cname-records"

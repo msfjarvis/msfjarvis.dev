@@ -3,6 +3,7 @@ summary = "(Mostly) everybody agrees that Android upgrades are good, but how ver
 toc = true
 slug = "why-upgrade-android"
 date = 2020-07-23
+lastmod = 2020-07-23
 devLink = "https://dev.to/msfjarvis/why-upgrade-android-557f"
 title = "Why upgrade Android?"
 categories = ["android"]

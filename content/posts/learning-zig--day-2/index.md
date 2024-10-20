@@ -1,6 +1,7 @@
 +++
 categories = ["zig"]
 date = 2021-05-15
+lastmod = 2021-05-15
 summary = "Onwards in our quest to learn Zig"
 slug = "learning-zig--day-2"
 tags = ["learn"]

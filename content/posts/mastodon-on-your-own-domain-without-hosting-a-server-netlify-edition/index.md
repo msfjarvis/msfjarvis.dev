@@ -1,6 +1,7 @@
 +++
 categories = ["fediverse"]
 date = 2022-11-16
+lastmod = 2022-11-16
 summary = "A quick and easy way of creating a Fediverse identity on your own domain without an ActivityPub server"
 slug = "mastodon-on-your-own-domain-without-hosting-a-server-netlify-edition"
 tags = ["mastodon", "fediverse", "webfinger", "netlify"]

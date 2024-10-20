@@ -1,5 +1,6 @@
 +++
 date = 2021-01-02T00:00:00.000Z
+lastmod = 2021-01-02T00:00:00.000Z
 summary = "GitHub Actions is a power CI/CD platform that can do a lot more than your traditional CI systems. Here's some tips to get you started with exploring its true potential."
 categories = ["github-actions"]
 slug = "github-actions-tips-tricks"

@@ -2,6 +2,7 @@
 summary = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
 slug = "publishing-an-android-library-to-github-packages"
 date = 2019-11-21
+lastmod = 2019-11-21
 devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
 title = "Publishing an Android library to GitHub Packages"
 categories = ["android"]

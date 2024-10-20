@@ -2,6 +2,7 @@
 summary = "Part 3 of #TeachingKotlin covers some subtle differences between Kotlin and Java that might affect your codebases as you start migrating to or writing new code in Kotlin."
 slug = "teachingkotlin-part-3--caveats-coming-from-java"
 date = 2019-12-16
+lastmod = 2019-12-16
 devLink = "https://dev.to/msfjarvis/teachingkotlin-part-3-caveats-coming-from-java-2e1k"
 title = "#TeachingKotlin Part 3 - Caveats coming from Java"
 categories = ["kotlin", "android", "teachingkotlin"]

@@ -1,5 +1,6 @@
 +++
 date = 2020-09-02
+lastmod = 2020-09-02
 summary = "Bringing this series back on popular demand, we're here to talk about SDKMAN!"
 categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-sdkman"

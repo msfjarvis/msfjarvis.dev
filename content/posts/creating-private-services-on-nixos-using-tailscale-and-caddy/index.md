@@ -1,6 +1,7 @@
 +++
 categories = []
 date = 2024-08-28
+lastmod = 2024-08-28
 summary = ""
 draft = true
 slug = "creating-private-services-on-nixos-using-tailscale-and-caddy"

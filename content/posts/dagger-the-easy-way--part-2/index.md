@@ -2,6 +2,7 @@
 summary = "Let's extend the \"scope\" of these tutorials :)"
 slug = "dagger-the-easy-way--part-2"
 date = 2020-03-06
+lastmod = 2020-03-06
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-2-4p4m"
 title = "Dagger the easy way - Part 2"
 categories = ["android"]

@@ -4,6 +4,7 @@ draft = true
 slug = "tips-for-building-kotlin-libraries"
 title = "Tips and tricks for building libraries in Kotlin"
 date = 2020-11-21T00:00:00.000Z
+lastmod = 2020-11-21T00:00:00.000Z
 categories = ["android", "kotlin"]
 tags = ["libraries"]
 +++

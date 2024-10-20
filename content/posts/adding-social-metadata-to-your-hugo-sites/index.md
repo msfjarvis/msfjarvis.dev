@@ -1,5 +1,6 @@
 +++
 date = 2020-02-03
+lastmod = 2020-02-03
 summary = "Optimize social media exposure with the right metadata for your site"
 categories = ["hugo", "webdev"]
 slug = "adding-social-metadata-to-your-hugo-sites"

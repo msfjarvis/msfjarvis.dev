@@ -1,5 +1,6 @@
 +++
 date = 2022-04-17
+lastmod = 2022-04-17
 summary = "Gradle's convention plugins are a fantastic way to share common build configuration, why not take them a step further?"
 categories = ["gradle"]
 slug = "converting-gradle-convention-plugins-to-binary-plugins"

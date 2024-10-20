@@ -1,5 +1,6 @@
 +++
 date = 2020-08-04
+lastmod = 2020-08-04
 summary = "In the first post in the new 'Tools of the trade' series, we talk about direnv."
 categories = ["tools-of-the-trade"]
 slug = "tools-of-the-trade-direnv"

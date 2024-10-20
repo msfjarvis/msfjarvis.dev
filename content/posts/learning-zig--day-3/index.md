@@ -1,6 +1,7 @@
 +++
 categories = ["zig"]
 date = 2021-05-16
+lastmod = 2021-05-16
 summary = "Finishing up the basics"
 slug = "learning-zig--day-3"
 tags = ["learn"]

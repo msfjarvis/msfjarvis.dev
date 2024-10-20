@@ -4,6 +4,7 @@ toc = true
 slug = "manually-parsing-json-with-moshi"
 title = "Manually parsing JSON with Moshi"
 date = 2020-12-21
+lastmod = 2020-12-21
 categories = ["kotlin", "android"]
 tags = ["moshi", "json parsing", "moshi read json from file"]
 +++

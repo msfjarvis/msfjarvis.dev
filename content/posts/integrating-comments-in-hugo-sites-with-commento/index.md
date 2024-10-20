@@ -2,6 +2,7 @@
 summary = "Adding additional comment backends to Hugo is actually rather simple!"
 slug = "integrating-comments-in-hugo-sites-with-commento"
 date = 2020-01-20
+lastmod = 2020-01-20
 devLink = "https://dev.to/msfjarvis/integrating-comments-in-hugo-sites-with-commento-136f"
 title = "Integrating comments in Hugo sites with commento"
 categories = ["hugo", "webdev"]

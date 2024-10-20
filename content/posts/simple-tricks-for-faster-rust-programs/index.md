@@ -1,5 +1,6 @@
 +++
 date = 2020-07-05
+lastmod = 2020-07-05
 summary = "Rust programs are pretty fast on their own, but you can slightly augment their performance with some simple tricks."
 categories = ["rust", "dev"]
 slug = "simple-tricks-for-faster-rust-programs"
