@@ -17,7 +17,7 @@ function create_post() {
     return
   }
   mkdir -p content/posts/"${postslug}"
-  printf "+++\ncategories = []\ndate = %s\nsummary = \"\"\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" "${postdate}" "${postslug}" "${title}" > content/posts/"${postslug}"/index.md
+  printf "+++\ncategories = []\ndate = %s\nlastmod = %s\nsummary = \"\"\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" "${postdate}" "${postdate}" "${postslug}" "${title}" >content/posts/"${postslug}"/index.md
   echo "content/posts/${postslug} created!"
 }
 
