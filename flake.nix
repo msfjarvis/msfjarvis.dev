@@ -46,6 +46,16 @@
             help = "Build the site";
           }
           {
+            name = "conv";
+            category = "development";
+            command = ''
+              DIR=content/posts
+              fd -tf png$ "$DIR" -x cwebp -lossless -mt {} -o '{.}.webp'
+              fd -tf png$ "$DIR" -X rm -v
+            '';
+            help = "Convert all PNGs to WebP";
+          }
+          {
             name = "dev";
             category = "development";
             command = "hugo server -D";
