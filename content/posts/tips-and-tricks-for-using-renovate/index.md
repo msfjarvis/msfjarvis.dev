@@ -1,11 +1,11 @@
 +++
-title = "Tips and tricks for using Renovate"
-date = "2023-01-17T19:32:18.074Z"
-lastmod = "2023-01-17T19:32:18.074Z"
-summary = "Renovate is an extremely powerful tool for keeping your dependencies up-to-date, and its flexibility is often left unexplored. I'm hoping to change that"
 categories = ["automation"]
-tags = ["dependency-management", "renovate"]
+date = "2023-01-18T01:02:18+05:30"
 draft = false
+lastmod = "2023-01-18T01:02:18+05:30"
+summary = "Renovate is an extremely powerful tool for keeping your dependencies up-to-date, and its flexibility is often left unexplored. I'm hoping to change that"
+tags = ["dependency-management", "renovate"]
+title = "Tips and tricks for using Renovate"
 +++
 
 [Mend Renovate](https://www.mend.io/free-developer-tools/renovate/) is a free to use dependency update management service powered by the open-source [renovate](https://github.com/renovatebot/renovate), and is a compelling alternative to GitHub's blessed solution for this problem space: [Dependabot](https://docs.github.com/en/code-security/dependabot). Renovate offers a significantly larger suite of supported language ecosystems compared to Dependabot as well as fine-grained control over where it finds dependencies, how it chooses updated versions, and a lot more. TL;DR: Renovate is a massive upgrade over Dependabot and you should evaluate it if _any_ aspect of Dependabot has caused you grief, there's a good chance Renovate does it better.

@@ -1,10 +1,10 @@
 +++
 categories = ["git"]
-date = 2021-08-14
-lastmod = 2021-08-14
-summary = "Everyone uses Git their way. This is how I do it."
+date = "2021-08-14T12:00:00+05:30"
 draft = true
+lastmod = "2021-08-14T12:00:00+05:30"
 slug = "how-i-use-git"
+summary = "Everyone uses Git their way. This is how I do it."
 tags = ["developer workflow"]
 title = "How I use Git"
 +++

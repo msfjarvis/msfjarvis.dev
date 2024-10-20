@@ -1,11 +1,11 @@
 +++
-date = 2019-12-04
-lastmod = 2019-12-04
-summary = "GitHub Actions are awesome! Learn how to use it for continuous delivery of your static sites."
 categories = ["hugo", "github-actions"]
+date = "2019-12-04T12:00:00+05:30"
+lastmod = "2019-12-04T12:00:00+05:30"
 slug = "deploying-hugo-sites-with-github-actions"
-title = "Deploying Hugo sites with GitHub Actions"
+summary = "GitHub Actions are awesome! Learn how to use it for continuous delivery of your static sites."
 tags = ["static sites"]
+title = "Deploying Hugo sites with GitHub Actions"
 +++
 
 For the longest time, I have used the [caddy-git] middleware for [caddyserver](https://caddyserver.com) to constantly deploy my [Hugo](https://gohugo.io) site from [GitHub](https://github.com/msfjarvis/msfjarvis.dev).

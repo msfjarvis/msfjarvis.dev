@@ -1,10 +1,10 @@
 +++
-title = "Assorted Git things"
-date = "2024-10-01T08:27:00.000Z"
-lastmod = "2024-10-01T08:27:00.000Z"
-summary = "A running log of Git concepts I've learned since I started journaling"
 categories = ["dev"]
+date = "2024-10-01T13:57:00+05:30"
+lastmod = "2024-10-01T13:57:00+05:30"
+summary = "A running log of Git concepts I've learned since I started journaling"
 tags = ["git"]
+title = "Assorted Git things"
 +++
 
 When I asked for suggestions about note-taking apps [back in May](https://androiddev.social/@msfjarvis/112378523734491769) I wasn't fully convinced I'd be able to stick with it, but nearly 6 months later it has probably been the thing I've been most consistent about. Anyways, here's a rather short list of Git things off the ['TIL'](https://dictionary.cambridge.org/us/dictionary/english/til) list in my Logseq graph.

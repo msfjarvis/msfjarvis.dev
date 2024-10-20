@@ -1,11 +1,11 @@
 +++
-date = 2020-07-30
-lastmod = 2020-07-30
-summary = "Long form release notes for the Android Password Store v1.10.2 patch release"
 categories = ["aps"]
+date = "2020-07-30T12:00:00+05:30"
+lastmod = "2020-07-30T12:00:00+05:30"
 slug = "aps-1.10.2-release"
-title = "Android Password Store 1.10.2 patch release"
+summary = "Long form release notes for the Android Password Store v1.10.2 patch release"
 tags = ["relnotes", "oss", "android-password-store"]
+title = "Android Password Store 1.10.2 patch release"
 +++
 
 Exactly one week after the [previous patch release](/posts/aps-1.10.1-release), we have another small release fixing a few bugs that were deemed too high-priority for our usual release cadence.

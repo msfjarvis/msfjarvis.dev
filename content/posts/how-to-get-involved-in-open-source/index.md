@@ -1,12 +1,12 @@
 +++
 categories = ["open source"]
-date = 2019-05-31
-lastmod = 2019-05-31
-summary = "Starting with OSS can be daunting for many. Here's a recap of my experiences with OSS with some tips on how to get started yourself."
+date = "2019-05-31T12:00:00+05:30"
 devLink = "https://dev.to/msfjarvis/how-to-get-involved-with-open-source-4h42"
+lastmod = "2019-05-31T12:00:00+05:30"
+slug = "how-to-get-involved-in-open-source"
+summary = "Starting with OSS can be daunting for many. Here's a recap of my experiences with OSS with some tips on how to get started yourself."
 tags = ["oss"]
 title = "How to get involved in open source"
-slug = "how-to-get-involved-in-open-source"
 +++
 
 The most common question I get when I recommend open source as a launching pad for budding developers is "Where do I start?".

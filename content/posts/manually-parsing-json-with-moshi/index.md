@@ -1,12 +1,12 @@
 +++
-summary = "Moshi is a fast and powerful JSON parsing library for the JVM and Android. Today we look into manually parsing JSON to and from Java/Kotlin classes"
-toc = true
-slug = "manually-parsing-json-with-moshi"
-title = "Manually parsing JSON with Moshi"
-date = 2020-12-21
-lastmod = 2020-12-21
 categories = ["kotlin", "android"]
+date = "2020-12-21T12:00:00+05:30"
+lastmod = "2020-12-21T12:00:00+05:30"
+slug = "manually-parsing-json-with-moshi"
+summary = "Moshi is a fast and powerful JSON parsing library for the JVM and Android. Today we look into manually parsing JSON to and from Java/Kotlin classes"
 tags = ["moshi", "json parsing", "moshi read json from file"]
+title = "Manually parsing JSON with Moshi"
+toc = true
 +++
 
 ### What is Moshi?

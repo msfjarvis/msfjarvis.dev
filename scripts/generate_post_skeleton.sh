@@ -10,7 +10,7 @@ function create_post() {
   else
     title="${*}"
   fi
-  postdate="$(date +%Y-%m-%d)"
+  postdate="$(date +"%Y-%m-%dT%H:%M:%S%:z")"
   postslug="$(echo "${title}" | tr -dc '[:alnum:][:space:]\n\r' | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g')"
   [ -z "$postslug" ] && {
     echo -e "\033[01;31mProviding a title is a must!\033[0m"

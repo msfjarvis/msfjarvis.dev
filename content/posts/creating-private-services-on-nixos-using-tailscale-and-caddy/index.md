@@ -1,10 +1,10 @@
 +++
 categories = []
-date = 2024-08-28
-lastmod = 2024-08-28
-summary = ""
+date = "2024-08-28T12:00:00+05:30"
 draft = true
+lastmod = "2024-08-28T12:00:00+05:30"
 slug = "creating-private-services-on-nixos-using-tailscale-and-caddy"
+summary = ""
 tags = ["caddy", "nixos", "tailscale"]
 title = "Creating private services on NixOS using Tailscale and Caddy"
 +++

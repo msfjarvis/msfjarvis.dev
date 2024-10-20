@@ -1,12 +1,12 @@
 +++
-summary = "Rust is an amazing systems language that is on an explosive rise thanks to its memory safety guarantees and fast, iterative development. In this post, I recap some of the tooling that I use with Rust to make coding in it even more fun and intuitive"
-slug = "tools-for-effective-rust-development"
-date = 2019-09-07
-lastmod = 2019-09-07
-devLink = "https://dev.to/msfjarvis/tools-for-effective-rust-development-3mb4"
-title = "Tools for effective Rust development"
 categories = ["rust"]
+date = "2019-09-07T12:00:00+05:30"
+devLink = "https://dev.to/msfjarvis/tools-for-effective-rust-development-3mb4"
+lastmod = "2019-09-07T12:00:00+05:30"
+slug = "tools-for-effective-rust-development"
+summary = "Rust is an amazing systems language that is on an explosive rise thanks to its memory safety guarantees and fast, iterative development. In this post, I recap some of the tooling that I use with Rust to make coding in it even more fun and intuitive"
 tags = ["cargo", "rls", "cargo-edit", "clippy"]
+title = "Tools for effective Rust development"
 +++
 
 [Rust] is a memory-safe systems language that is blazing fast, and comes with no runtime or garbage collector overhead. It can be used to build very performant web services, CLI tools, and even [Linux kernel modules](https://github.com/fishinabarrel/linux-kernel-module-rust)!

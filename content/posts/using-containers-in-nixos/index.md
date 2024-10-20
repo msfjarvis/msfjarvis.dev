@@ -1,9 +1,9 @@
 +++
-title = "Using containers in NixOS"
-date = "2023-12-08T11:27:39.010Z"
-lastmod = "2023-12-08T11:27:39.010Z"
-summary = "NixOS allows running arbitrary Docker containers declaratively, these are some of my notes on my usage of this functionality."
+date = "2023-12-08T16:57:39+05:30"
 draft = true
+lastmod = "2023-12-08T16:57:39+05:30"
+summary = "NixOS allows running arbitrary Docker containers declaratively, these are some of my notes on my usage of this functionality."
+title = "Using containers in NixOS"
 +++
 
 NixOS comes with the ability to [declaratively manage docker containers](https://nixos.wiki/wiki/NixOS_Containers#Declarative_docker_containers), which functions as a nice escape hatch when something you want to run doesn't have a native Nix package or is not easy to run within NixOS.

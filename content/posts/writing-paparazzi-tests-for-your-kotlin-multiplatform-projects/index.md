@@ -1,9 +1,9 @@
 +++
 categories = ["android", "gradle", "kotlin"]
-date = 2022-06-26
-lastmod = 2022-06-26
-summary = "Paparazzi enables a radically faster and improved UI testing workflow, and using a small workaround we can bring that to our multiplatform Compose projects"
+date = "2022-06-26T12:00:00+05:30"
+lastmod = "2022-06-26T12:00:00+05:30"
 slug = "writing-paparazzi-tests-for-your-kotlin-multiplatform-projects"
+summary = "Paparazzi enables a radically faster and improved UI testing workflow, and using a small workaround we can bring that to our multiplatform Compose projects"
 tags = ["jetpack-compose", "kotlin-multiplatform"]
 title = "Writing Paparazzi tests for your Kotlin Multiplatform projects"
 +++

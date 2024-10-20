@@ -1,11 +1,11 @@
 +++
-date = 2020-02-09
-lastmod = 2020-02-09
-summary = "The Viscerion experiment that started more than a year ago is now coming to an end. Here's what's happening."
 categories = ["news"]
+date = "2020-02-09T12:00:00+05:30"
+lastmod = "2020-02-09T12:00:00+05:30"
 slug = "sunsetting-viscerion"
-title = "Sunsetting Viscerion"
+summary = "The Viscerion experiment that started more than a year ago is now coming to an end. Here's what's happening."
 tags = ["personal"]
+title = "Sunsetting Viscerion"
 +++
 
 Viscerion is one of my more known and loved apps that I myself continue to enjoy working on and using. The project started back in 2018 following a short stint with WireGuard working on their own Android app, and is now being shut down.

@@ -1,11 +1,11 @@
 +++
-date = 2020-08-10
-lastmod = 2020-08-10
-summary = "Continuing this series, let's talk about fzf."
 categories = ["tools-of-the-trade"]
+date = "2020-08-10T12:00:00+05:30"
+lastmod = "2020-08-10T12:00:00+05:30"
 slug = "tools-of-the-trade-fzf"
-title = "Tools of the trade: fzf"
+summary = "Continuing this series, let's talk about fzf."
 tags = ["fzf", "cli-tools"]
+title = "Tools of the trade: fzf"
 +++
 
 In the second post of [this series](/categories/tools-of-the-trade/), let's talk about [fzf](https://github.com/junegunn/fzf).

@@ -1,12 +1,12 @@
 +++
-summary = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes, objects and how things like finality and staticity vary between Java and Kotlin."
-slug = "teaching-kotlin--classes-and-objects"
-date = 2019-09-23
-lastmod = 2019-09-23
-devLink = "https://dev.to/msfjarvis/teachingkotlin-part-1-classes-and-objects-and-everything-in-between-5bn0"
-title = "#TeachingKotlin Part 1 - Classes and Objects and everything in between"
 categories = ["kotlin", "android", "teachingkotlin"]
+date = "2019-09-23T12:00:00+05:30"
+devLink = "https://dev.to/msfjarvis/teachingkotlin-part-1-classes-and-objects-and-everything-in-between-5bn0"
+lastmod = "2019-09-23T12:00:00+05:30"
+slug = "teaching-kotlin--classes-and-objects"
+summary = "Part 1 of my #TeachingKotlin, this post goes over Kotlin classes, objects and how things like finality and staticity vary between Java and Kotlin."
 tags = []
+title = "#TeachingKotlin Part 1 - Classes and Objects and everything in between"
 +++
 
 Classes in Kotlin closely mimic their Java counterparts in implementation, with some crucial changes that I will attempt to outline here.

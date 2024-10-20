@@ -1,11 +1,11 @@
 +++
-date = 2022-04-04
-lastmod = 2022-04-04
-summary = "Putting your media into Google Photos is easy, taking it out, not as much."
 categories = ["how-to"]
+date = "2022-04-04T12:00:00+05:30"
+lastmod = "2022-04-04T12:00:00+05:30"
 slug = "backing-up-your-content-from-google-photos"
-title = "Backing up your content from Google Photos"
+summary = "Putting your media into Google Photos is easy, taking it out, not as much."
 tags = ["backup", "google photos", "gphotos-cdp"]
+title = "Backing up your content from Google Photos"
 +++
 
 Google Photos has established itself as one of the most popular photo storage services, and like a typical Google service, it makes it impressively difficult to get your data back out of it :D

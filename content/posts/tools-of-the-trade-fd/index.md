@@ -1,11 +1,11 @@
 +++
-date = 2020-08-18
-lastmod = 2020-08-18
-summary = "Probably the final post of this series? Let's talk about fd!"
 categories = ["tools-of-the-trade"]
+date = "2020-08-18T12:00:00+05:30"
+lastmod = "2020-08-18T12:00:00+05:30"
 slug = "tools-of-the-trade-fd"
-title = "Tools of the trade: fd"
+summary = "Probably the final post of this series? Let's talk about fd!"
 tags = ["fd", "cli-tools"]
+title = "Tools of the trade: fd"
 +++
 
 Continuing [this series](/categories/tools-of-the-trade/), let's talk about [fd](https://github.com/sharkdp/fd).

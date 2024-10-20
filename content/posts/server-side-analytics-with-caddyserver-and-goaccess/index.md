@@ -1,12 +1,12 @@
 +++
-summary = "Analytics platforms are often overwhelming and a privacy nightmare -- here's how to bring analytics to the backend with very simple tooling"
-slug = "serverside-stats-with-goaccess"
-date = 2019-12-17
-lastmod = 2019-12-17
-devLink = "https://dev.to/msfjarvis/server-side-analytics-with-goaccess-pg8"
-title = "Server-side analytics with Goaccess"
 categories = ["webdev"]
+date = "2019-12-17T12:00:00+05:30"
+devLink = "https://dev.to/msfjarvis/server-side-analytics-with-goaccess-pg8"
+lastmod = "2019-12-17T12:00:00+05:30"
+slug = "serverside-stats-with-goaccess"
+summary = "Analytics platforms are often overwhelming and a privacy nightmare -- here's how to bring analytics to the backend with very simple tooling"
 tags = ["caddyserver", "goaccess", "analytics"]
+title = "Server-side analytics with Goaccess"
 +++
 
 Analytics are a very helpful aspect of any development. They allow developers to know what parts of their apps are visited the most often and can use more attention, and for bloggers to know what content does or does not resonate with their readers.

@@ -1,11 +1,11 @@
 +++
-date = 2021-11-06
-lastmod = 2021-11-06
-summary = "I recently migrated Password Store to Material You, Google's latest iteration of Material Design. Here's how it went."
 categories = ["aps"]
+date = "2021-11-06T12:00:00+05:30"
+lastmod = "2021-11-06T12:00:00+05:30"
 slug = "migrating-aps-to-material-you"
-title = "Migrating APS to Material You"
+summary = "I recently migrated Password Store to Material You, Google's latest iteration of Material Design. Here's how it went."
 tags = ["android-password-store"]
+title = "Migrating APS to Material You"
 +++
 
 With much fanfare, Google released the next iteration of Material Design: **Material You**. It's received mixed reviews, but I found it extremely pleasant to use and the homogeneity of Google apps following the platform colors felt great. That's what prompted me to update APS to Material You and join in :)

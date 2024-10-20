@@ -1,12 +1,12 @@
 +++
-summary = "Dagger is not the easiest tool to get on board with but it's almost worth the effort. Here's the story of my journey to not hating Dagger."
-slug = "my-dagger-story"
-date = 2020-01-11
-lastmod = 2020-01-11
-devLink = "https://dev.to/msfjarvis/my-dagger-story-2go0"
-title = "My Dagger Story"
 categories = ["android"]
+date = "2020-01-11T12:00:00+05:30"
+devLink = "https://dev.to/msfjarvis/my-dagger-story-2go0"
+lastmod = "2020-01-11T12:00:00+05:30"
+slug = "my-dagger-story"
+summary = "Dagger is not the easiest tool to get on board with but it's almost worth the effort. Here's the story of my journey to not hating Dagger."
 tags = ["dagger"]
+title = "My Dagger Story"
 +++
 
 [Dagger](https://dagger.dev) is infamous for very good reasons. It's complicated to use, the documentation is an absolute shitshow, and simpler 'alternatives' exist. While [Koin](http://insert-koin.io/) and to a lesser extent [Kodein](https://kodein.org/di/) do the job, they're still service locators at their core and don't automatically inject dependencies like Dagger does.

@@ -1,11 +1,11 @@
 +++
-date = 2021-01-02T00:00:00.000Z
-lastmod = 2021-01-02T00:00:00.000Z
-summary = "GitHub Actions is a power CI/CD platform that can do a lot more than your traditional CI systems. Here's some tips to get you started with exploring its true potential."
 categories = ["github-actions"]
+date = "2021-01-02T05:30:00+05:30"
+lastmod = "2021-01-02T05:30:00+05:30"
 slug = "github-actions-tips-tricks"
-title = "Tips and Tricks for GitHub Actions"
+summary = "GitHub Actions is a power CI/CD platform that can do a lot more than your traditional CI systems. Here's some tips to get you started with exploring its true potential."
 tags = ["tips and tricks", "schedules", "jobs", "workflows"]
+title = "Tips and Tricks for GitHub Actions"
 +++
 
 GitHub Actions has grown at a rapid pace, and has become the CI platform of choice for most open source projects. The recent changes to Travis CI's pricing for open source is certainly bound to accelerate this even more.

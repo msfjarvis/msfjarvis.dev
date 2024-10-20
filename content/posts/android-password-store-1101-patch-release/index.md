@@ -1,11 +1,11 @@
 +++
-date = 2020-07-23
-lastmod = 2020-07-23
-summary = "Long form release notes for the Android Password Store v1.10.1 patch release"
 categories = ["aps"]
+date = "2020-07-23T12:00:00+05:30"
+lastmod = "2020-07-23T12:00:00+05:30"
 slug = "aps-1.10.1-release"
-title = "Android Password Store 1.10.1 patch release"
+summary = "Long form release notes for the Android Password Store v1.10.1 patch release"
 tags = ["relnotes", "oss", "android-password-store"]
+title = "Android Password Store 1.10.1 patch release"
 +++
 
 Hot on the heels of the [v1.10.0](https://github.com/android-password-store/Android-Password-Store/releases/tag/v1.10.0) release we have an incremental bugfix update ready to go!

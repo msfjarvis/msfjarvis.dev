@@ -1,11 +1,11 @@
 +++
-date = 2022-04-17
-lastmod = 2022-04-17
-summary = "Gradle's convention plugins are a fantastic way to share common build configuration, why not take them a step further?"
 categories = ["gradle"]
+date = "2022-04-17T12:00:00+05:30"
+lastmod = "2022-04-17T12:00:00+05:30"
 slug = "converting-gradle-convention-plugins-to-binary-plugins"
-title = "Converting Gradle convention plugins to binary plugins"
+summary = "Gradle's convention plugins are a fantastic way to share common build configuration, why not take them a step further?"
 tags = ["convention plugins", "gradle"]
+title = "Converting Gradle convention plugins to binary plugins"
 +++
 
 ### Introduction

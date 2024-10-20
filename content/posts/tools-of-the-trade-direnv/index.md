@@ -1,11 +1,11 @@
 +++
-date = 2020-08-04
-lastmod = 2020-08-04
-summary = "In the first post in the new 'Tools of the trade' series, we talk about direnv."
 categories = ["tools-of-the-trade"]
+date = "2020-08-04T12:00:00+05:30"
+lastmod = "2020-08-04T12:00:00+05:30"
 slug = "tools-of-the-trade-direnv"
-title = "Tools of the trade: direnv"
+summary = "In the first post in the new 'Tools of the trade' series, we talk about direnv."
 tags = ["direnv", "cli-tools"]
+title = "Tools of the trade: direnv"
 +++
 
 This post was supposed to be a monolith directory of all the CLI-based tooling that I use to get things done throughout my day, but it turned out to be just a bit too long so I elected to split it out into separate posts.

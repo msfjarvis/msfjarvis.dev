@@ -1,11 +1,11 @@
 +++
-date = 2020-09-02
-lastmod = 2020-09-02
-summary = "Bringing this series back on popular demand, we're here to talk about SDKMAN!"
 categories = ["tools-of-the-trade"]
+date = "2020-09-02T12:00:00+05:30"
+lastmod = "2020-09-02T12:00:00+05:30"
 slug = "tools-of-the-trade-sdkman"
-title = "Tools of the trade: SDKMAN!"
+summary = "Bringing this series back on popular demand, we're here to talk about SDKMAN!"
 tags = ["sdkman", "cli-tools"]
+title = "Tools of the trade: SDKMAN!"
 +++
 
 In the fourth post of [this series](/categories/tools-of-the-trade/), we're talking about [SDKMAN!](https://sdkman.io).

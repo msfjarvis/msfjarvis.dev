@@ -1,12 +1,12 @@
 +++
-summary = "Part 3 of #TeachingKotlin covers some subtle differences between Kotlin and Java that might affect your codebases as you start migrating to or writing new code in Kotlin."
-slug = "teachingkotlin-part-3--caveats-coming-from-java"
-date = 2019-12-16
-lastmod = 2019-12-16
-devLink = "https://dev.to/msfjarvis/teachingkotlin-part-3-caveats-coming-from-java-2e1k"
-title = "#TeachingKotlin Part 3 - Caveats coming from Java"
 categories = ["kotlin", "android", "teachingkotlin"]
+date = "2019-12-16T12:00:00+05:30"
+devLink = "https://dev.to/msfjarvis/teachingkotlin-part-3-caveats-coming-from-java-2e1k"
+lastmod = "2019-12-16T12:00:00+05:30"
+slug = "teachingkotlin-part-3--caveats-coming-from-java"
+summary = "Part 3 of #TeachingKotlin covers some subtle differences between Kotlin and Java that might affect your codebases as you start migrating to or writing new code in Kotlin."
 tags = []
+title = "#TeachingKotlin Part 3 - Caveats coming from Java"
 +++
 
 When you start migrating your Java code to Kotlin, you will encounter multiple subtle changes that might catch you off guard. I'll document some of these gotchas that I and other people I follow have found and written about.

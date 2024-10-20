@@ -1,10 +1,10 @@
 +++
 categories = ["devops"]
-date = 2024-10-05
-lastmod = 2024-10-05
-summary = "A quick guide to deploying apps to Fly.io without a local Docker installation"
+date = "2024-10-05T12:00:00+05:30"
 draft = false
+lastmod = "2024-10-05T12:00:00+05:30"
 slug = "deploying-applications-to-flyio-without-docker"
+summary = "A quick guide to deploying apps to Fly.io without a local Docker installation"
 tags = ["fly.io", "docker", "nix"]
 title = "Deploying applications to Fly.io without Docker"
 +++

@@ -1,10 +1,10 @@
 +++
 categories = ["email"]
-date = 2020-04-13
-lastmod = 2020-04-13
-summary = "I recently moved from forwarding my email through Google to hosting it through Purelymail.com. Here are some thoughts about the process and the motivation behind it"
+date = "2020-04-13T12:00:00+05:30"
 devLink = "https://dev.to/msfjarvis/switching-my-email-to-purelymail-4l6i"
+lastmod = "2020-04-13T12:00:00+05:30"
 slug = "switching-my-email-to-purelymail"
+summary = "I recently moved from forwarding my email through Google to hosting it through Purelymail.com. Here are some thoughts about the process and the motivation behind it"
 tags = ["purelymail"]
 title = "Switching my email to Purelymail"
 +++

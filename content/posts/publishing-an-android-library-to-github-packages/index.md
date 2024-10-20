@@ -1,12 +1,12 @@
 +++
-summary = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
-slug = "publishing-an-android-library-to-github-packages"
-date = 2019-11-21
-lastmod = 2019-11-21
-devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
-title = "Publishing an Android library to GitHub Packages"
 categories = ["android"]
+date = "2019-11-21T12:00:00+05:30"
+devLink = "https://dev.to/msfjarvis/publishing-an-android-library-to-github-packages-1l74"
+lastmod = "2019-11-21T12:00:00+05:30"
+slug = "publishing-an-android-library-to-github-packages"
+summary = "GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages."
 tags = ["gradle", "github", "packaging"]
+title = "Publishing an Android library to GitHub Packages"
 +++
 
 > UPDATE(06/06/2020): The Android Gradle Plugin supports Gradle's inbuilt `maven-publish` plugin since version 4.0.0, so I've added the updated process for utilising it at the beginning of this guide. The previous post follows that section.

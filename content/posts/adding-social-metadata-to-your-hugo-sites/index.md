@@ -1,11 +1,11 @@
 +++
-date = 2020-02-03
-lastmod = 2020-02-03
-summary = "Optimize social media exposure with the right metadata for your site"
 categories = ["hugo", "webdev"]
+date = "2020-02-03T12:00:00+05:30"
+lastmod = "2020-02-03T12:00:00+05:30"
 slug = "adding-social-metadata-to-your-hugo-sites"
-title = "Adding social metadata to your Hugo sites"
+summary = "Optimize social media exposure with the right metadata for your site"
 tags = ["static sites"]
+title = "Adding social metadata to your Hugo sites"
 +++
 
 Metadata is data (information) about data.
