@@ -6,7 +6,7 @@ publish = "public"
 autoLaunch = false
 
 [build.environment]
-HUGO_VERSION = "0.136.2"
+HUGO_VERSION = "0.136.3"
 NODE_VERSION = "18"
 
 [[edge_functions]]
