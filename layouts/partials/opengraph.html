@@ -1,60 +1,52 @@
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
+{{- if .Params.cover.image -}}
+{{- if (ne .Params.cover.relative true) }}
+<meta property="og:image" content="{{ .Params.cover.image | absURL }}">
+{{- else}}
+<meta property="og:image" content="{{ (path.Join .RelPermalink .Params.cover.image ) | absURL }}">
+{{- end}}
+{{- else }}
 
-{{- with or site.Title site.Params.title | plainify }}
-  <meta property="og:site_name" content="{{ . }}">
-{{- end }}
-
-{{- with or .Title site.Title site.Params.title | plainify }}
-  <meta property="og:title" content="{{ . }}">
-{{- end }}
-
-{{- with or .Description .Summary site.Params.description | plainify | htmlUnescape | chomp }}
-  <meta property="og:description" content="{{ . }}">
-{{- end }}
-
-{{- with or .Params.locale site.Language.LanguageCode }}
-  <meta property="og:locale" content="{{ replace . `-` `_` }}">
+{{- $images := partial "partials/templates/_funcs/get-page-images" . -}}
+{{- range first 6 $images }}
+<meta property="og:image" content="{{ .Permalink }}">
+{{ end -}}
 {{- end }}
 
 {{- if .IsPage }}
-  <meta property="og:type" content="article">
-  {{- with .Section }}
-    <meta property="article:section" content="{{ . }}">
+{{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
+<meta property="article:section" content="{{ .Section }}">
+{{ with .PublishDate }}<meta property="article:published_time" {{ .Format $iso8601 | printf "content=%q" | safeHTMLAttr }}>{{ end }}
+{{ with .Lastmod }}<meta property="article:modified_time" {{ .Format $iso8601 | printf "content=%q" | safeHTMLAttr }}>{{ end }}
+{{- end -}}
+
+{{- with .Params.audio }}<meta property="og:audio" content="{{ . }}">{{ end }}
+{{- with .Params.locale }}<meta property="og:locale" content="{{ . }}">{{ end }}
+{{- with site.Params.title }}<meta property="og:site_name" content="{{ . }}">{{ end }}
+{{- with .Params.videos }}{{- range . }}
+<meta property="og:video" content="{{ . | absURL }}">
+{{ end }}{{ end }}
+
+{{- /* If it is part of a series, link to related articles */}}
+{{- $permalink := .Permalink }}
+{{- $siteSeries := site.Taxonomies.series }}
+{{- if $siteSeries }}
+{{ with .Params.series }}{{- range $name := . }}
+  {{- $series := index $siteSeries ($name | urlize) }}
+  {{- range $page := first 6 $series.Pages }}
+    {{- if ne $page.Permalink $permalink }}<meta property="og:see_also" content="{{ $page.Permalink }}">{{ end }}
   {{- end }}
-  {{- $ISO8601 := "2006-01-02T15:04:05-07:00" }}
-  {{- with .PublishDate }}
-    <meta property="article:published_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }}>
-  {{- end }}
-  {{- with .Lastmod }}
-    <meta property="article:modified_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }}>
-  {{- end }}
-  {{- range .GetTerms "tags" | first 6 }}
-    <meta property="article:tag" content="{{ .Page.Title | plainify }}">
-  {{- end }}
-{{- else }}
-  <meta property="og:type" content="website">
+{{ end }}{{ end }}
 {{- end }}
 
-{{/* Generate opengraph image */}}
-{{- if .IsPage -}}
-  {{ $base := resources.Get "og_base.png" }}
-  {{ $mediumFont := resources.Get "/JetBrainsMonoNerdFontMono-Medium.ttf"}}
-  {{ $img := $base.Filter (images.Text .Page.Title (dict
-    "color" "#dadadb"
-    "size" 64
-    "linespacing" 2
-    "x" 71
-    "y" 300
-    "font" $mediumFont
-  ))}}
-  {{ $img = resources.Copy (path.Join .Page.RelPermalink "og.png") $img }}
-  <meta property="og:image" content="{{$img.Permalink}}">
-  <meta property="og:image:width" content="{{$img.Width}}" />
-  <meta property="og:image:height" content="{{$img.Height}}" />
-
-  <!-- Twitter metadata (used by other websites as well) -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{ .Title }}" />
-  <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}"/>
-  <meta name="twitter:image" content="{{$img.Permalink}}" />
-{{ end }}
+{{- /* Facebook Page Admin ID for Domain Insights */}}
+{{- with site.Params.social }}
+  {{- if reflect.IsMap . }}
+    {{- with .facebook_admin }}
+      <meta property="fb:admins" content="{{ . }}">
+    {{- end }}
+  {{- end }}
+{{- end }}
