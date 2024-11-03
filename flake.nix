@@ -77,18 +77,37 @@
               name = "diffs";
               category = "development";
               command = ''
+                OLD_DIR=$(mktemp -d)
+                NEW_DIR=$(mktemp -d)
+
+                # Build the current working directory
                 build
-                mv public new
+
+                # Relocate the outputs to `$NEW_DIR`
+                cp -rT public/ $NEW_DIR/
                 git stash
 
+                # Stash any changes
+                git stash || true
+
+                # Checkout the remote main branch for baseline
                 git checkout origin/main
 
+                # Build the baseline
                 build
-                mv public old
+
+                # Relocate site to `$OLD_DIR`
+                cp -rT public/ $OLD_DIR/
+
+                # Revert to the default branch
                 git checkout main
                 git stash pop
 
-                ${pkgs.lib.getExe pkgs.meld} ./old ./new
+                # Pop any potentially stashed changes
+                git stash pop || true
+
+                # Launch meld with the `$OLD_DIR` and `$NEW_DIR` directories to diff them
+                ${pkgs.lib.getExe pkgs.meld} $OLD_DIR $NEW_DIR
               '';
               help = "Launch meld to diff between the `old` and `new` folders";
             }
