@@ -68,6 +68,25 @@
             help = "Format this repository";
           }
           {
+            name = "diffs";
+            category = "development";
+            command = ''
+              build
+              mv public new
+              git stash
+
+              git checkout origin/main
+
+              build
+              mv public old
+              git checkout main
+              git stash pop
+
+              ${pkgs.lib.getExe pkgs.meld} ./old ./new
+            '';
+            help = "Launch meld to diff between the `old` and `new` folders";
+          }
+          {
             name = "new";
             category = "development";
             command = ''
