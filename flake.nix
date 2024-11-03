@@ -108,6 +108,9 @@
 
                 # Launch meld with the `$OLD_DIR` and `$NEW_DIR` directories to diff them
                 ${pkgs.lib.getExe pkgs.meld} $OLD_DIR $NEW_DIR
+
+                # Clean up the temporary folders when `meld` exits
+                rm -rf $OLD_DIR $NEW_DIR
               '';
               help = "Launch meld to diff between the `old` and `new` folders";
             }
