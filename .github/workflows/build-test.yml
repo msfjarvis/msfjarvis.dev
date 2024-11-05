@@ -27,3 +27,6 @@ jobs:
         shell: bash
         run: |
           hugo --minify --gc
+
+      - name: Check formatting
+        uses: dprint/check@v2.2
