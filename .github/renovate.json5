@@ -26,9 +26,9 @@
       "description": "Update Decap CMS",
       "fileMatch": ["static/admin/index.html"],
       "matchStrings": [
-        "\/decap-cms@(?<currentValue>.*?)\/dist",
+        "\/@sveltia/cms@(?<currentValue>.*?)\/dist",
       ],
-      "depNameTemplate": "decap-cms",
+      "depNameTemplate": "@sveltia/cms",
       "datasourceTemplate": "npm",
     },
     {
