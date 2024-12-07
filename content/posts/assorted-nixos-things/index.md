@@ -6,6 +6,7 @@ summary = "Running log of random things I've learned about Nix/NixOS/Nixpkgs"
 categories = [ "dev" ]
 tags = [ "Nix", "NixOS", "Nixpkgs" ]
 +++
+
 I run NixOS on my desktop and servers which results in coming across a bunch of generally random things, this is a running log of those discoveries which I'll attempt to keep up-to-date with my personal Logseq graph where I've kept the record of them.
 
 # nix3-flake-metadata
@@ -14,7 +15,7 @@ The "new" (read: experimental) Nix CLI has a bunch of useful commands one of whi
 
 # NixOS module system
 
-The module system is behind a lot of what makes NixOS and Nixpkgs so powerful for composing reproducible systems. The nix.dev reference includes a [great tutorial](https://nix.dev/tutorials/module-system/index.html)  that is a great read regardless of the complexity level of what you are trying to achieve.
+The module system is behind a lot of what makes NixOS and Nixpkgs so powerful for composing reproducible systems. The nix.dev reference includes a [great tutorial](https://nix.dev/tutorials/module-system/index.html) that is a great read regardless of the complexity level of what you are trying to achieve.
 
 # Updating your custom packages from a Git branch
 
@@ -34,7 +35,7 @@ In a Nix REPL you can run `:bl inputs.nixpkgs.legacyPackages.aarch64-linux.pkgs.
 
 For many languages Nixpkgs' builders vendor dependencies in a fixed-output derivation (FOD) which will give seemingly random errors if the contents change but its name doesn't, since the old copy of the FOD will continue to be used in the later build stages. For example, in a package using `buildGoModule`, updating the version but not changing the `vendorHash` will cause a new FOD to be created but the build will continue with the FOD of the previous version.
 
-To avoid these problems when doing manual  updates, make sure to change the relevant `cargoHash`/`vendorHash` to `lib.fakeHash` to cause the new FOD to be picked up which will also give you the correct hash to fill in the field.
+To avoid these problems when doing manual updates, make sure to change the relevant `cargoHash`/`vendorHash` to `lib.fakeHash` to cause the new FOD to be picked up which will also give you the correct hash to fill in the field.
 
 # Tailscale exit nodes on NixOS
 
