@@ -9,7 +9,7 @@
     {
       "packageNames": ["gohugoio/hugo"],
       "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
-    }
+    },
   ],
   "regexManagers": [
     {
