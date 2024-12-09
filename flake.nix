@@ -68,7 +68,7 @@
               help = "Run the Hugo development server";
             }
             {
-              name = "format";
+              name = "fmt";
               category = "development";
               command = "dprint fmt";
               help = "Format this repository";
