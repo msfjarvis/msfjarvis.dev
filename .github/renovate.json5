@@ -10,6 +10,10 @@
       "packageNames": ["gohugoio/hugo"],
       "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
     },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "commitMessageExtra": "({{#if (lookup . \"changelog\")}}{{changelog}}{{/if}})",
+    },
   ],
   "regexManagers": [
     {
