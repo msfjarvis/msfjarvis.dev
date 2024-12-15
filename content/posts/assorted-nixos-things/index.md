@@ -1,12 +1,12 @@
 +++
 title = "Assorted NixOS things"
-date = "2024-12-07T20:19:48+05:30"
-lastmod = "2024-12-07T20:19:48+05:30"
+date = 2024-12-07T20:19:00.000
+lastmod = 2024-12-15T20:22:00.000
 summary = "Running log of random things I've learned about Nix/NixOS/Nixpkgs"
 categories = [ "dev" ]
 tags = [ "Nix", "NixOS", "Nixpkgs" ]
+draft = false
 +++
-
 I run NixOS on my desktop and servers which results in coming across a bunch of generally random things, this is a running log of those discoveries which I'll attempt to keep up-to-date with my personal Logseq graph where I've kept the record of them.
 
 # nix3-flake-metadata
@@ -46,3 +46,7 @@ On NixOS, the relevant firewall knobs for it are exposed under the [`services.ta
 # Dual booting Windows using systemd-boot
 
 NixOS includes options within its systemd-boot module that allow configuring boot entries for Windows without requiring manual intervention of copying over EFIs and what not. There are an initial few steps involved to get the relevant values, which are documented [in the option reference](https://search.nixos.org/options?channel=24.11&show=boot.loader.systemd-boot.windows&from=0&size=50&sort=relevance&type=packages&query=boot.loader.systemd-boot.windows).
+
+# Nix's `builtins.toString`
+
+The `toString` builtin in Nix handles Booleans rather unintuitively (even if it makes sense for the shell interpolation use-case) so here's the [docs](https://nix.dev/manual/nix/2.24/language/builtins.html#builtins-toString) for you to go read just in case something else is a surprise.
