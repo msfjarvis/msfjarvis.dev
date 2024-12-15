@@ -10,10 +10,6 @@
       "packageNames": ["gohugoio/hugo"],
       "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
     },
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "commitMessageExtra": "({{#if (lookup . \"changelog\")}}{{changelog}}{{/if}})",
-    },
   ],
   "regexManagers": [
     {
@@ -27,7 +23,7 @@
       "datasourceTemplate": "github-releases",
     },
     {
-      "description": "Update Decap CMS",
+      "description": "Update Sveltia CMS",
       "fileMatch": ["static/admin/index.html"],
       "matchStrings": [
         "\/@sveltia/cms@(?<currentValue>.*?)\/dist",
