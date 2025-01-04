@@ -7,6 +7,7 @@ categories = [ "dev" ]
 tags = [ "Nix", "NixOS", "Nixpkgs" ]
 draft = false
 +++
+
 I run NixOS on my desktop and servers which results in coming across a bunch of generally random things, this is a running log of those discoveries which I'll attempt to keep up-to-date with my personal Logseq graph where I've kept the record of them.
 
 # nix3-flake-metadata
