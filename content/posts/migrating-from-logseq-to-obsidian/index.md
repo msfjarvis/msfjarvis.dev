@@ -47,6 +47,7 @@ In Settings → Daily Notes:
 - **Open daily note on startup**: `Enabled`
 
 In Settings → Hotkeys:
+
 - Open today's daily note: `Alt+D`
 - Create new note: `Ctrl+N`
 - Toggle edit/preview mode: `Ctrl+E`
