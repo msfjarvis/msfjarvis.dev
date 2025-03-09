@@ -61,4 +61,6 @@ What I've done so far is just the result of 30 minutes of looking around, and th
 
 - Some of my pages refer to daily journal pages using a humanized date variant which Logseq automatically converted to proper links, which does not work in Obsidian.
 
+- There seems to be no automatic tagger for Obsidian similar to how [logseq-automatic-linker](https://github.com/sawhney17/logseq-automatic-linker) works.
+
 Despite these issues, I think the move to Obsidian will end up being a net positive to my note taking process. Please let me know on [Mastodon](https://androiddev.social/@msfjarvis/114132263177269990) or the comments here if you have any tips to improve things.
