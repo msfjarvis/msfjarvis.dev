@@ -1,13 +1,12 @@
 +++
 title = "Assorted Git things"
 date = 2024-10-01T13:57:00.000+05:30
-lastmod = 2024-12-29T19:47:00.000
+lastmod = 2025-03-10T13:50:00.000
 summary = "A running log of Git concepts I've learned since I started journaling"
 categories = [ "dev" ]
 tags = [ "git" ]
 draft = false
 +++
-
 When I asked for suggestions about note-taking apps [back in May](https://androiddev.social/@msfjarvis/112378523734491769) I wasn't fully convinced I'd be able to stick with it, but nearly 6 months later it has probably been the thing I've been most consistent about. Anyways, here's a rather short list of Git things off the ['TIL'](https://dictionary.cambridge.org/us/dictionary/english/til) list in my Logseq graph. I'll keep adding new things to the top as they come up.
 
 # GIT_EDITOR variable
@@ -31,7 +30,7 @@ git add .gitmodules
 git rm --cached path/to/module
 ```
 
-In order, this
+In order, this does the following:
 
 1. [`deinit`](https://git-scm.com/docs/git-submodule#Documentation/git-submodule.txt-deinit-f--force--all--ltpathgt82308203) removes the checkout of the submodule and removes it from `.git/config`
 2. Deletes the bare repository Git creates of the submodule which is used to generate the actual checkout
@@ -58,3 +57,11 @@ $ pass-git-helper get
 > username=msfjarvis
 > password=hunter2
 ```
+
+# Maintaining a fork in the presence of `fetch.pruneTags`
+
+Enabling `fetch.pruneTags` causes my Nixpkgs Git checkout to constantly delete and fetch tags, since my fork is missing most tags that upstream has so they keep getting pruned when updating from `origin` and get re-created when fetching `upstream`.
+
+One solution suggested for this was setting `remotes.<name>.tagOpt = "--no-tags"` but that didn't do the job for me.
+
+The thing that worked was to conditionally disable `pruneTags` for just the `origin` remote so it would not try to clear out the tags pulled from `upstream`. Achieved by running `git config --local remotes.origin.pruneTags false`.
