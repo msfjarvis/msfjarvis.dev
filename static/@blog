@@ -1,0 +1,44 @@
+{
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "id": "https://msfjarvis.dev/@blog",
+    "type": "Person",
+    "following": "https://androiddev.social/users/msfjarvis/following",
+    "followers": "https://androiddev.social/users/msfjarvis/followers",
+    "inbox": "https://activitypubdotnet.azurewebsites.net/api/Inbox",
+    "outbox": "https://msfjarvis.dev/socialweb/outbox",
+    "preferredUsername": "blog",
+    "name": "Harsh Shandilya - Blog",
+    "summary": "Ramblings of a recovering Android engineer",
+    "url": "https://msfjarvis.dev/",
+    "discoverable": true,
+    "memorial": false,
+    "icon": {
+      "type": "Image",
+      "mediaType": "image/webp",
+      "url": "https://msfjarvis.dev/android-chrome-512x512.webp"
+    },
+    "image": {
+      "type": "Image",
+      "mediaType": "image/webp",
+      "url": "https://msfjarvis.dev/android-chrome-512x512.webp"
+    },
+    "publicKey": {
+      "@context": "https://w3id.org/security/v1",
+      "@type": "Key",
+      "id": "https://msfjarvis.dev/@blog#main-key",
+      "owner": "https://msfjarvis.dev/@blog",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAo6NNG4RG9L2gMsfqq8iB\nIa9Vw5BNliD8RJDO7AShupqRAbgjeRyO7xjat//fwlwVRArNEVmBlfHouPCWNNWb\nuEQEJhYYWbrXPE2qiggtUuKT+yfOrt9cmj2wZFuTwc7ZjCq3QbIiidrh9SXuZJZm\n8bRZB3RHfv1WZPFx/YOthmQysBfTkPp6ifE+s9GA0yUUA39ezOfKGzrI6phxxb7W\n2w4PcQFAvwZMlbEBsIv5YIBScMpTATA23bzyx5P2LzOvApJxppx8erU/ViqoQBab\nKJkSFta+9YlbYsC+hrKJX5FAjZHeOp4HZ1AkpghB92AUNYGXVKQMiDbcGRbAUKWF\nIpWvveC+MzkLd9jc2C0UJVY+Lfo97CdySf6+hHIiIZuKJc9wfRAA1MghQZ95Xu7Y\nv/eLNystOmJR91kwBoDI2cMB3aGANGw4odNUI7El00BiDhpwsXSwcEg9tLvoTHPW\nQa6TGutaWjj1RYvtjGvH39ov3uyW10eWaEoN/arlUKerYfNu0pSdME/9Bj6y86aA\nR2+k9kXOapc4IMt4aHr3lBbDE8GUIcv71MBt5HQjwi3gmwGavWu6Da2M4teHnEvK\nJhZCAXC1ptBvJd1WygtCFpyeSANFoev/uJzcRn4abcDxEw2b9b1bKLIbrIpgzHSN\no2IKVhP+FPukC1GaeB0ki1ECAwEAAQ==\n-----END PUBLIC KEY-----"
+    },
+    "attachment": [
+      {
+        "type": "PropertyValue",
+        "name": "Blog",
+        "value": "<a href=\"https://msfjarvis.dev\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">msfjarvis.dev</span><span class=\"invisible\"></span></a>"
+      },
+      {
+        "type": "PropertyValue",
+        "name": "GitHub",
+        "value": "<a href=\"https://github.com/msfjarvis\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">github.com/msfjarvis</span><span class=\"invisible\"></span></a>"
+      }
+    ]
+}
