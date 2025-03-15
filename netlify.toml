@@ -50,3 +50,8 @@ Content-Type = "application/xml; charset=utf-8"
 for = "/@blog"
 [headers.values]
 Content-Type = "application/activity+json; charset=utf-8"
+
+[[headers]]
+for = "/outbox.ajson"
+[headers.values]
+Content-Type = "application/activity+json; charset=utf-8"
