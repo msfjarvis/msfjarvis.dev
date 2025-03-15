@@ -107,3 +107,16 @@ url = "/index.xml"
 [taxonomies]
 tag = "tags"
 category = "categories"
+
+[mediaTypes]
+[mediaTypes."application/activity+json"]
+suffixes = ["ajson"]
+
+[outputFormats]
+[outputFormats.ACTIVITY_OUTBOX]
+mediaType = "application/activity+json"
+notAlternative = true
+baseName = "outbox"
+
+[outputs]
+home = ["HTML", "RSS", "ACTIVITY_OUTBOX"]
