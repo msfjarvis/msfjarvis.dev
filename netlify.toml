@@ -30,7 +30,7 @@ status = 200
 [[headers]]
 for = "/*"
 [headers.values]
-Content-Security-Policy = "script-src identity.netlify.com insights.msfjarvis.dev msfjarvis.dev 'unsafe-inline'"
+Content-Security-Policy = "script-src identity.netlify.com insights.msfjarvis.dev msfjarvis.dev utteranc.es 'unsafe-inline'"
 Referrer-Policy = 'strict-origin-when-cross-origin'
 X-Content-Type-Options = "nosniff"
 X-Frame-Options = "DENY"
