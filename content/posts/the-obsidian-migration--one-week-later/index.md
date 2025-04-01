@@ -12,9 +12,7 @@ title = "The Obsidian Migration - One Week Later"
 In my [last post](/posts/migrating-from-logseq-to-obsidian) I had a list of to-dos to fully finish up the migration, which I'll reproduce below:
 
 > - I used internal links of `[[this format]]` pretty liberally in my Logseq graph as a tag system, which will need migration to Obsidian's tags mechanism.
->
 > - Some of my pages refer to daily journal pages using a humanized date variant which Logseq automatically converted to proper links, which does not work in Obsidian.
->
 > - There seems to be no automatic tagger for Obsidian similar to how [logseq-automatic-linker](https://github.com/sawhney17/logseq-automatic-linker) works.
 
 ## Migrating dates and tags to Obsidian
