@@ -2,7 +2,7 @@
 categories = ["april-cools"]
 date = 2025-04-01T10:46:52+05:30
 lastmod = 2025-04-01T10:46:52+05:30
-summary = "Marvel Snap's competitive ladder has brought me grief for a while now so I decided to try and do something about it"
+summary = "Objectively answering the question - why am I so bad?"
 draft = false
 slug = "overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap"
 tags = ["obsidian", "games"]
