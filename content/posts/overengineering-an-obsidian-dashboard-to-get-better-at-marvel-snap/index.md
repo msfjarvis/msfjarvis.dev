@@ -3,7 +3,7 @@ categories = ["april-cools"]
 date = 2025-04-01T10:46:52+05:30
 lastmod = 2025-04-01T10:46:52+05:30
 summary = "Marvel Snap's competitive ladder has brought me grief for a while now so I decided to try and do something about it"
-draft = true
+draft = false
 slug = "overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap"
 tags = ["obsidian", "games"]
 title = "Overengineering an Obsidian dashboard to get better at Marvel Snap"
@@ -160,6 +160,6 @@ SORT sum(map(rows.cubes, (x) => number(x))) desc
 
 I don't know!
 
-Work getting hectic meant I had little time to actually play and the re-launch of the [High Voltage](https://www.marvelsnap.com/newsdetail?id=7415247892945885957) mode kept me distracted for around 10 days.
+Work getting hectic meant I had little time to actually play and the re-launch of the [High Voltage](https://www.marvelsnap.com/newsdetail?id=7415247892945885957) mode took up most of that.
 
-I did play a very tiny amount of games as is visible in the screenshots above and did pick up on some of my tendencies that make me lose games but ultimately it's a very small sample size. The new season of Snap will start tomorrow so hopefully I'll be able to get back into it and actually figure out if this whole shebang was worth it.
+I did play a tiny amount of games when I first built this out, and did pick up on some of my tendencies that make me lose games but ultimately it's a very small sample size. The new season of Snap will start tomorrow so hopefully I'll be able to get back into it and actually figure out if this whole shebang was worth it.
