@@ -1,72 +1,93 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigests",
-    "github>msfjarvis/shared-workflows//renovate/automerge",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    'helpers:pinGitHubActionDigests',
+    'github>msfjarvis/shared-workflows//renovate/automerge',
   ],
-  "packageRules": [
+  packageRules: [
     {
-      "packageNames": ["gohugoio/hugo"],
-      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
+      matchPackageNames: [
+        'gohugoio/hugo',
+      ],
+      extractVersion: '^v(?<version>\\d+\\.\\d+\\.\\d+)',
     },
   ],
-  "regexManagers": [
+  customManagers: [
     {
-      "description": "Update Hugo version in Actions workflows",
-      "fileMatch": [".yml$", ".toml$"],
-      "matchStrings": [
+      customType: 'regex',
+      description: 'Update Hugo version in Actions workflows',
+      fileMatch: [
+        '.yml$',
+        '.toml$',
+      ],
+      matchStrings: [
         "hugo-version: '(?<currentValue>.*?)'",
-        "HUGO_VERSION = \"(?<currentValue>.*?)\"",
+        'HUGO_VERSION = "(?<currentValue>.*?)"',
       ],
-      "depNameTemplate": "gohugoio/hugo",
-      "datasourceTemplate": "github-releases",
+      depNameTemplate: 'gohugoio/hugo',
+      datasourceTemplate: 'github-releases',
     },
     {
-      "description": "Update Sveltia CMS",
-      "fileMatch": ["static/admin/index.html"],
-      "matchStrings": [
-        "\/@sveltia/cms@(?<currentValue>.*?)\/dist",
+      customType: 'regex',
+      description: 'Update Sveltia CMS',
+      fileMatch: [
+        'static/admin/index.html',
       ],
-      "depNameTemplate": "@sveltia/cms",
-      "datasourceTemplate": "npm",
+      matchStrings: [
+        '/@sveltia/cms@(?<currentValue>.*?)/dist',
+      ],
+      depNameTemplate: '@sveltia/cms',
+      datasourceTemplate: 'npm',
     },
     {
-      "description": "Update dprint TypeScript plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "typescript-(?<currentValue>.*?).wasm",
+      customType: 'regex',
+      description: 'Update dprint TypeScript plugin',
+      fileMatch: [
+        'dprint.json',
       ],
-      "depNameTemplate": "dprint/dprint-plugin-typescript",
-      "datasourceTemplate": "github-releases",
+      matchStrings: [
+        'typescript-(?<currentValue>.*?).wasm',
+      ],
+      depNameTemplate: 'dprint/dprint-plugin-typescript',
+      datasourceTemplate: 'github-releases',
     },
     {
-      "description": "Update dprint JSON plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "json-(?<currentValue>.*?).wasm",
+      customType: 'regex',
+      description: 'Update dprint JSON plugin',
+      fileMatch: [
+        'dprint.json',
       ],
-      "depNameTemplate": "dprint/dprint-plugin-json",
-      "datasourceTemplate": "github-releases",
+      matchStrings: [
+        'json-(?<currentValue>.*?).wasm',
+      ],
+      depNameTemplate: 'dprint/dprint-plugin-json',
+      datasourceTemplate: 'github-releases',
     },
     {
-      "description": "Update dprint Markdown plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "markdown-(?<currentValue>.*?).wasm",
+      customType: 'regex',
+      description: 'Update dprint Markdown plugin',
+      fileMatch: [
+        'dprint.json',
       ],
-      "depNameTemplate": "dprint/dprint-plugin-markdown",
-      "datasourceTemplate": "github-releases",
+      matchStrings: [
+        'markdown-(?<currentValue>.*?).wasm',
+      ],
+      depNameTemplate: 'dprint/dprint-plugin-markdown',
+      datasourceTemplate: 'github-releases',
     },
     {
-      "description": "Update dprint TOML plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "toml-(?<currentValue>.*?).wasm",
+      customType: 'regex',
+      description: 'Update dprint TOML plugin',
+      fileMatch: [
+        'dprint.json',
       ],
-      "depNameTemplate": "dprint/dprint-plugin-toml",
-      "datasourceTemplate": "github-releases",
+      matchStrings: [
+        'toml-(?<currentValue>.*?).wasm',
+      ],
+      depNameTemplate: 'dprint/dprint-plugin-toml',
+      datasourceTemplate: 'github-releases',
     },
   ],
-  "commitMessageSuffix": "[staging]",
+  commitMessageSuffix: '[staging]',
 }
