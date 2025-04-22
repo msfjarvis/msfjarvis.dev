@@ -1,7 +1,7 @@
 +++
 title = "Migrating from Simple Analytics to self-hosted Plausible"
-date = 2025-04-22T16:43:00.000
-lastmod = 2025-04-22T16:43:00.000
+date = 2025-04-22T16:43:00+05:30
+lastmod = 2025-04-22T16:43:00+05:30
 summary = "Documenting the misadventures of self-hosting my site analytics"
 categories = [ "devops" ]
 tags = [ "self-hosting", "analytics", "plausible", "simpleanalytics" ]
