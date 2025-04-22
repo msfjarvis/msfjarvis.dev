@@ -5,7 +5,7 @@ lastmod = 2025-04-22T16:43:00.000
 summary = "Documenting the misadventures of self-hosting my site analytics"
 categories = [ "devops" ]
 tags = [ "self-hosting", "analytics", "plausible", "simpleanalytics" ]
-draft = true
+draft = false
 +++
 For the longest time (nearly 6 years according to the data export), I have been a user of [Simple Analytics](https://www.simpleanalytics.com/) and their dead simple web analytics offering. I believe I got access to it via GitHub's big bundle of freemium services provided to students and they just didn't bother checking that I had gone to and dropped out of college twice since they first offered me free access until this month.
 
