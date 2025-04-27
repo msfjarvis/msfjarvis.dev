@@ -7,6 +7,7 @@ categories = [ "devops" ]
 tags = [ "self-hosting", "analytics", "plausible", "simpleanalytics" ]
 draft = false
 +++
+
 For the longest time (nearly 6 years according to the data export), I have been a user of [Simple Analytics](https://www.simpleanalytics.com/) and their dead simple web analytics offering. I believe I got access to it via GitHub's big bundle of freemium services provided to students and they just didn't bother checking that I had gone to and dropped out of college twice since they first offered me free access until this month.
 
 So while I was rather satisfied with the free ride I had gotten from Simple Analytics till now, having to pay a rather eye-watering 15 USD every month for it was stretching the otherwise $0 USD budget for my blog. The site itself is hosted by Netlify, but I have a small server from [netcup](https://netcup.de) which was suitable to take on the load of running a self-hosted analytics server that I could switch to.
@@ -51,7 +52,7 @@ Once everything was running, I set up an admin account and replaced the SimpleAn
 
 # Migrating existing data from Simple Analytics
 
-To their credit, Simple Analytics made this very easy and the export option is at the top of their settings page. My only gripe is with their range selection feature, I found the calendar widget very un-intuitive  and the input field didn't let just fill in the date manually.
+To their credit, Simple Analytics made this very easy and the export option is at the top of their settings page. My only gripe is with their range selection feature, I found the calendar widget very un-intuitive and the input field didn't let just fill in the date manually.
 
 Once I had the 45 mB CSV in hand, I looked around for someone else's homework to copy so I didn't have to write the migration tool myself. I came across [this](https://github.com/magiobus/simpleanalytics-to-plausible-converter) repo which looked like it would do the job but I had no plans to install NodeJS, so I had gpt-4o (via my free, GitHub-provided Copilot license) rewrite it as a single-file Python script that I could hack on more comfortably. That version is [available here](https://git.msfjarvis.dev/msfjarvis/simpleanalytics-to-plausible), with some additional changes described below.
 
