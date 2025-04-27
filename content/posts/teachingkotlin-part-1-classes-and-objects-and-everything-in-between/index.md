@@ -92,14 +92,6 @@ Lots of new things here! Let's break them down.
 
 Kotlin has a feature called 'default parameters', that allows you to specify default values for parameters, thus making them optional when creating an instance of the class.
 
-Let's take these for a spin on [repl.it](https://repl.it)!
-
-<iframe frameborder="0" width="100%" height="500px" src="https://repl.it/@msfjarvis/ButteryYellowgreenTraining?lite=true"></iframe>
-
-<iframe frameborder="0" width="100%" height="500px" src="https://repl.it/@msfjarvis/DarkcyanDisfiguredDatalogs?lite=true"></iframe>
-
-Both work perfectly well, but you know which one you'd enjoy writing more ;)
-
 An important note here is that constructors with default values don't directly work with Java if you're writing a library or any code that would require to interop with Java. Use the Kotlin `@JvmOverloads` annotation to handle that for you.
 
 ```kotlin
