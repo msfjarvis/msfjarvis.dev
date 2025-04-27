@@ -52,7 +52,7 @@ Once everything was running, I set up an admin account and replaced the SimpleAn
 
 # Migrating existing data from Simple Analytics
 
-To their credit, Simple Analytics made this very easy and the export option is at the top of their settings page. My only gripe is with their range selection feature, I found the calendar widget very un-intuitive and the input field didn't let just fill in the date manually.
+To their credit, Simple Analytics made this very easy and the export option is at the top of their settings page. My only complaint is about their range selection feature, I found the calendar widget very un-intuitive and the input field didn't let me just fill in the date manually.
 
 Once I had the 45 mB CSV in hand, I looked around for someone else's homework to copy so I didn't have to write the migration tool myself. I came across [this](https://github.com/magiobus/simpleanalytics-to-plausible-converter) repo which looked like it would do the job but I had no plans to install NodeJS, so I had gpt-4o (via my free, GitHub-provided Copilot license) rewrite it as a single-file Python script that I could hack on more comfortably. That version is [available here](https://git.msfjarvis.dev/msfjarvis/simpleanalytics-to-plausible), with some additional changes described below.
 
