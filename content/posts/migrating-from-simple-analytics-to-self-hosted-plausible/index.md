@@ -58,9 +58,9 @@ Once I had the 45 mB CSV in hand, I looked around for someone else's homework to
 
 I ran the script and got a handful of CSVs that Plausible was happy to import, after which I realized that the location data was completely missing. Indeed, my hopes of not having to write any code were going to remain so.
 
-I pulled up the Plausible CSV import docs, got the headers it was expecting for the location CSV and was able to piece together the data relatively easily. One big omission was Simple Analytics not recording cities for page visits, while Plausible seems to have a field for it. That one was filled with all zeroes after a bit of trial and error.
+I pulled up the [Plausible CSV import docs](https://plausible.io/docs/csv-import#csv-format-guidelines), got the headers it was expecting for the location CSV and was able to piece together the data relatively easily. One big omission was Simple Analytics not recording cities for page visits, which Plausible had a field for. After figuring out what it was expecting, I filled in zeroes for that column.
 
-> I have a big gripe with Plausible's non-existent error reporting here. When my newly generated CSV failed to import, Plausible simply put up an error sign and gave me _nothing_ to work with. After digging through their GitHub issues I discovered that the errors had to be **pulled out from a Postgres table** which I was not very impressed by. For others who come by here with the same problem: it's in the `errors` column in the `oban_jobs` table of the `plausible` database.
+> I have a big gripe with Plausible's non-existent error reporting here. When my newly generated CSV failed to import, Plausible simply put up an ⚠️ sign in the list of imports and offered no logs. After digging through their GitHub issues I discovered that the errors had to be **pulled out from a Postgres table** which I was not very impressed by. For others who come by here with the same problem: it's in the `errors` column in the `oban_jobs` table of the `plausible` database.
 
 The final step was making the data public like it was on Simple Analytics, so my humble blog's popularity or lack thereof can continue to be [scrutinized by anyone](https://stats.msfjarvis.dev/msfjarvis.dev).
 
