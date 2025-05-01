@@ -1,6 +1,7 @@
 backend:
   name: github
   repo: msfjarvis/msfjarvis.dev
+  automatic_deployments: false
 media_folder: 'content/posts/{{slug}}/'
 public_folder: '/posts/{{slug}}'
 collections:
@@ -22,6 +23,22 @@ collections:
       - { label: 'Tags', name: 'tags', widget: 'list' }
       - { label: 'Draft', name: 'draft', widget: 'boolean', required: false }
       - { label: 'Body', name: 'body', widget: 'markdown' }
+  - name: 'pages'
+    label: 'Pages'
+    folder: 'content'
+    path: '{{slug}}/index'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    format: toml-frontmatter
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Type', name: 'type', widget: 'string', default: 'page' }
+      - { label: 'Show reading time', name: 'showreadingtime', widget: 'boolean', default: false }
+      - { label: 'Show table of contents', name: 'showtoc', widget: 'boolean', default: false }
+      - { label: 'Last modification Date', name: 'lastmod', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
 media_libraries:
   default:
     config:
@@ -29,5 +46,7 @@ media_libraries:
         raster_image:
           format: webp
           quality: 85
+        svg:
+          optimize: true
   stock_assets:
     providers: []
