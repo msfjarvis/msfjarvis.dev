@@ -27,7 +27,7 @@ media_libraries:
     config:
       transformations:
         raster_image:
-          format: webp # only `webp` is supported
-          quality: 85 # default: 85
-          width: 2048 # default: original size
-          height: 2048 # default: original size
+          format: webp
+          quality: 85
+  stock_assets:
+    providers: []
