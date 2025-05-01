@@ -1,7 +1,7 @@
 +++
 title = "Homelab"
 type = "page"
-lastmod = "2024-06-04"
+lastmod = "2025-05-02T03:17:00+05:30"
 ShowReadingTime = false
 +++
 
@@ -16,29 +16,39 @@ Host: Gigabyte Technology Co., Ltd. B650M GAMING X AX
 CPU: AMD Ryzen 9 7900X (24) @ 5.733GHz
 GPU: AMD ATI Raphael
 GPU: NVIDIA GeForce RTX 4070 Ti
-Memory: 31234MiB
+Memory: 32 GiB
 ```
 
-## Raspberry Pi 4B (crusty)
+## ThinkStation P330 (matara)
 
 ```
-Host: Raspberry Pi 4 Model B Rev 1.5
-CPU: (4) @ 1.500GHz
-Memory: 7798MiB
+Host: 30D0S0LS00 (ThinkStation P330)
+CPU: Intel(R) Core(TM) i3-8100 (4) @ 3.60 GHz
+GPU: Intel UHD Graphics 630 @ 1.10 GHz [Integrated]
+Memory: 16 GiB
 ```
 
-## Netcup.de server (wailord)
+## Oracle ARM server (melody)
+
+```
+Host: KVM Virtual Machine (virt-7.2)
+CPU: Neoverse-N1*4 (4)
+GPU: RedHat Virtio 1.0 GPU
+Memory: 24 GiB
+```
+
+## Netcup.de ARM server (wailord)
 
 ```
 Host: KVM Server VPS 1000 ARM G11
 CPU: (6)
 GPU: Red Hat, Inc. Virtio 1.0 GPU
-Memory: 7909MiB
+Memory: 8 GiB
 ```
 
 # Deployment
 
-All these machines run NixOS unstable, and are updated every weekend. The configurations are fully open source and can be found in my [dotfiles](https://github.com/msfjarvis/dotfiles) repo. I use [deploy-rs](https://github.com/serokell/deploy-rs) to push out built configurations to crusty whose weak ass CPU can't really build its own NixOS configuration, and wailord usually does local builds.
+All these machines run NixOS unstable, and are updated every weekend. The configurations are fully open source and can be found in my [dotfiles](https://github.com/msfjarvis/dotfiles) repo. wailord utilizes melody as a remote builder for the weekly updates, everything else builds for itself.
 
 # Networking
 
@@ -48,10 +58,7 @@ ryzenbox and crusty are both on my home network and can access each other over L
 
 **wailord** bears the brunt of my self-hosting escapades and hosts basically everything that is accessible over the Internet. The _public_ services running on it are listed below:
 
-- [Betula](https://betula.mycorrhiza.wiki/) at [https://links.msfjarvis.dev](https://links.msfjarvis.dev) as my primary bookmark manager
-- [Gitea](https://gitea.com) at [https://git.msfjarvis.dev/](https://git.msfjarvis.dev/) as a backup Git host which mirrors my GitHub repositories
-- [Miniflux](https://miniflux.app) at [https://read.msfjarvis.dev](https://read.msfjarvis.dev) to function as my RSS reader
-
-~~**crusty** being the weak boy he is only runs QBittorrent on the internal Tailscale domain for completely legal torrenting :D~~ currently out of commission due to a reboot bug.
-
-**ryzenbox** does not run much in the way of persistent services. It has a periodic systemd job running [gphotos-cdp](https://github.com/msfjarvis/gphotos-cdp) to back up my Google Photos library, and [Glance](https://github.com/glanceapp/glance) to be an informational pinned tab in my browser.
+- [Betula](https://betula.mycorrhiza.wiki/) at [https://links.msfjarvis.dev](https://links.msfjarvis.dev) as my primary bookmark manager.
+- [Gitea](https://gitea.com) at [https://git.msfjarvis.dev/](https://git.msfjarvis.dev/) as a backup Git host which mirrors my GitHub repositories.
+- [Miniflux](https://miniflux.app) at [https://read.msfjarvis.dev](https://read.msfjarvis.dev) to function as my RSS reader.
+- [Vaultwarden](https://www.vaultwarden.net/) at [https://vault.msfjarvis.dev](https://vault.msfjarvis.dev) is the password manager I run for me and (as of recently) my family.

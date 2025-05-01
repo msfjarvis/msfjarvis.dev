@@ -1,6 +1,7 @@
 +++
 title = "Uses"
 type = "page"
+lastmod = "2025-05-02T03:18:00+05:30"
 ShowReadingTime = false
 ShowToc = false
 +++
@@ -9,8 +10,7 @@ ShowToc = false
 
 I use GNOME Console with `bash` and a lightly customized [starship](https://starship.rs) prompt. The editor I use depends on what code I am working with:
 
-- Web, Python: VS Code
-- Rust: VS Code with rust-analyzer
+- Web, Python, Rust: [Zed](https://zed.dev)
 - Android: Android Studio
 - Kotlin: IntelliJ IDEA
 
@@ -32,5 +32,5 @@ I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-c
 
 ### Phone
 
-- 128GB Google Pixel 8 running Android 15.
+- 128GB Google Pixel 8 running Android 16 Beta 3.
 - 128GB Google Pixel 4a running LineageOS 21

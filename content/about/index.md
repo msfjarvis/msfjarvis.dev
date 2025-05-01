@@ -1,11 +1,9 @@
 +++
 title = "About Me"
-id = "about"
 type = "page"
-aliases = [
-"/about",
-"/contact",
-]
+lastmod = "2025-05-02T03:10:00+05:30"
+aliases = [ "/about", "/contact" ]
+id = "about"
 ShowReadingTime = false
 ShowToc = false
 +++
@@ -14,7 +12,7 @@ I'm an Android and Kotlin developer with 8 years of experience building apps tha
 
 ### Work
 
-I currently work at [Dyte] as an SDK Tooling engineer, primarily focusing on developer experience for the mobile team.
+I currently work at [Cloudflare] as a Systems Engineer. I was previously at [Dyte], which was acquired by Cloudflare in March of 2025.
 
 You can find the latest version of [my resume here].
 
@@ -31,6 +29,7 @@ A few ideas that I've gone ahead and built in my spare time. You can support the
 
 You can find me on [Mastodon], I have a Twitter but I no longer use it for well understood reasons. I'd be happy to write back if you'd like to send me an [email]!
 
+[cloudflare]: https://cloudflare.com
 [dyte]: https://dyte.io
 [my resume here]: https://msfjarvis.dev/resume.pdf
 [donating here]: https://github.com/sponsors/msfjarvis
