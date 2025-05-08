@@ -1,14 +1,13 @@
 +++
-categories = ["nix"]
-date = 2025-05-07T23:05:22+05:30
-lastmod = 2025-05-07T23:05:22+05:30
+title = "Mildly overengineering my Glance configuration"
+date = "2025-05-07T23:05:00+05:30"
+lastmod = "2025-05-07T23:05:00+05:30"
 summary = "The story of setting up a live environment for configuring my Glance dashboard"
+categories = [ "nix" ]
+tags = [ "nix" ]
 draft = false
 slug = "mildly-overengineering-my-glance-configuration"
-tags = ["nix"]
-title = "Mildly overengineering my Glance configuration"
 +++
-
 # Setting the scene
 
 I'm a very happy user of the [Glance](https://github.com/glanceapp/glance) dashboard, and make use of it multiple times a day.
@@ -70,3 +69,7 @@ All put together it looks like
 Glance config, I will go into the `glance` devShell, boot up
 [Zed](https://zed.dev), run the `dev` command in my terminal and enjoy a fully
 automated iteration experience.
+
+## Caveats
+
+This setup is not even remotely perfect, `nix-generator` has  bugs and discrepancies compared to the Nix to YAML implementation inside Nixpkgs. Not all constructs that work fine with Nixpkgs work that well with `nix-generator`, complicating development.
