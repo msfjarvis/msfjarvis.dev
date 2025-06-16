@@ -1,8 +1,10 @@
 backend:
   name: gitea
   repo: msfjarvis/msfjarvis.dev
+  app_id: a5ae4d5d-a5f2-4ce8-a30c-a069737001af
   api_url: https://git.msfjarvis.dev/api/v1
   base_url: https://git.msfjarvis.dev
+  auth_endpoint: https://git.msfjarvis.dev/login/oauth/authorize
   automatic_deployments: false
 media_folder: 'content/posts/{{slug}}/'
 public_folder: '/posts/{{slug}}'
