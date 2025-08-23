@@ -1,0 +1,18 @@
+{
+    "subject": "acct:blog@msfjarvis.dev",
+    "aliases": [
+      "https://msfjarvis.dev/@blog"
+    ],
+    "links": [
+      {
+        "rel": "self",
+        "type": "application/activity+json",
+        "href": "https://msfjarvis.dev/@blog"
+      },
+      {
+        "rel":"http://webfinger.net/rel/profile-page",
+        "type":"text/html",
+        "href":"https://msfjarvis.dev/"
+      }
+    ]
+}
