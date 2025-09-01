@@ -1,41 +1,41 @@
 +++
 title = "Migrating from Gitea to Forgejo with pain and suffering (featuring NixOS)"
-date = "2025-08-12T23:52:00+05:30"
-lastmod = "2025-08-12T23:52:00+05:30"
+date = "2025-09-01T19:32:00+05:30"
+lastmod = "2025-09-01T19:32:00+05:30"
 summary = "With the renewed interest in Forgejo I decided to finally pull the plug on moving out of Gitea, and this is how it went."
-categories = [ "nixos" ]
+categories = [ "nixos, selfhosting" ]
 tags = [ "gitea, github, forgejo, github alternative, forgejo migration" ]
 draft = true
 +++
-I've had a Git server at [https://git.msfjarvis.dev](https://git.msfjarvis.dev/) for a while now, running [Gitea](https://about.gitea.com/) but my faith in the project has steadily been going down which is exacerbated every time I am reminded that they do not have the confidence to develop Gitea on Gitea. When Codeberg announced they were forking Gitea as [Forgejo](https://forgejo.org) I quietly put down a line item to switch over in my overflowing TODO list and promptly forgot about it.
+I've had a Git server at [https://git.msfjarvis.dev](https://git.msfjarvis.dev/) for a while now, running [Gitea](https://about.gitea.com/) but my faith in the project's open core model has steadily been going down. When Codeberg announced they were forking Gitea as [Forgejo](https://forgejo.org) I quietly put down a line item to switch over in my overflowing TODO list and promptly forgot about it.
 
-With GitHub officially announcing its demise as an independent entity and its joining Microsoft's "CoreAI" division, the time has never been more ripe to invest in alternatives. Given this, I decided to pull up the Forgejo migration and start investigating this in earnest. This ended up being a little more involved than I had expected, with several tangents involved.
+GitHub has been getting increasingly unpleasant for the past few years, but them officially announcing its demise as an independent entity and joining Microsoft's "CoreAI" division was the straw that broke the camel's back and made me want to use my own Git forge more actively. Thus the Forgejo migration shot up in my TODO list, and ended up being a rather involved process.
 
-> This is gonna be long and winding, but the TL;DR  is that I ended up migrating individual accounts instead of the whole instance data by using a simple CLI tool that I ironically generated using GitHub Copilot (the code is available [on my Git server](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/gitea-forgejo-migrator)).
+> This post is gonna have some rambling and going around in circles, but the TL;DR  is that I ended up having to migrate individual accounts instead of the whole instance data by using a tool that I ironically generated using GitHub Copilot (the code is available [on my Git server](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/gitea-forgejo-migrator)).
 
-# The naive way
+# Attempt 1: The naive way
 
-Forgejo initially used to support migrating data from Gitea pretty easily, but the increased friction of having to maintain a full fork against a moving target moved them to [drop support for these migration paths](https://forgejo.org/2024-12-gitea-compatibility/). I of course am stupid and was actually not aware that this had occurred and that swapping the latest Gitea for latest Forgejo will simply not work. The [NixOS manual's migration section](https://nixos.org/manual/nixos/stable/#module-forgejo-migration-gitea) suggested that this was possible, but it's actually missing critical information about version requirements that was [added later](https://github.com/NixOS/nixpkgs/commit/91947bb68e8184eba4c14476a6a14873f15e9ed4).
+Forgejo initially used to support migrating data from Gitea pretty easily, but the increased friction of having to maintain a full fork against a moving target forced them to [drop support for these migration paths](https://forgejo.org/2024-12-gitea-compatibility/). I of course am stupid and was not aware that I had missed my window, so I had to make the unpleasant discovery that simply swapping the latest Gitea for latest Forgejo will not work anymore. The [NixOS manual's migration section](https://nixos.org/manual/nixos/stable/#module-forgejo-migration-gitea) suggested that this was possible, but it's actually missing crucial information about version requirements that was [added later](https://github.com/NixOS/nixpkgs/commit/91947bb68e8184eba4c14476a6a14873f15e9ed4).
 
-I attempted to follow these steps, but ended up beefing it and nearly corrupted my Gitea data in the process. I learned my lesson from this and all future attempts used a separate copy of the Gitea state directory.
+My naive attempt _almost_ caused me to irreversibly corrupt my instance data, so I was more careful with future attempts and used a backup each time.
 
-# The `gitea dump` command
+# Attempt 2: The `gitea dump` command
 
-This looked like it had some potential until I realized the lack of a companion `gitea restore` functionality. The generated dump is a big ZIP file of your entire state directory, along with the SQL commands to recreate your database with whatever database engine you were using. The recommended way to use this dump is to unzip it and then replay the SQL commands into `sqlite` (my current database) to build up the state directory. This was particularly unhelpful but I kept at it anyway.
+This looked like it had some potential until I realized the lack of a companion `gitea restore` functionality. The generated dump is a big ZIP file of your entire state directory, along with the SQL commands to recreate your database with whatever database engine you were using. The recommended way to use this dump is to unzip it and then replay the SQL commands into `sqlite` (my current database) to build up the state directory. This approach kind of felt like a dead-end already but I gave it a good try anyway.
 
-I had also chosen to run Forgejo using PostgreSQL instead of SQLite since I had proper backup strategies in place for it and was already using it with a bunch of other software running on this machine. This meant I had to reach out for [pgloader](https://pgloader.readthedocs.io/en/latest/) to handle this translation which worked pretty well. Running `pgloader sqlite:///var/lib/gitea/data/gitea.db 'postgresql://forgejo:@/forgejo?host=/run/postgresql'` as root rebuilt the Gitea database onto Postgres.
+I had also chosen to run Forgejo using PostgreSQL instead of SQLite, since I was already using it with a bunch of other software running on this machine and had proper backup strategies in place. This meant I had to reach out for [pgloader](https://pgloader.readthedocs.io/en/latest/) to import the SQLite-compatible dump into Postgres which worked out pretty well. Running `pgloader sqlite:///var/lib/gitea/data/gitea.db 'postgresql://forgejo:@/forgejo?host=/run/postgresql'` as root was able to successfully migrate the database to Postgres.
 
-Unfortunately this didn't work due to the previously discussed version incompatibilities, and Forgejo rejected the database I had created for it. At this point I had lost a couple hours on this and electricity problems at my place had additionally caused my patience to run thin. I decided to lean into the fabled NixOS reproducibility and just build a fresh instance of Forgejo with the same settings and migrate the data for my account manually.
+Unfortunately this didn't work due to the previously discussed version incompatibilities, and Forgejo rejected this database I had created for it. At this point I had lost a couple hours on this and constant electricity problems at my place had additionally caused my patience to run thin. I decided to cut my losses and re-deployed Forgejo with the same settings as my Gitea server, deciding that I would figure out a way to just copy my account data over since the instance configuration was managed by NixOS anyway (for the most part).
 
-# Vibe coding deployed somewhat effectively
+# Attempt 3: Vibe coding deployed somewhat effectively
 
-> Aside, I'm not generally a big believer in the AI hype. I have yet to pay for any of these tools, between GitHub and my employer I get plenty of access to top of the line models that are supposedly reinventing my field of work every 3 months. LLMs have yet to meaningfully help me at work, and the only times I've gotten  real value out of them is by getting them to write one-off things that I am glad to have but would likely never invest the time to upskill into and build myself.
+> I'm not generally a big believer in the AI hype. I have yet to pay for any of these tools, between GitHub and my employer I get plenty of access to top of the line models that are supposedly reinventing my field of work every 3 months. LLMs have yet to meaningfully help me at work, and the only times I've gotten  real value out of them is by getting them to write one-off things like this that I am glad to have but would likely never invest the time to upskill into and build myself.
 
-I hooked up the free license to GitHub Copilot I get for satisfying some criteria of "not worthless" into [Zed](https://zed.dev) and wrote out a simple README file describing what I wanted out of the tool and had it go to town. The end result of this was an unnecessarily abstracted Go project (I doubt anybody would use that directory structure for a project this size) that looked like it would do the job.
+I hooked up the free license to GitHub Copilot that I get for [satisfying some criteria of "popular open source maintainer"](https://docs.github.com/en/copilot/get-started/plans) into [Zed](https://zed.dev) and wrote out a simple README file describing what I wanted out of the tool and had it go to town. The end result of this was an unnecessarily abstracted Go project (I doubt anybody would use that directory structure for a project this small) that looked like it would do the job.
 
 Now onto actually running this tool. For this to work, it would require both my new Forgejo server and my old Gitea server to be up at the same time. First hurdle: conflicting ports. This was solved [pretty easily](https://git.msfjarvis.dev/msfjarvis/dotfiles/commit/9a8cdd36cdf3f0b93834c86112fd113634985587).
 
-I screwed up here yet again, by running Forgejo on the primary domain and deploying the old Gitea server into a new Tailscale-based service. This caused multiple failures:
+I screwed up here by running Forgejo on the primary domain and deploying the old Gitea server into a new Tailscale-based service. This caused multiple failures:
 
 ## Inability to log into the Gitea instance.
 
@@ -46,7 +46,7 @@ To make up for the inability to log into my Gitea server to create an access tok
 ```
 sudo -i su - gitea
 # To get the actual path to the Gitea binary, which weirdly isn't installed for the gitea user?
-systemctl status gitea.service
+systemctl cat gitea.service | grep ExecStart=
 /nix/store/foo-bar-baz-gitea-1.23.1/bin/gitea admin -w $(pwd) user generate-access-token --token-name forgejo-migration --scopes "read:repository,read:user" --raw
 ```
 
@@ -54,7 +54,7 @@ On the forgejo side, a similar dance ensued but this time to actually create my 
 
 ```
 sudo -i su - forgejo
-systemctl status forgejo
+systemctl cat forgejo.service | grep ExecStart=
 # yes the actual CLI seems to still be available as gitea
 /nix/store/foo-bar-baz-forgejo-10.0.0/bin/gitea admin user create -w $(pwd) --username msfjarvis --email me@msfjarvis.dev --admin --access-token --access-token-name forgejo-migration --access-token-scopes "read:user,write:repository"
 ```
@@ -63,12 +63,12 @@ With access tokens in hand, I ran the tool and hit my second problem.
 
 ## Tailscale ACLs bite me in the ass
 
-The way Tailscale's networking shebang works meant that the server running this isolated Gitea service couldn't connect to it via the network without some tweaks to the ACL policies. I was not feeling like I had this extra debugging in me, so I opted to just temporarily hijack a different service's domain and put Gitea on it then resumed from there.
+The way Tailscale's networking shebang works meant that the server running this isolated Gitea service couldn't connect to it via the network without some tweaks to the ACL policies. I was not feeling like I had this extra debugging in me, so I opted to just temporarily hijack another subdomain pointing to this server for the purpose and resumed from there.
 
 ## Mirrors of GitHub private repos did not work
 
-Back when I first created mirrors of all my stuff I had also done so for my private repos and just forgot about it. When the tool tried to migrate them they obviously failed to mirror since I wasn't providing any access tokens for GitHub. I instructed Claude to add a retry for this and pull an access token from the `$GITHUB_TOKEN` environment variable.
+Back when I first created mirrors of all my stuff I had also done so for my private repos and just forgot about it. When the tool tried to migrate them they obviously failed to mirror since I wasn't providing any access tokens for GitHub. I went back to Zed and had Claude add a retry for this and pull an access token from the `$GITHUB_TOKEN` environment variable.
 
-# All said and done
+# Conclusion
 
-Overall this was generally worthwhile, both for documenting it for others as well as for me to finally be on Forgejo. I trust the people in charge significantly more than I do for Gitea, and they continue to deliver [great work](https://forgejo.org/2025-07-release-v12-0/) driven in part by them actually using their own software at scale.
+Overall this migration was worthwhile for me, both for documenting it for others in my position as well as for finally being free of Gitea. I trust the people in charge significantly more, and they continue to deliver [great work](https://forgejo.org/2025-07-release-v12-0/) driven in part by them actually using their own software at scale.
