@@ -1,10 +1,10 @@
 +++
 title = "Migrating from Gitea to Forgejo with pain and suffering (featuring NixOS)"
 date = "2025-09-01T19:32:00+05:30"
-lastmod = "2025-09-01T19:32:00+05:30"
+lastmod = "2025-09-01T19:43:00+05:30"
 summary = "With the renewed interest in Forgejo I decided to finally pull the plug on moving out of Gitea, and this is how it went."
 categories = [ "nixos, selfhosting" ]
-tags = [ "gitea, github, forgejo, github alternative, forgejo migration" ]
+tags = [ "gitea", "github", "forgejo", "github alternative", "forgejo migration" ]
 draft = true
 +++
 I've had a Git server at [https://git.msfjarvis.dev](https://git.msfjarvis.dev/) for a while now, running [Gitea](https://about.gitea.com/) but my faith in the project's open core model has steadily been going down. When Codeberg announced they were forking Gitea as [Forgejo](https://forgejo.org) I quietly put down a line item to switch over in my overflowing TODO list and promptly forgot about it.
