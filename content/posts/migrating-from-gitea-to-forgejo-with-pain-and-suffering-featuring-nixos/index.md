@@ -1,11 +1,11 @@
 +++
-title = "Migrating from Gitea to Forgejo with pain and suffering (featuring NixOS)"
+title = "Migrating from Gitea to Forgejo the long way"
 date = "2025-09-01T19:32:00+05:30"
-lastmod = "2025-09-01T19:43:00+05:30"
+lastmod = "2025-09-01T19:46:00+05:30"
 summary = "With the renewed interest in Forgejo I decided to finally pull the plug on moving out of Gitea, and this is how it went."
-categories = [ "nixos, selfhosting" ]
+categories = [ "nixos", "selfhosting" ]
 tags = [ "gitea", "github", "forgejo", "github alternative", "forgejo migration" ]
-draft = true
+draft = false
 +++
 I've had a Git server at [https://git.msfjarvis.dev](https://git.msfjarvis.dev/) for a while now, running [Gitea](https://about.gitea.com/) but my faith in the project's open core model has steadily been going down. When Codeberg announced they were forking Gitea as [Forgejo](https://forgejo.org) I quietly put down a line item to switch over in my overflowing TODO list and promptly forgot about it.
 
@@ -37,7 +37,7 @@ Now onto actually running this tool. For this to work, it would require both my 
 
 I screwed up here by running Forgejo on the primary domain and deploying the old Gitea server into a new Tailscale-based service. This caused multiple failures:
 
-## Inability to log into the Gitea instance.
+### Inability to log into the Gitea instance.
 
 I could no longer sign into Gitea since I had 2FA enabled using Passkeys which require the domains to match up.
 
@@ -61,13 +61,15 @@ systemctl cat forgejo.service | grep ExecStart=
 
 With access tokens in hand, I ran the tool and hit my second problem.
 
-## Tailscale ACLs bite me in the ass
+### Tailscale ACLs bite me in the ass
 
-The way Tailscale's networking shebang works meant that the server running this isolated Gitea service couldn't connect to it via the network without some tweaks to the ACL policies. I was not feeling like I had this extra debugging in me, so I opted to just temporarily hijack another subdomain pointing to this server for the purpose and resumed from there.
+The way Tailscale's networking shebang works meant that the server running this isolated Gitea service couldn't connect to it via the network without some tweaks to my ACL policies. I was not feeling like I had this extra debugging in me, so I opted to just temporarily hijack another subdomain pointing to this server for the purpose and resumed from there.
 
-## Mirrors of GitHub private repos did not work
+### Mirrors of GitHub private repos did not work
 
 Back when I first created mirrors of all my stuff I had also done so for my private repos and just forgot about it. When the tool tried to migrate them they obviously failed to mirror since I wasn't providing any access tokens for GitHub. I went back to Zed and had Claude add a retry for this and pull an access token from the `$GITHUB_TOKEN` environment variable.
+
+When I ran the tool again it was able to successfully recreate all the repositories from my Gitea server.
 
 # Conclusion
 
