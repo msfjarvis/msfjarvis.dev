@@ -34,13 +34,11 @@ As of the latest NixOS release, the Caddy package in nixpkgs supports including 
 This will swap out the `caddy` binary in your NixOS configuration with one that has the `caddy-tailscale` module patched in. You will also need to provide a Tailscale authkey to allow the `caddy-tailscale` module to interact with the Tailscale API and provision new nodes in your Tailnet. This can be done by setting the `TS_AUTHKEY` environment variable in your Caddy service configuration. Here's an example of how to do so using [`sops-nix`](https://github.com/Mic92/sops-nix):
 
 ```nix
-age.secrets.ts-authkey = {
-  file = "secrets/ts-authkey.age";
+sops.secrets.services-tsauthkey-env = {
+  sopsFile = lib.snowfall.fs.get-file "secrets/tailscale.yaml";
   owner = config.services.caddy.user;
-  group = config.services.caddy.group;
-  mode = "600";
 };
-services.caddy.environmentFile = config.age.secrets.ts-authkey.path;
+services.caddy.environmentFile = config.sops.secrets.services-tsauthkey-env.path;
 ```
 
 ## Setting up your first private service
