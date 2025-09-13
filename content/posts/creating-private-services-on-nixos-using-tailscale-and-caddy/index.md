@@ -1,53 +1,32 @@
 +++
-categories = []
-date = "2024-08-28T12:00:00+05:30"
-draft = true
-lastmod = "2024-08-28T12:00:00+05:30"
-slug = "creating-private-services-on-nixos-using-tailscale-and-caddy"
-summary = ""
-tags = ["caddy", "nixos", "tailscale"]
 title = "Creating private services on NixOS using Tailscale and Caddy"
+date = "2025-09-13T21:18:00+05:30"
+lastmod = "2025-09-13T21:25:00+05:30"
+summary = "A simple guide to setting up private services on NixOS using Tailscale and Caddy with authentication."
+categories = [ "selfhosting", "nixos" ]
+tags = [ "caddy", "nixos", "tailscale" ]
+draft = true
+slug = "creating-private-services-on-nixos-using-tailscale-and-caddy"
 +++
-
 [Tailscale](https://tailscale.com) is a mesh VPN that makes it dead simple to connect almost any device together in a private network. [Caddy](https://caddyserver.com) is a web server that focuses on ease of use and automatic HTTPS. I am a fan of both of these, and I was very excited to discover that Tailscale has an experimental [integration with Caddy](https://github.com/tailscale/caddy-tailscale) that leverages their [`tsnet`](https://tailscale.com/kb/1244/tsnet) library to allow creating unique Tailscale addresses for individual virtual hosts in your Caddy configuration. Here's a quick run down of how to set this up on NixOS.
 
-## Packaging caddy-tailscale for NixOS
+## Installing caddy-tailscale for NixOS
 
-As of 2024-08-28, `caddy-tailscale` is not packaged in Nixpkgs, so we'll need to package it ourselves. While `caddy-tailscale` is set up to be used as a [Caddy module](https://caddyserver.com/docs/modules/), they also expose a standalone binary that can be used as a drop-in replacement for `caddy`. We'll use this binary in our NixOS configuration.
+As of the latest NixOS release, the Caddy package in nixpkgs supports including plugins directly which greatly simplifies this step. As an example, here's how I include the caddy-tailscale plugin with the excellent [caddy-defender](https://github.com/JasonLovesDoggo/caddy-defender) that lets me drop traffic from AI scrapers more safely.
 
-A very simple way to write the package definition for `caddy-tailscale` is to copy the one for the `caddy` package [from Nixpkgs](https://github.com/NixOS/nixpkgs/blob/171f57eca66a997e61d2111b4ac897bd05ce5da3/pkgs/by-name/ca/caddy/package.nix) and change its `src` attribute to point to the `tailscale/caddy-tailscale` repository. This is what the diff looks like after the change:
-
-```diff
- buildGoModule {
-   pname = "caddy";
--  inherit version;
-+  version = "0-unstable-2024-08-20";
-
-   src = fetchFromGitHub {
--    owner = "caddyserver";
--    repo = "caddy";
--    rev = "v${version}";
--    hash = "sha256-CBfyqtWp3gYsYwaIxbfXO3AYaBiM7LutLC7uZgYXfkQ=";
-+    owner = "tailscale";
-+    repo = "caddy-tailscale";
-+    rev = "c357e484b153daf7000ec5dc64a06c704d500d26";
-+    hash = "sha256-/UIQiT7IpPmD/7bzI8a50po9Y/IYV8W4Ycl3yqa5wj8=";
-   };
-
--  vendorHash = "sha256-1Api8bBZJ1/oYk4ZGIiwWCSraLzK9L+hsKXkFtk6iVM=";
-+  vendorHash = "sha256-2MVDSuWZH7PT3weqRIJYkEF628SYSungvBc71g4cz8w=";
-
-   subPackages = [ "cmd/caddy" ];
-```
-
-## Wiring up caddy-tailscale into NixOS' Caddy service
-
-Assuming you've saved the package definition from above as `caddy-tailscale.nix` in your NixOS configuration directory, you can then integrate it into the [`services.caddy`](https://nixos.org/manual/nixos/stable/options#opt-services.caddy.enable) option in NixOS like so:
+> You can also keep the package definition in a separate file [like this](https://github.com/msfjarvis/dotfiles/blob/94b443ce6748a1897b7b839e1564eca34bfcbe3e/packages/caddy-with-plugins/default.nix), and use [this script](https://github.com/msfjarvis/dotfiles/blob/94b443ce6748a1897b7b839e1564eca34bfcbe3e/dev/caddy/update_caddy_plugins.py) to keep it up-to-date. DISCLAIMER: The script was vibe coded by Claude, all I've done is checked it for obviously silly shit.
 
 ```diff
    services.caddy = {
      enable = true;
-+    package = pkgs.callPackage ./caddy-tailscale.nix { };
++    package =
++      pkgs.caddy.withPlugins {
++        plugins = [
++          "github.com/jasonlovesdoggo/caddy-defender@v0.8.5"
++          "github.com/tailscale/caddy-tailscale@v0.0.0-20250207163903-69a970c84556"
++        ];
++        hash = "sha256-z+zj3rfXbyxldRjO1yoLD77ACRWEAofzMDiZe/bHAqw=";
++     }
      globalConfig = ''
        servers {
 ```
