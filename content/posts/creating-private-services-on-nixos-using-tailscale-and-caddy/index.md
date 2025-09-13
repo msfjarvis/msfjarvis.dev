@@ -1,7 +1,7 @@
 +++
 title = "Creating private services on NixOS using Tailscale and Caddy"
 date = "2025-09-13T21:18:00+05:30"
-lastmod = "2025-09-13T21:35:00+05:30"
+lastmod = "2025-09-13T23:09:00+05:30"
 summary = "A simple guide to setting up private services on NixOS using Tailscale and Caddy with authentication."
 categories = [ "selfhosting", "nixos" ]
 tags = [ "caddy", "nixos", "tailscale" ]
@@ -51,10 +51,13 @@ Now we're ready to rumble. To showcase the full capabilities of `caddy-tailscale
 services.caddy.virtualHosts = {
   "https://${config.services.grafana.settings.server.domain}" = {
     extraConfig = ''
-      bind tailscale/grafana # This will create a new node at grafana.$TAILNET_NAME.ts.net
-      tailscale_auth # Enables the in-built authentication provider
+      # This will create a new node at grafana.$TAILNET_NAME.ts.net
+      bind tailscale/grafana
+      # Enables the Tailscale authentication provider
+      tailscale_auth
+      # Forwards your Tailscale user ID to Grafana. Usually your email address.
       reverse_proxy ${config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port} {
-        header_up X-Webauth-User {http.auth.user.tailscale_user} # Forwards your Tailscale user ID to Grafana. Usually your email address.
+        header_up X-Webauth-User {http.auth.user.tailscale_user}
       }
     '';
   };
@@ -64,9 +67,12 @@ services.grafana = {
   enable = true;
   settings = {
     "auth.proxy" = {
-      enabled = true; # Enable proxy-based authentication
-      auto_sign_up = true; # Automatically create new accounts for people who access the service
-      enable_login_token = false; # Do not store login cookies, instead always relying on proxy authentication
+      # Enable proxy-based authentication
+      enabled = true;
+      # Automatically create new accounts for people who access the service
+      auto_sign_up = true;
+      # Do not store login cookies, instead always relying on proxy authentication
+      enable_login_token = false;
     };
     server = {
       domain = "grafana.$TAILNET_NAME.ts.net";
