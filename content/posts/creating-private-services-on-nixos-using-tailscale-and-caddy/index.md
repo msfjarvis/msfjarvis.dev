@@ -1,11 +1,11 @@
 +++
 title = "Creating private services on NixOS using Tailscale and Caddy"
 date = "2025-09-13T21:18:00+05:30"
-lastmod = "2025-09-13T21:25:00+05:30"
+lastmod = "2025-09-13T21:35:00+05:30"
 summary = "A simple guide to setting up private services on NixOS using Tailscale and Caddy with authentication."
 categories = [ "selfhosting", "nixos" ]
 tags = [ "caddy", "nixos", "tailscale" ]
-draft = true
+draft = false
 slug = "creating-private-services-on-nixos-using-tailscale-and-caddy"
 +++
 [Tailscale](https://tailscale.com) is a mesh VPN that makes it dead simple to connect almost any device together in a private network. [Caddy](https://caddyserver.com) is a web server that focuses on ease of use and automatic HTTPS. I am a fan of both of these, and I was very excited to discover that Tailscale has an experimental [integration with Caddy](https://github.com/tailscale/caddy-tailscale) that leverages their [`tsnet`](https://tailscale.com/kb/1244/tsnet) library to allow creating unique Tailscale addresses for individual virtual hosts in your Caddy configuration. Here's a quick run down of how to set this up on NixOS.
@@ -40,7 +40,7 @@ age.secrets.ts-authkey = {
   group = config.services.caddy.group;
   mode = "600";
 };
-systemd.services.caddy.serviceConfig.EnvironmentFile = config.age.secrets.ts-authkey.path;
+services.caddy.environmentFile = config.age.secrets.ts-authkey.path;
 ```
 
 ## Setting up your first private service
