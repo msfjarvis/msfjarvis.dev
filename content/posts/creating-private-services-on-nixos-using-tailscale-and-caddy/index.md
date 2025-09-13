@@ -35,10 +35,17 @@ This will swap out the `caddy` binary in your NixOS configuration with one that 
 
 ```nix
 sops.secrets.services-tsauthkey-env = {
-  sopsFile = lib.snowfall.fs.get-file "secrets/tailscale.yaml";
+  sopsFile = ./secrets/tailscale.env;
   owner = config.services.caddy.user;
+  format = "dotenv";
 };
 services.caddy.environmentFile = config.sops.secrets.services-tsauthkey-env.path;
+```
+
+Create the `secrets/tailscale.env` file with sops, the contents should look something like this:
+
+```plaintext
+TS_AUTHKEY=tskey-auth-something-something
 ```
 
 ## Setting up your first private service
