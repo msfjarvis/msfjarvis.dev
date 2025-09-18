@@ -65,10 +65,10 @@ The core logic of this operation is composed of three parts. The [github context
 
 Jobs in a workflow run in parallel by default, and GitHub comes with an amazing matrix functionality that can automatically generate multiple jobs for you from a single definition. Take this specific example:
 
-|         | Windows           | MacOS           | Ubuntu           |
+| | Windows | MacOS | Ubuntu |
 | ------- | ----------------- | --------------- | ---------------- |
-| Stable  | Windows + Stable  | MacOS + Stable  | Ubuntu + Stable  |
-| Beta    | Windows + Beta    | MacOS + Beta    | Ubuntu + Beta    |
+| Stable | Windows + Stable | MacOS + Stable | Ubuntu + Stable |
+| Beta | Windows + Beta | MacOS + Beta | Ubuntu + Beta |
 | Nightly | Windows + Nightly | MacOS + Nightly | Ubuntu + Nightly |
 
 > {{< sub "This particular matrix is for Rust, to test a codebase across Windows, Ubuntu, and macOS using the Rust stable, beta, and nightly toolchains." >}}
@@ -97,7 +97,7 @@ jobs:
           toolchain: ${{ matrix.rust }}
 ```
 
-This will automatically generate 9 (3 platforms \* 3 Rust channels) parallel jobs to test this entire configuration, without requiring us to manually define each of them. [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) at its finest :)
+This will automatically generate 9 (3 platforms * 3 Rust channels) parallel jobs to test this entire configuration, without requiring us to manually define each of them. [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) at its finest :)
 
 ## Make a job run after another
 

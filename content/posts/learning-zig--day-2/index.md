@@ -133,16 +133,15 @@ I like most of what I've seen so far in Zig. Aside from the issues I mentioned a
 
 I was very easily distracted today, so I only made it a third of the way in 3 hours for a chapter that is supposed to take 1 hour for the whole thing. Hoping to finish it tomorrow!
 
-[previous post]: /posts/first-steps-with-zig
-[python]: https://msfjarvis.dev/g/walls-manager
-[kotlin]: https://msfjarvis.dev/g/walls-bot
-[rust]: https://msfjarvis.dev/g/walls-bot-rs
-[healthchecks-rs]: https://msfjarvis.dev/g/healthchecks-rs
-[healthchecks.io ecosystem]: https://healthchecks.io/docs/resources/
-[getting started]: https://ziglang.org/learn/getting-started/
-[ziglearn.org]: https://ziglearn.org/
-[rust book]: https://doc.rust-lang.org/book/
 [chapter 1]: https://ziglearn.org/chapter-1/
 [default trait]: https://doc.rust-lang.org/std/default/trait.Default.html
+[getting started]: https://ziglang.org/learn/getting-started/
+[healthchecks-rs]: https://msfjarvis.dev/g/healthchecks-rs
+[healthchecks.io ecosystem]: https://healthchecks.io/docs/resources/
+[kotlin]: https://msfjarvis.dev/g/walls-bot
 [pr that overhauls formatting]: https://github.com/ziglang/zig/pull/6870
-[`unreachable`]: https://ziglearn.org/chapter-1/#unreachable
+[previous post]: /posts/first-steps-with-zig
+[python]: https://msfjarvis.dev/g/walls-manager
+[rust]: https://msfjarvis.dev/g/walls-bot-rs
+[rust book]: https://doc.rust-lang.org/book/
+[ziglearn.org]: https://ziglearn.org/

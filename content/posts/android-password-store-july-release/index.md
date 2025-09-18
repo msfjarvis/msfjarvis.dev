@@ -53,7 +53,7 @@ Previously the password export would run on the main thread and potentially caus
 
 ### UI fixes
 
-A bunch of UI feedback was provided to us after the last major release and we've worked to address it in this one. Long file/folder names now correctly wrap across lines, and the error UI for wrong password/passphrase is now aesthetically correct [[PR](https://msfjarvis.dev/aps/pr/892)].
+A bunch of UI feedback was provided to us after the last major release and we've worked to address it in this one. Long file/folder names now correctly wrap across lines, and the error UI for wrong password/passphrase is now aesthetically correct \[[PR](https://msfjarvis.dev/aps/pr/892)\].
 
 ### QoL improvements
 

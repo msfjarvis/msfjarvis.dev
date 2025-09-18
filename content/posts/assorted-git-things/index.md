@@ -34,10 +34,10 @@ git rm --cached path/to/module
 In order, this does the following:
 
 1. [`deinit`](https://git-scm.com/docs/git-submodule#Documentation/git-submodule.txt-deinit-f--force--all--ltpathgt82308203) removes the checkout of the submodule and removes it from `.git/config`
-2. Deletes the bare repository Git creates of the submodule which is used to generate the actual checkout
-3. Edits your `.gitmodules` file to remove the submodule entry
-4. Stages the changes to `.gitmodules`
-5. Deletes the submodule fully from the index
+1. Deletes the bare repository Git creates of the submodule which is used to generate the actual checkout
+1. Edits your `.gitmodules` file to remove the submodule entry
+1. Stages the changes to `.gitmodules`
+1. Deletes the submodule fully from the index
 
 At this point you can commit the changes and hopefully never deal with a submodule again :D
 

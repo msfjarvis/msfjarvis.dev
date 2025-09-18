@@ -43,16 +43,16 @@ $ cargo tree | rg -- -sys
 
 This indicates curl, zlib, openssl, and libnghttp2 as well as a bunch of WASM-related things are being dynamically linked into my executable. To resolve this, I looked at the build features exposed by [surf] and found that it selects the `"curl_client"` feature by default, which can be turned off and replaced with `"h1-client-rustls"` which uses an HTTP client backed by [rustls] and [async-std] and no dynamically linked libraries. Enabling [this build feature] removed all `-sys` dependencies from [androidx-release-watcher], allowing me to build static executables of it.
 
+[androidx-release-watcher]: https://msfjarvis.dev/g/androidx-release-watcher
+[async-std]: https://crates.io/crates/async-std
+[reqwest]: https://crates.io/crates/reqwest
 [rfc #1721]: https://github.com/rust-lang/rfcs/pull/1721
-[unpredictable performance]: https://www.reddit.com/r/rust/comments/a6pna3/why_rust_uses_glibc_and_not_musl_by_default_for/ebzpzld/
-[statically link against glibc]: https://github.com/rust-lang/rust/issues/65447
-[were confused by this]: https://github.com/rust-lang/rust/issues/78210
+[ripgrep]: https://crates.io/crates/ripgrep
 [rust issue #78210]: https://github.com/rust-lang/rust/issues/78210#issuecomment-714776007
 [rustls]: https://crates.io/crates/rustls
-[reqwest]: https://crates.io/crates/reqwest
-[ureq]: https://crates.io/crates/ureq
-[ripgrep]: https://crates.io/crates/ripgrep
-[androidx-release-watcher]: https://msfjarvis.dev/g/androidx-release-watcher
+[statically link against glibc]: https://github.com/rust-lang/rust/issues/65447
 [surf]: https://crates.io/crates/surf
-[async-std]: https://crates.io/crates/async-std
 [this build feature]: https://msfjarvis.dev/g/androidx-release-watcher/b67a212106d8
+[unpredictable performance]: https://www.reddit.com/r/rust/comments/a6pna3/why_rust_uses_glibc_and_not_musl_by_default_for/ebzpzld/
+[ureq]: https://crates.io/crates/ureq
+[were confused by this]: https://github.com/rust-lang/rust/issues/78210

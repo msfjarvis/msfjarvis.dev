@@ -1,6 +1,6 @@
 {
-  "deno.enable": true,
-  "deno.unstable": true,
-  "deno.lint": false,
-  "nixEnvSelector.nixFile": "${workspaceRoot}/flake.nix"
+	"deno.enable": true,
+	"deno.unstable": true,
+	"deno.lint": false,
+	"nixEnvSelector.nixFile": "${workspaceRoot}/flake.nix"
 }

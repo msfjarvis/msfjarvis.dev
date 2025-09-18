@@ -60,16 +60,16 @@ Cheeky.
 
 This post is just a brief overview of how I went about setting things up for learning Zig. I intend to post more detailed blogs as I progress :)
 
-[zig]: https://ziglang.org
-[rust]: https://rust-lang.org
+[book]: https://doc.rust-lang.org/book/
 [documented their experience with zig]: https://kevinlynagh.com/rust-zig/
 [installing zig]: https://ziglang.org/learn/getting-started/#installing-zig
-[stable release cadence]: https://ziglang.org/learn/getting-started/#tagged-release-or-nightly-build
-[nix]: https://nixos.org/
-[zls]: https://github.com/zigtools/zls
-[ziglearn.org]: https://ziglearn.org/
-[rustlings]: https://github.com/rust-lang/rustlings
-[ziglings]: https://github.com/ratfactor/ziglings
-[standard library reference]: https://ziglang.org/documentation/0.7.1/std/
 [language reference]: https://ziglang.org/documentation/0.7.1/
-[book]: https://doc.rust-lang.org/book/
+[nix]: https://nixos.org/
+[rust]: https://rust-lang.org
+[rustlings]: https://github.com/rust-lang/rustlings
+[stable release cadence]: https://ziglang.org/learn/getting-started/#tagged-release-or-nightly-build
+[standard library reference]: https://ziglang.org/documentation/0.7.1/std/
+[zig]: https://ziglang.org
+[ziglearn.org]: https://ziglearn.org/
+[ziglings]: https://github.com/ratfactor/ziglings
+[zls]: https://github.com/zigtools/zls

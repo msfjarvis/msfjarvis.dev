@@ -14,12 +14,15 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.flake-utils.inputs.systems.follows = "systems";
 
+  inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+  inputs.treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs =
     {
-      self,
       devshell,
       flake-utils,
       nixpkgs,
+      treefmt-nix,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -31,13 +34,17 @@
         };
       in
       {
+        formatter =
+          let
+            treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+          in
+          treefmtEval.config.build.wrapper;
         devShell = pkgs.devshell.mkShell {
           name = "blog-dev-shell";
           bash = {
             interactive = "";
           };
           packages = with pkgs; [
-            dprint
             git
             go
             hugo
@@ -66,12 +73,6 @@
               category = "development";
               command = "hugo server -D";
               help = "Run the Hugo development server";
-            }
-            {
-              name = "fmt";
-              category = "development";
-              command = "dprint fmt";
-              help = "Format this repository";
             }
             {
               name = "diffs";

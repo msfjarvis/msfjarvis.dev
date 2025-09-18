@@ -293,20 +293,16 @@ The exact percentage improvement you can expect can vary depending on how many d
 
 Like and subscribe, and hit that notification bell so you don't miss my next post some time within this decade (hopefully).
 
-[downloads info]: https://developer.android.com/studio/releases/past-releases/as-giraffe-release-notes#download-info-sync
-[pom]: https://maven.apache.org/pom.html
-[gradle module metadata]: https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html
+[androidx.dev]: https://androidx.dev/storage/compose-compiler/repository
 [dependency resolution]: https://docs.gradle.org/current/userguide/dependency_resolution.html#sec:how-gradle-downloads-deps
-[configurations]: https://docs.gradle.org/current/userguide/declaring_dependencies.html
-[version catalog]: https://docs.gradle.org/current/userguide/platforms.html#sub:central-declaration-of-dependencies
+[downloads info]: https://developer.android.com/studio/releases/past-releases/as-giraffe-release-notes#download-info-sync
+[gmaven]: https://maven.google.com/web/index.html
+[jetpack compose compiler]: https://developer.android.com/jetpack/androidx/releases/compose-compiler
+[jitpack]: https://jitpack.io
+[kt-51379]: https://youtrack.jetbrains.com/issue/KT-51379
 [maven central]: https://repo1.maven.org/maven2/
 [maven central snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/squareup/sqldelight/
-[gMaven]: https://maven.google.com/web/index.html
-[jitpack]: https://jitpack.io
-[jetpack compose compiler]: https://developer.android.com/jetpack/androidx/releases/compose-compiler
-[`content`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-artifact-repository/content.html?query=abstract%20fun%20content(configureAction:%20Action%3Cout%20Any%3E)
-[`mavencontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-maven-artifact-repository/maven-content.html?query=abstract%20fun%20mavenContent(configureAction:%20Action%3Cout%20Any%3E)
-[`exclusivecontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.dsl/-repository-handler/exclusive-content.html?query=abstract%20fun%20exclusiveContent(action:%20Action%3Cout%20Any%3E)
-[KT-51379]: https://youtrack.jetbrains.com/issue/KT-51379
-[androidx.dev]: https://androidx.dev/storage/compose-compiler/repository
 [this bug]: https://github.com/gradle/gradle/issues/26569
+[`content`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-artifact-repository/content.html?query=abstract%20fun%20content(configureAction:%20Action%3Cout%20Any%3E)
+[`exclusivecontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.dsl/-repository-handler/exclusive-content.html?query=abstract%20fun%20exclusiveContent(action:%20Action%3Cout%20Any%3E)
+[`mavencontent`]: https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.artifacts.repositories/-maven-artifact-repository/maven-content.html?query=abstract%20fun%20mavenContent(configureAction:%20Action%3Cout%20Any%3E)

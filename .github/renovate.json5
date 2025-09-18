@@ -32,47 +32,7 @@
       ],
       "depNameTemplate": "@sveltia/cms",
       "datasourceTemplate": "npm",
-    },
-    {
-      "customType": "regex",
-      "description": "Update dprint TypeScript plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "typescript-(?<currentValue>.*?).wasm",
-      ],
-      "depNameTemplate": "dprint/dprint-plugin-typescript",
-      "datasourceTemplate": "github-releases",
-    },
-    {
-      "customType": "regex",
-      "description": "Update dprint JSON plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "json-(?<currentValue>.*?).wasm",
-      ],
-      "depNameTemplate": "dprint/dprint-plugin-json",
-      "datasourceTemplate": "github-releases",
-    },
-    {
-      "customType": "regex",
-      "description": "Update dprint Markdown plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "markdown-(?<currentValue>.*?).wasm",
-      ],
-      "depNameTemplate": "dprint/dprint-plugin-markdown",
-      "datasourceTemplate": "github-releases",
-    },
-    {
-      "customType": "regex",
-      "description": "Update dprint TOML plugin",
-      "fileMatch": ["dprint.json"],
-      "matchStrings": [
-        "toml-(?<currentValue>.*?).wasm",
-      ],
-      "depNameTemplate": "dprint/dprint-plugin-toml",
-      "datasourceTemplate": "github-releases",
-    },
+    }
   ],
   "commitMessageSuffix": "[staging]",
 }

@@ -44,9 +44,9 @@ I skipped through the parts about HashMaps, Stacks, sorting and iterators since 
 
 Overall, I'm liking everything I'm seeing. Very excited to start building things in Zig!
 
-[chapter 2]: https://ziglearn.org/chapter-2/
-[libcore]: https://doc.rust-lang.org/core/index.html
-[the embedded rust book]: https://docs.rust-embedded.org/book/intro/no-std.html
 [allocator]: https://ziglang.org/documentation/0.7.1/std/#std;mem.Allocator
+[chapter 2]: https://ziglearn.org/chapter-2/
 [createflags]: https://ziglang.org/documentation/0.7.1/std/#std;fs.File.CreateFlags
+[libcore]: https://doc.rust-lang.org/core/index.html
 [serde]: https://serde.rs/
+[the embedded rust book]: https://docs.rust-embedded.org/book/intro/no-std.html

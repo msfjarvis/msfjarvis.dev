@@ -28,18 +28,16 @@ Some things I built to scratch a personal itch, that people found generally usef
 
 You can find me on [Mastodon], I used to have a Twitter but I've deactivated the account for well understood reasons. I'd be happy to write back if you'd like to send me an [email]!
 
+[android password store]: https://passwordstore.app
+[claw]: https://msfjarvis.dev/g/compose-lobsters
 [cloudflare]: https://cloudflare.com
 [dyte]: https://dyte.io
-[my resume here]: https://msfjarvis.dev/resume.pdf
-[donating here]: https://github.com/sponsors/msfjarvis
-[android password store]: https://passwordstore.app
-[pass]: https://passwordstore.org
-[claw]: https://msfjarvis.dev/g/compose-lobsters
-[lobste.rs]: https://lobste.rs
+[email]: mailto:me@msfjarvis.dev
 [healthchecks-rs]: https://msfjarvis.dev/g/healthchecks-rs
 [healthchecks.io]: https://healthchecks.io
-[email]: mailto:me@msfjarvis.dev
-[mastodon]: https://androiddev.social/@msfjarvis
-[github]: https://msfjarvis.dev/g
 [jetpack compose]: https://developer.android.com/jetpack/compose/
 [linkleaner]: https://github.com/msfjarvis/linkleaner
+[lobste.rs]: https://lobste.rs
+[mastodon]: https://androiddev.social/@msfjarvis
+[my resume here]: https://msfjarvis.dev/resume.pdf
+[pass]: https://passwordstore.org

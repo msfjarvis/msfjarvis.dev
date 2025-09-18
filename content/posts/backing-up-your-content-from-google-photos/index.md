@@ -16,7 +16,7 @@ There are many good reasons why you'd want to archive your pictures outside of G
 
 1. You can use [Takeout], except it **always** strips the EXIF metadata of your images, and often generates incomplete archives. Losing EXIF metadata is a deal-breaker, because you can no longer organize images automatically based on properties like date, location, and camera type.
 
-2. You can download directly from [photos.google.com] which preserves metadata, but is embarassingly manual and basically impossible to use if you're trying archive a few years of history.
+1. You can download directly from [photos.google.com] which preserves metadata, but is embarassingly manual and basically impossible to use if you're trying archive a few years of history.
 
 So, what's the solution?
 
@@ -90,12 +90,12 @@ Also, the technique in this post could easily stop working at any time if Google
 
 Hopefully this setup causes you minimal grief and allows you to back up your precious memories without relying only on Google :)
 
-[takeout]: https://takeout.google.com/
-[photos.google.com]: https://photos.google.com/
-[gphotos-cdp]: https://github.com/perkeep/gphotos-cdp
 [chrome devtools protocol]: https://chromedevtools.github.io/devtools-protocol/
-[this github comment]: https://github.com/perkeep/gphotos-cdp/issues/1#issuecomment-567378082
-[golang]: https://go.dev
-[healthchecks.io]: https://healthchecks.io
-[healthchecks-monitor]: https://msfjarvis.dev/g/healthchecks-rs
 [cron]: https://man7.org/linux/man-pages/man5/crontab.5.html
+[golang]: https://go.dev
+[gphotos-cdp]: https://github.com/perkeep/gphotos-cdp
+[healthchecks-monitor]: https://msfjarvis.dev/g/healthchecks-rs
+[healthchecks.io]: https://healthchecks.io
+[photos.google.com]: https://photos.google.com/
+[takeout]: https://takeout.google.com/
+[this github comment]: https://github.com/perkeep/gphotos-cdp/issues/1#issuecomment-567378082

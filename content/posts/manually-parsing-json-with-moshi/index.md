@@ -372,6 +372,4 @@ class TextPartsJsonAdapter {
 
 This is certainly a lengthy job to do, and this blog post is a result of nearly 8 hours I spent writing JSON adapters by hand. Certainly not recommended if avoidable, but sometimes you just need to. When it comes to it, now you hopefully know how :)
 
-[gson]: https://github.com/google/gson
-[json spec]: https://TODO
 [moshi]: https://github.com/square/moshi

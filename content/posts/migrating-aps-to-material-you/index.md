@@ -44,7 +44,7 @@ There were a lot more smaller changes that were made to address the remaining vi
 
 With the visual fixes out of the way, I went in and cleaned up the themes and styles. I commonized shared attributes such as fonts and widget styles, created M3 variants of other special-purpose themes we had, and got rid of all the now unused M2 theming. Overall, the PR touched 60+ separate files and generated a final diff of `+603,-314` lines. The PR can be seen [here](https://msfjarvis.dev/aps/pr/1532).
 
-We use a third-party library by [Max Rumpf] called [ModernAndroidPreferences] for our settings UI, and it hard-coded the use of AppCompat dialogs. Max was extremely helpful and made that customisable for us over the weekend which allowed us to use the appropriate Material You dialogs consistently. Huge thanks to Max, and check out his library! <3
+We use a third-party library by [Max Rumpf] called [ModernAndroidPreferences] for our settings UI, and it hard-coded the use of AppCompat dialogs. Max was extremely helpful and made that customisable for us over the weekend which allowed us to use the appropriate Material You dialogs consistently. Huge thanks to Max, and check out his library! \<3
 
 ## Screenshots!
 
@@ -62,14 +62,14 @@ APS is a very low-effort app when it comes to UI work. We do not have a custom d
 
 I'd like to thank the Material Design team once more for the fabulous work they have done both in creating Material You as well as the technical documentation around it. [Material Theme Builder] was an extremely crucial tool for me that set the tone of the whole process, and I would have certainly repeated the same mistakes I did with Material 2 if it wasn't for the tooling and guidance from the team.
 
-[material-components-android]: https://github.com/material-components/material-components-android
 [1.5.0-alpha05]: https://github.com/material-components/material-components-android/releases/tag/1.5.0-alpha05
-[m3 website]: https://m3.material.io
-[migration to material 3]: https://material.io/blog/migrating-material-3
-[material theme builder]: https://material.io/blog/material-theme-builder
-[migration pr]: https://github.com/android-password-store/Android-Password-Store/pull/1532/commits
-[manrope]: https://fonts.google.com/specimen/Manrope#about
-[chips]: https://material.io/components/chips
 [accessibility issue]: https://github.com/android-password-store/Android-Password-Store/issues/1261
+[chips]: https://material.io/components/chips
+[m3 website]: https://m3.material.io
+[manrope]: https://fonts.google.com/specimen/Manrope#about
+[material theme builder]: https://material.io/blog/material-theme-builder
+[material-components-android]: https://github.com/material-components/material-components-android
 [max rumpf]: https://github.com/maxr1998
+[migration pr]: https://github.com/android-password-store/Android-Password-Store/pull/1532/commits
+[migration to material 3]: https://material.io/blog/migrating-material-3
 [modernandroidpreferences]: https://github.com/Maxr1998/ModernAndroidPreferences

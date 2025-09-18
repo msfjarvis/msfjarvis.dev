@@ -4,7 +4,7 @@ date = "2020-03-06T12:00:00+05:30"
 devLink = "https://dev.to/msfjarvis/dagger-the-easy-way-part-2-4p4m"
 lastmod = "2020-03-06T12:00:00+05:30"
 slug = "dagger-the-easy-way--part-2"
-summary = "Let's extend the \"scope\" of these tutorials :)"
+summary = "Let's extend the 'scope' of these tutorials :)"
 tags = ["dagger", "tutorial"]
 title = "Dagger the easy way - Part 2"
 +++

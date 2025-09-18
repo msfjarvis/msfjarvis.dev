@@ -172,14 +172,14 @@ And you're off to the races!
 
 This post was motivated by my goal of sharing a common set of Gradle configurations across my projects such as [Android Password Store] and [Claw], which maintain a nearly identical set of convention plugins shared between the projects that I manually copy-paste back and forth. I've extracted the `build-logic` subproject of APS to a separate [aps-build-logic] repository, set it up for standalone development and configured publishing support. My goal is to supplement this with a continuous deployment workflow where an automatic version bump + release happens after each commit to the main, after which I can migrate my projects to it.
 
-[convention plugins]: https://docs.gradle.org/current/samples/sample_convention_plugins.html
-[composite builds]: https://docs.gradle.org/current/userguide/composite_builds.html
-[josef raska has a fantastic article]: https://proandroiddev.com/stop-using-gradle-buildsrc-use-composite-builds-instead-3c38ac7a2ab3
-[idiomatic-gradle]: https://github.com/jjohannes/idiomatic-gradle
-[video series]: https://github.com/jjohannes/understanding-gradle#readme
 [android password store]: https://msfjarvis.dev/aps
-[maven central]: https://search.maven.org/
-[gradle-maven-publish-plugin]: https://github.com/vanniktech/gradle-maven-publish-plugin
-[plugin markers]: https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_markers
-[claw]: https://msfjarvis.dev/g/compose-lobsters
 [aps-build-logic]: https://msfjarvis.dev/g/aps-build-logic
+[claw]: https://msfjarvis.dev/g/compose-lobsters
+[composite builds]: https://docs.gradle.org/current/userguide/composite_builds.html
+[convention plugins]: https://docs.gradle.org/current/samples/sample_convention_plugins.html
+[gradle-maven-publish-plugin]: https://github.com/vanniktech/gradle-maven-publish-plugin
+[idiomatic-gradle]: https://github.com/jjohannes/idiomatic-gradle
+[josef raska has a fantastic article]: https://proandroiddev.com/stop-using-gradle-buildsrc-use-composite-builds-instead-3c38ac7a2ab3
+[maven central]: https://search.maven.org/
+[plugin markers]: https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_markers
+[video series]: https://github.com/jjohannes/understanding-gradle#readme

@@ -123,11 +123,11 @@ class UserProfileTest {
 }
 ```
 
-[paparazzi]: https://github.com/cashapp/paparazzi
 [compose]: https://d.android.com/jetpack/compose
 [compose-jb]: https://github.com/jetbrains/compose-jb
-[sent a pr]: https://github.com/cashapp/paparazzi/pull/450
+[paparazzi]: https://github.com/cashapp/paparazzi
 [paparazzi documentation]: https://cashapp.github.io/paparazzi
-[this issue]: https://github.com/cashapp/paparazzi/issues/409
+[sent a pr]: https://github.com/cashapp/paparazzi/pull/450
 [started working]: https://github.com/cashapp/paparazzi/pull/474
 [testparameterinjector]: https://github.com/google/TestParameterInjector
+[this issue]: https://github.com/cashapp/paparazzi/issues/409

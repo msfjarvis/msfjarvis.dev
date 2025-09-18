@@ -21,30 +21,41 @@ I had been using a basic shell script with a `nix-shell` shebang for a while to 
 Like everything in Nix, the checks needed to be derivations that Nix will build and run the respective `checkPhase` of. So naively, I put together this to run the [alejandra](https://github.com/kamadorueda/alejandra) Nix formatter, [shfmt](https://github.com/mvdan/sh) to format shell scripts and [shellcheck](https://shellcheck.net/) to lint them:
 
 ```nix
-outputs = {
-  self,
-  nixpkgs,
-  flake-utils,
-}:
-  flake-utils.lib.eachDefaultSystem (system: let
-    pkgs = import nixpkgs {inherit system;};
-    files = pkgs.lib.concatStringsSep " " [
-      # Individual shell scripts from the repository
-    ];
-    fmt-check = pkgs.stdenv.mkDerivation {
-      name = "fmt-check";
-      src = ./.;
-      doCheck = true;
-      nativeBuildInputs = with pkgs; [alejandra shellcheck shfmt];
-      checkPhase = ''
-        shfmt -d -s -i 2 -ci ${files}
-        alejandra -c .
-        shellcheck -x ${files}
-      '';
-    };
-  in {
-    checks = {inherit fmt-check;};
-  });
+{
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        files = pkgs.lib.concatStringsSep " " [
+          # Individual shell scripts from the repository
+        ];
+        fmt-check = pkgs.stdenv.mkDerivation {
+          name = "fmt-check";
+          src = ./.;
+          doCheck = true;
+          nativeBuildInputs = with pkgs; [
+            alejandra
+            shellcheck
+            shfmt
+          ];
+          checkPhase = ''
+            shfmt -d -s -i 2 -ci ${files}
+            alejandra -c .
+            shellcheck -x ${files}
+          '';
+        };
+      in
+      {
+        checks = { inherit fmt-check; };
+      }
+    );
+}
 ```
 
 I needed a space separated list of my shell scripts to pass to shfmt and shellcheck, so I used a library function from nixpkgs called `concatStringsSep` that takes a list, and concatenates it together with the given separator. That's the `files` binding declared in the snippet above.
@@ -117,34 +128,43 @@ This is what the flake looked like for me after all this
     flake-utils.url = "github:numtide/flake-utils/main";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {inherit system;};
-      files = pkgs.lib.concatStringsSep " " [
-        # Individual shell scripts from the repository
-      ];
-      fmt-check = pkgs.stdenvNoCC.mkDerivation {
-        name = "fmt-check";
-        dontBuild = true;
-        src = ./.;
-        doCheck = true;
-        nativeBuildInputs = with pkgs; [alejandra shellcheck shfmt];
-        checkPhase = ''
-          shfmt -d -s -i 2 -ci ${files}
-          alejandra -c .
-          shellcheck -x ${files}
-        '';
-        installPhase = ''
-          mkdir "$out"
-        '';
-      };
-    in {
-      checks = {inherit fmt-check;};
-    });
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        files = pkgs.lib.concatStringsSep " " [
+          # Individual shell scripts from the repository
+        ];
+        fmt-check = pkgs.stdenvNoCC.mkDerivation {
+          name = "fmt-check";
+          dontBuild = true;
+          src = ./.;
+          doCheck = true;
+          nativeBuildInputs = with pkgs; [
+            alejandra
+            shellcheck
+            shfmt
+          ];
+          checkPhase = ''
+            shfmt -d -s -i 2 -ci ${files}
+            alejandra -c .
+            shellcheck -x ${files}
+          '';
+          installPhase = ''
+            mkdir "$out"
+          '';
+        };
+      in
+      {
+        checks = { inherit fmt-check; };
+      }
+    );
 }
 ```
 
@@ -165,30 +185,42 @@ The above 'hack' can also be changed to use [pkgs.runCommand](https://nixos.org/
     flake-utils.url = "github:numtide/flake-utils/main";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {inherit system;};
-      files = pkgs.lib.concatStringsSep " " [
-        # Individual shell scripts from the repository
-      ];
-      # Variant of runCommand intended for commands
-      # that run quickly and will be slowed down by
-      # the network round-trip.
-      fmt-check = pkgs.runCommandLocal "fmt-check" {
-        src = ./.;
-        nativeBuildInputs = with pkgs; [alejandra shellcheck shfmt];
-      } ''
-          shfmt -d -s -i 2 -ci ${files}
-          alejandra -c .
-          shellcheck -x ${files}
-          mkdir "$out"
-        '';
-    in {
-      checks = {inherit fmt-check;};
-    });
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        files = pkgs.lib.concatStringsSep " " [
+          # Individual shell scripts from the repository
+        ];
+        # Variant of runCommand intended for commands
+        # that run quickly and will be slowed down by
+        # the network round-trip.
+        fmt-check =
+          pkgs.runCommandLocal "fmt-check"
+            {
+              src = ./.;
+              nativeBuildInputs = with pkgs; [
+                alejandra
+                shellcheck
+                shfmt
+              ];
+            }
+            ''
+              shfmt -d -s -i 2 -ci ${files}
+              alejandra -c .
+              shellcheck -x ${files}
+              mkdir "$out"
+            '';
+      in
+      {
+        checks = { inherit fmt-check; };
+      }
+    );
 }
 ```

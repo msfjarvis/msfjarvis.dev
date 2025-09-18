@@ -8,6 +8,7 @@ tags = [ "nix" ]
 draft = false
 slug = "mildly-overengineering-my-glance-configuration"
 +++
+
 > May 10th update: Powered by a lack of sleep and extreme fatigue I cooked up a far simpler solution that is mentioned at the end of the post.
 
 # Setting the scene
@@ -74,7 +75,7 @@ automated iteration experience.
 
 ## Caveats
 
-This setup is not even remotely perfect, `nix-generator` has  bugs and discrepancies compared to the Nix to YAML implementation inside Nixpkgs. Not all constructs that work fine with Nixpkgs work that well with `nix-generator`, complicating development.
+This setup is not even remotely perfect, `nix-generator` has bugs and discrepancies compared to the Nix to YAML implementation inside Nixpkgs. Not all constructs that work fine with Nixpkgs work that well with `nix-generator`, complicating development.
 
 ## May 10th update
 
