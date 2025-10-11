@@ -8,7 +8,7 @@ const APS_GITHUB_URL = `https://github.com/${APS_SLUG}/${APS_SLUG}`;
 
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
-  const urlParts = url.pathname.split("/").filter((entry) => entry != "");
+  const urlParts = url.pathname.split("/").filter((entry) => entry !== "");
   switch (urlParts[0]) {
     case "g":
       switch (urlParts.length) {
@@ -21,6 +21,7 @@ export default async (request: Request, context: Context) => {
         case 4:
           return redirect(`${MY_GITHUB}/${urlParts[1]}/issues/${urlParts[3]}`);
       }
+      break;
     case "aps":
       switch (urlParts.length) {
         case 1:
@@ -30,6 +31,7 @@ export default async (request: Request, context: Context) => {
         case 3:
           return redirect(`${APS_GITHUB_URL}/issues/${urlParts[2]}`);
       }
+      break;
     case "apsg":
       switch (urlParts.length) {
         case 1:
@@ -45,6 +47,7 @@ export default async (request: Request, context: Context) => {
             `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/issues/${urlParts[3]}`,
           );
       }
+      break;
     default:
       return context.next();
   }

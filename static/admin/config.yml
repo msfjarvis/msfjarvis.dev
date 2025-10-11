@@ -15,14 +15,14 @@ collections:
       preview: false
     format: toml-frontmatter
     fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Publish Date', name: 'date', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ' }
-      - { label: 'Last modification Date', name: 'lastmod', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ' }
-      - { label: 'Description', name: 'summary', widget: 'string' }
-      - { label: 'Categories', name: 'categories', widget: 'list' }
-      - { label: 'Tags', name: 'tags', widget: 'list' }
-      - { label: 'Draft', name: 'draft', widget: 'boolean', required: false }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - {label: 'Title', name: 'title', widget: 'string'}
+      - {label: 'Publish Date', name: 'date', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ'}
+      - {label: 'Last modification Date', name: 'lastmod', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ'}
+      - {label: 'Description', name: 'summary', widget: 'string'}
+      - {label: 'Categories', name: 'categories', widget: 'list'}
+      - {label: 'Tags', name: 'tags', widget: 'list'}
+      - {label: 'Draft', name: 'draft', widget: 'boolean', required: false}
+      - {label: 'Body', name: 'body', widget: 'markdown'}
   - name: 'pages'
     label: 'Pages'
     folder: 'content'
@@ -33,12 +33,12 @@ collections:
       preview: false
     format: toml-frontmatter
     fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Type', name: 'type', widget: 'string', default: 'page' }
-      - { label: 'Show reading time', name: 'showreadingtime', widget: 'boolean', default: false }
-      - { label: 'Show table of contents', name: 'showtoc', widget: 'boolean', default: false }
-      - { label: 'Last modification Date', name: 'lastmod', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - {label: 'Title', name: 'title', widget: 'string'}
+      - {label: 'Type', name: 'type', widget: 'string', default: 'page'}
+      - {label: 'Show reading time', name: 'showreadingtime', widget: 'boolean', default: false}
+      - {label: 'Show table of contents', name: 'showtoc', widget: 'boolean', default: false}
+      - {label: 'Last modification Date', name: 'lastmod', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ'}
+      - {label: 'Body', name: 'body', widget: 'markdown'}
 media_libraries:
   default:
     config:
