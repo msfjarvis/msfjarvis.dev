@@ -1,7 +1,7 @@
 +++
 title = "Migrating from Gitea to Forgejo the long way"
 date = "2025-09-01T19:32:00+05:30"
-lastmod = "2025-09-01T19:46:00+05:30"
+lastmod = "2025-10-26T00:09:00+05:30"
 summary = "With the renewed interest in Forgejo I decided to finally pull the plug on moving out of Gitea, and this is how it went."
 categories = [ "nixos", "selfhosting" ]
 tags = [ "gitea", "github", "forgejo", "github alternative", "forgejo migration" ]
@@ -33,6 +33,8 @@ Unfortunately this didn't work due to the previously discussed version incompati
 
 I hooked up the free license to GitHub Copilot that I get for [satisfying some criteria of "popular open source maintainer"](https://docs.github.com/en/copilot/get-started/plans) into [Zed](https://zed.dev) and wrote out a simple README file describing what I wanted out of the tool and had it go to town. The end result of this was an unnecessarily abstracted Go project (I doubt anybody would use that directory structure for a project this small) that looked like it would do the job. You can find the source code for this [here](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/gitea-forgejo-migrator).
 
+> According to [a comment](https://github.com/msfjarvis/msfjarvis.dev/issues/80#issuecomment-3446970120) on this post, organizations may not be migrated correctly by this script. I do not wish to change the code to an untested version so be prepared to do some manual fixes to address that deficiency. I would also accept a patch from someone who does end up fixing the script for themselves.
+
 Now onto actually running this tool. For this to work, it would require both my new Forgejo server and my old Gitea server to be up at the same time. First hurdle: conflicting ports. This was solved [pretty easily](https://git.msfjarvis.dev/msfjarvis/dotfiles/commit/9a8cdd36cdf3f0b93834c86112fd113634985587).
 
 I screwed up here by running Forgejo on the primary domain and deploying the old Gitea server into a new Tailscale-based service. This caused multiple failures:
@@ -43,7 +45,7 @@ I could no longer sign into Gitea since I had 2FA enabled using Passkeys which r
 
 To make up for the inability to log into my Gitea server to create an access token, I just used the gitea CLI instead.
 
-```
+```plain
 sudo -i su - gitea
 # To get the actual path to the Gitea binary, which weirdly isn't installed for the gitea user?
 systemctl cat gitea.service | grep ExecStart=
@@ -52,7 +54,7 @@ systemctl cat gitea.service | grep ExecStart=
 
 On the forgejo side, a similar dance ensued but this time to actually create my account since this was a fresh start.
 
-```
+```plain
 sudo -i su - forgejo
 systemctl cat forgejo.service | grep ExecStart=
 # yes the actual CLI seems to still be available as gitea
