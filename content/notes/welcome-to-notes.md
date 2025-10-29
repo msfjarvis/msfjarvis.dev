@@ -1,9 +1,9 @@
----
-title: "Welcome to Notes"
-date: 2025-10-29T13:48:00Z
-draft: false
-tags: ["meta", "notes"]
----
++++
+title = "Welcome to Notes"
+date = 2025-10-29T13:48:00Z
+draft = false
+tags = ["meta", "notes"]
++++
 
 New section woo! This is mostly going to be used for relatively smaller things that I don't find worthy of a blogpost but are a bit awkward to fit into a [toot](https://androiddev.social/@msfjarvis).
 
