@@ -103,7 +103,6 @@
 
                 # Revert to the default branch
                 git checkout main
-                git stash pop
 
                 # Pop any potentially stashed changes
                 git stash pop || true
