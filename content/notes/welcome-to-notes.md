@@ -1,7 +1,6 @@
 +++
 title = "Welcome to Notes"
 date = 2025-10-29T13:48:00Z
-draft = false
 tags = ["meta", "notes"]
 +++
 
