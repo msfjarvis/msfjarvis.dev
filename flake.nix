@@ -78,6 +78,7 @@
               name = "diffs";
               category = "development";
               command = ''
+                set -x
                 OLD_DIR=$(mktemp -d)
                 NEW_DIR=$(mktemp -d)
 
