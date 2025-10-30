@@ -39,6 +39,23 @@ collections:
       - {label: 'Show table of contents', name: 'showtoc', widget: 'boolean', default: false}
       - {label: 'Last modification Date', name: 'lastmod', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ'}
       - {label: 'Body', name: 'body', widget: 'markdown'}
+  - name: 'notes'
+    label: 'Notes'
+    folder: 'content/notes'
+    path: '{{slug}}'
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: true
+    format: toml-frontmatter
+    fields:
+      - {label: 'Title', name: 'title', widget: 'string'}
+      - {label: 'Publish Date', name: 'date', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ'}
+      - {label: 'Last modification Date', name: 'lastmod', widget: 'datetime', default: '{{now}}', picker_utc: false, format: 'YYYY-MM-DDTHH:mm:ssZ'}
+      - {label: 'Description', name: 'summary', widget: 'string'}
+      - {label: 'Tags', name: 'tags', widget: 'list'}
+      - {label: 'Draft', name: 'draft', widget: 'boolean', required: false}
+      - {label: 'Body', name: 'body', widget: 'markdown'}
 media_libraries:
   default:
     config:
