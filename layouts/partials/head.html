@@ -91,8 +91,24 @@
 
 {{- /* Favicons */}}
 <link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
+{{- /* WebP favicons */}}
+{{- $favicon16webp := resources.Get (site.Params.assets.favicon16x16 | default "favicon-16x16.webp") }}
+{{- if $favicon16webp }}
+<link rel="icon" type="image/webp" sizes="16x16" href="{{ $favicon16webp.RelPermalink }}">
+{{- end }}
+{{- $favicon32webp := resources.Get (site.Params.assets.favicon32x32 | default "favicon-32x32.webp") }}
+{{- if $favicon32webp }}
+<link rel="icon" type="image/webp" sizes="32x32" href="{{ $favicon32webp.RelPermalink }}">
+{{- end }}
+{{- /* PNG favicons generated from WebP */}}
+{{- if $favicon16webp }}
+{{- $favicon16png := $favicon16webp.Resize "16x16 png" }}
+<link rel="icon" type="image/png" sizes="16x16" href="{{ $favicon16png.RelPermalink }}">
+{{- end }}
+{{- if $favicon32webp }}
+{{- $favicon32png := $favicon32webp.Resize "32x32 png" }}
+<link rel="icon" type="image/png" sizes="32x32" href="{{ $favicon32png.RelPermalink }}">
+{{- end }}
 <link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}">
 <link rel="mask-icon" href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
 <meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
