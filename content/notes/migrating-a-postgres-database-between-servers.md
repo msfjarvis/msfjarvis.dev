@@ -10,13 +10,13 @@ I'm having transitive network issues on one of my servers so I had to move out o
 
 ## On the server being migrated out of
 
-```
+```plain
 # Switch to the Postgres user
 sudo -i su - postgres
 # Export just the roles so the imported database can have the right ownership
 # I also edited this to only keep the role for the db I was moving
 pg_dumpall --roles-only > roles.sql
-# Export the actual database in Postres' binary format so its smaller
+# Export the actual database in Postgres' binary format so its smaller
 pg_dump -d atticd -Fc --create > atticd.dump
 ```
 
@@ -24,7 +24,7 @@ Once I had both files I used `rsync` to ship them over to the new server
 
 ## On the server being migrated to
 
-```
+```plain
 sudo -i su - postgres
 # Set up roles first
 psql < roles.sql
