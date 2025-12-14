@@ -5,7 +5,7 @@ lastmod = "2025-12-14T10:59:00+05:30"
 summary = "I finally stepped out of my house! And met people! So cool!"
 categories = [ "events" ]
 tags = [ "droidcon", "dcIN25" ]
-draft = true
+draft = false
 +++
 I was at droidcon India [this Saturday](https://india.droidcon.com/agenda) and got the chance to meet a bunch of people I hadn't seen in a while and attend some really great talks. It was a great experience and definitely motivated me to come out for meetups and events a bit more and be less of a loner :P
 
