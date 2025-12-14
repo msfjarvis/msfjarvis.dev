@@ -7,6 +7,8 @@ categories = [ "events" ]
 tags = [ "droidcon", "dcIN25" ]
 draft = false
 +++
+![My droidcon 2025 badge with my name, company and role.](PXL_20251213_123654775.RAW-01.MP.COVER.webp "My droidcon 2025 badge")
+
 I was at droidcon India [this Saturday](https://india.droidcon.com/agenda) and got the chance to meet a bunch of people I hadn't seen in a while and attend some really great talks. It was a great experience and definitely motivated me to come out for meetups and events a bit more and be less of a loner :P
 
 Before I start walking through my day, I would like to extend an apology to my friends who accompanied me to the conference and the Android developer community at large. I might be the singular dumbass who would be at an event where both [Adit Lal](https://x.com/aditlal) and [Jitin Sharma](https://jitinsharma.com/) were speaking and plan an itinerary that included neither of their talks. I am extremely sorry and will never live this down.
