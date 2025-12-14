@@ -2,7 +2,7 @@
 backend:
   name: github
   repo: msfjarvis/msfjarvis.dev
-  automatic_deployments: false
+  skip_ci: true
 media_folder: "content/posts/{{slug}}/"
 public_folder: "/posts/{{slug}}"
 collections:
@@ -18,25 +18,27 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
+          default: "{{now}}",
+          format: "YYYY-MM-DDTHH:mm:ssZ",
           label: "Publish Date",
           name: "date",
-          widget: "datetime",
-          default: "{{now}}",
           picker_utc: false,
-          format: "YYYY-MM-DDTHH:mm:ssZ",
+          widget: "datetime",
         }
+
       - {
+          default: "{{now}}",
+          format: "YYYY-MM-DDTHH:mm:ssZ",
           label: "Last modification Date",
           name: "lastmod",
-          widget: "datetime",
-          default: "{{now}}",
           picker_utc: false,
-          format: "YYYY-MM-DDTHH:mm:ssZ",
+          widget: "datetime",
         }
+
       - { label: "Description", name: "summary", widget: "string" }
       - { label: "Categories", name: "categories", widget: "list" }
       - { label: "Tags", name: "tags", widget: "list" }
-      - { label: "Draft", name: "draft", widget: "boolean", required: false }
+      - { label: "Draft", name: "draft", required: false, widget: "boolean" }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "pages"
     label: "Pages"
@@ -49,27 +51,30 @@ collections:
     format: toml-frontmatter
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Type", name: "type", widget: "string", default: "page" }
+      - { default: "page", label: "Type", name: "type", widget: "string" }
       - {
+          default: false,
           label: "Show reading time",
           name: "showreadingtime",
           widget: "boolean",
-          default: false,
         }
+
       - {
+          default: false,
           label: "Show table of contents",
           name: "showtoc",
           widget: "boolean",
-          default: false,
         }
+
       - {
+          default: "{{now}}",
+          format: "YYYY-MM-DDTHH:mm:ssZ",
           label: "Last modification Date",
           name: "lastmod",
-          widget: "datetime",
-          default: "{{now}}",
           picker_utc: false,
-          format: "YYYY-MM-DDTHH:mm:ssZ",
+          widget: "datetime",
         }
+
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "notes"
     label: "Notes"
@@ -83,24 +88,26 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
+          default: "{{now}}",
+          format: "YYYY-MM-DDTHH:mm:ssZ",
           label: "Publish Date",
           name: "date",
-          widget: "datetime",
-          default: "{{now}}",
           picker_utc: false,
-          format: "YYYY-MM-DDTHH:mm:ssZ",
+          widget: "datetime",
         }
+
       - {
+          default: "{{now}}",
+          format: "YYYY-MM-DDTHH:mm:ssZ",
           label: "Last modification Date",
           name: "lastmod",
-          widget: "datetime",
-          default: "{{now}}",
           picker_utc: false,
-          format: "YYYY-MM-DDTHH:mm:ssZ",
+          widget: "datetime",
         }
+
       - { label: "Description", name: "summary", widget: "string" }
       - { label: "Tags", name: "tags", widget: "list" }
-      - { label: "Draft", name: "draft", widget: "boolean", required: false }
+      - { label: "Draft", name: "draft", required: false, widget: "boolean" }
       - { label: "Body", name: "body", widget: "markdown" }
 media_libraries:
   default:
