@@ -1,7 +1,7 @@
 +++
 title = "My experience at droidcon India 2025"
-date = "2025-12-14T10:59:00+05:30"
-lastmod = "2025-12-14T10:59:00+05:30"
+date = "2025-12-14T12:17:00+05:30"
+lastmod = "2025-12-14T12:17:00+05:30"
 summary = "I finally stepped out of my house! And met people! So cool!"
 categories = [ "events" ]
 tags = [ "droidcon", "dcIN25" ]
