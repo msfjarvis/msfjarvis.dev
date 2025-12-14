@@ -7,7 +7,7 @@ categories = [ "events" ]
 tags = [ "droidcon", "dcIN25" ]
 draft = false
 +++
-![My droidcon 2025 badge with my name, company and role.](/my-experience-at-droidcon-india-2025/droidcon-2025-badge.webp "My droidcon 2025 badge")
+![My droidcon 2025 badge with my name, company and role.](/posts/my-experience-at-droidcon-india-2025/droidcon-2025-badge.webp "My droidcon 2025 badge")
 
 I was at droidcon India [this Saturday](https://india.droidcon.com/agenda) and got the chance to meet a bunch of people I hadn't seen in a while and attend some really great talks. It was a great experience and definitely motivated me to come out for meetups and events a bit more and be less of a loner :P
 
