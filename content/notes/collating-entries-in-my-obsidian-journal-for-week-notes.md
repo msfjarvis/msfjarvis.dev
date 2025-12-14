@@ -14,7 +14,7 @@ To actually collect the necessary journal entries, I relied on [Dataview](https:
 
 Dataview was able to beautifully navigate this limitation and with a little bit of JavaScript I now have a template that I can plug into Periodic Notes and get a roundup of the whole week in one click. Here's how it looks with just today's entries highlighted:
 
-![An Obsidian page with the title 2025-W50 and listing two journal entries from today: Me writing about my Droidcon India 2025 experience and a mention of me finishing my second run of the game Dispatch.](20251214-213148.webp "Week 50 roundup with entries from Sunday")
+![An Obsidian page with the title 2025-W50 and listing two journal entries from today: Me writing about my Droidcon India 2025 experience and a mention of me finishing my second run of the game Dispatch.](/obsidian-weeknotes.webp "Week 50 roundup with entries from Sunday")
 
 The relevant DataViewJS code is this:
 
