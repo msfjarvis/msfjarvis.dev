@@ -33,6 +33,7 @@ collections:
     folder: "content/posts"
     format: toml-frontmatter
     label: "Blog"
+    media_folder: "/content/posts/{{slug}}/{{filename}}"
     name: "blog"
     path: "{{slug}}/index"
     slug: "{{slug}}"
@@ -100,7 +101,7 @@ collections:
     name: "notes"
     path: "{{slug}}"
     slug: "{{slug}}"
-media_folder: "content/posts/{{slug}}/"
+media_folder: "/static/"
 media_libraries:
   default:
     config:
