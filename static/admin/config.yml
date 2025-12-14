@@ -3,18 +3,10 @@ backend:
   name: github
   repo: msfjarvis/msfjarvis.dev
   skip_ci: true
-media_folder: "content/posts/{{slug}}/"
-public_folder: "/posts/{{slug}}"
 collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "content/posts"
-    path: "{{slug}}/index"
-    create: true
-    slug: "{{slug}}"
+  - create: true
     editor:
       preview: false
-    format: toml-frontmatter
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
@@ -25,7 +17,6 @@ collections:
           picker_utc: false,
           widget: "datetime",
         }
-
       - {
           default: "{{now}}",
           format: "YYYY-MM-DDTHH:mm:ssZ",
@@ -34,21 +25,20 @@ collections:
           picker_utc: false,
           widget: "datetime",
         }
-
       - { label: "Description", name: "summary", widget: "string" }
       - { label: "Categories", name: "categories", widget: "list" }
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Draft", name: "draft", required: false, widget: "boolean" }
       - { label: "Body", name: "body", widget: "markdown" }
-  - name: "pages"
-    label: "Pages"
-    folder: "content"
+    folder: "content/posts"
+    format: toml-frontmatter
+    label: "Blog"
+    name: "blog"
     path: "{{slug}}/index"
-    create: true
     slug: "{{slug}}"
+  - create: true
     editor:
       preview: false
-    format: toml-frontmatter
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { default: "page", label: "Type", name: "type", widget: "string" }
@@ -58,14 +48,12 @@ collections:
           name: "showreadingtime",
           widget: "boolean",
         }
-
       - {
           default: false,
           label: "Show table of contents",
           name: "showtoc",
           widget: "boolean",
         }
-
       - {
           default: "{{now}}",
           format: "YYYY-MM-DDTHH:mm:ssZ",
@@ -74,17 +62,16 @@ collections:
           picker_utc: false,
           widget: "datetime",
         }
-
       - { label: "Body", name: "body", widget: "markdown" }
-  - name: "notes"
-    label: "Notes"
-    folder: "content/notes"
-    path: "{{slug}}"
-    create: true
+    folder: "content"
+    format: toml-frontmatter
+    label: "Pages"
+    name: "pages"
+    path: "{{slug}}/index"
     slug: "{{slug}}"
+  - create: true
     editor:
       preview: true
-    format: toml-frontmatter
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
@@ -95,7 +82,6 @@ collections:
           picker_utc: false,
           widget: "datetime",
         }
-
       - {
           default: "{{now}}",
           format: "YYYY-MM-DDTHH:mm:ssZ",
@@ -104,11 +90,17 @@ collections:
           picker_utc: false,
           widget: "datetime",
         }
-
       - { label: "Description", name: "summary", widget: "string" }
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Draft", name: "draft", required: false, widget: "boolean" }
       - { label: "Body", name: "body", widget: "markdown" }
+    folder: "content/notes"
+    format: toml-frontmatter
+    label: "Notes"
+    name: "notes"
+    path: "{{slug}}"
+    slug: "{{slug}}"
+media_folder: "content/posts/{{slug}}/"
 media_libraries:
   default:
     config:
@@ -120,3 +112,4 @@ media_libraries:
           optimize: true
   stock_assets:
     providers: []
+public_folder: "/posts/{{slug}}"
