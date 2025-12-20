@@ -96,6 +96,14 @@
                 </button>
                 {{- end }}
 
+                <button id="search-toggle" accesskey="/" title="Search (Alt + /)" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+
                 {{- $lang := .Lang}}
                 {{- $separator := or $label_text (not site.Params.disableThemeToggle)}}
                 {{- with site.Home.Translations }}
@@ -147,3 +155,165 @@
         </ul>
     </nav>
 </header>
+
+<!-- Search Modal -->
+<div id="search-modal" style="display: none;">
+    <div id="search-modal-overlay"></div>
+    <div id="search-modal-content">
+        <div id="search-modal-header">
+            <h2>Search</h2>
+            <button id="search-modal-close" aria-label="Close search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="pagefind-search"></div>
+    </div>
+</div>
+
+<style>
+    /* Search button in header */
+    #search-toggle {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        color: var(--primary);
+    }
+
+    #search-toggle:hover {
+        opacity: 0.7;
+    }
+
+    /* Search Modal */
+    #search-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+    }
+
+    #search-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+    }
+
+    #search-modal-content {
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 800px;
+        max-height: 80vh;
+        background: var(--theme);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #search-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        background: var(--entry);
+    }
+
+    #search-modal-header h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: var(--primary);
+    }
+
+    #search-modal-close {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+    }
+
+    #search-modal-close:hover {
+        background: var(--tertiary);
+    }
+
+    #search-modal #pagefind-search {
+        padding: 1.5rem;
+        overflow-y: auto;
+        flex: 1;
+    }
+</style>
+
+<script>
+    (function() {
+        const modal = document.getElementById('search-modal');
+        const searchToggle = document.getElementById('search-toggle');
+        const modalClose = document.getElementById('search-modal-close');
+        const modalOverlay = document.getElementById('search-modal-overlay');
+        let pagefindInitialized = false;
+
+        function openSearchModal() {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // Initialize PageFind UI on first open
+            if (!pagefindInitialized) {
+                new PagefindUI({
+                    element: "#pagefind-search",
+                    showSubResults: true,
+                    showImages: false,
+                    excerptLength: 15
+                });
+                pagefindInitialized = true;
+            }
+
+            // Focus the search input
+            setTimeout(() => {
+                const searchInput = document.querySelector('.pagefind-ui__search-input');
+                if (searchInput) searchInput.focus();
+            }, 100);
+        }
+
+        function closeSearchModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Open modal on button click
+        searchToggle.addEventListener('click', openSearchModal);
+
+        // Close modal on close button click
+        modalClose.addEventListener('click', closeSearchModal);
+
+        // Close modal on overlay click
+        modalOverlay.addEventListener('click', closeSearchModal);
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                closeSearchModal();
+            }
+        });
+    })();
+</script>
