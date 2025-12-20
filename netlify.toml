@@ -9,6 +9,10 @@ autoLaunch = false
 HUGO_VERSION = "0.153.0"
 NODE_VERSION = "18"
 
+[build]
+command = "hugo --gc --minify && npx -y pagefind --site public"
+publish = "public"
+
 [[edge_functions]]
 path = "/*"
 function = "root"

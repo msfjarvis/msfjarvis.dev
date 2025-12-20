@@ -50,12 +50,14 @@
             hugo
             hyperlink
             libwebp
+            pagefind
+            watchexec
           ];
           commands = [
             {
               name = "build";
               category = "deployment";
-              command = "hugo";
+              command = "hugo --gc --minify && pagefind --site public";
               help = "Build the site";
             }
             {
@@ -71,7 +73,7 @@
             {
               name = "dev";
               category = "development";
-              command = "hugo server -D";
+              command = "watchexec -w . 'hugo -D && pagefind --site public && hugo serve'";
               help = "Run the Hugo development server";
             }
             {
