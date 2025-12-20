@@ -50,6 +50,7 @@
             hugo
             hyperlink
             libwebp
+            pagefind
           ];
           commands = [
             {
