@@ -1,0 +1,41 @@
+{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
+{{- $pages := slice -}}
+{{- if or $.IsHome $.IsSection -}}
+{{- $pages = $pctx.RegularPages -}}
+{{- else -}}
+{{- $pages = $pctx.Pages -}}
+{{- end -}}
+{{- $limit := .Site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $pages = $pages | first $limit -}}
+{{- end -}}
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "id": "{{ $.Site.BaseURL }}outbox",
+  "summary": "{{$.Site.Title}}",
+  "type": "OrderedCollection",
+  {{ $notdrafts := where $pages ".Draft" "!=" true }}
+  {{ $all :=  where $notdrafts "Type" "in" "posts"}}
+  "totalItems": {{(len $all)}},
+  "orderedItems": [
+  {{ range $index, $element := $all  }}
+    {{- if ne $index 0 }}, {{ end }}
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "id": "{{.Permalink}}-create",
+      "type": "Create",
+      "actor": "https://msfjarvis.dev/blog",
+      "object": {
+        "id": "{{ .Permalink }}",
+        "type": "Note",
+        "content": "{{.Title}}<br>{{.Summary}}",
+        "url": "{{.Permalink}}",
+        "attributedTo": "https://msfjarvis.dev/blog",
+        "to": "https://www.w3.org/ns/activitystreams#Public",
+        "published": {{ dateFormat "2006-01-02T15:04:05-07:00" .Date | jsonify }}
+      }
+    }
+  {{end}}
+  ]
+}

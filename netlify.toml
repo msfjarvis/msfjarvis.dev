@@ -17,10 +17,6 @@ publish = "public"
 path = "/*"
 function = "root"
 
-[[edge_functions]]
-function = "webfinger"
-path = "/.well-known/webfinger"
-
 [[redirects]]
 from = "/robots.txt"
 to = "/robots.txt"
@@ -53,3 +49,13 @@ X-XSS-Protection = '1; mode=block'
 for = "/pretty-feed-v3.xsl"
 [headers.values]
 Content-Type = "application/xml; charset=utf-8"
+
+[[headers]]
+for = "/@blog"
+[headers.values]
+Content-Type = "application/activity+json; charset=utf-8"
+
+[[headers]]
+for = "/outbox.ajson"
+[headers.values]
+Content-Type = "application/activity+json; charset=utf-8"
