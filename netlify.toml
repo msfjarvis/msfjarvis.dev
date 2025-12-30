@@ -31,6 +31,11 @@ from = "/sitemap.xml"
 to = "/sitemap.xml"
 status = 200
 
+[[redirects]]
+from = "/posts/:slug.txt"
+to = "/posts/:slug/index.txt"
+status = 200
+
 [[headers]]
 for = "/*"
 [headers.values]
@@ -53,3 +58,13 @@ X-XSS-Protection = '1; mode=block'
 for = "/pretty-feed-v3.xsl"
 [headers.values]
 Content-Type = "application/xml; charset=utf-8"
+
+[[headers]]
+for = "/posts/*.txt"
+[headers.values]
+Content-Type = "text/plain; charset=utf-8"
+
+[[headers]]
+for = "/posts/*/*.txt"
+[headers.values]
+Content-Type = "text/plain; charset=utf-8"

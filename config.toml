@@ -41,6 +41,19 @@ weight = 15
 [minify]
 disableXML = true
 
+[mediaTypes."text/plain"]
+suffixes = ["txt"]
+
+[outputFormats.TXT]
+name = "TXT"
+mediaType = "text/plain"
+isPlainText = true
+notAlternative = false
+rel = "alternate"
+
+[outputs]
+page = ["HTML", "TXT"]
+
 [params]
 env = "production"
 defaultTheme = "auto"

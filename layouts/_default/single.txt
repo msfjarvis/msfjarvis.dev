@@ -1,0 +1,29 @@
+{{- .Title }}
+{{ strings.Repeat (len .Title) "=" }}
+
+Published: {{ .PublishDate.Format "January 2, 2006" }}
+{{ if ne .PublishDate .Lastmod }}
+Updated: {{ .Lastmod.Format "January 2, 2006" }}
+{{ end }}
+{{ $content := .Content -}}
+{{- /* Use unique markers that will survive plainify */ -}}
+{{- $content = replaceRE `</p>\s*` "§§PARA§§" $content -}}
+{{- $content = replaceRE `</div>\s*` "§§PARA§§" $content -}}
+{{- $content = replaceRE `</h[1-6]>\s*` "§§PARA§§" $content -}}
+{{- $content = replaceRE `</blockquote>\s*` "§§PARA§§" $content -}}
+{{- $content = replaceRE `<li[^>]*>` "§§BULLET§§" $content -}}
+{{- $content = replaceRE `</li>\s*` "§§ITEM§§" $content -}}
+{{- $content = replaceRE `</[uo]l>\s*` "§§PARA§§" $content -}}
+{{- $content = replaceRE `<br\s*/?>` "§§NEWLINE§§" $content -}}
+{{- /* Strip HTML tags and decode entities */ -}}
+{{- $content = $content | plainify | htmlUnescape -}}
+{{- /* Replace markers with actual formatting */ -}}
+{{- $content = replace $content "§§PARA§§" "\n\n" -}}
+{{- $content = replace $content "§§BULLET§§" "\n• " -}}
+{{- $content = replace $content "§§ITEM§§" "" -}}
+{{- $content = replace $content "§§NEWLINE§§" "\n" -}}
+{{- /* Clean up excessive newlines and whitespace */ -}}
+{{- $content = replaceRE `\n{3,}` "\n\n" $content -}}
+{{- $content = replaceRE `(?m)^[ \t]+|[ \t]+$` "" $content -}}
+{{- $content = strings.TrimSpace $content -}}
+{{ $content }}
