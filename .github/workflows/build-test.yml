@@ -12,7 +12,7 @@ jobs:
       - name: Setup Latest Version of Hugo
         uses: peaceiris/actions-hugo@75d2e84710de30f6ff7268e08f310b60ef14033f # v3
         with:
-          hugo-version: '0.153.5'
+          hugo-version: '0.154.0'
           extended: true
       - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6
         with:
