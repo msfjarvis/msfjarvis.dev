@@ -1,0 +1,40 @@
++++
+categories = ["opinion"]
+date = 2026-01-02T22:23:37+05:30
+lastmod = 2026-01-02T22:23:37+05:30
+summary = "Having unsuccessfully tried to use Windsurf and GitHub Copilot over the years, OpenCode finally made LLMs useful to me"
+draft = true
+slug = "coming-around-on-the-utility-of-llms"
+tags = ["opencode", "llms", "ai"]
+title = "Coming around on the utility of LLMs"
++++
+
+LLMs are an extremely divisive topic so I hesitated for a while before writing this post but reading [this blog](https://www.joanwestenberg.com/the-case-for-blogging-in-the-ruins/) from Joan Westenberg convinced me to not worry too much about what I put on my own blog.
+
+For the longest time I've found LLMs to be quite underwhelming. I tried all the new and fancy models on and off, first via [GitHub Copilot](https://github.com/copilot) which I get for free for being an active open source maintainer, and then with Windsurf at [work](https://cloudflare.com). The sycophancy was annoying, the training data was always outdated, and the models were yet to learn how to accept they had no fucking idea about the thing I asked.
+
+That only came to change very recently, with [OpenCode](https://github.com/sst/opencode). We have access to it at work via the [Cloudflare AI Gateway](https://www.cloudflare.com/developer-platform/products/ai-gateway/) and the latest Anthropic models. OpenCode is quite capable by default, with sensible defaults and a functional UI to go with it.
+
+What really unlocked its capabilities for me was [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode), a plugin that supercharges OpenCode by giving it to a bunch of subagents that enhance its capabilities across specific dimensions such as online research, frontend design and system design. It adds integrations with the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) to ensure edits don't introduce diagnostic errors. It includes a comment checker to prevent the typical annoyance of over-commenting code and giving it the distinct LLM smell. It bundles a set of curated [MCP servers](https://modelcontextprotocol.io/docs/getting-started/intro) to enhance its ability to do research: [Exa](https://docs.exa.ai/reference/exa-mcp) to do web searches, [Context7](https://context7.com/) to find up-to-date documentation, and [Grep](https://grep.app) to efficiently search through code on GitHub. All of these complicated bells and whistles come together to become a cohesive tool that can tackle both easy and difficult programming tasks with a very high degree of reliability.
+
+I've only started using OpenCode outside work in the past week or two, but the value add is undeniable. Here's a non-exhaustive list of things I used OpenCode for in [Claw](https://github.com/msfjarvis/compose-lobsters), with varying degrees of complexity and impact.
+
+- It fixed [a crash](https://github.com/msfjarvis/compose-lobsters/commit/9c05e9b2e2364fd7a43ecc3d1dd896ae71ad09e0) that has hit almost every user at some point in the past two years.
+- It helped me add [Sentry instrumentation for the app's database](https://github.com/msfjarvis/compose-lobsters/commit/7f5dbf79e370e586068c3d2a5031a8d199d398f2) which was previously missing and I kept struggling to understand the right APIs for it.
+- It helped write an [end-to-end UI testing](https://github.com/msfjarvis/compose-lobsters/commit/6d0953742b9036620d10b5fcc221050290d3efb0) suite that ensured common flows didn't break during my rowdy refactoring.
+- It fixed [another crash](https://github.com/msfjarvis/compose-lobsters/commit/b3373473a79679fb1d260cbd1219fd0208f82bf3) that hit users of the app's home screen widget
+- It fixed [yet another crash](https://github.com/msfjarvis/compose-lobsters/commit/7f0acae2da776c3c0c598cf282d5a74220f264a5) caused by not handling process death correctly (I can already hear the groans of Android devs worldwide)
+- It fixed [my poorly written deep linking implementation](https://github.com/msfjarvis/compose-lobsters/commit/ab872b6eaa3c8aa8e5e751f15373f4f5ae1023a5)
+- It spent an hour taking apart the internals of the [AndroidX Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) library to fix [a performance regression](https://github.com/msfjarvis/compose-lobsters/commit/7f608fd536a6f58ab1cbf47f5bc634e09f713c04) caused by the first fix.
+
+None of these are things that would be impossible for me to figure out, but they sure as hell wouldn't have been done in the span of two weeks. I don't really subscribe to the idea of fully phoning it in, the so called "vibecoding" aspect of using an LLM as a coding assistant. In every case where the LLM has solved a bug, I've learned something new from the fix and even went beyond in many cases because of the leg up I got by using the LLM.
+
+With the [Sentry MCP](https://docs.sentry.io/product/sentry-mcp/) server, I can spin up an OpenCode session, say "Investigate the root cause for Sentry issue \<id\> and include references in the summary" and go off to do [something else](https://bookwyrm.social/user/msfjarvis). When I get back, I have a better understanding of the issue in question, I can use the references to do my own research and tell the LLM to implement one of potentially multiple ways to fix the bug. In many situations, writing the actual code is just not the more fun part of the problem.
+
+That said, I do want to clarify that I still find writing code to be enjoyable or fulfilling in most cases even with an LLM in the picture. [This pull request](https://github.com/msfjarvis/compose-lobsters/pull/1005) was mostly me doing a bulk find -> replace across the codebase, something an LLM would excel at. However, I believe I am more capable of learning about [Metro](https://github.com/ZacSweers/metro/)'s capabilities ahead of time and spotting opportunities to replace existing constructs with Metro-native implementations, so I did it by hand and manually reviewed each file.
+
+Just a few months ago, I would not have believed that I could use LLMs to write any code I intended to actually maintain. Similar to Simon Willison's [tools.simonwillison.net](https://tools.simonwillison.net/), I had also set myself up with a [small repo](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/) and a [public page](https://vibes.msfjarvis.dev/) that hosted those tools. These things still have the default LLM sheen to them, and I gave up on even [having them follow a personalized code style](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/commit/ab038673622fea5e0a1ee0132caa9386735c796b). For all definitions of the phrase, it is vibe coding. They solve simple problems for me, and will likely never break or need an update.
+
+Despite my changed opinions about LLMs as programming assistants, I am vehemently against the anthropomorphizing of LLM-based chatbots. They do very [real harm](https://www.bbc.com/news/articles/cgerwp7rdlvo), and should be very aggressively regulated. I hold an even stronger belief that image and video generation models should not be available to the general public at all. The fact that humans can no longer trust even their eyes is deeply disturbing to me. It has been proven that these technologies will actively [be misused for deceit](https://www.pcgamer.com/software/ai/apparently-the-most-popular-clip-on-openais-new-ai-video-app-sora-depicts-sam-altman-stealing-graphics-cards/) and in the case of Elon Musk's xAI, [sexual harassment of minors](https://www.seangoedecke.com/grok-deepfakes/).
+
+This is close to devolving into rambling, so I'll end it here. I don't intend to form a crippling reliance on LLMs anytime soon, nor start paying for them. As long as GitHub is willing to continue wasting money on giving me access to LLMs for using their website, I'll use them for my personal projects. When they stop, I'll just go back to the good old elbow grease that has got me this far. If I can write Java over SSH into [nano](https://nano-editor.org/), I think I can still use a search engine by hand.
