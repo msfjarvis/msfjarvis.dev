@@ -10,7 +10,8 @@ HUGO_VERSION = "0.154.1"
 NODE_VERSION = "18"
 
 [build]
-command = "hugo --gc --minify && npx -y pagefind --site public"
+# Can't set this here since I need it to be overrideable from the web UI for drafts.msfjarvis.dev
+# command = "hugo --gc --minify && npx -y pagefind --site public"
 publish = "public"
 
 [[edge_functions]]
