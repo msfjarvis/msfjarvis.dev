@@ -1,15 +1,12 @@
 +++
-title = "Weeknotes: Week 51"
+title = "Weeknotes: Week #51 (2025)"
 date = "2025-12-20T16:25:00+05:30"
 lastmod = "2025-12-20T16:25:00+05:30"
 summary = "My very first weeknotes, ironically for the second last week of the year :D"
 categories = [ "weeknotes" ]
 tags = [ "indieweb" ]
 draft = false
-aliases = [
-  "weeknotes-week-51-2025-12-15-2025-12-20",
-  "weeknotes-week-51-2025"
-]
+aliases = [ "weeknotes-week-51-2025-12-15-2025-12-20", "weeknotes-week-51-2025" ]
 +++
 I got inspired by [Abhinav](https://abhinavsarkar.net/notes/tags/weeknotes/) and [Ankur](https://ankursethi.com/) last week to start writing weeknotes, so I spent that weekend setting up my existing journaling system to expose weeknote-relevant entries in a nice single page view (you can read about that [here](https://msfjarvis.dev/notes/collating-entries-in-my-obsidian-journal-for-week-notes/)). This is the first weeknote as a direct result of that, being written at [IndieWebClub #16](https://underline.center/t/indiewebclub-16-with-ankur-and-tanvi/622)!
 
