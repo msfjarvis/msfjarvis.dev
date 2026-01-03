@@ -51,13 +51,12 @@
             hyperlink
             libwebp
             pagefind
-            watchexec
           ];
           commands = [
             {
               name = "build";
               category = "deployment";
-              command = "hugo --gc --minify && pagefind --site public";
+              command = "hugo --gc -D && pagefind --site public";
               help = "Build the site";
             }
             {
@@ -65,15 +64,17 @@
               category = "development";
               command = ''
                 DIR=content/posts
-                fd -tf png$ "$DIR" -x cwebp -lossless -mt {} -o '{.}.webp'
-                fd -tf png$ "$DIR" -X rm -v
+                for fmt in png jpg jpeg; do
+                  fd -tf "''${fmt}$" "$DIR" -x cwebp -lossless -mt {} -o '{.}.webp'
+                  fd -tf "''${fmt}$" "$DIR" -X rm -v
+                done
               '';
               help = "Convert all PNGs to WebP";
             }
             {
               name = "dev";
               category = "development";
-              command = "watchexec -w . 'hugo -D && pagefind --site public && hugo serve'";
+              command = "hugo -D serve";
               help = "Run the Hugo development server";
             }
             {
