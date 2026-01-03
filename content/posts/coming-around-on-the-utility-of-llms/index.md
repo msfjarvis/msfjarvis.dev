@@ -1,11 +1,11 @@
 +++
 title = "Coming around on the utility of LLMs"
 date = "2026-01-02T22:23:00+05:30"
-lastmod = "2026-01-03T13:25:00+05:30"
+lastmod = "2026-01-03T14:22:00+05:30"
 summary = "Having unsuccessfully tried to use Windsurf and GitHub Copilot over the years, OpenCode finally made LLMs useful to me"
 categories = [ "opinion" ]
 tags = [ "opencode", "llms", "ai" ]
-draft = true
+draft = false
 slug = "coming-around-on-the-utility-of-llms"
 +++
 > LLMs are an extremely divisive topic so I hesitated for a while before writing this post but reading [this blog](https://www.joanwestenberg.com/the-case-for-blogging-in-the-ruins/) from Joan Westenberg convinced me to not worry too much about what I put on my own blog.
