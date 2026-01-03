@@ -1,21 +1,20 @@
 +++
-categories = ["opinion"]
-date = 2026-01-02T22:23:37+05:30
-lastmod = 2026-01-02T22:23:37+05:30
+title = "Coming around on the utility of LLMs"
+date = "2026-01-02T22:23:00+05:30"
+lastmod = "2026-01-03T13:25:00+05:30"
 summary = "Having unsuccessfully tried to use Windsurf and GitHub Copilot over the years, OpenCode finally made LLMs useful to me"
+categories = [ "opinion" ]
+tags = [ "opencode", "llms", "ai" ]
 draft = true
 slug = "coming-around-on-the-utility-of-llms"
-tags = ["opencode", "llms", "ai"]
-title = "Coming around on the utility of LLMs"
 +++
-
-LLMs are an extremely divisive topic so I hesitated for a while before writing this post but reading [this blog](https://www.joanwestenberg.com/the-case-for-blogging-in-the-ruins/) from Joan Westenberg convinced me to not worry too much about what I put on my own blog.
+> LLMs are an extremely divisive topic so I hesitated for a while before writing this post but reading [this blog](https://www.joanwestenberg.com/the-case-for-blogging-in-the-ruins/) from Joan Westenberg convinced me to not worry too much about what I put on my own blog.
 
 For the longest time I've found LLMs to be quite underwhelming. I tried all the new and fancy models on and off, first via [GitHub Copilot](https://github.com/copilot) which I get for free for being an active open source maintainer, and then with Windsurf at [work](https://cloudflare.com). The sycophancy was annoying, the training data was always outdated, and the models were yet to learn how to accept they had no fucking idea about the thing I asked.
 
-That only came to change very recently, with [OpenCode](https://github.com/sst/opencode). We have access to it at work via the [Cloudflare AI Gateway](https://www.cloudflare.com/developer-platform/products/ai-gateway/) and the latest Anthropic models. OpenCode is quite capable by default, with sensible defaults and a functional UI to go with it.
+That only came to change very recently, with [OpenCode](https://github.com/sst/opencode). We have access to it at work via the [Cloudflare AI Gateway](https://www.cloudflare.com/developer-platform/products/ai-gateway/) and the latest Anthropic models.
 
-What really unlocked its capabilities for me was [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode), a plugin that supercharges OpenCode by giving it to a bunch of subagents that enhance its capabilities across specific dimensions such as online research, frontend design and system design. It adds integrations with the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) to ensure edits don't introduce diagnostic errors. It includes a comment checker to prevent the typical annoyance of over-commenting code and giving it the distinct LLM smell. It bundles a set of curated [MCP servers](https://modelcontextprotocol.io/docs/getting-started/intro) to enhance its ability to do research: [Exa](https://docs.exa.ai/reference/exa-mcp) to do web searches, [Context7](https://context7.com/) to find up-to-date documentation, and [Grep](https://grep.app) to efficiently search through code on GitHub. All of these complicated bells and whistles come together to become a cohesive tool that can tackle both easy and difficult programming tasks with a very high degree of reliability.
+OpenCode is quite capable by default, with sensible defaults and a functional UI to go with it. What really unlocked its capabilities for me was [oh-my-opencode](https://github.com/code-yeongyu/oh-my-opencode), a plugin that supercharges OpenCode by giving it the capabilities to launch background tasks via "agents" that enhance its capabilities across specific dimensions such as online research, UI design and system design. It adds integrations with the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) to ensure edits don't introduce diagnostic errors. It includes a comment checker to prevent the typical annoyance of over-commenting code and giving it the distinct LLM smell. It bundles a set of curated [MCP servers](https://modelcontextprotocol.io/docs/getting-started/intro) to enhance its ability to do research: [Exa](https://docs.exa.ai/reference/exa-mcp) to do web searches, [Context7](https://context7.com/) to find up-to-date documentation, and [Grep](https://grep.app) to efficiently search through code on GitHub. All of these complicated bells and whistles come together to become a cohesive tool that can tackle both easy and difficult programming tasks with a very high degree of reliability.
 
 I've only started using OpenCode outside work in the past week or two, but the value add is undeniable. Here's a non-exhaustive list of things I used OpenCode for in [Claw](https://github.com/msfjarvis/compose-lobsters), with varying degrees of complexity and impact.
 
