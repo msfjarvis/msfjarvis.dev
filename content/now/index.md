@@ -19,4 +19,4 @@ Two deaths in my immediate family in the span of a week forced me to make an eme
 
 ## Reading
 
-[Shift](https://en.wikipedia.org/wiki/Silo_(series)#Shift), book 2 of the Silo series. Super entertaining read so far.
+Finished reading the Silo series this week, not sure yet what I'll be starting on.
