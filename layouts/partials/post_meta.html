@@ -1,12 +1,12 @@
 {{- $scratch := newScratch }}
 
 {{- if not .Date.IsZero -}}
-{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default "January 2, 2006" site.Params.DateFormat)))) }}
+{{- $scratch.Add "meta" (slice (printf "<span title='%s'><time class='dt-published' datetime='%s'>%s</time></span>" (.Date) (.Date.Format "2006-01-02T15:04:05Z07:00") (.Date | time.Format (default "January 2, 2006" site.Params.DateFormat)))) }}
 {{- end }}
 
 <!-- Taken from https://github.com/adityatelange/hugo-PaperMod/issues/1037 -->
 {{- if and (.Param "Lastmod") (ne (.Param "Lastmod"| time.Format "2023-10-15") (.Date | time.Format "2023-10-15" )) }}
-{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s: %s</span>" (.Lastmod) ("Last modified") (.Lastmod | time.Format (default "January 2, 2006" site.Params.DateFormat)))) }}
+{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s: <time class='dt-updated' datetime='%s'>%s</time></span>" (.Lastmod) ("Last modified") (.Lastmod.Format "2006-01-02T15:04:05Z07:00") (.Lastmod | time.Format (default "January 2, 2006" site.Params.DateFormat)))) }}
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}
