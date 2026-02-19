@@ -64,8 +64,6 @@ env = "production"
 defaultTheme = "auto"
 description = "Recovering Android and Kotlin developer, amateur Rustacean"
 images = ["android-chrome-512x512.webp"]
-author = "Harsh Shandilya"
-
 comments = true
 utterancesRepo = "msfjarvis/msfjarvis.dev"
 
@@ -79,6 +77,10 @@ showRssButtonInSectionTermList = true
 ShowFullTextinRSS = true
 showToc = true
 social = true
+
+[params.author]
+name = "Harsh Shandilya"
+email = "me@msfjarvis.dev"
 
 [params.editPost]
 url = "https://github.com/msfjarvis/msfjarvis.dev/edit/main/content/"
