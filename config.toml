@@ -83,7 +83,7 @@ name = "Harsh Shandilya"
 email = "me@msfjarvis.dev"
 
 [params.editPost]
-url = "https://github.com/msfjarvis/msfjarvis.dev/edit/main/content/"
+url = "https://github.com/msfjarvis/msfjarvis.dev/edit/main/content"
 text = "Suggest Changes"
 appendFilePath = true
 
@@ -117,7 +117,7 @@ url = "https://mstdn.games/@msfjarvis"
 [[params.socialIcons]]
 title = "Gitea"
 name = "gitea"
-url = "https://git.msfjarvis.dev/explore/repos"
+url = "https://git.msfjarvis.dev/msfjarvis"
 
 [[params.socialIcons]]
 title = "RSS"
