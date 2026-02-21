@@ -27,6 +27,8 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 
+<link rel="webmention" href="https://webmentions-server.tiger-shark.workers.dev/webmention" />
+
 {{- if .IsPage }}
 {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
 <meta property="article:section" content="{{ .Section }}">
