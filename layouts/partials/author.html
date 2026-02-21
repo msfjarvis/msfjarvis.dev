@@ -5,6 +5,10 @@
   <a class="p-name u-url" href="{{ site.BaseURL }}">
   {{- if (or (eq $author_type "[]string") (eq $author_type "[]interface {}")) }}
   {{- (delimit $author ", " ) }}
+  {{- else if (eq $author_type "map[string]interface {}") }}
+  {{- index $author "name" }}
+  {{- else if (eq $author_type "hmaps.Params") }}
+  {{- $author.name }}
   {{- else }}
   {{- $author }}
   {{- end }}
