@@ -1,5 +1,5 @@
 +++
-title = "Weeknotes: Week #7 (2026)"
+title = "Weeknotes: Week #8 (2026)"
 date = "2026-02-22T20:56:00+05:30"
 lastmod = "2026-02-22T20:56:00+05:30"
 summary = "The kitchen is my new comfort space"
