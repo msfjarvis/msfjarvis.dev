@@ -1,0 +1,75 @@
+<aside class="webmentions">
+  <h3>Webmentions</h3>
+  <div id="webmentions-container">
+    <p>Loading webmentions...</p>
+  </div>
+</aside>
+<script>
+(async function loadWebmentions() {
+  const container = document.getElementById('webmentions-container');
+
+  // Get the permalink and strip any port number for API queries
+  let pageUrl = '{{ .Permalink }}';
+  pageUrl = pageUrl.replace(/:\d+/, ''); // Remove :1313 or any port
+
+  try {
+    const res = await fetch(`https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(pageUrl)}`);
+    const data = await res.json();
+    console.log(JSON.stringify(data));
+
+    if (!data.mentions || data.mentions.length === 0) {
+      container.innerHTML = '<p>No webmentions yet. <a href="https://indieweb.org/Webmention">What are webmentions?</a></p>';
+      return;
+    }
+
+    const items = data.mentions.map(m => {
+      const domain = new URL(m.source).hostname;
+      const timestamp = m.verified_at * 1000; // Changed from received_at to verified_at
+      const date = new Date(timestamp).toLocaleDateString();
+      const isoDate = new Date(timestamp).toISOString();
+
+      return `
+        <article class="webmention-item">
+          <a href="${m.source}" rel="nofollow ugc">${domain}</a>
+          mentioned this on <time datetime="${isoDate}">${date}</time>
+        </article>
+      `;
+    }).join('');
+
+    container.innerHTML = items;
+  } catch (err) {
+    console.error('Webmention error:', err);
+    container.innerHTML = '<p>Could not load webmentions.</p>';
+  }
+})();
+</script>
+<style>
+.webmentions {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.webmentions h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+.webmention-item {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--content);
+  font-size: 14px;
+}
+.webmention-item a {
+  color: var(--secondary);
+  box-shadow: 0 1px 0;
+}
+.webmention-item a:hover {
+  color: var(--primary);
+}
+.webmention-item time {
+  color: var(--secondary);
+}
+</style>
