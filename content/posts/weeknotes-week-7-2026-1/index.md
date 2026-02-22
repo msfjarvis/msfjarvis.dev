@@ -1,0 +1,29 @@
++++
+title = "Weeknotes: Week #7 (2026)"
+date = "2026-02-22T20:56:00+05:30"
+lastmod = "2026-02-22T20:56:00+05:30"
+summary = "The kitchen is my new comfort space"
+categories = [ "weeknotes" ]
+tags = [ "cooking", "opencode", "LLMs" ]
+draft = false
++++
+
+I’ll apologize upfront: I’m going to talk about food a lot and not share any pictures because I have the excuse of [my CMS](https://github.com/sveltia/sveltia-cms/issues/586) not supporting the asset pipeline I want to establish. Soon™️
+
+Now, onward to the real content. A lot of time was spent in the kitchen this week, with [Yash](https://yashgarg.dev/) and me continuing our burrito escapades. On Monday, I decided to try air-frying some tortilla chips to see how it would go, and despite the obvious problems caused by overcrowding the rather tiny fryer basket, I’d consider it a success overall. Definitely a good option for dinner in a pinch.
+
+A couple of days later, we went back in for even more burritos, building on our previous experience. The beans got a more generous round of seasoning, the rice was cooked and cooled ahead of time, and we were more mindful about how much we tried to shove into each burrito. This was remarkably successful, with both of us managing to create fully wrapped burritos by the end of the ordeal. I opted for a veggie-heavy burrito bowl with my remaining portions instead of wrestling with the tortilla again, which felt like the smarter choice. Throwing in some air-fried chicken sausages elevated the whole situation, but there was a definite lack of carbs, which I’ll have to keep in mind for the future.
+
+On Friday, I had zero energy to cook, so I just chopped up the remaining lettuce along with some onions, tomatoes, and cucumbers, tossed it all in some sauces we had lying around, and pretended it was a gourmet salad. 10/10, would do again.
+
+Yash is back home for a couple of weeks, which means I’m left to fend for myself in terms of sustenance. So I’m making a U-turn back to the Mediterranean phase of my life and already have big batches of falafel and hummus sitting in my fridge. This time I did remember to use the appropriate amount of greens and—shocked Pikachu face—it’s actually come out way nicer than my last mishap. Who knew following the recipe was the way?
+
+With all the food talk out of the way, the boys and I have been getting back into [Helldivers 2](https://www.playstation.com/games/helldivers-2), and things have been [going (not) great](https://androiddev.social/@msfjarvis/116087678608961557). Super fun, though!
+
+Relatedly, my laptop is back to its fortnightly cycle of throttling at the most inopportune moments, which has made gaming frustrating every so often. Since Windows is fairly out of my wheelhouse, I decided to commit the sin of letting an LLM replace the usual experience of stumbling through outdated forum articles. I had it run a gamut of debugging scripts to try and diagnose the problem. Everything that came out of this multi-day rigmarole is archived in [this Git repository](https://git.msfjarvis.dev/msfjarvis/nvidia-struggles). I’m not yet 100% confident that what Claude Sonnet 4.5 identified as the problem has truly resolved the issue, but it’s been fine for the past day or so.
+
+Continuing the theme of tying things into the next entry, I have more LLM nonsense to share! I use [jtx Board](https://jtx.techbee.at/) to manage my TODOs via CalDAV and wanted a simple way to show them in my [Glance](https://github.com/glanceapp/glance) dashboard, which supports [custom APIs](https://github.com/glanceapp/glance/blob/6c5b7a3f4cc409e31739b2914bb6636d08299126/docs/custom-api.md)—but unsurprisingly, only JSON. I had Claude try to write a simple proxy that could massage the CalDAV response into a suitable JSON format that I could plug into Glance. On its first pass, it took the credentials I had explicitly provided in a separate gitignored file for integration tests and put them into config.example.yml. When I asked it to remove them, it also included them in the LLM response text itself, causing them to be leaked twice instead. It also tried to claim that integration tests were passing when they obviously weren’t. Somewhere along the way, it lost the ability to issue write tool calls, which resulted in hilarious scenarios where it would attempt a write that never went through, run a test that still obviously failed, and then crash out about it. Fun for the whole family.
+
+[IndieWebClub #20](https://underline.center/t/indiewebclub-20/720) was this weekend! I had missed the last two installments because I was out of Bengaluru, so I was super excited to catch up with people again. I met a bunch of new folks, had some great conversations—just a really good time. I would wholeheartedly recommend it to anyone who wants to have their own website, regardless of their technical expertise. You can get any level of help from the nicest, most patient people and become part of a small but growing community. It’s really special to me! The next one’s on the 7th of March—mark your calendars 🙂
+
+And finally, this site now supports [WebMentions](https://www.w3.org/TR/webmention/)! The server-side of this is built on top of the Cloudflare Developer Platform, leveraging Workers, the D1 SQLite database and Workers Queues. It was a nice way to finally dive back into Cloudflare's compute offerings since I had last used them in 2022 and I was quite pleased with how much better everything is now. A lot more things are now possible to run on Workers than before, and the local development experience is **really** good now. I'll probably build some more things on Workers in the future, and hopefully write about them.
