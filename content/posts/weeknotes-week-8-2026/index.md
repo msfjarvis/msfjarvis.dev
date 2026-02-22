@@ -5,6 +5,9 @@ lastmod = "2026-02-22T20:56:00+05:30"
 summary = "The kitchen is my new comfort space"
 categories = [ "weeknotes" ]
 tags = [ "cooking", "opencode", "LLMs" ]
+aliases = [
+	"/posts/weeknotes-week-7-2026-1"
+]
 draft = false
 +++
 
