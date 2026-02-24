@@ -57,7 +57,7 @@
           <div class="webmention-content">
             <span class="webmention-icon">${icon}</span>
             <a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
-            <span class="webmention-verb">${verb} this</span>
+            <a href="${m.source}" rel="nofollow ugc" class="webmention-verb">${verb} this</a>
             <time datetime="${isoDate}">${date}</time>
           </div>
         </article>
@@ -121,6 +121,12 @@
 }
 .webmention-verb {
   color: var(--secondary);
+  text-decoration: none;
+  box-shadow: none;
+}
+.webmention-verb:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 .webmention-item time {
   color: var(--secondary);
