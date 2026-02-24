@@ -23,15 +23,43 @@
     }
 
     const items = data.mentions.map(m => {
-      const domain = new URL(m.source).hostname;
-      const timestamp = m.verified_at * 1000; // Changed from received_at to verified_at
+      const timestamp = m.verified_at * 1000;
       const date = new Date(timestamp).toLocaleDateString();
       const isoDate = new Date(timestamp).toISOString();
 
+      const author = m.author || {};
+      const authorName = author.name || new URL(m.source).hostname;
+      const authorUrl = author.url || m.source;
+      const authorPhoto = author.photo;
+
+      const interactionType = m.interaction_type;
+      let verb = 'mentioned';
+      let icon = '💬';
+      
+      if (interactionType === 'like') {
+        verb = 'liked';
+        icon = '❤️';
+      } else if (interactionType === 'repost') {
+        verb = 'reposted';
+        icon = '🔁';
+      } else if (interactionType === 'reply') {
+        verb = 'replied to';
+        icon = '💬';
+      }
+
+      const avatarHtml = authorPhoto 
+        ? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
+        : '';
+
       return `
         <article class="webmention-item">
-          <a href="${m.source}" rel="nofollow ugc">${domain}</a>
-          mentioned this on <time datetime="${isoDate}">${date}</time>
+          ${avatarHtml}
+          <div class="webmention-content">
+            <span class="webmention-icon">${icon}</span>
+            <a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
+            <span class="webmention-verb">${verb} this</span>
+            <time datetime="${isoDate}">${date}</time>
+          </div>
         </article>
       `;
     }).join('');
@@ -54,7 +82,10 @@
   margin-bottom: 1rem;
 }
 .webmention-item {
-  margin: 0.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
   padding: 0.75rem;
   background: var(--code-bg);
   border: 1px solid var(--border);
@@ -62,14 +93,37 @@
   color: var(--content);
   font-size: 14px;
 }
-.webmention-item a {
-  color: var(--secondary);
-  box-shadow: 0 1px 0;
+.webmention-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
-.webmention-item a:hover {
+.webmention-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  flex: 1;
+}
+.webmention-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+.webmention-author {
   color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: none;
+}
+.webmention-author:hover {
+  text-decoration: underline;
+}
+.webmention-verb {
+  color: var(--secondary);
 }
 .webmention-item time {
   color: var(--secondary);
+  margin-left: auto;
 }
 </style>
