@@ -51,14 +51,21 @@
         ? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
         : '';
 
+      const contentHtml = m.content && interactionType === 'reply'
+        ? `<p class="webmention-text">${m.content}</p>`
+        : '';
+
       return `
         <article class="webmention-item">
           ${avatarHtml}
           <div class="webmention-content">
-            <span class="webmention-icon">${icon}</span>
-            <a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
-            <a href="${m.source}" rel="nofollow ugc" class="webmention-verb">${verb} this</a>
-            <time datetime="${isoDate}">${date}</time>
+            <div class="webmention-header">
+              <span class="webmention-icon">${icon}</span>
+              <a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
+              <a href="${m.source}" rel="nofollow ugc" class="webmention-verb">${verb} this</a>
+              <time datetime="${isoDate}">${date}</time>
+            </div>
+            ${contentHtml}
           </div>
         </article>
       `;
@@ -101,10 +108,23 @@
 }
 .webmention-content {
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+.webmention-header {
+  display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.35rem;
-  flex: 1;
+}
+.webmention-text {
+  margin: 0;
+  padding: 0.5rem 0 0 0;
+  color: var(--content);
+  font-size: 14px;
+  line-height: 1.5;
+  border-top: 1px solid var(--border);
 }
 .webmention-icon {
   font-size: 16px;
