@@ -1,0 +1,19 @@
++++
+title = "You are worth more than your work"
+date = "2026-03-07T16:32:00+05:30"
+lastmod = "2026-03-07T16:32:00+05:30"
+summary = "Disjointed thoughts on human value in the face of LLM-attributed layoffs"
+categories = [ "thoughts" ]
+tags = [ "ai" ]
+draft = true
++++
+
+I've written previously about [coming around on the utility of LLMs](/posts/coming-around-on-the-utility-of-llms/) in my work, but it has always had the undercurrent of associating myself with the most ghoulish people known to mankind. Working in a big tech company has almost always been that way, but the wave of LLMs replacing entry, and even mid-level jobs has brought out some of the worst people to have ever had an audience. It's not a very great feeling, being genuinely curious about these tools but then having to read the CEO of the biggest AI company say that LLM energy usage is fine actually because ["It takes like 20 years of life, and all the food you eat before that time, before you get smart"](https://www.msn.com/en-us/money/markets/openai-ceo-sam-altman-ignites-backlash-over-disturbing-comments-about-human-life-its-the-entire-point-of-existence/ar-AA1WWeSs), as if life never had meaning before shareholders came into existence to put a dollar price on each individual's participation in the capitalism machine.
+
+All of that was significantly less depressing than reading [this post](https://publicobject.com/2026/03/07/humanity/) from Jesse Wilson, about an engineer who was dehumanizing their own basic needs just because a computer program can also solve the same bugs they can. Increasing shareholder value is not your entire reason for being! Yes the AI agent can fix bugs faster than you, even write [new things](https://github.com/getsentry/sentry-java/pull/5077), but it also [fucks up in ways](https://github.com/getsentry/sentry-java/pull/5153) that wouldn't have happened if a human did it by hand. And it can't even appreciate the flowers next to the sidewalk!
+
+> The Sentry example is not intended to be taken or as a personal slight against the PR author, it's simply the latest instance of this pattern that affected me personally.
+
+Jesse has a very nice and uplifting message in his own (short) blog post which I encourage you to go and read, but I'll focus a bit more on the pragmatic side of it. I agree that AI agent are starting to make programmers feel redundant, and that has reflected in the mass layoffs that have hit the industry. I agree with the basic premise of Sean Goedecke's post [here](https://www.seangoedecke.com/will-my-job-still-exist/), that it is reasonable to worry if this evergreen tech career you were promised 5-10 years ago will still be there. Tech has spent decades automating away everyone else's job, it's poetic that we eventually do it to ourselves.
+
+There will be a time, maybe very soon, when the average programmer like myself has no future in the tech industry anymore as swarms of AI agents write, review, and deploy code by themselves. Until then, let's not forget our humanity in the face of the potential obsolescence of our jobs. We'll live on just fine.
