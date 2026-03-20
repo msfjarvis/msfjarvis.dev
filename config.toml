@@ -56,8 +56,15 @@ isPlainText = true
 notAlternative = false
 rel = "alternate"
 
+[outputFormats."webmentions-manifest.json"]
+mediaType = "application/json"
+baseName = "webmentions-manifest"
+isPlainText = true
+notAlternative = true
+
 [outputs]
 page = ["HTML", "TXT"]
+home = ["HTML", "RSS", "webmentions-manifest.json"]
 
 [params]
 env = "production"
