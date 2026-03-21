@@ -1,7 +1,7 @@
 +++
 title = "Setting up forward auth with Caddy and Pocket ID"
-date = "2026-03-18T14:17:00+05:30"
-lastmod = "2026-03-18T14:17:00+05:30"
+date = "2026-03-21T15:33:00+05:30"
+lastmod = "2026-03-21T15:33:00+05:30"
 summary = "Using Pocket ID to secure services being proxied by Caddy"
 categories = [ "devops", "homelab" ]
 tags = [ "caddy", "pocket-id", "forward auth", "security", "reverse proxy", "nixos" ]
