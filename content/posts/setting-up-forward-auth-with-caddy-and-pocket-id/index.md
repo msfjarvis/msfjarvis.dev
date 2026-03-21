@@ -5,7 +5,7 @@ lastmod = "2026-03-18T14:17:00+05:30"
 summary = "Using Pocket ID to secure services being proxied by Caddy"
 categories = [ "devops", "homelab" ]
 tags = [ "caddy", "pocket-id", "forward auth", "security", "reverse proxy", "nixos" ]
-draft = true
+draft = false
 +++
 
 As I mentioned in my [last weeknote](/posts/weeknotes-week-11-2026/), I set up [Calibre-Web](https://github.com/janeczku/calibre-web) last week which necessitated the use of a forward authentication setup to work with my existing SSO provider. It was rather non-trivial to get it all to work, so I'm documenting it here in hopes of helping others.
@@ -30,7 +30,7 @@ Replace `${app.domain}` with the domain to the service you are securing.
 
 The guide also assumes you will re-use the same caddy-security authentication portal for all your services which is _fine_, but I prefer to have each OIDC client be isolated on a service level instead of just having a generic caddy-security one. I'll explain the basic changes first then dive into the NixOS-specific stuff I did for my own deployment.
 
-```
+```plain
 security {
   # Rename the provider from generic to the service name
   oauth identity provider calibreweb {
@@ -170,7 +170,7 @@ Usually just throwing a `reverse_proxy localhost:<port>` gets you all the way wi
 
 `caddy-security` adds a  `/caddy-security` path in your sites that should always require authentication, so we simply route it to our portal without any changes.
 
-```
+```plain
 handle /caddy-security/* {
   route {
     authenticate with calibreweb_portal
@@ -180,7 +180,7 @@ handle /caddy-security/* {
 
 Caddy lets you label a set of paths or  with the `@name` syntax, this is just here for  convenience. Calibre Web exposes OPDS and Kobo-specific  endpoints for use with your devices that likely can't do OIDC, so we allow those to bypass the authentication requirements. The transport buffer size was taken from https://github.com/janeczku/calibre-web/issues/1891 after I faced the same sync issues.
 
-```
+```plain
 @integrations {
   path /opds /opds/* /kobo /kobo/*
 }
@@ -197,7 +197,7 @@ handle @integrations {
 
 This is the catch-all route for everything else that doesn't need special treatment. This only differs from the one above in requiring _authorization_.
 
-```
+```plain
 handle {
   route {
     authorize with calibreweb_policy
@@ -214,7 +214,7 @@ handle {
 
 The full configuration then becomes this:
 
-```
+```plain
 handle /caddy-security/* {
   route {
     authenticate with calibreweb_portal
