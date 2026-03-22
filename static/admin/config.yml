@@ -113,4 +113,9 @@ media_libraries:
           optimize: true
   stock_assets:
     providers: []
+  cloudflare_r2:
+    access_key_id: a1e50eaa4bbd04c61611f5c20545ea6a
+    bucket: blog-images
+    account_id: 07d4cd9cc7e8077fcafc5dd2fc30391b
+    public_url: https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev
 public_folder: "/posts/{{slug}}"
