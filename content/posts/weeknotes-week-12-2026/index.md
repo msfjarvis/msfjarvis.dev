@@ -10,11 +10,13 @@ draft = true
 
 ## Life
 
-As I mentioned [last week](/posts/weeknotes-week-11-2026/), I watched [Iron Lung](https://www.imdb.com/title/tt27564844/) on Monday. Only the premium cinemas were running shows so I had to buy an expensive ticket at PVR Director's Cut, and got to watch it in a reclining chair that was basically a bed. Loved the movie, Markiplier did great work as both director and actor. Hopefully we can get a couple more of these authentic video game recreations from individual creators before the suits at Hollywood figure out how to ruin them even more.![A scene from the movie Iron Lung, showing Markiplier inside a submarine. The subtitle reads "I'm seeing some voltage irregularities".](https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev/iron-lung.jpg "Iron Lung was a great watch")
+As I mentioned [last week](/posts/weeknotes-week-11-2026/), I watched [Iron Lung](https://www.imdb.com/title/tt27564844/) on Monday. Only the premium cinemas were running shows so I had to buy an expensive ticket at PVR Director's Cut, and got to watch it in a reclining chair that was basically a bed. Loved the movie, Markiplier did great work as both director and actor. Hopefully we can get a couple more of these authentic video game recreations from individual creators before the suits at Hollywood figure out how to ruin them even more.
+
+![A scene from the movie Iron Lung, showing Markiplier inside a submarine. The subtitle reads "I'm seeing some voltage irregularities".](/content/posts/weeknotes-week-12-2026/index/iron-lung.webp "Iron Lung was a great watch")
 
 I was back in the office this week, work was mostly CI and suffering. On Wednesday I got caught out in the hailstorm on my way back from the office. Thankfully I didn't catch anything from that, but I did have to figure out how to wash my shoes which was surprisingly easy — thanks Skechers.
 
-![A short video of rain and hail falling on a slightly waterlogged asphalt road. A red Maruti Suzuki Zen car is visible in the top left corner, with a partial number plate.](https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev/rain-and-hail.jpg "It was 30 degree Celcius at noon, and by 6 PM I was getting pelted by hail!")
+![A short video of rain and hail falling on a slightly waterlogged asphalt road. A red Maruti Suzuki Zen car is visible in the top left corner, with a partial number plate.](/content/posts/weeknotes-week-12-2026/index/rain-and-hail.webp "It was 30 degree Celcius at noon, and by 6 PM I was getting pelted by hail!")
 
 ## Toys
 
@@ -38,14 +40,14 @@ At IndieWebClub this week I finished off and published the post about securing [
 
 As I promised last week, with the missing Cloudflare R2 integration in my CMS no longer being an excuse for not showing off the food I keep talking about, here is some of the food I made this week.
 
-I had some chicken breast lying around in the freezer and an overwhelming desire to consume it, so I threw together a pretty simple pasta sauce using tomato and cream, cooked the chicken in it and then tossed it with pasta and some spices. I used the air fryer to quickly toast some sourdough bread I had and that was dinner and the next day's lunch.
+I had some chicken breast lying around in the freezer and an overwhelming desire to consume it, so I threw together a pretty simple pasta sauce using tomato and cream, cooked the chicken in it and then tossed it with pasta and some spices. I used the air fryer to quickly toast some sourdough bread I had and that was dinner and the next day's breakfast.
 
-![A bowl of Fusilli pasta in a creamy and tomato rich sauce with some chicken pieces and a couple of slices of sourdough bread poking out from it.](https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev/chicken-pasta.jpg "Behold, the pasta.")
+![A bowl of Fusilli pasta in a creamy and tomato rich sauce with some chicken pieces and a couple of slices of sourdough bread poking out from it.](/content/posts/weeknotes-week-12-2026/index/chicken-pasta.webp "Behold, the pasta.")
 
-Another night I ordered some nachos with my groceries so I put together a simple salad to go with the nachos that is called ["cowboy caviar"](https://www.spendwithpennies.com/cowboy-caviar/) in the US of A. I made this on a whim so I didn't have kidney beans, but I did get some feta cheese and it came out very nice. Bright flavors, super satiating, lots of fibre. What's not to like?
+Another night I ordered some nachos with my groceries so I put together a simple salad to go with the nachos, which is called ["cowboy caviar"](https://www.spendwithpennies.com/cowboy-caviar/) in the US of A. I made this on a whim so I didn't have kidney beans, but I did get some feta cheese and it came out very nice. Bright flavors, super satiating, lots of fibre. What's not to like?
 
-![The cowboy caviar salad containing dice onions, cucumbers, cherry tomatoes, corn, feta cheese and a simple sauce made with olive oil, apple cider vinegar, lemon juice and onion powder.](https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev/cowboy-caviar.jpg "Breakfast of champions or something I don't know.")
+![The cowboy caviar salad containing diced onions, cucumbers, cherry tomatoes, corn, feta cheese and a simple sauce made with olive oil, apple cider vinegar, lemon juice and onion powder.](/content/posts/weeknotes-week-12-2026/index/cowboy-caviar.webp "Breakfast of champions or something I don't know.")
 
 [Yash](https://yashgarg.dev/) was back home on Saturday so we went back to our classic rajma (kidney beans) gravy which I supplemented with a side of raita.
 
-![A plate with a bowl of raita, a bowl of rajma gravy and two chapattis.](https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev/rajma-and-raita.jpg "Feels like home.")
+![A plate with a bowl of raita, a bowl of rajma gravy and two chapattis.](/content/posts/weeknotes-week-12-2026/index/rajma-and-raita.webp "Feels like home.")
