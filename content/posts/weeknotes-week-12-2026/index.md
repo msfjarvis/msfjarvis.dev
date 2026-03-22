@@ -5,7 +5,7 @@ lastmod = "2026-03-22T16:02:00+05:30"
 summary = "Movies, food, rain, and an early birthday present to myself!"
 categories = [ "weeknotes" ]
 tags = [ "food" ]
-draft = true
+draft = false
 +++
 
 ## Life
