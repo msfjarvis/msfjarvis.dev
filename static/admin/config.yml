@@ -29,13 +29,19 @@ collections:
       - { label: "Categories", name: "categories", widget: "list" }
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Draft", name: "draft", required: false, widget: "boolean" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - {
+          editor_components: [code-block, image, figure],
+          label: "Body",
+          name: "body",
+          widget: "markdown",
+        }
     folder: "content/posts"
     format: toml-frontmatter
     label: "Blog"
-    media_folder: "/content/posts/{{slug}}/{{filename}}"
+    media_folder: ""
     name: "blog"
     path: "{{slug}}/index"
+    public_folder: ""
     slug: "{{slug}}"
   - create: true
     editor:
