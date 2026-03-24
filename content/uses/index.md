@@ -2,9 +2,10 @@
 title = "Uses"
 type = "page"
 lastmod = "2025-05-02T03:18:00+05:30"
-ShowToc = false
 ShowReadingTime = false
+ShowToc = false
 +++
+
 ## Editor + Terminal
 
 I use Ghostty with `bash` and a lightly customized [starship](https://starship.rs) prompt. The editor I use depends on what code I am working with:
@@ -20,6 +21,8 @@ My terminal-based text editor of choice is currently [micro](https://micro-edito
 I use [Nix](https://nixos.org/nix/) with [home-manager](https://github.com/nix-community/home-manager) to maintain my development environment and dotfiles. My current Nix/NixOS configuration can be found in my [dotfiles repo](https://github.com/msfjarvis/dotfiles).
 
 On my work MacBook I've resigned to using [Homebrew](https://brew.sh) exclusively due to issues I faced in making Nix work with our internal VPN and endpoint protection software.
+
+I use [OpenCode](https://opencode.ai) as my coding agent of choice, paired with a GitHub Copilot subscription that I receive for free from GitHub for being a FOSS maintainer.
 
 ## Hardware
 
