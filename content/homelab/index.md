@@ -5,7 +5,7 @@ lastmod = "2025-05-02T03:17:00+05:30"
 ShowReadingTime = false
 +++
 
-This page aims to be a continuously updating record of my personal compute and the various services running on it. It will not always be in sync with reality, but I will make an attempt to update it every so often and the date it was last updated will always be at the top of this page.
+This page aims to be a continuously updating record of all machines under my management and the various services running on it. It will not always be in sync with reality, but I will make an attempt to update it every so often and the date it was last updated will always be at the top of this page.
 
 # Hardware overview
 
@@ -62,3 +62,4 @@ ryzenbox and crusty are both on my home network and can access each other over L
 - [Gitea](https://gitea.com) at [https://git.msfjarvis.dev/](https://git.msfjarvis.dev/) as a backup Git host which mirrors my GitHub repositories.
 - [Miniflux](https://miniflux.app) at [https://read.msfjarvis.dev](https://read.msfjarvis.dev) to function as my RSS reader.
 - [Vaultwarden](https://www.vaultwarden.net/) at [https://vault.msfjarvis.dev](https://vault.msfjarvis.dev) is the password manager I run for me and (as of recently) my family.
+- [Calibre-Web](https://github.com/janeczku/calibre-web/) at [https://books.msfjarvis.dev](https://books.msfjarvis.dev) is my eBook library management software.
