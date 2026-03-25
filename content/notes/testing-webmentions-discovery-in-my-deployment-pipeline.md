@@ -2,8 +2,8 @@
 title = "Testing WebMentions discovery in my deployment pipeline"
 date = "2026-03-25T10:03:00+05:30"
 lastmod = "2026-03-25T10:03:00+05:30"
-summary = "This is a test post to verify if my WebMentions server supports all discovery formats"
-tags = [ "testing" ]
+summary = "This is a test post to verify if my WebMentions server passes the webmention.rocks test suite"
+tags = [ "testing", "forget-about-it", "throwaway" ]
 draft = false
 +++
 
@@ -30,3 +30,5 @@ draft = false
 [Testing WebMentions](https://webmention.rocks/test/21)
 [Testing WebMentions](https://webmention.rocks/test/22)
 [Testing WebMentions](https://webmention.rocks/test/23/page)
+
+[Update Test #1](https://webmention.rocks/update/1)
