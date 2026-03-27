@@ -8,4 +8,3 @@ draft = false
 +++
 
 [Update Test #2 Part #1](https://webmention.rocks/update/2)
-[Update Test #2 Part #2](https://webmention.rocks/update/2/part/2)
