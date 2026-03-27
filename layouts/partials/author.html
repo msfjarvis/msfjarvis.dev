@@ -2,7 +2,6 @@
 {{- $author := (.Params.author | default site.Params.author) }}
 {{- $author_type := (printf "%T" $author) }}
 <span class="p-author h-card">
-  <img class="u-photo" src="/images/harsh-shandilya.webp" alt="Harsh Shandilya" loading="lazy" hidden>
   <a class="p-name u-url" href="{{ site.BaseURL }}">
   {{- if (or (eq $author_type "[]string") (eq $author_type "[]interface {}")) }}
   {{- (delimit $author ", " ) }}
