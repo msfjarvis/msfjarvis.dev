@@ -13,6 +13,26 @@
 {{- /* Meta */}}
 {{- if .IsHome }}
 {{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
+{{- $rules := slice -}}
+{{- range where site.RegularPages "Params.deleted" true -}}
+  {{- $canonical := .Params.url -}}
+  {{- if not $canonical -}}
+    {{- $canonical = .RelPermalink -}}
+  {{- end -}}
+  {{- $rules = $rules | append (printf "%s /404.html 410!" $canonical) -}}
+  {{- range .Aliases -}}
+    {{- $alias := . -}}
+    {{- if not (strings.HasSuffix $alias "/") -}}
+      {{- $alias = printf "%s/" $alias -}}
+    {{- end -}}
+    {{- $rules = $rules | append (printf "%s /404.html 410!" $alias) -}}
+  {{- end -}}
+{{- end -}}
+{{- if gt (len $rules) 0 -}}
+  {{- $redirects := printf "%s\n" (delimit (sort $rules) "\n") -}}
+  {{- $redirectsResource := resources.FromString "_redirects" $redirects -}}
+  {{- $redirectsResource.Publish -}}
+{{- end -}}
 {{- else }}
 <meta name="keywords" content="{{ if .Params.keywords -}}
     {{- range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- else }}

@@ -29,6 +29,7 @@ collections:
       - { label: "Categories", name: "categories", widget: "list" }
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Draft", name: "draft", required: false, widget: "boolean" }
+      - { label: "Deleted", name: "deleted", required: false, widget: "boolean" }
       - {
           editor_components: [code-block, image, figure],
           label: "Body",
@@ -69,6 +70,7 @@ collections:
           picker_utc: false,
           widget: "datetime",
         }
+      - { label: "Deleted", name: "deleted", required: false, widget: "boolean" }
       - { label: "Body", name: "body", widget: "markdown" }
     folder: "content"
     format: toml-frontmatter
@@ -100,6 +102,7 @@ collections:
       - { label: "Description", name: "summary", widget: "string" }
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Draft", name: "draft", required: false, widget: "boolean" }
+      - { label: "Deleted", name: "deleted", required: false, widget: "boolean" }
       - { label: "Body", name: "body", widget: "markdown" }
     folder: "content/notes"
     format: toml-frontmatter
