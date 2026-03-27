@@ -7,5 +7,5 @@ tags = [ "testing", "ignore-plz" ]
 draft = false
 +++
 
-[Update Test #1](https://webmention.rocks/update/1)
-[Update Test #1 Part #2](https://webmention.rocks/update/1/part/2)
+[Update Test #2 Part #1](https://webmention.rocks/update/2)
+[Update Test #2 Part #2](https://webmention.rocks/update/2/part/2)
