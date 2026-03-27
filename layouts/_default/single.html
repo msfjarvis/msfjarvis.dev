@@ -20,12 +20,14 @@
     </div>
     {{- end }}
     {{- if not (.Param "hideMeta") }}
+    {{- .Scratch.Set "includeAuthorPhoto" true }}
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
       {{- partial "translation_list.html" . -}}
       {{- partial "edit_post.html" . -}}
       {{- partial "post_canonical.html" . -}}
     </div>
+    {{- .Scratch.Delete "includeAuthorPhoto" }}
     {{- end }}
     <a class="u-url" href="{{ .Permalink }}" style="display: none;" aria-hidden="true"></a>
   </header>
