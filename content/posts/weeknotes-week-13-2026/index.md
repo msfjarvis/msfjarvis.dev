@@ -5,7 +5,7 @@ lastmod = "2026-03-29T20:12:00+05:30"
 summary = "A Flu is no joke..."
 categories = [ "weeknotes" ]
 tags = [ "health" ]
-draft = true
+draft = false
 deleted = false
 +++
 
@@ -26,3 +26,27 @@ I finally finished running the full gauntlet of [webmention.rocks](https://webme
 I finished reading [Project Hail Mary](https://bookwyrm.social/book/102060/s/project-hail-mary), super good read. I hadn't realized Andy Weir also wrote The Martian! The book was great, the movie's promised to be even better but good lord has it been hard to find a way to watch it with the lack of IMAX screens.
 
 The keyboard I had ordered last week arrived, completing the new set :)
+
+{{<figure src="keyboard-and-mouse.webp" alt="The new keyboard and mouse on top of a wooden particle board desk. The keyboard has an aluminum frame coated in blue, with a mix of blue, purple and white keys with white being the most common one. The mouse rests on a cheap RedGear mousepad." title="The white mouse honestly works better than the lavender">}}
+
+I hadn't spotted our Metro station cat in a while, so it was nice to come across it again.
+
+{{<figure src="orange-loaf.webp" alt="A ginger cat loafing in the middle of two bar stools." title="Angy loaf">}}
+
+### Health woes
+
+I caught a fever on Thursday at the office which was starting to feel concerning right away, and by night had gotten bad enough that I had to arrange to see a doctor in the morning. Got diagnosed with a Flu and got a big dose of medicines to work through the weekend and see the doctor again on Monday. Was not expecting the throat problems, even my damn uvula had swollen and I could barely drink or breath. Super rough 3 days so far, the fever's settled down now but I still have a very sore mouth and have trouble eating and swallowing. _Pain_
+
+### And finally, the food
+
+Before I got absolutely mauled by the Flu I did do some cooking, which mostly was burrito prep that lasted us two days.
+
+{{<figure src="burrito-bowl-v1.webp" alt="A typical burrito bowl with rice, corn, lettuce, beans, diced jalapenos and some condiments." title="I feel burrito bowls are kind of underrated">}}
+
+I had some chicken breasts sitting in the freezer that I wanted to finish off, so I used some of the rice from the large batch we made for the burrito bowl meal prep and made a basic tomato and cream curry for the chicken which came out pretty delicious for being basically 20 minutes of work
+
+{{<figure src="chicken-curry.webp" alt="A plate of two chicken breasts and some rice with gravy over it. The gravy is reddish-orange in color due to the tomatoes, turmeric and heavy cream coming together. There are also bits of onion visible in the gravy." title="Scrumptious and filling. This cooking shit is easy :P">}} 
+
+{{<horizontal_line>}}
+
+Hopefully the next weeknote will find me healthier :(
