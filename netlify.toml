@@ -49,7 +49,7 @@ X-XSS-Protection = '1; mode=block'
 [[headers]]
 for = "/admin/*"
 [headers.values]
-Content-Security-Policy = "script-src identity.netlify.com unpkg.com 'unsafe-inline' 'unsafe-eval'"
+Content-Security-Policy = "script-src identity.netlify.com unpkg.com msfjarvis.dev drafts.msfjarvis.dev 'unsafe-inline' 'unsafe-eval'"
 Referrer-Policy = 'strict-origin-when-cross-origin'
 X-Content-Type-Options = "nosniff"
 X-Frame-Options = "DENY"
