@@ -40,7 +40,7 @@ status = 200
 [[headers]]
 for = "/*"
 [headers.values]
-Content-Security-Policy = "script-src identity.netlify.com stats01.msfjarvis.dev drafts.msfjarvis.dev msfjarvis.dev utteranc.es 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'; connect-src 07d4cd9cc7e8077fcafc5dd2fc30391b.r2.cloudflarestorage.com webmentions-server.tiger-shark.workers.dev stats01.msfjarvis.dev; img-src https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev drafts.msfjarvis.dev msfjarvis.dev;"
+Content-Security-Policy = "script-src identity.netlify.com stats01.msfjarvis.dev drafts.msfjarvis.dev msfjarvis.dev utteranc.es 'unsafe-inline' 'wasm-unsafe-eval'; object-src 'none'; connect-src msfjarvis.dev drafts.msfjarvis.dev 07d4cd9cc7e8077fcafc5dd2fc30391b.r2.cloudflarestorage.com webmentions-server.tiger-shark.workers.dev stats01.msfjarvis.dev; img-src https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev drafts.msfjarvis.dev msfjarvis.dev;"
 Referrer-Policy = 'strict-origin-when-cross-origin'
 X-Content-Type-Options = "nosniff"
 X-Frame-Options = "DENY"
