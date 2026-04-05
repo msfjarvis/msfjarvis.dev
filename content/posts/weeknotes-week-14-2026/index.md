@@ -1,0 +1,44 @@
++++
+title = "Weeknotes: Week #14 (2026)"
+date = "2026-04-05T23:36:00+05:30"
+lastmod = "2026-04-05T23:36:00+05:30"
+summary = "Finally over my sickness!"
+categories = [ "weeknotes" ]
+tags = [ "food", "games" ]
+draft = false
+deleted = false
++++
+
+Barely managing to squeeze this in thanks to a super packed Sunday.
+
+# Sickness Update
+
+I finally got through the rough week of dealing with the Flu, and used that down time to catch up with TV shows I was behind on. Finished watching [Paradise](https://www.imdb.com/title/tt27444205), and caught up with [Daredevil: Born Again](https://www.imdb.com/title/tt18923754) and [Invincible](https://www.imdb.com/title/tt6741278/). I also started reading [Could Should Might Don't](https://www.couldshouldmightdont.com/), my first non-fiction read in a long time. So far I'm not completely sold on the whole premise, but the topics the author chooses to break down are well presented.
+
+# Games!
+
+I've also picked up some of my half-completed games while I was sick. I'm almost done beating [Chrono Gear: Warden of Time](https://store.steampowered.com/app/3081840/Chrono_Gear_Warden_of_Time/). I also resumed playing [Horizon Forbidden West](https://store.steampowered.com/app/2420110/Horizon_Forbidden_West_Complete_Edition/) but the clunky combat pissed me off again. I love the story too much to let this detract from my enjoyment of it, so I opted to cheese my way using a trainer mod for a boss that was genuinely anti-fun. I'm not no-clipping around the place, just using invulnerability to get past a fight that feels more annoying than skill based. I've only used it once so far,  maybe in the future I'll get too lazy and start using it for all bosses, who's to say. Either way I'd rather enjoy the game this way than not play it at all.
+
+# Writing
+
+In my Flu-stricken stupor I completely forgot about [April Cools](https://aprilcools.club) this year, and had to scramble at the last minute to put a [post together](https://msfjarvis.dev/posts/i-guess-i-cook-now/). Admittedly, I tried to cheat my way out of the spirit of the thing by having an LLM convert my rough outline to a post but I found the writing to be so genuinely sickening to read that I threw it all away and just tanked the effort of writing through a fever to get this out.
+
+# Work and Career
+
+I got the increment I was expecting at work, which was nice. I took most days off while recovering from the Flu so not a whole lot got done, but I helped grease things along wherever I could manage to spare some time to review the documentation changes we were working on.
+
+# Miscellaneous Tech Things
+
+I'm planning to redo my room layout to open up some space in the center following Yash's example, so I had to get a multi-plug extension for my extension so I could neatly tuck away all the power cables that go into my — extension-ception. I didn't know [this](https://www.amazon.in/Eveready-Everprotect-Multiplug-i4/dp/B0CQPDT6RT?nsdOptOutParam=true) was a thing!
+
+I also worked a bit on [Claw](https://github.com/msfjarvis/compose-lobsters), my Android app for [Lobsters](https://lobste.rs). I removed a data migration path that had done its job in the past two releases, and added the very initial bits of login support in the app. Eventually the goal is for the app to be able to let you upvote and save posts directly to Lobsters instead of just the local store, and to maybe let you reply to comments/posts if I take on the daunting task of handling WYSIWYG Markdown input.
+
+# People!
+
+The weekend was packed with a lot of socializing. [IndieWebClub](https://blr.indiewebclub.org) on Saturday was a discussion focused session and we traded a lot of hot takes about editors, LLMs, writing tools and everything in between. It was a great time! Sadly I was not able to finish my writing draft within the allotted time, but I hope to have it out by next week.
+
+On Sunday Yash and I met up with [Anunay](https://github.com/anunaym14) and a friend of his for lunch at [23rd Street Pizza](https://www.instagram.com/23rdstreet_pizza/) which was rather underwhelming. We meandered around a fair bit after that for some dessert and much needed steps, then got back to our place to chill for a bit. Aforementioned friend introduced us to [Flip 7](https://boardgamegeek.com/boardgame/420087/flip-7), which was a hilarious time with just 4 players and we fully lost track of time until it had been 3 hours. This game made me fully understand how gambling addictions come to be. The temptation to got for just one more flip is too damn high!
+
+# The food section
+
+For this week I will choose to be lazy and delegate the responsibility for capturing our week's food to my roommate [Yash](https://yashgarg.dev/), who is far more diligent about this than I can ever hope to be. Check out his [week note](https://yashgarg.dev/weekly-notes-14-2026/)!
