@@ -5,7 +5,7 @@ lastmod = "2026-04-12T21:29:00+05:30"
 summary = "A shockingly eventful week that I was not quite prepared for"
 categories = [ "weeknotes" ]
 tags = [ "health", "career" ]
-draft = true
+draft = false
 deleted = false
 +++
 
@@ -17,7 +17,7 @@ It was my birthday this week! I was expecting the weekend to be a little chaotic
 
 [Yash](https://yashgarg.dev/) and I met with Anunay a few more times throughout the week, had a work-from-cafe day on Friday. We were at [Concu](https://www.concu.in/location/849622919), which was  pleasant other than an obnoxiously loud table that was annoying everyone for half an hour or so.
 
-On Saturday (my birthday) we made the rather painful trip to Meco Kartopia for go karting. I wasn't originally a big fan but managed to get the hang of it. The worst part of it is definitely the 1 to 1.5 hour long car trip to get to the place, and the lack of a cafeteria. I don't think I'll ever go back there, but am open to trying  it again somewhere that is a more reasonable distance from me. We tried doing dinner at some of the upscale establishments like Burma Burma, but it being a weekend they were all fully occupied. I ended up just pushing through Yash's suggesting of [Element 3](https://www.zomato.com/bangalore/element3-indiranagar-bangalore), a pure vegetarian place Yash and I have been to many times and everyone loved the food there. A lot of food related escapades were had, which as usual you can head on over to [Yash's weeknotes](https://yashgarg.dev/weekly-notes-15-2026/) to take a peek at.
+On Saturday (my birthday) we made the rather painful trip to Meco Kartopia for go karting. I wasn't originally a big fan but managed to get the hang of it. The worst part of it is definitely the 1 to 1.5 hour long car trip to get to the place, and the lack of a cafeteria. I don't think I'll ever go back there, but am open to trying  it again somewhere that is a more reasonable distance from me. We tried doing dinner at some of the upscale establishments like Burma Burma, but it being a weekend they were all fully occupied. I ended up just pushing through Yash's suggestion of [Element 3](https://www.zomato.com/bangalore/element3-indiranagar-bangalore), a pure vegetarian place Yash and I have been to many times and everyone loved the food there. A lot of food related escapades were had, which as usual you can head on over to [Yash's weeknotes](https://yashgarg.dev/weekly-notes-15-2026/) to take a peek at.
 
 # Work
 
@@ -25,7 +25,7 @@ My manager [Rohan Arthur](https://rohanarthur.com/) informed us that he's leavin
 
 # Games
 
-I continued playing through bits and pieces of [Chrono Gear](https://store.steampowered.com/app/3081840/Chrono_Gear_Warden_of_Time/) when I could find the time. [Akhil](https://github.com/akhilnarang) pulled me back into the dungeons of [Marvel Rivals](https://www.marvelrivals.com/) ranked queue where we managed to get a run at the placement games. As of writing we've climbed up from Gold 3 to Gold 1, in touching distance of Platinum 3.
+I continued playing through bits and pieces of [Chrono Gear](https://store.steampowered.com/app/3081840/Chrono_Gear_Warden_of_Time/) when I could find the time. [Akhil](https://github.com/akhilnarang) pulled me back into the dungeons of [Marvel Rivals](https://www.marvelrivals.com/) ranked queue where we managed to make a good run at our placement games. As of writing we've climbed up from Gold 3 to Gold 1, in touching distance of Platinum 3.
 
 {{< details summary="Somewhat frustrating health stuff that you probably don't care for" >}}
 
