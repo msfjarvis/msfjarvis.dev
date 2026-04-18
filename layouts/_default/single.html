@@ -18,6 +18,9 @@
     <div class="post-description">
       {{ .Description }}
     </div>
+    <div class="p-summary" style="display: none;" aria-hidden="true">
+      {{ .Description }}
+    </div>
     {{- end }}
     {{- if not (.Param "hideMeta") }}
     {{- .Scratch.Set "includeAuthorPhoto" true }}
