@@ -5,7 +5,7 @@ lastmod = "2026-04-19T19:12:00+05:30"
 summary = "Big week for watching movies and being outdoors!"
 categories = [ "weeknotes" ]
 tags = [ "movies", "cooking", "programming" ]
-draft = true
+draft = false
 deleted = false
 +++
 
