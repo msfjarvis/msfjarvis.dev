@@ -1,0 +1,56 @@
++++
+title = "Weeknotes: Week #17 (2026)"
+date = "2026-04-26T15:30:00+05:30"
+lastmod = "2026-04-26T15:30:00+05:30"
+summary = "Adapting to changes at work and doing a bunch of gaming"
+categories = [ "weeknotes" ]
+tags = [ "cooking", "gaming", "work" ]
+draft = true
+deleted = false
++++
+
+On Wednesday 22nd April this site was down for a few hours in the morning India time thanks to Netlify failing to renew its certificate. Why they thought it was not an operation that should be retried is beyond me, because when I logged into the dashboard and pressed the renew button it was able to provision a certificate in under 2 minutes. Netlify has been a good host for nearly 4 years now (logs say I signed up on Sep 23, 2022), but at this point I've had one too many problems to continue here. I've set up a Cloudflare Pages project with this site already, and will cut over the DNS in a week or so when I've ported the [WebMentions Publisher](https://github.com/msfjarvis/netlify-webmentions-extension/) build plugin I wrote to a Cloudflare native solution. Onward to the actual week notes now!
+
+# Work
+
+This was my first week assuming full responsibilities of my team as part of the [transition](/posts/weeknotes-week-16-2026/#work) I talked about last week. There's still a bit of chaos and new processes we're having to work up to but it has not been as disruptive as I had expected. I've continued to mostly focus on my engineering work and burn down our backlog as part of a bug bash sprint, inspired by a similar thing Lalit Maganti [wrote about](https://lalitm.com/fixits-are-good-for-the-soul/) some time ago. LLMs have been quite useful here, both for identifying low hanging fruit to work through as well as actually implementing solutions. One of the tickets I worked on this week was so old that half the code it was meant to change is gone already.
+
+On the flip side I had an absolutely abysmal time getting release PRs through our mandatory AI reviewer since it tries to understandably be extra paranoid for those. The issue is that these are PRs that go from one protected branch to another, so I have to raise _another_ PR to fix its (often benign) complaints for multiple rounds. There's a lot of complaints across the org about this specific issue so hopefully there's some improvements on this front soon.
+
+# Personal Projects
+
+I lightly maintain a small Telegram bot named [linkleaner](https://github.com/msfjarvis/linkleaner) which rewrites URLs sent by users to have better link previews and optionally redirect to privacy preserving frontends, which saw a [little more](https://github.com/msfjarvis/linkleaner/issues/70) [external attention](https://github.com/msfjarvis/linkleaner/issues/72) than I'm used to so I took some time to work on addressing the reported issues and fighting the bitrotted deployment pipeline.
+
+Work on [my-pi](https://git.msfjarvis.dev/msfjarvis/my-pi) continued this week, I've continued adding features to the harness. First up was a robust permissions system for the Bash tool so I can control what commands LLMs can run. I took care to ensure I was learning from the ways OpenCode falls short here, so the extension takes care of handling pipelines, "proxy" commands like \`sudo\` and \`exec\`, and much more. I also ported [superpowers](https://github.com/obra/superpowers), and a very rough implementation of the [Ralph Loop technique](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) that has so far been rather terrible.
+
+# People
+
+On Friday I worked out of [Cafe Grey](https://www.bangaloreeats.com/place/cafe-grey-by-dongle-and-co-indiranagar) with [Yash](https://yashgarg.dev/) and [Anunay](https://github.com/anunaym14), which was pretty nice and let us beat the heat for a few hours. The food was decent, coffees were great and the pricing was not as eye watering as I've come to expect from Bengaluru cafes.
+
+{{<figure src="blob:https://msfjarvis.dev/0f40bf07-30b5-4363-bd1f-9151d9adfbab" alt="A white ceramic plate with a pile of nachos in the middle. There's melty white cheese all over the top." title="These nachos were tasty but also obviously fresh out of a bag.">}}
+
+{{<figure src="chicken-popcorn-at-cafe-grey.webp" alt="A plate of fried chicken popcorn with small bowls of mayonnaise and ketchup. There's a lemon half sitting on top of the chicken, which itself is on thin bed of lettuce." title="Can't really complain about fried chicken.">}}
+
+On Saturday I went to watch [Michael](https://www.imdb.com/title/tt11378946/), with Yash, Anunay, [Mayank](https://github.com/mayankofficial999) and Anunay's friend Harshit. The movie was great, and I only learned after the movie that Michael Jackson was portrayed by his nephew Jaafar who is also making his debut with this film. One hell of a start to an acting career!
+
+{{<figure src="blob:https://msfjarvis.dev/30632da0-c74a-4a3d-983f-e85c77ef38e7" alt="A scene from the movie Michael showing him singing on stage in a black jacket." title="The picture's a little lopsided because of letterboxing, my positioning and most importantly my ineptitude.">}}
+
+When the movie finished we noticed some ruckus erupting in the front of the theater and apparently it was knock-off mascots just dancing away?!?? We still don't know what the hell was happening there.
+
+{{<figure src="blob:https://msfjarvis.dev/2ed9db22-8889-4fc9-9ebf-4c26278a804b" alt="A slightly blurry zoomed in photo of the front of a movie theater, showing mascots in costumes: Hello Kitty, Mickey Mouse and a nondescript mouse I cannot identify immediately." title="For how random this was, the mascots were having fun with it.">}}
+
+# Gaming
+
+Big week of games news for me, Hades 2 got a couple of updates adding post end-game content that I checked out and loved being terrible at. 
+
+Marvel Rivals got another limited time zombies event which I will be sinking a lot of hours into, like last time. It will also probably be a solo affair, again like last time. Had a chance to play some Rivals ranked with [Sasikanth](https://www.sasikanth.dev/) which validated our theory that the correct time to win games are the weeknights when the proverbial electricians and plumbers are playing (people who are too employed to be great at the game, to put it more directly).
+
+# Food
+
+We didn't do anything particularly new this week with food. We had an early mishap with a veggie pulav that we both put too much spice into and also failed to cook that spice out so it was borderline inedible. Yash and I found ourselves quietly eating mangoes right after to soothe our burning palates.
+
+{{<figure src="dangerous-pulav.webp" alt="A bowl containing pulav, an Indian rice dish that's typically pressure cooked rice with misc veggies and spices. Ours doesn't look particularly different from what you'd expect, but the flavor was abysmal. We fucked up big time here." title="This thing was genuinely close to being radioactive.">}}
+
+On Friday I only had myself to make dinner for so I went for a classic nacho dip/salad thing which was incredibly easy to put together and tasted delicious, validated by resident protein maxxer Yash.
+
+{{<figure src="blob:https://msfjarvis.dev/12725d36-85fa-44c5-aa8b-bce7320254b1" alt="A bean nacho dip with red beans, cucumbers, onions, tomatoes, and corn; all wrapped up in a dressing made with a some jarred salsa, olive oil, apple cider vinegar, onion powder, and a bit of hot sauce." title="I could eat this every day and not tire of it, veggies in a bowl is a pretty versatile canvas.">}}
