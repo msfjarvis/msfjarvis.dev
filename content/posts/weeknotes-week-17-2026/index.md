@@ -5,7 +5,7 @@ lastmod = "2026-04-26T15:30:00+05:30"
 summary = "Adapting to changes at work and doing a bunch of gaming"
 categories = [ "weeknotes" ]
 tags = [ "cooking", "gaming", "work" ]
-draft = true
+draft = false
 deleted = false
 +++
 
