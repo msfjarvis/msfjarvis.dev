@@ -27,17 +27,17 @@ Work on [my-pi](https://git.msfjarvis.dev/msfjarvis/my-pi) continued this week, 
 
 On Friday I worked out of [Cafe Grey](https://www.bangaloreeats.com/place/cafe-grey-by-dongle-and-co-indiranagar) with [Yash](https://yashgarg.dev/) and [Anunay](https://github.com/anunaym14), which was pretty nice and let us beat the heat for a few hours. The food was decent, coffees were great and the pricing was not as eye watering as I've come to expect from Bengaluru cafes.
 
-{{<figure src="blob:https://msfjarvis.dev/0f40bf07-30b5-4363-bd1f-9151d9adfbab" alt="A white ceramic plate with a pile of nachos in the middle. There's melty white cheese all over the top." title="These nachos were tasty but also obviously fresh out of a bag.">}}
+{{<figure src="nachos-at-cafe-grey.webp" alt="A white ceramic plate with a pile of nachos in the middle. There's melty white cheese all over the top." title="These nachos were tasty but also obviously fresh out of a bag.">}}
 
 {{<figure src="chicken-popcorn-at-cafe-grey.webp" alt="A plate of fried chicken popcorn with small bowls of mayonnaise and ketchup. There's a lemon half sitting on top of the chicken, which itself is on thin bed of lettuce." title="Can't really complain about fried chicken.">}}
 
 On Saturday I went to watch [Michael](https://www.imdb.com/title/tt11378946/), with Yash, Anunay, [Mayank](https://github.com/mayankofficial999) and Anunay's friend Harshit. The movie was great, and I only learned after the movie that Michael Jackson was portrayed by his nephew Jaafar who is also making his debut with this film. One hell of a start to an acting career!
 
-{{<figure src="blob:https://msfjarvis.dev/30632da0-c74a-4a3d-983f-e85c77ef38e7" alt="A scene from the movie Michael showing him singing on stage in a black jacket." title="The picture's a little lopsided because of letterboxing, my positioning and most importantly my ineptitude.">}}
+{{<figure src="michael.webp" alt="A scene from the movie Michael showing him singing on stage in a black jacket." title="The picture's a little lopsided because of letterboxing, my positioning and most importantly my ineptitude.">}}
 
 When the movie finished we noticed some ruckus erupting in the front of the theater and apparently it was knock-off mascots just dancing away?!?? We still don't know what the hell was happening there.
 
-{{<figure src="blob:https://msfjarvis.dev/2ed9db22-8889-4fc9-9ebf-4c26278a804b" alt="A slightly blurry zoomed in photo of the front of a movie theater, showing mascots in costumes: Hello Kitty, Mickey Mouse and a nondescript mouse I cannot identify immediately." title="For how random this was, the mascots were having fun with it.">}}
+{{<figure src="knock-off-mascots-at-michael.webp" alt="A slightly blurry zoomed in photo of the front of a movie theater, showing mascots in costumes: Hello Kitty, Mickey Mouse and a nondescript mouse I cannot identify immediately." title="For how random this was, the mascots were having fun with it.">}}
 
 # Gaming
 
@@ -53,4 +53,4 @@ We didn't do anything particularly new this week with food. We had an early mish
 
 On Friday I only had myself to make dinner for so I went for a classic nacho dip/salad thing which was incredibly easy to put together and tasted delicious, validated by resident protein maxxer Yash.
 
-{{<figure src="blob:https://msfjarvis.dev/12725d36-85fa-44c5-aa8b-bce7320254b1" alt="A bean nacho dip with red beans, cucumbers, onions, tomatoes, and corn; all wrapped up in a dressing made with a some jarred salsa, olive oil, apple cider vinegar, onion powder, and a bit of hot sauce." title="I could eat this every day and not tire of it, veggies in a bowl is a pretty versatile canvas.">}}
+{{<figure src="nacho-dip-at-home.webp" alt="A bean nacho dip with red beans, cucumbers, onions, tomatoes, and corn; all wrapped up in a dressing made with a some jarred salsa, olive oil, apple cider vinegar, onion powder, and a bit of hot sauce." title="I could eat this every day and not tire of it, veggies in a bowl is a pretty versatile canvas.">}}
