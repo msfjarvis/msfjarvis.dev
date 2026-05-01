@@ -1,5 +1,7 @@
 ---
-// CMS admin page — not indexed, not part of the public site
+// CMS admin page — not indexed, not part of the public site.
+// Sveltia CMS is loaded via CDN script tag so Astro/Vite never tries to bundle it.
+// The config, custom.js, and tombstone.js are served from public/admin/ as static files.
 ---
 
 <!doctype html>
@@ -7,10 +9,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
     <title>Content Manager</title>
   </head>
   <body>
-    <script>import '@sveltia/cms';</script>
+    <script src="https://unpkg.com/@sveltia/cms@0.158.1/dist/sveltia-cms.js" type="module"></script>
     <script type="module" src="/admin/custom.js"></script>
   </body>
 </html>
