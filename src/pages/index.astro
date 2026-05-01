@@ -21,7 +21,6 @@ const weeknoteCount = weeknotes.length;
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section class="bio">
-    <p class="bio-name">Harsh Shandilya</p>
     <p class="bio-desc">{SITE_DESCRIPTION}</p>
   </section>
 
@@ -58,14 +57,7 @@ const weeknoteCount = weeknotes.length;
 </BaseLayout>
 
 <style>
-  .bio { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-  .bio-name {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text);
-    margin: 0 0 0.4rem;
-  }
+  .bio { margin-bottom: 2rem; padding: 1rem 0 1.5rem; border-bottom: 1px solid var(--border); }
   .bio-desc { color: var(--text-2); font-size: 0.95rem; margin: 0; }
 
   .section-grid {
