@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "migrate": "node scripts/migrate-hugo.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
@@ -21,6 +22,9 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@iarna/toml": "^2.2.5",
+    "fs-extra": "^11.3.4",
+    "js-yaml": "^4.1.1",
     "typescript": "^5.9.3"
   }
 }
