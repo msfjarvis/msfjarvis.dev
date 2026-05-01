@@ -3,7 +3,6 @@ categories = ["weeknotes"]
 date = 2026-01-03T16:20:58+05:30
 lastmod = 2026-01-03T16:20:58+05:30
 summary = "Starting off the year being VERY lazy"
-slug = "weeknotes-week-1-2026"
 tags = ["games", "ai"]
 title = "Weeknotes: Week #1 (2026)"
 +++
