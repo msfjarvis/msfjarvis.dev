@@ -11,6 +11,7 @@ export async function GET(context: APIContext) {
     title: `Weeknotes — ${SITE_TITLE}`,
     description: 'Weekly notes by Harsh Shandilya',
     site: context.site!,
+    stylesheet: '/pretty-feed-v3.xsl',
     items: weeknotes.map((entry) => ({
       title: entry.data.title,
       pubDate: entry.data.date,

@@ -11,6 +11,7 @@ export async function GET(context: APIContext) {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     site: context.site!,
+    stylesheet: '/pretty-feed-v3.xsl',
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,
