@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: msfjarvis/site-2
+  skip_ci: true
+
+media_libraries:
+  cloudflare_r2:
+    access_key_id: a1e50eaa4bbd04c61611f5c20545ea6a
+    bucket: blog-images
+    account_id: 07d4cd9cc7e8077fcafc5dd2fc30391b
+    public_url: https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+        svg:
+          optimize: true
+
+collections:
+  - name: posts
+    label: Posts
+    folder: src/content/posts
+    format: yaml-frontmatter
+    create: true
+    media_folder: "public/posts/{{slug}}"
+    public_folder: "/posts/{{slug}}"
+    path: "{{slug}}/index"
+    slug: "{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false }
+      - { label: Last modified, name: lastmod, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false, required: false }
+      - { label: Summary, name: summary, widget: string, required: false }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Draft, name: draft, widget: boolean, required: false }
+      - { label: Deleted, name: deleted, widget: boolean, required: false }
+      - { label: Body, name: body, widget: markdown, editor_components: [code-block, image, figure] }
+
+  - name: notes
+    label: Notes
+    folder: src/content/notes
+    format: yaml-frontmatter
+    create: true
+    path: "{{slug}}"
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Deleted, name: deleted, widget: boolean, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: weeknotes
+    label: Weeknotes
+    folder: src/content/weeknotes
+    format: yaml-frontmatter
+    create: true
+    path: "{{slug}}"
+    slug: "week-{{week}}-{{year}}"
+    editor:
+      preview: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false }
+      - { label: Last modified, name: lastmod, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false, required: false }
+      - { label: Summary, name: summary, widget: string, required: false }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Draft, name: draft, widget: boolean, required: false }
+      - { label: Deleted, name: deleted, widget: boolean, required: false }
+      - { label: Body, name: body, widget: markdown }
