@@ -133,7 +133,7 @@ Tags are moving qualifiers, and can be [force pushed at any moment](https://juli
 
 To get the commit hash for a specific tag, head to the Releases page of the repository, then click the short SHA1 hash below the tag name and copy the full hash from the URL.
 
-![A tag along with its commit hash](actions_tips_tricks_commit_hash.webp)
+{{<figure src="actions_tips_tricks_commit_hash.webp" alt="A tag along with its commit hash" >}}
 
 > {{< sub "Here, the commit hash is feb985e. Ideally, you want to click that link and copy the full hash from the URL" >}}
 

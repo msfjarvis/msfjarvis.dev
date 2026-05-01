@@ -50,11 +50,11 @@ We use a third-party library by [Max Rumpf] called [ModernAndroidPreferences] fo
 
 ### Before
 
-![Screenshot gallery of a few APS screens before the Material 3 migration](aps_m2_gallery.webp)
+{{<figure src="aps_m2_gallery.webp" alt="Screenshot gallery of a few APS screens before the Material 3 migration" >}}
 
 ### After
 
-![Screenshot gallery of a few APS screens after the Material 3 migration](aps_m3_gallery.webp)
+{{<figure src="aps_m3_gallery.webp" alt="Screenshot gallery of a few APS screens after the Material 3 migration" >}}
 
 ## Closing notes
 

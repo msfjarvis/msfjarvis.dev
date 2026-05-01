@@ -17,7 +17,7 @@ We're back with yet another release! As I shared earlier this month, this is goi
 
 Creating a new store from the app previously created an unusable store, because we never configured a GPG key in the `.gpg-id` file. This has now been remedied in two ways: empty `.gpg-id` files are correctly handled as invalid and included in our quickfix solution, and creating a new store will now request you to select a key and then write it into the `.gpg-id` file. Here's what the key selection screen looks like:
 
-![GPG key selection screen from the APS October release](aps-october-release-gpg-key-selection.webp)
+{{<figure src="aps-october-release-gpg-key-selection.webp" alt="GPG key selection screen from the APS October release" >}}
 
 ### Allow configuring an HTTPS proxy
 

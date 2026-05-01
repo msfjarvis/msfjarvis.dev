@@ -16,9 +16,9 @@ This metadata can be used by browsers (how to display content or reload page), s
 
 Here's how your website will look like on Twitter with and without metadata.
 
-![No metadata](hugo_metadata_no_meta.webp)
+{{<figure src="hugo_metadata_no_meta.webp" alt="No metadata" >}}
 
-![Correct metadata](hugo_metadata_correct_meta.webp)
+{{<figure src="hugo_metadata_correct_meta.webp" alt="Correct metadata" >}}
 
 You be the judge of what you like better :)
 

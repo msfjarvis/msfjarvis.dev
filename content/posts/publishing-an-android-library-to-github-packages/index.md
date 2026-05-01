@@ -275,6 +275,6 @@ That's it! Once you push to GitHub, you'll see the [action running](https://gith
 
 The requirement to authenticate for packages is a significant problem with GitHub Packages' adoption, giving an edge to solutions like [JitPack](https://jitpack.io) which handle the entire process automagically. As mentioned earlier, I did contact GitHub support about it and got this back.
 
-![GitHub support reply about authentication requirement for packages](github_packages_support_response.webp)
+{{<figure src="github_packages_support_response.webp" alt="GitHub support reply about authentication requirement for packages" >}}
 
 My interpretation of this is quite simply that **it's gonna take a while**. I hope not :)
