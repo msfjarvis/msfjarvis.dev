@@ -2,7 +2,11 @@
 import { SITE_TITLE } from '../consts';
 
 const pathname = new URL(Astro.request.url).pathname;
-const isActive = (path: string) => pathname.startsWith(path) ? 'active' : undefined;
+// Returns true if the current path matches, supporting both trailing-slash and non-trailing-slash forms
+const isActive = (path: string, exact = false): boolean =>
+  exact
+    ? pathname === path || pathname === path + '/'
+    : pathname.startsWith(path);
 ---
 
 <header>
@@ -12,9 +16,9 @@ const isActive = (path: string) => pathname.startsWith(path) ? 'active' : undefi
       <a href="/posts" class:list={[{ active: isActive('/posts') }]}>posts</a>
       <a href="/notes" class:list={[{ active: isActive('/notes') }]}>notes</a>
       <a href="/weeknotes" class:list={[{ active: isActive('/weeknotes') }]}>weeknotes</a>
-      <a href="/now" class:list={[{ active: pathname === '/now/' }]}>now</a>
-      <a href="/about" class:list={[{ active: pathname === '/about/' }]}>about</a>
-      <a href="/uses" class:list={[{ active: pathname === '/uses/' }]}>uses</a>
+      <a href="/now" class:list={[{ active: isActive('/now', true) }]}>now</a>
+      <a href="/about" class:list={[{ active: isActive('/about', true) }]}>about</a>
+      <a href="/uses" class:list={[{ active: isActive('/uses', true) }]}>uses</a>
     </div>
   </nav>
 </header>

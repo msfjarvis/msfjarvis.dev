@@ -31,7 +31,7 @@ const { title, description, date, lastmod, minutesRead } = Astro.props;
             {lastmod && lastmod.getTime() !== date.getTime() && (
               <> · updated <FormattedDate date={lastmod} /></>
             )}
-            {minutesRead && <> · {minutesRead} min read</>}
+            {minutesRead != null && minutesRead > 0 && <> · {minutesRead} min read</>}
           </p>
           <hr />
         </header>
