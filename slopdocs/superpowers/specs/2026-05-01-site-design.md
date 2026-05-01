@@ -200,10 +200,92 @@ No JS framework. No client-side JS at all on the public-facing site unless a spe
 
 ---
 
+## MDX Components
+
+The following Hugo shortcodes need Astro equivalents. All files that use them will become `.mdx` instead of `.md`.
+
+### `<Figure>` (active — 1 post, 4 usages)
+
+Replaces Hugo's built-in `{{< figure src="..." title="..." >}}`.
+
+```astro
+<!-- src/components/Figure.astro -->
+<figure>
+  <img src={src} alt={alt ?? ''} />
+  {title && <figcaption>{title}</figcaption>}
+</figure>
+```
+
+Images stored in `public/posts/[slug]/`. The `src` prop is an absolute path (`/posts/[slug]/image.jpg`). No Astro optimization pipeline — `public/` files are copied as-is per the Astro docs: *"always served or copied as-is, without transform or bundling"*. Passing a string path to `<Image>` produces an unoptimized plain `<img>`, so a plain `<figure>/<img>` is used directly.
+
+The Sveltia CMS editor component is rewritten to emit `<Figure src="/posts/[slug]/image.jpg" alt="..." title="..." />` syntax instead of the Hugo shortcode.
+
+### `<Asciinema>` (active — 3 posts, 7 usages)
+
+Replaces `{{< asciinema ID >}}`.
+
+```astro
+<!-- src/components/Asciinema.astro -->
+<div style="margin-top: 2em; margin-bottom: 2em; text-align: center">
+  <script src={`https://asciinema.org/a/${id}.js`} id={`asciicast-${id}`} async />
+</div>
+```
+
+Takes a single `id` prop (the asciinema cast ID string).
+
+### Trivial shortcodes — no component needed
+
+| Hugo shortcode | MDX replacement | Posts affected |
+|---|---|---|
+| `{{< horizontal_line >}}` | Native `<hr>` or `---` | 3 posts |
+| `{{< sub "text" >}}` | Native `<sub>text</sub>` | 1 post |
+| `{{< gfycat ID >}}` | Delete — 0 usages, service is defunct | 0 posts |
+
+These are handled as a find-and-replace during content migration, not as reusable components.
+
+---
+
+## Webmentions Manifest
+
+The Hugo site generates `/webmentions-manifest.json` via `layouts/index.webmentions-manifest.json.json`. An external tool parses this file to manage webmentions. It must be ported as an Astro API endpoint.
+
+**Output format:**
+```json
+{
+  "schemaVersion": 1,
+  "siteOrigin": "https://msfjarvis.dev",
+  "generatedAt": "2026-05-01T12:00:00Z",
+  "entries": [
+    { "source": "content/posts/my-post/index.md", "url": "https://msfjarvis.dev/posts/my-post/" }
+  ]
+}
+```
+
+**Implementation:** `src/pages/webmentions-manifest.json.ts` as a static Astro endpoint.
+
+- Queries the `posts` and `notes` collections (matching the Hugo template's `if in (slice "posts" "notes") .Section` filter — weeknotes are excluded)
+- `source` field: file path relative to repo root, e.g. `src/content/posts/my-post/index.mdx`
+- `url` field: full permalink constructed from `SITE_URL + /posts/[slug]/`
+- `generatedAt`: `new Date().toISOString()` at build time
+
+---
+
 ## Deployment
 
 - **Host:** Cloudflare Pages
 - **Redirects:** `public/_redirects` (Cloudflare Pages format)
 - **Build command:** `astro build`
 - **Output directory:** `dist/`
-- **RSS feed:** `/rss.xml` (Astro's built-in RSS support)
+- **RSS feed:** `/rss.xml` via `@astrojs/rss`
+
+### RSS `<guid>` compatibility
+
+Hugo emits `<guid>{{ .Permalink }}</guid>` — the full canonical URL. `@astrojs/rss` derives `<guid isPermaLink="true">` from the item's `link` field, resolved to a full canonical URL. These are equivalent; existing feed subscribers will not see old posts re-appear as long as the `link` field maps to the same URL structure (`/posts/[slug]/`, `/weeknotes/week-[N]-[YYYY]/`).
+
+### RSS feed filtering
+
+Hugo's RSS template applies the following filters that must be replicated in Astro:
+- `deleted: true` entries are excluded
+- Static pages (`type: page`) are excluded
+- **Notes are excluded from the home feed** — they only appear in their own `/notes/rss.xml` section feed, not in the global `/rss.xml`
+- Weeknotes are included in the global feed (they live in `posts` section in Hugo)
