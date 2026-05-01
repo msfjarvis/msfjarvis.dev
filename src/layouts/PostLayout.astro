@@ -1,0 +1,59 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  lastmod?: Date;
+  minutesRead?: number;
+}
+
+const { title, description, date, lastmod, minutesRead } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description ?? title} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <header class="post-header">
+          <h1>{title}</h1>
+          <p class="post-meta">
+            <FormattedDate date={date} />
+            {lastmod && lastmod.getTime() !== date.getTime() && (
+              <> · updated <FormattedDate date={lastmod} /></>
+            )}
+            {minutesRead && <> · {minutesRead} min read</>}
+          </p>
+          <hr />
+        </header>
+        <div class="prose">
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .post-header h1 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 0.4rem;
+  }
+  .post-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+    margin: 0 0 0.75rem;
+  }
+</style>
