@@ -103,15 +103,25 @@ Existing weeknotes in the Hugo site live at `/posts/weeknotes-week-N-YYYY/`. The
 **Old:** `/posts/weeknotes-week-1-2026`  
 **New:** `/weeknotes/week-1-2026`
 
-Redirects are handled via a `public/_redirects` file (Cloudflare Pages native format, identical to Netlify's):
+Redirects are handled by a dynamic Astro route at `src/pages/posts/[slug].astro`. At build time, `getStaticPaths()` queries the `weeknotes` collection and returns one path per entry, each emitting an HTTP 301 redirect response to the new canonical URL.
 
-```
-/posts/weeknotes-week-1-2026   /weeknotes/week-1-2026   301
-/posts/weeknotes-week-2-2026   /weeknotes/week-2-2026   301
-# … one line per entry
+```ts
+// src/pages/posts/[slug].astro
+export async function getStaticPaths() {
+  const weeknotes = await getCollection('weeknotes');
+  return weeknotes.map((entry) => ({
+    params: { slug: `weeknotes-${entry.id}` },  // e.g. weeknotes-week-1-2026
+    props: { redirect: `/weeknotes/${entry.id}/` },
+  }));
+}
 ```
 
-These will be generated at build time from the weeknotes content collection rather than maintained by hand.
+This is preferred over a `public/_redirects` file because:
+- It stays in sync with the content collection automatically — no manual maintenance as new weeknotes are published
+- Redirect logic lives in the codebase, not a separate config file
+- Cloudflare Pages serves Astro's statically-generated redirect pages correctly
+
+The old RSS items for weeknotes (previously at `/posts/weeknotes-week-N-YYYY/`) pointed to those URLs as `<guid>`. Feed readers that cached these entries will follow the 301 and update. New entries in `/weeknotes/rss.xml` will have the new `/weeknotes/week-N-YYYY/` GUIDs.
 
 ---
 
@@ -284,8 +294,16 @@ Hugo emits `<guid>{{ .Permalink }}</guid>` — the full canonical URL. `@astrojs
 
 ### RSS feed filtering
 
-Hugo's RSS template applies the following filters that must be replicated in Astro:
+The global `/rss.xml` feed includes only the `posts` collection. Exclusion rules:
 - `deleted: true` entries are excluded
-- Static pages (`type: page`) are excluded
-- **Notes are excluded from the home feed** — they only appear in their own `/notes/rss.xml` section feed, not in the global `/rss.xml`
-- Weeknotes are included in the global feed (they live in `posts` section in Hugo)
+- Notes are excluded — they have their own `/notes/rss.xml`
+- Weeknotes are excluded — they have their own `/weeknotes/rss.xml`
+
+This is a deliberate change from Hugo, where weeknotes lived in the `posts` section and appeared in the global feed. Moving them to their own collection removes them from the global feed cleanly.
+
+**Per-collection feeds:**
+| Feed | URL | Collections included |
+|---|---|---|
+| Global | `/rss.xml` | `posts` only |
+| Notes | `/notes/rss.xml` | `notes` only |
+| Weeknotes | `/weeknotes/rss.xml` | `weeknotes` only |
