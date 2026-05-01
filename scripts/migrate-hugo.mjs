@@ -143,11 +143,12 @@ function transformContent(body, slug, collection) {
   const usedComponents = new Set();
 
   // ---- details shortcode → native HTML <details> ----
-  // {{<details summary="text" >}} ... {{</details>}}
+  // Opening: {{< details summary="text" >}} or {{<details summary="text">}}
+  // Closing:  {{< /details >}} or {{</details>}} (Hugo accepts both forms)
   body = body.replace(/\{\{<\s*details\s+summary="([^"]+)"\s*>\}\}/g, (_, summary) => {
     return `<details>\n<summary>${summary}</summary>`;
   });
-  body = body.replace(/\{\{<\/details>\}\}/g, '</details>');
+  body = body.replace(/\{\{<\s*\/details\s*>\}\}/g, '</details>');
 
   // ---- gfycat: defunct service, remove ----
   body = body.replace(/\{\{<\s*gfycat\s+\S+\s*>\}\}/g, '');

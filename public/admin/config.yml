@@ -27,7 +27,7 @@ collections:
     create: true
     media_folder: "public/posts/{{slug}}"
     public_folder: "/posts/{{slug}}"
-    path: "{{slug}}/index"
+    path: "{{slug}}"
     slug: "{{slug}}"
     editor:
       preview: true
