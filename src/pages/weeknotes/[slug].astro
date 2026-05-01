@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && !w.data.draft);
+  return weeknotes.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<PostLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  date={entry.data.date}
+  lastmod={entry.data.lastmod}
+>
+  <Content />
+</PostLayout>
