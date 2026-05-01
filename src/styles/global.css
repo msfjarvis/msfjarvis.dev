@@ -22,7 +22,7 @@
     --border: #2a2a2a;
     --text: #ebebeb;
     --text-2: #bbbbbb;
-    --text-3: #666666;
+    --text-3: #767676;
     --accent: #c084b8;
     --accent-subtle: #3a1f36;
   }
@@ -38,6 +38,7 @@ body {
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.75;
+  overflow-wrap: break-word;
 }
 
 main {
@@ -52,6 +53,11 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.3;
   margin: 1.5rem 0 0.5rem;
 }
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.1rem; }
 
 p { margin: 0 0 1rem; }
 
@@ -95,7 +101,7 @@ pre code {
 blockquote {
   margin: 1.5rem 0;
   padding-left: 1.25rem;
-  border-left: 3px solid var(--border);
+  border-left: 3px solid var(--text-3);
   color: var(--text-2);
 }
 
@@ -119,6 +125,7 @@ th { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-3); }
   padding: 0; margin: -1px;
   overflow: hidden;
   clip: rect(0,0,0,0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
