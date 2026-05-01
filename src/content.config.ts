@@ -1,17 +1,19 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const postSchema = z.object({
+  title: z.string(),
+  date: z.coerce.date(),
+  lastmod: z.coerce.date().optional(),
+  summary: z.string().optional(),
+  tags: z.array(z.string()).optional().default([]),
+  draft: z.boolean().optional().default(false),
+  deleted: z.boolean().optional().default(false),
+});
+
 const posts = defineCollection({
   loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    lastmod: z.coerce.date().optional(),
-    summary: z.string().optional(),
-    tags: z.array(z.string()).optional().default([]),
-    draft: z.boolean().optional().default(false),
-    deleted: z.boolean().optional().default(false),
-  }),
+  schema: postSchema,
 });
 
 const notes = defineCollection({
@@ -26,15 +28,7 @@ const notes = defineCollection({
 
 const weeknotes = defineCollection({
   loader: glob({ base: './src/content/weeknotes', pattern: '**/*.{md,mdx}' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    lastmod: z.coerce.date().optional(),
-    summary: z.string().optional(),
-    tags: z.array(z.string()).optional().default([]),
-    draft: z.boolean().optional().default(false),
-    deleted: z.boolean().optional().default(false),
-  }),
+  schema: postSchema,
 });
 
 export const collections = { posts, notes, weeknotes };
