@@ -23,7 +23,7 @@ Goaccess is an **open-source**, **real-time** web log analyzer. In other words, 
 
 To create a compelling analytics experience, we'll need to use Goaccess' `--real-time-html` option, that creates an HTML report, and an accompanying `WebSocket` server that will dispatch a request to update the page data every time goaccess parses updated logs. Here's a peek at Goaccess' terminal visualizer, to get an idea about the datasets you can expect from the web version.
 
-![Goaccess in the terminal](goaccess_terminal.webp)
+{{<figure src="goaccess_terminal.webp" alt="Goaccess in the terminal" >}}
 
 Goaccess supports most common webserver log formats, and [some more](https://goaccess.io/man#options) with the option to provide your own format if you're using custom solutions. I'm using `VCOMMON`, as that is the default log format of my webserver of choice, [Caddy](https://caddyserver.com). Here's the command executed by the systemd unit that I use for goaccess. I'll explain every option in a bit.
 

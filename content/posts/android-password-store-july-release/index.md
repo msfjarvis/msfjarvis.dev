@@ -65,7 +65,7 @@ We've been aggressively refactoring the codebase to use modern APIs like [Activi
 
 Right off the bat, you will notice a brand new icon for Password Store. This was created for us by [Radek Błędowski](https://twitter.com/RKBDI), go check him out!
 
-![New icon](aps_banner.webp)
+{{<figure src="aps_banner.webp" alt="New icon" >}}
 
 To complement the new icon, we've also updated our color scheme to better suit this new branding.
 
