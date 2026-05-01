@@ -64,6 +64,8 @@ collections:
     create: true
     path: "{{slug}}"
     slug: "week-{{week}}-{{year}}"
+    media_folder: "public/weeknotes/{{slug}}"
+    public_folder: "/weeknotes/{{slug}}"
     editor:
       preview: true
     fields:
@@ -74,4 +76,4 @@ collections:
       - { label: Tags, name: tags, widget: list, required: false }
       - { label: Draft, name: draft, widget: boolean, required: false }
       - { label: Deleted, name: deleted, widget: boolean, required: false }
-      - { label: Body, name: body, widget: markdown }
+      - { label: Body, name: body, widget: markdown, editor_components: [code-block, image, figure] }

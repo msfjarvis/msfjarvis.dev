@@ -35,7 +35,7 @@ function registerFigureComponent() {
     pattern: FIGURE_MDX_PATTERN,
     fromBlock(match) {
       const attrs = parseAttrs(match[1] ?? '');
-      if (!attrs.src) return false;
+      if (!attrs.src) return null;
       return { src: attrs.src, alt: attrs.alt ?? '', title: attrs.title ?? '' };
     },
     toBlock(data) {
