@@ -8,9 +8,11 @@ const posts = await getCollection('posts', (p) => !p.data.deleted && !p.data.dra
 const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && !w.data.draft);
 const notes = await getCollection('notes', (n) => !n.data.deleted);
 
-// Interleave posts and weeknotes, newest first, take 5
-const recent = [...posts.map(p => ({ ...p, urlBase: '/posts' })),
-                ...weeknotes.map(w => ({ ...w, urlBase: '/weeknotes' }))]
+const recentPosts = posts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+
+const recentNotes = notes
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 5);
 
@@ -44,15 +46,30 @@ const weeknoteCount = weeknotes.length;
   </nav>
 
   <section class="recent">
-    <h2 class="section-heading">Recent</h2>
-    <ul>
-      {recent.map((entry) => (
-        <li class="post-row">
-          <a href={`${entry.urlBase}/${entry.id}/`} class="post-title">{entry.data.title}</a>
-          <span class="post-date"><FormattedDate date={entry.data.date} /></span>
-        </li>
-      ))}
-    </ul>
+    <div class="recent-grid">
+      <div class="recent-col">
+        <h2 class="section-heading"><a href="/posts">Posts</a></h2>
+        <ul>
+          {recentPosts.map((post) => (
+            <li class="post-row">
+              <a href={`/posts/${post.id}/`} class="post-title">{post.data.title}</a>
+              <span class="post-date"><FormattedDate date={post.data.date} /></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="recent-col">
+        <h2 class="section-heading"><a href="/notes">Notes</a></h2>
+        <ul>
+          {recentNotes.map((note) => (
+            <li class="post-row">
+              <a href={`/notes/${note.id}/`} class="post-title">{note.data.title}</a>
+              <span class="post-date"><FormattedDate date={note.data.date} /></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   </section>
 </BaseLayout>
 
@@ -83,6 +100,14 @@ const weeknoteCount = weeknotes.length;
   }
   .tile-meta { font-size: 0.75rem; color: var(--text-3); }
 
+  .recent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 540px) {
+    .recent-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
   .section-heading {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -92,6 +117,11 @@ const weeknoteCount = weeknotes.length;
     color: var(--text-3);
     margin: 0 0 0.75rem;
   }
+  .section-heading a {
+    color: inherit;
+    border-bottom: none;
+  }
+  .section-heading a:hover { color: var(--accent); }
   ul { list-style: none; padding: 0; margin: 0; }
   .post-row {
     display: flex;
@@ -107,10 +137,6 @@ const weeknoteCount = weeknotes.length;
     font-size: 0.875rem;
     color: var(--accent);
     border-bottom: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
   }
   .post-title:hover { border-bottom: none; color: var(--text); }
   .post-date {
