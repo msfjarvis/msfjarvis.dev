@@ -148,8 +148,12 @@ Available at `/admin`. Serves as a GUI for editing content backed by GitHub.
 The `index.astro` replaces the CDN `<script src="https://unpkg.com/…">` with a bundled NPM import so Astro handles versioning.
 
 **Adaptations required from the Hugo version:**
-- The `figure` editor component uses Hugo shortcode syntax (`{{< figure ... >}}`). In Astro, figures are standard Markdown/MDX — the component either needs removing or rewriting to emit plain `![alt](src)` or an MDX `<Figure>` component.
-- The tombstone hook sets Hugo-specific fields (`build.render = 'never'`, `sitemap.disable = true`). Astro uses a `draft: true` frontmatter field to suppress content. The `normalizeBlogEntryForSave` function must be rewritten to set/unset `draft` instead.
+
+**Figure component:** The Hugo shortcode `{{< figure src="..." alt="..." >}}` is replaced by an MDX `<Figure>` component. The Sveltia editor component is rewritten to emit `<Figure src="./image.jpg" alt="..." title="..." />` syntax.
+
+Images are stored in the post bundle alongside `index.mdx` (e.g. `src/content/posts/my-post/image.jpg`). Astro's `<Image>` optimization pipeline must **not** be used for these — it rewrites filenames to pseudorandom hashes, breaking stable URLs. The `<Figure>` component renders a plain `<img>` tag directly, bypassing the pipeline. Image filenames remain exactly as uploaded via the CMS.
+
+**Tombstone hook:** The `deleted` frontmatter field is preserved with the same semantics — it marks a post as intentionally removed, which signals the WebMentions service. The Hugo-specific side effects (`build.render = 'never'`, `sitemap.disable = true`) are replaced with Astro equivalents: a `deleted: true` post is excluded from all collection queries, excluded from the sitemap, and its route returns HTTP 410 Gone. The `normalizeBlogEntryForSave` function is rewritten to set/clear only the `deleted` field.
 
 **Collections to define in `config.yml`:**
 
