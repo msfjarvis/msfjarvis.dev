@@ -7,6 +7,7 @@ const postSchema = z.object({
   lastmod: z.coerce.date().optional(),
   summary: z.string().optional(),
   tags: z.array(z.string()).optional().default([]),
+  aliases: z.array(z.string()).optional().default([]),
   draft: z.boolean().optional().default(false),
   deleted: z.boolean().optional().default(false),
 });
@@ -22,6 +23,7 @@ const notes = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     tags: z.array(z.string()).optional().default([]),
+    aliases: z.array(z.string()).optional().default([]),
     deleted: z.boolean().optional().default(false),
   }),
 });

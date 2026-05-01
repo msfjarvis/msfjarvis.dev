@@ -2,41 +2,23 @@
 import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 
-const CUTOFF = new Date('2026-05-01');
-
 export async function getStaticPaths() {
   const posts = await getCollection('posts', (p) => !p.data.deleted && !p.data.draft);
-  const weeknotes = await getCollection('weeknotes');
-
-  const postPaths = posts.map((post) => ({
+  return posts.map((post) => ({
     params: { slug: post.id },
-    props: { type: 'post' as const, entry: post, to: '' },
+    props: { entry: post },
   }));
-
-  const redirectPaths = weeknotes
-    .filter((w) => w.data.date < CUTOFF)
-    .map((w) => ({
-      params: { slug: `weeknotes-${w.id}` },
-      props: { type: 'redirect' as const, entry: null, to: `/weeknotes/${w.id}/` },
-    }));
-
-  return [...postPaths, ...redirectPaths];
 }
 
-const { type, entry, to } = Astro.props;
-
-if (type === 'redirect') {
-  return Astro.redirect(to, 301);
-}
-
-const { Content } = await render(entry!);
+const { entry } = Astro.props;
+const { Content } = await render(entry);
 ---
 
 <PostLayout
-  title={entry!.data.title}
-  description={entry!.data.summary}
-  date={entry!.data.date}
-  lastmod={entry!.data.lastmod}
+  title={entry.data.title}
+  description={entry.data.summary}
+  date={entry.data.date}
+  lastmod={entry.data.lastmod}
 >
   <Content />
 </PostLayout>

@@ -96,6 +96,12 @@ function buildFrontmatter(data, schemaType) {
     out.tags = data.tags;
   }
 
+  // aliases — Hugo paths that should 301 → this page.
+  // Normalise each to have a leading slash (Hugo allows relative aliases).
+  if (Array.isArray(data.aliases) && data.aliases.length > 0) {
+    out.aliases = data.aliases.map(a => '/' + String(a).replace(/^\//, ''));
+  }
+
   // draft / deleted — only write when true to keep frontmatter clean
   if (schemaType !== 'note') {
     if (data.draft === true) out.draft = true;
@@ -136,6 +142,13 @@ function parseShortcodeAttrs(attrStr) {
 function transformContent(body, slug, collection) {
   const usedComponents = new Set();
 
+  // ---- details shortcode → native HTML <details> ----
+  // {{<details summary="text" >}} ... {{</details>}}
+  body = body.replace(/\{\{<\s*details\s+summary="([^"]+)"\s*>\}\}/g, (_, summary) => {
+    return `<details>\n<summary>${summary}</summary>`;
+  });
+  body = body.replace(/\{\{<\/details>\}\}/g, '</details>');
+
   // ---- gfycat: defunct service, remove ----
   body = body.replace(/\{\{<\s*gfycat\s+\S+\s*>\}\}/g, '');
 
@@ -168,15 +181,70 @@ function transformContent(body, slug, collection) {
       ? src
       : `/${collection}/${slug}/${src}`;
 
-    const parts = [`src="${publicSrc}"`];
-    if (alt) parts.push(`alt="${alt}"`);
-    if (title) parts.push(`title="${title}"`);
+    // Escape double quotes in attribute values for JSX — without this,
+    // alt text containing `"quoted words"` breaks the MDX parser.
+    const esc = (s) => s.replace(/"/g, '&quot;');
+
+    const parts = [`src="${esc(publicSrc)}"`];
+    if (alt) parts.push(`alt="${esc(alt)}"`);
+    if (title) parts.push(`title="${esc(title)}"`);
 
     usedComponents.add('Figure');
     return `<Figure ${parts.join(' ')} />`;
   });
 
+  // ---- Absolutise relative Markdown image paths ----
+  // In .mdx files Vite tries to import relative paths as modules, which fails
+  // since images live in public/. In .md files a relative path works at
+  // runtime (the page is served from /collection/slug/) but absolute paths
+  // are safer for RSS and other non-page contexts.
+  const imageExtRe = /\.(?:webp|jpe?g|png|gif|svg|avif)$/i;
+
+  // Inline images: ![alt](relative.ext) or ![alt](relative.ext "title")
+  body = body.replace(
+    /!\[([^\]]*)\]\(([^)]+)\)/g,
+    (match, alt, target) => {
+      const [rawSrc, ...titleParts] = target.split(/\s+(?=")/);
+      const title = titleParts.join(' ');
+      if (rawSrc.startsWith('/') || rawSrc.startsWith('http') || rawSrc.startsWith('#')) {
+        return match; // already absolute or anchor
+      }
+      if (!imageExtRe.test(rawSrc)) return match; // not an image
+      const absSrc = `/${collection}/${slug}/${rawSrc}`;
+      return title ? `![${alt}](${absSrc} ${title})` : `![${alt}](${absSrc})`;
+    }
+  );
+
+  // Reference-style image definitions: [ref]: relative.ext
+  body = body.replace(
+    /^(\[[^\]]+\]):\s*([^\s]+)(.*)/gm,
+    (match, ref, target, rest) => {
+      if (target.startsWith('/') || target.startsWith('http') || target.startsWith('#')) {
+        return match;
+      }
+      if (!imageExtRe.test(target)) return match;
+      return `${ref}: /${collection}/${slug}/${target}${rest}`;
+    }
+  );
+
   return { body, usedComponents };
+}
+
+/**
+ * Escape prose content for MDX: replace bare `<>` (empty JSX fragments)
+ * and any `<` not followed by a letter, `/`, `!`, or `?` (i.e. not a real tag)
+ * with HTML entities so the MDX parser doesn't treat them as JSX.
+ * Only called for files that will be written as `.mdx`.
+ */
+function escapeMdxProse(body) {
+  // Convert HTML comments to JSX comments — <!-- --> is invalid in MDX
+  body = body.replace(/<!--([\/\s\S]*?)-->/g, (_, content) => `{/*${content}*/}`);
+  // Replace bare <> with HTML entities
+  body = body.replace(/<>/g, '&lt;&gt;');
+  // Replace < that isn't the start of a real tag (letter, /, !, ?) with &lt;
+  // This catches things like "x < y", "n < 5", etc.
+  body = body.replace(/<(?![a-zA-Z/!?])/g, '&lt;');
+  return body;
 }
 
 /**
@@ -227,11 +295,12 @@ function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir
 
   const frontmatter = buildFrontmatter(data, collection);
   const needsMdx = usedComponents.size > 0;
+  const processedBody = needsMdx ? escapeMdxProse(transformedBody) : transformedBody;
   const ext = needsMdx ? '.mdx' : '.md';
 
   let output = frontmatter + '\n';
   if (needsMdx) {
-    output += '\n' + buildImports(usedComponents) + '\n\n' + transformedBody;
+    output += '\n' + buildImports(usedComponents) + '\n\n' + processedBody;
   } else {
     output += '\n' + transformedBody;
   }

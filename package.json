@@ -7,10 +7,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run generate-redirects && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "migrate": "node scripts/migrate-hugo.mjs"
+    "migrate": "node scripts/migrate-hugo.mjs",
+    "generate-redirects": "node scripts/generate-redirects.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
