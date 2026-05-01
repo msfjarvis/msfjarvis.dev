@@ -149,9 +149,20 @@ The `index.astro` replaces the CDN `<script src="https://unpkg.com/…">` with a
 
 **Adaptations required from the Hugo version:**
 
-**Figure component:** The Hugo shortcode `{{< figure src="..." alt="..." >}}` is replaced by an MDX `<Figure>` component. The Sveltia editor component is rewritten to emit `<Figure src="./image.jpg" alt="..." title="..." />` syntax.
+**Figure component:** The Hugo shortcode `{{< figure src="..." alt="..." >}}` is replaced by an MDX `<Figure>` component. The Sveltia editor component is rewritten to emit `<Figure src="/posts/[slug]/image.jpg" alt="..." title="..." />` syntax.
 
-Images are stored in the post bundle alongside `index.mdx` (e.g. `src/content/posts/my-post/image.jpg`). Astro's `<Image>` optimization pipeline must **not** be used for these — it rewrites filenames to pseudorandom hashes, breaking stable URLs. The `<Figure>` component renders a plain `<img>` tag directly, bypassing the pipeline. Image filenames remain exactly as uploaded via the CMS.
+Images are stored in `public/posts/[slug]/` (and equivalently `public/notes/[slug]/`, `public/weeknotes/[slug]/`), not in the content bundle. This gives every image two simultaneous URLs:
+- **Stable public URL** — e.g. `/posts/my-post/image.jpg` — the file served directly from `public/`, used by the CMS for preview
+- **Optimized URL** — `/_astro/image.<hash>.webp` — what Astro's `<Image>` component emits in the rendered HTML
+
+Astro's `<Image>` accepts a public path string and runs it through the optimization pipeline while leaving the original file in `public/` untouched. The `<Figure>` component uses `<Image>` internally.
+
+The Sveltia CMS config is updated accordingly:
+```yaml
+media_folder: "public/posts/{{slug}}"
+public_folder: "/posts/{{slug}}"
+```
+(mirrored for notes and weeknotes collections)
 
 **Tombstone hook:** The `deleted` frontmatter field is preserved with the same semantics — it marks a post as intentionally removed, which signals the WebMentions service. The Hugo-specific side effects (`build.render = 'never'`, `sitemap.disable = true`) are replaced with Astro equivalents: a `deleted: true` post is excluded from all collection queries, excluded from the sitemap, and its route returns HTTP 410 Gone. The `normalizeBlogEntryForSave` function is rewritten to set/clear only the `deleted` field.
 
