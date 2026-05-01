@@ -1,20 +1,40 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
 
-const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
-	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-		}),
+const posts = defineCollection({
+  loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    lastmod: z.coerce.date().optional(),
+    summary: z.string().optional(),
+    tags: z.array(z.string()).optional().default([]),
+    draft: z.boolean().optional().default(false),
+    deleted: z.boolean().optional().default(false),
+  }),
 });
 
-export const collections = { blog };
+const notes = defineCollection({
+  loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    tags: z.array(z.string()).optional().default([]),
+    deleted: z.boolean().optional().default(false),
+  }),
+});
+
+const weeknotes = defineCollection({
+  loader: glob({ base: './src/content/weeknotes', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    lastmod: z.coerce.date().optional(),
+    summary: z.string().optional(),
+    tags: z.array(z.string()).optional().default([]),
+    draft: z.boolean().optional().default(false),
+    deleted: z.boolean().optional().default(false),
+  }),
+});
+
+export const collections = { posts, notes, weeknotes };
