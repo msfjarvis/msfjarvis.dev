@@ -103,16 +103,20 @@ Existing weeknotes in the Hugo site live at `/posts/weeknotes-week-N-YYYY/`. The
 **Old:** `/posts/weeknotes-week-1-2026`  
 **New:** `/weeknotes/week-1-2026`
 
-Redirects are handled by a dynamic Astro route at `src/pages/posts/[slug].astro`. At build time, `getStaticPaths()` queries the `weeknotes` collection and returns one path per entry, each emitting an HTTP 301 redirect response to the new canonical URL.
+Redirects are handled by a dynamic Astro route at `src/pages/posts/[slug].astro`. At build time, `getStaticPaths()` queries the `weeknotes` collection, filters to entries published **before 2026-05-01** (the migration cutoff date), and returns one path per entry emitting an HTTP 301 to the new canonical URL. Weeknotes published on or after 2026-05-01 only exist at `/weeknotes/week-N-YYYY/` and have no old URL to redirect from.
 
 ```ts
 // src/pages/posts/[slug].astro
+const CUTOFF = new Date('2026-05-01');
+
 export async function getStaticPaths() {
   const weeknotes = await getCollection('weeknotes');
-  return weeknotes.map((entry) => ({
-    params: { slug: `weeknotes-${entry.id}` },  // e.g. weeknotes-week-1-2026
-    props: { redirect: `/weeknotes/${entry.id}/` },
-  }));
+  return weeknotes
+    .filter((entry) => entry.data.date < CUTOFF)
+    .map((entry) => ({
+      params: { slug: `weeknotes-${entry.id}` },  // e.g. weeknotes-week-1-2026
+      props: { redirect: `/weeknotes/${entry.id}/` },
+    }));
 }
 ```
 
