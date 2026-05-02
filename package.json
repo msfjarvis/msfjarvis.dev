@@ -1,5 +1,5 @@
 {
-  "name": "msfjarvis.dev",
+  "name": "msfjarvis-dev",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -12,9 +12,11 @@
     "preview": "astro preview",
     "astro": "astro",
     "migrate": "node scripts/migrate-hugo.mjs",
-    "generate-redirects": "node scripts/generate-redirects.mjs"
+    "generate-redirects": "node scripts/generate-redirects.mjs",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.3.0",
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
@@ -27,6 +29,10 @@
     "@iarna/toml": "^2.2.5",
     "fs-extra": "^11.3.4",
     "js-yaml": "^4.1.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.87.0"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }
