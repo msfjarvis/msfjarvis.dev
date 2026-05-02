@@ -3,8 +3,10 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
 export async function GET(context: APIContext) {
-  const posts = await getCollection('posts', (p) => !p.data.deleted && !p.data.draft);
+  const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
   posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({

@@ -4,9 +4,10 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
+  const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
   const [posts, weeknotes] = await Promise.all([
-    getCollection('posts',     (p) => !p.data.deleted && !p.data.draft),
-    getCollection('weeknotes', (w) => !w.data.deleted && !w.data.draft),
+    getCollection('posts',     (p) => !p.data.deleted && (showDrafts || !p.data.draft)),
+    getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft)),
   ]);
 
   const catMap = new Map<string, { title: string; date: Date; url: string }[]>();

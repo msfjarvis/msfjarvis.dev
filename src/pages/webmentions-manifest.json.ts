@@ -2,8 +2,10 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_URL } from '../consts';
 
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
 export async function GET(_context: APIContext) {
-  const posts = await getCollection('posts', (p) => !p.data.deleted && !p.data.draft);
+  const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
   const notes = await getCollection('notes', (n) => !n.data.deleted);
 
   const postEntries = posts.map((p) => ({

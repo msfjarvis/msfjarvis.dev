@@ -4,8 +4,10 @@ import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const posts = await getCollection('posts', (p) => !p.data.deleted && !p.data.draft);
-const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && !w.data.draft);
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
+const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
+const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
 const notes = await getCollection('notes', (n) => !n.data.deleted);
 
 const recentPosts = posts

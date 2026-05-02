@@ -3,8 +3,10 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_TITLE } from '../../consts';
 
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
 export async function GET(context: APIContext) {
-  const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && !w.data.draft);
+  const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
   weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
