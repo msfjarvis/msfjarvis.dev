@@ -19,7 +19,7 @@ const { src, alt = '', title } = Astro.props;
 
 <figure>
   {typeof src === 'object' ? (
-    <Picture src={src} alt={alt} formats={['avif', 'webp']} />
+    <Picture src={src} alt={alt} formats={['avif', 'webp']} fallbackFormat="webp" />
   ) : (
     <img src={src} alt={alt} />
   )}
