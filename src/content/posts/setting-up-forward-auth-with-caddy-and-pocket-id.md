@@ -1,0 +1,266 @@
+---
+title: Setting up forward auth with Caddy and Pocket ID
+date: '2026-03-21T15:33:00+05:30'
+summary: Using Pocket ID to secure services being proxied by Caddy
+tags:
+  - caddy
+  - pocket-id
+  - forward auth
+  - security
+  - reverse proxy
+  - nixos
+categories:
+  - devops
+  - homelab
+---
+
+As I mentioned in my [last weeknote](/posts/weeknotes-week-11-2026/), I set up [Calibre-Web](https://github.com/janeczku/calibre-web) last week which necessitated the use of a forward authentication setup to work with my existing SSO provider. It was rather non-trivial to get it all to work, so I'm documenting it here in hopes of helping others.
+
+## Requirements
+
+- [Caddy](https://caddyserver.com/) with the [caddy-security](https://github.com/greenpau/caddy-security/) plugin
+- [Pocket ID](https://pocket-id.org/)
+- Patience.
+
+## Pocket ID and caddy-security setup
+
+Follow the Caddy guide [here](https://pocket-id.org/docs/guides/proxy-services) to set up an OIDC client and the caddy-security configuration in your Caddyfile. This gets you 90% of the way, but due to recent regressions in caddy-security you'll need to make some tweaks.
+
+First of all, in the `oauth identity provider` block, add this line:
+
+```plain
+trust login redirect uri domain exact ${app.domain} path prefix /
+```
+
+Replace `${app.domain}` with the domain to the service you are securing.
+
+The guide also assumes you will re-use the same caddy-security authentication portal for all your services which is _fine_, but I prefer to have each OIDC client be isolated on a service level instead of just having a generic caddy-security one. I'll explain the basic changes first then dive into the NixOS-specific stuff I did for my own deployment.
+
+```plain
+security {
+  # Rename the provider from generic to the service name
+  oauth identity provider calibreweb {
+    delay_start 3
+    # Give this its own realm
+    realm calibreweb
+    # This is the OIDC provider type, make sure this stays `generic`
+    driver generic
+    # Service-scoped secrets from the Pocket ID OIDC client setup
+    client_id {$CALIBRE_WEB_POCKET_ID_CLIENT_ID}
+    client_secret {$CALIBRE_WEB_POCKET_ID_CLIENT_SECRET}
+    scopes openid email profile
+    base_auth_url https://auth.msfjarvis.dev
+    metadata_url https://auth.msfjarvis.dev/.well-known/openid-configuration
+  }
+
+   # Rename the authentication portal as well
+  authentication portal calibreweb_portal {
+    crypto default token lifetime 3600
+    # Use the new name for the identity provider defined above
+    enable identity provider calibreweb
+    trust login redirect uri domain exact books.msfjarvis.dev path prefix /
+    cookie insecure off
+    cookie domain books.msfjarvis.dev
+    transform user {
+      # The new realm name
+      match realm calibreweb
+      action add role user
+    }
+  }
+
+  # Per-service configuration
+  authorization policy calibreweb_policy {
+    set auth url /caddy-security/oauth2/calibreweb
+    allow roles user
+    inject headers with claims
+  }
+}
+```
+
+With this setup you should be able to then copy-paste the code block above for a new service and just replace the name and URLs. Do note that the `security` block is globally unique, and only the contents inside it are meant to be duplicated.
+
+### Sidebar: NixOS version
+
+> People not using NixOS can ignore this section
+
+On NixOS I already have a [Caddy module](https://github.com/msfjarvis/dotfiles/blob/d495c2afcc564b126a0ed1e89bbd8a2f2e3ff224/modules/nixos/caddy/default.nix) that applies a set of defaults, so I retrofitted generating the security block into it. I added an option to let individual services configure the inputs via module options:
+
+```nix
+pocketIdApplications = mkOption {
+  type = types.attrsOf (
+    types.submodule {
+      options = {
+        domain = mkOption {
+          type = types.str;
+          description = "Domain of the proxied service";
+        };
+        clientIdEnvVar = mkOption {
+          type = types.str;
+          description = "Environment variable name containing the client ID";
+        };
+        clientSecretEnvVar = mkOption {
+          type = types.str;
+          description = "Environment variable name containing the client secret";
+        };
+      };
+    }
+  );
+  default = { };
+  description = "Applications to protect with Pocket ID OIDC via caddy-security";
+};
+```
+
+Then in the `services.caddy.globalConfig` option, you loop over the value of this to generate the config we wrote above.
+
+```nix
+${lib.optionalString (config.services.caddy.pocketIdApplications != { }) ''
+  security {
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: app: ''
+        oauth identity provider ${name} {
+          delay_start 3
+          realm ${name}
+          driver generic
+          client_id {${app.clientIdEnvVar}}
+          client_secret {${app.clientSecretEnvVar}}
+          scopes openid email profile
+          base_auth_url https://auth.msfjarvis.dev
+          metadata_url https://auth.msfjarvis.dev/.well-known/openid-configuration
+        }
+
+        authentication portal ${name}_portal {
+          crypto default token lifetime 3600
+          enable identity provider ${name}
+          trust login redirect uri domain exact ${app.domain} path prefix /
+          cookie insecure off
+          cookie domain ${app.domain}
+          transform user {
+            match realm ${name}
+            action add role user
+          }
+        }
+
+        authorization policy ${name}_policy {
+          set auth url /caddy-security/oauth2/${name}
+          allow roles user
+          inject headers with claims
+        }
+      '') config.services.caddy.pocketIdApplications
+    )}
+  }
+''}
+```
+
+With all this in place, you can then configure this alongside (in my case) Calibre-Web and have all the stuff above get generated without having to think too much about it:
+
+```nix
+sops.secrets.calibre-web-caddy-env = {
+  sopsFile = lib.snowfall.fs.get-file "secrets/calibre-web.env";
+  format = "dotenv";
+  owner = config.services.caddy.user;
+  restartUnits = [ "caddy.service" ];
+};
+services.caddy.pocketIdApplications."calibreweb" = {
+  domain = cfg.domain;
+  clientIdEnvVar = "$CALIBRE_WEB_POCKET_ID_CLIENT_ID";
+  clientSecretEnvVar = "$CALIBRE_WEB_POCKET_ID_CLIENT_SECRET";
+};
+systemd.services.caddy.serviceConfig.EnvironmentFile = [
+  config.sops.secrets.calibre-web-caddy-env.path
+];
+```
+
+## Caddy routing setup
+
+Usually just throwing a `reverse_proxy localhost:<port>` gets you all the way with Caddy, but Calibre-Web specifically requires some extra configuration that serves for a nice demonstration. We need to treat different paths in different ways, so we'll use the Caddy [`handle` directive](https://caddyserver.com/docs/caddyfile/directives/handle) to create mutually exclusive routing paths for them.
+
+`caddy-security` adds a  `/caddy-security` path in your sites that should always require authentication, so we simply route it to our portal without any changes.
+
+```plain
+handle /caddy-security/* {
+  route {
+    authenticate with calibreweb_portal
+  }
+}
+```
+
+Caddy lets you label a set of paths or  with the `@name` syntax, this is just here for  convenience. Calibre Web exposes OPDS and Kobo-specific  endpoints for use with your devices that likely can't do OIDC, so we allow those to bypass the authentication requirements. The transport buffer size was taken from https://github.com/janeczku/calibre-web/issues/1891 after I faced the same sync issues.
+
+```plain
+@integrations {
+  path /opds /opds/* /kobo /kobo/*
+}
+handle @integrations {
+  reverse_proxy localhost:8080 {
+    header_up X-Scheme https
+    transport http {
+      read_buffer 1024k
+      write_buffer 1024k
+    }
+  }
+}
+```
+
+This is the catch-all route for everything else that doesn't need special treatment. This only differs from the one above in requiring _authorization_.
+
+```plain
+handle {
+  route {
+    authorize with calibreweb_policy
+    reverse_proxy localhost:8080 {
+      header_up X-Scheme https
+      transport http {
+        read_buffer 1024k
+        write_buffer 1024k
+      }
+    }
+  }
+}
+```
+
+The full configuration then becomes this:
+
+```plain
+handle /caddy-security/* {
+  route {
+    authenticate with calibreweb_portal
+  }
+}
+@integrations {
+  path /opds /opds/* /kobo /kobo/*
+}
+handle @integrations {
+  reverse_proxy localhost:8080 {
+    header_up X-Scheme https
+    transport http {
+      read_buffer 1024k
+      write_buffer 1024k
+    }
+  }
+}
+handle {
+  route {
+    authorize with calibreweb_policy
+    reverse_proxy localhost:8080 {
+      header_up X-Scheme https
+      transport http {
+        read_buffer 1024k
+        write_buffer 1024k
+      }
+    }
+  }
+}
+```
+
+### Sidebar: Authentication vs Authorization
+
+This is something that took too long for me to hammer into my brain, so I'll reproduce it here as well for others who may have had the same question but didn't feel confident asking it.
+
+- Authentication: Verifying your identity. This answers the question of who the user is.
+- Authorization: Verifying your access. This answers the question of whether the previously identified user should be allowed through to a specific service.
+
+We require _authentication_ for the `caddy-security` portal because you should be able to at least see that you have an account. The rest of the service requires _authorization_ so only people who should be allowed access to the Calibre-Web instance are able to log in.
+
+<hr />
+
+And that's the long and short of it! There was a lot of one-time effort in getting this working and I had to dig through a lot of GitHub issues to find bits and pieces that had to be tweaked, but I'm quite happy with how this all came together. I now have Calibre-Web syncing to my Kobo eReader, and no longer have to struggle with a split desktop library back at home and here in Bengaluru.

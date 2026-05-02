@@ -1,0 +1,12 @@
+---
+title: 'TIL: Customizing the KOReader home page'
+date: '2026-04-24T20:00:00+05:30'
+summary: A thousand thanks to Yash who will now be the only reason I really use KOReader
+tags:
+  - reading
+  - koreader
+---
+
+I've complained many a times about how I find [KOReader](https://koreader.rocks) to be incredibly feature-full but quite difficult on the eyes, which resulted in me only using it to access [Miniflux](https://miniflux.app) on occasion and sticking to the regular Kobo software for reading my books. I was grumbling about that to [Yash](https://yashgarg.dev]) today who told me of the [SimpleUI](https://github.com/doctorhetfield-cmd/simpleui.koplugin) plugin and the absolute smorgasbord of [incredibly beautiful setups](https://www.reddit.com/r/koreader/comments/1sseipx/setup_mega_thread/) people have created with it.
+
+I've installed the plugin today, I will be spending the weekend being entirely too enamored by it and [ricing](https://itsfoss.community/t/what-the-hell-is-the-definition-of-ricing-in-linux/14160) it to extreme levels.
