@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const [posts, notes, weeknotes] = await Promise.all([
+    getCollection('posts',     (p) => !p.data.deleted && !p.data.draft),
+    getCollection('notes',     (n) => !n.data.deleted),
+    getCollection('weeknotes', (w) => !w.data.deleted && !w.data.draft),
+  ]);
+
+  // Build a map of tag → entries
+  const tagMap = new Map<string, { title: string; date: Date; url: string }[]>();
+
+  const addEntries = (entries: typeof posts, urlBase: string) => {
+    for (const entry of entries) {
+      for (const tag of entry.data.tags) {
+        if (!tagMap.has(tag)) tagMap.set(tag, []);
+        tagMap.get(tag)!.push({
+          title: entry.data.title,
+          date: entry.data.date,
+          url: `${urlBase}/${entry.id}/`,
+        });
+      }
+    }
+  };
+
+  addEntries(posts,     '/posts');
+  addEntries(notes,     '/notes');
+  addEntries(weeknotes, '/weeknotes');
+
+  return [...tagMap.entries()].map(([tag, entries]) => ({
+    params: { tag },
+    props: {
+      tag,
+      entries: entries.sort((a, b) => b.date.getTime() - a.date.getTime()),
+    },
+  }));
+}
+
+const { tag, entries } = Astro.props;
+---
+
+<BaseLayout title={`${tag} — Tags`} description={`Posts tagged ${tag}`}>
+  <h1>{tag}</h1>
+  <p class="count">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
+  <ul>
+    {entries.map(({ title, date, url }) => (
+      <li class="entry-row">
+        <a href={url}>{title}</a>
+        <span class="date"><FormattedDate date={date} /></span>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  h1 { margin-top: 0; margin-bottom: 0.25rem; }
+  .count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+    margin: 0 0 1.5rem;
+  }
+  ul { list-style: none; padding: 0; margin: 0; }
+  .entry-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 0.75rem;
+  }
+  .entry-row:last-child { border-bottom: none; }
+  .entry-row a {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    border-bottom: none;
+  }
+  .entry-row a:hover { color: var(--text); }
+  .date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+    flex-shrink: 0;
+  }
+</style>

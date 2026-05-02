@@ -96,6 +96,10 @@ function buildFrontmatter(data, schemaType) {
     out.tags = data.tags;
   }
 
+  if (schemaType !== 'note' && Array.isArray(data.categories) && data.categories.length > 0) {
+    out.categories = data.categories;
+  }
+
   // aliases — Hugo paths that should 301 → this page.
   // Normalise each to have a leading slash (Hugo allows relative aliases).
   if (Array.isArray(data.aliases) && data.aliases.length > 0) {
