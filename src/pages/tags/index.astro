@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { slugify } from '../../utils';
 
 const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
 
@@ -39,7 +40,7 @@ function tagSize(count: number): string {
   <div class="cloud" role="list">
     {tags.map(([tag, count]) => (
       <a
-        href={`/tags/${tag}/`}
+        href={`/tags/${slugify(tag)}/`}
         class="cloud-tag"
         style={`font-size: ${tagSize(count)}`}
         role="listitem"

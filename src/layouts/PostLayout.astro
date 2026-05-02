@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { slugify } from '../utils';
 
 interface Props {
   title: string;
@@ -44,7 +45,7 @@ const { title, description, date, lastmod, minutesRead, tags } = Astro.props;
             <ul class="tags">
               {tags.map(tag => (
                 <li class="tag p-category">
-                  <a href={`/tags/${tag}/`}>{tag}</a>
+                  <a href={`/tags/${slugify(tag)}/`}>{tag}</a>
                 </li>
               ))}
             </ul>

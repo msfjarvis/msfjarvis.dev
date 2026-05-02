@@ -5,6 +5,7 @@ const postSchema = z.object({
   title: z.string(),
   date: z.coerce.date(),
   lastmod: z.coerce.date().optional(),
+  slug: z.string().optional(),
   summary: z.string().optional(),
   tags: z.array(z.string()).optional().default([]),
   categories: z.array(z.string()).optional().default([]),
@@ -23,6 +24,7 @@ const notes = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
+    slug: z.string().optional(),
     tags: z.array(z.string()).optional().default([]),
     aliases: z.array(z.string()).optional().default([]),
     deleted: z.boolean().optional().default(false),

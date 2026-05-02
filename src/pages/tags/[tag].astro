@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { slugify } from '../../utils';
 
 export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
@@ -32,7 +33,7 @@ export async function getStaticPaths() {
   addEntries(weeknotes, '/weeknotes');
 
   return [...tagMap.entries()].map(([tag, entries]) => ({
-    params: { tag },
+    params: { tag: slugify(tag) },
     props: {
       tag,
       entries: entries.sort((a, b) => b.date.getTime() - a.date.getTime()),
