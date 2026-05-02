@@ -8,7 +8,7 @@ tags:
   - forward auth
   - security
   - reverse proxy
-  - nixos
+  - NixOS
 categories:
   - devops
   - homelab

@@ -5,10 +5,12 @@
  * to avoid broken links from behavorial differences between the two.
  */
 export function slugify(str: string): string {
+  // Removed toLowerCase() because capitalization is important for certain names,
+  // and web servers take care of ignoring capitalization when serving the site.
+  // .toLowerCase()
   return str
-    .toLowerCase()
-    .replace(/\s+/g, '-')         // spaces → hyphens
-    .replace(/[^a-z0-9\-]/g, '-') // non-alphanumeric (except hyphens) → hyphens
-    .replace(/-{2,}/g, '-')       // collapse consecutive hyphens
-    .replace(/^-|-$/g, '');       // trim leading/trailing hyphens
+    .replace(/\s+/g, "-") // spaces → hyphens
+    .replace(/[^A-Za-z0-9\-]/g, "-") // non-alphanumeric (except hyphens) → hyphens
+    .replace(/-{2,}/g, "-") // collapse consecutive hyphens
+    .replace(/^-|-$/g, ""); // trim leading/trailing hyphens
 }

@@ -4,7 +4,7 @@ date: '2025-11-03T16:32:00+05:30'
 summary: An instance of LLMs seemingly not being able to utilize their context window effectively
 tags:
   - LLMs
-  - AI
+  - ai
 ---
 
 > I wish I had the session transcript to share for this but OpenCode doesn't show my old session anymore so I can't share it.
