@@ -7,26 +7,16 @@
   ],
   "packageRules": [
     {
-      "packageNames": ["gohugoio/hugo"],
-      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)",
-    },
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update Hugo version in Actions workflows",
-      "fileMatch": [".yml$", ".toml$"],
-      "matchStrings": [
-        "hugo-version: '(?<currentValue>.*?)'",
-        "HUGO_VERSION = \"(?<currentValue>.*?)\"",
-      ],
-      "depNameTemplate": "gohugoio/hugo",
-      "datasourceTemplate": "github-releases",
-    },
-    {
-      "customType": "regex",
       "description": "Update Sveltia CMS",
-      "fileMatch": ["static/admin/index.html"],
+      "fileMatch": ["src/pages/admin/index.astro"],
       "matchStrings": [
         "\/@sveltia/cms@(?<currentValue>.*?)\/dist",
       ],
