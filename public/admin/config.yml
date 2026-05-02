@@ -1,7 +1,8 @@
 # yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
 backend:
   name: github
-  repo: msfjarvis/site-2
+  repo: msfjarvis/msfjarvis.dev
+  base_url: https://sveltia-cms-auth.tiger-shark.workers.dev/
   skip_ci: true
 
 media_libraries:
