@@ -10,6 +10,11 @@ categories:
 ---
 
 import Figure from '../../components/Figure.astro';
+import daily_dashboard from '../../content/images/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/daily-dashboard.webp';
+import deck_performance from '../../content/images/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/deck-performance.webp';
+import locations from '../../content/images/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/locations.webp';
+import template from '../../content/images/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/template.webp';
+import weekly_dashboard from '../../content/images/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/weekly-dashboard.webp';
 
 [Marvel Snap](https://www.marvelsnap.com/) at its core is a card battler set in the Marvel Universe, where you play a deck of 12 cards and are trying to win
 at least 2 of 3 randomly generated locations on the board in 6 turns.
@@ -63,7 +68,7 @@ The YAML frontmatter is what I use to power my dashboards, and the Markdown unde
 
 Obsidian provides a very serviceable GUI to edit frontmatter fields which makes the job of filling it in pretty easy.
 
-<Figure src="/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/template.webp" alt="Obsidian's GUI for the frontmatter given above, of note is the date picker and the 'chips' pattern for entering list values for the locations field" />
+<Figure src={template} alt="Obsidian's GUI for the frontmatter given above, of note is the date picker and the 'chips' pattern for entering list values for the locations field" />
 
 I fed this page into the Obsidian [Templates](https://help.obsidian.md/plugins/templates) plugin which takes care of filling in the date and time automatically when I create a new page based on this template.
 
@@ -89,11 +94,11 @@ GROUP BY null
 
 It is pretty self-explanatory, but essentially this walks through every page in my Vault that has its `type` field set to `snap-game` and today's date, then collates the win/loss record from the other YAML frontmatter fields and makes a nice and simple table out of it.
 
-<Figure src="/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/daily-dashboard.webp" alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the day" />
+<Figure src={daily_dashboard} alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the day" />
 
 This can also be extended to cover the past week
 
-<Figure src="/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/weekly-dashboard.webp" alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the week" />
+<Figure src={weekly_dashboard} alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the week" />
 
 <details>
 <summary>DataView code</summary>
@@ -118,7 +123,7 @@ SORT date desc, time desc
 
 I can see what decks I played and how they performed relative to each other
 
-<Figure src="/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/deck-performance.webp" alt="A table showing the decks I played in each row and their respective game counts, win rate and net cubes statistics" />
+<Figure src={deck_performance} alt="A table showing the decks I played in each row and their respective game counts, win rate and net cubes statistics" />
 
 <details>
 <summary>DataView code</summary>
@@ -141,7 +146,7 @@ SORT length(rows) desc
 
 I can also see which locations favor me the most
 
-<Figure src="/posts/overengineering-an-obsidian-dashboard-to-get-better-at-marvel-snap/locations.webp" alt="A table of every location with its name, number of times I played there, my win rate and the net cubes" />
+<Figure src={locations} alt="A table of every location with its name, number of times I played there, my win rate and the net cubes" />
 
 <details>
 <summary>DataView code</summary>

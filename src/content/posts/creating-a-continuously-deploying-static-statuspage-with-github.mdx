@@ -10,6 +10,9 @@ categories:
 ---
 
 import Figure from '../../components/Figure.astro';
+import statuspage_cname_file from '../../content/images/posts/creating-a-continuously-deploying-static-statuspage-with-github/statuspage_cname_file.webp';
+import statuspage_cname_record from '../../content/images/posts/creating-a-continuously-deploying-static-statuspage-with-github/statuspage_cname_record.webp';
+import statuspage_github_repo from '../../content/images/posts/creating-a-continuously-deploying-static-statuspage-with-github/statuspage_github_repo.webp';
 
 A status page is essentially a web page that reports the health and uptime of an organization's various online services. [GitHub](https://www.githubstatus.com/) has one and so does [Cloudflare](https://www.cloudflarestatus.com/). Most of these are powered by an [Atlassian](https://www.atlassian.com/) product called [Statuspage](https://www.statuspage.io/) but it's not always the [cheapest solution](https://www.statuspage.io/pricing?tab=public).
 
@@ -21,15 +24,15 @@ For hobbyist projects without any real budget (like this site and the couple oth
 
 - First thing that you want to do is to setup the `CNAME` record that will let GitHub Pages service your status page to a subdomain of your website. Head to your domain registrar (Cloudflare for me) and add a CNAME record for `<your github username>.github.io`
 
-<Figure src="/posts/creating-a-continuously-deploying-static-statuspage-with-github/statuspage_cname_record.webp" alt="CNAME record for status.msfjarvis.dev at Cloudflare" />
+<Figure src={statuspage_cname_record} alt="CNAME record for status.msfjarvis.dev at Cloudflare" />
 
 - Next, create a GitHub repository that will hold the Actions workflow for generating your status page as well as the actual status page itself. This repo can be private, as the generated sites are always publicly available.
 
-<Figure src="/posts/creating-a-continuously-deploying-static-statuspage-with-github/statuspage_github_repo.webp" alt="GitHub repository for our status page" />
+<Figure src={statuspage_github_repo} alt="GitHub repository for our status page" />
 
 - Clone this empty repository. Now create a file with the name of `CNAME` and enter your custom domain into it. This lets GitHub Pages know where to redirect users if they ever access the site through your `.github.io` subdomain. Commit this file.
 
-<Figure src="/posts/creating-a-continuously-deploying-static-statuspage-with-github/statuspage_cname_file.webp" alt="CNAME file in repository" />
+<Figure src={statuspage_cname_file} alt="CNAME file in repository" />
 
 - A quick glance at the static_status README will inform you about the `config` file that it uses to configure itself, and status_hostname_list.txt which has a list of all services it needs to check. `config` is easy to understand and modify, so I'll skip it (you can diff [mine](https://github.com/msfjarvis/status.msfjarvis.dev/blob/master/config) with upstream and use the changes to educate yourself should the need arise). This part should be very straightforward, though I did encounter a problem where using `ping` as the detection mechanism caused sites to falsely report as down. Switching to `curl` resolved the issue.
 

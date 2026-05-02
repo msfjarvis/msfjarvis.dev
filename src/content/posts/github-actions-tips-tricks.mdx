@@ -12,6 +12,7 @@ categories:
 ---
 
 import Figure from '../../components/Figure.astro';
+import actions_tips_tricks_commit_hash from '../../content/images/posts/github-actions-tips-tricks/actions_tips_tricks_commit_hash.webp';
 
 GitHub Actions has grown at a rapid pace, and has become the CI platform of choice for most open source projects. The recent changes to Travis CI's pricing for open source is certainly bound to accelerate this even more.
 
@@ -138,7 +139,7 @@ Tags are moving qualifiers, and can be [force pushed at any moment](https://juli
 
 To get the commit hash for a specific tag, head to the Releases page of the repository, then click the short SHA1 hash below the tag name and copy the full hash from the URL.
 
-<Figure src="/posts/github-actions-tips-tricks/actions_tips_tricks_commit_hash.webp" alt="A tag along with its commit hash" />
+<Figure src={actions_tips_tricks_commit_hash} alt="A tag along with its commit hash" />
 
 > <sub>Here, the commit hash is feb985e. Ideally, you want to click that link and copy the full hash from the URL</sub>
 

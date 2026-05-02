@@ -10,6 +10,8 @@ categories:
 ---
 
 import Figure from '../../components/Figure.astro';
+import hugo_metadata_correct_meta from '../../content/images/posts/adding-social-metadata-to-your-hugo-sites/hugo_metadata_correct_meta.webp';
+import hugo_metadata_no_meta from '../../content/images/posts/adding-social-metadata-to-your-hugo-sites/hugo_metadata_no_meta.webp';
 
 Metadata is data (information) about data.
 
@@ -19,9 +21,9 @@ This metadata can be used by browsers (how to display content or reload page), s
 
 Here's how your website will look like on Twitter with and without metadata.
 
-<Figure src="/posts/adding-social-metadata-to-your-hugo-sites/hugo_metadata_no_meta.webp" alt="No metadata" />
+<Figure src={hugo_metadata_no_meta} alt="No metadata" />
 
-<Figure src="/posts/adding-social-metadata-to-your-hugo-sites/hugo_metadata_correct_meta.webp" alt="Correct metadata" />
+<Figure src={hugo_metadata_correct_meta} alt="Correct metadata" />
 
 You be the judge of what you like better :)
 

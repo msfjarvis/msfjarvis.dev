@@ -1,14 +1,28 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
-  src: string;
+  src: ImageMetadata | string;
   alt?: string;
   title?: string;
 }
+
+type ImageMetadata = {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
+};
+
 const { src, alt = '', title } = Astro.props;
 ---
 
 <figure>
-  <img src={src} alt={alt} />
+  {typeof src === 'object' ? (
+    <Image src={src} alt={alt} />
+  ) : (
+    <img src={src} alt={alt} />
+  )}
   {title && <figcaption>{title}</figcaption>}
 </figure>
 
