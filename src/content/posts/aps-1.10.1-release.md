@@ -1,5 +1,6 @@
 ---
 title: Android Password Store 1.10.1 patch release
+slug: aps-1.10.1-release
 date: '2020-07-23T12:00:00+05:30'
 summary: Long form release notes for the Android Password Store v1.10.1 patch release
 tags:
