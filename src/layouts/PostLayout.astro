@@ -42,7 +42,11 @@ const { title, description, date, lastmod, minutesRead, tags } = Astro.props;
           {description && <p class="p-summary" hidden>{description}</p>}
           {tags && tags.length > 0 && (
             <ul class="tags">
-              {tags.map(tag => <li class="tag p-category">{tag}</li>)}
+              {tags.map(tag => (
+                <li class="tag p-category">
+                  <a href={`/tags/${tag}/`}>{tag}</a>
+                </li>
+              ))}
             </ul>
           )}
         </header>
@@ -78,10 +82,17 @@ const { title, description, date, lastmod, minutesRead, tags } = Astro.props;
   .tag {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: var(--text-3);
     background: var(--bg-subtle);
     border: 1px solid var(--border);
     border-radius: 3px;
     padding: 0.15em 0.5em;
+  }
+  .tag a {
+    color: var(--text-3);
+    border-bottom: none;
+  }
+  .tag a:hover {
+    color: var(--accent);
+  }
   }
 </style>
