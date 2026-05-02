@@ -3,7 +3,7 @@
 
 Published: {{ .PublishDate.Format "January 2, 2006" }}
 {{ if ne .PublishDate .Lastmod }}
-Updated: {{ .Lastmod.Format "January 2, 2006" }}
+	Updated: {{ .Lastmod.Format "January 2, 2006" }}
 {{ end }}
 {{ $content := .Content -}}
 {{- /* Use unique markers that will survive plainify */ -}}

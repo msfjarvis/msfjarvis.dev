@@ -1,82 +1,82 @@
 <aside class="webmentions">
-  <h3>Webmentions</h3>
-  <div id="webmentions-container">
-    <p>Loading webmentions...</p>
-  </div>
+	<h3>Webmentions</h3>
+	<div id="webmentions-container">
+		<p>Loading webmentions...</p>
+	</div>
 </aside>
 <script>
-(async function loadWebmentions() {
-  const container = document.getElementById('webmentions-container');
+	(async function loadWebmentions() {
+	const container = document.getElementById('webmentions-container');
 
-  // Get the permalink and strip any port number for API queries
-  let pageUrl = '{{ .Permalink }}';
-  pageUrl = pageUrl.replace(/:\d+/, ''); // Remove :1313 or any port
+	// Get the permalink and strip any port number for API queries
+	let pageUrl = '{{ .Permalink }}';
+	pageUrl = pageUrl.replace(/:\d+/, ''); // Remove :1313 or any port
 
-  try {
-    const res = await fetch(`https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(pageUrl)}`);
-    const data = await res.json();
-    console.log(JSON.stringify(data));
+	try {
+	const res = await fetch(`https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(pageUrl)}`);
+	const data = await res.json();
+	console.log(JSON.stringify(data));
 
-    if (!data.mentions || data.mentions.length === 0) {
-      container.innerHTML = '<p>No webmentions yet. <a href="https://indieweb.org/Webmention">What are webmentions?</a></p>';
-      return;
-    }
+	if (!data.mentions || data.mentions.length === 0) {
+	container.innerHTML = '<p>No webmentions yet. <a href="https://indieweb.org/Webmention">What are webmentions?</a></p>';
+	return;
+	}
 
-    const items = data.mentions.map(m => {
-      const timestamp = m.verified_at * 1000;
-      const date = new Date(timestamp).toLocaleDateString();
-      const isoDate = new Date(timestamp).toISOString();
+	const items = data.mentions.map(m => {
+	const timestamp = m.verified_at * 1000;
+	const date = new Date(timestamp).toLocaleDateString();
+	const isoDate = new Date(timestamp).toISOString();
 
-      const author = m.author || {};
-      const authorName = author.name || new URL(m.source).hostname;
-      const authorUrl = author.url || m.source;
-      const authorPhoto = author.photo;
+	const author = m.author || {};
+	const authorName = author.name || new URL(m.source).hostname;
+	const authorUrl = author.url || m.source;
+	const authorPhoto = author.photo;
 
-      const interactionType = m.interaction_type;
-      let verb = 'mentioned';
-      let icon = '💬';
-      
-      if (interactionType === 'like') {
-        verb = 'liked';
-        icon = '❤️';
-      } else if (interactionType === 'repost') {
-        verb = 'reposted';
-        icon = '🔁';
-      } else if (interactionType === 'reply') {
-        verb = 'replied to';
-        icon = '💬';
-      }
+	const interactionType = m.interaction_type;
+	let verb = 'mentioned';
+	let icon = '💬';
 
-      const avatarHtml = authorPhoto 
-        ? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
-        : '';
+	if (interactionType === 'like') {
+	verb = 'liked';
+	icon = '❤️';
+	} else if (interactionType === 'repost') {
+	verb = 'reposted';
+	icon = '🔁';
+	} else if (interactionType === 'reply') {
+	verb = 'replied to';
+	icon = '💬';
+	}
 
-      const contentHtml = m.content && interactionType === 'reply'
-        ? `<p class="webmention-text">${m.content}</p>`
-        : '';
+	const avatarHtml = authorPhoto 
+	? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
+	: '';
 
-      return `
-        <article class="webmention-item">
-          ${avatarHtml}
-          <div class="webmention-content">
-            <div class="webmention-header">
-              <span class="webmention-icon">${icon}</span>
-              <a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
-              <a href="${m.source}" rel="nofollow ugc" class="webmention-verb">${verb} this</a>
-              <time datetime="${isoDate}">${date}</time>
-            </div>
-            ${contentHtml}
-          </div>
-        </article>
-      `;
-    }).join('');
+	const contentHtml = m.content && interactionType === 'reply'
+	? `<p class="webmention-text">${m.content}</p>`
+	: '';
 
-    container.innerHTML = items;
-  } catch (err) {
-    console.error('Webmention error:', err);
-    container.innerHTML = '<p>Could not load webmentions.</p>';
-  }
-})();
+	return `
+	<article class="webmention-item">
+		${avatarHtml}
+		<div class="webmention-content">
+			<div class="webmention-header">
+				<span class="webmention-icon">${icon}</span>
+				<a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
+				<a href="${m.source}" rel="nofollow ugc" class="webmention-verb">${verb} this</a>
+				<time datetime="${isoDate}">${date}</time>
+			</div>
+			${contentHtml}
+		</div>
+	</article>
+	`;
+	}).join('');
+
+	container.innerHTML = items;
+	} catch (err) {
+	console.error('Webmention error:', err);
+	container.innerHTML = '<p>Could not load webmentions.</p>';
+	}
+	})();
 </script>
 <style>
 .webmentions {
