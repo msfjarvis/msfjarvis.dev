@@ -47,23 +47,23 @@
           packages = with pkgs; [
             git
             go
-            hugo
             hyperlink
             libwebp
+            nodejs
             pagefind
           ];
           commands = [
             {
               name = "build";
               category = "deployment";
-              command = "hugo --gc -D && pagefind --site public";
+              command = "npm run build";
               help = "Build the site";
             }
             {
               name = "conv";
               category = "development";
               command = ''
-                DIR=content/posts
+                DIR=src/content
                 for fmt in png jpg jpeg; do
                   fd -tf "''${fmt}$" "$DIR" -x cwebp -lossless -mt {} -o '{.}.webp'
                   fd -tf "''${fmt}$" "$DIR" -X rm -v
@@ -74,7 +74,7 @@
             {
               name = "dev";
               category = "development";
-              command = "hugo -D serve";
+              command = "npm run dev";
               help = "Run the Hugo development server";
             }
             {
@@ -89,7 +89,7 @@
                 build
 
                 # Relocate the outputs to `$NEW_DIR`
-                cp -rT public/ $NEW_DIR/
+                cp -rT dist/ $NEW_DIR/
                 git stash
 
                 # Stash any changes
@@ -102,7 +102,7 @@
                 build
 
                 # Relocate site to `$OLD_DIR`
-                cp -rT public/ $OLD_DIR/
+                cp -rT dist/ $OLD_DIR/
 
                 # Revert to the default branch
                 git checkout main
@@ -139,8 +139,8 @@
                     return
                   }
                   mkdir -p content/posts/"$postslug"
-                  printf "+++\ncategories = []\ndate = %s\nlastmod = %s\nsummary = \"\"\ndraft = true\nslug = \"%s\"\ntags = []\ntitle = \"%s\"\n+++\n" \
-                    "$postdate" "$postdate" "$postslug" "$title" >content/posts/"$postslug"/index.md
+                  printf "---\ncategories: []\ndate: '%s'\nlastmod: '%s'\nsummary: \"\"\ndraft: true\ntags: []\ntitle: \"%s\"\n--\n" \
+                    "$postdate" "$postdate" "$title" >content/posts/"$postslug"/index.md
                   echo "content/posts/$postslug created!"
                 }
 

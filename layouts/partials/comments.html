@@ -1,9 +1,0 @@
-{{- if and (isset .Site.Params "utterancesrepo") (and (not (eq .Type "page")) hugo.IsProduction) -}}
-	<script src="https://utteranc.es/client.js"
-		repo="{{ .Site.Params.UtterancesRepo }}"
-		issue-term="pathname"
-		theme="{{ .Site.Params.UtterancesTheme }}"
-		crossorigin="anonymous"
-		async>
-	</script>
-{{- end -}}
