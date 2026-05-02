@@ -9,5 +9,7 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://msfjarvis.dev',
   integrations: [mdx(), sitemap()],
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'compile',
+  }),
 });
