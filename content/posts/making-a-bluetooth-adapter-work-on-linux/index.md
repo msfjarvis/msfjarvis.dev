@@ -46,7 +46,7 @@ $ dmesg | rg Bluetooth
 
 If you're not a relatively up-to-date distro, you might need to make some more manual adjustments before everything works. Open up `/etc/pulse/default.pa` in any editor with root access (so you can write your changes back), then look for `module-bluetooth-discover`. In my version of the file, I have this:
 
-```pa
+```plaintext
 .ifexists module-bluetooth-discover.so
 load-module module-bluetooth-discover
 .endif
