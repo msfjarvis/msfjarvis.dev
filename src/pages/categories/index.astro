@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { slugify } from '../../utils';
+
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
+const [posts, weeknotes] = await Promise.all([
+  getCollection('posts',     (p) => !p.data.deleted && (showDrafts || !p.data.draft)),
+  getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft)),
+]);
+
+const counts = new Map<string, number>();
+for (const entry of [...posts, ...weeknotes]) {
+  for (const cat of entry.data.categories) {
+    counts.set(cat, (counts.get(cat) ?? 0) + 1);
+  }
+}
+
+const categories = [...counts.entries()]
+  .sort(([a], [b]) => a.localeCompare(b));
+---
+
+<BaseLayout title="Categories — Harsh Shandilya" description="All categories">
+  <h1>Categories</h1>
+  <ul>
+    {categories.map(([cat, count]) => (
+      <li class="cat-row">
+        <a href={`/categories/${slugify(cat)}/`}>{cat}</a>
+        <span class="count">{count}</span>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  h1 { margin-top: 0; }
+  ul { list-style: none; padding: 0; margin: 1.5rem 0 0; }
+  .cat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 0.75rem;
+  }
+  .cat-row:last-child { border-bottom: none; }
+  .cat-row a {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    border-bottom: none;
+  }
+  .cat-row a:hover { color: var(--text); }
+  .count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+</style>

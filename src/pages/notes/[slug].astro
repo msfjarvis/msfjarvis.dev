@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', (n) => !n.data.deleted);
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { entry: note },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<PostLayout
+  title={entry.data.title}
+  date={entry.data.date}
+  tags={entry.data.tags}
+>
+  <Content />
+</PostLayout>

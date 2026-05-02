@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+import { SITE_TITLE } from '../consts';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const { title, description, image = '/android-chrome-512x512.webp' } = Astro.props;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="canonical" href={canonicalURL} />
+<meta name="generator" content={Astro.generator} />
+<link rel="icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(image, Astro.url)} />
+
+<link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} — RSS`} href={new URL('rss.xml', Astro.site)} />

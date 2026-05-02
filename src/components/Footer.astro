@@ -1,0 +1,22 @@
+---
+import { AUTHOR_NAME } from '../consts';
+---
+
+<footer>
+  <p>© {new Date().getFullYear()} {AUTHOR_NAME}</p>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+  }
+  p {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+</style>

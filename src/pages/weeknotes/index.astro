@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
+const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
+weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Weeknotes — Harsh Shandilya" description="Weekly notes by Harsh Shandilya">
+  <h1>Weeknotes</h1>
+  <ul>
+    {weeknotes.map((entry) => (
+      <li class="weeknote-row">
+        <div class="weeknote-main">
+          <a href={`/weeknotes/${entry.id}/`}>{entry.data.title}</a>
+          {entry.data.summary && <p class="summary">{entry.data.summary}</p>}
+        </div>
+        <span class="date"><FormattedDate date={entry.data.date} /></span>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  h1 { margin-top: 0; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  .weeknote-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .weeknote-row:last-child { border-bottom: none; }
+  .weeknote-main { min-width: 0; }
+  .weeknote-main a {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    border-bottom: none;
+    display: block;
+  }
+  .weeknote-main a:hover { color: var(--text); }
+  .summary {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    margin: 0.2rem 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+</style>

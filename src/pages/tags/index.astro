@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { slugify } from '../../utils';
+
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
+// Collect tags from all three collections and count frequency
+const [posts, notes, weeknotes] = await Promise.all([
+  getCollection('posts',     (p) => !p.data.deleted && (showDrafts || !p.data.draft)),
+  getCollection('notes',     (n) => !n.data.deleted),
+  getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft)),
+]);
+
+const counts = new Map<string, number>();
+for (const entry of [...posts, ...notes, ...weeknotes]) {
+  for (const tag of entry.data.tags) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+}
+
+const tags = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
+
+const MIN_SIZE = 0.8;  // rem
+const MAX_SIZE = 2.2;  // rem
+const freqs = [...counts.values()];
+const minFreq = Math.min(...freqs);
+const maxFreq = Math.max(...freqs);
+
+function tagSize(count: number): string {
+  if (maxFreq === minFreq) return `${(MIN_SIZE + MAX_SIZE) / 2}rem`;
+  // Log scale so outliers don't dominate
+  const scale = Math.log(count - minFreq + 1) / Math.log(maxFreq - minFreq + 1);
+  return `${(MIN_SIZE + scale * (MAX_SIZE - MIN_SIZE)).toFixed(3)}rem`;
+}
+---
+
+<BaseLayout title="Tags — Harsh Shandilya" description="All tags">
+  <h1>Tags</h1>
+  <div class="cloud" role="list">
+    {tags.map(([tag, count]) => (
+      <a
+        href={`/tags/${slugify(tag)}/`}
+        class="cloud-tag"
+        style={`font-size: ${tagSize(count)}`}
+        role="listitem"
+        title={`${count} ${count === 1 ? 'post' : 'posts'}`}
+      >{tag}</a>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  h1 { margin-top: 0; }
+  .cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    margin-top: 1.5rem;
+  }
+  .cloud-tag {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    border-bottom: none;
+    line-height: 1.4;
+  }
+  .cloud-tag:hover { color: var(--text); }
+</style>

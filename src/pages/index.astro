@@ -1,0 +1,150 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
+const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
+const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
+const notes = await getCollection('notes', (n) => !n.data.deleted);
+
+const recentPosts = posts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+
+const recentNotes = notes
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+
+const postCount = posts.length;
+const noteCount = notes.length;
+const weeknoteCount = weeknotes.length;
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <section class="bio">
+    <p class="bio-desc">{SITE_DESCRIPTION}</p>
+  </section>
+
+  <nav class="section-grid" aria-label="Site sections">
+    <a href="/posts" class="section-tile">
+      <span class="tile-label">posts</span>
+      <span class="tile-meta">{postCount} articles</span>
+    </a>
+    <a href="/notes" class="section-tile">
+      <span class="tile-label">notes</span>
+      <span class="tile-meta">{noteCount} short notes</span>
+    </a>
+    <a href="/weeknotes" class="section-tile">
+      <span class="tile-label">weeknotes</span>
+      <span class="tile-meta">{weeknoteCount} weekly entries</span>
+    </a>
+    <a href="/now" class="section-tile">
+      <span class="tile-label">now</span>
+      <span class="tile-meta">what I'm up to</span>
+    </a>
+  </nav>
+
+  <section class="recent">
+    <div class="recent-grid">
+      <div class="recent-col">
+        <h2 class="section-heading"><a href="/posts">Posts</a></h2>
+        <ul>
+          {recentPosts.map((post) => (
+            <li class="post-row">
+              <a href={`/posts/${post.id}/`} class="post-title">{post.data.title}</a>
+              <span class="post-date"><FormattedDate date={post.data.date} /></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="recent-col">
+        <h2 class="section-heading"><a href="/notes">Notes</a></h2>
+        <ul>
+          {recentNotes.map((note) => (
+            <li class="post-row">
+              <a href={`/notes/${note.id}/`} class="post-title">{note.data.title}</a>
+              <span class="post-date"><FormattedDate date={note.data.date} /></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .bio { margin-bottom: 2rem; padding: 0.4rem 0 1.5rem; border-bottom: 1px solid var(--border); }
+  .bio-desc { color: var(--text-2); font-size: 0.95rem; margin: 0; }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .section-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.75rem 1rem;
+  }
+  .section-tile:hover { border-color: var(--accent); }
+  .tile-label {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--accent);
+  }
+  .tile-meta { font-size: 0.75rem; color: var(--text-3); }
+
+  .recent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 540px) {
+    .recent-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  .section-heading {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    margin: 0 0 0.75rem;
+  }
+  .section-heading a {
+    color: inherit;
+    border-bottom: none;
+  }
+  .section-heading a:hover { color: var(--accent); }
+  ul { list-style: none; padding: 0; margin: 0; }
+  .post-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 0.75rem;
+  }
+  .post-row:last-child { border-bottom: none; }
+  .post-title {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--accent);
+    border-bottom: none;
+  }
+  .post-title:hover { border-bottom: none; color: var(--text); }
+  .post-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+    flex-shrink: 0;
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const notes = await getCollection('notes', (n) => !n.data.deleted);
+notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Notes — Harsh Shandilya" description="Short notes by Harsh Shandilya">
+  <h1>Notes</h1>
+  <ul>
+    {notes.map((note) => (
+      <li class="note-row">
+        <a href={`/notes/${note.id}/`}>{note.data.title}</a>
+        <span class="date"><FormattedDate date={note.data.date} /></span>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  h1 { margin-top: 0; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  .note-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 0.75rem;
+  }
+  .note-row:last-child { border-bottom: none; }
+  .note-row a {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    border-bottom: none;
+  }
+  .note-row a:hover { color: var(--text); }
+  .date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+    flex-shrink: 0;
+  }
+</style>

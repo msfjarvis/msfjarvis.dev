@@ -1,0 +1,17 @@
+---
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="asciinema-wrap">
+  <script is:inline src={`https://asciinema.org/a/${id}.js`} id={`asciicast-${id}`} async></script>
+</div>
+
+<style>
+  .asciinema-wrap {
+    margin: 2rem 0;
+    text-align: center;
+  }
+</style>
