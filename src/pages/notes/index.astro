@@ -4,6 +4,8 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { filterDrafts } from '../../utils';
 
+export const prerender = true;
+
 const notes = await getCollection('notes', filterDrafts);
 notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---

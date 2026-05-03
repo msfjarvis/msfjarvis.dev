@@ -2,6 +2,8 @@
 // CMS admin page — not indexed, not part of the public site.
 // Sveltia CMS is loaded via CDN script tag so Astro/Vite never tries to bundle it.
 // The config, custom.js, and tombstone.js are served from public/admin/ as static files.
+
+export const prerender = true;
 ---
 
 <!doctype html>

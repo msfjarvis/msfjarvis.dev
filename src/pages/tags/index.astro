@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { slugify } from '../../utils';
 import { filterDrafts } from '../../utils';
 
+export const prerender = true;
+
 // Collect tags from all three collections and count frequency
 const [posts, notes, weeknotes] = await Promise.all([
   getCollection('posts',     filterDrafts),
