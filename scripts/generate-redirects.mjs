@@ -44,12 +44,14 @@ function collectEntries(dir) {
   if (!statSync(dir, { throwIfNoEntry: false })?.isDirectory()) return [];
   return readdirSync(dir)
     .filter(name => {
-      const ext = extname(name);
-      return (ext === '.md' || ext === '.mdx') && name !== '_index.md';
+      // Each entry is now a directory containing index.mdx
+      const fullPath = join(dir, name);
+      return statSync(fullPath, { throwIfNoEntry: false })?.isDirectory();
     })
     .map(name => {
-      const id = basename(name, extname(name));
-      const raw = readFileSync(join(dir, name), 'utf8');
+      const id = name;
+      const indexPath = join(dir, name, 'index.mdx');
+      const raw = readFileSync(indexPath, 'utf8');
       const data = parseFrontmatter(raw);
       return { id, data };
     });

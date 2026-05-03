@@ -27,9 +27,9 @@ collections:
     format: yaml-frontmatter
     extension: mdx
     create: true
-    media_folder: "src/content/images/posts/{{slug}}"
-    public_folder: "/src/content/images/posts/{{slug}}"
-    path: "{{slug}}"
+    media_folder: "src/content/posts/{{slug}}"
+    public_folder: "/src/content/posts/{{slug}}"
+    path: "{{slug}}/index.mdx"
     slug: "{{slug}}"
     editor:
       preview: true
@@ -49,9 +49,9 @@ collections:
     format: yaml-frontmatter
     extension: mdx
     create: true
-    media_folder: "src/content/images/notes/{{slug}}"
-    public_folder: "/src/content/images/notes/{{slug}}"
-    path: "{{slug}}"
+    media_folder: "src/content/notes/{{slug}}"
+    public_folder: "/src/content/notes/{{slug}}"
+    path: "{{slug}}/index.mdx"
     slug: "{{slug}}"
     editor:
       preview: false
@@ -68,10 +68,10 @@ collections:
     format: yaml-frontmatter
     extension: mdx
     create: true
-    path: "{{slug}}"
+    path: "{{slug}}/index.mdx"
     slug: "week-{{week}}-{{year}}"
-    media_folder: "src/content/images/weeknotes/{{slug}}"
-    public_folder: "/src/content/images/weeknotes/{{slug}}"
+    media_folder: "src/content/weeknotes/{{slug}}"
+    public_folder: "/src/content/weeknotes/{{slug}}"
     editor:
       preview: true
     fields:

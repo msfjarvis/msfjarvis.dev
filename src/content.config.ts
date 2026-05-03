@@ -16,17 +16,17 @@ const postSchema = z.object({
 });
 
 const posts = defineCollection({
-  loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: './src/content/posts', pattern: '**/index.{md,mdx}' }),
   schema: postSchema,
 });
 
 const notes = defineCollection({
-  loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: './src/content/notes', pattern: '**/index.{md,mdx}' }),
   schema: postSchema,
 });
 
 const weeknotes = defineCollection({
-  loader: glob({ base: './src/content/weeknotes', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: './src/content/weeknotes', pattern: '**/index.{md,mdx}' }),
   schema: postSchema,
 });
 
