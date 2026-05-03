@@ -9,6 +9,7 @@ const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'tr
 export async function GET(_context: APIContext) {
   const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
   const notes = await getCollection('notes', (n) => !n.data.deleted);
+  const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
 
   const postEntries = posts.map((p) => ({
     source: `src/content/posts/${p.id}.mdx`,
@@ -20,7 +21,12 @@ export async function GET(_context: APIContext) {
     url: `${SITE_URL}/notes/${n.id}/`,
   }));
 
-  const entries = [...postEntries, ...noteEntries].sort((a, b) =>
+  const weeknoteEntries = weeknotes.map((w) => ({
+    source: `src/content/weeknotes/${w.id}.md`,
+    url: `${SITE_URL}/notes/${w.id}/`,
+  }));
+
+  const entries = [...postEntries, ...noteEntries, ...weeknoteEntries].sort((a, b) =>
     a.source.localeCompare(b.source)
   );
 
