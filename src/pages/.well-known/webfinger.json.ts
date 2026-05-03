@@ -1,29 +1,33 @@
-import { Status } from "https://deno.land/std@0.136.0/http/http_status.ts";
-import type { Context } from "https://edge.netlify.com";
+import type { APIContext } from 'astro';
 
-export default async (request: Request, context: Context) => {
-  const url = new URL(request.url);
+export async function GET(context: APIContext) {
+  const url = new URL(context.request.url);
   const resourceParam = url.searchParams.get("resource");
+
   if (resourceParam === null) {
-    return context.json(
-      {
+    return new Response(
+      JSON.stringify({
         error: "No 'resource' query parameter was provided",
-      },
+      }),
       {
-        status: Status.BadRequest,
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
       },
     );
   } else if (resourceParam !== "acct:harsh@msfjarvis.dev") {
-    return context.json(
-      {
+    return new Response(
+      JSON.stringify({
         error: "An invalid identity was requested",
-      },
+      }),
       {
-        status: Status.BadRequest,
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
       },
     );
-  } else {
-    return context.json({
+  }
+
+  return new Response(
+    JSON.stringify({
       subject: "acct:msfjarvis@androiddev.social",
       aliases: [
         "https://androiddev.social/@msfjarvis",
@@ -45,6 +49,10 @@ export default async (request: Request, context: Context) => {
           template: "https://androiddev.social/authorize_interaction?uri={uri}",
         },
       ],
-    });
-  }
-};
+    }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    },
+  );
+}
