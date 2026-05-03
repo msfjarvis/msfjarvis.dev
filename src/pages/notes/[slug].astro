@@ -4,8 +4,10 @@ import PostLayout from '../../layouts/PostLayout.astro';
 
 export const prerender = true;
 
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
 export async function getStaticPaths() {
-  const notes = await getCollection('notes', (n) => !n.data.deleted);
+  const notes = await getCollection('notes', (n) => !n.data.deleted && (showDrafts || !n.data.draft));
   return notes.map((note) => ({
     params: { slug: note.id },
     props: { entry: note },

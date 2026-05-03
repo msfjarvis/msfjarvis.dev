@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
   const [posts, notes, weeknotes] = await Promise.all([
     getCollection('posts',     (p) => !p.data.deleted && (showDrafts || !p.data.draft)),
-    getCollection('notes',     (n) => !n.data.deleted),
+    getCollection('notes',     (n) => !n.data.deleted && (showDrafts || !n.data.draft)),
     getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft)),
   ]);
 

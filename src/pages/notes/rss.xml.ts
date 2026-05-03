@@ -5,8 +5,10 @@ import { SITE_TITLE } from '../../consts';
 
 export const prerender = true;
 
+const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+
 export async function GET(context: APIContext) {
-  const notes = await getCollection('notes', (n) => !n.data.deleted);
+  const notes = await getCollection('notes', (n) => !n.data.deleted && (showDrafts || !n.data.draft));
   notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
