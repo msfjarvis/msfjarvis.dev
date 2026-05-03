@@ -22,6 +22,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@sveltia/cms": "^0.158.1",
     "astro": "^6.2.1",
+    "cheerio": "^1.2.0",
     "sharp": "^0.34.3"
   },
   "devDependencies": {

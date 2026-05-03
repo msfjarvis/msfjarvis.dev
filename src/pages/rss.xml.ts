@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { filterDrafts } from '../utils';
+import { renderEntryContentForRss } from '../lib/feed';
 
 export const prerender = true;
 
@@ -18,24 +19,31 @@ export async function GET(context: APIContext) {
   allItems.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   const cutoffDate = new Date('2026-05-01');
+  const origin = context.site!.origin;
   
-  return rss({
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-    site: context.site!,
-    stylesheet: '/pretty-feed-v3.xsl',
-    items: allItems.map((item) => {
+  const items = await Promise.all(
+    allItems.map(async (item) => {
       let link = `/${item.type}/${item.id}/`;
       if (item.type === 'weeknotes' && item.data.date < cutoffDate) {
         link = `/posts/weeknotes-${item.id}/`;
       }
+      const content = await renderEntryContentForRss(item, origin);
       return {
         title: item.data.title,
         pubDate: item.data.date,
         description: item.data.summary,
         link,
+        content,
       };
     }),
+  );
+
+  return rss({
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    site: new URL(context.site!),
+    stylesheet: '/pretty-feed-v3.xsl',
+    items,
     customData: `<language>en-us</language>`,
   });
 }
