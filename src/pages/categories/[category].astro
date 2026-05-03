@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
   const catMap = new Map<string, { title: string; date: Date; url: string }[]>();
 
-  const addEntries = (entries: typeof posts, urlBase: string) => {
+  const addEntries = (entries: typeof posts | typeof weeknotes, urlBase: string) => {
     for (const entry of entries) {
       for (const cat of entry.data.categories) {
         if (!catMap.has(cat)) catMap.set(cat, []);
