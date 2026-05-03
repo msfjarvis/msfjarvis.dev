@@ -2,7 +2,7 @@
 // This component must be client-only to always fetch fresh webmentions data
 ---
 
-<div client:only="web">
+<div>
 	<aside class="webmentions">
 		<h3>Webmentions</h3>
 		<div id="webmentions-container">
@@ -13,10 +13,13 @@
 	<script>
 		(async function loadWebmentions() {
 			const container = document.getElementById('webmentions-container');
+			if (!container) return;
 
-			// Get the current page URL and strip any port number for API queries
-			let pageUrl = window.location.href;
-			pageUrl = pageUrl.replace(/:\d+/, ''); // Remove :1313 or any port
+			// Parse the current page URL and replace host with production domain
+			// This allows testing with production data in development environment
+			const currentUrl = new URL(window.location.href);
+			currentUrl.hostname = 'msfjarvis.dev';
+			const pageUrl = currentUrl.toString();
 
 			try {
 				const res = await fetch(`https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(pageUrl)}`);
