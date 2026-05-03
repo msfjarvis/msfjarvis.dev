@@ -1,0 +1,25 @@
+---
+interface Props {
+  minWidth?: string;
+  gap?: string;
+}
+
+const { minWidth = '250px', gap = '1.5rem' } = Astro.props;
+---
+
+<div class="gallery" style={`--gallery-min-width: ${minWidth}; --gallery-gap: ${gap}`}>
+  <slot />
+</div>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--gallery-min-width), 1fr));
+    gap: var(--gallery-gap);
+    width: 100%;
+  }
+
+  .gallery :global(figure) {
+    margin: 0;
+  }
+</style>
