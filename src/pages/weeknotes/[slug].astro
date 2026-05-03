@@ -1,11 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
+import { showDrafts } from '../../consts';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
   const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
   return weeknotes.map((entry) => ({
     params: { slug: entry.id },

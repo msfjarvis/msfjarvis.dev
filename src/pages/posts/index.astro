@@ -2,8 +2,7 @@
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
+import { showDrafts } from '../../consts';
 
 const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
 posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());

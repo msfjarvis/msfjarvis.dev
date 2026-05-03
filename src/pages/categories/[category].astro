@@ -3,11 +3,11 @@ import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { slugify } from '../../utils';
+import { showDrafts } from '../../consts';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
   const [posts, weeknotes] = await Promise.all([
     getCollection('posts',     (p) => !p.data.deleted && (showDrafts || !p.data.draft)),
     getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft)),

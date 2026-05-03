@@ -2,10 +2,9 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { showDrafts } from '../consts';
 
 export const prerender = true;
-
-const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
