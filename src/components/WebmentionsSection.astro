@@ -1,115 +1,92 @@
 ---
-interface Mention {
-	id: number,
-	verified_at: number;
-	source: string;
-	author?: { name?: string | null; url?: string | null; photo?: string | null } | null;
-	content?: string | null;
-	interaction_type?: string | null;
-}
-
-// Set Cache-Control to prevent indefinite caching
-// no-cache: browser must revalidate before using, max-age=3600: cache for 1 hour
-Astro.response.headers.set('Cache-Control', 'no-cache, max-age=3600');
-
-// Parse the current page URL and replace host with production domain
-// This allows testing with production data in development environment
-const currentUrl = new URL(Astro.url);
-currentUrl.hostname = 'msfjarvis.dev';
-const pageUrl = currentUrl.toString();
-
-let mentions: Mention[] = {
-  "target": "https://msfjarvis.dev/posts/i-guess-i-cook-now/",
-  "mentions": [
-    {
-      "id": 82,
-      "source": "https://brid.gy/comment/mastodon/@msfjarvis@androiddev.social/116329632968553276/116329632968553276",
-      "interaction_type": null,
-      "author": {
-        "name": "Lars Hupel :verified:",
-        "url": "https://mastodon.hupel.info/@lars",
-        "photo": "https://cdn.masto.host/androiddevsocial/cache/accounts/avatars/109/689/815/873/377/527/original/a112bb9aea7c9e3b.jpeg"
-      },
-      "content": "You guessed it, more food. @msfjarvis is now into cooking. Much to his own surprise.",
-      "verified_at": 1775050297
-    }
-  ]
-}.mentions;
-let error = false;
-
-// try {
-// 	const res = await fetch(`https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(pageUrl)}`);
-// 	const data = await res.json();
-// 	mentions = data.mentions || [];
-// } catch (err) {
-// 	console.error('Webmention error:', err);
-// 	error = true;
-// }
-
-const renderMention = (m: Mention) => {
-	const timestamp = m.verified_at * 1000;
-	const date = new Date(timestamp).toLocaleDateString();
-	const isoDate = new Date(timestamp).toISOString();
-
-	const author = m.author || {};
-	const authorName = author.name || new URL(m.source).hostname;
-	const authorUrl = author.url || m.source;
-	const authorPhoto = author.photo;
-
-	const interactionType = m.interaction_type;
-	let verb = 'mentioned';
-	let icon = '💬';
-
-	if (interactionType === 'like') {
-		verb = 'liked';
-		icon = '❤️';
-	} else if (interactionType === 'repost') {
-		verb = 'reposted';
-		icon = '🔁';
-	} else if (interactionType === 'reply') {
-		verb = 'replied to';
-		icon = '💬';
-	}
-
-	const hasAvatar = authorPhoto ? true : false;
-	const hasContent = m.content && interactionType === 'reply' ? true : false;
-
-	return { avatar: authorPhoto, name: authorName, url: authorUrl, icon, verb, source: m.source, date, isoDate, content: m.content, hasAvatar, hasContent };
-};
+// This component is client-only to fetch fresh webmentions at request time
 ---
 
-<aside class="webmentions">
-	<h3>Webmentions</h3>
-	<div id="webmentions-container">
-		{error ? (
-			<p>Could not load webmentions.</p>
-		) : mentions.length === 0 ? (
-			<p>No webmentions yet. <a href="https://indieweb.org/Webmention">What are webmentions?</a></p>
-		) : (
-			mentions.map((m) => {
-				const mention = renderMention(m);
-				return (
-					<article class="webmention-item">
-						{mention.hasAvatar && (
-							<img src={mention.avatar} alt={mention.name} class="webmention-avatar" loading="lazy" />
-						)}
-						<div class="webmention-content">
-							<div class="webmention-header">
-								<span class="webmention-icon">{mention.icon}</span>
-								<a href={mention.url} rel="nofollow ugc" class="webmention-author">{mention.name}</a>
-								<a href={mention.source} rel="nofollow ugc" class="webmention-verb">{mention.verb} this</a>
-								<time datetime={mention.isoDate}>{mention.date}</time>
+<div client:only="web">
+	<aside class="webmentions">
+		<h3>Webmentions</h3>
+		<div id="webmentions-container">
+			<p>Loading webmentions...</p>
+		</div>
+	</aside>
+
+	<script>
+		(async function loadWebmentions() {
+			const container = document.getElementById('webmentions-container');
+			if (!container) return;
+
+			// Parse the current page URL and replace host with production domain
+			// This allows testing with production data in development environment
+			const currentUrl = new URL(window.location.href);
+			currentUrl.hostname = 'msfjarvis.dev';
+			const pageUrl = currentUrl.toString();
+
+			try {
+				const res = await fetch(`/api/webmentions.json?target=${encodeURIComponent(pageUrl)}`);
+				const data = await res.json();
+
+				if (!data.mentions || data.mentions.length === 0) {
+					container.innerHTML = '<p>No webmentions yet. <a href="https://indieweb.org/Webmention">What are webmentions?</a></p>';
+					return;
+				}
+
+				const items = data.mentions.map(m => {
+					const timestamp = m.verified_at * 1000;
+					const date = new Date(timestamp).toLocaleDateString();
+					const isoDate = new Date(timestamp).toISOString();
+
+					const author = m.author || {};
+					const authorName = author.name || new URL(m.source).hostname;
+					const authorUrl = author.url || m.source;
+					const authorPhoto = author.photo;
+
+					const interactionType = m.interaction_type;
+					let verb = 'mentioned';
+					let icon = '💬';
+
+					if (interactionType === 'like') {
+						verb = 'liked';
+						icon = '❤️';
+					} else if (interactionType === 'repost') {
+						verb = 'reposted';
+						icon = '🔁';
+					} else if (interactionType === 'reply') {
+						verb = 'replied to';
+						icon = '💬';
+					}
+
+					const avatarHtml = authorPhoto 
+						? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
+						: '';
+
+					const contentHtml = m.content && interactionType === 'reply'
+						? `<p class="webmention-text">${m.content}</p>`
+						: '';
+
+					return `
+						<article class="webmention-item">
+							${avatarHtml}
+							<div class="webmention-content">
+								<div class="webmention-header">
+									<span class="webmention-icon">${icon}</span>
+									<a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
+									<a href="${m.source}" rel="nofollow ugc" class="webmention-verb">${verb} this</a>
+									<time datetime="${isoDate}">${date}</time>
+								</div>
+								${contentHtml}
 							</div>
-							{mention.hasContent && (
-								<p class="webmention-text">{mention.content}</p>
-							)}
-						</div>
-					</article>
-				);
-			})
-		)}
-	</div>
-</aside>
+						</article>
+					`;
+				}).join('');
+
+				container.innerHTML = items;
+			} catch (err) {
+				console.error('Webmention error:', err);
+				container.innerHTML = '<p>Could not load webmentions.</p>';
+			}
+		})();
+	</script>
+</div>
 
 <style>
 .webmentions {
