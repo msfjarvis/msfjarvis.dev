@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_TITLE } from '../../consts';
 
+export const prerender = true;
+
 export async function GET(context: APIContext) {
   const notes = await getCollection('notes', (n) => !n.data.deleted);
   notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
