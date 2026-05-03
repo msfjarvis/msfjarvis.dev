@@ -7,6 +7,9 @@ tags:
   - blogging
 ---
 
+import Figure from '../../components/Figure.astro';
+import obsidian_weeknotes from '../../content/images/notes/obsidian-weeknotes.webp';
+
 Following up on my [Mastodon](https://androiddev.social/@msfjarvis/115717823447859331) post about wanting to start doing week notes, inspired by [Ankur](https://ankursethi.com/) and [Abhinav](https://abhinavsarkar.net/notes/tags/weeknotes/), here's the quick rundown of how I supplemented my existing Obsidian journal to facilitate the new endeavor.
 
 I currently use [obsidian-periodic-notes](https://github.com/liamcain/obsidian-periodic-notes) to manage my daily notes and have mostly left the weekly/monthly option untouched, until now.
@@ -15,7 +18,7 @@ To actually collect the necessary journal entries, I relied on [Dataview](https:
 
 Dataview was able to beautifully navigate this limitation and with a little bit of JavaScript I now have a template that I can plug into Periodic Notes and get a roundup of the whole week in one click. Here's how it looks with just today's entries highlighted:
 
-{{<figure src="obsidian-weeknotes.webp" alt="An Obsidian page with the title 2025-W50 and listing two journal entries from today: Me writing about my Droidcon India 2025 experience and a mention of me finishing my second run of the game Dispatch." title="Week 50 roundup with entries from Sunday" >}}
+<Figure src={obsidian_weeknotes} alt="An Obsidian page with the title 2025-W50 and listing two journal entries from today: Me writing about my Droidcon India 2025 experience and a mention of me finishing my second run of the game Dispatch." title="Week 50 roundup with entries from Sunday" />
 
 The relevant DataViewJS code is this:
 
