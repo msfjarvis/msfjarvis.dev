@@ -25,9 +25,10 @@ collections:
     label: Posts
     folder: src/content/posts
     format: yaml-frontmatter
+    extension: [md, mdx]
     create: true
-    media_folder: "public/posts/{{slug}}"
-    public_folder: "/posts/{{slug}}"
+    media_folder: "src/content/images/posts/{{slug}}"
+    public_folder: "/src/content/images/posts/{{slug}}"
     path: "{{slug}}"
     slug: "{{slug}}"
     editor:
@@ -46,7 +47,10 @@ collections:
     label: Notes
     folder: src/content/notes
     format: yaml-frontmatter
+    extension: [md, mdx]
     create: true
+    media_folder: "src/content/images/notes/{{slug}}"
+    public_folder: "/src/content/images/notes/{{slug}}"
     path: "{{slug}}"
     slug: "{{slug}}"
     editor:
@@ -62,11 +66,12 @@ collections:
     label: Weeknotes
     folder: src/content/weeknotes
     format: yaml-frontmatter
+    extension: [md, mdx]
     create: true
     path: "{{slug}}"
     slug: "week-{{week}}-{{year}}"
-    media_folder: "public/weeknotes/{{slug}}"
-    public_folder: "/weeknotes/{{slug}}"
+    media_folder: "src/content/images/weeknotes/{{slug}}"
+    public_folder: "/src/content/images/weeknotes/{{slug}}"
     editor:
       preview: true
     fields:
