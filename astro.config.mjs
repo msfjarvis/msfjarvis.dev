@@ -6,8 +6,11 @@ import { defineConfig } from 'astro/config';
 
 import cloudflare from '@astrojs/cloudflare';
 
+const isDrafts = process.env.INCLUDE_DRAFTS === 'true';
+const siteUrl = isDrafts ? 'https://drafts.msfjarvis.dev' : 'https://msfjarvis.dev';
+
 export default defineConfig({
-  site: 'https://msfjarvis.dev',
+  site: siteUrl,
   output: 'server',
   integrations: [mdx(), sitemap()],
   adapter: cloudflare({
