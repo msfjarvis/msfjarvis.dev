@@ -25,7 +25,7 @@ collections:
     label: Posts
     folder: src/content/posts
     format: yaml-frontmatter
-    extension: [md, mdx]
+    extension: mdx
     create: true
     media_folder: "src/content/images/posts/{{slug}}"
     public_folder: "/src/content/images/posts/{{slug}}"
@@ -47,7 +47,7 @@ collections:
     label: Notes
     folder: src/content/notes
     format: yaml-frontmatter
-    extension: [md, mdx]
+    extension: mdx
     create: true
     media_folder: "src/content/images/notes/{{slug}}"
     public_folder: "/src/content/images/notes/{{slug}}"
@@ -66,7 +66,7 @@ collections:
     label: Weeknotes
     folder: src/content/weeknotes
     format: yaml-frontmatter
-    extension: [md, mdx]
+    extension: mdx
     create: true
     path: "{{slug}}"
     slug: "week-{{week}}-{{year}}"
