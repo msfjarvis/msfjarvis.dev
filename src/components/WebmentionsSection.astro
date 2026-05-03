@@ -18,17 +18,33 @@ const currentUrl = new URL(Astro.url);
 currentUrl.hostname = 'msfjarvis.dev';
 const pageUrl = currentUrl.toString();
 
-let mentions: Mention[] = [];
+let mentions: Mention[] = {
+  "target": "https://msfjarvis.dev/posts/i-guess-i-cook-now/",
+  "mentions": [
+    {
+      "id": 82,
+      "source": "https://brid.gy/comment/mastodon/@msfjarvis@androiddev.social/116329632968553276/116329632968553276",
+      "interaction_type": null,
+      "author": {
+        "name": "Lars Hupel :verified:",
+        "url": "https://mastodon.hupel.info/@lars",
+        "photo": "https://cdn.masto.host/androiddevsocial/cache/accounts/avatars/109/689/815/873/377/527/original/a112bb9aea7c9e3b.jpeg"
+      },
+      "content": "You guessed it, more food. @msfjarvis is now into cooking. Much to his own surprise.",
+      "verified_at": 1775050297
+    }
+  ]
+}.mentions;
 let error = false;
 
-try {
-	const res = await fetch(`https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(pageUrl)}`);
-	const data = await res.json();
-	mentions = data.mentions || [];
-} catch (err) {
-	console.error('Webmention error:', err);
-	error = true;
-}
+// try {
+// 	const res = await fetch(`https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(pageUrl)}`);
+// 	const data = await res.json();
+// 	mentions = data.mentions || [];
+// } catch (err) {
+// 	console.error('Webmention error:', err);
+// 	error = true;
+// }
 
 const renderMention = (m: Mention) => {
 	const timestamp = m.verified_at * 1000;
