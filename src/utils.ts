@@ -1,3 +1,5 @@
+import { showDrafts } from "./consts";
+
 /**
  * Converts a raw tag/category string into a URL-safe slug,
  * matching Hugo's urlize behaviour: lowercase, spaces/special chars → hyphens.
@@ -13,4 +15,8 @@ export function slugify(str: string): string {
     .replace(/[^A-Za-z0-9\-]/g, "-") // non-alphanumeric (except hyphens) → hyphens
     .replace(/-{2,}/g, "-") // collapse consecutive hyphens
     .replace(/^-|-$/g, ""); // trim leading/trailing hyphens
+}
+
+export const filterDrafts: (p: { data: { draft: boolean, deleted: boolean }}) => boolean = (p) => {
+  return !p.data.deleted && (showDrafts || !p.data.draft);
 }

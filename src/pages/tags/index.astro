@@ -2,13 +2,13 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { slugify } from '../../utils';
-import { showDrafts } from '../../consts';
+import { filterDrafts } from '../../utils';
 
 // Collect tags from all three collections and count frequency
 const [posts, notes, weeknotes] = await Promise.all([
-  getCollection('posts',     (p) => !p.data.deleted && (showDrafts || !p.data.draft)),
-  getCollection('notes',     (n) => !n.data.deleted && (showDrafts || !n.data.draft)),
-  getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft)),
+  getCollection('posts',     filterDrafts),
+  getCollection('notes',     filterDrafts),
+  getCollection('weeknotes', filterDrafts),
 ]);
 
 const counts = new Map<string, number>();

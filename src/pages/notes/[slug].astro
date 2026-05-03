@@ -1,12 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
-import { showDrafts } from '../../consts';
+import { filterDrafts } from '../../utils';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const notes = await getCollection('notes', (n) => !n.data.deleted && (showDrafts || !n.data.draft));
+  const notes = await getCollection('notes', filterDrafts);
   return notes.map((note) => ({
     params: { slug: note.id },
     props: { entry: note },

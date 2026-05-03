@@ -2,7 +2,7 @@
 
 Posts, notes and weeknotes are implemented as Astro collections which are used pervasively throughout the project to do data driven generation. Adding a new collection will change a lot of files that I do not expect to remember forever, hence this page.
 
-In most places where the collection is fetched, it is also filtered for some metadata flags to prevent building drafts. As of writing that filter looks like this: `(p) => !p.data.deleted && (showDrafts || !p.data.draft)`.
+In most places where the collection is fetched, it is also filtered for some metadata flags to prevent building drafts. The `filterDrafts` helper in `utils.ts` is the only thing to be used for this.
 
 ## Files to be created/changed
 

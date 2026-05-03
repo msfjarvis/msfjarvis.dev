@@ -3,11 +3,11 @@ import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { showDrafts } from '../consts';
+import { filterDrafts } from '../utils';
 
-const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
-const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
-const notes = await getCollection('notes', (n) => !n.data.deleted && (showDrafts || !n.data.draft));
+const posts = await getCollection('posts', filterDrafts);
+const weeknotes = await getCollection('weeknotes', filterDrafts);
+const notes = await getCollection('notes', filterDrafts);
 
 const recentPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())

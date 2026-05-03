@@ -3,14 +3,14 @@ import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { slugify } from '../../utils';
-import { showDrafts } from '../../consts';
+import { filterDrafts } from '../../utils';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
   const [posts, weeknotes] = await Promise.all([
-    getCollection('posts',     (p) => !p.data.deleted && (showDrafts || !p.data.draft)),
-    getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft)),
+    getCollection('posts',     filterDrafts),
+    getCollection('weeknotes', filterDrafts),
   ]);
 
   const catMap = new Map<string, { title: string; date: Date; url: string }[]>();

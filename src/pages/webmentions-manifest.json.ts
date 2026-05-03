@@ -1,14 +1,14 @@
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_URL } from '../consts';
-import { showDrafts } from '../consts';
+import { filterDrafts } from '../utils';
 
 export const prerender = true;
 
 export async function GET(_context: APIContext) {
-  const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));
-  const notes = await getCollection('notes', (n) => !n.data.deleted && (showDrafts || !n.data.draft));
-  const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
+  const posts = await getCollection('posts', filterDrafts);
+  const notes = await getCollection('notes', filterDrafts);
+  const weeknotes = await getCollection('weeknotes', filterDrafts);
 
   const postEntries = posts.map((p) => ({
     source: `src/content/posts/${p.id}.mdx`,

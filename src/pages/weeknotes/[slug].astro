@@ -1,12 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
-import { showDrafts } from '../../consts';
+import { filterDrafts } from '../../utils';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && (showDrafts || !w.data.draft));
+  const weeknotes = await getCollection('weeknotes', filterDrafts);
   return weeknotes.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },

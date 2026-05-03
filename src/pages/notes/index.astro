@@ -2,9 +2,9 @@
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { showDrafts } from '../../consts';
+import { filterDrafts } from '../../utils';
 
-const notes = await getCollection('notes', (n) => !n.data.deleted && (showDrafts || !n.data.draft));
+const notes = await getCollection('notes', filterDrafts);
 notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
