@@ -12,4 +12,11 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: 'compile',
   }),
+  vite: {
+    server: {
+      watch: {
+        ignored: ['**/.direnv/**', '**/node_modules/**'],
+      },
+    },
+  },
 });
