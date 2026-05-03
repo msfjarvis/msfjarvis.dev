@@ -1,0 +1,218 @@
+---
+import { Picture } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata | string;
+  alt?: string;
+  title?: string;
+}
+
+type ImageMetadata = {
+  src: string;
+  width: number;
+  height: number;
+  format: string;
+};
+
+const { src, alt = '', title } = Astro.props;
+---
+
+<figure data-image-lightbox>
+  <button
+    data-lightbox-trigger
+    type="button"
+    aria-label={`Open ${alt || 'image'} in lightbox`}
+    style="cursor: zoom-in; border: none; background: none; padding: 0; margin: 0; display: block; width: 100%;"
+  >
+    {typeof src === 'object' ? (
+      <Picture src={src} alt={alt} formats={['avif', 'webp']} />
+    ) : (
+      <img src={src} alt={alt} />
+    )}
+  </button>
+  {title && <figcaption>{title}</figcaption>}
+</figure>
+
+<div data-lightbox-container style="display: none;" inert>
+  <div data-lightbox-overlay></div>
+  <div data-lightbox-inner>
+    {typeof src === 'object' ? (
+      <Picture src={src} alt={alt} formats={['avif', 'webp']} />
+    ) : (
+      <img src={src} alt={alt} />
+    )}
+  </div>
+  <button
+    data-lightbox-close
+    type="button"
+    aria-label="Close lightbox"
+    style="position: fixed; top: 20px; right: 20px; z-index: 40001; background: rgba(255, 255, 255, 0.9); border: 2px solid currentColor; border-radius: 4px; padding: 8px 12px; cursor: pointer; font-size: 24px; font-weight: bold; line-height: 1;"
+  >
+    ✕
+  </button>
+</div>
+
+<style>
+  figure {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+
+  figure img,
+  figure picture {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+  }
+
+  figure button:hover img,
+  figure button:hover picture {
+    opacity: 0.85;
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-2);
+    font-style: italic;
+  }
+
+  [data-lightbox-container] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  [data-lightbox-container][style*="display: block"] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  [data-lightbox-container][style*="display: none"] {
+    pointer-events: none;
+  }
+
+  [data-lightbox-overlay] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 40000;
+    backdrop-filter: blur(4px);
+  }
+
+  [data-lightbox-inner] {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    z-index: 40001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+
+  [data-lightbox-inner] img,
+  [data-lightbox-inner] picture {
+    max-width: 100%;
+    max-height: calc(100vh - 40px);
+    height: auto;
+    width: auto;
+    border-radius: 4px;
+    object-fit: contain;
+    animation: lightboxZoomIn 0.3s ease;
+  }
+
+  @keyframes lightboxZoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes lightboxZoomOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+
+  [data-lightbox-container].closing [data-lightbox-inner] img,
+  [data-lightbox-container].closing [data-lightbox-inner] picture {
+    animation: lightboxZoomOut 0.3s ease;
+  }
+</style>
+
+<script is:inline>
+  const initLightbox = () => {
+    const triggers = document.querySelectorAll('[data-lightbox-trigger]');
+
+    triggers.forEach((trigger) => {
+      const container = trigger.closest('[data-image-lightbox]')?.nextElementSibling;
+      if (!container || !container.hasAttribute('data-lightbox-container')) return;
+
+      const overlay = container.querySelector('[data-lightbox-overlay]');
+      const closeBtn = container.querySelector('[data-lightbox-close]');
+
+      const open = () => {
+        container.style.display = 'block';
+        container.removeAttribute('inert');
+        container.classList.remove('closing');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const close = () => {
+        container.classList.add('closing');
+        setTimeout(() => {
+          container.style.display = 'none';
+          container.setAttribute('inert', '');
+          container.classList.remove('closing');
+          document.body.style.overflow = '';
+        }, 300);
+      };
+
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        open();
+      });
+
+      closeBtn?.addEventListener('click', close);
+      overlay?.addEventListener('click', close);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && container.style.display !== 'none') {
+          close();
+        }
+      });
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLightbox);
+  } else {
+    initLightbox();
+  }
+</script>
