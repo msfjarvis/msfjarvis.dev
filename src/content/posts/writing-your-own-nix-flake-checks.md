@@ -1,7 +1,7 @@
 ---
 title: Writing your own Nix Flake checks
 date: '2022-12-18T12:00:00+05:30'
-lastmod: '2024-06-03'
+lastmod: '2024-06-03T00:46:00+05:30'
 summary: Quick how-to for writing ad-hoc checks for your own Nix Flakes
 tags:
   - nix
