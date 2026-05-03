@@ -167,52 +167,59 @@ const { src, alt = '', title } = Astro.props;
 </style>
 
 <script is:inline>
-  const initLightbox = () => {
-    const triggers = document.querySelectorAll('[data-lightbox-trigger]');
+  if (!window.lightboxInitialized) {
+    window.lightboxInitialized = true;
 
-    triggers.forEach((trigger) => {
-      const container = trigger.closest('[data-image-lightbox]')?.nextElementSibling;
-      if (!container || !container.hasAttribute('data-lightbox-container')) return;
+    const initLightbox = () => {
+      const triggers = document.querySelectorAll('[data-lightbox-trigger]');
 
-      const overlay = container.querySelector('[data-lightbox-overlay]');
-      const closeBtn = container.querySelector('[data-lightbox-close]');
+      triggers.forEach((trigger) => {
+        if (trigger.hasAttribute('data-lightbox-handler-attached')) return;
+        trigger.setAttribute('data-lightbox-handler-attached', 'true');
 
-      const open = () => {
-        container.style.display = 'block';
-        container.removeAttribute('inert');
-        container.classList.remove('closing');
-        document.body.style.overflow = 'hidden';
-      };
+        const container = trigger.closest('[data-image-lightbox]')?.nextElementSibling;
+        if (!container || !container.hasAttribute('data-lightbox-container')) return;
 
-      const close = () => {
-        container.classList.add('closing');
-        setTimeout(() => {
-          container.style.display = 'none';
-          container.setAttribute('inert', '');
+        const overlay = container.querySelector('[data-lightbox-overlay]');
+        const closeBtn = container.querySelector('[data-lightbox-close]');
+
+        const open = () => {
+          container.style.display = 'block';
+          container.removeAttribute('inert');
           container.classList.remove('closing');
-          document.body.style.overflow = '';
-        }, 300);
-      };
+          document.body.style.overflow = 'hidden';
+        };
 
-      trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        open();
+        const close = () => {
+          container.classList.add('closing');
+          setTimeout(() => {
+            container.style.display = 'none';
+            container.setAttribute('inert', '');
+            container.classList.remove('closing');
+            document.body.style.overflow = '';
+          }, 300);
+        };
+
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          open();
+        });
+
+        closeBtn?.addEventListener('click', close);
+        overlay?.addEventListener('click', close);
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && container.style.display !== 'none') {
+            close();
+          }
+        });
       });
+    };
 
-      closeBtn?.addEventListener('click', close);
-      overlay?.addEventListener('click', close);
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && container.style.display !== 'none') {
-          close();
-        }
-      });
-    });
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLightbox);
-  } else {
-    initLightbox();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLightbox);
+    } else {
+      initLightbox();
+    }
   }
 </script>
