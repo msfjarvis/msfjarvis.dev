@@ -1,10 +1,11 @@
 ---
 interface Mention {
+	id: number,
 	verified_at: number;
 	source: string;
-	author?: { name?: string; url?: string; photo?: string };
-	content?: string;
-	interaction_type: string;
+	author?: { name?: string | null; url?: string | null; photo?: string | null } | null;
+	content?: string | null;
+	interaction_type?: string | null;
 }
 
 // Set Cache-Control to prevent indefinite caching
