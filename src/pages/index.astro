@@ -64,7 +64,7 @@ const weeknoteCount = weeknotes.length;
         <ul>
           {recentWeeknotes.map((note) => (
             <li class="post-row">
-              <a href={`/notes/${note.id}/`} class="post-title">{note.data.title}</a>
+              <a href={`/weeknotes/${note.id}/`} class="post-title">{note.data.title}</a>
               <span class="post-date"><FormattedDate date={note.data.date} /></span>
             </li>
           ))}
