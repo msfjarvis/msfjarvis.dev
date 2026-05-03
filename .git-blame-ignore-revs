@@ -1,2 +1,8 @@
 # The great Page Bundles migration
 83c1a03b3c018384ec3bef83cd1b030507998aae
+
+# First pass of migrating content to Astro
+d681cb831c0e88e5aa67a9e3bc3d768355e53cf3
+
+# Refactoring everything to the MDX extension
+1b3b97b27a09951f674464984d381e7955ee062d
