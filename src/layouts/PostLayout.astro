@@ -5,6 +5,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import ShareButtons from '../components/ShareButtons.astro';
 import { slugify } from '../utils';
+import WebmentionsSection from '../components/WebmentionsSection.astro';
 
 interface Props {
   title: string;
@@ -55,6 +56,7 @@ const { title, description, date, lastmod, minutesRead, tags } = Astro.props;
         <div class="prose e-content">
           <slot />
         </div>
+        <WebmentionsSection />
         <ShareButtons url={Astro.url.href} title={title} />
       </article>
     </main>

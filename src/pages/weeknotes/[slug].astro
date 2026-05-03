@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
-import WebmentionsSection from '../../components/WebmentionsSection.astro';
 
 export const prerender = true;
 
@@ -26,5 +25,4 @@ const { Content } = await render(entry);
   tags={entry.data.tags}
 >
   <Content />
-  <WebmentionsSection />
 </PostLayout>
