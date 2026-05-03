@@ -17,17 +17,25 @@ export async function GET(context: APIContext) {
   ];
   allItems.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
+  const cutoffDate = new Date('2026-05-01');
+  
   return rss({
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     site: context.site!,
     stylesheet: '/pretty-feed-v3.xsl',
-    items: allItems.map((item) => ({
-      title: item.data.title,
-      pubDate: item.data.date,
-      description: item.data.summary,
-      link: `/${item.type}/${item.id}/`,
-    })),
+    items: allItems.map((item) => {
+      let link = `/${item.type}/${item.id}/`;
+      if (item.type === 'weeknotes' && item.data.date < cutoffDate) {
+        link = `/posts/weeknotes-${item.id}/`;
+      }
+      return {
+        title: item.data.title,
+        pubDate: item.data.date,
+        description: item.data.summary,
+        link,
+      };
+    }),
     customData: `<language>en-us</language>`,
   });
 }
