@@ -2,6 +2,8 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_URL } from '../consts';
 
+export const prerender = true;
+
 const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
 
 export async function GET(_context: APIContext) {
