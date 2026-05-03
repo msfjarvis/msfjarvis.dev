@@ -15,6 +15,15 @@
 			const container = document.getElementById('webmentions-container');
 			if (!container) return;
 
+			interface Mention {
+				id: number,
+				verified_at: number;
+				source: string;
+				author?: { name?: string | null; url?: string | null; photo?: string | null } | null;
+				content?: string | null;
+				interaction_type?: string | null;
+			}
+
 			// Parse the current page URL and replace host with production domain
 			// This allows testing with production data in development environment
 			const currentUrl = new URL(window.location.href);
@@ -30,7 +39,9 @@
 					return;
 				}
 
-				const items = data.mentions.map(m => {
+				const mentions = data.mentions as Mention[];
+
+				const items = mentions.map(m => {
 					const timestamp = m.verified_at * 1000;
 					const date = new Date(timestamp).toLocaleDateString();
 					const isoDate = new Date(timestamp).toISOString();
