@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
+import WebmentionsSection from '../../components/WebmentionsSection.astro';
 
 export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
@@ -23,4 +24,5 @@ const { Content } = await render(entry);
   tags={entry.data.tags}
 >
   <Content />
+  <WebmentionsSection />
 </PostLayout>
