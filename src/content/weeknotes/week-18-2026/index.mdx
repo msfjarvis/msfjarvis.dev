@@ -1,14 +1,18 @@
 ---
 title: 'Weeknotes: Week #18 (2026)'
 date: 2026-05-03T02:32:00+05:30
-lastmod: 2026-05-03T02:32:00+05:30
-summary: ''
-tags: []
+lastmod: 2026-05-03T20:58:57+05:30
+summary: 'A brand new website, powered by Astro and Cloudflare! And a lot of other things...'
+tags:
+  - indieweb
+  - games
+  - career
 draft: true
 deleted: false
 ---
 
 import Figure from '../../../components/Figure.astro';
+import Gallery from '../../../components/Gallery.astro';
 import aloo_bhujia from './aloo-bhujia.webp';
 import bean_and_corn_nacho_dip from './bean-and-corn-nacho-dip.webp';
 import breakfast_french_toast from './breakfast-french-toast.webp';
@@ -24,3 +28,60 @@ I've painstakingly tried to keep all old links working even as I reorganized thi
 - ~~The glorius post footer that let you share my writing to LinkedIn, boosting my street cred~~ Back without LinkedIn, RIP my king
 - ~~Incoming Webmentions viewer~~
 - ~~The build-time integration that I had on Netlify to queue pages for outgoing Webmentions~~ Cron is good enough for this.
+
+Onwards to the weeknotes!
+
+# Life And People
+
+HOLY SHIT WE FINALLY HAD RAIN BLESSED BY THE GOD WHO RELENTED FOR A SINGLE DAY
+
+<Figure src={thunderstorms} alt="A thunderstorm outside my office building, the picture shows trees being buffeted by strong winds and heavy rainfall that's started to waterlog the area a bit" title="Seeing this right outside the office building felt almost surreal after the incessant heat we've had for the past month" />
+
+This however did cause our taxi back home to take a total of 2.5 hours from being booked to dropping us off, which usually takes 15 minutes to arrive and 15 more to reach our home.
+
+Not a lot of socializing happened during the week until Saturday when [Yash](https://yashgarg.dev) and I invited [Fenil](https://hachyderm.io/@vi_mi) to IndieWebClub. I was a little reluctant since I didn't feel that the discussion topics were going to be particularly interesting to me but I was pleasantly surprised and had a great time.
+
+Fenil convinced us to do a watch party of [Dev D](https://www.imdb.com/title/tt1327035/) at our apartment, we invited over Kunwar to join us and it ended up being quite the fun night.
+
+Also since there's no better place than this, my childhood friend Prajwal got a raise, promotion and bonus; go friendo 🎉
+
+# Work And Career
+
+Things at work have been moving along quite well, after a long period of working exclusively on documentation and such we're back to doing good old engineering and it's nice to be back. I've been managing my increased responsibilities okay so far but it's barely been 2 weeks so who's to say things will stay the same.
+
+Our last sprint was planned around culling our backlog and I'm pleased to report it has gone under 100 issues for the first time in maybe 2 or 3 years. A lot of important but low-key improvements have landed and we're on track to ship in the coming week with a casual 60 or so tickets shuffled out of the backlog.
+
+
+We had CI problems the whole week with macOS runners failing to boot up which was causing a lot of trouble in merging backlogs, so I had Claude write a bash script that just waits for jobs to fail and retries them until the pipeline is green. I jokingly spun out a side business of lending this service to my colleagues and made my first sale: ₹5 off Mayank to get his release PR through. If I still used LinkedIn this could make an excellent motivational post.
+
+On Thursday Yash, Mayank and I decided to work together out of Cafe Grey again which was a fun and surprisingly productive time. Mayank was shocked we actually got so much shit done! We tried some new items off the menu this time and they were all pretty solid.
+
+<Gallery>
+<Figure src={breakfast_sandwiches} alt="" title="This sandwich was delicious, and surprisingly the thick cut chips they gave on this plate had more seasoning than the actual Peri Peri fries we ordered later" />
+
+<Figure src={breakfast_french_toast} alt="" title="Mayank really wanted french toast and we all sampled the goods, looking at it almost convinced me that I could pull this off at home" />
+</Gallery>
+
+# Personal Projects And Tech Stuff
+
+Rebuilding this website occupied my whole week and I'm still not remotely done, which is just going to be a constant problem I suppose. No wonder people say rewrites don't fix anything.
+
+My Forgejo instance was being absolutely pummeled this whole week by spammers which was a problem because I rely on it constantly and can't afford downtime. I tried using [Anubis](https://anubis.techaro.lol) which didn't make much of a dent and ended up just letting it be and accepting that Cloudflare will have to take care of it.
+
+I finally caved and ordered a new set of earbuds since my existing ones have gotten very unreliable in terms of charging both buds at the same time and pairing properly. I went with the OnePlus Nord Buds 4 Pro which are a massive upgrade from my CMF Buds. The fast pairing feature actually works, they have a Spotify integration and the active noise cancelation blows the CMF Buds out of the water. I am very impressed!
+
+# Food
+
+I am writing this weeknote after attempting to pressure cook a batch of chickpeas with no water in the cooker so please excuse my lack of enthusiasm.
+
+On Tuesday I was too tired to cook and Yash too hungry, so we decided to not do any cooking. I still needed to eat though, so I channeled my inner [John Noel](https://www.youtube.com/@coachjohnnoel/) and mixed together whatever I could find in the fridge, into a bowl and ripped open a pack of nachos. The beans were pre-boiled and from a packet, which I didn't know was a thing that was sold here and was pleasantly surprised by.
+
+We had gotten some potatoes after I complained about its lack in our diets so I decided to make a classic aloo bhujia for us, which was also when I discovered how intensely Bihari/Western UP this dish is because Yash had never heard of it. It was hard having to find words for something you've gone 27 years assuming people just knew. Came out nice though! Could've made Mom proud.
+
+<Gallery>
+<Figure src={bean_and_corn_nacho_dip} alt="A bowl of beans, corns, cheese and some salsa that was used as a nacho dip" title="Bar none the coldest nacho dip I've ever eaten, next time I'm throwing some of this shit in a pan." />
+
+<Figure src={aloo_bhujia} alt="A glass bowl of the aloo bhujia sabzi" title="Next time I'll have to remember to slice the onions instead of dicing them" />
+</Gallery>
+
+And that's kind of all! I will continue fucking around with this site as I find more nooks and crannies where things are broken, but hopefully it all functions well enough for people watching at home. Thanks for reading!
