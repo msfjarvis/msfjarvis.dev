@@ -4,6 +4,8 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { slugify } from '../../utils';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
   const [posts, notes, weeknotes] = await Promise.all([

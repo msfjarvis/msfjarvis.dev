@@ -3,6 +3,9 @@ import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 import WebmentionsSection from '../../components/WebmentionsSection.astro';
 
+export const prerender = true;
+
+
 export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === 'true';
   const posts = await getCollection('posts', (p) => !p.data.deleted && (showDrafts || !p.data.draft));

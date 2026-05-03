@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 import WebmentionsSection from '../../components/WebmentionsSection.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const notes = await getCollection('notes', (n) => !n.data.deleted);
   return notes.map((note) => ({
