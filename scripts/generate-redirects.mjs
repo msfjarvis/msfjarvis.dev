@@ -114,6 +114,7 @@ function main() {
   // ── 3. Manually instantiated redirects ──────────────────────────────────────
   // Hugo used to generate these at /index.xml, they're now at /rss.xml, manually redirect old feed readers.
   lines.push(`/index.xml /rss.xml 301`)
+  lines.push(`/notes/index.xml /notes/rss.xml 301`)
 
   const dest = join(PROJECT_ROOT, 'public', '_redirects');
   writeFileSync(dest, lines.join('\n'), 'utf8');
