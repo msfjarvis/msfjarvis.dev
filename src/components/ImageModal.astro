@@ -25,7 +25,7 @@ const { src, alt = '', title } = Astro.props;
     style="cursor: zoom-in; border: none; background: none; padding: 0; margin: 0; display: block; width: 100%;"
   >
     {typeof src === 'object' ? (
-      <Picture src={src} alt={alt} formats={['avif', 'webp']} />
+      <Picture src={src} alt={alt} formats={['avif', 'webp']} fallbackFormat="webp" />
     ) : (
       <img src={src} alt={alt} />
     )}
@@ -37,7 +37,7 @@ const { src, alt = '', title } = Astro.props;
   <div data-lightbox-overlay></div>
   <div data-lightbox-inner>
     {typeof src === 'object' ? (
-      <Picture src={src} alt={alt} formats={['avif', 'webp']} />
+      <Picture src={src} alt={alt} formats={['avif', 'webp']} fallbackFormat="webp" />
     ) : (
       <img src={src} alt={alt} />
     )}
