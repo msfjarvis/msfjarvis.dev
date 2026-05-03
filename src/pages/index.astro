@@ -13,7 +13,7 @@ const recentPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 5);
 
-const recentNotes = notes
+const recentWeeknotes = weeknotes
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 5);
 
@@ -60,9 +60,9 @@ const weeknoteCount = weeknotes.length;
         </ul>
       </div>
       <div class="recent-col">
-        <h2 class="section-heading"><a href="/notes">Notes</a></h2>
+        <h2 class="section-heading"><a href="/weeknotes">Weeknotes</a></h2>
         <ul>
-          {recentNotes.map((note) => (
+          {recentWeeknotes.map((note) => (
             <li class="post-row">
               <a href={`/notes/${note.id}/`} class="post-title">{note.data.title}</a>
               <span class="post-date"><FormattedDate date={note.data.date} /></span>
