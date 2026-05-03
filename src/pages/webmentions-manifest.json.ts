@@ -17,12 +17,12 @@ export async function GET(_context: APIContext) {
   }));
 
   const noteEntries = notes.map((n) => ({
-    source: `src/content/notes/${n.id}.md`,
+    source: `src/content/notes/${n.id}.mdx`,
     url: `${SITE_URL}/notes/${n.id}/`,
   }));
 
   const weeknoteEntries = weeknotes.map((w) => ({
-    source: `src/content/weeknotes/${w.id}.md`,
+    source: `src/content/weeknotes/${w.id}.mdx`,
     url: `${SITE_URL}/notes/${w.id}/`,
   }));
 
