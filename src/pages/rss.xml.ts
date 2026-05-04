@@ -2,11 +2,11 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { filterDrafts } from '../utils';
-import { buildMultiCollectionFeed } from '../lib/feed';
-import type { FeedSource } from '../lib/feed';
+import { buildMultiCollectionFeed, type FeedSource } from '../lib/feed';
 
 export const prerender = true;
 
+// Weeknotes published before this date were originally posted under /posts/weeknotes-<id>/
 const cutoffDate = new Date('2026-05-01');
 
 export async function GET(context: APIContext) {
