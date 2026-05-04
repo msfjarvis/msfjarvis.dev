@@ -26,3 +26,6 @@ pnpm-debug.log*
 
 # Wrangler
 /.wrangler/
+
+# WebStorm
+/.idea/
