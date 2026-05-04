@@ -49,7 +49,7 @@ async function createContainer() {
 
 /** Remove duplicate images from lightbox components for RSS feeds */
 function removeLightboxDuplicates(html: string): string {
-  const $ = load(html, { decodeEntities: false });
+  const $ = load(html);
   
   // For each figure with lightbox, keep only the image/picture and remove button/container
   $('[data-image-lightbox]').each((_, figure) => {
@@ -59,6 +59,9 @@ function removeLightboxDuplicates(html: string): string {
     const $button = $figure.find('[data-lightbox-trigger]');
     if ($button.length > 0) {
       const imageHtml = $button.html();
+      if (!imageHtml) {
+        throw Error("Failed to find lightbox trigger in page, has the layout changed?")
+      }
       $button.replaceWith(imageHtml);
     }
   });
