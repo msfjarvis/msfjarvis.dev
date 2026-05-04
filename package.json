@@ -18,7 +18,6 @@
   "dependencies": {
     "@astrojs/cloudflare": "^13.3.0",
     "@astrojs/mdx": "^5.0.4",
-    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@sveltia/cms": "^0.158.1",
     "astro": "^6.2.1",
