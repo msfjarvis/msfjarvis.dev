@@ -108,6 +108,9 @@ async function renderEntryHtml(
   const { Content } = await render(entry);
   let html = await container.renderToString(Content);
   html = removeLightboxDuplicates(html);
+  // AstroContainer wraps output in a full HTML document; extract only body content for RSS
+  const $doc = load(html);
+  html = $doc('body').html() ?? html;
   return absolutizeUrls(html, origin);
 }
 
