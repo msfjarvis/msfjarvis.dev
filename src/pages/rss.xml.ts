@@ -1,49 +1,37 @@
-import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { filterDrafts } from '../utils';
-import { renderEntryContentForRss } from '../lib/feed';
+import { buildMultiCollectionFeed, type FeedSource } from '../lib/feed';
 
 export const prerender = true;
+
+// Weeknotes published before this date were originally posted under /posts/weeknotes-<id>/
+const cutoffDate = new Date('2026-05-01');
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts', filterDrafts);
   const weeknotes = await getCollection('weeknotes', filterDrafts);
 
-  // Combine posts and weeknotes with collection metadata, then sort by date (newest first)
-  const allItems = [
-    ...posts.map((post) => ({ ...post, type: 'posts' as const })),
-    ...weeknotes.map((weeknote) => ({ ...weeknote, type: 'weeknotes' as const })),
+  const sources: FeedSource[] = [
+    {
+      entries: posts,
+      urlBuilder: (entry, origin) => `${origin}/posts/${entry.id}/`,
+    },
+    {
+      entries: weeknotes,
+      urlBuilder: (entry, origin) =>
+        entry.data.date < cutoffDate
+          ? `${origin}/posts/weeknotes-${entry.id}/`
+          : `${origin}/weeknotes/${entry.id}/`,
+    },
   ];
-  allItems.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-  const cutoffDate = new Date('2026-05-01');
-  const origin = context.site!.origin;
-  
-  const items = await Promise.all(
-    allItems.map(async (item) => {
-      let link = `/${item.type}/${item.id}/`;
-      if (item.type === 'weeknotes' && item.data.date < cutoffDate) {
-        link = `/posts/weeknotes-${item.id}/`;
-      }
-      const content = await renderEntryContentForRss(item, origin);
-      return {
-        title: item.data.title,
-        pubDate: item.data.date,
-        description: item.data.summary,
-        link,
-        content,
-      };
-    }),
-  );
-
-  return rss({
+  return buildMultiCollectionFeed({
+    context,
+    sources,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    site: new URL(context.site!),
-    stylesheet: '/pretty-feed-v3.xsl',
-    items,
-    customData: `<language>en-us</language>`,
+    selfPath: '/rss.xml',
   });
 }
