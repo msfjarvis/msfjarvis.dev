@@ -4,6 +4,9 @@ import { render } from 'astro:content';
 import { load } from 'cheerio';
 import type { APIContext } from 'astro';
 
+/** Maximum number of entries to include in any feed. */
+const RSS_MAX_ENTRIES = 40;
+
 // --- Types ---
 
 /** Normalised item shape for all feeds. */
@@ -158,7 +161,7 @@ export function buildFeed(opts: {
       <guid>${escapeXml(guid)}</guid>
       ${item.summary ? `<description>${escapeXml(item.summary)}</description>` : ''}
       <pubDate>${item.date.toUTCString()}</pubDate>
-      ${item.html ? `<content:encoded><![CDATA[${item.html}]]></content:encoded>` : ''}
+      ${item.html ? `<content:encoded><![CDATA[${item.html.replace(/]]>/g, ']]]]><![CDATA[>')}]]></content:encoded>` : ''}
     </item>`;
   });
 
@@ -194,9 +197,9 @@ export async function buildCollectionFeed(opts: {
 }): Promise<Response> {
   const site = opts.context.site!;
   const container = await createContainer();
-  const sorted = [...opts.entries].sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-  );
+  const sorted = [...opts.entries]
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    .slice(0, RSS_MAX_ENTRIES);
 
   const items = await Promise.all(
     sorted.map((entry) => {
@@ -231,9 +234,9 @@ export async function buildMultiCollectionFeed(opts: {
   const allEntries = opts.sources.flatMap((source) =>
     source.entries.map((entry) => ({ entry, source })),
   );
-  const sorted = allEntries.sort(
-    (a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime(),
-  );
+  const sorted = allEntries
+    .sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
+    .slice(0, RSS_MAX_ENTRIES);
 
   const items = await Promise.all(
     sorted.map(({ entry, source }) => {
