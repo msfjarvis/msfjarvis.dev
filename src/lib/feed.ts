@@ -154,8 +154,8 @@ export function buildFeed(opts: {
     const guid = item.guid || item.url;
     return `    <item>
       <title>${escapeXml(item.title)}</title>
-      <link>${item.url}</link>
-      <guid>${guid}</guid>
+      <link>${escapeXml(item.url)}</link>
+      <guid>${escapeXml(guid)}</guid>
       ${item.summary ? `<description>${escapeXml(item.summary)}</description>` : ''}
       <pubDate>${item.date.toUTCString()}</pubDate>
       ${item.html ? `<content:encoded><![CDATA[${item.html}]]></content:encoded>` : ''}
@@ -168,8 +168,8 @@ export function buildFeed(opts: {
   <channel>
     <title>${escapeXml(title)}</title>
     <description>${escapeXml(description)}</description>
-    <link>${site.href}</link>
-    <atom:link href="${site.origin}${selfPath}" rel="self" type="application/rss+xml"/>
+    <link>${escapeXml(site.href)}</link>
+    <atom:link href="${escapeXml(`${site.origin}${selfPath}`)}" rel="self" type="application/rss+xml"/>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <language>en-us</language>
 ${xmlItems.join('\n')}
