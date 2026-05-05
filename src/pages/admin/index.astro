@@ -45,7 +45,7 @@ export const prerender = true;
 
       // ─── Figure editor component ──────────────────────────────────────────────
 
-      const FIGURE_MDX_PATTERN = /^<Figure\s+([^/]+)\/>$/;
+      const FIGURE_MDX_PATTERN = /^<Figure\s+([\s\S]+?)\s*\/>\s*$/;
       const ATTR_PATTERN = /(\w+)="((?:\\.|[^"\\])*)"/g;
 
       function escapeAttr(value: unknown): string {
