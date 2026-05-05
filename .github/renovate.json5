@@ -12,17 +12,5 @@
       "enabled": false
     }
   ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "description": "Update Sveltia CMS",
-      "fileMatch": ["src/pages/admin/index.astro"],
-      "matchStrings": [
-        "\/@sveltia/cms@(?<currentValue>.*?)\/dist",
-      ],
-      "depNameTemplate": "@sveltia/cms",
-      "datasourceTemplate": "npm",
-    }
-  ],
   "commitMessageSuffix": "[staging]",
 }

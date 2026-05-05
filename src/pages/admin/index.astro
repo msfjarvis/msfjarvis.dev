@@ -1,7 +1,7 @@
 ---
 // CMS admin page — not indexed, not part of the public site.
-// Sveltia CMS is loaded via CDN script tag so Astro/Vite never tries to bundle it.
-// The config, custom.js, and tombstone.js are served from public/admin/ as static files.
+// Sveltia CMS is loaded as a bundled package dependency; all config,
+// editor components, and event hooks live in the <script> block below.
 
 export const prerender = true;
 ---
@@ -12,11 +12,184 @@ export const prerender = true;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
     <title>Content Manager</title>
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms@0.159.0/dist/sveltia-cms.js" type="module"></script>
-    <script type="module" src="/admin/custom.js"></script>
+    <script>
+      import CMS, { type CmsConfig } from '@sveltia/cms';
+
+      // ─── Tombstone hook ───────────────────────────────────────────────────────
+
+      function normalizeBlogEntryForSave(entry: {
+        collection: string;
+        data: Record<string, unknown>;
+      }): typeof entry {
+        const data = structuredClone(entry.data ?? {});
+        if (!data.deleted) {
+          data.deleted = false;
+        }
+        return { ...entry, data };
+      }
+
+      CMS.registerEventListener({
+        name: 'preSave',
+        handler: ({ entry }) => {
+          const plain = entry.toJS();
+          const normalized = normalizeBlogEntryForSave({
+            collection: plain.collection,
+            data: plain.data,
+          });
+          return entry.set('data', entry.get('data').clear().merge(normalized.data));
+        },
+      });
+
+      // ─── Figure editor component ──────────────────────────────────────────────
+
+      const FIGURE_MDX_PATTERN = /^<Figure\s+([^/]+)\/>$/;
+      const ATTR_PATTERN = /(\w+)="((?:\\.|[^"\\])*)"/g;
+
+      function escapeAttr(value: unknown): string {
+        return String(value ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      }
+
+      function unescapeAttr(value: unknown): string {
+        return String(value ?? '').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+      }
+
+      function parseAttrs(str: string): Record<string, string> {
+        const attrs: Record<string, string> = {};
+        ATTR_PATTERN.lastIndex = 0;
+        let m: RegExpExecArray | null;
+        while ((m = ATTR_PATTERN.exec(str)) !== null) {
+          attrs[m[1]] = unescapeAttr(m[2]);
+        }
+        return attrs;
+      }
+
+      CMS.registerEditorComponent({
+        id: 'figure',
+        label: 'Figure',
+        fields: [
+          { name: 'src', label: 'Image', widget: 'image' },
+          { name: 'alt', label: 'Alt text', widget: 'text', required: false },
+          { name: 'title', label: 'Title/caption', widget: 'string', required: false },
+        ],
+        pattern: FIGURE_MDX_PATTERN,
+        fromBlock(match: RegExpMatchArray) {
+          const attrs = parseAttrs(match[1] ?? '');
+          return { src: attrs.src, alt: attrs.alt ?? '', title: attrs.title ?? '' };
+        },
+        toBlock(data: Record<string, string>) {
+          const parts = [`src="${escapeAttr(data.src)}"`];
+          if (data.alt) parts.push(`alt="${escapeAttr(data.alt)}"`);
+          if (data.title) parts.push(`title="${escapeAttr(data.title)}"`);
+          return `<Figure ${parts.join(' ')} />`;
+        },
+        toPreview(data: Record<string, string>) {
+          const img = `<img src="${data.src}" alt="${data.alt ?? ''}">`;
+          return data.title
+            ? `<figure>${img}<figcaption>${data.title}</figcaption></figure>`
+            : `<figure>${img}</figure>`;
+        },
+      });
+
+      // ─── CMS configuration ────────────────────────────────────────────────────
+
+      const config: CmsConfig = {
+        load_config_file: false,
+        backend: {
+          name: 'github',
+          repo: 'msfjarvis/msfjarvis.dev',
+          base_url: 'https://sveltia-cms-auth.tiger-shark.workers.dev/',
+          skip_ci: true,
+        },
+        media_libraries: {
+          cloudflare_r2: {
+            access_key_id: 'a1e50eaa4bbd04c61611f5c20545ea6a',
+            bucket: 'blog-images',
+            account_id: '07d4cd9cc7e8077fcafc5dd2fc30391b',
+            public_url: 'https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev',
+          },
+          default: {
+            config: {
+              transformations: {
+                raster_image: { format: 'webp', quality: 85 },
+                svg: { optimize: true },
+              },
+            },
+          },
+        },
+        collections: [
+          {
+            name: 'posts',
+            label: 'Posts',
+            folder: 'src/content/posts',
+            format: 'yaml-frontmatter',
+            extension: 'mdx',
+            create: true,
+            path: '{{slug}}/index',
+            slug: '{{slug}}',
+            media_folder: '',
+            public_folder: '',
+            editor: { preview: true },
+            fields: [
+              { label: 'Title', name: 'title', widget: 'string' },
+              { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false },
+              { label: 'Last modified', name: 'lastmod', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false, required: false },
+              { label: 'Summary', name: 'summary', widget: 'string', required: false },
+              { label: 'Tags', name: 'tags', widget: 'list', required: false },
+              { label: 'Draft', name: 'draft', widget: 'boolean', required: false },
+              { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
+              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'] },
+            ],
+          },
+          {
+            name: 'notes',
+            label: 'Notes',
+            folder: 'src/content/notes',
+            format: 'yaml-frontmatter',
+            extension: 'mdx',
+            create: true,
+            path: '{{slug}}/index',
+            slug: '{{slug}}',
+            media_folder: '',
+            public_folder: '',
+            editor: { preview: false },
+            fields: [
+              { label: 'Title', name: 'title', widget: 'string' },
+              { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false },
+              { label: 'Tags', name: 'tags', widget: 'list', required: false },
+              { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
+              { label: 'Body', name: 'body', widget: 'markdown' },
+            ],
+          },
+          {
+            name: 'weeknotes',
+            label: 'Weeknotes',
+            folder: 'src/content/weeknotes',
+            format: 'yaml-frontmatter',
+            extension: 'mdx',
+            create: true,
+            path: '{{slug}}/index',
+            slug: 'week-{{week}}-{{year}}',
+            media_folder: '',
+            public_folder: '',
+            editor: { preview: true },
+            fields: [
+              { label: 'Title', name: 'title', widget: 'string' },
+              { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false },
+              { label: 'Last modified', name: 'lastmod', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false, required: false },
+              { label: 'Summary', name: 'summary', widget: 'string', required: false },
+              { label: 'Tags', name: 'tags', widget: 'list', required: false },
+              { label: 'Draft', name: 'draft', widget: 'boolean', required: false },
+              { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
+              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'] },
+            ],
+          },
+        ],
+      };
+
+      await CMS.init({ config });
+    </script>
   </body>
 </html>
