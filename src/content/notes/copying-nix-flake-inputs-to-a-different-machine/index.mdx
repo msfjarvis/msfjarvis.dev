@@ -5,6 +5,7 @@ summary: Simple one-liner to avoid re-downloading inputs on a different machine 
 tags:
   - NixOS
   - Nix
+deleted: false
 ---
 
 > TL;DR: `nix flake archive --json | jq -r '.inputs[].path' | xargs nix --verbose copy --to ssh://user@host`

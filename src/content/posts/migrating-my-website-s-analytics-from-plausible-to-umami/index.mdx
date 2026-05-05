@@ -10,6 +10,9 @@ tags:
   - self-hosting
 categories:
   - devops
+lastmod: '2026-01-10T00:40:00+05:30'
+draft: false
+deleted: false
 ---
 
 On January 5th I had another minor outage on one of my servers due to a full disk, caused in part by misconfigured Forgejo data dumps. In the process of fixing that I discovered that most of my server disk was actually being used by [ClickHouse](https://clickhouse.com), which is holding data for my [Plausible](https://plausible.io) instance that records page views for this website.
