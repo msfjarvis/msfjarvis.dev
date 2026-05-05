@@ -1,6 +1,6 @@
 ---
 title: Publishing an Android library to GitHub Packages
-date: '2019-11-21T12:00:00+05:30'
+date: "2019-11-21T12:00:00+05:30"
 summary: GitHub recently rolled out Packages to the general public, allowing the entire develop-test-deploy pipeline to get centralized at GitHub. Learn how to use it to publish your Android library packages.
 tags:
   - gradle
@@ -8,13 +8,13 @@ tags:
   - packaging
 categories:
   - android
-lastmod: '2019-11-21T12:00:00+05:30'
+lastmod: "2019-11-21T12:00:00+05:30"
 draft: false
 deleted: false
 ---
 
-import Figure from '../../../components/Figure.astro';
-import github_packages_support_response from './github_packages_support_response.webp';
+import Figure from "../../../components/Figure.astro";
+import github_packages_support_response from "./github_packages_support_response.webp";
 
 > UPDATE(06/06/2020): The Android Gradle Plugin supports Gradle's inbuilt `maven-publish` plugin since version 4.0.0, so I've added the updated process for utilising it at the beginning of this guide. The previous post follows that section.
 
@@ -282,6 +282,9 @@ That's it! Once you push to GitHub, you'll see the [action running](https://gith
 
 The requirement to authenticate for packages is a significant problem with GitHub Packages' adoption, giving an edge to solutions like [JitPack](https://jitpack.io) which handle the entire process automagically. As mentioned earlier, I did contact GitHub support about it and got this back.
 
-<Figure src={github_packages_support_response} alt="GitHub support reply about authentication requirement for packages" />
+<Figure
+  src={github_packages_support_response}
+  alt="GitHub support reply about authentication requirement for packages"
+/>
 
 My interpretation of this is quite simply that **it's gonna take a while**. I hope not :)

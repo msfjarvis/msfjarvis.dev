@@ -1,8 +1,8 @@
 ---
-title: 'Weeknotes: Week #18 (2026)'
+title: "Weeknotes: Week #18 (2026)"
 date: 2026-05-03T02:32:00+05:30
 lastmod: 2026-05-03T20:58:57+05:30
-summary: 'A brand new website, powered by Astro and Cloudflare! And a lot of other things...'
+summary: "A brand new website, powered by Astro and Cloudflare! And a lot of other things..."
 tags:
   - indieweb
   - games
@@ -11,13 +11,13 @@ draft: false
 deleted: false
 ---
 
-import Figure from '../../../components/Figure.astro';
-import Gallery from '../../../components/Gallery.astro';
-import aloo_bhujia from './aloo-bhujia.webp';
-import bean_and_corn_nacho_dip from './bean-and-corn-nacho-dip.webp';
-import breakfast_french_toast from './breakfast-french-toast.webp';
-import breakfast_sandwiches from './breakfast-sandwiches.webp';
-import thunderstorms from './thunderstorms.webp';
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import aloo_bhujia from "./aloo-bhujia.webp";
+import bean_and_corn_nacho_dip from "./bean-and-corn-nacho-dip.webp";
+import breakfast_french_toast from "./breakfast-french-toast.webp";
+import breakfast_sandwiches from "./breakfast-sandwiches.webp";
+import thunderstorms from "./thunderstorms.webp";
 
 Welcome to the new website! It's powered by [Astro](https://astro.build) but still fully static to the highest extent possible, and performs impeccably on synthetic benchmarks. I was growing increasingly frustrated with both Hugo and Netlify, so this was a great opportunity to kill 2 birds with one stone and also move the site to Cloudflare.
 
@@ -35,7 +35,11 @@ Onwards to the weeknotes!
 
 HOLY SHIT WE FINALLY HAD RAIN BLESSED BY THE GOD WHO RELENTED FOR A SINGLE DAY
 
-<Figure src={thunderstorms} alt="A thunderstorm outside my office building, the picture shows trees being buffeted by strong winds and heavy rainfall that's started to waterlog the area a bit" title="Seeing this right outside the office building felt almost surreal after the incessant heat we've had for the past month" />
+<Figure
+  src={thunderstorms}
+  alt="A thunderstorm outside my office building, the picture shows trees being buffeted by strong winds and heavy rainfall that's started to waterlog the area a bit"
+  title="Seeing this right outside the office building felt almost surreal after the incessant heat we've had for the past month"
+/>
 
 This however did cause our taxi back home to take a total of 2.5 hours from being booked to dropping us off, which usually takes 15 minutes to arrive and 15 more to reach our home.
 
@@ -50,7 +54,6 @@ Also since there's no better place than this, my childhood friend Prajwal got a 
 Things at work have been moving along quite well, after a long period of working exclusively on documentation and such we're back to doing good old engineering and it's nice to be back. I've been managing my increased responsibilities okay so far but it's barely been 2 weeks so who's to say things will stay the same.
 
 Our last sprint was planned around culling our backlog and I'm pleased to report it has gone under 100 issues for the first time in maybe 2 or 3 years. A lot of important but low-key improvements have landed and we're on track to ship in the coming week with a casual 60 or so tickets shuffled out of the backlog.
-
 
 We had CI problems the whole week with macOS runners failing to boot up which was causing a lot of trouble in merging backlogs, so I had Claude write a bash script that just waits for jobs to fail and retries them until the pipeline is green. I jokingly spun out a side business of lending this service to my colleagues and made my first sale: ₹5 off Mayank to get his release PR through. If I still used LinkedIn this could make an excellent motivational post.
 

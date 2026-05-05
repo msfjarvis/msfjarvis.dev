@@ -1,7 +1,7 @@
 ---
 title: Migrating from Gitea to Forgejo the long way
-date: '2025-09-01T19:32:00+05:30'
-lastmod: '2025-10-26T00:09:00+05:30'
+date: "2025-09-01T19:32:00+05:30"
+lastmod: "2025-10-26T00:09:00+05:30"
 summary: With the renewed interest in Forgejo I decided to finally pull the plug on moving out of Gitea, and this is how it went.
 tags:
   - gitea
@@ -20,7 +20,7 @@ I've had a Git server at [https://git.msfjarvis.dev](https://git.msfjarvis.dev/)
 
 GitHub has been getting increasingly unpleasant for the past few years, but them officially announcing its demise as an independent entity and joining Microsoft's "CoreAI" division was the straw that broke the camel's back and made me want to use my own Git forge more actively. Thus the Forgejo migration shot up in my TODO list, and ended up being a rather involved process.
 
-> This post is gonna have some rambling and going around in circles, but the TL;DR  is that I ended up having to migrate individual accounts instead of the whole instance data by using a tool that I ironically generated using GitHub Copilot (the code is available [on my Git server](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/gitea-forgejo-migrator)).
+> This post is gonna have some rambling and going around in circles, but the TL;DR is that I ended up having to migrate individual accounts instead of the whole instance data by using a tool that I ironically generated using GitHub Copilot (the code is available [on my Git server](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/gitea-forgejo-migrator)).
 
 # Attempt 1: The naive way
 
@@ -38,7 +38,7 @@ Unfortunately this didn't work due to the previously discussed version incompati
 
 # Attempt 3: Vibe coding deployed somewhat effectively
 
-> I'm not generally a big believer in the AI hype. I have yet to pay for any of these tools, between GitHub and my employer I get plenty of access to top of the line models that are supposedly reinventing my field of work every 3 months. LLMs have yet to meaningfully help me at work, and the only times I've gotten  real value out of them is by getting them to write one-off things like this that I am glad to have but would likely never invest the time to upskill into and build myself.
+> I'm not generally a big believer in the AI hype. I have yet to pay for any of these tools, between GitHub and my employer I get plenty of access to top of the line models that are supposedly reinventing my field of work every 3 months. LLMs have yet to meaningfully help me at work, and the only times I've gotten real value out of them is by getting them to write one-off things like this that I am glad to have but would likely never invest the time to upskill into and build myself.
 
 I hooked up the free license to GitHub Copilot that I get for [satisfying some criteria of "popular open source maintainer"](https://docs.github.com/en/copilot/get-started/plans) into [Zed](https://zed.dev) and wrote out a simple README file describing what I wanted out of the tool and had it go to town. The end result of this was an unnecessarily abstracted Go project (I doubt anybody would use that directory structure for a project this small) that looked like it would do the job. You can find the source code for this [here](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/gitea-forgejo-migrator).
 

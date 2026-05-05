@@ -12,26 +12,26 @@
  *   - Hugo shortcodes             → MDX components / plain HTML
  */
 
-import { readFileSync, writeFileSync, copyFileSync, existsSync } from 'fs';
-import { readdirSync, statSync } from 'fs';
-import { join, extname, basename, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import toml from '@iarna/toml';
-import yaml from 'js-yaml';
-import fse from 'fs-extra';
+import { readFileSync, writeFileSync, copyFileSync, existsSync } from "fs";
+import { readdirSync, statSync } from "fs";
+import { join, extname, basename, dirname } from "path";
+import { fileURLToPath } from "url";
+import toml from "@iarna/toml";
+import yaml from "js-yaml";
+import fse from "fs-extra";
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const PROJECT_ROOT = join(__dirname, '..');
+const PROJECT_ROOT = join(__dirname, "..");
 
 /** Directory name pattern for weeknotes in the Hugo posts folder. */
 const WEEKNOTE_DIR_RE = /^weeknotes-week-(\d+)-(\d{4})$/;
 
 /** Image extensions to copy alongside content. */
-const IMAGE_EXTS = new Set(['.webp', '.jpg', '.jpeg', '.png', '.gif', '.svg', '.avif']);
+const IMAGE_EXTS = new Set([".webp", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".avif"]);
 
 /** MDX component import lines keyed by component name. */
 const MDX_IMPORTS = {
@@ -51,7 +51,7 @@ function parseHugoFile(raw) {
   // Match opening +++, TOML content, closing +++, then rest of file
   const match = raw.match(/^\+\+\+\r?\n([\s\S]+?)\r?\n\+\+\+\r?\n?([\s\S]*)$/);
   if (!match) {
-    throw new Error('File does not have TOML frontmatter delimited by +++');
+    throw new Error("File does not have TOML frontmatter delimited by +++");
   }
   const data = toml.parse(match[1]);
   const body = match[2].trimStart();
@@ -74,16 +74,12 @@ function buildFrontmatter(data, schemaType) {
 
   // date — required; TOML gives us a Date object
   if (data.date) {
-    out.date = data.date instanceof Date
-      ? data.date.toISOString()
-      : String(data.date);
+    out.date = data.date instanceof Date ? data.date.toISOString() : String(data.date);
   }
 
   // lastmod — optional; skip if identical to date
   if (data.lastmod) {
-    const lm = data.lastmod instanceof Date
-      ? data.lastmod.toISOString()
-      : String(data.lastmod);
+    const lm = data.lastmod instanceof Date ? data.lastmod.toISOString() : String(data.lastmod);
     if (lm !== out.date) out.lastmod = lm;
   }
 
@@ -96,18 +92,18 @@ function buildFrontmatter(data, schemaType) {
     out.tags = data.tags;
   }
 
-  if (schemaType !== 'note' && Array.isArray(data.categories) && data.categories.length > 0) {
+  if (schemaType !== "note" && Array.isArray(data.categories) && data.categories.length > 0) {
     out.categories = data.categories;
   }
 
   // aliases — Hugo paths that should 301 → this page.
   // Normalise each to have a leading slash (Hugo allows relative aliases).
   if (Array.isArray(data.aliases) && data.aliases.length > 0) {
-    out.aliases = data.aliases.map(a => '/' + String(a).replace(/^\//, ''));
+    out.aliases = data.aliases.map((a) => "/" + String(a).replace(/^\//, ""));
   }
 
   // draft / deleted — only write when true to keep frontmatter clean
-  if (schemaType !== 'note') {
+  if (schemaType !== "note") {
     if (data.draft === true) out.draft = true;
   }
   if (data.deleted === true) out.deleted = true;
@@ -129,7 +125,7 @@ function parseShortcodeAttrs(attrStr) {
   const re = /(\w+)=(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)')/g;
   let m;
   while ((m = re.exec(attrStr)) !== null) {
-    const value = (m[2] ?? m[3]).replace(/\\"/g, '"').replace(/\\'/g, "'").replace(/\\\\/g, '\\');
+    const value = (m[2] ?? m[3]).replace(/\\"/g, '"').replace(/\\'/g, "'").replace(/\\\\/g, "\\");
     attrs[m[1]] = value;
   }
   return attrs;
@@ -152,21 +148,21 @@ function transformContent(body, slug, collection) {
   body = body.replace(/\{\{<\s*details\s+summary="([^"]+)"\s*>\}\}/g, (_, summary) => {
     return `<details>\n<summary>${summary}</summary>`;
   });
-  body = body.replace(/\{\{<\s*\/details\s*>\}\}/g, '</details>');
+  body = body.replace(/\{\{<\s*\/details\s*>\}\}/g, "</details>");
 
   // ---- gfycat: defunct service, remove ----
-  body = body.replace(/\{\{<\s*gfycat\s+\S+\s*>\}\}/g, '');
+  body = body.replace(/\{\{<\s*gfycat\s+\S+\s*>\}\}/g, "");
 
   // ---- horizontal_line → <hr /> ----
-  body = body.replace(/\{\{<\s*horizontal_line\s*>\}\}/g, '<hr />');
+  body = body.replace(/\{\{<\s*horizontal_line\s*>\}\}/g, "<hr />");
 
   // ---- sub "text" → <sub>text</sub> ----
   // {{< sub "..." >}} or {{<sub "..." >}}
-  body = body.replace(/\{\{<\s*sub\s+"([^"]+)"\s*>\}\}/g, '<sub>$1</sub>');
+  body = body.replace(/\{\{<\s*sub\s+"([^"]+)"\s*>\}\}/g, "<sub>$1</sub>");
 
   // ---- asciinema ID → <Asciinema id="ID" /> ----
   body = body.replace(/\{\{<\s*asciinema\s+(\S+)\s*>\}\}/g, (_, id) => {
-    usedComponents.add('Asciinema');
+    usedComponents.add("Asciinema");
     return `<Asciinema id="${id}" />`;
   });
 
@@ -177,25 +173,23 @@ function transformContent(body, slug, collection) {
   //   {{< figure src="..." loading="lazy" >}}  (extra attrs to ignore)
   body = body.replace(/\{\{<\s*figure\s+([^>]+?)\s*>\}\}/g, (_, attrStr) => {
     const attrs = parseShortcodeAttrs(attrStr);
-    const src = attrs.src || '';
-    const alt = attrs.alt || '';
-    const title = attrs.title || '';
+    const src = attrs.src || "";
+    const alt = attrs.alt || "";
+    const title = attrs.title || "";
 
     // Convert relative src to absolute public path
-    const publicSrc = src.startsWith('/')
-      ? src
-      : `/${collection}/${slug}/${src}`;
+    const publicSrc = src.startsWith("/") ? src : `/${collection}/${slug}/${src}`;
 
     // Escape double quotes in attribute values for JSX — without this,
     // alt text containing `"quoted words"` breaks the MDX parser.
-    const esc = (s) => s.replace(/"/g, '&quot;');
+    const esc = (s) => s.replace(/"/g, "&quot;");
 
     const parts = [`src="${esc(publicSrc)}"`];
     if (alt) parts.push(`alt="${esc(alt)}"`);
     if (title) parts.push(`title="${esc(title)}"`);
 
-    usedComponents.add('Figure');
-    return `<Figure ${parts.join(' ')} />`;
+    usedComponents.add("Figure");
+    return `<Figure ${parts.join(" ")} />`;
   });
 
   // ---- Absolutise relative Markdown image paths ----
@@ -206,31 +200,25 @@ function transformContent(body, slug, collection) {
   const imageExtRe = /\.(?:webp|jpe?g|png|gif|svg|avif)$/i;
 
   // Inline images: ![alt](relative.ext) or ![alt](relative.ext "title")
-  body = body.replace(
-    /!\[([^\]]*)\]\(([^)]+)\)/g,
-    (match, alt, target) => {
-      const [rawSrc, ...titleParts] = target.split(/\s+(?=")/);
-      const title = titleParts.join(' ');
-      if (rawSrc.startsWith('/') || rawSrc.startsWith('http') || rawSrc.startsWith('#')) {
-        return match; // already absolute or anchor
-      }
-      if (!imageExtRe.test(rawSrc)) return match; // not an image
-      const absSrc = `/${collection}/${slug}/${rawSrc}`;
-      return title ? `![${alt}](${absSrc} ${title})` : `![${alt}](${absSrc})`;
+  body = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, target) => {
+    const [rawSrc, ...titleParts] = target.split(/\s+(?=")/);
+    const title = titleParts.join(" ");
+    if (rawSrc.startsWith("/") || rawSrc.startsWith("http") || rawSrc.startsWith("#")) {
+      return match; // already absolute or anchor
     }
-  );
+    if (!imageExtRe.test(rawSrc)) return match; // not an image
+    const absSrc = `/${collection}/${slug}/${rawSrc}`;
+    return title ? `![${alt}](${absSrc} ${title})` : `![${alt}](${absSrc})`;
+  });
 
   // Reference-style image definitions: [ref]: relative.ext
-  body = body.replace(
-    /^(\[[^\]]+\]):\s*([^\s]+)(.*)/gm,
-    (match, ref, target, rest) => {
-      if (target.startsWith('/') || target.startsWith('http') || target.startsWith('#')) {
-        return match;
-      }
-      if (!imageExtRe.test(target)) return match;
-      return `${ref}: /${collection}/${slug}/${target}${rest}`;
+  body = body.replace(/^(\[[^\]]+\]):\s*([^\s]+)(.*)/gm, (match, ref, target, rest) => {
+    if (target.startsWith("/") || target.startsWith("http") || target.startsWith("#")) {
+      return match;
     }
-  );
+    if (!imageExtRe.test(target)) return match;
+    return `${ref}: /${collection}/${slug}/${target}${rest}`;
+  });
 
   return { body, usedComponents };
 }
@@ -245,10 +233,10 @@ function escapeMdxProse(body) {
   // Convert HTML comments to JSX comments — <!-- --> is invalid in MDX
   body = body.replace(/<!--([\/\s\S]*?)-->/g, (_, content) => `{/*${content}*/}`);
   // Replace bare <> with HTML entities
-  body = body.replace(/<>/g, '&lt;&gt;');
+  body = body.replace(/<>/g, "&lt;&gt;");
   // Replace < that isn't the start of a real tag (letter, /, !, ?) with &lt;
   // This catches things like "x < y", "n < 5", etc.
-  body = body.replace(/<(?![a-zA-Z/!?])/g, '&lt;');
+  body = body.replace(/<(?![a-zA-Z/!?])/g, "&lt;");
   return body;
 }
 
@@ -258,9 +246,9 @@ function escapeMdxProse(body) {
 function buildImports(usedComponents) {
   return [...usedComponents]
     .sort()
-    .map(name => MDX_IMPORTS[name])
+    .map((name) => MDX_IMPORTS[name])
     .filter(Boolean)
-    .join('\n');
+    .join("\n");
 }
 
 // ---------------------------------------------------------------------------
@@ -277,13 +265,13 @@ function buildImports(usedComponents) {
  * @param {string} publicDestDir - Destination public/<collection>/ directory
  */
 function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir) {
-  const indexPath = join(srcDir, 'index.md');
+  const indexPath = join(srcDir, "index.md");
   if (!existsSync(indexPath)) {
     console.warn(`  ⚠ No index.md in ${srcDir} — skipping`);
     return;
   }
 
-  const raw = readFileSync(indexPath, 'utf8');
+  const raw = readFileSync(indexPath, "utf8");
   let data, body;
   try {
     ({ data, body } = parseHugoFile(raw));
@@ -301,22 +289,22 @@ function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir
   const frontmatter = buildFrontmatter(data, collection);
   const needsMdx = usedComponents.size > 0;
   const processedBody = needsMdx ? escapeMdxProse(transformedBody) : transformedBody;
-  const ext = needsMdx ? '.mdx' : '.md';
+  const ext = needsMdx ? ".mdx" : ".md";
 
-  let output = frontmatter + '\n';
+  let output = frontmatter + "\n";
   if (needsMdx) {
-    output += '\n' + buildImports(usedComponents) + '\n\n' + processedBody;
+    output += "\n" + buildImports(usedComponents) + "\n\n" + processedBody;
   } else {
-    output += '\n' + transformedBody;
+    output += "\n" + transformedBody;
   }
 
   const destFile = join(astroDestDir, outputSlug + ext);
-  writeFileSync(destFile, output, 'utf8');
+  writeFileSync(destFile, output, "utf8");
   console.log(`  ✓ ${collection}/${outputSlug}${ext}`);
 
   // Copy image assets to public/<collection>/<outputSlug>/
   const entries = readdirSync(srcDir);
-  const images = entries.filter(f => {
+  const images = entries.filter((f) => {
     const fullPath = join(srcDir, f);
     return statSync(fullPath).isFile() && IMAGE_EXTS.has(extname(f).toLowerCase());
   });
@@ -335,7 +323,7 @@ function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir
  * Migrate a flat Hugo note file to an Astro content file.
  */
 function migrateNote(srcFile, slug, astroDestDir) {
-  const raw = readFileSync(srcFile, 'utf8');
+  const raw = readFileSync(srcFile, "utf8");
   let data, body;
   try {
     ({ data, body } = parseHugoFile(raw));
@@ -344,11 +332,11 @@ function migrateNote(srcFile, slug, astroDestDir) {
     return;
   }
 
-  const frontmatter = buildFrontmatter(data, 'note');
-  const output = frontmatter + '\n\n' + body;
+  const frontmatter = buildFrontmatter(data, "note");
+  const output = frontmatter + "\n\n" + body;
 
-  const destFile = join(astroDestDir, slug + '.md');
-  writeFileSync(destFile, output, 'utf8');
+  const destFile = join(astroDestDir, slug + ".md");
+  writeFileSync(destFile, output, "utf8");
   console.log(`  ✓ notes/${slug}.md`);
 }
 
@@ -359,21 +347,27 @@ function migrateNote(srcFile, slug, astroDestDir) {
 async function main() {
   const hugoRoot = process.argv[2];
   if (!hugoRoot) {
-    console.error('Usage: node scripts/migrate-hugo.mjs <path-to-hugo-root>');
+    console.error("Usage: node scripts/migrate-hugo.mjs <path-to-hugo-root>");
     process.exit(1);
   }
 
-  const hugoPostsDir = join(hugoRoot, 'content', 'posts');
-  const hugoNotesDir = join(hugoRoot, 'content', 'notes');
+  const hugoPostsDir = join(hugoRoot, "content", "posts");
+  const hugoNotesDir = join(hugoRoot, "content", "notes");
 
-  const astroPostsDir = join(PROJECT_ROOT, 'src', 'content', 'posts');
-  const astroNotesDir = join(PROJECT_ROOT, 'src', 'content', 'notes');
-  const astroWeeknotesDir = join(PROJECT_ROOT, 'src', 'content', 'weeknotes');
+  const astroPostsDir = join(PROJECT_ROOT, "src", "content", "posts");
+  const astroNotesDir = join(PROJECT_ROOT, "src", "content", "notes");
+  const astroWeeknotesDir = join(PROJECT_ROOT, "src", "content", "weeknotes");
 
-  const publicPostsDir = join(PROJECT_ROOT, 'public', 'posts');
-  const publicWeeknotesDir = join(PROJECT_ROOT, 'public', 'weeknotes');
+  const publicPostsDir = join(PROJECT_ROOT, "public", "posts");
+  const publicWeeknotesDir = join(PROJECT_ROOT, "public", "weeknotes");
 
-  for (const dir of [astroPostsDir, astroNotesDir, astroWeeknotesDir, publicPostsDir, publicWeeknotesDir]) {
+  for (const dir of [
+    astroPostsDir,
+    astroNotesDir,
+    astroWeeknotesDir,
+    publicPostsDir,
+    publicWeeknotesDir,
+  ]) {
     fse.ensureDirSync(dir);
   }
 
@@ -382,10 +376,10 @@ async function main() {
   //    Weeknotes are identified by slug pattern: weeknotes-week-N-YYYY
   //    They must be processed to the weeknotes collection with slug week-N-YYYY.
   // -------------------------------------------------------------------------
-  console.log('\n── Posts & Weeknotes ──────────────────────────────────────────');
+  console.log("\n── Posts & Weeknotes ──────────────────────────────────────────");
 
   const postDirs = readdirSync(hugoPostsDir)
-    .filter(name => statSync(join(hugoPostsDir, name)).isDirectory())
+    .filter((name) => statSync(join(hugoPostsDir, name)).isDirectory())
     .sort(); // stable ordering
 
   let postCount = 0;
@@ -400,7 +394,7 @@ async function main() {
       migratePageBundle(
         join(hugoPostsDir, dirName),
         newSlug,
-        'weeknotes',
+        "weeknotes",
         astroWeeknotesDir,
         publicWeeknotesDir,
       );
@@ -410,7 +404,7 @@ async function main() {
       migratePageBundle(
         join(hugoPostsDir, dirName),
         dirName,
-        'posts',
+        "posts",
         astroPostsDir,
         publicPostsDir,
       );
@@ -421,20 +415,20 @@ async function main() {
   // -------------------------------------------------------------------------
   // 2. Notes (flat .md files in content/notes/, skip _index.md)
   // -------------------------------------------------------------------------
-  console.log('\n── Notes ──────────────────────────────────────────────────────');
+  console.log("\n── Notes ──────────────────────────────────────────────────────");
 
   const noteFiles = readdirSync(hugoNotesDir)
-    .filter(name => {
+    .filter((name) => {
       const fullPath = join(hugoNotesDir, name);
-      return statSync(fullPath).isFile()
-        && extname(name) === '.md'
-        && basename(name) !== '_index.md';
+      return (
+        statSync(fullPath).isFile() && extname(name) === ".md" && basename(name) !== "_index.md"
+      );
     })
     .sort();
 
   let noteCount = 0;
   for (const fileName of noteFiles) {
-    const slug = basename(fileName, '.md');
+    const slug = basename(fileName, ".md");
     migrateNote(join(hugoNotesDir, fileName), slug, astroNotesDir);
     noteCount++;
   }
@@ -451,8 +445,8 @@ async function main() {
 `);
 }
 
-main().catch(err => {
-  console.error('\n✗ Migration failed:', err.message);
+main().catch((err) => {
+  console.error("\n✗ Migration failed:", err.message);
   console.error(err.stack);
   process.exit(1);
 });

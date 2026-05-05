@@ -9,8 +9,8 @@
   --accent: #7a3d6e;
   --accent-subtle: #e0c8db;
 
-  --font-mono: ui-monospace, 'Cascadia Code', 'Menlo', 'Consolas', monospace;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Menlo", "Consolas", monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --max-width: 952px;
 }
@@ -28,7 +28,11 @@
   }
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -47,26 +51,43 @@ main {
   padding: 2rem 1rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-mono);
   color: var(--text);
   line-height: 1.3;
   margin: 1.5rem 0 0.5rem;
 }
 
-h1 { font-size: 2rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.1rem; }
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.25rem;
+}
+h4 {
+  font-size: 1.1rem;
+}
 
-p { margin: 0 0 1rem; }
+p {
+  margin: 0 0 1rem;
+}
 
 a {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid var(--accent-subtle);
 }
-a:hover { border-bottom-color: var(--accent); }
+a:hover {
+  border-bottom-color: var(--accent);
+}
 
 hr {
   border: none;
@@ -105,26 +126,36 @@ blockquote {
   color: var(--text-2);
 }
 
-img { max-width: 100%; height: auto; }
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
-th, td {
+th,
+td {
   text-align: left;
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--border);
 }
-th { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-3); }
+th {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-3);
+}
 
 .sr-only {
   position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
@@ -152,7 +183,9 @@ header .site-name {
   white-space: nowrap;
   text-decoration: none;
 }
-header .site-name:hover { color: var(--accent); }
+header .site-name:hover {
+  color: var(--accent);
+}
 header .nav-links {
   display: flex;
   flex-wrap: wrap;

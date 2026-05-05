@@ -35,9 +35,9 @@ interface FeedItem {
   title: string;
   url: string;
   date: Date;
-  guid?: string;     // defaults to url
-  html?: string;     // → <content:encoded>
-  summary?: string;  // → <description>
+  guid?: string; // defaults to url
+  html?: string; // → <content:encoded>
+  summary?: string; // → <description>
 }
 
 interface FeedSource {
@@ -48,19 +48,20 @@ interface FeedSource {
 
 #### Private helpers (kept or adapted from existing code)
 
-| Function | Source | Notes |
-|---|---|---|
-| `escapeXml(s)` | kept as-is | XML-escapes a string |
-| `absolutizeUrls(html, origin)` | kept as-is | Rewrites root-relative src/href to absolute |
-| `createContainer()` | kept as-is | AstroContainer with Cloudflare URL workaround |
-| `removeLightboxDuplicates(html)` | kept as-is | cheerio-based; removes duplicate images from lightbox components |
-| `renderEntryHtml(container, entry, origin)` | new (combines existing logic) | Renders MDX, applies lightbox cleanup, absolutizes URLs |
-| `entryToFeedItem(container, entry, url, origin)` | new | Returns a `FeedItem`; no covers, no footer |
+| Function                                         | Source                        | Notes                                                            |
+| ------------------------------------------------ | ----------------------------- | ---------------------------------------------------------------- |
+| `escapeXml(s)`                                   | kept as-is                    | XML-escapes a string                                             |
+| `absolutizeUrls(html, origin)`                   | kept as-is                    | Rewrites root-relative src/href to absolute                      |
+| `createContainer()`                              | kept as-is                    | AstroContainer with Cloudflare URL workaround                    |
+| `removeLightboxDuplicates(html)`                 | kept as-is                    | cheerio-based; removes duplicate images from lightbox components |
+| `renderEntryHtml(container, entry, origin)`      | new (combines existing logic) | Renders MDX, applies lightbox cleanup, absolutizes URLs          |
+| `entryToFeedItem(container, entry, url, origin)` | new                           | Returns a `FeedItem`; no covers, no footer                       |
 
 #### Public functions (new)
 
 **`buildFeed(opts) → Response`**  
 Hand-rolls RSS 2.0 XML and returns a `Response` with `Content-Type: text/xml; charset=utf-8`.
+
 - Adds `xmlns:content` only when any item has `html`
 - Adds `<atom:link rel="self">` using `selfPath`
 - Adds `<?xml-stylesheet href="/pretty-feed-v3.xsl" type="text/xsl"?>`
@@ -82,6 +83,7 @@ Merges all sources, sorts by date descending, renders each to a `FeedItem`, call
 #### `src/pages/rss.xml.ts` (main feed)
 
 Uses `buildMultiCollectionFeed` with two sources:
+
 - posts: `urlBuilder = (entry, origin) => \`${origin}/posts/${entry.id}/\``
 - weeknotes: `urlBuilder` applies cutoff date logic:
   - `entry.data.date < new Date('2026-05-01')` → `${origin}/posts/weeknotes-${entry.id}/`

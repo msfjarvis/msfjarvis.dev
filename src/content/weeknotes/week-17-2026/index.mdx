@@ -1,6 +1,6 @@
 ---
-title: 'Weeknotes: Week #17 (2026)'
-date: '2026-04-26T15:30:00+05:30'
+title: "Weeknotes: Week #17 (2026)"
+date: "2026-04-26T15:30:00+05:30"
 summary: Adapting to changes at work and doing a bunch of gaming
 tags:
   - cooking
@@ -8,18 +8,18 @@ tags:
   - work
 categories:
   - weeknotes
-lastmod: '2026-04-26T15:30:00+05:30'
+lastmod: "2026-04-26T15:30:00+05:30"
 draft: false
 deleted: false
 ---
 
-import Figure from '../../../components/Figure.astro';
-import chicken_popcorn_at_cafe_grey from './chicken-popcorn-at-cafe-grey.webp';
-import dangerous_pulav from './dangerous-pulav.webp';
-import knock_off_mascots_at_michael from './knock-off-mascots-at-michael.webp';
-import michael from './michael.webp';
-import nacho_dip_at_home from './nacho-dip-at-home.webp';
-import nachos_at_cafe_grey from './nachos-at-cafe-grey.webp';
+import Figure from "../../../components/Figure.astro";
+import chicken_popcorn_at_cafe_grey from "./chicken-popcorn-at-cafe-grey.webp";
+import dangerous_pulav from "./dangerous-pulav.webp";
+import knock_off_mascots_at_michael from "./knock-off-mascots-at-michael.webp";
+import michael from "./michael.webp";
+import nacho_dip_at_home from "./nacho-dip-at-home.webp";
+import nachos_at_cafe_grey from "./nachos-at-cafe-grey.webp";
 
 On Wednesday 22nd April this site was down for a few hours in the morning India time thanks to Netlify failing to renew its certificate. Why they thought it was not an operation that should be retried is beyond me, because when I logged into the dashboard and pressed the renew button it was able to provision a certificate in under 2 minutes. Netlify has been a good host for nearly 4 years now (logs say I signed up on Sep 23, 2022), but at this point I've had one too many problems to continue here. I've set up a Cloudflare Pages project with this site already, and will cut over the DNS in a week or so when I've ported the [WebMentions Publisher](https://github.com/msfjarvis/netlify-webmentions-extension/) build plugin I wrote to a Cloudflare native solution. Onward to the actual week notes now!
 
@@ -39,21 +39,37 @@ Work on [my-pi](https://git.msfjarvis.dev/msfjarvis/my-pi) continued this week, 
 
 On Friday I worked out of [Cafe Grey](https://www.bangaloreeats.com/place/cafe-grey-by-dongle-and-co-indiranagar) with [Yash](https://yashgarg.dev/) and [Anunay](https://github.com/anunaym14), which was pretty nice and let us beat the heat for a few hours. The food was decent, coffees were great and the pricing was not as eye watering as I've come to expect from Bengaluru cafes.
 
-<Figure src={nachos_at_cafe_grey} alt="A white ceramic plate with a pile of nachos in the middle. There's melty white cheese all over the top." title="These nachos were tasty but also obviously fresh out of a bag." />
+<Figure
+  src={nachos_at_cafe_grey}
+  alt="A white ceramic plate with a pile of nachos in the middle. There's melty white cheese all over the top."
+  title="These nachos were tasty but also obviously fresh out of a bag."
+/>
 
-<Figure src={chicken_popcorn_at_cafe_grey} alt="A plate of fried chicken popcorn with small bowls of mayonnaise and ketchup. There's a lemon half sitting on top of the chicken, which itself is on thin bed of lettuce." title="Can't really complain about fried chicken." />
+<Figure
+  src={chicken_popcorn_at_cafe_grey}
+  alt="A plate of fried chicken popcorn with small bowls of mayonnaise and ketchup. There's a lemon half sitting on top of the chicken, which itself is on thin bed of lettuce."
+  title="Can't really complain about fried chicken."
+/>
 
 On Saturday I went to watch [Michael](https://www.imdb.com/title/tt11378946/), with Yash, Anunay, [Mayank](https://github.com/mayankofficial999) and Anunay's friend Harshit. The movie was great, and I only learned after the movie that Michael Jackson was portrayed by his nephew Jaafar who is also making his debut with this film. One hell of a start to an acting career!
 
-<Figure src={michael} alt="A scene from the movie Michael showing him singing on stage in a black jacket." title="The picture's a little lopsided because of letterboxing, my positioning and most importantly my ineptitude." />
+<Figure
+  src={michael}
+  alt="A scene from the movie Michael showing him singing on stage in a black jacket."
+  title="The picture's a little lopsided because of letterboxing, my positioning and most importantly my ineptitude."
+/>
 
 When the movie finished we noticed some ruckus erupting in the front of the theater and apparently it was knock-off mascots just dancing away?!?? We still don't know what the hell was happening there.
 
-<Figure src={knock_off_mascots_at_michael} alt="A slightly blurry zoomed in photo of the front of a movie theater, showing mascots in costumes: Hello Kitty, Mickey Mouse and a nondescript mouse I cannot identify immediately." title="For how random this was, the mascots were having fun with it." />
+<Figure
+  src={knock_off_mascots_at_michael}
+  alt="A slightly blurry zoomed in photo of the front of a movie theater, showing mascots in costumes: Hello Kitty, Mickey Mouse and a nondescript mouse I cannot identify immediately."
+  title="For how random this was, the mascots were having fun with it."
+/>
 
 # Gaming
 
-Big week of games news for me, Hades 2 got a couple of updates adding post end-game content that I checked out and loved being terrible at. 
+Big week of games news for me, Hades 2 got a couple of updates adding post end-game content that I checked out and loved being terrible at.
 
 Marvel Rivals got another limited time zombies event which I will be sinking a lot of hours into, like last time. It will also probably be a solo affair, again like last time. Had a chance to play some Rivals ranked with [Sasikanth](https://www.sasikanth.dev/) which validated our theory that the correct time to win games are the weeknights when the proverbial electricians and plumbers are playing (people who are too employed to be great at the game, to put it more directly).
 
@@ -61,8 +77,16 @@ Marvel Rivals got another limited time zombies event which I will be sinking a l
 
 We didn't do anything particularly new this week with food. We had an early mishap with a veggie pulav that we both put too much spice into and also failed to cook that spice out so it was borderline inedible. Yash and I found ourselves quietly eating mangoes right after to soothe our burning palates.
 
-<Figure src={dangerous_pulav} alt="A bowl containing pulav, an Indian rice dish that's typically pressure cooked rice with misc veggies and spices. Ours doesn't look particularly different from what you'd expect, but the flavor was abysmal. We fucked up big time here." title="This thing was genuinely close to being radioactive." />
+<Figure
+  src={dangerous_pulav}
+  alt="A bowl containing pulav, an Indian rice dish that's typically pressure cooked rice with misc veggies and spices. Ours doesn't look particularly different from what you'd expect, but the flavor was abysmal. We fucked up big time here."
+  title="This thing was genuinely close to being radioactive."
+/>
 
 On Friday I only had myself to make dinner for so I went for a classic nacho dip/salad thing which was incredibly easy to put together and tasted delicious, validated by resident protein maxxer Yash.
 
-<Figure src={nacho_dip_at_home} alt="A bean nacho dip with red beans, cucumbers, onions, tomatoes, and corn; all wrapped up in a dressing made with a some jarred salsa, olive oil, apple cider vinegar, onion powder, and a bit of hot sauce." title="I could eat this every day and not tire of it, veggies in a bowl is a pretty versatile canvas." />
+<Figure
+  src={nacho_dip_at_home}
+  alt="A bean nacho dip with red beans, cucumbers, onions, tomatoes, and corn; all wrapped up in a dressing made with a some jarred salsa, olive oil, apple cider vinegar, onion powder, and a bit of hot sauce."
+  title="I could eat this every day and not tire of it, veggies in a bowl is a pretty versatile canvas."
+/>

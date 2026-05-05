@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.join(__dirname, '..');
+const projectRoot = path.join(__dirname, "..");
 
 function generateImageImports(mdxFilePath) {
   // Normalize the path to be relative to project root if needed
@@ -22,17 +22,14 @@ function generateImageImports(mdxFilePath) {
   // Construct the image directory path
   // If MDX is at src/content/weeknotes/week-18-2026.mdx
   // Images are at src/content/images/weeknotes/week-18-2026/
-  const relativePathFromContent = path.relative(
-    path.join(projectRoot, 'src', 'content'),
-    mdxDir
-  );
+  const relativePathFromContent = path.relative(path.join(projectRoot, "src", "content"), mdxDir);
   const imageDir = path.join(
     projectRoot,
-    'src',
-    'content',
-    'images',
+    "src",
+    "content",
+    "images",
     relativePathFromContent,
-    fileName
+    fileName,
   );
 
   // Check if image directory exists
@@ -49,33 +46,32 @@ function generateImageImports(mdxFilePath) {
     .sort();
 
   if (imageFiles.length === 0) {
-    console.log('No images found in directory');
+    console.log("No images found in directory");
     return;
   }
 
   // Generate imports
-  const imports = imageFiles
-    .map((imagePath) => {
-      const imageNameWithoutExt = path.basename(imagePath, path.extname(imagePath));
-      
-      // Convert kebab-case to snake_case
-      const importName = imageNameWithoutExt.replace(/-/g, '_');
+  const imports = imageFiles.map((imagePath) => {
+    const imageNameWithoutExt = path.basename(imagePath, path.extname(imagePath));
 
-      // Calculate relative path from MDX file to image
-      const relativePath = path.relative(mdxDir, imagePath);
+    // Convert kebab-case to snake_case
+    const importName = imageNameWithoutExt.replace(/-/g, "_");
 
-      return `import ${importName} from '${relativePath.replace(/\\/g, '/')}';`;
-    });
+    // Calculate relative path from MDX file to image
+    const relativePath = path.relative(mdxDir, imagePath);
 
-  console.log(imports.join('\n'));
+    return `import ${importName} from '${relativePath.replace(/\\/g, "/")}';`;
+  });
+
+  console.log(imports.join("\n"));
 }
 
 // Get MDX file path from command line argument
 const mdxFilePath = process.argv[2];
 
 if (!mdxFilePath) {
-  console.error('Usage: node generate-image-imports.mjs <path-to-mdx-file>');
-  console.error('Example: node generate-image-imports.mjs src/content/weeknotes/week-18-2026.mdx');
+  console.error("Usage: node generate-image-imports.mjs <path-to-mdx-file>");
+  console.error("Example: node generate-image-imports.mjs src/content/weeknotes/week-18-2026.mdx");
   process.exit(1);
 }
 

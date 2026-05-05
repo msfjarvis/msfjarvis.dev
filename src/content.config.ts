@@ -1,6 +1,6 @@
-import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const postSchema = z.object({
   title: z.string(),
@@ -16,17 +16,17 @@ const postSchema = z.object({
 });
 
 const posts = defineCollection({
-  loader: glob({ base: './src/content/posts', pattern: '**/index.{md,mdx}' }),
+  loader: glob({ base: "./src/content/posts", pattern: "**/index.{md,mdx}" }),
   schema: postSchema,
 });
 
 const notes = defineCollection({
-  loader: glob({ base: './src/content/notes', pattern: '**/index.{md,mdx}' }),
+  loader: glob({ base: "./src/content/notes", pattern: "**/index.{md,mdx}" }),
   schema: postSchema,
 });
 
 const weeknotes = defineCollection({
-  loader: glob({ base: './src/content/weeknotes', pattern: '**/index.{md,mdx}' }),
+  loader: glob({ base: "./src/content/weeknotes", pattern: "**/index.{md,mdx}" }),
   schema: postSchema,
 });
 

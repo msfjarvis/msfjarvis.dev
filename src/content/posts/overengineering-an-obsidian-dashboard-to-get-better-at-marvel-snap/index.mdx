@@ -1,23 +1,23 @@
 ---
 title: Overengineering an Obsidian dashboard to get better at Marvel Snap
-date: '2025-04-01T05:16:52.000Z'
+date: "2025-04-01T05:16:52.000Z"
 summary: Using data to answer the ultimate gamer question - why am I so bad?
 tags:
   - obsidian
   - games
 categories:
   - april-cools
-lastmod: '2025-04-01T05:16:52.000Z'
+lastmod: "2025-04-01T05:16:52.000Z"
 draft: false
 deleted: false
 ---
 
-import Figure from '../../../components/Figure.astro';
-import daily_dashboard from './daily-dashboard.webp';
-import deck_performance from './deck-performance.webp';
-import locations from './locations.webp';
-import template from './template.webp';
-import weekly_dashboard from './weekly-dashboard.webp';
+import Figure from "../../../components/Figure.astro";
+import daily_dashboard from "./daily-dashboard.webp";
+import deck_performance from "./deck-performance.webp";
+import locations from "./locations.webp";
+import template from "./template.webp";
+import weekly_dashboard from "./weekly-dashboard.webp";
 
 [Marvel Snap](https://www.marvelsnap.com/) at its core is a card battler set in the Marvel Universe, where you play a deck of 12 cards and are trying to win
 at least 2 of 3 randomly generated locations on the board in 6 turns.
@@ -45,8 +45,8 @@ Taking all this into account I settled on the following template that I would us
 
 ```markdown
 ---
-date: {{date}}
-time: {{time}}
+date: { { date } }
+time: { { time } }
 type: snap-game
 result: win/loss/retreat
 opponent_name:
@@ -71,7 +71,10 @@ The YAML frontmatter is what I use to power my dashboards, and the Markdown unde
 
 Obsidian provides a very serviceable GUI to edit frontmatter fields which makes the job of filling it in pretty easy.
 
-<Figure src={template} alt="Obsidian's GUI for the frontmatter given above, of note is the date picker and the 'chips' pattern for entering list values for the locations field" />
+<Figure
+  src={template}
+  alt="Obsidian's GUI for the frontmatter given above, of note is the date picker and the 'chips' pattern for entering list values for the locations field"
+/>
 
 I fed this page into the Obsidian [Templates](https://help.obsidian.md/plugins/templates) plugin which takes care of filling in the date and time automatically when I create a new page based on this template.
 
@@ -97,11 +100,17 @@ GROUP BY null
 
 It is pretty self-explanatory, but essentially this walks through every page in my Vault that has its `type` field set to `snap-game` and today's date, then collates the win/loss record from the other YAML frontmatter fields and makes a nice and simple table out of it.
 
-<Figure src={daily_dashboard} alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the day" />
+<Figure
+  src={daily_dashboard}
+  alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the day"
+/>
 
 This can also be extended to cover the past week
 
-<Figure src={weekly_dashboard} alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the week" />
+<Figure
+  src={weekly_dashboard}
+  alt="A table with a single row showing the total games, the wins, the losses, the retreats and the net cube change for the week"
+/>
 
 <details>
 <summary>DataView code</summary>
@@ -126,7 +135,10 @@ SORT date desc, time desc
 
 I can see what decks I played and how they performed relative to each other
 
-<Figure src={deck_performance} alt="A table showing the decks I played in each row and their respective game counts, win rate and net cubes statistics" />
+<Figure
+  src={deck_performance}
+  alt="A table showing the decks I played in each row and their respective game counts, win rate and net cubes statistics"
+/>
 
 <details>
 <summary>DataView code</summary>
@@ -149,7 +161,10 @@ SORT length(rows) desc
 
 I can also see which locations favor me the most
 
-<Figure src={locations} alt="A table of every location with its name, number of times I played there, my win rate and the net cubes" />
+<Figure
+  src={locations}
+  alt="A table of every location with its name, number of times I played there, my win rate and the net cubes"
+/>
 
 <details>
 <summary>DataView code</summary>

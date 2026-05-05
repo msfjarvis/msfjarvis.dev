@@ -1,8 +1,8 @@
-import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-import mdxRenderer from '@astrojs/mdx/server.js';
-import { render } from 'astro:content';
-import { load } from 'cheerio';
-import type { APIContext } from 'astro';
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import mdxRenderer from "@astrojs/mdx/server.js";
+import { render } from "astro:content";
+import { load } from "cheerio";
+import type { APIContext } from "astro";
 
 /** Maximum number of entries to include in any feed. */
 const RSS_MAX_ENTRIES = 40;
@@ -14,8 +14,8 @@ export interface FeedItem {
   title: string;
   url: string;
   date: Date;
-  guid?: string;    // defaults to url
-  html?: string;    // → <content:encoded>
+  guid?: string; // defaults to url
+  html?: string; // → <content:encoded>
   summary?: string; // → <description>
 }
 
@@ -30,10 +30,10 @@ export interface FeedSource {
 /** Escape a string for safe embedding in XML text or attributes. */
 export function escapeXml(s: string): string {
   return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 /** Convert root-relative URLs in src/href attributes to absolute URLs for RSS */
@@ -57,7 +57,7 @@ async function createContainer() {
       try {
         super(url, base);
       } catch {
-        super('file:///tmp/astro-container/');
+        super("file:///tmp/astro-container/");
       }
     }
   };
@@ -76,25 +76,25 @@ function removeLightboxDuplicates(html: string): string {
   const $ = load(html);
 
   // For each figure with lightbox, keep only the image/picture and remove button/container
-  $('[data-image-lightbox]').each((_, figure) => {
+  $("[data-image-lightbox]").each((_, figure) => {
     const $figure = $(figure);
 
     // Get the actual picture/img from inside the button
-    const $button = $figure.find('[data-lightbox-trigger]');
+    const $button = $figure.find("[data-lightbox-trigger]");
     if ($button.length > 0) {
       const imageHtml = $button.html();
       if (!imageHtml) {
-        throw Error('Failed to find lightbox trigger in page, has the layout changed?');
+        throw Error("Failed to find lightbox trigger in page, has the layout changed?");
       }
       $button.replaceWith(imageHtml);
     }
   });
 
   // Remove all lightbox containers
-  $('[data-lightbox-container]').remove();
+  $("[data-lightbox-container]").remove();
 
   // Remove all script tags (not needed for RSS, and lightbox scripts shouldn't be there)
-  $('script').remove();
+  $("script").remove();
 
   return $.html();
 }
@@ -110,7 +110,7 @@ async function renderEntryHtml(
   html = removeLightboxDuplicates(html);
   // AstroContainer wraps output in a full HTML document; extract only body content for RSS
   const $doc = load(html);
-  html = $doc('body').html() ?? html;
+  html = $doc("body").html() ?? html;
   return absolutizeUrls(html, origin);
 }
 
@@ -150,11 +150,11 @@ export function buildFeed(opts: {
   const needsContent = items.some((i) => i.html);
 
   const ns = [
-    needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : '',
+    needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : "",
     'xmlns:atom="http://www.w3.org/2005/Atom"',
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   const xmlItems = items.map((item) => {
     const guid = item.guid || item.url;
@@ -162,9 +162,9 @@ export function buildFeed(opts: {
       <title>${escapeXml(item.title)}</title>
       <link>${escapeXml(item.url)}</link>
       <guid>${escapeXml(guid)}</guid>
-      ${item.summary ? `<description>${escapeXml(item.summary)}</description>` : ''}
+      ${item.summary ? `<description>${escapeXml(item.summary)}</description>` : ""}
       <pubDate>${item.date.toUTCString()}</pubDate>
-      ${item.html ? `<content:encoded><![CDATA[${item.html.replace(/]]>/g, ']]]]><![CDATA[>')}]]></content:encoded>` : ''}
+      ${item.html ? `<content:encoded><![CDATA[${item.html.replace(/]]>/g, "]]]]><![CDATA[>")}]]></content:encoded>` : ""}
     </item>`;
   });
 
@@ -178,12 +178,12 @@ export function buildFeed(opts: {
     <atom:link href="${escapeXml(`${site.origin}${selfPath}`)}" rel="self" type="application/rss+xml"/>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <language>en-us</language>
-${xmlItems.join('\n')}
+${xmlItems.join("\n")}
   </channel>
 </rss>`;
 
   return new Response(xml, {
-    headers: { 'Content-Type': 'text/xml; charset=utf-8' },
+    headers: { "Content-Type": "text/xml; charset=utf-8" },
   });
 }
 

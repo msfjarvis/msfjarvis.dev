@@ -15,6 +15,7 @@
 ### Task 1: Rewrite `src/lib/feed.ts`
 
 **Files:**
+
 - Modify: `src/lib/feed.ts` (full rewrite)
 
 - [ ] **Step 1: Replace the file contents**
@@ -22,11 +23,11 @@
 Write `src/lib/feed.ts` with the following complete content:
 
 ```ts
-import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-import mdxRenderer from '@astrojs/mdx/server.js';
-import { render } from 'astro:content';
-import { load } from 'cheerio';
-import type { APIContext } from 'astro';
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import mdxRenderer from "@astrojs/mdx/server.js";
+import { render } from "astro:content";
+import { load } from "cheerio";
+import type { APIContext } from "astro";
 
 // --- Types ---
 
@@ -35,8 +36,8 @@ export interface FeedItem {
   title: string;
   url: string;
   date: Date;
-  guid?: string;    // defaults to url
-  html?: string;    // → <content:encoded>
+  guid?: string; // defaults to url
+  html?: string; // → <content:encoded>
   summary?: string; // → <description>
 }
 
@@ -51,10 +52,10 @@ export interface FeedSource {
 /** Escape a string for safe embedding in XML text or attributes. */
 export function escapeXml(s: string): string {
   return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 /** Convert root-relative URLs in src/href attributes to absolute URLs for RSS */
@@ -78,7 +79,7 @@ async function createContainer() {
       try {
         super(url, base);
       } catch {
-        super('file:///tmp/astro-container/');
+        super("file:///tmp/astro-container/");
       }
     }
   };
@@ -97,25 +98,25 @@ function removeLightboxDuplicates(html: string): string {
   const $ = load(html);
 
   // For each figure with lightbox, keep only the image/picture and remove button/container
-  $('[data-image-lightbox]').each((_, figure) => {
+  $("[data-image-lightbox]").each((_, figure) => {
     const $figure = $(figure);
 
     // Get the actual picture/img from inside the button
-    const $button = $figure.find('[data-lightbox-trigger]');
+    const $button = $figure.find("[data-lightbox-trigger]");
     if ($button.length > 0) {
       const imageHtml = $button.html();
       if (!imageHtml) {
-        throw Error('Failed to find lightbox trigger in page, has the layout changed?');
+        throw Error("Failed to find lightbox trigger in page, has the layout changed?");
       }
       $button.replaceWith(imageHtml);
     }
   });
 
   // Remove all lightbox containers
-  $('[data-lightbox-container]').remove();
+  $("[data-lightbox-container]").remove();
 
   // Remove all script tags (not needed for RSS, and lightbox scripts shouldn't be there)
-  $('script').remove();
+  $("script").remove();
 
   return $.html();
 }
@@ -168,11 +169,11 @@ export function buildFeed(opts: {
   const needsContent = items.some((i) => i.html);
 
   const ns = [
-    needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : '',
+    needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : "",
     'xmlns:atom="http://www.w3.org/2005/Atom"',
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   const xmlItems = items.map((item) => {
     const guid = item.guid || item.url;
@@ -180,9 +181,9 @@ export function buildFeed(opts: {
       <title>${escapeXml(item.title)}</title>
       <link>${item.url}</link>
       <guid>${guid}</guid>
-      ${item.summary ? `<description>${escapeXml(item.summary)}</description>` : ''}
+      ${item.summary ? `<description>${escapeXml(item.summary)}</description>` : ""}
       <pubDate>${item.date.toUTCString()}</pubDate>
-      ${item.html ? `<content:encoded><![CDATA[${item.html}]]></content:encoded>` : ''}
+      ${item.html ? `<content:encoded><![CDATA[${item.html}]]></content:encoded>` : ""}
     </item>`;
   });
 
@@ -196,12 +197,12 @@ export function buildFeed(opts: {
     <atom:link href="${site.origin}${selfPath}" rel="self" type="application/rss+xml"/>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <language>en-us</language>
-${xmlItems.join('\n')}
+${xmlItems.join("\n")}
   </channel>
 </rss>`;
 
   return new Response(xml, {
-    headers: { 'Content-Type': 'text/xml; charset=utf-8' },
+    headers: { "Content-Type": "text/xml; charset=utf-8" },
   });
 }
 
@@ -218,9 +219,7 @@ export async function buildCollectionFeed(opts: {
 }): Promise<Response> {
   const site = opts.context.site!;
   const container = await createContainer();
-  const sorted = [...opts.entries].sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-  );
+  const sorted = [...opts.entries].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   const items = await Promise.all(
     sorted.map((entry) => {
@@ -288,6 +287,7 @@ git commit -m "refactor(feed): replace @astrojs/rss helpers with hand-rolled bui
 ### Task 2: Rewrite `src/pages/rss.xml.ts`
 
 **Files:**
+
 - Modify: `src/pages/rss.xml.ts` (full rewrite)
 
 - [ ] **Step 1: Replace the file contents**
@@ -295,20 +295,20 @@ git commit -m "refactor(feed): replace @astrojs/rss helpers with hand-rolled bui
 Write `src/pages/rss.xml.ts` with the following complete content:
 
 ```ts
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { filterDrafts } from '../utils';
-import { buildMultiCollectionFeed } from '../lib/feed';
-import type { FeedSource } from '../lib/feed';
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { filterDrafts } from "../utils";
+import { buildMultiCollectionFeed } from "../lib/feed";
+import type { FeedSource } from "../lib/feed";
 
 export const prerender = true;
 
-const cutoffDate = new Date('2026-05-01');
+const cutoffDate = new Date("2026-05-01");
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection('posts', filterDrafts);
-  const weeknotes = await getCollection('weeknotes', filterDrafts);
+  const posts = await getCollection("posts", filterDrafts);
+  const weeknotes = await getCollection("weeknotes", filterDrafts);
 
   const sources: FeedSource[] = [
     {
@@ -329,7 +329,7 @@ export async function GET(context: APIContext) {
     sources,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    selfPath: '/rss.xml',
+    selfPath: "/rss.xml",
   });
 }
 ```
@@ -346,6 +346,7 @@ git commit -m "refactor(feed): migrate main rss.xml to hand-rolled buildMultiCol
 ### Task 3: Rewrite `src/pages/notes/rss.xml.ts`
 
 **Files:**
+
 - Modify: `src/pages/notes/rss.xml.ts` (full rewrite)
 
 - [ ] **Step 1: Replace the file contents**
@@ -353,24 +354,24 @@ git commit -m "refactor(feed): migrate main rss.xml to hand-rolled buildMultiCol
 Write `src/pages/notes/rss.xml.ts` with the following complete content:
 
 ```ts
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_TITLE } from '../../consts';
-import { filterDrafts } from '../../utils';
-import { buildCollectionFeed } from '../../lib/feed';
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_TITLE } from "../../consts";
+import { filterDrafts } from "../../utils";
+import { buildCollectionFeed } from "../../lib/feed";
 
 export const prerender = true;
 
 export async function GET(context: APIContext) {
-  const notes = await getCollection('notes', filterDrafts);
+  const notes = await getCollection("notes", filterDrafts);
 
   return buildCollectionFeed({
     context,
     entries: notes,
     urlBuilder: (entry, origin) => `${origin}/notes/${entry.id}/`,
     title: `Notes — ${SITE_TITLE}`,
-    description: 'Short notes by Harsh Shandilya',
-    selfPath: '/notes/rss.xml',
+    description: "Short notes by Harsh Shandilya",
+    selfPath: "/notes/rss.xml",
   });
 }
 ```
@@ -387,6 +388,7 @@ git commit -m "refactor(feed): migrate notes rss.xml to hand-rolled buildCollect
 ### Task 4: Rewrite `src/pages/weeknotes/rss.xml.ts`
 
 **Files:**
+
 - Modify: `src/pages/weeknotes/rss.xml.ts` (full rewrite)
 
 - [ ] **Step 1: Replace the file contents**
@@ -394,24 +396,24 @@ git commit -m "refactor(feed): migrate notes rss.xml to hand-rolled buildCollect
 Write `src/pages/weeknotes/rss.xml.ts` with the following complete content:
 
 ```ts
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_TITLE } from '../../consts';
-import { filterDrafts } from '../../utils';
-import { buildCollectionFeed } from '../../lib/feed';
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_TITLE } from "../../consts";
+import { filterDrafts } from "../../utils";
+import { buildCollectionFeed } from "../../lib/feed";
 
 export const prerender = true;
 
 export async function GET(context: APIContext) {
-  const weeknotes = await getCollection('weeknotes', filterDrafts);
+  const weeknotes = await getCollection("weeknotes", filterDrafts);
 
   return buildCollectionFeed({
     context,
     entries: weeknotes,
     urlBuilder: (entry, origin) => `${origin}/weeknotes/${entry.id}/`,
     title: `Weeknotes — ${SITE_TITLE}`,
-    description: 'Weekly notes by Harsh Shandilya',
-    selfPath: '/weeknotes/rss.xml',
+    description: "Weekly notes by Harsh Shandilya",
+    selfPath: "/weeknotes/rss.xml",
   });
 }
 ```
@@ -428,12 +430,14 @@ git commit -m "refactor(feed): migrate weeknotes rss.xml to hand-rolled buildCol
 ### Task 5: Remove `@astrojs/rss` dependency
 
 **Files:**
+
 - Modify: `package.json`
 - Modify: `package-lock.json` (via npm install)
 
 - [ ] **Step 1: Remove the package from `package.json`**
 
 In `package.json`, delete the line:
+
 ```json
 "@astrojs/rss": "^4.0.18",
 ```
@@ -482,6 +486,7 @@ head -30 dist/rss.xml
 ```
 
 Expected output starts with:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="/pretty-feed-v3.xsl" type="text/xsl"?>
@@ -491,6 +496,7 @@ Expected output starts with:
 ```
 
 Also confirm `<atom:link>` and `<content:encoded>` are present:
+
 ```bash
 grep -c 'content:encoded' dist/rss.xml
 grep 'atom:link' dist/rss.xml

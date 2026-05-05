@@ -179,7 +179,7 @@ systemd.services.caddy.serviceConfig.EnvironmentFile = [
 
 Usually just throwing a `reverse_proxy localhost:<port>` gets you all the way with Caddy, but Calibre-Web specifically requires some extra configuration that serves for a nice demonstration. We need to treat different paths in different ways, so we'll use the Caddy [`handle` directive](https://caddyserver.com/docs/caddyfile/directives/handle) to create mutually exclusive routing paths for them.
 
-`caddy-security` adds a  `/caddy-security` path in your sites that should always require authentication, so we simply route it to our portal without any changes.
+`caddy-security` adds a `/caddy-security` path in your sites that should always require authentication, so we simply route it to our portal without any changes.
 
 ```plain
 handle /caddy-security/* {
@@ -189,7 +189,7 @@ handle /caddy-security/* {
 }
 ```
 
-Caddy lets you label a set of paths or  with the `@name` syntax, this is just here for  convenience. Calibre Web exposes OPDS and Kobo-specific  endpoints for use with your devices that likely can't do OIDC, so we allow those to bypass the authentication requirements. The transport buffer size was taken from https://github.com/janeczku/calibre-web/issues/1891 after I faced the same sync issues.
+Caddy lets you label a set of paths or with the `@name` syntax, this is just here for convenience. Calibre Web exposes OPDS and Kobo-specific endpoints for use with your devices that likely can't do OIDC, so we allow those to bypass the authentication requirements. The transport buffer size was taken from https://github.com/janeczku/calibre-web/issues/1891 after I faced the same sync issues.
 
 ```plain
 @integrations {

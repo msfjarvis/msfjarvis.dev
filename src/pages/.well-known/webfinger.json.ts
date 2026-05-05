@@ -1,4 +1,4 @@
-import type { APIContext } from 'astro';
+import type { APIContext } from "astro";
 
 export async function GET(context: APIContext) {
   const url = new URL(context.request.url);
@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
       }),
       {
         status: 400,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       },
     );
   } else if (resourceParam !== "acct:harsh@msfjarvis.dev") {
@@ -21,7 +21,7 @@ export async function GET(context: APIContext) {
       }),
       {
         status: 400,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       },
     );
   }
@@ -52,7 +52,7 @@ export async function GET(context: APIContext) {
     }),
     {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     },
   );
 }

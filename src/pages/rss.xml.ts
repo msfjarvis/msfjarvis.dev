@@ -1,17 +1,17 @@
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { filterDrafts } from '../utils';
-import { buildMultiCollectionFeed, type FeedSource } from '../lib/feed';
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { filterDrafts } from "../utils";
+import { buildMultiCollectionFeed, type FeedSource } from "../lib/feed";
 
 export const prerender = true;
 
 // Weeknotes published before this date were originally posted under /posts/weeknotes-<id>/
-const cutoffDate = new Date('2026-05-01');
+const cutoffDate = new Date("2026-05-01");
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection('posts', filterDrafts);
-  const weeknotes = await getCollection('weeknotes', filterDrafts);
+  const posts = await getCollection("posts", filterDrafts);
+  const weeknotes = await getCollection("weeknotes", filterDrafts);
 
   const sources: FeedSource[] = [
     {
@@ -32,6 +32,6 @@ export async function GET(context: APIContext) {
     sources,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    selfPath: '/rss.xml',
+    selfPath: "/rss.xml",
   });
 }

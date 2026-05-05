@@ -1,6 +1,6 @@
 ---
 title: Improving dependency sync speeds for your Gradle project
-date: '2024-03-31T03:13:07+05:30'
+date: "2024-03-31T03:13:07+05:30"
 summary: Waiting for Gradle to download dependencies is so 2023
 tags:
   - gradle
@@ -8,16 +8,16 @@ tags:
   - perf
 categories:
   - gradle
-lastmod: '2024-03-31T03:13:07+05:30'
+lastmod: "2024-03-31T03:13:07+05:30"
 draft: false
 deleted: false
 ---
 
-import Figure from '../../../components/Figure.astro';
-import after_fixes from './after-fixes.webp';
-import before_fixes from './before-fixes.webp';
-import download_info from './download-info.webp';
-import run_configuration from './run-configuration.webp';
+import Figure from "../../../components/Figure.astro";
+import after_fixes from "./after-fixes.webp";
+import before_fixes from "./before-fixes.webp";
+import download_info from "./download-info.webp";
+import run_configuration from "./run-configuration.webp";
 
 Android developers are intimately familiar with the ritual of staring at your IDE for tens of minutes while Gradle imports a new project before they can start working on it. While not fully avoidable, there are many ways to improve the situation. For small to medium projects, the time spent on this import phase can be largely dominated by dependency downloads.
 
@@ -41,11 +41,17 @@ To get an idea for how long it actually takes your project to fetch its dependen
 
 In Android Studio, create a new run configuration for Gradle's in-built `dependencies` task that will resolve all configurations and give us a more representative number. The `--refresh-dependencies` flag will force a full re-download to ensure caches do not affect our benchmarks:
 
-<Figure src={run_configuration} title="The Android Studio Run configuration window configured with the task ':android:dependencies --refresh-dependencies'" />
+<Figure
+  src={run_configuration}
+  title="The Android Studio Run configuration window configured with the task ':android:dependencies --refresh-dependencies'"
+/>
 
 When you run this task, you'll see the Build tool window at the bottom get populated with logs of Gradle downloading dependencies and the Downloads info tab will start accumulating the statistics for it.
 
-<Figure src={download_info} title="Download info window showing a list of network requests and their sources while the task is running" />
+<Figure
+  src={download_info}
+  title="Download info window showing a list of network requests and their sources while the task is running"
+/>
 
 ## How Gradle fetches your dependencies
 
@@ -296,11 +302,17 @@ The exact percentage improvement you can expect can vary depending on how many d
 
 ### Before
 
-<Figure src={before_fixes} title="The Android Studio Dependency Sync window, showing a total sync duration of 5 minutes and 56 seconds of which 1 minute and 30 seconds went into failed network requests" />
+<Figure
+  src={before_fixes}
+  title="The Android Studio Dependency Sync window, showing a total sync duration of 5 minutes and 56 seconds of which 1 minute and 30 seconds went into failed network requests"
+/>
 
 ### After
 
-<Figure src={after_fixes} title="The Android Studio Dependency Sync window, now showing the total sync taking only 3 minutes and 17 seconds with 0 failed requests" />
+<Figure
+  src={after_fixes}
+  title="The Android Studio Dependency Sync window, now showing the total sync taking only 3 minutes and 17 seconds with 0 failed requests"
+/>
 
 Like and subscribe, and hit that notification bell so you don't miss my next post some time within this decade (hopefully).
 

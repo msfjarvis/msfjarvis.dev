@@ -1,7 +1,7 @@
 ---
 title: Mildly overengineering my Glance configuration
-date: '2025-05-07T23:05:00+05:30'
-lastmod: '2025-05-10T00:46:00+05:30'
+date: "2025-05-07T23:05:00+05:30"
+lastmod: "2025-05-10T00:46:00+05:30"
 summary: The story of setting up a live environment for configuring my Glance dashboard
 tags:
   - nix
@@ -77,7 +77,7 @@ automated iteration experience.
 
 ## Caveats
 
-This setup is not even remotely perfect, `nix-generator` has  bugs and discrepancies compared to the Nix to YAML implementation inside Nixpkgs. Not all constructs that work fine with Nixpkgs work that well with `nix-generator`, complicating development.
+This setup is not even remotely perfect, `nix-generator` has bugs and discrepancies compared to the Nix to YAML implementation inside Nixpkgs. Not all constructs that work fine with Nixpkgs work that well with `nix-generator`, complicating development.
 
 ## May 10th update
 
@@ -88,7 +88,7 @@ The bulk of the work is now handled by a bash script, which I have annotated as 
 ```bash
 #!/usr/bin/env bash
 
-# EXPR is a Nix expression that we will be evaluating 
+# EXPR is a Nix expression that we will be evaluating
 # and building to obtain our final YAML
 EXPR="
 let

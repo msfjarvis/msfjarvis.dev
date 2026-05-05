@@ -12,46 +12,47 @@
 
 ## File Map
 
-| File | Status | Purpose |
-|---|---|---|
-| `astro.config.mjs` | Modify | Remove custom fonts, set site URL |
-| `src/consts.ts` | Modify | Site title, description, author info |
-| `src/styles/global.css` | Rewrite | Design tokens, base styles |
-| `src/content.config.ts` | Rewrite | Collections: posts, notes, weeknotes |
-| `src/components/BaseHead.astro` | Modify | Remove Atkinson font link |
-| `src/components/Header.astro` | Rewrite | Nav with all links |
-| `src/components/Footer.astro` | Rewrite | Minimal footer |
-| `src/components/FormattedDate.astro` | Keep | Minor update to format |
-| `src/components/Figure.astro` | Create | MDX figure with plain `<img>` |
-| `src/components/Asciinema.astro` | Create | Asciinema embed component |
-| `src/layouts/BaseLayout.astro` | Create | Shell: BaseHead + Header + Footer |
-| `src/layouts/PostLayout.astro` | Create | Post/note/weeknote single-page layout |
-| `src/pages/index.astro` | Rewrite | Home: bio + section grid + recent |
-| `src/pages/posts/index.astro` | Create | Posts list |
-| `src/pages/posts/[slug].astro` | Create | Post pages + weeknote 301 redirects |
-| `src/pages/notes/index.astro` | Create | Notes list |
-| `src/pages/notes/[slug].astro` | Create | Individual note page |
-| `src/pages/weeknotes/index.astro` | Create | Weeknotes list |
-| `src/pages/weeknotes/[slug].astro` | Create | Individual weeknote page |
-| `src/pages/about.astro` | Rewrite | About page (content from Hugo) |
-| `src/pages/now.astro` | Create | Now page (content from Hugo) |
-| `src/pages/uses.astro` | Create | Uses page (content from Hugo) |
-| `src/pages/rss.xml.ts` | Create | Global RSS feed (posts only) |
-| `src/pages/notes/rss.xml.ts` | Create | Notes RSS feed |
-| `src/pages/weeknotes/rss.xml.ts` | Create | Weeknotes RSS feed |
-| `src/pages/webmentions-manifest.json.ts` | Create | Webmentions manifest endpoint |
-| `src/pages/admin/index.astro` | Create | Sveltia CMS admin page |
-| `public/admin/config.yml` | Create | Sveltia CMS collection config |
-| `public/admin/custom.js` | Create | Figure editor component + tombstone hook |
-| `public/admin/tombstone.js` | Create | Tombstone hook (adapted for Astro) |
-| `src/content/blog/` | Delete | Starter placeholder content |
-| `src/assets/fonts/` | Delete | Atkinson font files (unused) |
+| File                                     | Status  | Purpose                                  |
+| ---------------------------------------- | ------- | ---------------------------------------- |
+| `astro.config.mjs`                       | Modify  | Remove custom fonts, set site URL        |
+| `src/consts.ts`                          | Modify  | Site title, description, author info     |
+| `src/styles/global.css`                  | Rewrite | Design tokens, base styles               |
+| `src/content.config.ts`                  | Rewrite | Collections: posts, notes, weeknotes     |
+| `src/components/BaseHead.astro`          | Modify  | Remove Atkinson font link                |
+| `src/components/Header.astro`            | Rewrite | Nav with all links                       |
+| `src/components/Footer.astro`            | Rewrite | Minimal footer                           |
+| `src/components/FormattedDate.astro`     | Keep    | Minor update to format                   |
+| `src/components/Figure.astro`            | Create  | MDX figure with plain `<img>`            |
+| `src/components/Asciinema.astro`         | Create  | Asciinema embed component                |
+| `src/layouts/BaseLayout.astro`           | Create  | Shell: BaseHead + Header + Footer        |
+| `src/layouts/PostLayout.astro`           | Create  | Post/note/weeknote single-page layout    |
+| `src/pages/index.astro`                  | Rewrite | Home: bio + section grid + recent        |
+| `src/pages/posts/index.astro`            | Create  | Posts list                               |
+| `src/pages/posts/[slug].astro`           | Create  | Post pages + weeknote 301 redirects      |
+| `src/pages/notes/index.astro`            | Create  | Notes list                               |
+| `src/pages/notes/[slug].astro`           | Create  | Individual note page                     |
+| `src/pages/weeknotes/index.astro`        | Create  | Weeknotes list                           |
+| `src/pages/weeknotes/[slug].astro`       | Create  | Individual weeknote page                 |
+| `src/pages/about.astro`                  | Rewrite | About page (content from Hugo)           |
+| `src/pages/now.astro`                    | Create  | Now page (content from Hugo)             |
+| `src/pages/uses.astro`                   | Create  | Uses page (content from Hugo)            |
+| `src/pages/rss.xml.ts`                   | Create  | Global RSS feed (posts only)             |
+| `src/pages/notes/rss.xml.ts`             | Create  | Notes RSS feed                           |
+| `src/pages/weeknotes/rss.xml.ts`         | Create  | Weeknotes RSS feed                       |
+| `src/pages/webmentions-manifest.json.ts` | Create  | Webmentions manifest endpoint            |
+| `src/pages/admin/index.astro`            | Create  | Sveltia CMS admin page                   |
+| `public/admin/config.yml`                | Create  | Sveltia CMS collection config            |
+| `public/admin/custom.js`                 | Create  | Figure editor component + tombstone hook |
+| `public/admin/tombstone.js`              | Create  | Tombstone hook (adapted for Astro)       |
+| `src/content/blog/`                      | Delete  | Starter placeholder content              |
+| `src/assets/fonts/`                      | Delete  | Atkinson font files (unused)             |
 
 ---
 
 ### Task 1: Project Foundation
 
 **Files:**
+
 - Modify: `astro.config.mjs`
 - Modify: `src/consts.ts`
 - Rewrite: `src/styles/global.css`
@@ -64,12 +65,12 @@ Remove the custom fonts config, set the correct site URL:
 ```js
 // astro.config.mjs
 // @ts-check
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import { defineConfig } from 'astro/config';
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: 'https://msfjarvis.dev',
+  site: "https://msfjarvis.dev",
   integrations: [mdx(), sitemap()],
 });
 ```
@@ -77,11 +78,12 @@ export default defineConfig({
 - [ ] **Step 2: Update `src/consts.ts`**
 
 ```ts
-export const SITE_TITLE = 'Harsh Shandilya';
-export const SITE_DESCRIPTION = 'Systems Engineer at Cloudflare. Recovering Android developer, amateur Rustacean.';
-export const SITE_URL = 'https://msfjarvis.dev';
-export const AUTHOR_NAME = 'Harsh Shandilya';
-export const AUTHOR_EMAIL = 'me@msfjarvis.dev';
+export const SITE_TITLE = "Harsh Shandilya";
+export const SITE_DESCRIPTION =
+  "Systems Engineer at Cloudflare. Recovering Android developer, amateur Rustacean.";
+export const SITE_URL = "https://msfjarvis.dev";
+export const AUTHOR_NAME = "Harsh Shandilya";
+export const AUTHOR_EMAIL = "me@msfjarvis.dev";
 ```
 
 - [ ] **Step 3: Rewrite `src/styles/global.css`**
@@ -98,8 +100,8 @@ export const AUTHOR_EMAIL = 'me@msfjarvis.dev';
   --accent: #7a3d6e;
   --accent-subtle: #e0c8db;
 
-  --font-mono: ui-monospace, 'Cascadia Code', 'Menlo', 'Consolas', monospace;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Menlo", "Consolas", monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --max-width: 680px;
 }
@@ -117,7 +119,11 @@ export const AUTHOR_EMAIL = 'me@msfjarvis.dev';
   }
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -135,21 +141,30 @@ main {
   padding: 2rem 1rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-mono);
   color: var(--text);
   line-height: 1.3;
   margin: 1.5rem 0 0.5rem;
 }
 
-p { margin: 0 0 1rem; }
+p {
+  margin: 0 0 1rem;
+}
 
 a {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid var(--accent-subtle);
 }
-a:hover { border-bottom-color: var(--accent); }
+a:hover {
+  border-bottom-color: var(--accent);
+}
 
 hr {
   border: none;
@@ -188,26 +203,36 @@ blockquote {
   color: var(--text-2);
 }
 
-img { max-width: 100%; height: auto; }
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
-th, td {
+th,
+td {
   text-align: left;
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--border);
 }
-th { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-3); }
+th {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-3);
+}
 
 .sr-only {
   position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
@@ -281,16 +306,17 @@ git commit -m "feat: project foundation — design tokens, base styles, updated 
 ### Task 2: Content Collection Definitions
 
 **Files:**
+
 - Rewrite: `src/content.config.ts`
 
 - [ ] **Step 1: Rewrite `src/content.config.ts`**
 
 ```ts
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const posts = defineCollection({
-  loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: "./src/content/posts", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -303,7 +329,7 @@ const posts = defineCollection({
 });
 
 const notes = defineCollection({
-  loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: "./src/content/notes", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -313,7 +339,7 @@ const notes = defineCollection({
 });
 
 const weeknotes = defineCollection({
-  loader: glob({ base: './src/content/weeknotes', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: "./src/content/weeknotes", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -354,6 +380,7 @@ git commit -m "feat: content collection schemas for posts, notes, weeknotes"
 ### Task 3: Base Components and Layouts
 
 **Files:**
+
 - Rewrite: `src/components/Header.astro`
 - Rewrite: `src/components/Footer.astro`
 - Modify: `src/components/FormattedDate.astro`
@@ -592,6 +619,7 @@ git commit -m "feat: base components and layouts"
 ### Task 4: Home Page
 
 **Files:**
+
 - Rewrite: `src/pages/index.astro`
 
 - [ ] **Step 1: Rewrite `src/pages/index.astro`**
@@ -750,6 +778,7 @@ git commit -m "feat: home page with bio, section grid, and recent posts"
 ### Task 5: Posts Pages
 
 **Files:**
+
 - Create: `src/pages/posts/index.astro`
 - Create: `src/pages/posts/[slug].astro`
 
@@ -874,6 +903,7 @@ git commit -m "feat: posts list and individual post pages with weeknote redirect
 ### Task 6: Notes Pages
 
 **Files:**
+
 - Create: `src/pages/notes/index.astro`
 - Create: `src/pages/notes/[slug].astro`
 
@@ -976,6 +1006,7 @@ git commit -m "feat: notes list and individual note pages"
 ### Task 7: Weeknotes Pages
 
 **Files:**
+
 - Create: `src/pages/weeknotes/index.astro`
 - Create: `src/pages/weeknotes/[slug].astro`
 
@@ -1094,6 +1125,7 @@ git commit -m "feat: weeknotes list and individual weeknote pages"
 ### Task 8: Static Pages
 
 **Files:**
+
 - Rewrite: `src/pages/about.astro`
 - Create: `src/pages/now.astro`
 - Create: `src/pages/uses.astro`
@@ -1163,6 +1195,7 @@ git commit -m "feat: static pages — about, now, uses"
 ### Task 9: MDX Components
 
 **Files:**
+
 - Create: `src/components/Figure.astro`
 - Create: `src/components/Asciinema.astro`
 
@@ -1246,6 +1279,7 @@ git commit -m "feat: Figure and Asciinema MDX components"
 ### Task 10: RSS Feeds
 
 **Files:**
+
 - Create: `src/pages/rss.xml.ts`
 - Create: `src/pages/notes/rss.xml.ts`
 - Create: `src/pages/weeknotes/rss.xml.ts`
@@ -1253,13 +1287,13 @@ git commit -m "feat: Figure and Asciinema MDX components"
 - [ ] **Step 1: Create `src/pages/rss.xml.ts`** (global feed — posts only)
 
 ```ts
-import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection('posts', (p) => !p.data.deleted && !p.data.draft);
+  const posts = await getCollection("posts", (p) => !p.data.deleted && !p.data.draft);
   posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
@@ -1280,18 +1314,18 @@ export async function GET(context: APIContext) {
 - [ ] **Step 2: Create `src/pages/notes/rss.xml.ts`**
 
 ```ts
-import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_TITLE } from '../../consts';
+import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_TITLE } from "../../consts";
 
 export async function GET(context: APIContext) {
-  const notes = await getCollection('notes', (n) => !n.data.deleted);
+  const notes = await getCollection("notes", (n) => !n.data.deleted);
   notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
     title: `Notes — ${SITE_TITLE}`,
-    description: 'Short notes by Harsh Shandilya',
+    description: "Short notes by Harsh Shandilya",
     site: context.site!,
     items: notes.map((note) => ({
       title: note.data.title,
@@ -1306,18 +1340,18 @@ export async function GET(context: APIContext) {
 - [ ] **Step 3: Create `src/pages/weeknotes/rss.xml.ts`**
 
 ```ts
-import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_TITLE } from '../../consts';
+import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_TITLE } from "../../consts";
 
 export async function GET(context: APIContext) {
-  const weeknotes = await getCollection('weeknotes', (w) => !w.data.deleted && !w.data.draft);
+  const weeknotes = await getCollection("weeknotes", (w) => !w.data.deleted && !w.data.draft);
   weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
   return rss({
     title: `Weeknotes — ${SITE_TITLE}`,
-    description: 'Weekly notes by Harsh Shandilya',
+    description: "Weekly notes by Harsh Shandilya",
     site: context.site!,
     items: weeknotes.map((entry) => ({
       title: entry.data.title,
@@ -1351,18 +1385,19 @@ git commit -m "feat: RSS feeds for posts, notes, and weeknotes"
 ### Task 11: Webmentions Manifest
 
 **Files:**
+
 - Create: `src/pages/webmentions-manifest.json.ts`
 
 - [ ] **Step 1: Create `src/pages/webmentions-manifest.json.ts`**
 
 ```ts
-import { getCollection } from 'astro:content';
-import type { APIContext } from 'astro';
-import { SITE_URL } from '../consts';
+import { getCollection } from "astro:content";
+import type { APIContext } from "astro";
+import { SITE_URL } from "../consts";
 
 export async function GET(_context: APIContext) {
-  const posts = await getCollection('posts', (p) => !p.data.deleted && !p.data.draft);
-  const notes = await getCollection('notes', (n) => !n.data.deleted);
+  const posts = await getCollection("posts", (p) => !p.data.deleted && !p.data.draft);
+  const notes = await getCollection("notes", (n) => !n.data.deleted);
 
   const postEntries = posts.map((p) => ({
     source: `src/content/posts/${p.id}.mdx`,
@@ -1374,9 +1409,7 @@ export async function GET(_context: APIContext) {
     url: `${SITE_URL}/notes/${n.id}/`,
   }));
 
-  const entries = [...postEntries, ...noteEntries].sort((a, b) =>
-    a.source.localeCompare(b.source)
-  );
+  const entries = [...postEntries, ...noteEntries].sort((a, b) => a.source.localeCompare(b.source));
 
   const manifest = {
     schemaVersion: 1,
@@ -1386,7 +1419,7 @@ export async function GET(_context: APIContext) {
   };
 
   return new Response(JSON.stringify(manifest, null, 2), {
-    headers: { 'Content-Type': 'application/json' },
+    headers: { "Content-Type": "application/json" },
   });
 }
 ```
@@ -1412,6 +1445,7 @@ git commit -m "feat: webmentions manifest endpoint"
 ### Task 12: Sveltia CMS
 
 **Files:**
+
 - Create: `src/pages/admin/index.astro`
 - Create: `public/admin/config.yml`
 - Create: `public/admin/custom.js`
@@ -1484,13 +1518,33 @@ collections:
       preview: true
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false }
-      - { label: Last modified, name: lastmod, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false, required: false }
+      - {
+          label: Date,
+          name: date,
+          widget: datetime,
+          format: "YYYY-MM-DDTHH:mm:ssZ",
+          default: "{{now}}",
+          picker_utc: false,
+        }
+      - {
+          label: Last modified,
+          name: lastmod,
+          widget: datetime,
+          format: "YYYY-MM-DDTHH:mm:ssZ",
+          default: "{{now}}",
+          picker_utc: false,
+          required: false,
+        }
       - { label: Summary, name: summary, widget: string, required: false }
       - { label: Tags, name: tags, widget: list, required: false }
       - { label: Draft, name: draft, widget: boolean, required: false }
       - { label: Deleted, name: deleted, widget: boolean, required: false }
-      - { label: Body, name: body, widget: markdown, editor_components: [code-block, image, figure] }
+      - {
+          label: Body,
+          name: body,
+          widget: markdown,
+          editor_components: [code-block, image, figure],
+        }
 
   - name: notes
     label: Notes
@@ -1503,7 +1557,14 @@ collections:
       preview: false
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false }
+      - {
+          label: Date,
+          name: date,
+          widget: datetime,
+          format: "YYYY-MM-DDTHH:mm:ssZ",
+          default: "{{now}}",
+          picker_utc: false,
+        }
       - { label: Tags, name: tags, widget: list, required: false }
       - { label: Deleted, name: deleted, widget: boolean, required: false }
       - { label: Body, name: body, widget: markdown }
@@ -1519,8 +1580,23 @@ collections:
       preview: true
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false }
-      - { label: Last modified, name: lastmod, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", default: "{{now}}", picker_utc: false, required: false }
+      - {
+          label: Date,
+          name: date,
+          widget: datetime,
+          format: "YYYY-MM-DDTHH:mm:ssZ",
+          default: "{{now}}",
+          picker_utc: false,
+        }
+      - {
+          label: Last modified,
+          name: lastmod,
+          widget: datetime,
+          format: "YYYY-MM-DDTHH:mm:ssZ",
+          default: "{{now}}",
+          picker_utc: false,
+          required: false,
+        }
       - { label: Summary, name: summary, widget: string, required: false }
       - { label: Tags, name: tags, widget: list, required: false }
       - { label: Draft, name: draft, widget: boolean, required: false }
@@ -1543,18 +1619,18 @@ export function normalizeBlogEntryForSave(entry) {
 }
 
 export function registerTombstoneHook(CMS) {
-  if (!CMS || typeof CMS.registerEventListener !== 'function') {
+  if (!CMS || typeof CMS.registerEventListener !== "function") {
     return;
   }
   CMS.registerEventListener({
-    name: 'preSave',
+    name: "preSave",
     handler: ({ entry }) => {
       const plain = entry.toJS();
       const normalized = normalizeBlogEntryForSave({
         collection: plain.collection,
         data: plain.data,
       });
-      return entry.set('data', entry.get('data').clear().merge(normalized.data));
+      return entry.set("data", entry.get("data").clear().merge(normalized.data));
     },
   });
 }
@@ -1565,17 +1641,21 @@ export function registerTombstoneHook(CMS) {
 Registers the `<Figure>` CMS editor component and the tombstone hook. The figure component now emits MDX `<Figure>` syntax instead of Hugo shortcodes.
 
 ```js
-import { registerTombstoneHook } from './tombstone.js';
+import { registerTombstoneHook } from "./tombstone.js";
 
 const FIGURE_MDX_PATTERN = /^<Figure\s+([^/]+)\/>$/;
 const ATTR_PATTERN = /(\w+)="((?:\\.|[^"\\])*)"/g;
 
 function escapeAttr(value) {
-  return String(value ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  return String(value ?? "")
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"');
 }
 
 function unescapeAttr(value) {
-  return String(value ?? '').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+  return String(value ?? "")
+    .replace(/\\"/g, '"')
+    .replace(/\\\\/g, "\\");
 }
 
 function parseAttrs(str) {
@@ -1592,27 +1672,27 @@ function registerFigureComponent() {
   if (!window.CMS || window.__msfjarvisFigureRegistered) return;
 
   window.CMS.registerEditorComponent({
-    id: 'figure',
-    label: 'Figure',
+    id: "figure",
+    label: "Figure",
     fields: [
-      { name: 'src', label: 'Image', widget: 'image' },
-      { name: 'alt', label: 'Alt text', widget: 'text', required: false },
-      { name: 'title', label: 'Title/caption', widget: 'string', required: false },
+      { name: "src", label: "Image", widget: "image" },
+      { name: "alt", label: "Alt text", widget: "text", required: false },
+      { name: "title", label: "Title/caption", widget: "string", required: false },
     ],
     pattern: FIGURE_MDX_PATTERN,
     fromBlock(match) {
-      const attrs = parseAttrs(match[1] ?? '');
+      const attrs = parseAttrs(match[1] ?? "");
       if (!attrs.src) return false;
-      return { src: attrs.src, alt: attrs.alt ?? '', title: attrs.title ?? '' };
+      return { src: attrs.src, alt: attrs.alt ?? "", title: attrs.title ?? "" };
     },
     toBlock(data) {
       const parts = [`src="${escapeAttr(data.src)}"`];
       if (data.alt) parts.push(`alt="${escapeAttr(data.alt)}"`);
       if (data.title) parts.push(`title="${escapeAttr(data.title)}"`);
-      return `<Figure ${parts.join(' ')} />`;
+      return `<Figure ${parts.join(" ")} />`;
     },
     toPreview(data) {
-      const img = `<img src="${data.src}" alt="${data.alt ?? ''}">`;
+      const img = `<img src="${data.src}" alt="${data.alt ?? ""}">`;
       return data.title
         ? `<figure>${img}<figcaption>${data.title}</figcaption></figure>`
         : `<figure>${img}</figure>`;
@@ -1629,7 +1709,7 @@ function initialize() {
 }
 
 initialize();
-document.addEventListener('DOMContentLoaded', initialize, { once: true });
+document.addEventListener("DOMContentLoaded", initialize, { once: true });
 ```
 
 - [ ] **Step 6: Verify build**
@@ -1658,6 +1738,7 @@ git commit -m "feat: Sveltia CMS at /admin with updated config and adapted hooks
 ## Self-Review
 
 **Spec coverage check:**
+
 - ✅ Typography (system-ui + ui-monospace) — Task 1
 - ✅ Color system with dark/light auto — Task 1
 - ✅ Navigation with all links + active state — Task 3

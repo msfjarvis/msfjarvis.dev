@@ -1,4 +1,4 @@
-import { defineMiddleware } from 'astro:middleware';
+import { defineMiddleware } from "astro:middleware";
 
 const GITHUB_USERNAME = "msfjarvis";
 const APS_SLUG = "Android-Password-Store";

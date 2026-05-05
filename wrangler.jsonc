@@ -1,32 +1,28 @@
 {
-	"compatibility_date": "2026-05-02",
-	"compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
-	"main": "@astrojs/cloudflare/entrypoints/server",
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS"
-	},
-	"observability": {
-		"logs": {
-			"enabled": true,
-			"invocation_logs": true
-		},
-		"traces": {
-			"enabled": false
-		}
-	},
-	"env": {
-		"production": {
-			"name": "msfjarvis-dev",
-			"routes": [
-				{ "pattern": "msfjarvis.dev/*", "zone_name": "msfjarvis.dev" }
-			]
-		},
-		"drafts": {
-			"name": "msfjarvis-dev-drafts",
-			"routes": [
-				{ "pattern": "drafts.msfjarvis.dev/*", "zone_name": "msfjarvis.dev" }
-			]
-		}
-	}
+  "compatibility_date": "2026-05-02",
+  "compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+    },
+  },
+  "env": {
+    "production": {
+      "name": "msfjarvis-dev",
+      "routes": [{ "pattern": "msfjarvis.dev/*", "zone_name": "msfjarvis.dev" }],
+    },
+    "drafts": {
+      "name": "msfjarvis-dev-drafts",
+      "routes": [{ "pattern": "drafts.msfjarvis.dev/*", "zone_name": "msfjarvis.dev" }],
+    },
+  },
 }

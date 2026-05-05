@@ -1,6 +1,6 @@
 ---
 title: Tips and Tricks for GitHub Actions
-date: '2021-01-02T05:30:00+05:30'
+date: "2021-01-02T05:30:00+05:30"
 summary: GitHub Actions is a power CI/CD platform that can do a lot more than your traditional CI systems. Here's some tips to get you started with exploring its true potential.
 tags:
   - tips and tricks
@@ -9,13 +9,13 @@ tags:
   - workflows
 categories:
   - github-actions
-lastmod: '2021-01-02T05:30:00+05:30'
+lastmod: "2021-01-02T05:30:00+05:30"
 draft: false
 deleted: false
 ---
 
-import Figure from '../../../components/Figure.astro';
-import actions_tips_tricks_commit_hash from './actions_tips_tricks_commit_hash.webp';
+import Figure from "../../../components/Figure.astro";
+import actions_tips_tricks_commit_hash from "./actions_tips_tricks_commit_hash.webp";
 
 GitHub Actions has grown at a rapid pace, and has become the CI platform of choice for most open source projects. The recent changes to Travis CI's pricing for open source is certainly bound to accelerate this even more.
 
@@ -80,7 +80,10 @@ Jobs in a workflow run in parallel by default, and GitHub comes with an amazing 
 | Beta    | Windows + Beta    | MacOS + Beta    | Ubuntu + Beta    |
 | Nightly | Windows + Nightly | MacOS + Nightly | Ubuntu + Nightly |
 
-> <sub>This particular matrix is for Rust, to test a codebase across Windows, Ubuntu, and macOS using the Rust stable, beta, and nightly toolchains.</sub>
+> <sub>
+>   This particular matrix is for Rust, to test a codebase across Windows, Ubuntu, and macOS using
+>   the Rust stable, beta, and nightly toolchains.
+> </sub>
 
 In GitHub Actions, we can simply provide the platforms (Windows, MacOS and, Ubuntu) and the Rust channels (Stable, Beta, and Nightly) inside a single job and let it figure out how to make the permutations and create separate jobs for them. To configure such a matrix, we write something like this:
 
@@ -144,7 +147,10 @@ To get the commit hash for a specific tag, head to the Releases page of the repo
 
 <Figure src={actions_tips_tricks_commit_hash} alt="A tag along with its commit hash" />
 
-> <sub>Here, the commit hash is feb985e. Ideally, you want to click that link and copy the full hash from the URL</sub>
+> <sub>
+>   Here, the commit hash is feb985e. Ideally, you want to click that link and copy the full hash
+>   from the URL
+> </sub>
 
 ```diff
 job:

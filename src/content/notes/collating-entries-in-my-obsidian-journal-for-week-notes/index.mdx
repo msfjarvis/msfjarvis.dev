@@ -1,6 +1,6 @@
 ---
 title: Collating entries in my Obsidian journal for week notes
-date: '2025-12-14T21:21:00+05:30'
+date: "2025-12-14T21:21:00+05:30"
 summary: Quick how-to of setting up my Obsidian journal to create a gist of noteworthy events through the week
 tags:
   - obsidian
@@ -8,8 +8,8 @@ tags:
 deleted: false
 ---
 
-import Figure from '../../../components/Figure.astro';
-import obsidian_weeknotes from './obsidian-weeknotes.webp';
+import Figure from "../../../components/Figure.astro";
+import obsidian_weeknotes from "./obsidian-weeknotes.webp";
 
 Following up on my [Mastodon](https://androiddev.social/@msfjarvis/115717823447859331) post about wanting to start doing week notes, inspired by [Ankur](https://ankursethi.com/) and [Abhinav](https://abhinavsarkar.net/notes/tags/weeknotes/), here's the quick rundown of how I supplemented my existing Obsidian journal to facilitate the new endeavor.
 
@@ -19,7 +19,11 @@ To actually collect the necessary journal entries, I relied on [Dataview](https:
 
 Dataview was able to beautifully navigate this limitation and with a little bit of JavaScript I now have a template that I can plug into Periodic Notes and get a roundup of the whole week in one click. Here's how it looks with just today's entries highlighted:
 
-<Figure src={obsidian_weeknotes} alt="An Obsidian page with the title 2025-W50 and listing two journal entries from today: Me writing about my Droidcon India 2025 experience and a mention of me finishing my second run of the game Dispatch." title="Week 50 roundup with entries from Sunday" />
+<Figure
+  src={obsidian_weeknotes}
+  alt="An Obsidian page with the title 2025-W50 and listing two journal entries from today: Me writing about my Droidcon India 2025 experience and a mention of me finishing my second run of the game Dispatch."
+  title="Week 50 roundup with entries from Sunday"
+/>
 
 The relevant DataViewJS code is this:
 
@@ -52,14 +56,15 @@ The relevant DataViewJS code is this:
   const start = dv.date(isoWeekStartISO(year, week));
   const end = start.plus({ days: 7 });
 
-  const pages = dv.pages('"Daily"')
-    .where(p => p.file.day && p.file.day >= start && p.file.day < end)
-    .sort(p => p.file.day, "asc");
+  const pages = dv
+    .pages('"Daily"')
+    .where((p) => p.file.day && p.file.day >= start && p.file.day < end)
+    .sort((p) => p.file.day, "asc");
 
   let any = false;
 
   for (const p of pages) {
-    const bullets = (p.file.lists ?? []).filter(li => (li.text ?? "").includes(TAG));
+    const bullets = (p.file.lists ?? []).filter((li) => (li.text ?? "").includes(TAG));
     if (!bullets.length) continue;
 
     any = true;
@@ -71,9 +76,9 @@ The relevant DataViewJS code is this:
     // - Line 2
     dv.list(
       bullets
-        .map(li => li.text ?? "")
-        .map(t => t.replace(TAG, "").replace(/\s+/g, " ").trim())
-        .filter(Boolean)
+        .map((li) => li.text ?? "")
+        .map((t) => t.replace(TAG, "").replace(/\s+/g, " ").trim())
+        .filter(Boolean),
     );
 
     dv.paragraph("");

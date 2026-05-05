@@ -17,6 +17,6 @@ export function slugify(str: string): string {
     .replace(/^-|-$/g, ""); // trim leading/trailing hyphens
 }
 
-export const filterDrafts: (p: { data: { draft: boolean, deleted: boolean }}) => boolean = (p) => {
+export const filterDrafts: (p: { data: { draft: boolean; deleted: boolean } }) => boolean = (p) => {
   return !p.data.deleted && (showDrafts || !p.data.draft);
-}
+};

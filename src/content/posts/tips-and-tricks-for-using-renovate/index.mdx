@@ -1,13 +1,13 @@
 ---
 title: Tips and tricks for using Renovate
-date: '2023-01-18T01:02:18+05:30'
+date: "2023-01-18T01:02:18+05:30"
 summary: Renovate is an extremely powerful tool for keeping your dependencies up-to-date, and its flexibility is often left unexplored. I'm hoping to change that
 tags:
   - dependency-management
   - renovate
 categories:
   - automation
-lastmod: '2023-01-18T01:02:18+05:30'
+lastmod: "2023-01-18T01:02:18+05:30"
 draft: false
 deleted: false
 ---
@@ -98,11 +98,7 @@ According to GitHub's [official recommendations](https://docs.github.com/en/acti
 
 ```json
 {
-  "extends": [
-    "config:base",
-    ":dependencyDashboard",
-    "helpers:pinGitHubActionDigests"
-  ]
+  "extends": ["config:base", ":dependencyDashboard", "helpers:pinGitHubActionDigests"]
 }
 ```
 
