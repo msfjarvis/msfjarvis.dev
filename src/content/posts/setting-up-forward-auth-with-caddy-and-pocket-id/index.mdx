@@ -19,7 +19,7 @@ categories:
 
 As I mentioned in my [last weeknote](/posts/weeknotes-week-11-2026/), I set up [Calibre-Web](https://github.com/janeczku/calibre-web) last week which necessitated the use of a forward authentication setup to work with my existing SSO provider. It was rather non-trivial to get it all to work, so I'm documenting it here in hopes of helping others.
 
-> WARNING (added 05/05/2026): Since writing this post I've come to realize that caddy-security very frequently makes subtle breaking changes that are hard to parse without directly talking to the maintainer after every release which is not a problem I wish to have. I will personally be moving to Authelia and LLDAP in the near future to leverage its first party support for forward and reverse auth, and a more stable release cycle.
+> WARNING (added 05/05/2026): Since writing this post I've come to realise that caddy-security very frequently makes subtle breaking changes, and you only figure out the migration by asking yourself or reading the GitHub issue someone else posted. That's far too much active involvement than I want to have with upgrading software that I require to be dependable. I will personally be moving to Authelia and LLDAP in the near future to leverage its first party support for forward and reverse auth, and a more stable release cycle.
 
 ## Requirements
 
