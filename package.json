@@ -14,7 +14,9 @@
     "astro": "astro",
     "migrate": "node scripts/migrate-hugo.mjs",
     "generate-redirects": "node scripts/generate-redirects.mjs",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.3.0",
@@ -30,6 +32,7 @@
     "@iarna/toml": "^2.2.5",
     "fs-extra": "^11.3.4",
     "js-yaml": "^4.1.1",
+    "oxfmt": "^0.48.0",
     "typescript": "^5.9.3",
     "wrangler": "^4.87.0"
   },
