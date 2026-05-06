@@ -7,18 +7,20 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 interface Props {
   title?: string;
   description?: string;
+  alternateFeeds?: Array<{ type: string; title: string; href: string }>;
 }
 
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
+  alternateFeeds,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} alternateFeeds={alternateFeeds} />
   </head>
   <body>
     <Header />
