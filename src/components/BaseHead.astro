@@ -1,12 +1,13 @@
 ---
 import '../styles/global.css';
 import { SITE_TITLE } from '../consts';
+import type { AlternateFeed } from '../consts';
 
 interface Props {
   title: string;
   description: string;
   image?: string;
-  alternateFeeds?: Array<{ type: string; title: string; href: string }>;
+  alternateFeeds?: AlternateFeed[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
