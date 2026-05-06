@@ -6,13 +6,19 @@ import { createFeedEndpoint } from "../../lib/feed";
 
 export const prerender = true;
 
+// Weeknotes published before this date were originally posted under /posts/weeknotes-<id>/
+const cutoffDate = new Date("2026-05-01");
+
 export const { getStaticPaths, GET } = createFeedEndpoint({
   async getSources(_context: APIContext) {
     const weeknotes = await getCollection("weeknotes", filterDrafts);
     return [
       {
         entries: weeknotes,
-        urlBuilder: (entry: any, origin: string) => `${origin}/weeknotes/${entry.id}/`,
+        urlBuilder: (entry: any, origin: string) =>
+          entry.data.date < cutoffDate
+            ? `${origin}/posts/weeknotes-${entry.id}/`
+            : `${origin}/weeknotes/${entry.id}/`,
       },
     ];
   },

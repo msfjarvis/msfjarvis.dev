@@ -264,6 +264,7 @@ export function atomSerializer(opts: {
   <subtitle>${escapeXml(description)}</subtitle>
   <link rel="self" href="${escapeXml(`${site.origin}${selfPath}`)}"/>
   <link rel="alternate" href="${escapeXml(site.href)}"/>
+  <author><name>${escapeXml(AUTHOR_NAME)}</name></author>
   <updated>${updated}</updated>
 ${entries}
 </feed>`;
