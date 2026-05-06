@@ -6,7 +6,7 @@ import type { APIContext } from "astro";
 import { AUTHOR_NAME, SITE_URL } from "../consts";
 
 /** Maximum number of entries to include in any feed. */
-const RSS_MAX_ENTRIES = 40;
+const FEED_MAX_ENTRIES = 40;
 
 // --- Types ---
 
@@ -52,7 +52,7 @@ export interface FeedEndpointConfig {
    * Given a format filename (e.g. "atom.xml"), return the canonical
    * self-path for this feed (e.g. "/notes/atom.xml").
    */
-  selfPath: (format: string) => string;
+  selfPath: (format: FeedFormat) => string;
 }
 
 // --- XML helpers ---
@@ -168,7 +168,7 @@ async function buildFeedItems(
   );
   const sorted = allEntries
     .sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
-    .slice(0, RSS_MAX_ENTRIES);
+    .slice(0, FEED_MAX_ENTRIES);
 
   return Promise.all(
     sorted.map(({ entry, source }) => {
@@ -259,7 +259,7 @@ export function atomSerializer(opts: {
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <id>${escapeXml(site.href)}</id>
+  <id>${escapeXml(`${site.origin}${selfPath}`)}</id>
   <title>${escapeXml(title)}</title>
   <subtitle>${escapeXml(description)}</subtitle>
   <link rel="self" href="${escapeXml(`${site.origin}${selfPath}`)}"/>

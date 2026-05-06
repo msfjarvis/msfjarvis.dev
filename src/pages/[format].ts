@@ -1,13 +1,10 @@
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { SITE_DESCRIPTION, SITE_TITLE, WEEKNOTES_LEGACY_CUTOFF } from "../consts";
 import { filterDrafts } from "../utils";
 import { createFeedEndpoint } from "../lib/feed";
 
 export const prerender = true;
-
-// Weeknotes published before this date were originally posted under /posts/weeknotes-<id>/
-const cutoffDate = new Date("2026-05-01");
 
 export const { getStaticPaths, GET } = createFeedEndpoint({
   async getSources(_context: APIContext) {
@@ -21,7 +18,7 @@ export const { getStaticPaths, GET } = createFeedEndpoint({
       {
         entries: weeknotes,
         urlBuilder: (entry: any, origin: string) =>
-          entry.data.date < cutoffDate
+          entry.data.date < WEEKNOTES_LEGACY_CUTOFF
             ? `${origin}/posts/weeknotes-${entry.id}/`
             : `${origin}/weeknotes/${entry.id}/`,
       },
