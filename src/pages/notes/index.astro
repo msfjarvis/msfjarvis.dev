@@ -10,7 +10,15 @@ const notes = await getCollection('notes', filterDrafts);
 notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<BaseLayout title="Notes — Harsh Shandilya" description="Short notes by Harsh Shandilya">
+<BaseLayout
+  title="Notes — Harsh Shandilya"
+  description="Short notes by Harsh Shandilya"
+  alternateFeeds={[
+    { type: 'application/rss+xml',   title: 'Notes — RSS',       href: '/notes/rss.xml'   },
+    { type: 'application/atom+xml',  title: 'Notes — Atom',      href: '/notes/atom.xml'  },
+    { type: 'application/feed+json', title: 'Notes — JSON Feed', href: '/notes/feed.json' },
+  ]}
+>
   <h1>Notes</h1>
   <ul>
     {notes.map((note) => (
