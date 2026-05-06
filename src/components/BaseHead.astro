@@ -6,10 +6,11 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  alternateFeeds?: Array<{ type: string; title: string; href: string }>;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/android-chrome-512x512.webp' } = Astro.props;
+const { title, description, image = '/android-chrome-512x512.webp', alternateFeeds } = Astro.props;
 ---
 
 <meta charset="utf-8" />
@@ -35,7 +36,12 @@ const { title, description, image = '/android-chrome-512x512.webp' } = Astro.pro
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={new URL(image, Astro.url)} />
 
-<link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} — RSS`} href={new URL('rss.xml', Astro.site)} />
+<link rel="alternate" type="application/rss+xml"   title={`${SITE_TITLE} — RSS`}       href={new URL('rss.xml',  Astro.site)} />
+<link rel="alternate" type="application/atom+xml"  title={`${SITE_TITLE} — Atom`}      href={new URL('atom.xml', Astro.site)} />
+<link rel="alternate" type="application/feed+json" title={`${SITE_TITLE} — JSON Feed`} href={new URL('feed.json',Astro.site)} />
+{alternateFeeds?.map(f => (
+  <link rel="alternate" type={f.type} title={f.title} href={new URL(f.href, Astro.site)} />
+))}
 
 <div class="h-card" style="display: none;">
 	<a class="u-url" href="https://msfjarvis.dev/"></a>
