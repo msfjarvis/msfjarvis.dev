@@ -310,13 +310,13 @@ export function jsonFeedSerializer(opts: {
 
 // --- Factory ---
 
-const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
+export const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
   "rss.xml": rssSerializer,
   "atom.xml": atomSerializer,
   "feed.json": jsonFeedSerializer,
 };
 
-const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
+export const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
 
 const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
   "rss.xml":   "application/rss+xml",
@@ -339,6 +339,37 @@ const _feedRegistry: AlternateFeed[] = [];
  */
 export function getRegisteredFeeds(): AlternateFeed[] {
   return _feedRegistry.map((f) => ({ ...f }));
+}
+
+/**
+ * Build a feed response from explicitly provided sources.
+ *
+ * Use this for parameterized endpoints (e.g. per-category, per-tag) that
+ * cannot use createFeedEndpoint because they have extra route params beyond
+ * `format`. The caller is responsible for calling getStaticPaths and
+ * dispatching to this function in GET.
+ *
+ * Note: does not register into the feed discovery registry — use
+ * createFeedEndpoint for feeds that should appear in virtual:site-feeds.
+ */
+export async function buildFeedFromSources(opts: {
+  context: APIContext;
+  sources: FeedSource[];
+  title: string;
+  description: string;
+  selfPath: string;
+  serializer: FeedSerializer;
+}): Promise<Response> {
+  const site = opts.context.site!;
+  const container = await createContainer();
+  const items = await buildFeedItems(opts.sources, container, site.origin);
+  return opts.serializer({
+    context: opts.context,
+    title: opts.title,
+    description: opts.description,
+    selfPath: opts.selfPath,
+    items,
+  });
 }
 
 /**
