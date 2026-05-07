@@ -40,9 +40,12 @@ const { title, description, image = '/android-chrome-512x512.webp', alternateFee
 <link rel="alternate" type="application/rss+xml"   title={`${SITE_TITLE} — RSS`}       href={new URL('rss.xml',  Astro.site)} />
 <link rel="alternate" type="application/atom+xml"  title={`${SITE_TITLE} — Atom`}      href={new URL('atom.xml', Astro.site)} />
 <link rel="alternate" type="application/feed+json" title={`${SITE_TITLE} — JSON Feed`} href={new URL('feed.json',Astro.site)} />
-{alternateFeeds?.map(f => (
-  <link rel="alternate" type={f.type} title={f.title} href={new URL(f.href, Astro.site)} />
-))}
+{alternateFeeds
+  ?.filter(f => f.href !== '/rss.xml' && f.href !== '/atom.xml' && f.href !== '/feed.json')
+  .map(f => (
+    <link rel="alternate" type={f.type} title={f.title} href={new URL(f.href, Astro.site)} />
+  ))
+}
 
 <div class="h-card" style="display: none;">
 	<a class="u-url" href="https://msfjarvis.dev/"></a>
