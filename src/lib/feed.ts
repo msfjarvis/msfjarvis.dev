@@ -227,7 +227,7 @@ ${xmlItems.join("\n")}
 </rss>`;
 
   return new Response(xml, {
-    headers: { "Content-Type": "text/xml; charset=utf-8" },
+    headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
   });
 }
 
@@ -316,6 +316,8 @@ const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
   "feed.json": jsonFeedSerializer,
 };
 
+const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
+
 const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
   "rss.xml":   "application/rss+xml",
   "atom.xml":  "application/atom+xml",
@@ -336,7 +338,7 @@ const _feedRegistry: AlternateFeed[] = [];
  * Used by the feed-discovery integration's virtual module.
  */
 export function getRegisteredFeeds(): AlternateFeed[] {
-  return [..._feedRegistry];
+  return _feedRegistry.map((f) => ({ ...f }));
 }
 
 /**
@@ -352,22 +354,21 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
 } {
   // Register all format variants into the discovery registry.
   // Guard against duplicate registration on hot-reload re-evaluation.
-  for (const format of Object.keys(FEED_SERIALIZERS) as FeedFormat[]) {
+  for (const format of FEED_FORMATS) {
     const href = config.selfPath(format);
-    if (!_feedRegistry.some((f) => f.href === href)) {
-      _feedRegistry.push({
-        type:  FORMAT_MIME_TYPES[format],
-        title: `${config.title} — ${FORMAT_LABELS[format]}`,
-        href,
-      });
-    }
+    const entry: AlternateFeed = {
+      type:  FORMAT_MIME_TYPES[format],
+      title: `${config.title} — ${FORMAT_LABELS[format]}`,
+      href,
+    };
+    const existing = _feedRegistry.findIndex((f) => f.href === href);
+    if (existing === -1) _feedRegistry.push(entry);
+    else _feedRegistry[existing] = entry;
   }
 
   return {
     getStaticPaths() {
-      return (Object.keys(FEED_SERIALIZERS) as FeedFormat[]).map((format) => ({
-        params: { format },
-      }));
+      return FEED_FORMATS.map((format) => ({ params: { format } }));
     },
     async GET(context: APIContext): Promise<Response> {
       const format = context.params.format as FeedFormat;
