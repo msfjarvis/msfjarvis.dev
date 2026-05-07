@@ -4,6 +4,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { slugify } from '../../utils';
 import { filterDrafts } from '../../utils';
+import {SITE_TITLE} from "../../consts.ts";
 
 export const prerender = true;
 
@@ -43,7 +44,15 @@ export async function getStaticPaths() {
 const { category, entries } = Astro.props;
 ---
 
-<BaseLayout title={`${category} — Categories`} description={`Posts in ${category}`}>
+<BaseLayout
+  title={`${category} — Categories`}
+  description={`Posts in ${category}`}
+  alternateFeeds={[
+    { type: 'application/rss+xml',   title: `Posts about ${category} on ${SITE_TITLE} — RSS`,       href: `/categories/${Astro.params.category}/rss.xml`   },
+    { type: 'application/atom+xml',  title: `Posts about ${category} on ${SITE_TITLE} — Atom`,      href: `/categories/${Astro.params.category}/atom.xml`  },
+    { type: 'application/feed+json', title: `Posts about ${category} on ${SITE_TITLE} — JSON Feed`, href: `/categories/${Astro.params.category}/feed.json` },
+  ]}
+>
   <h1><a href="/categories/">Categories</a> <span class="sep">›</span> {category}</h1>
   <p class="count">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
   <ul>
