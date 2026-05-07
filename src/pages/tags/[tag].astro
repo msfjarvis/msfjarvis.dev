@@ -4,6 +4,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { slugify } from '../../utils';
 import { filterDrafts } from '../../utils';
+import {SITE_TITLE} from "../../consts.ts";
 
 export const prerender = true;
 
@@ -46,7 +47,15 @@ export async function getStaticPaths() {
 const { tag, entries } = Astro.props;
 ---
 
-<BaseLayout title={`${tag} — Tags`} description={`Posts tagged ${tag}`}>
+<BaseLayout
+  title={`${tag} — Tags`}
+  description={`Posts tagged ${tag}`}
+  alternateFeeds={[
+    { type: 'application/rss+xml',   title: `Posts about ${tag} on ${SITE_TITLE} — RSS`,       href: `/tags/${Astro.params.tag}/rss.xml`   },
+    { type: 'application/atom+xml',  title: `Posts about ${tag} on ${SITE_TITLE} — Atom`,      href: `/tags/${Astro.params.tag}/atom.xml`  },
+    { type: 'application/feed+json', title: `Posts about ${tag} on ${SITE_TITLE} — JSON Feed`, href: `/tags/${Astro.params.tag}/feed.json` },
+  ]}
+>
   <h1><a href="/tags/">Tags</a> <span class="sep">›</span> {tag}</h1>
   <p class="count">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
   <ul>

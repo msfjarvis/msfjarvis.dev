@@ -3,29 +3,60 @@ import mdxRenderer from "@astrojs/mdx/server.js";
 import { render } from "astro:content";
 import { load } from "cheerio";
 import type { APIContext } from "astro";
+import { AUTHOR_NAME, SITE_URL } from "../consts";
+import type { AlternateFeed } from "../consts";
 
 /** Maximum number of entries to include in any feed. */
-const RSS_MAX_ENTRIES = 40;
+const FEED_MAX_ENTRIES = 40;
 
 // --- Types ---
 
-/** Normalised item shape for all feeds. */
+/** Supported feed format param values (match the [format] page param). */
+export type FeedFormat = "rss.xml" | "atom.xml" | "feed.json";
+
+/** Normalised item shape used by all serializers. */
 export interface FeedItem {
   title: string;
   url: string;
   date: Date;
   guid?: string; // defaults to url
-  html?: string; // → <content:encoded>
-  summary?: string; // → <description>
+  html?: string;
+  summary?: string;
 }
 
-/** One collection's contribution to a multi-collection feed. */
+/** One collection's contribution to a multi-source feed. */
 export interface FeedSource {
   entries: any[];
   urlBuilder: (entry: any, origin: string) => string;
 }
 
-// --- Helpers ---
+/** A function that turns pre-built FeedItems into an HTTP Response. */
+export type FeedSerializer = (opts: {
+  title: string;
+  description: string;
+  selfPath: string;
+  context: APIContext;
+  items: FeedItem[];
+}) => Response;
+
+/** Config passed to createFeedEndpoint. */
+export interface FeedEndpointConfig {
+  /**
+   * Called once per GET request to return the sources for this feed.
+   * context is provided in case the implementation needs site/request info,
+   * but most implementations will just call getCollection() here.
+   */
+  getSources: (context: APIContext) => Promise<FeedSource[]>;
+  title: string;
+  description: string;
+  /**
+   * Given a format filename (e.g. "atom.xml"), return the canonical
+   * self-path for this feed (e.g. "/notes/atom.xml").
+   */
+  selfPath: (format: FeedFormat) => string;
+}
+
+// --- XML helpers ---
 
 /** Escape a string for safe embedding in XML text or attributes. */
 export function escapeXml(s: string): string {
@@ -36,10 +67,12 @@ export function escapeXml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Convert root-relative URLs in src/href attributes to absolute URLs for RSS */
+/** Convert root-relative URLs in src/href attributes to absolute URLs. */
 function absolutizeUrls(html: string, origin: string): string {
   return html.replace(/(src|href)="\/(?!\/)/g, `$1="${origin}/`);
 }
+
+// --- AstroContainer helpers ---
 
 /**
  * Create an AstroContainer with the MDX renderer for server-side rendering.
@@ -47,8 +80,7 @@ function absolutizeUrls(html: string, origin: string): string {
  * The Cloudflare adapter prerenders in workerd where `import.meta.url` is not a
  * valid URL, which causes `AstroContainer.create()` → `createManifest()` →
  * `new URL(import.meta.url)` to throw. We temporarily patch the global URL
- * constructor so invalid URLs fall back to `file://<cwd>/` (only used for the
- * container's internal `rootDir`, which isn't relevant for `renderToString`).
+ * constructor so invalid URLs fall back to `file://<cwd>/`.
  */
 async function createContainer() {
   const OrigURL = globalThis.URL;
@@ -71,15 +103,11 @@ async function createContainer() {
   }
 }
 
-/** Remove duplicate images from lightbox components for RSS feeds */
+/** Remove duplicate images from lightbox components for feeds. */
 function removeLightboxDuplicates(html: string): string {
   const $ = load(html);
-
-  // For each figure with lightbox, keep only the image/picture and remove button/container
   $("[data-image-lightbox]").each((_, figure) => {
     const $figure = $(figure);
-
-    // Get the actual picture/img from inside the button
     const $button = $figure.find("[data-lightbox-trigger]");
     if ($button.length > 0) {
       const imageHtml = $button.html();
@@ -89,17 +117,12 @@ function removeLightboxDuplicates(html: string): string {
       $button.replaceWith(imageHtml);
     }
   });
-
-  // Remove all lightbox containers
   $("[data-lightbox-container]").remove();
-
-  // Remove all script tags (not needed for RSS, and lightbox scripts shouldn't be there)
   $("script").remove();
-
   return $.html();
 }
 
-/** Render a single entry to absolute-URL HTML via the container */
+/** Render a single entry to absolute-URL HTML via the container. */
 async function renderEntryHtml(
   container: Awaited<ReturnType<typeof createContainer>>,
   entry: any,
@@ -108,7 +131,6 @@ async function renderEntryHtml(
   const { Content } = await render(entry);
   let html = await container.renderToString(Content);
   html = removeLightboxDuplicates(html);
-  // AstroContainer wraps output in a full HTML document; extract only body content for RSS
   const $doc = load(html);
   html = $doc("body").html() ?? html;
   return absolutizeUrls(html, origin);
@@ -131,13 +153,36 @@ async function entryToFeedItem(
   };
 }
 
-// --- Core builder ---
+// --- Internal item builder ---
 
 /**
- * Build an RSS 2.0 feed from a pre-normalised list of FeedItems.
- * Adds xmlns:content only when items need it.
+ * Sort, slice, and render a flat list of FeedSources into FeedItems.
+ * Shared by all serializers via createFeedEndpoint.
  */
-export function buildFeed(opts: {
+async function buildFeedItems(
+  sources: FeedSource[],
+  container: Awaited<ReturnType<typeof createContainer>>,
+  origin: string,
+): Promise<FeedItem[]> {
+  const allEntries = sources.flatMap((source) =>
+    source.entries.map((entry) => ({ entry, source })),
+  );
+  const sorted = allEntries
+    .sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
+    .slice(0, FEED_MAX_ENTRIES);
+
+  return Promise.all(
+    sorted.map(({ entry, source }) => {
+      const url = source.urlBuilder(entry, origin);
+      return entryToFeedItem(container, entry, url, origin);
+    }),
+  );
+}
+
+// --- Serializers ---
+
+/** Produce an RSS 2.0 response. */
+export function rssSerializer(opts: {
   title: string;
   description: string;
   selfPath: string;
@@ -148,7 +193,6 @@ export function buildFeed(opts: {
   const site = opts.context.site!;
 
   const needsContent = items.some((i) => i.html);
-
   const ns = [
     needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : "",
     'xmlns:atom="http://www.w3.org/2005/Atom"',
@@ -183,35 +227,143 @@ ${xmlItems.join("\n")}
 </rss>`;
 
   return new Response(xml, {
-    headers: { "Content-Type": "text/xml; charset=utf-8" },
+    headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
   });
 }
 
-// --- Collection feed builders ---
-
-/** High-level helper for single-collection feeds (notes, weeknotes). */
-export async function buildCollectionFeed(opts: {
-  context: APIContext;
-  entries: any[];
-  urlBuilder: (entry: any, origin: string) => string;
+/** Produce an Atom 1.0 response. */
+export function atomSerializer(opts: {
   title: string;
   description: string;
   selfPath: string;
+  context: APIContext;
+  items: FeedItem[];
+}): Response {
+  const { title, description, selfPath, items } = opts;
+  const site = opts.context.site!;
+
+  const updated = items.length > 0 ? items[0].date.toISOString() : new Date().toISOString();
+
+  const entries = items
+    .map(
+      (item) => `  <entry>
+    <id>${escapeXml(item.url)}</id>
+    <title>${escapeXml(item.title)}</title>
+    <link href="${escapeXml(item.url)}"/>
+    <published>${item.date.toISOString()}</published>
+    <updated>${item.date.toISOString()}</updated>
+    ${item.summary ? `<summary>${escapeXml(item.summary)}</summary>` : ""}
+    ${item.html ? `<content type="html"><![CDATA[${item.html.replace(/]]>/g, "]]]]><![CDATA[>")}]]></content>` : ""}
+  </entry>`,
+    )
+    .join("\n");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>${escapeXml(`${site.origin}${selfPath}`)}</id>
+  <title>${escapeXml(title)}</title>
+  <subtitle>${escapeXml(description)}</subtitle>
+  <link rel="self" href="${escapeXml(`${site.origin}${selfPath}`)}"/>
+  <link rel="alternate" href="${escapeXml(site.href)}"/>
+  <author><name>${escapeXml(AUTHOR_NAME)}</name></author>
+  <updated>${updated}</updated>
+${entries}
+</feed>`;
+
+  return new Response(xml, {
+    headers: { "Content-Type": "application/atom+xml; charset=utf-8" },
+  });
+}
+
+/** Produce a JSON Feed 1.1 response. */
+export function jsonFeedSerializer(opts: {
+  title: string;
+  description: string;
+  selfPath: string;
+  context: APIContext;
+  items: FeedItem[];
+}): Response {
+  const { title, description, selfPath, items } = opts;
+  const site = opts.context.site!;
+
+  const feed = {
+    version: "https://jsonfeed.org/version/1.1",
+    title,
+    description,
+    home_page_url: site.href,
+    feed_url: `${site.origin}${selfPath}`,
+    authors: [{ name: AUTHOR_NAME, url: SITE_URL }],
+    items: items.map((item) => ({
+      id: item.url,
+      url: item.url,
+      title: item.title,
+      date_published: item.date.toISOString(),
+      ...(item.summary ? { summary: item.summary } : {}),
+      ...(item.html ? { content_html: item.html } : {}),
+    })),
+  };
+
+  return new Response(JSON.stringify(feed, null, 2), {
+    headers: { "Content-Type": "application/feed+json; charset=utf-8" },
+  });
+}
+
+// --- Factory ---
+
+export const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
+  "rss.xml": rssSerializer,
+  "atom.xml": atomSerializer,
+  "feed.json": jsonFeedSerializer,
+};
+
+export const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
+
+const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
+  "rss.xml":   "application/rss+xml",
+  "atom.xml":  "application/atom+xml",
+  "feed.json": "application/feed+json",
+};
+
+const FORMAT_LABELS: Record<FeedFormat, string> = {
+  "rss.xml":   "RSS",
+  "atom.xml":  "Atom",
+  "feed.json": "JSON Feed",
+};
+
+/** Module-level registry populated by createFeedEndpoint side-effects. */
+const _feedRegistry: AlternateFeed[] = [];
+
+/**
+ * Return all feeds registered by createFeedEndpoint calls in this process.
+ * Used by the feed-discovery integration's virtual module.
+ */
+export function getRegisteredFeeds(): AlternateFeed[] {
+  return _feedRegistry.map((f) => ({ ...f }));
+}
+
+/**
+ * Build a feed response from explicitly provided sources.
+ *
+ * Use this for parameterized endpoints (e.g. per-category, per-tag) that
+ * cannot use createFeedEndpoint because they have extra route params beyond
+ * `format`. The caller is responsible for calling getStaticPaths and
+ * dispatching to this function in GET.
+ *
+ * Note: does not register into the feed discovery registry — use
+ * createFeedEndpoint for feeds that should appear in virtual:site-feeds.
+ */
+export async function buildFeedFromSources(opts: {
+  context: APIContext;
+  sources: FeedSource[];
+  title: string;
+  description: string;
+  selfPath: string;
+  serializer: FeedSerializer;
 }): Promise<Response> {
   const site = opts.context.site!;
   const container = await createContainer();
-  const sorted = [...opts.entries]
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-    .slice(0, RSS_MAX_ENTRIES);
-
-  const items = await Promise.all(
-    sorted.map((entry) => {
-      const url = opts.urlBuilder(entry, site.origin);
-      return entryToFeedItem(container, entry, url, site.origin);
-    }),
-  );
-
-  return buildFeed({
+  const items = await buildFeedItems(opts.sources, container, site.origin);
+  return opts.serializer({
     context: opts.context,
     title: opts.title,
     description: opts.description,
@@ -221,38 +373,47 @@ export async function buildCollectionFeed(opts: {
 }
 
 /**
- * High-level helper for multi-collection feeds that combine entries from
- * multiple collections (e.g. the site-wide /rss.xml combining posts + weeknotes).
+ * Create Astro endpoint exports for a feed that serves all three formats
+ * from a single [format].ts page file.
+ *
+ * Usage:
+ *   export const { getStaticPaths, GET } = createFeedEndpoint({ ... });
  */
-export async function buildMultiCollectionFeed(opts: {
-  context: APIContext;
-  sources: FeedSource[];
-  title: string;
-  description: string;
-  selfPath: string;
-}): Promise<Response> {
-  const site = opts.context.site!;
-  const container = await createContainer();
+export function createFeedEndpoint(config: FeedEndpointConfig): {
+  getStaticPaths: () => Array<{ params: { format: FeedFormat } }>;
+  GET: (context: APIContext) => Promise<Response>;
+} {
+  // Register all format variants into the discovery registry.
+  // Guard against duplicate registration on hot-reload re-evaluation.
+  for (const format of FEED_FORMATS) {
+    const href = config.selfPath(format);
+    const entry: AlternateFeed = {
+      type:  FORMAT_MIME_TYPES[format],
+      title: `${config.title} — ${FORMAT_LABELS[format]}`,
+      href,
+    };
+    const existing = _feedRegistry.findIndex((f) => f.href === href);
+    if (existing === -1) _feedRegistry.push(entry);
+    else _feedRegistry[existing] = entry;
+  }
 
-  const allEntries = opts.sources.flatMap((source) =>
-    source.entries.map((entry) => ({ entry, source })),
-  );
-  const sorted = allEntries
-    .sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
-    .slice(0, RSS_MAX_ENTRIES);
-
-  const items = await Promise.all(
-    sorted.map(({ entry, source }) => {
-      const url = source.urlBuilder(entry, site.origin);
-      return entryToFeedItem(container, entry, url, site.origin);
-    }),
-  );
-
-  return buildFeed({
-    context: opts.context,
-    title: opts.title,
-    description: opts.description,
-    selfPath: opts.selfPath,
-    items,
-  });
+  return {
+    getStaticPaths() {
+      return FEED_FORMATS.map((format) => ({ params: { format } }));
+    },
+    async GET(context: APIContext): Promise<Response> {
+      const format = context.params.format as FeedFormat;
+      const serializer = FEED_SERIALIZERS[format];
+      if (!serializer) return new Response("Not found", { status: 404 });
+      const sources = await config.getSources(context);
+      return buildFeedFromSources({
+        context,
+        sources,
+        serializer,
+        title: config.title,
+        description: config.description,
+        selfPath: config.selfPath(format),
+      });
+    },
+  };
 }

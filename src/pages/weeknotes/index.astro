@@ -4,11 +4,21 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { filterDrafts } from '../../utils';
 
+export const prerender = true;
+
 const weeknotes = await getCollection('weeknotes', filterDrafts);
 weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<BaseLayout title="Weeknotes — Harsh Shandilya" description="Weekly notes by Harsh Shandilya">
+<BaseLayout
+  title="Weeknotes — Harsh Shandilya"
+  description="Weekly notes by Harsh Shandilya"
+  alternateFeeds={[
+    { type: 'application/rss+xml',   title: 'Weeknotes — RSS',       href: '/weeknotes/rss.xml'   },
+    { type: 'application/atom+xml',  title: 'Weeknotes — Atom',      href: '/weeknotes/atom.xml'  },
+    { type: 'application/feed+json', title: 'Weeknotes — JSON Feed', href: '/weeknotes/feed.json' },
+  ]}
+>
   <h1>Weeknotes</h1>
   <ul>
     {weeknotes.map((entry) => (

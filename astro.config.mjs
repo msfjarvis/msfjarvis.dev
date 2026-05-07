@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 
 import cloudflare from "@astrojs/cloudflare";
+import feedDiscovery from './src/integrations/feed-discovery.ts';
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
 const siteUrl = isDrafts ? "https://drafts.msfjarvis.dev" : "https://msfjarvis.dev";
@@ -12,7 +13,7 @@ const siteUrl = isDrafts ? "https://drafts.msfjarvis.dev" : "https://msfjarvis.d
 export default defineConfig({
   site: siteUrl,
   output: "server",
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), feedDiscovery()],
   adapter: cloudflare({
     imageService: "compile",
   }),

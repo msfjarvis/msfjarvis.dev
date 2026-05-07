@@ -1,15 +1,19 @@
 ---
 import '../styles/global.css';
 import { SITE_TITLE } from '../consts';
+import type { AlternateFeed } from '../consts';
 
 interface Props {
   title: string;
   description: string;
   image?: string;
+  alternateFeeds?: AlternateFeed[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/android-chrome-512x512.webp' } = Astro.props;
+const { title, description, image = '/android-chrome-512x512.webp', alternateFeeds } = Astro.props;
+// Hrefs rendered unconditionally below — excluded from alternateFeeds to prevent duplicates.
+const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
 ---
 
 <meta charset="utf-8" />
@@ -35,7 +39,16 @@ const { title, description, image = '/android-chrome-512x512.webp' } = Astro.pro
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={new URL(image, Astro.url)} />
 
-<link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} — RSS`} href={new URL('rss.xml', Astro.site)} />
+<link rel="alternate" type="application/rss+xml"   title={`${SITE_TITLE} — RSS`}       href={new URL('rss.xml',  Astro.site)} />
+<link rel="alternate" type="application/atom+xml"  title={`${SITE_TITLE} — Atom`}      href={new URL('atom.xml', Astro.site)} />
+<link rel="alternate" type="application/feed+json" title={`${SITE_TITLE} — JSON Feed`} href={new URL('feed.json',Astro.site)} />
+{/* Section and section-less feeds from virtual:site-feeds — global feeds skipped, they're hardcoded above */}
+{alternateFeeds
+  ?.filter(f => !GLOBAL_FEED_HREFS.has(f.href))
+  .map(f => (
+    <link rel="alternate" type={f.type} title={f.title} href={new URL(f.href, Astro.site)} />
+  ))
+}
 
 <div class="h-card" style="display: none;">
 	<a class="u-url" href="https://msfjarvis.dev/"></a>
