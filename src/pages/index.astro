@@ -4,6 +4,9 @@ import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { filterDrafts } from '../utils';
+import { feeds } from 'virtual:site-feeds';
+
+export const prerender = true;
 
 const posts = await getCollection('posts', filterDrafts);
 const weeknotes = await getCollection('weeknotes', filterDrafts);
@@ -22,7 +25,7 @@ const noteCount = notes.length;
 const weeknoteCount = weeknotes.length;
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} alternateFeeds={feeds}>
   <section class="bio">
     <p class="bio-desc">{SITE_DESCRIPTION}</p>
   </section>
