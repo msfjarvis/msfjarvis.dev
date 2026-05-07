@@ -11,6 +11,13 @@ import {
 
 export const prerender = true;
 
+interface TagFeedProps {
+  tagName: string;
+  filteredPosts: Awaited<ReturnType<typeof getCollection<"posts">>>;
+  filteredNotes: Awaited<ReturnType<typeof getCollection<"notes">>>;
+  filteredWeeknotes: Awaited<ReturnType<typeof getCollection<"weeknotes">>>;
+}
+
 export async function getStaticPaths() {
   const [posts, notes, weeknotes] = await Promise.all([
     getCollection("posts", filterDrafts),
@@ -22,35 +29,33 @@ export async function getStaticPaths() {
     [...posts, ...notes, ...weeknotes].flatMap((e) => e.data.tags),
   );
 
-  return [...tagNames].flatMap((name) =>
-    FEED_FORMATS.map((format) => ({
-      params: { tag: slugify(name), format },
-      props: { tagName: name },
-    })),
-  );
+  return [...tagNames].flatMap((name) => {
+    const slug = slugify(name);
+    const filteredPosts = posts.filter((e) =>
+      e.data.tags.map(slugify).includes(slug),
+    );
+    const filteredNotes = notes.filter((e) =>
+      e.data.tags.map(slugify).includes(slug),
+    );
+    const filteredWeeknotes = weeknotes.filter((e) =>
+      e.data.tags.map(slugify).includes(slug),
+    );
+    return FEED_FORMATS.map((format) => ({
+      params: { tag: slug, format },
+      props: { tagName: name, filteredPosts, filteredNotes, filteredWeeknotes } satisfies TagFeedProps,
+    }));
+  });
 }
 
 export async function GET(context: APIContext) {
-  const { tag = "", format = "" } = context.params;
-  const { tagName } = context.props as { tagName: string };
+  const { tag, format } = context.params;
+  if (!tag || !format) return new Response("Bad Request", { status: 400 });
+  const { tagName, filteredPosts, filteredNotes, filteredWeeknotes } =
+    context.props as TagFeedProps;
+  if (!tagName) return new Response("Internal Error", { status: 500 });
+
   const serializer = FEED_SERIALIZERS[format as FeedFormat];
   if (!serializer) return new Response("Not Found", { status: 404 });
-
-  const [posts, notes, weeknotes] = await Promise.all([
-    getCollection("posts", filterDrafts),
-    getCollection("notes", filterDrafts),
-    getCollection("weeknotes", filterDrafts),
-  ]);
-
-  const filteredPosts = posts.filter((e) =>
-    e.data.tags.map(slugify).includes(tag),
-  );
-  const filteredNotes = notes.filter((e) =>
-    e.data.tags.map(slugify).includes(tag),
-  );
-  const filteredWeeknotes = weeknotes.filter((e) =>
-    e.data.tags.map(slugify).includes(tag),
-  );
 
   return buildFeedFromSources({
     context,

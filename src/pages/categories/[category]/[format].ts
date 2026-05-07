@@ -11,6 +11,12 @@ import {
 
 export const prerender = true;
 
+interface CategoryFeedProps {
+  categoryName: string;
+  filteredPosts: Awaited<ReturnType<typeof getCollection<"posts">>>;
+  filteredWeeknotes: Awaited<ReturnType<typeof getCollection<"weeknotes">>>;
+}
+
 export async function getStaticPaths() {
   const [posts, weeknotes] = await Promise.all([
     getCollection("posts", filterDrafts),
@@ -21,31 +27,30 @@ export async function getStaticPaths() {
     [...posts, ...weeknotes].flatMap((e) => e.data.categories),
   );
 
-  return [...catNames].flatMap((name) =>
-    FEED_FORMATS.map((format) => ({
-      params: { category: slugify(name), format },
-      props: { categoryName: name },
-    })),
-  );
+  return [...catNames].flatMap((name) => {
+    const slug = slugify(name);
+    const filteredPosts = posts.filter((e) =>
+      e.data.categories.map(slugify).includes(slug),
+    );
+    const filteredWeeknotes = weeknotes.filter((e) =>
+      e.data.categories.map(slugify).includes(slug),
+    );
+    return FEED_FORMATS.map((format) => ({
+      params: { category: slug, format },
+      props: { categoryName: name, filteredPosts, filteredWeeknotes } satisfies CategoryFeedProps,
+    }));
+  });
 }
 
 export async function GET(context: APIContext) {
-  const { category = "", format = "" } = context.params;
-  const { categoryName } = context.props as { categoryName: string };
+  const { category, format } = context.params;
+  if (!category || !format) return new Response("Bad Request", { status: 400 });
+  const { categoryName, filteredPosts, filteredWeeknotes } =
+    context.props as CategoryFeedProps;
+  if (!categoryName) return new Response("Internal Error", { status: 500 });
+
   const serializer = FEED_SERIALIZERS[format as FeedFormat];
   if (!serializer) return new Response("Not Found", { status: 404 });
-
-  const [posts, weeknotes] = await Promise.all([
-    getCollection("posts", filterDrafts),
-    getCollection("weeknotes", filterDrafts),
-  ]);
-
-  const filteredPosts = posts.filter((e) =>
-    e.data.categories.map(slugify).includes(category),
-  );
-  const filteredWeeknotes = weeknotes.filter((e) =>
-    e.data.categories.map(slugify).includes(category),
-  );
 
   return buildFeedFromSources({
     context,

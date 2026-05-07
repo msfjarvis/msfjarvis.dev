@@ -405,16 +405,14 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
       const format = context.params.format as FeedFormat;
       const serializer = FEED_SERIALIZERS[format];
       if (!serializer) return new Response("Not found", { status: 404 });
-      const site = context.site!;
       const sources = await config.getSources(context);
-      const container = await createContainer();
-      const items = await buildFeedItems(sources, container, site.origin);
-      return serializer({
+      return buildFeedFromSources({
         context,
+        sources,
+        serializer,
         title: config.title,
         description: config.description,
         selfPath: config.selfPath(format),
-        items,
       });
     },
   };
