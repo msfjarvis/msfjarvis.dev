@@ -351,12 +351,16 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
   GET: (context: APIContext) => Promise<Response>;
 } {
   // Register all format variants into the discovery registry.
+  // Guard against duplicate registration on hot-reload re-evaluation.
   for (const format of Object.keys(FEED_SERIALIZERS) as FeedFormat[]) {
-    _feedRegistry.push({
-      type:  FORMAT_MIME_TYPES[format],
-      title: `${config.title} — ${FORMAT_LABELS[format]}`,
-      href:  config.selfPath(format),
-    });
+    const href = config.selfPath(format);
+    if (!_feedRegistry.some((f) => f.href === href)) {
+      _feedRegistry.push({
+        type:  FORMAT_MIME_TYPES[format],
+        title: `${config.title} — ${FORMAT_LABELS[format]}`,
+        href,
+      });
+    }
   }
 
   return {
