@@ -11,10 +11,14 @@ const RESOLVED_ID = "\0" + VIRTUAL_MODULE_ID;
  * under `dir`. Returns absolute paths.
  */
 function findFormatFiles(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
   const results: string[] = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
+    const isDir =
+      entry.isDirectory() ||
+      (entry.isSymbolicLink() && fs.statSync(full).isDirectory());
+    if (isDir) {
       results.push(...findFormatFiles(full));
     } else if (entry.name === "[format].ts" || entry.name === "[format].js") {
       results.push(full);
@@ -41,6 +45,7 @@ function findFormatFiles(dir: string): string[] {
  */
 export default function feedDiscovery(): AstroIntegration {
   let projectRoot: string;
+  let cachedFeedFiles: string[] | null = null;
 
   return {
     name: "feed-discovery",
@@ -54,6 +59,10 @@ export default function feedDiscovery(): AstroIntegration {
               {
                 name: "vite-plugin-site-feeds",
 
+                buildStart() {
+                  cachedFeedFiles = null;
+                },
+
                 resolveId(id: string) {
                   if (id === VIRTUAL_MODULE_ID) return RESOLVED_ID;
                 },
@@ -62,7 +71,8 @@ export default function feedDiscovery(): AstroIntegration {
                   if (id !== RESOLVED_ID) return;
 
                   const pagesDir = path.join(projectRoot, "src", "pages");
-                  const feedFiles = findFormatFiles(pagesDir);
+                  cachedFeedFiles ??= findFormatFiles(pagesDir);
+                  const feedFiles = cachedFeedFiles;
 
                   const sideEffectImports = feedFiles
                     .map((f) => `import ${JSON.stringify(f)};`)
