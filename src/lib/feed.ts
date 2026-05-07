@@ -4,6 +4,7 @@ import { render } from "astro:content";
 import { load } from "cheerio";
 import type { APIContext } from "astro";
 import { AUTHOR_NAME, SITE_URL } from "../consts";
+import type { AlternateFeed } from "../consts";
 
 /** Maximum number of entries to include in any feed. */
 const FEED_MAX_ENTRIES = 40;
@@ -315,6 +316,29 @@ const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
   "feed.json": jsonFeedSerializer,
 };
 
+const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
+  "rss.xml":   "application/rss+xml",
+  "atom.xml":  "application/atom+xml",
+  "feed.json": "application/feed+json",
+};
+
+const FORMAT_LABELS: Record<FeedFormat, string> = {
+  "rss.xml":   "RSS",
+  "atom.xml":  "Atom",
+  "feed.json": "JSON Feed",
+};
+
+/** Module-level registry populated by createFeedEndpoint side-effects. */
+const _feedRegistry: AlternateFeed[] = [];
+
+/**
+ * Return all feeds registered by createFeedEndpoint calls in this process.
+ * Used by the feed-discovery integration's virtual module.
+ */
+export function getRegisteredFeeds(): AlternateFeed[] {
+  return [..._feedRegistry];
+}
+
 /**
  * Create Astro endpoint exports for a feed that serves all three formats
  * from a single [format].ts page file.
@@ -326,6 +350,15 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
   getStaticPaths: () => Array<{ params: { format: FeedFormat } }>;
   GET: (context: APIContext) => Promise<Response>;
 } {
+  // Register all format variants into the discovery registry.
+  for (const format of Object.keys(FEED_SERIALIZERS) as FeedFormat[]) {
+    _feedRegistry.push({
+      type:  FORMAT_MIME_TYPES[format],
+      title: `${config.title} — ${FORMAT_LABELS[format]}`,
+      href:  config.selfPath(format),
+    });
+  }
+
   return {
     getStaticPaths() {
       return (Object.keys(FEED_SERIALIZERS) as FeedFormat[]).map((format) => ({
