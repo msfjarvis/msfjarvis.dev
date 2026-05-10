@@ -319,14 +319,14 @@ export const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
 export const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
 
 const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
-  "rss.xml":   "application/rss+xml",
-  "atom.xml":  "application/atom+xml",
+  "rss.xml": "application/rss+xml",
+  "atom.xml": "application/atom+xml",
   "feed.json": "application/feed+json",
 };
 
 const FORMAT_LABELS: Record<FeedFormat, string> = {
-  "rss.xml":   "RSS",
-  "atom.xml":  "Atom",
+  "rss.xml": "RSS",
+  "atom.xml": "Atom",
   "feed.json": "JSON Feed",
 };
 
@@ -388,7 +388,7 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
   for (const format of FEED_FORMATS) {
     const href = config.selfPath(format);
     const entry: AlternateFeed = {
-      type:  FORMAT_MIME_TYPES[format],
+      type: FORMAT_MIME_TYPES[format],
       title: `${config.title} — ${FORMAT_LABELS[format]}`,
       href,
     };

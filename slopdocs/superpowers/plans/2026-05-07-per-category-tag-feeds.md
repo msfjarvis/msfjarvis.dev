@@ -22,19 +22,20 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|---|---|---|
-| Modify | `src/lib/feed.ts` | Export `FEED_FORMATS`, `FEED_SERIALIZERS`, `buildFeedFromSources` |
-| Create | `src/pages/categories/[category]/[format].ts` | Per-category feed endpoint |
-| Create | `src/pages/tags/[tag]/[format].ts` | Per-tag feed endpoint |
-| Modify | `src/pages/categories/[category].astro` | Advertise 3 category-specific feed links |
-| Modify | `src/pages/tags/[tag].astro` | Advertise 3 tag-specific feed links |
+| Action | Path                                          | Responsibility                                                    |
+| ------ | --------------------------------------------- | ----------------------------------------------------------------- |
+| Modify | `src/lib/feed.ts`                             | Export `FEED_FORMATS`, `FEED_SERIALIZERS`, `buildFeedFromSources` |
+| Create | `src/pages/categories/[category]/[format].ts` | Per-category feed endpoint                                        |
+| Create | `src/pages/tags/[tag]/[format].ts`            | Per-tag feed endpoint                                             |
+| Modify | `src/pages/categories/[category].astro`       | Advertise 3 category-specific feed links                          |
+| Modify | `src/pages/tags/[tag].astro`                  | Advertise 3 tag-specific feed links                               |
 
 ---
 
 ## Task 1: Export `FEED_FORMATS`, `FEED_SERIALIZERS`, and `buildFeedFromSources` from `feed.ts`
 
 **Files:**
+
 - Modify: `src/lib/feed.ts`
 
 - [ ] **Step 1: Export `FEED_FORMATS` and `FEED_SERIALIZERS`**
@@ -42,19 +43,25 @@
 Currently both are `const` (unexported). Change their declarations:
 
 Find:
+
 ```ts
 const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
 ```
+
 Replace with:
+
 ```ts
 export const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
 ```
 
 Find:
+
 ```ts
 const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
 ```
+
 Replace with:
+
 ```ts
 export const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
 ```
@@ -101,6 +108,7 @@ export async function buildFeedFromSources(opts: {
 ```bash
 cd /Users/msfjarvis/git-repos/msfjarvis.dev && npx tsc --noEmit 2>&1 | tail -5
 ```
+
 Expected: 0 errors.
 
 - [ ] **Step 4: Commit**
@@ -116,6 +124,7 @@ git commit -m "feat: export FEED_FORMATS, FEED_SERIALIZERS, and buildFeedFromSou
 ## Task 2: Create per-category feed endpoint
 
 **Files:**
+
 - Create: `src/pages/categories/[category]/[format].ts`
 
 - [ ] **Step 1: Create the file**
@@ -140,9 +149,7 @@ export async function getStaticPaths() {
     getCollection("weeknotes", filterDrafts),
   ]);
 
-  const catNames = new Set(
-    [...posts, ...weeknotes].flatMap((e) => e.data.categories),
-  );
+  const catNames = new Set([...posts, ...weeknotes].flatMap((e) => e.data.categories));
 
   return [...catNames].flatMap((name) =>
     FEED_FORMATS.map((format) => ({
@@ -163,9 +170,7 @@ export async function GET(context: APIContext) {
     getCollection("weeknotes", filterDrafts),
   ]);
 
-  const filteredPosts = posts.filter((e) =>
-    e.data.categories.map(slugify).includes(category),
-  );
+  const filteredPosts = posts.filter((e) => e.data.categories.map(slugify).includes(category));
   const filteredWeeknotes = weeknotes.filter((e) =>
     e.data.categories.map(slugify).includes(category),
   );
@@ -198,6 +203,7 @@ export async function GET(context: APIContext) {
 ```bash
 cd /Users/msfjarvis/git-repos/msfjarvis.dev && npx tsc --noEmit 2>&1 | tail -5
 ```
+
 Expected: 0 errors.
 
 - [ ] **Step 3: Commit**
@@ -213,6 +219,7 @@ git commit -m "feat: add per-category feed endpoints"
 ## Task 3: Create per-tag feed endpoint
 
 **Files:**
+
 - Create: `src/pages/tags/[tag]/[format].ts`
 
 - [ ] **Step 1: Create the file**
@@ -238,9 +245,7 @@ export async function getStaticPaths() {
     getCollection("weeknotes", filterDrafts),
   ]);
 
-  const tagNames = new Set(
-    [...posts, ...notes, ...weeknotes].flatMap((e) => e.data.tags),
-  );
+  const tagNames = new Set([...posts, ...notes, ...weeknotes].flatMap((e) => e.data.tags));
 
   return [...tagNames].flatMap((name) =>
     FEED_FORMATS.map((format) => ({
@@ -262,15 +267,9 @@ export async function GET(context: APIContext) {
     getCollection("weeknotes", filterDrafts),
   ]);
 
-  const filteredPosts = posts.filter((e) =>
-    e.data.tags.map(slugify).includes(tag),
-  );
-  const filteredNotes = notes.filter((e) =>
-    e.data.tags.map(slugify).includes(tag),
-  );
-  const filteredWeeknotes = weeknotes.filter((e) =>
-    e.data.tags.map(slugify).includes(tag),
-  );
+  const filteredPosts = posts.filter((e) => e.data.tags.map(slugify).includes(tag));
+  const filteredNotes = notes.filter((e) => e.data.tags.map(slugify).includes(tag));
+  const filteredWeeknotes = weeknotes.filter((e) => e.data.tags.map(slugify).includes(tag));
 
   return buildFeedFromSources({
     context,
@@ -304,6 +303,7 @@ export async function GET(context: APIContext) {
 ```bash
 cd /Users/msfjarvis/git-repos/msfjarvis.dev && npx tsc --noEmit 2>&1 | tail -5
 ```
+
 Expected: 0 errors.
 
 - [ ] **Step 3: Commit**
@@ -319,6 +319,7 @@ git commit -m "feat: add per-tag feed endpoints"
 ## Task 4: Advertise feeds on `[category].astro` and `[tag].astro`
 
 **Files:**
+
 - Modify: `src/pages/categories/[category].astro`
 - Modify: `src/pages/tags/[tag].astro`
 
@@ -327,11 +328,13 @@ git commit -m "feat: add per-tag feed endpoints"
 `Astro.params.category` is the URL slug. `category` (from props) is the display name.
 
 Find the `<BaseLayout>` opening tag:
+
 ```astro
 <BaseLayout title={`${category} — Categories`} description={`Posts in ${category}`}>
 ```
 
 Replace with:
+
 ```astro
 <BaseLayout
   title={`${category} — Categories`}
@@ -349,11 +352,13 @@ Replace with:
 `Astro.params.tag` is the URL slug. `tag` (from props) is the display name.
 
 Find the `<BaseLayout>` opening tag:
+
 ```astro
 <BaseLayout title={`${tag} — Tags`} description={`Posts tagged ${tag}`}>
 ```
 
 Replace with:
+
 ```astro
 <BaseLayout
   title={`${tag} — Tags`}
@@ -371,6 +376,7 @@ Replace with:
 ```bash
 cd /Users/msfjarvis/git-repos/msfjarvis.dev && npx tsc --noEmit 2>&1 | tail -5
 ```
+
 Expected: 0 errors.
 
 - [ ] **Step 4: Commit**
@@ -392,6 +398,7 @@ git commit -m "feat: advertise per-category and per-tag feeds on detail pages"
 ```bash
 cd /Users/msfjarvis/git-repos/msfjarvis.dev && XDG_CONFIG_HOME=/tmp/xdg-config npm run build 2>&1 | tail -15
 ```
+
 Expected: build succeeds with 0 errors.
 
 - [ ] **Step 2: Confirm category feed files exist**
@@ -399,12 +406,15 @@ Expected: build succeeds with 0 errors.
 ```bash
 ls dist/client/categories/
 ```
+
 Expected: subdirectory names for each category slug, each containing `rss.xml`, `atom.xml`, `feed.json`.
 
 Pick one slug and verify:
+
 ```bash
 ls dist/client/categories/$(ls dist/client/categories/ | head -1)/
 ```
+
 Expected: `rss.xml`, `atom.xml`, `feed.json` (and possibly an `index.html`).
 
 - [ ] **Step 3: Confirm tag feed files exist**
@@ -412,15 +422,19 @@ Expected: `rss.xml`, `atom.xml`, `feed.json` (and possibly an `index.html`).
 ```bash
 ls dist/client/tags/ | head -5
 ```
+
 Pick one slug:
+
 ```bash
 ls dist/client/tags/$(ls dist/client/tags/ | head -1)/
 ```
+
 Expected: `rss.xml`, `atom.xml`, `feed.json`.
 
 - [ ] **Step 4: Verify a category detail page has 6 feed links (3 global + 3 category)**
 
 Pick a category slug and check its HTML:
+
 ```bash
 CATSLUG=$(ls dist/client/categories/ | grep -v '\.xml\|\.json' | head -1) && \
 node -e "
@@ -430,6 +444,7 @@ console.log(links.join('\n'));
 console.log('Total:', links.length);
 "
 ```
+
 Expected: 6 lines — `/rss.xml`, `/atom.xml`, `/feed.json` (global) plus `/categories/<slug>/rss.xml`, `/categories/<slug>/atom.xml`, `/categories/<slug>/feed.json`.
 
 - [ ] **Step 5: Verify a tag detail page has 6 feed links**
@@ -443,6 +458,7 @@ console.log(links.join('\n'));
 console.log('Total:', links.length);
 "
 ```
+
 Expected: 6 lines — `/rss.xml`, `/atom.xml`, `/feed.json` plus `/tags/<slug>/rss.xml`, `/tags/<slug>/atom.xml`, `/tags/<slug>/feed.json`.
 
 - [ ] **Step 6: Spot-check a category RSS feed is valid**
@@ -451,6 +467,7 @@ Expected: 6 lines — `/rss.xml`, `/atom.xml`, `/feed.json` plus `/tags/<slug>/r
 CATSLUG=$(ls dist/client/categories/ | grep -v '\.xml\|\.json' | head -1)
 grep -c "<item>" dist/client/categories/$CATSLUG/rss.xml
 ```
+
 Expected: a number ≥ 1.
 
 - [ ] **Step 7: Spot-check a tag JSON feed**
@@ -462,4 +479,5 @@ const f = JSON.parse(require('fs').readFileSync('dist/client/tags/${TAGSLUG}/fee
 console.log(f.feed_url, f.items.length + ' items');
 "
 ```
+
 Expected: URL contains `/tags/` and item count ≥ 1.

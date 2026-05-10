@@ -25,24 +25,21 @@ export async function getStaticPaths() {
     getCollection("weeknotes", filterDrafts),
   ]);
 
-  const tagNames = new Set(
-    [...posts, ...notes, ...weeknotes].flatMap((e) => e.data.tags),
-  );
+  const tagNames = new Set([...posts, ...notes, ...weeknotes].flatMap((e) => e.data.tags));
 
   return [...tagNames].flatMap((name) => {
     const slug = slugify(name);
-    const filteredPosts = posts.filter((e) =>
-      e.data.tags.map(slugify).includes(slug),
-    );
-    const filteredNotes = notes.filter((e) =>
-      e.data.tags.map(slugify).includes(slug),
-    );
-    const filteredWeeknotes = weeknotes.filter((e) =>
-      e.data.tags.map(slugify).includes(slug),
-    );
+    const filteredPosts = posts.filter((e) => e.data.tags.map(slugify).includes(slug));
+    const filteredNotes = notes.filter((e) => e.data.tags.map(slugify).includes(slug));
+    const filteredWeeknotes = weeknotes.filter((e) => e.data.tags.map(slugify).includes(slug));
     return FEED_FORMATS.map((format) => ({
       params: { tag: slug, format },
-      props: { tagName: name, filteredPosts, filteredNotes, filteredWeeknotes } satisfies TagFeedProps,
+      props: {
+        tagName: name,
+        filteredPosts,
+        filteredNotes,
+        filteredWeeknotes,
+      } satisfies TagFeedProps,
     }));
   });
 }

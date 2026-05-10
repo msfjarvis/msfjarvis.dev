@@ -29,7 +29,7 @@ function generateImageImports(imageDir) {
     // Convert kebab-case to snake_case
     const importName = imageNameWithoutExt.replace(/-/g, "_");
 
-    return `import ${importName} from './${imagePath.replace(imageDir, '')}';`;
+    return `import ${importName} from './${imagePath.replace(imageDir, "")}';`;
   });
 
   console.log(imports.join("\n"));

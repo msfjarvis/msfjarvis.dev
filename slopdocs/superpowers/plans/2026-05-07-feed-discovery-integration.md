@@ -12,20 +12,21 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|---|---|---|
-| Modify | `src/lib/feed.ts` | Add registry, lookup tables, registration side-effect in `createFeedEndpoint` |
-| Create | `src/integrations/feed-discovery.ts` | Astro integration + Vite plugin providing `virtual:site-feeds` |
-| Create | `src/env.d.ts` | Virtual module type declaration |
-| Modify | `astro.config.mjs` | Register `feedDiscovery()` integration |
-| Modify | `src/components/BaseHead.astro` | Deduplicate `alternateFeeds` against hardcoded hrefs |
-| Modify | `src/pages/index.astro` | Prerender, import feeds, pass to `BaseLayout` |
+| Action | Path                                 | Responsibility                                                                |
+| ------ | ------------------------------------ | ----------------------------------------------------------------------------- |
+| Modify | `src/lib/feed.ts`                    | Add registry, lookup tables, registration side-effect in `createFeedEndpoint` |
+| Create | `src/integrations/feed-discovery.ts` | Astro integration + Vite plugin providing `virtual:site-feeds`                |
+| Create | `src/env.d.ts`                       | Virtual module type declaration                                               |
+| Modify | `astro.config.mjs`                   | Register `feedDiscovery()` integration                                        |
+| Modify | `src/components/BaseHead.astro`      | Deduplicate `alternateFeeds` against hardcoded hrefs                          |
+| Modify | `src/pages/index.astro`              | Prerender, import feeds, pass to `BaseLayout`                                 |
 
 ---
 
 ## Task 1: Add feed registry to `src/lib/feed.ts`
 
 **Files:**
+
 - Modify: `src/lib/feed.ts`
 
 - [ ] **Step 1: Add `FORMAT_MIME_TYPES` and `FORMAT_LABELS` lookup tables**
@@ -34,14 +35,14 @@ In `src/lib/feed.ts`, directly after the `const FEED_SERIALIZERS` declaration, a
 
 ```ts
 const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
-  "rss.xml":   "application/rss+xml",
-  "atom.xml":  "application/atom+xml",
+  "rss.xml": "application/rss+xml",
+  "atom.xml": "application/atom+xml",
   "feed.json": "application/feed+json",
 };
 
 const FORMAT_LABELS: Record<FeedFormat, string> = {
-  "rss.xml":   "RSS",
-  "atom.xml":  "Atom",
+  "rss.xml": "RSS",
+  "atom.xml": "Atom",
   "feed.json": "JSON Feed",
 };
 ```
@@ -101,6 +102,7 @@ git commit -m "feat: add feed registry to createFeedEndpoint for discovery integ
 ## Task 2: Create the `feedDiscovery` Astro integration
 
 **Files:**
+
 - Create: `src/integrations/feed-discovery.ts`
 
 - [ ] **Step 1: Create the integration file**
@@ -178,12 +180,7 @@ export default function feedDiscovery(): AstroIntegration {
                     .map((f) => `import ${JSON.stringify(f)};`)
                     .join("\n");
 
-                  const feedTsPath = path.join(
-                    projectRoot,
-                    "src",
-                    "lib",
-                    "feed.ts",
-                  );
+                  const feedTsPath = path.join(projectRoot, "src", "lib", "feed.ts");
 
                   return [
                     sideEffectImports,
@@ -222,6 +219,7 @@ git commit -m "feat: add feedDiscovery Astro integration with virtual:site-feeds
 ## Task 3: Add virtual module type declaration and wire up `astro.config.mjs`
 
 **Files:**
+
 - Create: `src/env.d.ts`
 - Modify: `astro.config.mjs`
 
@@ -241,7 +239,7 @@ declare module "virtual:site-feeds" {
 In `astro.config.mjs`, add the import at the top (after existing imports):
 
 ```js
-import feedDiscovery from './src/integrations/feed-discovery.ts';
+import feedDiscovery from "./src/integrations/feed-discovery.ts";
 ```
 
 Then add `feedDiscovery()` to the `integrations` array:
@@ -271,6 +269,7 @@ git commit -m "feat: register feedDiscovery integration and declare virtual:site
 ## Task 4: Deduplicate `alternateFeeds` in `BaseHead.astro`
 
 **Files:**
+
 - Modify: `src/components/BaseHead.astro`
 
 The three hardcoded global links use hrefs `/rss.xml`, `/atom.xml`, `/feed.json`. When the home page passes all registry feeds via `alternateFeeds`, those three will duplicate. Filter them out in `BaseHead`.
@@ -317,6 +316,7 @@ git commit -m "feat: deduplicate alternateFeeds against hardcoded global feed li
 ## Task 5: Wire the home page to `virtual:site-feeds`
 
 **Files:**
+
 - Modify: `src/pages/index.astro`
 
 - [ ] **Step 1: Add `prerender`, import feeds, pass to `BaseLayout`**
@@ -422,6 +422,7 @@ matches.forEach(m => console.log(m[1]));
 ```
 
 Expected output (order may vary):
+
 ```
 https://msfjarvis.dev/rss.xml
 https://msfjarvis.dev/atom.xml

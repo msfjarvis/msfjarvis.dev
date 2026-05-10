@@ -41,15 +41,15 @@ Two lookup tables added alongside `FEED_SERIALIZERS`:
 
 ```ts
 const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
-  "rss.xml":  "application/rss+xml",
+  "rss.xml": "application/rss+xml",
   "atom.xml": "application/atom+xml",
-  "feed.json":"application/feed+json",
+  "feed.json": "application/feed+json",
 };
 
 const FORMAT_LABELS: Record<FeedFormat, string> = {
-  "rss.xml":  "RSS",
+  "rss.xml": "RSS",
   "atom.xml": "Atom",
-  "feed.json":"JSON Feed",
+  "feed.json": "JSON Feed",
 };
 ```
 
@@ -58,9 +58,9 @@ In `createFeedEndpoint`, before returning `{ getStaticPaths, GET }`:
 ```ts
 for (const format of Object.keys(FEED_SERIALIZERS) as FeedFormat[]) {
   _feedRegistry.push({
-    type:  FORMAT_MIME_TYPES[format],
+    type: FORMAT_MIME_TYPES[format],
     title: `${config.title} — ${FORMAT_LABELS[format]}`,
-    href:  config.selfPath(format),
+    href: config.selfPath(format),
   });
 }
 ```
@@ -95,8 +95,8 @@ This file does not currently exist. Create it with:
 ```ts
 /// <reference types="astro/client" />
 
-declare module 'virtual:site-feeds' {
-  import type { AlternateFeed } from './consts';
+declare module "virtual:site-feeds" {
+  import type { AlternateFeed } from "./consts";
   export const feeds: AlternateFeed[];
 }
 ```
@@ -119,7 +119,7 @@ export default defineConfig({
 ### `src/pages/index.astro` — consume the registry
 
 ```ts
-import { feeds } from 'virtual:site-feeds';
+import { feeds } from "virtual:site-feeds";
 export const prerender = true;
 ```
 
@@ -156,10 +156,10 @@ index.astro (prerendered)
 
 ## Files Changed
 
-| Action | Path |
-|---|---|
-| Modify | `src/lib/feed.ts` |
+| Action | Path                                 |
+| ------ | ------------------------------------ |
+| Modify | `src/lib/feed.ts`                    |
 | Create | `src/integrations/feed-discovery.ts` |
-| Modify | `src/env.d.ts` |
-| Modify | `astro.config.mjs` |
-| Modify | `src/pages/index.astro` |
+| Modify | `src/env.d.ts`                       |
+| Modify | `astro.config.mjs`                   |
+| Modify | `src/pages/index.astro`              |

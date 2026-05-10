@@ -16,8 +16,7 @@ function findFormatFiles(dir: string): string[] {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     const isDir =
-      entry.isDirectory() ||
-      (entry.isSymbolicLink() && fs.statSync(full).isDirectory());
+      entry.isDirectory() || (entry.isSymbolicLink() && fs.statSync(full).isDirectory());
     if (isDir) {
       results.push(...findFormatFiles(full));
     } else if (entry.name === "[format].ts" || entry.name === "[format].js") {
@@ -78,12 +77,7 @@ export default function feedDiscovery(): AstroIntegration {
                     .map((f) => `import ${JSON.stringify(f)};`)
                     .join("\n");
 
-                  const feedTsPath = path.join(
-                    projectRoot,
-                    "src",
-                    "lib",
-                    "feed.ts",
-                  );
+                  const feedTsPath = path.join(projectRoot, "src", "lib", "feed.ts");
 
                   return [
                     sideEffectImports,
