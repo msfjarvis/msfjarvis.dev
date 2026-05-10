@@ -1,0 +1,93 @@
+---
+title: 'Weeknotes: Week #19 (2026)'
+date: 2026-05-10T18:42:00+05:30
+lastmod: 2026-05-10T18:42:00+05:30
+summary: Super busy week of work, fun, not-fun work and a lot in between.
+tags:
+  - work
+  - games
+  - food
+draft: true
+deleted: false
+---
+
+import Gallery from '../../../components/Gallery.astro';
+import Figure from '../../../components/Figure.astro';
+import boring_protein_shake from './boring-protein-shake.webp';
+import english_breakfast_at_mizuri from './english-breakfast-at-mizuri.webp';
+import mocktail_at_amicii from './mocktail-at-amicii.webp';
+import shakshuka from './shakshuka.webp';
+import usual_burrito_bowl from './usual-burrito-bowl.webp';
+import vietnamese_coffee_at_mizuri from './vietnamese-coffee-at-mizuri.webp';
+
+I'm dreading starting this weeknote because the cliff notes I auto-generate from my daily journal (explained [here](/notes/collating-entries-in-my-obsidian-journal-for-week-notes/)) are effectively two pages long. Either a lot more happened than I remember or I was feeling _very_ strongly about a lot of inane things at the start of the week. Only one way to find out...
+
+# Meta
+The week started with an RSS feed mishap on this very site that caused mismatched GUIDs to spam all subscribers of the feed. I got rather fed up with trying to patch this all, so I took [Yash's](https://yashgarg.dev) help and copied the code for his RSS feeds. Massive thank you to him for that, I was at the end of my rope.
+
+Since then, I've also added Atom and JSONFeed support, and brought back the per-category and per-tag feeds that had gone missing in the transition away from Hugo. I've manually checked as much as I could, please reach out if things are still out of place.
+
+# Life and People
+
+This week I've been trying out going to the gym early in the morning instead of the evening. So far that has made a very positive impact in both my schedule for the day and how I feel at the gym itself, so I intend to stick with it. This also forces me to sleep at a better time which is always a win.
+
+I did however roll my ankle _pretty_ badly on my way back from the gym on Wednesday, which continued to be a problem well into Friday. Never felt older in my life.
+
+[Rohan Arthur](https://rohanarthur.com/) took us out this week to [Rage Room](https://rageroom.in/) which was shockingly close to our house in a rather secluded corner. Wrecking some shit on Friday evening (context in next section) was very cathartic and couldn't have been any more well-timed, despite being a complete accident.
+
+# Work
+
+Hoo boy, was this a week. I spent the first half of the week debugging what seemed like an endless stream of bugs while trying to cut a new release. One of these debugging sessions ran for a full 5 hours focused on a single bug, which I thought was gonna be my worst problem this week...
+
+Lo and behold, [Cloudflare announces layoffs](https://blog.cloudflare.com/building-for-the-future) for nearly 20% of the workforce bright and early on Friday. Nobody in my team was affected, but holy fuck did this completely annihilate the vibes in the office and company chat room. Seeing so many profile pictures just disappear overnight felt like walking through a graveyard. My heart goes out to everyone affected, they're all incredibly talented people who did not deserve this treatment.
+
+# Personal projects
+
+Talking about AI and LLMs after Cloudflare cited it as the reason for decimating the workforce and organisational structure feels rather tone-deaf, but I wanted to come out and be honest about where my own head is at. It's a well accepted sentiment that continued usage of AI and LLMs causes some amount of skill atrophy and the formation of unhealthy dependence, and I never felt that more than I did this week.
+
+So far I've been relying on unsustainably subsidised access to GitHub Copilot Pro via GitHub's Open Source program for coding-related LLM usage, which recently received [changes](https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/) that reduce usage limits significantly. While working on this very site I ran afoul of those limits pretty quickly in the first week, and then again in the second week. I had to go without access to an LLM for a few days, and I found myself being unreasonably anxious about not having this tool that I've lived without just fine for nearly a decade of programming.
+
+I wasn't liking how this made me feel, and the layoffs didn't exactly help, but I did ultimately concede and admit to myself that like a rat to cheese, I have been trapped. For the first time, I had to take out my wallet and shell out the cash for a monthly subscription to OpenAI's Codex. My sole reason for preferring it over Claude was that it lets you use third-party harnesses, so that I could use it with [pi](https://pi.dev). Pi is far from the most featureful coding agent you will come across, but it does that by choice and instead focuses on being incredibly extensible so you can build something exactly as per your needs. You can check out my customisations on top of pi in [this repository](https://git.msfjarvis.dev/msfjarvis/my-pi).
+
+This transition was obviously not sunshine and rainbows, after all there's a reason Claude Sonnet is my consistent workhorse choice at work over GPT models. GPT-5 has a widely known problem of not executing tasks and just kind of sitting around, which is something OpenClaw has worked around, so I [implemented a Pi extension](https://git.msfjarvis.dev/msfjarvis/my-pi/src/commit/90b58cf63a7d3a411b0f84ba1d1fef0517a27214/pi/extensions/openai-codex-execution-bias.ts) to replicate those fixes. Since adding this, things have been much more reliable on longer sessions.
+
+This week I've shipped changes in [Claw](https://git.msfjarvis.dev/msfjarvis/compose-lobsters) to switch out the use of unsupported JSON endpoints on lobste.rs to scraping the actual HTML instead, which is hopefully more in line with the site admin's preferences. I will reach out and verify before doing a wide rollout.
+
+# Food
+
+Thankfully this week had rather quiet evenings so a lot of home cooked food was had, but obviously I was terrible at documenting it all. We made pulao one day, a high protein salad the next, and a beautifully executed shakshouka on Thursday. On Saturday we did burritos as per our usual and managed to not make too much of a mess.
+
+On Friday we ate dinner at the Amicii Bar and Restaurant where I had a citrus-y mocktail and a chicken burger that was honestly kind of mid. On Sunday I went to Cafe Mizuri's to try out their English breakfast platter, which was also very delicious and the portion size was just right. I followed it up with a Vietnamese Coffee as a treat to myself :)
+
+<Gallery>
+
+    <Figure src={boring_protein_shake}
+            title="I finally had the totally original idea of blending frozen fruits into my protein shakes, total game changer."
+            alt="A lavender colored protein shake in a plastic shaker cup"
+    />
+    <Figure src={usual_burrito_bowl}
+            title="Nothing super exciting about this burrito bowl, but it keeps me fed and that's all that matters."
+            alt="A simple burrito bowl of rice, beans, corn, salsa and jalapeno and some cilantro"
+    />
+
+    <Figure src={shakshuka}
+            title="I only remembered to take a picture after Yash had served himself :'D"
+            alt="A pan of bright red shakshouka and two eggs nestled into it. The pan is clearly half empty."
+    />
+
+    <Figure src={mocktail_at_amicii}
+            title="This hit all the right citrus notes but was a little too sweet for my liking. The branding on the basil leaf was a nice touch!"
+            alt="A pink/red drink in a short glass cup. There's a single basil leaf on top with the name Amicii branded onto it"
+    />
+
+    <Figure src={english_breakfast_at_mizuri}
+            title="The bread didn't feel like it belonged but everything else on that plate was perfectly done."
+            alt="An English breakfast spread of sausages, hashbrows, salami, baked beans, toasted bread, baked tomato, an egg, some fruits and a cappuccino on the side."
+    />
+
+    <Figure src={vietnamese_coffee_at_mizuri}
+            title="Yep, that's white chocolate at the bottom."
+            alt="A tall glass of Vietnamese coffee with a thick layer of white chocolate at the bottom, and filled up the rest of the way with an Americano coffee"
+    />
+
+</Gallery>
