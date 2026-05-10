@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ url }) => {
 
   try {
     const res = await fetch(
-      `https://webmentions-server.tiger-shark.workers.dev/webmentions?target=${encodeURIComponent(target)}`,
+      `https://webmentions.msfjarvis.dev/webmentions?target=${encodeURIComponent(target)}`,
     );
     const data = await res.json();
 
