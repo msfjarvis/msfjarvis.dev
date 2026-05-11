@@ -115,6 +115,8 @@ function main() {
   // Hugo used to generate these at /index.xml, they're now at /rss.xml, manually redirect old feed readers.
   lines.push(`/index.xml /rss.xml 301`);
   lines.push(`/notes/index.xml /notes/rss.xml 301`);
+  // I moved my picture out from the /images path
+  lines.push(`/images/harsh-shandilya.webp /harsh-shandilya.webp 301`);
 
   const dest = join(PROJECT_ROOT, "public", "_redirects");
   writeFileSync(dest, lines.join("\n"), "utf8");
