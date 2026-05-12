@@ -29,7 +29,7 @@
     "@iarna/toml": "^2.2.5",
     "fs-extra": "^11.3.4",
     "js-yaml": "^4.1.1",
-    "oxfmt": "^0.48.0",
+    "oxfmt": "^0.49.0",
     "typescript": "^5.9.3",
     "wrangler": "^4.87.0"
   },
