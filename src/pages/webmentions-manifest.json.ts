@@ -24,6 +24,12 @@ export async function GET(_context: APIContext) {
         siteUrl: SITE_URL,
         workersCi,
       });
+      if (entry === null && workersCi) {
+        console.warn(
+          `Skipping ${collection}/${item.id} in webmentions manifest due to missing or invalid lastmod`,
+        );
+        return [];
+      }
       return entry ? [entry] : [];
     });
   });

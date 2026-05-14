@@ -25,6 +25,14 @@ export interface WebmentionSendEvent {
   reason: "publish" | "update" | "delete";
 }
 
+export interface WebmentionSendResult {
+  pageUrl: string;
+  reason: WebmentionSendEvent["reason"];
+  ok: boolean;
+  status: number | null;
+  detail: string;
+}
+
 export function buildManifestEntry(input: BuildManifestEntryInput): WebmentionsManifestEntry | null {
   const { collection, id, data, siteUrl, workersCi } = input;
   if (!(data.lastmod instanceof Date) || Number.isNaN(data.lastmod.valueOf())) {
@@ -89,4 +97,63 @@ export function diffManifests(previous: WebmentionsManifest, next: WebmentionsMa
   }
 
   return events.sort((a, b) => a.pageUrl.localeCompare(b.pageUrl) || a.reason.localeCompare(b.reason));
+}
+
+export function formatSendSummary(results: WebmentionSendResult[]): string {
+  const headers = ["pageUrl", "reason", "result", "detail"] as const;
+  const rows = results.map((result) => ({
+    pageUrl: result.pageUrl,
+    reason: result.reason,
+    result: result.ok ? "success" : "failed",
+    detail: result.status === null ? result.detail : `${result.status} ${result.detail}`.trim(),
+  }));
+  const widths = headers.map((header) =>
+    Math.max(header.length, ...rows.map((row) => row[header].length)),
+  );
+  const pad = (value: string, index: number) => value.padEnd(widths[index]);
+  const render = (values: string[]) => values.map(pad).join(" | ");
+  return [
+    render(headers.map(String)),
+    widths.map((width) => "-".repeat(width)).join("-|-"),
+    ...rows.map((row) => render(headers.map((header) => row[header]))),
+  ].join("\n");
+}
+
+export async function sendEvents(input: {
+  events: WebmentionSendEvent[];
+  workerOrigin: string;
+  authToken: string;
+  fetchImpl?: typeof fetch;
+}): Promise<WebmentionSendResult[]> {
+  const fetchImpl = input.fetchImpl ?? fetch;
+  return Promise.all(
+    input.events.map(async (event) => {
+      try {
+        const response = await fetchImpl(new URL("/send", input.workerOrigin), {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${input.authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(event),
+        });
+        const detail = response.statusText || (response.ok ? "OK" : "Request failed");
+        return {
+          pageUrl: event.pageUrl,
+          reason: event.reason,
+          ok: response.ok,
+          status: response.status,
+          detail,
+        };
+      } catch (error) {
+        return {
+          pageUrl: event.pageUrl,
+          reason: event.reason,
+          ok: false,
+          status: null,
+          detail: error instanceof Error ? error.message : String(error),
+        };
+      }
+    }),
+  );
 }
