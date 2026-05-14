@@ -1,42 +1,45 @@
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
 import { SITE_URL } from "../consts";
+import { buildManifest, buildManifestEntry } from "../lib/webmentions";
 import { filterDrafts } from "../utils";
 
 export const prerender = true;
 
 export async function GET(_context: APIContext) {
-  const posts = await getCollection("posts", filterDrafts);
-  const notes = await getCollection("notes", filterDrafts);
-  const weeknotes = await getCollection("weeknotes", filterDrafts);
+  const workersCi = Boolean(process.env.WORKERS_CI);
+  const collections = await Promise.all([
+    getCollection("posts", filterDrafts),
+    getCollection("notes", filterDrafts),
+    getCollection("weeknotes", filterDrafts),
+  ]);
 
-  const postEntries = posts.map((p) => ({
-    source: `src/content/posts/${p.id}.mdx`,
-    url: `${SITE_URL}/posts/${p.id}/`,
-  }));
-
-  const noteEntries = notes.map((n) => ({
-    source: `src/content/notes/${n.id}.mdx`,
-    url: `${SITE_URL}/notes/${n.id}/`,
-  }));
-
-  const weeknoteEntries = weeknotes.map((w) => ({
-    source: `src/content/weeknotes/${w.id}.mdx`,
-    url: `${SITE_URL}/notes/${w.id}/`,
-  }));
-
-  const entries = [...postEntries, ...noteEntries, ...weeknoteEntries].sort((a, b) =>
-    a.source.localeCompare(b.source),
-  );
-
-  const manifest = {
-    schemaVersion: 1,
-    siteOrigin: SITE_URL,
-    generatedAt: new Date().toISOString(),
-    entries,
-  };
-
-  return new Response(JSON.stringify(manifest, null, 2), {
-    headers: { "Content-Type": "application/json" },
+  const entries = collections.flatMap((items, index) => {
+    const collection = ["posts", "notes", "weeknotes"][index] as const;
+    return items.flatMap((item) => {
+      const entry = buildManifestEntry({
+        collection,
+        id: item.id,
+        data: { lastmod: item.data.lastmod },
+        siteUrl: SITE_URL,
+        workersCi,
+      });
+      return entry ? [entry] : [];
+    });
   });
+
+  return new Response(
+    JSON.stringify(
+      buildManifest({
+        siteUrl: SITE_URL,
+        generatedAt: new Date(),
+        entries,
+      }),
+      null,
+      2,
+    ),
+    {
+      headers: { "Content-Type": "application/json" },
+    },
+  );
 }

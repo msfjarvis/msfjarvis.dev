@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { buildManifestEntry } from "./webmentions.ts";
+import { buildManifest, buildManifestEntry } from "./webmentions.ts";
 
 test("buildManifestEntry throws when lastmod is missing outside WORKERS_CI", () => {
   assert.throws(
@@ -15,4 +15,21 @@ test("buildManifestEntry throws when lastmod is missing outside WORKERS_CI", () 
       }),
     /lastmod/i,
   );
+});
+
+test("buildManifest sorts entries and emits schemaVersion 2", () => {
+  const manifest = buildManifest({
+    siteUrl: "https://example.com",
+    generatedAt: new Date("2026-05-15T00:00:00.000Z"),
+    entries: [
+      { url: "https://example.com/posts/z/", lastmod: "2026-01-02T00:00:00.000Z" },
+      { url: "https://example.com/notes/a/", lastmod: "2026-01-01T00:00:00.000Z" },
+    ],
+  });
+
+  assert.equal(manifest.schemaVersion, 2);
+  assert.deepEqual(manifest.entries.map((entry) => entry.url), [
+    "https://example.com/notes/a/",
+    "https://example.com/posts/z/",
+  ]);
 });
