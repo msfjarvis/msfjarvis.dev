@@ -63,8 +63,13 @@ export function buildManifest(input: {
 export function parseManifest(value: unknown): WebmentionsManifest {
   if (!value || typeof value !== "object") throw new Error("Invalid webmentions manifest");
   const manifest = value as Record<string, unknown>;
-  if (manifest.schemaVersion !== 2) throw new Error("Unsupported webmentions manifest schemaVersion");
   if (!Array.isArray(manifest.entries)) throw new Error("Invalid webmentions manifest entries");
+
+  if (manifest.schemaVersion === 1) {
+    return bridgeSchemaVersion1Manifest(manifest);
+  }
+
+  if (manifest.schemaVersion !== 2) throw new Error("Unsupported webmentions manifest schemaVersion");
   for (const entry of manifest.entries) {
     if (!entry || typeof entry !== "object") throw new Error("Invalid webmentions manifest entry");
     const record = entry as Record<string, unknown>;
@@ -73,6 +78,26 @@ export function parseManifest(value: unknown): WebmentionsManifest {
     }
   }
   return manifest as WebmentionsManifest;
+}
+
+function bridgeSchemaVersion1Manifest(manifest: Record<string, unknown>): WebmentionsManifest {
+  // Compatibility bridge for the previously deployed Netlify-era manifest schema.
+  // It allows the first Cloudflare deploy using schemaVersion 2 to diff against
+  // the old URL/source manifest without requiring a manual bootstrap release.
+  return {
+    schemaVersion: 2,
+    siteOrigin: typeof manifest.siteOrigin === "string" ? manifest.siteOrigin : "",
+    generatedAt: typeof manifest.generatedAt === "string" ? manifest.generatedAt : new Date(0).toISOString(),
+    entries: (manifest.entries as Array<Record<string, unknown>>).map((entry) => {
+      if (typeof entry?.url !== "string") {
+        throw new Error("Invalid webmentions manifest entry shape");
+      }
+      return {
+        url: entry.url,
+        lastmod: new Date(0).toISOString(),
+      };
+    }),
+  };
 }
 
 export function diffManifests(previous: WebmentionsManifest, next: WebmentionsManifest): WebmentionSendEvent[] {

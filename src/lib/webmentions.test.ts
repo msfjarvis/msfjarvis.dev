@@ -6,6 +6,7 @@ import {
   buildManifestEntry,
   diffManifests,
   formatSendSummary,
+  parseManifest,
   sendEvents,
 } from "./webmentions.ts";
 
@@ -68,6 +69,28 @@ test("diffManifests classifies publish update and delete", () => {
     { pageUrl: "https://example.com/posts/new/", reason: "publish" },
     { pageUrl: "https://example.com/posts/old/", reason: "update" },
   ]);
+});
+
+test("parseManifest bridges schema version 1 manifests", () => {
+  const manifest = parseManifest({
+    schemaVersion: 1,
+    siteOrigin: "https://example.com",
+    generatedAt: "2026-05-14T00:00:00.000Z",
+    entries: [
+      { source: "src/content/posts/old.mdx", url: "https://example.com/posts/old/" },
+      { source: "src/content/posts/gone.mdx", url: "https://example.com/posts/gone/" },
+    ],
+  });
+
+  assert.deepEqual(manifest, {
+    schemaVersion: 2,
+    siteOrigin: "https://example.com",
+    generatedAt: "2026-05-14T00:00:00.000Z",
+    entries: [
+      { url: "https://example.com/posts/old/", lastmod: "1970-01-01T00:00:00.000Z" },
+      { url: "https://example.com/posts/gone/", lastmod: "1970-01-01T00:00:00.000Z" },
+    ],
+  });
 });
 
 test("formatSendSummary renders success and failure rows", () => {
