@@ -18,7 +18,8 @@ export default function webmentionsIntegration(config: {
     hooks: {
       "astro:build:done": async ({ dir, logger }) => {
         if (!config.workerOrigin || !config.authToken) {
-          throw new Error("Missing webmentions worker configuration");
+          logger.warn("Missing webmentions worker configuration");
+          return;
         }
 
         const outputDir = dir.pathname;

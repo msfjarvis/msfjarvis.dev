@@ -18,6 +18,9 @@
   "env": {
     "production": {
       "name": "msfjarvis-dev",
+      "vars": {
+        "WEBMENTION_WORKER_ORIGIN": "https://webmentions.msfjarvis.dev"
+      },
       "routes": [{ "pattern": "msfjarvis.dev/*", "zone_name": "msfjarvis.dev" }],
     },
     "drafts": {
