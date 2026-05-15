@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "compatibility_date": "2026-05-02",
   "compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
   "main": "@astrojs/cloudflare/entrypoints/server",
@@ -21,11 +22,25 @@
       "vars": {
         "WEBMENTION_WORKER_ORIGIN": "https://webmentions.msfjarvis.dev"
       },
-      "routes": [{ "pattern": "msfjarvis.dev/*", "zone_name": "msfjarvis.dev" }],
+      "routes": [
+        {
+          "pattern": "msfjarvis.dev",
+          "custom_domain": true,
+          "enabled": true,
+          "previews_enabled": true
+        }
+      ],
     },
     "drafts": {
       "name": "msfjarvis-dev-drafts",
-      "routes": [{ "pattern": "drafts.msfjarvis.dev/*", "zone_name": "msfjarvis.dev" }],
+      "routes": [
+        {
+          "pattern": "drafts.msfjarvis.dev",
+          "custom_domain": true,
+          "enabled": true,
+          "previews_enabled": false
+        }
+      ],
     },
   },
 }
