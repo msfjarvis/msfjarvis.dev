@@ -12,6 +12,9 @@
     "migrate": "node scripts/migrate-hugo.mjs",
     "generate-redirects": "node scripts/generate-redirects.mjs",
     "generate-types": "wrangler types",
+    "new:post": "node scripts/new-entry.mjs posts",
+    "new:note": "node scripts/new-entry.mjs notes",
+    "new:weeknote": "node scripts/new-entry.mjs weeknotes",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check"
   },

@@ -4,6 +4,14 @@ Posts, notes and weeknotes are implemented as Astro collections which are used p
 
 In most places where the collection is fetched, it is also filtered for some metadata flags to prevent building drafts. The `filterDrafts` helper in `utils.ts` is the only thing to be used for this.
 
+When adding a new collection, also add a matching `npm run new:*` command for it instead of relying on manual file creation. These commands keep slug generation, directory layout, timestamps, and frontmatter consistent across collections.
+
+Current commands are:
+
+- `npm run new:post -- "Title"`
+- `npm run new:note -- "Title"`
+- `npm run new:weeknote`
+
 ## Files to be created/changed
 
 - `src/pages/<name>/[slug].astro`, `src/pages/<name>/index.astro`
