@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 
 import cloudflare from "@astrojs/cloudflare";
+import icon from "astro-iconset";
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
 import webmentionsIntegration from "./src/integrations/webmentions.ts";
 
@@ -19,6 +20,11 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
+    icon({
+      include: {
+        "simple-icons": ["mastodon", "forgejo", "reddit"],
+      },
+    }),
     feedDiscovery(),
     webmentionsIntegration({
       siteUrl,

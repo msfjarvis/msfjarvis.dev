@@ -24,12 +24,14 @@
     "@astrojs/sitemap": "^3.7.2",
     "@sveltia/cms": "^0.160.0",
     "astro": "^6.2.1",
+    "astro-iconset": "^0.0.5",
     "cheerio": "^1.2.0",
     "sharp": "^0.34.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@iarna/toml": "^2.2.5",
+    "@iconify-json/simple-icons": "^1.2.82",
     "fs-extra": "^11.3.4",
     "js-yaml": "^4.1.1",
     "oxfmt": "^0.49.0",
