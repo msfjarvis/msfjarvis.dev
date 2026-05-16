@@ -28,6 +28,7 @@
 ### Task 1: Inspect current content metadata and decide validation boundary
 
 **Files:**
+
 - Modify: `src/content.config.ts`
 - Modify: `src/lib/webmentions.ts`
 
@@ -87,7 +88,9 @@ export interface WebmentionsManifestEntry {
   lastmod: string;
 }
 
-export function buildManifestEntry(input: BuildManifestEntryInput): WebmentionsManifestEntry | null {
+export function buildManifestEntry(
+  input: BuildManifestEntryInput,
+): WebmentionsManifestEntry | null {
   const { collection, id, data, siteUrl, workersCi } = input;
   if (!(data.lastmod instanceof Date) || Number.isNaN(data.lastmod.valueOf())) {
     if (workersCi) return null;
@@ -118,6 +121,7 @@ git commit -m "feat: add webmentions manifest entry validation"
 ### Task 2: Build and serialize the new manifest from shared helpers
 
 **Files:**
+
 - Modify: `src/lib/webmentions.ts`
 - Modify: `src/pages/webmentions-manifest.json.ts`
 - Test: `src/lib/webmentions.test.ts`
@@ -138,10 +142,10 @@ test("buildManifest sorts entries and emits schemaVersion 2", () => {
   });
 
   assert.equal(manifest.schemaVersion, 2);
-  assert.deepEqual(manifest.entries.map((entry) => entry.url), [
-    "https://example.com/notes/a/",
-    "https://example.com/posts/z/",
-  ]);
+  assert.deepEqual(
+    manifest.entries.map((entry) => entry.url),
+    ["https://example.com/notes/a/", "https://example.com/posts/z/"],
+  );
 });
 ```
 
@@ -210,13 +214,20 @@ export async function GET(_context: APIContext) {
     });
   });
 
-  return new Response(JSON.stringify(buildManifest({
-    siteUrl: SITE_URL,
-    generatedAt: new Date(),
-    entries,
-  }), null, 2), {
-    headers: { "Content-Type": "application/json" },
-  });
+  return new Response(
+    JSON.stringify(
+      buildManifest({
+        siteUrl: SITE_URL,
+        generatedAt: new Date(),
+        entries,
+      }),
+      null,
+      2,
+    ),
+    {
+      headers: { "Content-Type": "application/json" },
+    },
+  );
 }
 ```
 
@@ -242,6 +253,7 @@ git commit -m "feat: emit schema v2 webmentions manifest"
 ### Task 3: Add parser and diff helpers for deployed-versus-built manifest comparison
 
 **Files:**
+
 - Modify: `src/lib/webmentions.ts`
 - Test: `src/lib/webmentions.test.ts`
 
@@ -300,7 +312,8 @@ export interface WebmentionSendEvent {
 export function parseManifest(value: unknown): WebmentionsManifest {
   if (!value || typeof value !== "object") throw new Error("Invalid webmentions manifest");
   const manifest = value as Record<string, unknown>;
-  if (manifest.schemaVersion !== 2) throw new Error("Unsupported webmentions manifest schemaVersion");
+  if (manifest.schemaVersion !== 2)
+    throw new Error("Unsupported webmentions manifest schemaVersion");
   if (!Array.isArray(manifest.entries)) throw new Error("Invalid webmentions manifest entries");
   for (const entry of manifest.entries) {
     if (!entry || typeof entry !== "object") throw new Error("Invalid webmentions manifest entry");
@@ -312,7 +325,10 @@ export function parseManifest(value: unknown): WebmentionsManifest {
   return manifest as WebmentionsManifest;
 }
 
-export function diffManifests(previous: WebmentionsManifest, next: WebmentionsManifest): WebmentionSendEvent[] {
+export function diffManifests(
+  previous: WebmentionsManifest,
+  next: WebmentionsManifest,
+): WebmentionSendEvent[] {
   const previousMap = new Map(previous.entries.map((entry) => [entry.url, entry.lastmod]));
   const nextMap = new Map(next.entries.map((entry) => [entry.url, entry.lastmod]));
   const events: WebmentionSendEvent[] = [];
@@ -333,7 +349,9 @@ export function diffManifests(previous: WebmentionsManifest, next: WebmentionsMa
     }
   }
 
-  return events.sort((a, b) => a.pageUrl.localeCompare(b.pageUrl) || a.reason.localeCompare(b.reason));
+  return events.sort(
+    (a, b) => a.pageUrl.localeCompare(b.pageUrl) || a.reason.localeCompare(b.reason),
+  );
 }
 ```
 
@@ -353,6 +371,7 @@ git commit -m "feat: add webmentions manifest diff helpers"
 ### Task 4: Implement send orchestration and summary formatting helpers
 
 **Files:**
+
 - Modify: `src/lib/webmentions.ts`
 - Test: `src/lib/webmentions.test.ts`
 
@@ -441,6 +460,7 @@ git commit -m "feat: add webmentions send summary formatting"
 ### Task 5: Add the Astro integration that fetches, diffs, sends, and logs summary output
 
 **Files:**
+
 - Create: `src/integrations/webmentions.ts`
 - Modify: `astro.config.mjs`
 - Test: `src/lib/webmentions.test.ts`
@@ -532,12 +552,7 @@ Create `src/integrations/webmentions.ts` with code shaped like:
 import type { AstroIntegration } from "astro";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import {
-  diffManifests,
-  formatSendSummary,
-  parseManifest,
-  sendEvents,
-} from "../lib/webmentions";
+import { diffManifests, formatSendSummary, parseManifest, sendEvents } from "../lib/webmentions";
 
 export default function webmentionsIntegration(config: {
   siteUrl: string;
@@ -558,7 +573,9 @@ export default function webmentionsIntegration(config: {
 
         const deployedResponse = await fetch(new URL("/webmentions-manifest.json", config.siteUrl));
         if (!deployedResponse.ok) {
-          throw new Error(`Failed to fetch deployed webmentions manifest: ${deployedResponse.status} ${deployedResponse.statusText}`);
+          throw new Error(
+            `Failed to fetch deployed webmentions manifest: ${deployedResponse.status} ${deployedResponse.statusText}`,
+          );
         }
         const deployedManifest = parseManifest(await deployedResponse.json());
 
@@ -569,7 +586,11 @@ export default function webmentionsIntegration(config: {
           authToken: config.authToken,
         });
 
-        logger.info(events.length === 0 ? "No webmention send events." : `Webmention send summary:\n${formatSendSummary(results)}`);
+        logger.info(
+          events.length === 0
+            ? "No webmention send events."
+            : `Webmention send summary:\n${formatSendSummary(results)}`,
+        );
       },
     },
   };
@@ -624,6 +645,7 @@ git commit -m "feat: send webmention updates during astro build"
 ### Task 6: Verify no-regression behavior and tighten noisy edges
 
 **Files:**
+
 - Modify: `src/lib/webmentions.ts`
 - Modify: `src/integrations/webmentions.ts`
 - Test: `src/lib/webmentions.test.ts`
@@ -661,7 +683,9 @@ Code shape:
 
 ```ts
 if (entry === null && workersCi) {
-  console.warn(`Skipping ${collection}/${item.id} in webmentions manifest due to missing or invalid lastmod`);
+  console.warn(
+    `Skipping ${collection}/${item.id} in webmentions manifest due to missing or invalid lastmod`,
+  );
 }
 ```
 

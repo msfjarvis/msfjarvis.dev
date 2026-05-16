@@ -19,16 +19,14 @@
   "env": {
     "production": {
       "name": "msfjarvis-dev",
-      "kv_namespaces": [
-        { "binding": "SESSION", "id": "d80e75f48f7d4b4a8e1a4b2429eed8bc" }
-      ],
+      "kv_namespaces": [{ "binding": "SESSION", "id": "d80e75f48f7d4b4a8e1a4b2429eed8bc" }],
       "routes": [
         {
           "pattern": "msfjarvis.dev",
           "custom_domain": true,
           "enabled": true,
-          "previews_enabled": false
-        }
+          "previews_enabled": false,
+        },
       ],
     },
     "drafts": {
@@ -38,8 +36,8 @@
           "pattern": "drafts.msfjarvis.dev",
           "custom_domain": true,
           "enabled": true,
-          "previews_enabled": false
-        }
+          "previews_enabled": false,
+        },
       ],
     },
   },

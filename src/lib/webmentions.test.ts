@@ -35,10 +35,10 @@ test("buildManifest sorts entries and emits schemaVersion 2", () => {
   });
 
   assert.equal(manifest.schemaVersion, 2);
-  assert.deepEqual(manifest.entries.map((entry) => entry.url), [
-    "https://example.com/notes/a/",
-    "https://example.com/posts/z/",
-  ]);
+  assert.deepEqual(
+    manifest.entries.map((entry) => entry.url),
+    ["https://example.com/notes/a/", "https://example.com/posts/z/"],
+  );
 });
 
 test("diffManifests classifies publish update and delete", () => {

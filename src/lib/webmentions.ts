@@ -33,7 +33,9 @@ export interface WebmentionSendResult {
   detail: string;
 }
 
-export function buildManifestEntry(input: BuildManifestEntryInput): WebmentionsManifestEntry | null {
+export function buildManifestEntry(
+  input: BuildManifestEntryInput,
+): WebmentionsManifestEntry | null {
   const { collection, id, data, siteUrl, workersCi } = input;
   if (!(data.lastmod instanceof Date) || Number.isNaN(data.lastmod.valueOf())) {
     if (workersCi) return null;
@@ -69,7 +71,8 @@ export function parseManifest(value: unknown): WebmentionsManifest {
     return bridgeSchemaVersion1Manifest(manifest);
   }
 
-  if (manifest.schemaVersion !== 2) throw new Error("Unsupported webmentions manifest schemaVersion");
+  if (manifest.schemaVersion !== 2)
+    throw new Error("Unsupported webmentions manifest schemaVersion");
   for (const entry of manifest.entries) {
     if (!entry || typeof entry !== "object") throw new Error("Invalid webmentions manifest entry");
     const record = entry as Record<string, unknown>;
@@ -87,7 +90,8 @@ function bridgeSchemaVersion1Manifest(manifest: Record<string, unknown>): Webmen
   return {
     schemaVersion: 2,
     siteOrigin: typeof manifest.siteOrigin === "string" ? manifest.siteOrigin : "",
-    generatedAt: typeof manifest.generatedAt === "string" ? manifest.generatedAt : new Date(0).toISOString(),
+    generatedAt:
+      typeof manifest.generatedAt === "string" ? manifest.generatedAt : new Date(0).toISOString(),
     entries: (manifest.entries as Array<Record<string, unknown>>).map((entry) => {
       if (typeof entry?.url !== "string") {
         throw new Error("Invalid webmentions manifest entry shape");
@@ -100,7 +104,10 @@ function bridgeSchemaVersion1Manifest(manifest: Record<string, unknown>): Webmen
   };
 }
 
-export function diffManifests(previous: WebmentionsManifest, next: WebmentionsManifest): WebmentionSendEvent[] {
+export function diffManifests(
+  previous: WebmentionsManifest,
+  next: WebmentionsManifest,
+): WebmentionSendEvent[] {
   const previousMap = new Map(previous.entries.map((entry) => [entry.url, entry.lastmod]));
   const nextMap = new Map(next.entries.map((entry) => [entry.url, entry.lastmod]));
   const events: WebmentionSendEvent[] = [];
@@ -121,7 +128,9 @@ export function diffManifests(previous: WebmentionsManifest, next: WebmentionsMa
     }
   }
 
-  return events.sort((a, b) => a.pageUrl.localeCompare(b.pageUrl) || a.reason.localeCompare(b.reason));
+  return events.sort(
+    (a, b) => a.pageUrl.localeCompare(b.pageUrl) || a.reason.localeCompare(b.reason),
+  );
 }
 
 export function formatSendSummary(results: WebmentionSendResult[]): string {

@@ -1,4 +1,4 @@
-import { GIT_SERVER_URL, MASTODON_URL } from '../consts';
+import { GIT_SERVER_URL, MASTODON_URL } from "../consts";
 
 export interface ProfileLink {
   label: string;
@@ -9,15 +9,15 @@ export interface ProfileLink {
 
 export const profileLinks: ProfileLink[] = [
   {
-    label: 'mastodon',
+    label: "mastodon",
     href: MASTODON_URL,
-    description: 'follow along on the fediverse',
-    icon: 'simple-icons:mastodon',
+    description: "follow along on the fediverse",
+    icon: "simple-icons:mastodon",
   },
   {
-    label: 'git',
+    label: "git",
     href: GIT_SERVER_URL,
-    description: 'self-hosted source and mirrors',
-    icon: 'simple-icons:forgejo',
+    description: "self-hosted source and mirrors",
+    icon: "simple-icons:forgejo",
   },
 ];

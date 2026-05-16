@@ -1,12 +1,7 @@
 import type { AstroIntegration } from "astro";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import {
-  diffManifests,
-  formatSendSummary,
-  parseManifest,
-  sendEvents,
-} from "../lib/webmentions";
+import { diffManifests, formatSendSummary, parseManifest, sendEvents } from "../lib/webmentions";
 
 export default function webmentionsIntegration(config: {
   siteUrl: string;
