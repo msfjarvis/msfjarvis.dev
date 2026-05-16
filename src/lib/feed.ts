@@ -108,13 +108,13 @@ function removeLightboxDuplicates(html: string): string {
   const $ = load(html);
   $("[data-image-lightbox]").each((_, figure) => {
     const $figure = $(figure);
-    const $button = $figure.find("[data-lightbox-trigger]");
-    if ($button.length > 0) {
-      const imageHtml = $button.html();
+    const $trigger = $figure.find("[data-lightbox-trigger]").first();
+    if ($trigger.length > 0) {
+      const imageHtml = $trigger.find("picture, img").first().prop("outerHTML");
       if (!imageHtml) {
-        throw Error("Failed to find lightbox trigger in page, has the layout changed?");
+        throw Error("Failed to extract lightbox image for feeds, has the layout changed?");
       }
-      $button.replaceWith(imageHtml);
+      $trigger.replaceWith(imageHtml);
     }
   });
   $("[data-lightbox-container]").remove();
