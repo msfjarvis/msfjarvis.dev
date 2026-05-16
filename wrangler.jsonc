@@ -19,12 +19,15 @@
   "env": {
     "production": {
       "name": "msfjarvis-dev",
+      "kv_namespaces": [
+        { "binding": "SESSION", "id": "d80e75f48f7d4b4a8e1a4b2429eed8bc" }
+      ],
       "routes": [
         {
           "pattern": "msfjarvis.dev",
           "custom_domain": true,
           "enabled": true,
-          "previews_enabled": true
+          "previews_enabled": false
         }
       ],
     },
