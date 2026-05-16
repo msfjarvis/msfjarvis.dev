@@ -1,0 +1,78 @@
+---
+import type { ProfileLink } from '../data/profile-links';
+
+interface Props {
+  items: ProfileLink[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="profile-links" aria-label="Elsewhere on the web">
+  {items.map((item) => (
+    <a href={item.href} class="profile-link" target="_blank" rel="noopener noreferrer">
+      <div class="profile-link-top">
+        <svg class="profile-link-icon" viewBox={item.icon.viewBox} aria-hidden="true" set:html={item.icon.body}></svg>
+        <span class="profile-link-label">{item.label}</span>
+      </div>
+      <span class="profile-link-meta">{item.description}</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .profile-links {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.9rem;
+  }
+
+  .profile-link {
+    display: block;
+    flex: 1 1 0;
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.8rem 0.95rem;
+    color: var(--text);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .profile-link:hover {
+    border-color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .profile-link-top {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .profile-link-icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--text-2);
+    flex-shrink: 0;
+  }
+
+  .profile-link-label {
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .profile-link-meta {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--text-2);
+  }
+
+  .profile-link-label,
+  .profile-link-meta {
+    overflow-wrap: anywhere;
+  }
+</style>

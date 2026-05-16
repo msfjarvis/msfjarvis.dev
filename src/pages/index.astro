@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProfileLinks from '../components/ProfileLinks.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { profileLinks } from '../data/profile-links';
 import { filterDrafts } from '../utils';
 import { feeds } from 'virtual:site-feeds';
 
@@ -29,6 +31,7 @@ const weeknoteCount = weeknotes.length;
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} alternateFeeds={feeds}>
   <section class="bio">
     <p class="bio-desc">{SITE_DESCRIPTION}</p>
+    <ProfileLinks items={profileLinks} />
   </section>
 
   <nav class="section-grid" aria-label="Site sections">

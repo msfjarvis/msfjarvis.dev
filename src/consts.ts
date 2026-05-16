@@ -4,6 +4,8 @@ export const SITE_DESCRIPTION =
 export const SITE_URL = "https://msfjarvis.dev";
 export const AUTHOR_NAME = "Harsh Shandilya";
 export const AUTHOR_EMAIL = "me@msfjarvis.dev";
+export const MASTODON_URL = "https://androiddev.social/@msfjarvis";
+export const GIT_SERVER_URL = "https://git.msfjarvis.dev/msfjarvis";
 
 export const showDrafts = import.meta.env.DEV || import.meta.env.INCLUDE_DRAFTS === "true";
 
