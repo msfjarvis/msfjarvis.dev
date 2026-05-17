@@ -23,6 +23,8 @@ const { Content } = await render(entry);
   date={entry.data.date}
   lastmod={entry.data.lastmod}
   tags={entry.data.tags}
+  autoImage={true}
+  collection="weeknotes"
 >
   <Content />
 </PostLayout>

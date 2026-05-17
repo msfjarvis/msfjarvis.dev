@@ -14,15 +14,18 @@ interface Props {
   lastmod?: Date;
   minutesRead?: number;
   tags?: string[];
+  image?: string;
+  autoImage?: boolean;
+  collection?: 'posts' | 'notes' | 'weeknotes';
 }
 
-const { title, description, date, lastmod, minutesRead, tags } = Astro.props;
+const { title, description, date, lastmod, minutesRead, tags, image, autoImage = false, collection } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description ?? title} />
+    <BaseHead title={title} description={description ?? title} image={image} autoImage={autoImage} />
   </head>
   <body>
     <Header />
@@ -37,6 +40,8 @@ const { title, description, date, lastmod, minutesRead, tags } = Astro.props;
             )}
             {minutesRead != null && minutesRead > 0 && <> · {minutesRead} min read</>}
           </p>
+          <span hidden data-og-date={date.toISOString()}></span>
+          {collection && <span hidden data-og-collection={collection}></span>}
           <span class="p-author h-card" hidden>
             <img class="u-photo" src="/harsh-shandilya.webp" alt="" />
             <a class="p-name u-url" href="/">Harsh Shandilya</a>

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { getImagePath } from 'astro-opengraph-images/util.js';
 import { SITE_TITLE } from '../consts';
 import type { AlternateFeed } from '../consts';
 
@@ -7,11 +8,23 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  autoImage?: boolean;
   alternateFeeds?: AlternateFeed[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/android-chrome-512x512.webp', alternateFeeds } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  autoImage = false,
+  alternateFeeds,
+} = Astro.props;
+const openGraphImage = image
+  ? new URL(image, Astro.url)
+  : autoImage
+    ? getImagePath({ url: Astro.url, site: Astro.site })
+    : new URL('/android-chrome-512x512.webp', Astro.url);
 // Hrefs rendered unconditionally below — excluded from alternateFeeds to prevent duplicates.
 const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
 ---
@@ -31,13 +44,13 @@ const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={openGraphImage} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content={Astro.url} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={new URL(image, Astro.url)} />
+<meta name="twitter:image" content={openGraphImage} />
 
 <link rel="alternate" type="application/rss+xml"   title={`${SITE_TITLE} — RSS`}       href={new URL('rss.xml',  Astro.site)} />
 <link rel="alternate" type="application/atom+xml"  title={`${SITE_TITLE} — Atom`}      href={new URL('atom.xml', Astro.site)} />
