@@ -31,6 +31,7 @@ This is a single subsystem plan. All work is confined to one component plus one 
 ### Task 1: Lock the current cleanup contract and modal hooks
 
 **Files:**
+
 - Read: `src/components/ImageModal.astro`
 - Read: `src/components/Figure.astro`
 - Read: `src/lib/feed.ts:106-121`
@@ -99,6 +100,7 @@ Expected: commit succeeds or is skipped if the plan doc was already committed se
 ### Task 2: Rebuild the component markup around an editorial trigger + dialog
 
 **Files:**
+
 - Modify: `src/components/ImageModal.astro`
 - Reference: `src/styles/global.css:1-27`
 
@@ -138,6 +140,7 @@ astro dev
 ```
 
 Then open the temporary page and verify the current baseline:
+
 - inline figure renders
 - click opens the current modal
 - `Escape` closes it
@@ -226,6 +229,7 @@ const dialogLabel = title || alt || 'Expanded image';
 ```
 
 Notes:
+
 - keep `data-image-lightbox`, `data-lightbox-trigger`, `data-lightbox-container`, `data-lightbox-overlay`, `data-lightbox-close`, and `data-lightbox-inner`
 - avoid inline styles
 - keep the dialog markup adjacent to the figure so the script can find its owning instance cheaply
@@ -239,6 +243,7 @@ Run:
 ```
 
 Expected:
+
 - inline image still renders
 - hint only appears visually, not as duplicate spoken text
 - caption still renders when present
@@ -254,6 +259,7 @@ git commit -m "refactor: rebuild ImageModal markup"
 ### Task 3: Add the editorial visual system and soft-rise motion
 
 **Files:**
+
 - Modify: `src/components/ImageModal.astro`
 
 - [ ] **Step 1: Replace the current styles with token-based component styles**
@@ -282,7 +288,9 @@ figure[data-image-lightbox] {
   overflow: hidden;
   border-radius: 10px;
   transform: translateY(0);
-  transition: transform 220ms ease, opacity 220ms ease;
+  transition:
+    transform 220ms ease,
+    opacity 220ms ease;
 }
 
 .image-modal__media :is(img, picture) {
@@ -306,7 +314,9 @@ figure[data-image-lightbox] {
   font-size: 0.7rem;
   opacity: 0;
   transform: translateY(0.35rem);
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
 }
 
 .image-modal__trigger:hover .image-modal__media,
@@ -325,7 +335,9 @@ figure[data-image-lightbox] {
 }
 
 .image-modal__trigger:focus-visible .image-modal__media {
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 4px var(--accent);
 }
 
 .image-modal__caption {
@@ -345,10 +357,12 @@ figure[data-image-lightbox] {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 220ms ease, visibility 220ms ease;
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease;
 }
 
-.image-modal__dialog[data-open='true'] {
+.image-modal__dialog[data-open="true"] {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -370,10 +384,12 @@ figure[data-image-lightbox] {
   gap: 0.85rem;
   transform: translateY(1rem) scale(0.985);
   opacity: 0;
-  transition: transform 260ms ease, opacity 260ms ease;
+  transition:
+    transform 260ms ease,
+    opacity 260ms ease;
 }
 
-.image-modal__dialog[data-open='true'] .image-modal__sheet {
+.image-modal__dialog[data-open="true"] .image-modal__sheet {
   transform: translateY(0) scale(1);
   opacity: 1;
 }
@@ -425,6 +441,7 @@ Keep the motion profile calm. Do not introduce springy or cinematic transitions.
 - [ ] **Step 2: Verify the new visual behavior in the temporary page**
 
 Manual runtime checks:
+
 - hover/focus reveals a subtle affordance
 - inline image lifts slightly, not dramatically
 - modal now visibly fades/soft-rises
@@ -442,6 +459,7 @@ git commit -m "feat: add editorial ImageModal styling"
 ### Task 4: Rebuild the client script for robust dialog behavior
 
 **Files:**
+
 - Modify: `src/components/ImageModal.astro`
 
 - [ ] **Step 1: Replace the existing initializer with per-instance guarded setup**
@@ -454,22 +472,22 @@ Use this script shape:
     window.__imageModalInit = true;
 
     const lockScroll = () => {
-      document.body.dataset.imageModalScrollLock = 'true';
-      document.body.style.overflow = 'hidden';
+      document.body.dataset.imageModalScrollLock = "true";
+      document.body.style.overflow = "hidden";
     };
 
     const unlockScroll = () => {
       delete document.body.dataset.imageModalScrollLock;
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
 
     const setupImageModal = (root) => {
-      if (!(root instanceof HTMLElement) || root.dataset.imageModalBound === 'true') return;
+      if (!(root instanceof HTMLElement) || root.dataset.imageModalBound === "true") return;
 
-      const trigger = root.querySelector('[data-lightbox-trigger]');
-      const dialog = root.querySelector('[data-lightbox-container]');
-      const closeButton = root.querySelector('[data-lightbox-close]');
-      const overlay = root.querySelector('[data-lightbox-overlay]');
+      const trigger = root.querySelector("[data-lightbox-trigger]");
+      const dialog = root.querySelector("[data-lightbox-container]");
+      const closeButton = root.querySelector("[data-lightbox-close]");
+      const overlay = root.querySelector("[data-lightbox-overlay]");
 
       if (
         !(trigger instanceof HTMLButtonElement) ||
@@ -480,36 +498,37 @@ Use this script shape:
         return;
       }
 
-      root.dataset.imageModalBound = 'true';
+      root.dataset.imageModalBound = "true";
       let lastFocused = null;
 
       const open = () => {
-        lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : trigger;
-        dialog.dataset.open = 'true';
-        dialog.removeAttribute('inert');
-        dialog.setAttribute('aria-hidden', 'false');
+        lastFocused =
+          document.activeElement instanceof HTMLElement ? document.activeElement : trigger;
+        dialog.dataset.open = "true";
+        dialog.removeAttribute("inert");
+        dialog.setAttribute("aria-hidden", "false");
         lockScroll();
         closeButton.focus();
       };
 
       const close = () => {
-        dialog.dataset.open = 'false';
-        dialog.setAttribute('inert', '');
-        dialog.setAttribute('aria-hidden', 'true');
+        dialog.dataset.open = "false";
+        dialog.setAttribute("inert", "");
+        dialog.setAttribute("aria-hidden", "true");
         unlockScroll();
         lastFocused?.focus?.();
       };
 
-      trigger.addEventListener('click', (event) => {
+      trigger.addEventListener("click", (event) => {
         event.preventDefault();
         open();
       });
 
-      closeButton.addEventListener('click', close);
-      overlay.addEventListener('click', close);
+      closeButton.addEventListener("click", close);
+      overlay.addEventListener("click", close);
 
-      dialog.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
+      dialog.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
           event.preventDefault();
           close();
         }
@@ -517,20 +536,21 @@ Use this script shape:
     };
 
     const init = () => {
-      document.querySelectorAll('[data-image-lightbox]').forEach((figure) => {
+      document.querySelectorAll("[data-image-lightbox]").forEach((figure) => {
         const dialog = figure.nextElementSibling;
-        if (!(dialog instanceof HTMLElement) || !dialog.hasAttribute('data-lightbox-container')) return;
+        if (!(dialog instanceof HTMLElement) || !dialog.hasAttribute("data-lightbox-container"))
+          return;
 
-        const wrapper = document.createElement('div');
-        wrapper.dataset.imageModalRoot = 'true';
+        const wrapper = document.createElement("div");
+        wrapper.dataset.imageModalRoot = "true";
         figure.before(wrapper);
         wrapper.append(figure, dialog);
         setupImageModal(wrapper);
       });
     };
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init, { once: true });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init, { once: true });
     } else {
       init();
     }
@@ -554,7 +574,7 @@ Preferred final markup shape:
 Then simplify the initializer to:
 
 ```js
-document.querySelectorAll('[data-image-modal-root]').forEach((root) => {
+document.querySelectorAll("[data-image-modal-root]").forEach((root) => {
   setupImageModal(root);
 });
 ```
@@ -564,6 +584,7 @@ This keeps the script smaller and avoids moving nodes in the live DOM.
 - [ ] **Step 3: Validate dialog behavior end-to-end in the browser**
 
 Manual runtime checks on the temporary page:
+
 - click trigger opens modal
 - close button closes modal
 - overlay click closes modal
@@ -585,6 +606,7 @@ git commit -m "feat: improve ImageModal dialog behavior"
 ### Task 5: Reconcile feed cleanup if selectors or structure changed
 
 **Files:**
+
 - Modify if needed: `src/lib/feed.ts`
 - Reference: `src/components/ImageModal.astro`
 
@@ -593,9 +615,9 @@ git commit -m "feat: improve ImageModal dialog behavior"
 These selectors must still work unless explicitly updated:
 
 ```ts
-$("[data-image-lightbox]")
-$figure.find("[data-lightbox-trigger]")
-$("[data-lightbox-container]").remove()
+$("[data-image-lightbox]");
+$figure.find("[data-lightbox-trigger]");
+$("[data-lightbox-container]").remove();
 ```
 
 Expected: if the final component still exposes these hooks, `src/lib/feed.ts` stays unchanged.
@@ -610,7 +632,7 @@ function removeLightboxDuplicates(html: string): string {
   $("[data-image-lightbox]").each((_, figure) => {
     const $figure = $(figure);
     const $trigger = $figure.find("[data-lightbox-trigger]").first();
-    const imageHtml = $trigger.find("picture, img").first().prop('outerHTML');
+    const imageHtml = $trigger.find("picture, img").first().prop("outerHTML");
     if (!imageHtml) {
       throw Error("Failed to extract lightbox image for feeds, has the layout changed?");
     }
@@ -650,6 +672,7 @@ Skip this commit if `src/lib/feed.ts` was unchanged.
 ### Task 6: Final validation and cleanup of temporary files
 
 **Files:**
+
 - Delete: `src/pages/image-modal-temp.astro`
 - Modify: `src/components/ImageModal.astro`
 - Modify if needed: `src/lib/feed.ts`
@@ -657,6 +680,7 @@ Skip this commit if `src/lib/feed.ts` was unchanged.
 - [ ] **Step 1: Run the final manual validation pass on the temporary page**
 
 Checklist:
+
 - inline figure looks quiet in article flow
 - hover/focus affordance is visible but subtle
 - modal animation feels like the chosen soft-rise prototype
