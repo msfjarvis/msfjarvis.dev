@@ -12,6 +12,10 @@
       matchUpdateTypes: ["major"],
       enabled: false,
     },
+    {
+      "matchDatasources": ["npm"],
+      "minimumReleaseAge": "7 days"
+    },
   ],
   commitMessageSuffix: "[staging]",
 }
