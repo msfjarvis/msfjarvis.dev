@@ -16,7 +16,9 @@
     "new:note": "node scripts/new-entry.mjs notes",
     "new:weeknote": "node scripts/new-entry.mjs weeknotes",
     "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "format": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "format:check": "oxfmt --check"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.3.0",
