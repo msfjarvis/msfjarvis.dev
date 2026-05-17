@@ -26,7 +26,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@sveltia/cms": "^0.160.0",
     "astro": "^6.2.1",
-    "astro-iconset": "^0.0.4",
+    "astro-iconset": "^0.0.5",
     "astro-opengraph-images": "^1.16.1",
     "cheerio": "^1.2.0",
     "sharp": "^0.34.3"
