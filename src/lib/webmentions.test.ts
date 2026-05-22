@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
@@ -151,4 +152,18 @@ test("buildManifestEntry returns null for invalid lastmod in WORKERS_CI", () => 
     }),
     null,
   );
+});
+
+test("assorted posts use timezone-explicit lastmod values", async () => {
+  const files = [
+    "src/content/posts/assorted-git-things/index.mdx",
+    "src/content/posts/assorted-nixos-things/index.mdx",
+  ];
+
+  for (const file of files) {
+    const content = await readFile(new URL(`../../${file}`, import.meta.url), "utf8");
+    const match = content.match(/^lastmod:\s*"([^"]+)"/m);
+    assert.ok(match, `expected lastmod in ${file}`);
+    assert.match(match[1], /(?:Z|[+-]\d\d:\d\d)$/);
+  }
 });
