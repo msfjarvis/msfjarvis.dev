@@ -29,6 +29,6 @@ minimumReleaseAgeExclude:
   - "@oxfmt/binding-win32-x64-msvc"
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
-enableGlobalVirtualStore: true
+enableGlobalVirtualStore: false
 trustPolicyExclude:
   - "chokidar@4.0.3"
