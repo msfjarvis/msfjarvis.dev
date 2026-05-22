@@ -56,7 +56,7 @@
             {
               name = "build";
               category = "deployment";
-              command = "npm run build";
+              command = "pnpm run build";
               help = "Build the site";
             }
             {
@@ -74,7 +74,7 @@
             {
               name = "dev";
               category = "development";
-              command = "npm run dev";
+              command = "pnpm run dev";
               help = "Run the Hugo development server";
             }
             {
