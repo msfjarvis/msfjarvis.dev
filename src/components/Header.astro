@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts';
+import { navLinks } from "../data/nav-links.ts";
 
 const pathname = new URL(Astro.request.url).pathname;
 // Returns true if the current path matches, supporting both trailing-slash and non-trailing-slash forms
@@ -13,12 +14,9 @@ const isActive = (path: string, exact = false): boolean =>
   <nav>
     <a href="/" class="site-name">{SITE_TITLE}</a>
     <div class="nav-links">
-      <a href="/posts" class:list={[{ active: isActive('/posts') }]}>posts</a>
-      <a href="/notes" class:list={[{ active: isActive('/notes') }]}>notes</a>
-      <a href="/weeknotes" class:list={[{ active: isActive('/weeknotes') }]}>weeknotes</a>
-      <a href="/now" class:list={[{ active: isActive('/now', true) }]}>now</a>
-      <a href="/about" class:list={[{ active: isActive('/about', true) }]}>about</a>
-      <a href="/uses" class:list={[{ active: isActive('/uses', true) }]}>uses</a>
+      {navLinks.map(link => (
+        <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
+      ))}
     </div>
   </nav>
 </header>
