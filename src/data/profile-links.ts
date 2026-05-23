@@ -1,5 +1,3 @@
-import { GIT_SERVER_URL, MASTODON_URL } from "../consts";
-
 export interface ProfileLink {
   label: string;
   href: string;
@@ -10,13 +8,13 @@ export interface ProfileLink {
 export const profileLinks: ProfileLink[] = [
   {
     label: "mastodon",
-    href: MASTODON_URL,
+    href: "https://androiddev.social/@msfjarvis",
     description: "follow me on the fediverse",
     icon: "simple-icons:mastodon",
   },
   {
     label: "git",
-    href: GIT_SERVER_URL,
+    href: "https://git.msfjarvis.dev/msfjarvis",
     description: "all my code",
     icon: "simple-icons:forgejo",
   },
