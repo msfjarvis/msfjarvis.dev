@@ -38,6 +38,7 @@
     "@iarna/toml": "^2.2.5",
     "@iconify-json/simple-icons": "^1.2.79",
     "@resvg/resvg-js": "^2.6.2",
+    "@types/jsdom": "^28.0.3",
     "@types/react": "^19.2.14",
     "fs-extra": "^11.3.4",
     "js-yaml": "^4.1.1",
