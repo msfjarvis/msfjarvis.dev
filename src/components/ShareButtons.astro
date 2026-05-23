@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-iconset/components';
+import { shareButtons } from "../data/share-buttons.ts";
 
 interface Props {
   url: string;
@@ -7,25 +8,15 @@ interface Props {
 }
 
 const { url, title } = Astro.props;
-
-// Encode URL and title for sharing
-const encodedUrl = encodeURIComponent(url);
-const encodedTitle = encodeURIComponent(title);
-
-// Generate share URLs
-const redditShareUrl = `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`;
-const shareText = encodeURIComponent(`${title} ${url}`);
-const mastodonShareUrl = `https://share.joinmastodon.org/#text=${shareText}`;
 ---
 
 <div class="share-buttons">
   <span class="share-label">Share on:</span>
-  <a href={redditShareUrl} rel="noopener noreferrer" target="_blank" class="share-link reddit" title="Share on Reddit" aria-label="Share on Reddit">
-    <Icon name="simple-icons:reddit" height="20" width="20" aria-hidden="true" />
-  </a>
-  <a href={mastodonShareUrl} rel="noopener noreferrer" target="_blank" class="share-link mastodon" title="Share on Mastodon" aria-label="Share on Mastodon">
-    <Icon name="simple-icons:mastodon" height="20" width="20" aria-hidden="true" />
-  </a>
+  {shareButtons.map(button => (
+    <a href={button.makeShareLink(title, url)} rel="noopener noreferrer" target="_blank" class="share-link" title={`Share on ${button.title}`} aria-label={`Share on ${button.title}`}>
+      <Icon name={button.icon} height="20" width="20" aria-hidden="true" />
+    </a>
+  ))}
 </div>
 
 <style>
