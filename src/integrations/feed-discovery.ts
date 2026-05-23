@@ -58,10 +58,6 @@ export default function feedDiscovery(): AstroIntegration {
               {
                 name: "vite-plugin-site-feeds",
 
-                buildStart() {
-                  cachedFeedFiles = null;
-                },
-
                 resolveId(id: string) {
                   if (id === VIRTUAL_MODULE_ID) return RESOLVED_ID;
                 },
