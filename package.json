@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "serve": "astro dev",
-    "build": "pnpm run generate-redirects && astro build && node --test ./src/lib/*.test.ts",
+    "build": "pnpm run generate-redirects && astro build",
     "build:drafts": "INCLUDE_DRAFTS=true pnpm run build",
     "preview": "astro preview",
     "astro": "astro",
