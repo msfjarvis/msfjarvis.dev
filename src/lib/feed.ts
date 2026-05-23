@@ -4,7 +4,6 @@ import { render } from "astro:content";
 import { load } from "cheerio";
 import type { APIContext } from "astro";
 import { AUTHOR_NAME, SITE_URL } from "../consts";
-import type { AlternateFeed } from "../consts";
 
 /** Maximum number of entries to include in any feed. */
 const FEED_MAX_ENTRIES = 40;
@@ -330,7 +329,13 @@ const FORMAT_LABELS: Record<FeedFormat, string> = {
   "feed.json": "JSON Feed",
 };
 
-/** Module-level registry populated by createFeedEndpoint side-effects. */
+export interface AlternateFeed {
+  type: string;
+  title: string;
+  href: string;
+}
+
+/** Module-level registry populated by createFeedEndpoint side effects. */
 const _feedRegistry: AlternateFeed[] = [];
 
 /**
