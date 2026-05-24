@@ -5,6 +5,7 @@ interface Props {
   src: ImageMetadata | string;
   alt?: string;
   title?: string;
+  small: boolean;
 }
 
 type ImageMetadata = {
@@ -14,11 +15,11 @@ type ImageMetadata = {
   format: string;
 };
 
-const { src, alt = '', title } = Astro.props;
+const { src, alt = '', title, small } = Astro.props;
 const dialogLabel = title || alt || 'Expanded image';
 ---
 
-<div data-image-modal-root>
+<div data-image-modal-root class={small ? 'half' : undefined}>
   <figure data-image-lightbox>
     <button
       data-lightbox-trigger

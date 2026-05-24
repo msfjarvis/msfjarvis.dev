@@ -5,6 +5,7 @@ interface Props {
   src: ImageMetadata | string;
   alt?: string;
   title?: string;
+  small?: boolean;
 }
 
 type ImageMetadata = {
@@ -14,14 +15,14 @@ type ImageMetadata = {
   format: string;
 };
 
-const { src, alt = '', title } = Astro.props;
+const { src, alt = '', title, small = false } = Astro.props;
 ---
 
 {typeof src === 'object' ? (
-  <ImageModal src={src} alt={alt} title={title} />
+  <ImageModal src={src} alt={alt} title={title} small={small} />
 ) : (
   <figure>
-    <img src={src} alt={alt} />
+    <img class={small && "half" || ""} src={src} alt={alt} />
     {title && <figcaption>{title}</figcaption>}
   </figure>
 )}
