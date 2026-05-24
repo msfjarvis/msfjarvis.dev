@@ -1,0 +1,85 @@
+---
+title: "Weeknotes: Week #21 (2026)"
+date: "2026-05-24T12:58:09.071Z"
+lastmod: "2026-05-24T12:58:09.071Z"
+summary: "Honestly not even sure how I feel about this week"
+tags: ["work", "food"]
+categories: ["weeknotes"]
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import classic_chhole_rice from "./classic_chhole_rice.webp";
+import instagram_egg_rice_recipe from "./instagram_egg_rice_recipe.webp";
+import the_mandalorian_and_grogu from "./the_mandalorian_and_grogu.webp";
+import massive_mango from "./massive_mango.webp";
+import the_rocktopus from "./the_rocktopus.webp";
+
+As I'm sitting down to write this weeknote and looking through [my outline](/notes/collating-entries-in-my-obsidian-journal-for-week-notes/), I'm realizing that I remember basically nothing I am reading. I can't remember the last time a week has felt this long, but hey at least it's over and I have words to prove it happened.
+
+This week I had decided to be in the office every single day instead of our usual 3, so obviously I got rewarded for it on day 1 itself with very heavy rains. Thankfully an expensive taxi saved my hide before the traffic jams really started to materialize, and I was very grateful to be back inside before it really started pouring.
+
+<video controls loading="lazy">
+  <source src="https://media.msfjarvis.dev/rain_on_monday-2026-05-24.mp4" type="video/mp4" />
+</video>
+
+This was admittedly a little scary, but I came back home to the news that [Yash](https://yashgarg.dev) had finished printing the Rocktopus I had requested last week. Here it is, guarding my workstation at the office the next day.
+
+<Figure
+  src={the_rocktopus}
+  alt="A 3D printed octopus with the head of Dwayne 'The Rock' Johnson, perched neatly on top of my monitor"
+  title="He's perfect"
+/>
+
+A few weeks ago, Yash had come across a Reddit post from someone wanting to sell the mangoes they were growing, and we had decided to get some. They got delivered on Wednesday and goddamn were they huge. Unfortunately still raw and will take a few days to be ready to eat, but I feel it'll be worth the wait.
+
+<Figure
+  src={massive_mango}
+  alt="A large raw mango in Yash's hand, him barely managing to hold on to it because of how huge it is"
+  title="That's a thick boy"
+/>
+
+[Swapnil](https://github.com/swpanilmadavi) and I got stuck debugging something after a late work meeting, after wrapping it up Swapnil decided to start a group call with the lads. We did a solid half hour plus of just shooting the shit which was a nice way to wind down before bed. I had forgotten how much I love group calls with friends, it's so hard to get people together these days. Damn you capitalism!
+
+On Friday the entire RealtimeKit team got together for lunch at [Pizza Bakery](https://thepizzabakery.in/), where I was too focused on the pizza to actually take more than one picture. As usual, Yash [has you covered](https://yashgarg.dev/weekly-notes-21-2026/) on that front.
+
+I try to keep Sundays free so I can just exist for a day, no thoughts head empty. Unfortunately Mayank had other plans, so we went and watched The Mandalorian and Grogu today. I found the movie to be a fine spectacle, but it doesn't really advance the wider world too much which seems to be my constant problem with Star Wars.
+
+<Figure
+  src={the_mandalorian_and_grogu}
+  alt="A frame from the movie The Mandalorian And Grogu"
+  title="I am convinced Grogu being a puppet instead of CGI is the entire reason this character ever got traction"
+/>
+
+## Reading
+
+It took me 2 months of _very_ distracted reading, but I managed to finishing reading [Could Should Might Don't](https://www.couldshouldmightdont.com). I think the book itself is great, but with so many distractions available I found myself struggling to read it regularly. According to the statistics on my Kobo I averaged 9 minutes per session on the book which is significantly lower than my usual of 15-20 minutes. My usual fare of Science Fiction works better here by having continual suspense drawing me in, so I started reading [The Knife of Never Letting Go](https://bookwyrm.social/user/msfjarvis/generatednote/11327057) instead of going for more non-fiction books. I'll see if I can piece together a book review for Could Should Might Don't, and definitely see what I can change to make non-fiction stick better. I can't have great books take me 2 months to go through 400 pages when I typically manage that in under 2 weeks.
+
+## Food
+
+With a lot of busy evenings we didn't get to cook a lot this week. Yash has finally started whipping out the Instagram reels, and we had a couple of successes. It was nice to break up our usual cycle of the same 4-5 dishes in rotation, I think we'll keep pulling one or two items off his evergrowing list every week.
+
+<Gallery>
+  <Figure
+    src={classic_chhole_rice}
+    alt="A bowl of chickpea curry and rice"
+    title="Another staple of this household, just can't beat the ease."
+  />
+  <Figure
+    src={instagram_egg_rice_recipe}
+    alt="A pan with rice that has been cooked in a bunch of spices to an almost biryani like appearance"
+    title="This one's off Instagram and a bit of a sleeper hit, go pester Yash for a link"
+  />
+</Gallery>
+
+## Random LLM experiments
+
+Just wanted to have some place to dump info about what shenanigans I have been up to, so I'll probably just make this an ongoing section.
+
+I've written previously about [switching to OpenAI Codex](/weeknotes/week-19-2026/) and the associated GPT-5 laziness problems that I had to deal with. In the two weeks since, I've had multiple incidents of the extension I wrote either not firing when it should or misfiring when it shouldn't so I decided to make it entirely too complicated. As I say [in the commit message](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/b243e6caf15ae2bfd648a65a2143429e9da1eda7); what more RegEx can't solve, more AI definitely can. Now instead of putting every message through an impenetrably complicated RegEx, the extension instead pipes it through an impenetrably complicated text classifier LLM. This approach also hasn't been foolproof so far either, but iterating over the prompt ([here](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/7347bf2b607ca71d8682e853f0db95844660422a) and [here](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/59d79e9892ac6c04c9ee02a0e09daf2db300dc71)), has been helpful when paired with a proper test suite.
+
+[AGENTS.md](https://agents.md/) files have been the de-facto way of giving LLMs persistent knowledge of codebases, but I find it somewhat annoying to have a bunch of them in my repositories. This week I've been looking at alternatives, and unfortunately mostly came up empty. Only one thing stood out to me, which was [agentmemory](https://github.com/rohitg00/agentmemory). So far I've only put "memories" into it, and I'll see if during the next week LLMs actually use this or continue reading all files from scratch.
+
+I've been going all in on [skills](https://agentskills.io) as a way of steering LLMs, and found an adversarial reviewer skill from my colleague [Matt Kane](https://mk.gg/) in the [EmDash CMS repo](https://github.com/emdash-cms/emdash/blob/283bcf059e8c6889d14292e822953f13eaf6a6b0/skills/adversarial-reviewer/SKILL.md). I had it run across the full diff of [Claw](https://github.com/msfjarvis/compose-lobsters) since the last release, and it was able to identify [a couple of valid problems](https://git.msfjarvis.dev/msfjarvis/compose-lobsters/commit/1b6ae68e0d4a27d99709a09b7ef759f6bcda5b17). Obviously like any LLM usage, it also fully made up how to properly detect login sessions but that wasn't too difficult to rectify early on.
