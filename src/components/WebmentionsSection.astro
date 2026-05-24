@@ -97,7 +97,11 @@
 	</script>
 </div>
 
-<style>
+<!--
+ Need to be marked is:global so Astro emits them unmodified, otherwise they become data-astro-cid-xxxx which keels over
+ in the presence of dynamically generated HTML elements like we do above.
+ -->
+<style is:global>
 .webmentions {
   margin-top: 2rem;
   padding-top: 2rem;
