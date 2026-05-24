@@ -41,7 +41,7 @@
 
 				const mentions = data.mentions as Mention[];
 
-				container.innerHTML = mentions.map(m => {
+				const items = mentions.map(m => {
 					const timestamp = m.verified_at * 1000;
 					const date = new Date(timestamp).toLocaleDateString();
 					const isoDate = new Date(timestamp).toISOString();
@@ -66,7 +66,7 @@
 						icon = '💬';
 					}
 
-					const avatarHtml = authorPhoto
+					const avatarHtml = authorPhoto 
 						? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
 						: '';
 
@@ -89,6 +89,8 @@
 						</article>
 					`;
 				}).join('');
+
+				container.innerHTML = items;
 			} catch (err) {
 				console.error('Webmention error:', err);
 				container.innerHTML = '<p>Could not load webmentions.</p>';
@@ -98,16 +100,16 @@
 </div>
 
 <style>
-.webmentions {
+:global(.webmentions) {
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid var(--border);
 }
-.webmentions h3 {
+:global(.webmentions h3) {
   color: var(--primary);
   margin-bottom: 1rem;
 }
-.webmention-item {
+:global(.webmention-item) {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
@@ -119,25 +121,25 @@
   color: var(--content);
   font-size: 14px;
 }
-.webmention-avatar {
+:global(.webmention-avatar) {
   width: 48px;
   height: 48px;
   border-radius: 50%;
   flex-shrink: 0;
 }
-.webmention-content {
+:global(.webmention-content) {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   flex: 1;
 }
-.webmention-header {
+:global(.webmention-header) {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.35rem;
 }
-.webmention-text {
+:global(.webmention-text) {
   margin: 0;
   padding: 0.5rem 0 0 0;
   color: var(--content);
@@ -145,29 +147,29 @@
   line-height: 1.5;
   border-top: 1px solid var(--border);
 }
-.webmention-icon {
+:global(.webmention-icon) {
   font-size: 16px;
   line-height: 1;
 }
-.webmention-author {
+:global(.webmention-author) {
   color: var(--primary);
   font-weight: 600;
   text-decoration: none;
   box-shadow: none;
 }
-.webmention-author:hover {
+:global(.webmention-author:hover) {
   text-decoration: underline;
 }
-.webmention-verb {
+:global(.webmention-verb) {
   color: var(--secondary);
   text-decoration: none;
   box-shadow: none;
 }
-.webmention-verb:hover {
+:global(.webmention-verb:hover) {
   color: var(--primary);
   text-decoration: underline;
 }
-.webmention-item time {
+:global(.webmention-item time) {
   color: var(--secondary);
   margin-left: auto;
 }
