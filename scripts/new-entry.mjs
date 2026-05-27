@@ -61,7 +61,7 @@ export function createEntry({ root = PROJECT_ROOT, type, title, now = new Date()
   }
 
   const { title: resolvedTitle, slug } = resolved;
-  const entryDir = path.join(root, "src", "content", collection, slug);
+  const entryDir = path.join(root, "src", "content", collection, slug.toLowerCase());
   const entryPath = path.join(entryDir, "index.mdx");
 
   if (existsSync(entryPath)) {
