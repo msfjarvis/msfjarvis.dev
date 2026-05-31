@@ -1,0 +1,109 @@
+---
+title: "Weeknotes: Week #22 (2026)"
+date: "2026-05-31T13:05:36.365Z"
+lastmod: "2026-05-31T13:05:36.365Z"
+summary: "The first anniversary of IndieWebClub!"
+tags: [indiewebclub, food, llms]
+categories: [weeknotes]
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import instagram_recipe_chicken from "./instagram_recipe_chicken.webp";
+import instagram_recipe_onions from "./instagram_recipe_onions.webp";
+import veggie_salad from "./veggie_salad.webp";
+import iwc_arpit from "./iwc_arpit.webp";
+import iwc_sagrika_1 from "./iwc_sagrika_1.webp";
+import iwc_sagrika_2 from "./iwc_sagrika_2.webp";
+import iwc_yash from "./iwc_yash.webp";
+import post_iwc_rain from "./post_iwc_rain.webp";
+
+Pretty "happening" week this time around! Let's get right into it...
+
+After a couple of weeks of frustrating silence, [Yash](https://yashgarg.dev/) got [his Visa](https://yashgarg.dev/weekly-notes-22-2026/) and will be heading out to Europe for a couple of weeks. Last time he was away for a similar trip I found myself somewhat struggling being by myself, but I'm much better prepared this time around so hopefully things will go smoothly back here. I got a sneak peek at his itinerary, and you should definitely be keeping an eye out for his next weeknote!
+
+My colleague Tarush is leaving Cloudflare at the end of this week, so we had an impromptu party followed by a trip to Karachi Bakery with the boys on our way back.
+
+In some more fun news, it was the first anniversary of [IndieWebClub](https://blr.indiewebclub.org) this week! There was a [special session](https://blr.indiewebclub.org/2026-se/) on Saturday where we had a series of 13 lightning talks across the whole spectrum of the IndieWeb. Most talks were recorded, so hopefully there will be a public playlist on YouTube or PeerTube at some point 🤞
+
+I took some awful pictures which I'll attach here, but you can find the pictures taken by people better at taking pictures in the [shared Google Photos album](https://photos.app.goo.gl/YNR9iQCzWV3kaD6X6) and this [Adobe Lightroom album](https://lightroom.adobe.com/shares/836ab564df1e468c80ed1d3570dd66b5).
+
+<Gallery>
+  <Figure
+    src={iwc_arpit}
+    title="Arpit talking about obsessively building a website with Claude but forgetting to actually use it"
+    alt="Arpit speaking at IndieWebClub, standing beside a projected slide showing his website."
+  />
+  <Figure
+    src={iwc_sagrika_1}
+    title="Sagrika's guide to finding your writing voice. Let the hate flow through you..."
+    alt="Slide from Sagrika Padha’s talk about finding one’s writing voice, with notes on collecting sentences and writing in a continuous flow."
+  />
+  <Figure
+    src={iwc_sagrika_2}
+    title="The importance of honesty in writing feels very underappreciated these days"
+    alt="Sagrika Padha speaking into a microphone beside a slide about specific, emotional writing and developing a distinct voice."
+  />
+  <Figure
+    src={iwc_yash}
+    title="That's my roommate!"
+    alt="Yash giving a talk titled “Owning Conversations on the Open Web” at IndieWebClub."
+  />
+</Gallery>
+
+After the talks everyone got together to hang out on the terrace and there was cake! And also some very ominous clouds, forcing Yash and I to dip back home to avoid getting stuck in the rain.
+
+<Figure
+  src={post_iwc_rain}
+  title="Anything for some rain in the AM instead of evenings..."
+  alt="Very gray clouds overhead, some light gray buildings and the top of a very lush tree are visible towards the bottom of the image"
+  small={true}
+/>
+
+## Work Stuff ™
+
+Work has been somewhat chaotic this week as I chased self-imposed tight deadlines, but I was ultimately able to get everything that was within my control to the finish line. Next week is going to involve visiting some clients which has the potential to be interesting, looking forward to the experience. I did kind of burn myself out by Friday due to compulsively working late nights, and had to take a nap to keep myself awake. Definitely not the healthiest week I've had w.r.t. work but these should be very rare, since it was my own decision to take on just a little more than I was really capable of delivering 😅
+
+## Personal Projects
+
+Big week for the tens of users of my [lobsters](https://lobste.rs) app [Claw](https://msfjarvis.dev/g/compose-lobsters) as I had to make two releases in quick succession. The first release had been baking for nearly 2 months, and added the ability to log into the app to lay the groundwork for building interactive features in the future. I also switched the app over to not rely on the JSON API the site exposes due to a Ruby on Rails misfeature (according to the site admin) and instead just scrape the HTML itself. As my luck would have it, the markup changed literally 2 days after I made the release after having been perfectly stable for _weeks_ after I made the initial swap. Grrr
+
+I've continued hacking on the app, making a big range of changes to bring it up to parity with the website experience. In no particular order:
+
+- Screenshot testing to make it easier to do iterative improvements
+- Changed the comments UI and UX to closely resemble the defunct Reddit client _Boost_ — big thanks to Yash for that suggestion
+- (Unsuccessfully) [attempt](https://github.com/msfjarvis/compose-lobsters/pull/1183) to move the parsing logic to a [Zipline](https://github.com/cashapp/zipline)-backed module that would let me hotpatch it without making users update the app
+- (In progress) add the ability for users to [reply to comments](https://github.com/msfjarvis/compose-lobsters/pull/1184). I paused work on it to write this weeknote!
+
+## Clanker things
+
+I talked [last week](/weeknotes/week-21-2026) about experimenting with `agentmemory` to remove the need for `AGENTS.md` files, so far that has yielded exactly 0 value. I haven't had any luck in steering LLMs into autonomously persisting facts and decisions into memory, and `AGENTS.md` files themselves have been feeling useless as LLMs seem to mostly ignore them even in projects that do have the files. I did some tweaks to the prompt today to improve `agentmemory` usage, and will report back next week on how that went.
+
+I also made one major-but-not-really change to the harness by [vendoring every single skill I use](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/3045be0afc8bff4cea4fb148e39840bd360b9861) into the Git repository itself rather than having them be symlinks to an untracked `~/.agents` directory. This makes the setup more portable and easier to make modifications to should I need to.
+
+I don't always agree with [Armin Ronacher](https://lucumr.pocoo.org), but I like to keep up with his excellent writing regardless. This week he posted a [great article](https://lucumr.pocoo.org/2026/5/26/clankers/) about his persistent use of the word "Clankers" for what the AI pilled call _agents_, and I found myself nodding along to everything he was saying. I'm not going to do him the injustice of distilling his argument down to a couple of lines, so please go give it a read.
+
+## The obligatory food section
+
+This week had more Instagram recipes and me finally going back to my scoopable veggie salad. Expect more salads in coming weeks when I only have myself to feed :D
+
+<Gallery>
+    <Figure
+        src={instagram_recipe_onions}
+        title="Still can't believe this was just onions in a pan"
+        alt="Creamy onion gravy or masala cooking in a frying pan with a spoon and spatula."
+    />
+    <Figure
+        src={instagram_recipe_chicken}
+        title="For how few steps were involved in this recipe it was incredibly delicious, can't do better in <15 minutes"
+        alt="Chicken pieces browning in a frying pan on a stovetop during cooking"
+    />
+    <Figure
+        src={veggie_salad}
+        title="My beloved bowl of chopped veggies..."
+        alt="A bowl of chopped vegetable salad with cucumber, tomato, onion, and sweet corn, held in one hand with a spoon inside."
+    />
+
+</Gallery>
