@@ -9,4 +9,17 @@ draft: true
 deleted: false
 ---
 
-import superpowers_previews from './superpowers-previews.webp';
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import comment_entry_baseline from "./comment-entry-baseline.webp";
+import comment_entry_option_a_text from "./comment-entry-option-a-text.webp";
+import comment_entry_option_b_icon from "./comment-entry-option-b-icon.webp";
+import comment_entry_option_c_chip from "./comment-entry-option-c-chip.webp";
+import comment_entry_upvoted from "./comment-entry-upvoted.webp";
+import superpowers_previews from "./superpowers-previews.webp";
+
+<Gallery>
+  <Figure src={comment_entry_option_a_text} />
+  <Figure src={comment_entry_option_b_icon} />
+  <Figure src={comment_entry_option_c_chip} />
+</Gallery>
