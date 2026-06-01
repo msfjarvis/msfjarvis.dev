@@ -115,7 +115,7 @@ import { SITE_URL } from "../consts";
 				}
 
 				const mentions = data.mentions as Mention[];
-				heading.innerHTML = `Webmentions <span>・${mentions.length} mention${mentions.length === 1 ? '' : 's'}</span>`;
+				heading.innerHTML = `Webmentions<span>・${mentions.length} mention${mentions.length === 1 ? '' : 's'}</span>`;
 
 				const likes = mentions.filter((mention) => mention.interaction_type === 'like');
 				const reposts = mentions.filter((mention) => mention.interaction_type === 'repost');
