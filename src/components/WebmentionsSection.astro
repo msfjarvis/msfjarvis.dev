@@ -15,19 +15,90 @@ import { SITE_URL } from "../consts";
 	<script>
 		(async function loadWebmentions() {
 			const aside = document.querySelector('.webmentions');
+			const heading = aside?.querySelector('h3');
 			const container = document.getElementById('webmentions-container');
-			if (!aside || !container) return;
+			if (!aside || !heading || !container) return;
 			const siteUrl = aside.getAttribute('data-site-url');
 			if (!siteUrl) return;
 
 			interface Mention {
-				id: number,
+				id: number;
 				verified_at: number;
 				source: string;
 				author?: { name?: string | null; url?: string | null; photo?: string | null } | null;
 				content?: string | null;
 				interaction_type?: string | null;
 			}
+
+			const escapeHtml = (value: string) =>
+				value
+					.replaceAll('&', '&amp;')
+					.replaceAll('<', '&lt;')
+					.replaceAll('>', '&gt;')
+					.replaceAll('"', '&quot;')
+					.replaceAll("'", '&#39;');
+
+			const getAuthor = (mention: Mention) => {
+				const author = mention.author || {};
+				return {
+					name: author.name || new URL(mention.source).hostname,
+					url: author.url || mention.source,
+					photo: author.photo,
+				};
+			};
+
+			const renderSummaryRow = (label: string, mentions: Mention[]) => {
+				if (mentions.length === 0) return '';
+				const avatars = mentions.map((mention) => {
+					const author = getAuthor(mention);
+					const authorName = escapeHtml(author.name);
+					const authorUrl = escapeHtml(author.url);
+					const avatar = author.photo
+						? `<img src="${escapeHtml(author.photo)}" alt="${authorName}" class="webmention-summary-avatar" loading="lazy">`
+						: `<span class="webmention-summary-fallback">${authorName.slice(0, 1).toUpperCase()}</span>`;
+					return `<a href="${authorUrl}" rel="nofollow ugc" class="webmention-summary-link" aria-label="${label} by ${authorName}">${avatar}</a>`;
+				}).join('');
+
+				return `
+					<div class="webmention-summary-row">
+						<span class="webmention-summary-label">${label}</span>
+						<div class="webmention-summary-avatars">${avatars}</div>
+					</div>
+				`;
+			};
+
+			const renderDetailedMention = (mention: Mention) => {
+				const timestamp = mention.verified_at * 1000;
+				const date = new Date(timestamp).toLocaleDateString();
+				const isoDate = new Date(timestamp).toISOString();
+				const author = getAuthor(mention);
+				const authorName = escapeHtml(author.name);
+				const authorUrl = escapeHtml(author.url);
+				const authorPhoto = author.photo ? escapeHtml(author.photo) : '';
+				const sourceUrl = escapeHtml(mention.source);
+				const content = mention.content ? escapeHtml(mention.content) : '';
+				const avatarHtml = authorPhoto
+					? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
+					: `<div class="webmention-avatar webmention-avatar-fallback" aria-hidden="true">${authorName.slice(0, 1).toUpperCase()}</div>`;
+				const contentHtml = content
+					? `<p class="webmention-text">${content}</p>`
+					: '';
+
+				return `
+					<article class="webmention-item">
+						${avatarHtml}
+						<div class="webmention-content">
+							<div class="webmention-header">
+								<a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
+								<span class="webmention-separator">·</span>
+								<time datetime="${isoDate}">${date}</time>
+							</div>
+							${contentHtml}
+							<p class="webmention-meta"><a href="${sourceUrl}" rel="nofollow ugc" class="webmention-verb">via ${new URL(mention.source).hostname}</a></p>
+						</div>
+					</article>
+				`;
+			};
 
 			// Always query webmentions for the canonical production page URL so
 			// webmentions still resolve correctly when browsing the site in dev.
@@ -44,55 +115,25 @@ import { SITE_URL } from "../consts";
 				}
 
 				const mentions = data.mentions as Mention[];
+				heading.innerHTML = `Webmentions <span>・${mentions.length} mention${mentions.length === 1 ? '' : 's'}</span>`;
 
-				container.innerHTML = mentions.map(m => {
-					const timestamp = m.verified_at * 1000;
-					const date = new Date(timestamp).toLocaleDateString();
-					const isoDate = new Date(timestamp).toISOString();
+				const likes = mentions.filter((mention) => mention.interaction_type === 'like');
+				const reposts = mentions.filter((mention) => mention.interaction_type === 'repost');
+				const detailedMentions = mentions.filter((mention) => {
+					const type = mention.interaction_type;
+					return type !== 'like' && type !== 'repost';
+				});
 
-					const author = m.author || {};
-					const authorName = author.name || new URL(m.source).hostname;
-					const authorUrl = author.url || m.source;
-					const authorPhoto = author.photo;
+				const summaryHtml = [
+					renderSummaryRow('Liked by', likes),
+					renderSummaryRow('Reposted by', reposts),
+				].join('');
 
-					const interactionType = m.interaction_type;
-					let verb = 'mentioned';
-					let icon = '💬';
+				const detailedHtml = detailedMentions
+					.map((mention) => renderDetailedMention(mention))
+					.join('');
 
-					if (interactionType === 'like') {
-						verb = 'liked';
-						icon = '❤️';
-					} else if (interactionType === 'repost') {
-						verb = 'reposted';
-						icon = '🔁';
-					} else if (interactionType === 'reply') {
-						verb = 'replied to';
-						icon = '💬';
-					}
-
-					const avatarHtml = authorPhoto
-						? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
-						: '';
-
-					const contentHtml = m.content && interactionType === 'reply'
-						? `<p class="webmention-text">${m.content}</p>`
-						: '';
-
-					return `
-						<article class="webmention-item">
-							${avatarHtml}
-							<div class="webmention-content">
-								<div class="webmention-header">
-									<span class="webmention-icon">${icon}</span>
-									<a href="${authorUrl}" rel="nofollow ugc" class="webmention-author">${authorName}</a>
-									<a href="${m.source}" rel="nofollow ugc" class="webmention-verb">${verb} this</a>
-									<time datetime="${isoDate}">${date}</time>
-								</div>
-								${contentHtml}
-							</div>
-						</article>
-					`;
-				}).join('');
+				container.innerHTML = `${summaryHtml}${detailedHtml}`;
 			} catch (err) {
 				console.error('Webmention error:', err);
 				container.innerHTML = '<p>Could not load webmentions.</p>';
@@ -114,48 +155,113 @@ import { SITE_URL } from "../consts";
 .webmentions h3 {
   color: var(--primary);
   margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.webmentions h3 span {
+  color: var(--secondary);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-left: 0.2rem;
+}
+.webmention-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.9rem;
+  color: var(--secondary);
+  font-size: 0.95rem;
+}
+.webmention-summary-label {
+  min-width: fit-content;
+}
+.webmention-summary-avatars {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.webmention-summary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  box-shadow: none;
+}
+.webmention-summary-avatar,
+.webmention-summary-fallback {
+  width: 100%;
+  height: 100%;
+}
+.webmention-summary-avatar {
+  object-fit: cover;
+}
+.webmention-summary-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
 }
 .webmention-item {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  margin: 0.75rem 0;
-  padding: 0.75rem;
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  margin: 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
   color: var(--content);
   font-size: 14px;
 }
 .webmention-avatar {
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   flex-shrink: 0;
+  object-fit: cover;
+}
+.webmention-avatar-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-subtle);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 .webmention-content {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
   flex: 1;
+  min-width: 0;
 }
 .webmention-header {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.35rem;
+  color: var(--secondary);
+  font-size: 0.95rem;
+}
+.webmention-separator {
+  color: var(--secondary);
 }
 .webmention-text {
   margin: 0;
-  padding: 0.5rem 0 0 0;
   color: var(--content);
-  font-size: 14px;
-  line-height: 1.5;
-  border-top: 1px solid var(--border);
+  font-size: 1rem;
+  line-height: 1.6;
 }
-.webmention-icon {
-  font-size: 16px;
-  line-height: 1;
+.webmention-meta {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.9rem;
 }
 .webmention-author {
   color: var(--primary);
@@ -177,6 +283,5 @@ import { SITE_URL } from "../consts";
 }
 .webmention-item time {
   color: var(--secondary);
-  margin-left: auto;
 }
 </style>
