@@ -1,9 +1,11 @@
 ---
+import { SITE_URL } from "../consts";
+
 // This component is client-only to fetch fresh webmentions at request time
 ---
 
 <div>
-	<aside class="webmentions">
+	<aside class="webmentions" data-site-url={SITE_URL}>
 		<h3>Webmentions</h3>
 		<div id="webmentions-container">
 			<p>Loading webmentions...</p>
@@ -12,8 +14,11 @@
 
 	<script>
 		(async function loadWebmentions() {
+			const aside = document.querySelector('.webmentions');
 			const container = document.getElementById('webmentions-container');
-			if (!container) return;
+			if (!aside || !container) return;
+			const siteUrl = aside.getAttribute('data-site-url');
+			if (!siteUrl) return;
 
 			interface Mention {
 				id: number,
@@ -24,11 +29,10 @@
 				interaction_type?: string | null;
 			}
 
-			// Parse the current page URL and replace host with production domain
-			// This allows testing with production data in development environment
+			// Always query webmentions for the canonical production page URL so
+			// webmentions still resolve correctly when browsing the site in dev.
 			const currentUrl = new URL(window.location.href);
-			currentUrl.hostname = 'msfjarvis.dev';
-			const pageUrl = currentUrl.toString();
+			const pageUrl = new URL(`${currentUrl.pathname}${currentUrl.search}`, siteUrl).toString();
 
 			try {
 				const res = await fetch(`/api/webmentions.json?target=${encodeURIComponent(pageUrl)}`);
