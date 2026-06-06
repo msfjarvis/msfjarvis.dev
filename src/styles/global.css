@@ -74,18 +74,9 @@
   --accent-subtle: #e0c8db;
 
   --font-mono:
-    "Atkinson Hyperlegible Mono",
-    ui-monospace,
-    "Cascadia Code",
-    "Menlo",
-    "Consolas",
-    monospace;
+    "Atkinson Hyperlegible Mono", ui-monospace, "Cascadia Code", "Menlo", "Consolas", monospace;
   --font-sans:
-    "Atkinson Hyperlegible Next",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
+    "Atkinson Hyperlegible Next", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
 
   --max-width: 952px;
