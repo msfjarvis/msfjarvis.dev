@@ -93,14 +93,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f0f0f;
-    --bg-subtle: #1a1a1a;
-    --border: #2a2a2a;
-    --text: #ebebeb;
-    --text-2: #bbbbbb;
-    --text-3: #767676;
+    --bg: #1a1a1a;
+    --bg-subtle: #242424;
+    --border: #343434;
+    --text: #dddddd;
+    --text-2: #b0b0b0;
+    --text-3: #888888;
     --accent: #c084b8;
-    --accent-subtle: #3a1f36;
+    --accent-subtle: #4a2a45;
   }
 }
 
