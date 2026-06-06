@@ -33,7 +33,7 @@ function deriveWeeknoteMetadata(now) {
 export function slugifyTitle(str) {
   return str
     .replace(/\s+/g, "-")
-    .replace(/[^A-Za-z0-9\-]/g, "-")
+    .replace(/[^A-Za-z0-9-]/g, "-")
     .replace(/-{2,}/g, "-")
     .replace(/^-|-$/g, "");
 }

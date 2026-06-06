@@ -7,7 +7,6 @@ import {
   buildManifestEntry,
   diffManifests,
   formatSendSummary,
-  parseManifest,
   sendEvents,
 } from "./webmentions.ts";
 

@@ -48,26 +48,26 @@ function migrateContentType(contentType) {
 
     // Extract generic type-level images (no slash in filename) BEFORE we replace them
     // This regex captures only filenames without directory separators
-    const genericImageRegex = /from\s+['"]\.\.\/\.\.\/content\/images\/\w+\/([^\/'"]+\.webp)['"]/g;
+    const genericImageRegex = /from\s+['"]\.\.\/\.\.\/content\/images\/\w+\/([^/'"]+\.webp)['"]/g;
     const genericMatches = Array.from(content.matchAll(genericImageRegex));
 
     // Order matters: do specific replacements first
 
     // 1. Handle ../images/<type>/<slug>/<image> pattern (from original non-bundled structure)
     content = content.replace(
-      /from\s+['"]\.\.\/images\/\w+\/\w[\w\-]*\/([^'"]+)['"]/g,
+      /from\s+['"]\.\.\/images\/\w+\/\w[\w-]*\/([^'"]+)['"]/g,
       "from './$1'",
     );
 
     // 2. Update image imports in slug folders: '../../content/images/<type>/<slug>/<image>' -> './<image>'
     content = content.replace(
-      /from\s+['"]\.\.\/\.\.\/content\/images\/\w+\/\w[\w\-]*\/([^'"]+)['"]/g,
+      /from\s+['"]\.\.\/\.\.\/content\/images\/\w+\/\w[\w-]*\/([^'"]+)['"]/g,
       "from './$1'",
     );
 
     // 3. Handle generic type-level images (no slash): '../../content/images/<type>/<image>' -> './<image>'
     content = content.replace(
-      /from\s+['"]\.\.\/\.\.\/content\/images\/\w+\/([^\/'"]+\.webp)['"]/g,
+      /from\s+['"]\.\.\/\.\.\/content\/images\/\w+\/([^/'"]+\.webp)['"]/g,
       "from './$1'",
     );
 
@@ -137,7 +137,7 @@ function removeOldImageDir() {
         fs.rmdirSync(dir);
         console.log(`   ✓ Removed ${dir}`);
       }
-    } catch (e) {
+    } catch  {
       // Skip if not empty
     }
   };

@@ -231,7 +231,7 @@ function transformContent(body, slug, collection) {
  */
 function escapeMdxProse(body) {
   // Convert HTML comments to JSX comments — <!-- --> is invalid in MDX
-  body = body.replace(/<!--([\/\s\S]*?)-->/g, (_, content) => `{/*${content}*/}`);
+  body = body.replace(/<!--([/\s\S]*?)-->/g, (_, content) => `{/*${content}*/}`);
   // Replace bare <> with HTML entities
   body = body.replace(/<>/g, "&lt;&gt;");
   // Replace < that isn't the start of a real tag (letter, /, !, ?) with &lt;

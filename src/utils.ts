@@ -12,7 +12,7 @@ export function slugify(str: string): string {
   // .toLowerCase()
   return str
     .replace(/\s+/g, "-") // spaces → hyphens
-    .replace(/[^A-Za-z0-9\-]/g, "-") // non-alphanumeric (except hyphens) → hyphens
+    .replace(/[^A-Za-z0-9-]/g, "-") // non-alphanumeric (except hyphens) → hyphens
     .replace(/-{2,}/g, "-") // collapse consecutive hyphens
     .replace(/^-|-$/g, ""); // trim leading/trailing hyphens
 }

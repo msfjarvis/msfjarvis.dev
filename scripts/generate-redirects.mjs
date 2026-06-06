@@ -13,7 +13,7 @@
  */
 
 import { readFileSync, writeFileSync, readdirSync, statSync } from "fs";
-import { join, extname, basename, dirname } from "path";
+import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import yaml from "js-yaml";
 
