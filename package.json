@@ -26,7 +26,7 @@
     "@astrojs/cloudflare": "^13.3.0",
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
-    "@sveltia/cms": "^0.164.0",
+    "@sveltia/cms": "^0.165.0",
     "astro": "^6.2.1",
     "astro-iconset": "^0.0.4",
     "astro-opengraph-images": "^1.16.1",

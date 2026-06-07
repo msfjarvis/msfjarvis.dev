@@ -18,8 +18,8 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       '@sveltia/cms':
-        specifier: ^0.164.0
-        version: 0.164.2
+        specifier: ^0.165.0
+        version: 0.165.2
       astro:
         specifier: ^6.2.1
         version: 6.3.7(@types/node@24.12.2)(jiti@1.21.7)(rollup@4.60.4)(yaml@2.9.0)
@@ -1402,8 +1402,8 @@ packages:
   '@speed-highlight/core@1.2.15':
     resolution: {integrity: sha512-BMq1K3DsElxDWawkX6eLg9+CKJrTVGCBAWVuHXVUV2u0s2711qiChLSId6ikYPfxhdYocLNt3wWwSvDiTvFabw==}
 
-  '@sveltia/cms@0.164.2':
-    resolution: {integrity: sha512-xF9W2fSoTCaBgpghl+TUowQAZsR6txpIbrVSzNemMNYa537XWcqqKDP+XRL0zb4e+Smhe9/RPOlaEUqKAqqyUw==}
+  '@sveltia/cms@0.165.2':
+    resolution: {integrity: sha512-qImEDYbfuy4AgIQiH3ApNcZCbMeuYkw4kTBqYsimnzQtGQ7tDLBKp814lLkGSBgUq7DuANfad7kxdobltTN2cw==}
 
   '@types/debug@4.1.13':
     resolution: {integrity: sha512-KSVgmQmzMwPlmtljOomayoR89W4FynCAi3E8PPs7vmDVPe84hT+vGPKkJfThkmXs0x0jAaa9U8uW8bbfyS2fWw==}
@@ -4312,7 +4312,7 @@ snapshots:
 
   '@speed-highlight/core@1.2.15': {}
 
-  '@sveltia/cms@0.164.2': {}
+  '@sveltia/cms@0.165.2': {}
 
   '@types/debug@4.1.13':
     dependencies:
