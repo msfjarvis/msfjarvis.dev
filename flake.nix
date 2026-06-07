@@ -65,7 +65,7 @@
               command = ''
                 DIR=src/content
                 for fmt in png jpg jpeg; do
-                  fd -tf "''${fmt}$" "$DIR" -x cwebp -lossless -mt {} -o '{.}.webp'
+                  fd -tf "''${fmt}$" "$DIR" -x cwebp -q 82 -m 6 -sharp_yuv -mt {} -o '{.}.webp'
                   fd -tf "''${fmt}$" "$DIR" -X rm -v
                 done
               '';
