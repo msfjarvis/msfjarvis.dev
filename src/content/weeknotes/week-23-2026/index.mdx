@@ -1,0 +1,111 @@
+---
+title: "Weeknotes: Week #23 (2026)"
+date: "2026-06-07T11:25:29.604Z"
+lastmod: "2026-06-07T11:25:29.604Z"
+summary: "The most productive yet unhealthy week in a while"
+tags:
+  - gaming
+  - programming
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import chicken_nuggets from "./chicken-nuggets.webp";
+import control_im_not_coming_back_1 from "./control-im-not-coming-back-1.webp";
+import control_im_not_coming_back_2 from "./control-im-not-coming-back-2.webp";
+import control_im_not_coming_back_3 from "./control-im-not-coming-back-3.webp";
+import control from "./control.webp";
+import demon_bluff from "./demon-bluff.webp";
+
+[Yash](https://yashgarg.dev/) has been out this week for his trip to Europe, so I've been by myself and mostly filled that time with work and games.
+
+## Personal
+
+With all the free time this week I decided to sort out the discrepancies in my budgeting software and made some rather upsetting discoveries. The egregious one was me having flubbed my SIP changes last month, which meant I hadn't actually ramped up my investments and was just blindly counting money as invested which was still sitting in my savings account. Thank you, ICICI Direct for a definitely-not-confusing UI.
+
+The other one was mostly just annoying, but was caused by a very subtle interaction within Actual Budget that I wasn't aware of. To make a long story short; when using enveloped budgeting and overspending a category, even if you add money back in the next month to zero it out, Actual will continue seeing it as overspent until you explicitly roll over the overspent month into the next one where you reimbursed it. I wasn't aware about it, and had a very confused 3 days after having to recreate an old account and its transactions.
+
+I also watched the first season of [Spider-Noir](https://en.wikipedia.org/wiki/Spider-Noir) this week, was surprised by how good it was. Definitely a little miffed that Amazon dumped it all in one go instead of letting the suspense build week over week but 🤷
+
+## Projects
+
+This website received some important updates:
+
+- Webmentions are now [grouped by type](https://git.msfjarvis.dev/msfjarvis/msfjarvis.dev/commit/bab9074b33d9a152a08ebc4509916477212d1e6f) to make the UI more compact
+- As part of that change, I discovered that I wasn't capturing the full content of Fediverse posts being sent via [brid.gy](https://brid.gy) in my Webmentions server, which has [since been fixed](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/commit/b1110c8f115c0dd71d39c9a4d12c6c3becc41460).
+- I discovered the [Atkinson Hyperlegible](https://www.brailleinstitute.org/freefont/) font family last week, and finally [switched over](https://git.msfjarvis.dev/msfjarvis/msfjarvis.dev/commit/792f1ae90afe73d43a18428a226951d1689f9152) the site to them. As part of the change I've also made the site text a bit bigger since I had started to feel like I needed to squint to read some of it.
+- The dark theme is now using a [slightly lighter tone](https://git.msfjarvis.dev/msfjarvis/msfjarvis.dev/commit/68b48529e20f3b5e05d1ac84f0ea272920162488) to improve readability.
+
+[Claw](https://github.com/msfjarvis/compose-lobsters/) had a new release and some new features added later.
+
+- The app now has the ability to upvote and reply to comments, provided you're logged in.
+- The release also fixed a bug caused by the use of certificate pinning by foolish past me.
+- The comment UI has been tweaked to match the now-defunct app [Boost for Reddit](https://www.reddit.com/r/BoostForReddit/), which does a far better job of using mobile screen real estate than I ever did.
+- The search UI is now a proper "search bar" style experience instead of being a separate navigation destination.
+
+## Work
+
+Things at work were pretty chill. I went to one of the client meetings I [mentioned last week](/weeknotes/week-22-2026/), and let [Mayank](https://github.com/mayankofficial999) sub in for me on the other one. After my visit we ended up at Burma Burma for lunch, where I focused too much on the food to actually take any pictures. Unsurprisingly, the food was incredible.
+
+Other than that I mostly focused on a bunch of refactoring work and dealing with customer reports.
+
+## Gaming
+
+I spent a _lot_ of time gaming this week since I was home alone, and it was raining every time I wanted to do anything else.
+
+I found this short and emotionally moving pixel art game called [Control, I'm Not Coming Home](https://store.steampowered.com/app/4515660/Control_Im_Not_Coming_Back/) and played through it in around 30-40 minutes which was on par with their 45-minute estimate. The game and its story are too beautiful to not be experienced, so I'm not going to explain anything here. The only thing I can share is that the game does not have a keybind to walk backwards, make of it what you will :)
+
+<Gallery>
+  <Figure
+    src={control_im_not_coming_back_1}
+    title="&nbsp;"
+    alt="Pixel art astronaut gloves reaching toward a floating person near a green planet."
+  />
+  <Figure
+    src={control_im_not_coming_back_2}
+    title="&nbsp;"
+    alt="Pixel art view of Earth in space with text about drifting farther away."
+  />
+  <Figure
+    src={control_im_not_coming_back_3}
+    title="&nbsp;"
+    alt="Bright pink and teal game scene with a small figure facing a dark tree."
+  />
+</Gallery>
+
+After seeing the gameplay trailer for [CONTROL Resonant](https://store.steampowered.com/app/3669870/CONTROL_Resonant/) I decided to finally best my oldest foe, and beat the original game: [CONTROL](https://store.steampowered.com/app/870780/CONTROL_Ultimate_Edition/).
+
+Some backstory: CONTROL was the first game I bought after being cyberbullied by my friends into getting a GPU, and I was so dogshit at it that I got stuck on a minor boss for _weeks_ until I just gave up. I tried again a few years later, and got my ass beat again by the same boss, and the game was uninstalled in shame once more.
+
+This week I decided to play it on a Discord stream with [Amogh](https://kat.bio) watching alongside who could at least help me since he's beaten the game already. Shockingly I was no longer absolute ass at the game, so things have been smooth sailing so far. Hopefully I'll be done long before the release of Resonant 🤞
+
+<Figure
+  src={control}
+  title="The Mold gives me the creeps"
+  alt="Titular character Jesse Faden aims a gun at enemies known as The Mold in a dark green cave."
+/>
+
+I also got mildly addicted to this spin off on Werewolf called [Demon Bluff](https://store.steampowered.com/app/3803820/Demon_Bluff_Demo/). It's only available as a demo, but I've sunk 5-6 hours into it in less than 10 days, and it makes for a great screen share game in a Discord call.
+
+<Figure
+  src={demon_bluff}
+  title="Every character has its own unique abilities, and the game packs in a lot of depth through those even in this limited demo"
+  alt="Card-based puzzle game board with numbered characters and speech bubble clues."
+/>
+
+## Food
+
+With Yash away I kept finding excuses to not cook since it was boring to just cook for myself. I finally decided today that it was enough dilly-dallying and finally made some air fried chicken nuggets with the chicken breast that had been sitting in the freezer for 5 days.
+
+<Figure
+  src={chicken_nuggets}
+  title="I had to do something to remind myself I can cook"
+  alt="Breaded chicken nuggets on a steel plate with a bowl of creamy dipping sauce."
+  small={true}
+/>
+
+I'm also finally cooking a proper dinner tonight, but that'll be revealed next week :D
