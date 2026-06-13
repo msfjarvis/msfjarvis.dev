@@ -31,10 +31,13 @@
     "astro-iconset": "^0.0.4",
     "astro-opengraph-images": "^1.16.1",
     "cheerio": "^1.2.0",
-    "sharp": "^0.34.3"
+    "mermaid": "^11.15.0",
+    "sharp": "^0.34.3",
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/markdown-remark": "^7.2.0",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@iarna/toml": "^2.2.5",
