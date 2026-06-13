@@ -137,7 +137,7 @@ function removeOldImageDir() {
         fs.rmdirSync(dir);
         console.log(`   ✓ Removed ${dir}`);
       }
-    } catch  {
+    } catch {
       // Skip if not empty
     }
   };
