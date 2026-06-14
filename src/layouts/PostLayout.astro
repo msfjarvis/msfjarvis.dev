@@ -26,6 +26,27 @@ const { title, description, date, lastmod, minutesRead, tags, image, autoImage =
 <html lang="en">
   <head>
     <BaseHead title={title} description={description ?? title} image={image} autoImage={autoImage} />
+    <style is:inline>
+      .post-header {
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .prose > * {
+        margin-block: 0;
+      }
+
+      .prose > * + * {
+        margin-block-start: 1rem;
+      }
+
+      .prose > hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 2rem 0;
+      }
+    </style>
   </head>
   <body>
     <Header />
@@ -75,11 +96,6 @@ const { title, description, date, lastmod, minutesRead, tags, image, autoImage =
     margin-top: 0;
     margin-bottom: 0.4rem;
   }
-  .post-header {
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-  }
   .post-meta {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -92,7 +108,7 @@ const { title, description, date, lastmod, minutesRead, tags, image, autoImage =
     gap: 0.4rem;
     list-style: none;
     padding: 0;
-    margin: 0 0 1.5rem;
+    margin: 0;
   }
   .tag {
     font-family: var(--font-mono);
