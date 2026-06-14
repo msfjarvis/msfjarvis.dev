@@ -199,8 +199,14 @@ img {
 }
 
 [data-image-modal-root].half {
-  max-width: 50%;
+  max-width: 100%;
   margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  [data-image-modal-root].half {
+    max-width: 50%;
+  }
 }
 
 .gallery > [data-image-modal-root].half {
