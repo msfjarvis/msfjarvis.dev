@@ -1,0 +1,115 @@
+---
+title: "Weeknotes: Week #24 (2026)"
+date: "2026-06-14T12:22:08.239Z"
+lastmod: "2026-06-14T12:22:08.239Z"
+summary: "Another lazy week dedicated entirely to gaming and programming"
+tags:
+  - gaming
+  - food
+  - programming
+  - llms
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import angy_cat from "./angy-cat.webp";
+import breakfast_at_cafe_muziris from "./breakfast-at-cafe-muziris.webp";
+import chicken_spinach_pasta from "./chicken-spinach-pasta.webp";
+import control_final_boss from "./control-final-boss.webp";
+import control_warped_rooms from "./control-warped-rooms.webp";
+import ham_and_cheese_sandwich from "./ham-and-cheese-sandwich.webp";
+import shakshouka from "./shakshouka.webp";
+
+<Figure
+  src={angy_cat}
+  title="Saw this angry fuzzball after a long while"
+  alt="Ginger cat resting on a mat beside a plaid cushion."
+  small={true}
+/>
+
+# Life
+
+I didn't do much this week, owing to busy times at $DAYJOB and then having my semiannual burst of motivation which had me doing a lot of work on [Claw](https://git.msfjarvis.dev/msfjarvis/compose-lobsters).
+
+I finished reading [The Knife of Never Letting Go](https://bookwyrm.social/book/192589/s/the-knife-of-never-letting-go), after which [Bookwyrm](https://bookwyrm.social) helpfully reminded me that I was halfway through the year but only a quarter of the way through my reading goal of 24 books a year 😔✊
+
+That said I have been reading more frequently (started the sequel: [The Ask and The Answer](https://bookwyrm.social/book/1586797/s/the-ask-and-the-answer)) thanks to multiple hour long power cuts (thanks Indiranagar) throughout the week week so hopefully I'll catch up at some point. Or cheat by reading short stories, I don't know.
+
+# Meta
+
+This site has seen some minor tweaks: the "divider" between the header and the content should be slightly better aligned now, and we can now render Mermaid diagrams!
+
+I'm working on a blog post about the stuff I've been doing on Claw where those will come in handy, stay tuned for that to be published soon™ <sub>psst you can read the current draft [here](https://drafts.msfjarvis.dev/posts/rewriting-claw-html-parser-for-over-the-air-updates/)</sub>
+
+# Work
+
+I'm finally free of my self inflicted deadline jail, and went right back to my cozy janitorial duties of refactoring ugly code and accidentally stumbling upon latent bugs. All in all a great week at work!
+
+# Personal Projects
+
+Energized by the aforementioned periodic burst of motivation, I managed to wrap up a handful of large changes to Claw.
+
+- The search button now expands in-place rather than taking you to a separate full screen destination [[PR](https://github.com/msfjarvis/compose-lobsters/pull/1197)]
+- All the HTML parsing logic is now delegated to a [Zipline](https://github.com/cashapp/zipline)-based module, which means I can now do over-the-air updates of that code without a new app release. This will significantly improve the time-to-fix for site markup changes, and also ended up being a pretty involved exercise in general. The draft post I linked above covers this work, and I hope to finish it off in a few days. [[PR]](https://github.com/msfjarvis/compose-lobsters/pull/1183)
+- I had [talked on the Fediverse](https://androiddev.social/@msfjarvis/116687510122725010) about how the ability to log into the app was causing my pre-login tagging feature to break down, this week I finally settled on a very simple solution to it after being [massively disappointed by Codex's](https://androiddev.social/@msfjarvis/116692105799028538) attempt at it. [[PR](https://github.com/msfjarvis/compose-lobsters/pull/1203)]
+
+I looked at my [Miniflux](https://miniflux.app) unread count at the start of this week and saw it had once more breached the 100 post mark, which made me wonder how that keeps happening because I look at it at least once a day, often more. To determine the issue, I sketched up a very basic "algorithm" involving gathering all entries for a specified period, calculating the time it takes for them to go from created -> read and bucket those based on feed and tags. This gives me a very rough idea of what kinds of posts stay unread for long, which was good enough for what I had in mind. I let Codex loose on the problem and obviously it was unable to follow a detailed spec and implementation plan, instead writing an empty shell that just had a bunch of no-op methods where the actual analysis would go 🙂
+
+It took a lot of prodding to get it all to a proper spot, and I'm still tweaking it as I'm writing this weeknote because I like to suffer or something. You can find the slop code [here](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/miniflux-analyzer) if this seems interesting for any reason. My own instance is behind Cloudflare Access because I don't trust even this fully static HTML by a clanker.
+
+# Gaming
+
+This week was even more [CONTROL](https://controlgame.com/) with [Amogh](https://kat.bio) as we finished the base game and explored the DLC, getting my ass kicked by random side missions and continuing to unravel the mysteries of The Oldest House. I enjoyed this playthrough a _lot_ more than any of the previous attempts by a huge margin, who knew companionship makes things more fun. Since Amogh also hasn't done much of the DLC it's been a fun time for the both of us to come across abominations beyond mortal comprehension.
+
+<Gallery>
+  <Figure
+    src={control_warped_rooms}
+    title="This game has some of the most mindbending visuals I've encountered"
+    alt="A character stands in a warped office space with tilted rooms and floating papers."
+  />
+  <Figure
+    src={control_final_boss}
+    title="The final fight was honestly pretty easy but the atmosphere kept me on my toes the whole time"
+    alt="A lone figure walks through a huge red-lit hallway toward a bright opening."
+  />
+</Gallery>
+
+# Food
+
+[As promised](/weeknotes/week-23-2026/#food), the pasta from last Sunday in all its glory (I ate a second serving on Monday so it counts as this week, hush). With Yash [back from his Europe trip](https://yashgarg.dev/weekly-notes-23-2026/) we were back in the kitchen, and made a big pit of Shakshouka with 6 eggs instead of our usual 4. I was working from home on Friday and stuck in a pretty boring meeting for a while so I whipped together some plain ham and cheese sandwiches for breakfast and a simple garlic-based greek yogurt dip, with a nice Coke Zero to round it all off. Sandwiches are awesome 😄
+
+<Gallery>
+  <Figure
+    src={chicken_spinach_pasta}
+    title="My first time cooking spinach and I'm blown away by how quickly it wilts and how little you get out of it"
+    alt="Pot of creamy chicken and spinach pasta on a stovetop."
+    small={true}
+  />
+  <Figure
+    src={shakshouka}
+    title="Protein maxxing"
+    alt="Bowl of shakshouka topped with herbs, served with toast on the side."
+    small={true}
+  />
+  <Figure
+    src={ham_and_cheese_sandwich}
+    title="Now that I think about it this kind of looks like a struggle meal..."
+    alt="Ham sandwich, yogurt, and a can of Coke on a metal plate at a desk."
+    small={true}
+  />
+</Gallery>
+
+I was feeling the feels this morning for some reason so decided to treat myself to a nice breakfast at the nearby Cafe Muziri's and also get some reading done under the pleasant sunlight. Eternally grateful to [Rohan](https://rohanarthur.com/) for introducing me to this place, the vibe is always nice and cozy and the hash browns are to die for.
+
+<Figure
+  src={breakfast_at_cafe_muziris}
+  title="The scrambled tofu in the center was just the right amount of rich"
+  alt="Cafe breakfast plate with toast, eggs, vegetables, fruit, and coffee on a table."
+  small={true}
+/>
+
+See you next week!
