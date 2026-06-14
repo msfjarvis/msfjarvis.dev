@@ -203,6 +203,10 @@ img {
   margin-inline: auto;
 }
 
+.gallery > [data-image-modal-root].half {
+  max-width: none;
+}
+
 video {
   max-width: 100%;
   height: auto;
