@@ -140,7 +140,7 @@ export const prerender = true;
               { label: 'Tags', name: 'tags', widget: 'list', required: false },
               { label: 'Draft', name: 'draft', widget: 'boolean', required: false },
               { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
-              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'] },
+              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'], modes: ['raw', 'rich_text'] },
             ],
           },
           {
@@ -158,9 +158,10 @@ export const prerender = true;
             fields: [
               { label: 'Title', name: 'title', widget: 'string' },
               { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false },
+              { label: 'Last modified', name: 'lastmod', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false, required: false },
               { label: 'Tags', name: 'tags', widget: 'list', required: false },
               { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
-              { label: 'Body', name: 'body', widget: 'markdown' },
+              { label: 'Body', name: 'body', widget: 'markdown', modes: ['raw', 'rich_text'] },
             ],
           },
           {
@@ -183,7 +184,7 @@ export const prerender = true;
               { label: 'Tags', name: 'tags', widget: 'list', required: false },
               { label: 'Draft', name: 'draft', widget: 'boolean', required: false },
               { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
-              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'] },
+              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'], modes: ['raw', 'rich_text'] },
             ],
           },
         ],
