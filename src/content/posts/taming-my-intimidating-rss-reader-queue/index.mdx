@@ -1,0 +1,46 @@
+---
+title: Taming my intimidating RSS reader queue
+date: 2026-06-18T12:52:00+05:30
+lastmod: 2026-06-18T12:52:00+05:30
+summary: How I regained control of my reading habits
+tags:
+  - rss
+draft: true
+deleted: false
+---
+
+I talked in [last week's weeknote](https://msfjarvis.dev/weeknotes/week-24-2026/#:~:text=I%20checked%20my%20Miniflux%20unread%20count%20at%20the%20start%20of%20this%20week) about how I was struggling with getting my Miniflux reader situation under control, and what I was attempting to identify the problem. Today, I came across [this blog post](https://michal.sapka.pl/2026/no-more-rss/) from Michał Sapka (via [this Fediverse post](https://mastodon.neilzone.co.uk/@neil/116769624379243503) talking about the exact feeling, and choosing to entirely drop RSS and rely on manually checking up on bookmarks instead.
+
+I think that was quite saddening to read, that the thing they had switched to as a way to get out of mindless algorithmic scrolling had ended up feeling like that itself. I'm personally not quite at the giving up stage, and over the weekend ended up making a bunch of changes within [Miniflux](https://miniflux.app) that have significantly improved my experience already.
+
+I'm going to preempt the weeknote and say this: the whole data driven analysis approach I was trying out last week was a complete waste of time and mental faculties. I had misdiagnosed my problem of not reading things as being tied to individual feeds which isn't _quite_ accurate. "Bad" feeds do contribute to and exacerbate the problem, but ultimately the thing I found to be the real issue was _perception_.
+
+The feeds I subscribe to can broadly be categorized under the following labels
+
+1. News outlets, high volume, mix of intriguing and uninteresting content, leaning latter on most days
+2. Prolific individuals posting multiple times a week, sometimes multiple times a day.  [Unsung](https://unsung.aresluna.org/) is a perfect fit here.
+3. Slower paced and longer length posters.
+4. [Ed Zitron](https://www.wheresyoured.at/). He writes long insightful newsletters at frightening pace and I am scared to put a label on this madman.
+
+The overwhelming feeling comes from 1, which crowds your sorted-by-new unread queue and makes it look like the whole pile is just uninteresting things so you either close the tab/app or mark all as read and move on. The second problem is that cheeky _unread_ count at the top of the screen which keeps reminding you that you're a failure for not keeping up with this free knowledge you asked for.
+
+At least on Miniflux, these are both solvable problems and they've helped me immensely in just the 3-4 days since I made these changes.
+
+For the first: Exclude the high volume/low signal feeds from the global unread list. Head over to Feeds > Click 'Edit' on the one you want > Check 'Hide entries in global unread list'
+
+IMAGE GOES HERE
+
+For the ever looming unread counter haunting your dreams, click over to the 'Settings' option at the top and then paste in this tiny bit of CSS in the 'Custom CSS' section on that page, then click the 'Update' button for that section.
+
+```css
+.unread-counter-wrapper { display: none; }
+```
+
+IMAGE GOES HERE
+
+With these changes you should find your default view of Miniflux a much more approachable space
+
+BEFORE
+
+
+AFTER
