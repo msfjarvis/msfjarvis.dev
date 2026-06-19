@@ -38,7 +38,7 @@ export default defineConfig({
     sitemap(),
     icon({
       include: {
-        "simple-icons": ["mastodon", "forgejo", "reddit"],
+        "simple-icons": ["mastodon", "forgejo"],
       },
     }),
     opengraphImages({
