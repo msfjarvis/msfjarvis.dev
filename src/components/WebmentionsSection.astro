@@ -76,12 +76,12 @@ import { SITE_URL } from "../consts";
 				const authorUrl = escapeHtml(author.url);
 				const authorPhoto = author.photo ? escapeHtml(author.photo) : '';
 				const sourceUrl = escapeHtml(mention.source);
-				const content = mention.content ? escapeHtml(mention.content) : '';
+				const content = mention.content ? mention.content : '';
 				const avatarHtml = authorPhoto
 					? `<img src="${authorPhoto}" alt="${authorName}" class="webmention-avatar" loading="lazy">`
 					: `<div class="webmention-avatar webmention-avatar-fallback" aria-hidden="true">${authorName.slice(0, 1).toUpperCase()}</div>`;
 				const contentHtml = content
-					? `<p class="webmention-text">${content}</p>`
+					? `<div class="webmention-text">${content}</div>`
 					: '';
 
 				return `
