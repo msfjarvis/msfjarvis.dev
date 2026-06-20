@@ -3,23 +3,29 @@ title: "Rewriting Claw's HTML parser for over the air updates"
 date: "2026-06-13T10:46:12.715Z"
 lastmod: "2026-06-13T10:46:12.715Z"
 summary: ""
-tags: []
-categories: []
+tags:
+  - kotlin
+  - kotlin-multiplatform
+  - android
+categories:
+  - kotlin
+  - android
+  - programming
 draft: true
 deleted: false
 ---
 
 First, some background. Claw is an Android app for browsing the linkblogging community known as [Lobsters](https://lobste.rs). For years, the app relied on a JSON API to interact with the site. A few months ago, I came across [a GitHub comment](https://github.com/lobsters/lobsters/issues/1663#issuecomment-3074472781) from the site admin explaining that the JSON API is considered a Ruby on Rails misfeature and not something he supports for external integrations. I don't expect it to ever fully disappear since many more third-party integrations rely on it, but I decided I should probably look into options anyway. I [filed an issue](https://github.com/msfjarvis/compose-lobsters/issues/929) with my initial findings then pretty much forgot about it for over half a year.
 
-> To skip right to the juicy parts, go to the [The great Zipline migration](#the-great-zipline-migration) section.
+> To skip right to the juicy parts, go to [The great Zipline migration](#the-great-zipline-migration) section.
 
 <hr />
 
 ## The problems with HTML parsing
 
-In May of 2026 I decided to revisit the problem and decided to make some progress on this front, since I had also added the ability to log into the site through the app now and wanted to start offering more interactive features that would need parsing HTML anyway. The result of it was [this massive PR](https://github.com/msfjarvis/compose-lobsters/pull/1162) where my ability to comprehend CSS selectors was tested repeatedly and I did not exactly score passing marks. Unsurprisingly this was [not](https://github.com/msfjarvis/compose-lobsters/commit/875b41d0bfa5be82c34807c07f6f7b03877f0a87) [without](https://github.com/msfjarvis/compose-lobsters/commit/1b6ae68e0d4a27d99709a09b7ef759f6bcda5b17) regressions, but it all came together in the end, and I shipped these changes towards the end of that month.
+In May 2026 I decided to revisit the problem and decided to make some progress on this front, since I had also added the ability to log into the site through the app now and wanted to start offering more interactive features that would need parsing HTML anyway. The result of it was [this massive PR](https://github.com/msfjarvis/compose-lobsters/pull/1162) where my ability to comprehend CSS selectors was tested repeatedly and I did not exactly score passing marks. Unsurprisingly this was [not](https://github.com/msfjarvis/compose-lobsters/commit/875b41d0bfa5be82c34807c07f6f7b03877f0a87) [without](https://github.com/msfjarvis/compose-lobsters/commit/1b6ae68e0d4a27d99709a09b7ef759f6bcda5b17) regressions, but it all came together in the end, and I shipped these changes towards the end of that month.
 
-Anybody who's had to write a scraper can already see the next line coming: Lobsters made a change to the site markup exactly 2 days after I released that code. I scrambled to [release a fix](https://github.com/msfjarvis/compose-lobsters/commit/7ec580d9c63d56fc863690dbb440a9a9e85bcf36) (shoutout to Firefox DevTools for introducing me to this horror: `div.byline > a[href^=/~]:not([tabindex]):not([aria-hidden=true])`), which made me think there had to be a better solution to this problem that didn't involve waiting hours or days for Google Play Store.
+Anybody who has had to write a scraper can already see the next line coming: Lobsters made a change to the site markup exactly 2 days after I released that code. I scrambled to [release a fix](https://github.com/msfjarvis/compose-lobsters/commit/7ec580d9c63d56fc863690dbb440a9a9e85bcf36) (shoutout to Firefox DevTools for introducing me to this horror: `div.byline > a[href^=/~]:not([tabindex]):not([aria-hidden=true])`), which made me think there had to be a better solution to this problem that didn't involve waiting hours or days for Google Play Store.
 
 ## Looking for a faster deployment model
 
@@ -59,7 +65,7 @@ Step 2: Adding the [actual Zipline-d parsers](https://github.com/msfjarvis/compo
 
 Step 3: Cut over the Android code to using [this new parser](https://github.com/msfjarvis/compose-lobsters/commit/a015794e1f7c3eabad8a965c4a991b13de0c9be6). I've put together a [terrible kludge](https://github.com/msfjarvis/compose-lobsters/blob/a015794e1f7c3eabad8a965c4a991b13de0c9be6/api/src/main/kotlin/dev/msfjarvis/claw/api/converters/ZiplineHtmlConverterFactory.kt) to determine when to call which parser method, and I am sure there's a nicer way to do this that evaded me at the time.
 
-Step 4: Embed the latest copy of the Zipline assets automatically in the APK [[commit](https://github.com/msfjarvis/compose-lobsters/commit/3658aafd619cb36997503d0a408571d322531fa4)] to speed up the first-launch experience. Since my app really only works with the internet it's not a deal breaker if I skip this, but I felt it's better to have a fallback in case Cloudflare or I have done something to cause my remote manifest to become inaccessible.
+Step 4: Embed the latest copy of the Zipline assets automatically in the APK [[commit](https://github.com/msfjarvis/compose-lobsters/commit/3658aafd619cb36997503d0a408571d322531fa4)] to speed up the first-launch experience. Since my app really only works with the internet it's not a dealbreaker if I skip this, but I felt it's better to have a fallback in case Cloudflare or I have done something to cause my remote manifest to become inaccessible.
 
 And that should've been it! Except...
 
@@ -67,7 +73,7 @@ And that should've been it! Except...
 
 The first issue I ran into was a native crash in QuickJS itself 😬
 
-Zipline helpfully includes a [sampling profiler](https://github.com/cashapp/zipline/tree/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-profiler) to identify bottlenecks but I found myself not smart enough to figure out how to plug it into the entire app instead of just a small snippet of JS since I didn't actually know what part of my code was causing the native crash.
+Zipline helpfully includes a [sampling profiler](https://github.com/cashapp/zipline/tree/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-profiler) to identify bottlenecks, but I found myself not smart enough to figure out how to plug it into the entire app instead of just a small snippet of JS since I didn't actually know what part of my code was causing the native crash.
 
 GPT-5.4 was convinced the root cause was memory starvation (without real evidence of course) so I decided to humor it by refactoring some [collection manipulation and Regex uses](https://github.com/msfjarvis/compose-lobsters/commit/344da065918d09e314ddba4bd8eb8e77bd27a5c2) which did make the crash go away so what do I even know.
 
@@ -87,7 +93,11 @@ Once I was able to confirm this state of the branch worked perfectly, it was shi
 
 ### _That_ bit of code
 
-While I did merge the branch without really understanding what the [ParserSerializers code](https://github.com/msfjarvis/compose-lobsters/commit/829a6fe4716a20f53560c61e0220eb83e7746b6f) was doing, I was determined to figure it out so I rubber duck'd it to [Mayank](https://github.com/mayankofficial999) at work, and eventually put in some [hand-written tests](https://github.com/msfjarvis/compose-lobsters/commit/7740177b86e4630b5a48753d18047a4bf5e7ce71). Here's how it works. _(Can you tell I just discovered sequence diagrams?)_
+While I did merge the branch without really understanding what the [ParserSerializers code](https://github.com/msfjarvis/compose-lobsters/commit/829a6fe4716a20f53560c61e0220eb83e7746b6f) was doing, I was determined to figure it out. To improve my understanding of it, I talked my way through the code to [Mayank](https://github.com/mayankofficial999) at work, and eventually put in some [handwritten tests](https://github.com/msfjarvis/compose-lobsters/commit/7740177b86e4630b5a48753d18047a4bf5e7ce71) to validate my mental model. Here is the artist's rendition of what that code does. _(Can you tell I just discovered sequence diagrams?)_
+
+Before we jump into my painstakingly authored diagrams, let's start with _why_ this helps at all. Once more I will concede that LLMs are blackboxes and I can't trace why the LLM thought this was a good idea, only what makes _me_ think it helped with the problem. Before this change, Zipline was implicitly converting all shared types across the JS bridge into JSON to pass them between the app and the QuickJS engine. JSON parsing is inherently recursive in nature, and there have been many vulnerabilities in JSON parsers due to there being unbounded recursion when provided maliciously crafted inputs. I believe this recursive nature contributes to the stack exhaustion that ultimately made QuickJS crash with `Stack overflow`. With the new serializer, decoding is now done linearly without any potential for going recursive, preventing the problem altogether.
+
+Now, back to my painstakingly authored diagrams. Here's how an instance of the `User` object is serialized using the new serialization code.
 
 ```mermaid
 sequenceDiagram
@@ -117,6 +127,8 @@ sequenceDiagram
    UserSerializer->>PacketWriter: build()
    PacketWriter-->>UserSerializer: "9:msfjarvis5:About-1:30:https://example.com/avatar.png10:2026-06-11"
 ```
+
+Effectively, what you're seeing is a classic [accumulator pattern](https://textbooks.cs.ksu.edu/cc210/05-loops/07-java/07-accumulator/) but in a String form. Instead of building up a JSON object, we construct a "flat" string that is essentially a concatenation of many `len(content):content` pairs. This gives us a net smaller output compared to JSON, without resorting to a binary protocol like [Protobuf](https://protobuf.dev/).
 
 ```mermaid
 sequenceDiagram
@@ -149,3 +161,7 @@ sequenceDiagram
 
     UserSerializer-->>Caller: User(<br/>username="msfjarvis",<br/> about="About",<br/> invitedBy=null,<br/> avatarUrl="https://example.com/avatar.png",<br/> createdAt="2026-06-11"<br/>)
 ```
+
+The deserialization code will look pretty self-explanatory if you were able to follow the serializer. We define an `index` variable at value 0, read one byte off the input string at that index to calculate how far ahead we need to go, and slice off that much after the `:` for our first variable's value. This is repeated until the full string is traversed, after which we assemble the actual Kotlin object.
+
+This technique both saves memory over the bridge since this representation is more compact than JSON, and saves memory during parsing since the algorithm is so simple it avoids JSON's need for recursion.
