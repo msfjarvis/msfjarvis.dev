@@ -1,0 +1,100 @@
+---
+title: "Weeknotes: Week #25 (2026)"
+date: "2026-06-21T13:27:02.528Z"
+lastmod: "2026-06-21T13:27:02.528Z"
+summary: "Ow, my neck…"
+tags:
+  - health
+  - food
+categories:
+  - weekly-notes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import backrooms_movie from "./backrooms-movie.webp";
+import egg_sandwich from "./egg-sandwich.webp";
+import paper_dosa_the_filter_coffee from "./paper-dosa-the-filter-coffee.webp";
+import pizza_toast from "./pizza-toast.webp";
+
+Rough week in the health department but the brain juices have held up against all odds. Also games!
+
+# Personal
+
+I woke up on Monday with a lot of pain in my neck and decided to take the day off for some rest and relaxation. In the midst of aforementioned R&R [Yash](https://yashgarg.dev/) asked me if I wanted to meet up with his girlfriend and him for breakfast at Toit, where we got some pancakes and waffles. Not the typical idea of resting an injury, but it was nice to be out and about in the sun. From there we walked the length of the 100 Feet road to end up at Lenskart for some new glasses for Yash. I got one of their complementary eye checkups which confirmed that despite my best efforts to the contrary I still have a 5/5 eyesight, having two bespectacled friends with me and receiving that result was funny.
+
+The neck problem did not improve throughout the day, so I had to get a hot watter bottle and a neck brace, which have helped with the problem as the week progressed. Really starting to feel like a proverbial unc with these random aches, and had to skip the gym for the whole week.
+
+I'm planning to finally take a proper holiday sometime next month, and have already taken some recommendations from [Rohan Arthur](https://rohanarthur.com) for lake houses near Bengaluru. Reach out to me if you have ideas for any idyllic places close by where I can be _mostly_ offline for a couple of weeks!
+
+I am also working on my passport application in anticipation of a trip to Singapore for the PGL Counter Strike 2 Major with Yash, [Anunay](https://github.com/anunaym14), and [Akhil](https://github.com/akhilnarang). I have one failed application under my belt and no other real knowledge of the matter to speak of, so I am also open to someone helping me out here as well!
+
+# Media
+
+Continued reading [The Ask and the Answer](https://bookwyrm.social/book/1586797/s/the-ask-and-the-answer), no more power cuts to help but illness has covered for that.
+
+Started watching [Widow's Bay](https://www.imdb.com/title/tt33332385/) on Yash's recommendation as well as an [Aftermath post](https://aftermath.site/widows-bay-apple-tv-matthew-rhys/) I had read a month ago. With all the downtime this week I was able to finish the first season quickly, albeit in Italian for 9 of 10 episodes because I am a dumbass. Genuinely could not tell you how I came to think the show is meant to be Italian but at least not understanding the language made me actually watch instead of it being second monitor content.
+
+Watched [Backrooms](https://www.imdb.com/title/tt26657236/) with Yash, [Fenil](https://fknil.pages.dev/), and [Gunwant](https://wantguns.dev/). The movie was _awesome_, I fully get why these new age directors are rocking the boat in the upper echelons of Hollywood. Make some non-horror movies now!!
+
+<Figure
+  src={backrooms_movie}
+  title="Found footage is one of my favorite narrative devices"
+  alt="A tilted shot of a yellow backrooms hallway on a screen"
+/>
+
+# Meta
+
+The site has had some minor changes this week. [Share buttons have been removed](https://github.com/msfjarvis/msfjarvis.dev/commit/99325e9a151f220e59c80dc2af3de30f700d3bde) since they don't get used, and all text on the home page is now about [1.3x larger](https://github.com/msfjarvis/msfjarvis.dev/commit/db047f21b6101184abacc8dfe8f6fae296d5fafd), since I was starting to feel very old trying to squint at the text. I also noticed a bunch of my received webmentions were being incorrectly cut off during parsing, and weren't being rendered as proper HTML; this has been [fixed retroactively](https://github.com/msfjarvis/msfjarvis.dev/commit/450ec0d14f2f46b4ce6c69b71e85358872233515) on all posts.
+
+I wrote [last week](/weeknotes/week-24-2026) about being overwhelmed by my [Miniflux](https://miniflux.app) RSS reader, and my attempts at clanking something to identify the problem. That was unsurprisingly useless, but I did find out some good quality of life changes to improve the scenario which have been documented in [this blog post](https://msfjarvis.dev/posts/taming-my-intimidating-rss-reader-queue/) I wrote this week.
+
+# Projects
+
+[Claw](https://github.com/msfjarvis/compose-lobsters) had a minor change to add a smoke-tests JVM-only CLI that runs daily to validate the HTML parsing code, hopefully to catch any regressions early.
+
+[kage](https://github.com/android-password-store/kage) received an external PR this week [to improve memory usage](https://github.com/android-password-store/kage/pull/539) in the streaming API, which motivated me to catch up on some pending work there. Kotlin is [upgraded to 2.4.0](https://github.com/android-password-store/kage/pull/540), the upstream test vectors [have been updated](https://github.com/android-password-store/kage/pull/541) and the bugs uncovered by that fixed, and a longstanding TODO to [properly handle some invalid inputs](https://github.com/android-password-store/kage/pull/542) been resolved.
+
+## 🤖 CLANK CLANK CLANK 🤖
+
+The [agentmemory](https://github.com/rohitg00/agentmemory) experiment has concluded in [failure](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/44e880d63bf897502f35425ac36e169e7f7ccff0). Clankers failed to find any meaningful information in the saved memories because they couldn't figure out how to get them in a non-truncated form. I stole some [Pi](https://pi.dev) extensions from [Armin Ronacher](https://lucumr.pocoo.org), adding [some whimsy](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/ec1802ee1b8334f8da5ac0790944896507a12363), a [session analyser](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/b524ccd460a7e94d2984a3639cbed8c901cf1531), and a [Q&A widget](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/dee979282d5d67997741c627d0c78b349d8199d6). I also added a [Markdown viewer overlay](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/82e1980f2c7044fcbb8817d7a2391e27565ebec6) to make it easier to review specs and plans inline.
+
+# Gaming
+
+[Helldivers 2](https://store.steampowered.com/app/553850/HELLDIVERS_2/) had a big update this week with a ton of buffs across the board, had a great time playing the Illuminate faction with the new Supply FRV.
+
+I played even more [CONTROL](https://controlgame.com/) this week, and finally finished the Foundation DLC just before writing this weeknote. In celebration of this feat I pre-ordered CONTROL Resonant, something I typically don't do. The mêlée hack and slash combat simply looks sick, and I am fully invested in the story.
+
+# Food
+
+<Gallery>
+  <Figure
+    src={paper_dosa_the_filter_coffee}
+    title="Been a while since I've been back at The Filter Coffee"
+    alt="A crisp paper dosa on a banana leaf with chutneys and sambar"
+  />
+  <Figure
+    src={pizza_toast}
+    title="The air fryer browns the sausages a little too much for my preference"
+    alt="A slice of pizza toast topped with chicken sausages and herbs"
+  />
+  <Figure
+    src={egg_sandwich}
+    title="A simple egg sandwich just hits some days"
+    alt="Two toasted egg sandwiches on a steel plate with ketchup"
+  />
+</Gallery>
+
+For all the Toit breakfast images, head to [Yash's weeknote](https://yashgarg.dev/weekly-notes-25-2026/) who is much more diligent about these things than I ever will be.
+
+Since I was by myself on Monday I made myself a pretty sloppy salad of corn, cucumbers, onions, and tomatoes all doused in some crumbled feta cheese and a Greek yogurt dressing.
+
+On Tuesday the whole team at work went out to Meghna Foods for lunch since our PM [Korinne Alpers](https://www.linkedin.com/in/korinne-alpers) was getting read to head back to the US and wanted to sample some great biryani. For dinner, we just made our regular okra.
+
+Thursday was feeling like a sandwich kind of day, so I just made an egg sandwich at home during our morning standup. Turns out there's a lot of downtime in a 10-person meeting :P
+
+I had been craving pizza toasts this week, so I decided to make some on Friday morning, I kinda screwed up by accidentally ordering sausages instead of pepperonis, but it was delicious regardless.
+
+This morning I joined Mayank, Yash, and [Swapnil](https://github.com/swapnilmadavi) for some dosas at The Filter Coffee which were great.
