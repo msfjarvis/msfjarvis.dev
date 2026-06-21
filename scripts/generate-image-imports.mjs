@@ -3,6 +3,11 @@
 import fs from "fs";
 import path from "path";
 
+const DEFAULT_IMPORTS = [
+  'import Figure from "../../../components/Figure.astro";',
+  'import Gallery from "../../../components/Gallery.astro";',
+];
+
 function generateImageImports(imageDir) {
   // Check if image directory exists
   if (!fs.existsSync(imageDir)) {
@@ -31,6 +36,8 @@ function generateImageImports(imageDir) {
 
     return `import ${importName} from './${imagePath.replace(imageDir, "")}';`;
   });
+
+  console.log(DEFAULT_IMPORTS.join("\n"));
 
   console.log(imports.join("\n"));
 }
