@@ -4,7 +4,7 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
-minimumReleaseAge: 10080
+minimumReleaseAge: 0
 minimumReleaseAgeExclude:
   - "@sveltia/cms"
   - "oxfmt"
