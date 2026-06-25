@@ -86,6 +86,28 @@ export default defineConfig({
     prerenderEnvironment: "workerd",
   }),
   vite: {
+    plugins: [
+      {
+        // Sätteri ships a Rust/NAPI binary with a WASM browser fallback that
+        // imports @napi-rs/wasm-runtime — a browser-only peer not installed in
+        // this project. The Cloudflare adapter sets noExternal:true so Rolldown
+        // tries to bundle everything, hitting the unresolvable import.
+        // Marking it external is safe: satteri only runs at build time, never
+        // in the Cloudflare Worker at runtime.
+        // TODO: remove once @astrojs/cloudflare or @astrojs/markdown-satteri
+        // handles this automatically (similar to how sharp is already excluded).
+        name: "satteri-externals",
+        enforce: "post",
+        config(cfg) {
+          const existing = Array.isArray(cfg.build?.rolldownOptions?.external)
+            ? cfg.build.rolldownOptions.external
+            : [];
+          return {
+            build: { rolldownOptions: { external: [...existing, "@napi-rs/wasm-runtime"] } },
+          };
+        },
+      },
+    ],
     ssr: {
       external: ["@resvg/resvg-js", "mermaid"],
     },
