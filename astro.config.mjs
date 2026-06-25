@@ -32,9 +32,7 @@ export default defineConfig({
     }),
   },
   integrations: [
-    mdx({
-      remarkPlugins: [remarkMermaid],
-    }),
+    mdx(),
     sitemap(),
     icon({
       include: {
