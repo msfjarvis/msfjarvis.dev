@@ -23,11 +23,11 @@
     "format:check": "oxfmt --check"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.7.0",
-    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/cloudflare": "^14.0.1",
+    "@astrojs/mdx": "^7.0.0",
     "@astrojs/sitemap": "^3.7.3",
     "@sveltia/cms": "^0.167.3",
-    "astro": "^6.4.8",
+    "astro": "^7.0.3",
     "astro-iconset": "^0.0.6",
     "astro-opengraph-images": "^1.16.1",
     "cheerio": "^1.2.0",
