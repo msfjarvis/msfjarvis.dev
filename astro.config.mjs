@@ -8,6 +8,8 @@ import cloudflare from "@astrojs/cloudflare";
 import { defineConfig } from "astro/config";
 import { unified } from "@astrojs/markdown-remark";
 import icon from "astro-iconset";
+import remarkGfm from "remark-gfm";
+import { remarkAlert } from "remark-github-blockquote-alert";
 
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
 import opengraphImages from "./src/integrations/opengraph-images.ts";
@@ -28,7 +30,7 @@ export default defineConfig({
     processor: unified({
       gfm: true,
       smartypants: true,
-      remarkPlugins: [remarkMermaid],
+      remarkPlugins: [remarkAlert, remarkGfm, remarkMermaid],
     }),
   },
   integrations: [
@@ -101,7 +103,11 @@ export default defineConfig({
             ? cfg.build.rolldownOptions.external
             : [];
           return {
-            build: { rolldownOptions: { external: [...existing, "@napi-rs/wasm-runtime"] } },
+            build: {
+              rolldownOptions: {
+                external: [...existing, "@napi-rs/wasm-runtime"],
+              },
+            },
           };
         },
       },

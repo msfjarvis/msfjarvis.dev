@@ -51,6 +51,8 @@
     "oxfmt": "^0.55.0",
     "oxlint": "^1.70.0",
     "react": "^19.2.7",
+    "remark-gfm": "^4.0.1",
+    "remark-github-blockquote-alert": "^2.1.0",
     "satori": "^0.26.0",
     "typescript": "^5.9.3",
     "wrangler": "^4.101.0"

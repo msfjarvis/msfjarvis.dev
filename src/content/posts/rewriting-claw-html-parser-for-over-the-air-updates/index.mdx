@@ -37,7 +37,8 @@ Zipline offered everything I was looking for, and since I was predominantly usin
 
 ## The great Zipline migration
 
-> [!WARNING]: There may be overlap between the _right_ way to use Zipline and _my_ way to use Zipline, but expect that number to trend towards zero. I've solved a lot of problems by bashing my head against a keyboard and or an LLM, which aren't necessarily the best ways to go about it.
+> [!WARNING]
+> There may be overlap between the _right_ way to use Zipline and _my_ way to use Zipline, but expect that number to trend towards zero. I've solved a lot of problems by bashing my head against a keyboard and or an LLM, which aren't necessarily the best ways to go about it.
 
 My dependencies were all ready for Kotlin/JS, but my own code was woefully Android-specific and needed some refactoring. Before I started on this, I had to first decide on how I wanted to split the responsibilities between the K/JS "guest" and the Android "host". I ended up with this architecture:
 
