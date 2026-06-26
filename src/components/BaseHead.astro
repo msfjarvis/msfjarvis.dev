@@ -52,7 +52,7 @@ const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={openGraphImage} />
 
-<script defer src="https://stats01.msfjarvis.dev/script.js" data-website-id="8cec1982-7db5-4719-9b61-018401a7590d"></script>
+<script is:inline defer src="https://stats01.msfjarvis.dev/script.js" data-website-id="8cec1982-7db5-4719-9b61-018401a7590d"></script>
 
 <link rel="alternate" type="application/rss+xml"   title={`${SITE_TITLE} — RSS`}       href={new URL('rss.xml',  Astro.site)} />
 <link rel="alternate" type="application/atom+xml"  title={`${SITE_TITLE} — Atom`}      href={new URL('atom.xml', Astro.site)} />
@@ -71,3 +71,68 @@ const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
 <link rel="me" href="https://github.com/msfjarvis">
 <link href="https://webmentions.msfjarvis.dev/webmention" rel="webmention" />
 <meta name="fediverse:creator" content="@msfjarvis@androiddev.social" />
+
+<script is:inline>
+  (() => {
+    function bindMermaidModal(root) {
+      if (!(root instanceof HTMLElement) || root.dataset.mermaidModalBound === 'true') return;
+      root.dataset.mermaidModalBound = 'true';
+
+      const trigger = root.querySelector('[data-mermaid-modal-trigger]');
+      const dialog = root.querySelector('[data-mermaid-modal-container]');
+      const closeButton = root.querySelector('[data-mermaid-modal-close]');
+      const overlay = root.querySelector('[data-mermaid-modal-overlay]');
+
+      if (!(trigger instanceof HTMLButtonElement) || !(dialog instanceof HTMLElement) || !(closeButton instanceof HTMLButtonElement) || !(overlay instanceof HTMLButtonElement)) return;
+
+      let lastFocused = null;
+      const lockScroll = () => {
+        document.body.style.overflow = 'hidden';
+      };
+      const unlockScroll = () => {
+        document.body.style.overflow = '';
+      };
+      const open = () => {
+        lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : trigger;
+        dialog.dataset.open = 'true';
+        dialog.removeAttribute('inert');
+        dialog.setAttribute('aria-hidden', 'false');
+        lockScroll();
+        closeButton.focus();
+      };
+      const close = () => {
+        dialog.dataset.open = 'false';
+        dialog.setAttribute('inert', '');
+        dialog.setAttribute('aria-hidden', 'true');
+        unlockScroll();
+        lastFocused?.focus?.();
+      };
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        open();
+      });
+      closeButton.addEventListener('click', close);
+      overlay.addEventListener('click', close);
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) close();
+      });
+      dialog.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          close();
+        }
+      });
+    }
+
+    function initMermaidModals() {
+      document.querySelectorAll('[data-mermaid-modal-root]').forEach(bindMermaidModal);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMermaidModals, { once: true });
+    } else {
+      initMermaidModals();
+    }
+  })();
+</script>

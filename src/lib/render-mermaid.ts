@@ -8,71 +8,6 @@ let mermaidModule: typeof import("mermaid") | undefined;
 let isInitialized = false;
 let nextId = 0;
 
-const mermaidThemeOverrides = `
-  .actor,
-  .labelBox,
-  .node rect,
-  .node polygon,
-  .node circle,
-  .cluster rect,
-  .section,
-  .task,
-  .taskTextOutsideRight,
-  .taskTextOutsideLeft {
-    fill: var(--bg-subtle) !important;
-    stroke: var(--border) !important;
-  }
-
-  .note {
-    fill: var(--accent-subtle) !important;
-    stroke: var(--accent) !important;
-  }
-
-  .actor-line,
-  .messageLine0,
-  .messageLine1,
-  .loopLine,
-  .edgePath .path,
-  .flowchart-link,
-  .marker,
-  .marker path,
-  [id$="-arrowhead"] path,
-  [id$="-filled-head"] path,
-  [id$="-crosshead"] path,
-  [id$="-stickTopArrowHead"] path,
-  [id$="-stickBottomArrowHead"] path,
-  [id$="-solidTopArrowHead"] path,
-  [id$="-solidBottomArrowHead"] path {
-    stroke: var(--text-2) !important;
-    fill: var(--text-2) !important;
-  }
-
-  .messageText,
-  .labelText,
-  .labelText tspan,
-  .loopText,
-  .loopText tspan,
-  .noteText,
-  .noteText tspan,
-  .actor-box,
-  .actor-box tspan,
-  .sectionTitle,
-  .sectionTitle tspan,
-  text,
-  tspan {
-    fill: var(--text) !important;
-    stroke: none !important;
-  }
-
-  .activation0,
-  .activation1,
-  .activation2,
-  .sequenceNumber {
-    fill: var(--bg) !important;
-    stroke: var(--border) !important;
-  }
-`;
-
 const mermaidColorReplacements: Array<[string, string]> = [
   ["#ffffff", "var(--bg)"],
   ["#fff", "var(--bg)"],
@@ -212,6 +147,6 @@ export async function renderMermaidDiagram(source: string): Promise<string> {
   const id = `mermaid-diagram-${nextId++}`;
   const { svg } = await mermaidModule!.default.render(id, source);
   return applyThemeVariables(svg)
-    .replace("<svg ", '<svg class="mermaid-diagram" ')
-    .replace("</svg>", `<style>${mermaidThemeOverrides}</style></svg>`);
+    .replace(/<style>[\s\S]*?<\/style>/g, "")
+    .replace("<svg ", '<svg class="mermaid-diagram" ');
 }

@@ -6,13 +6,13 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 import { defineConfig } from "astro/config";
-import { unified } from "@astrojs/markdown-remark";
+import { satteri } from "@astrojs/markdown-satteri";
 import icon from "astro-iconset";
 
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
 import opengraphImages from "./src/integrations/opengraph-images.ts";
 import webmentionsIntegration from "./src/integrations/webmentions.ts";
-import remarkMermaid from "./src/remark/remark-mermaid.ts";
+import satteriMermaid from "./src/remark/satteri-mermaid.ts";
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
 const siteUrl = isDrafts ? "https://drafts.msfjarvis.dev" : "https://msfjarvis.dev";
@@ -25,10 +25,12 @@ export default defineConfig({
   site: siteUrl,
   output: "server",
   markdown: {
-    processor: unified({
-      gfm: true,
+    processor: satteri({
+      mdastPlugins: [satteriMermaid()],
+      features: {
+        gfm: true,
+      },
       smartypants: true,
-      remarkPlugins: [remarkMermaid],
     }),
   },
   integrations: [

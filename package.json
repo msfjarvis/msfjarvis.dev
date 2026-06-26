@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "@astrojs/markdown-remark": "^7.2.0",
+    "@astrojs/markdown-satteri": "^0.3.2",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@iarna/toml": "^2.2.5",
@@ -52,6 +52,7 @@
     "oxlint": "^1.70.0",
     "react": "^19.2.7",
     "satori": "^0.26.0",
+    "satteri": "^0.9.3",
     "typescript": "^5.9.3",
     "wrangler": "^4.101.0"
   },

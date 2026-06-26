@@ -45,9 +45,9 @@ importers:
       '@astrojs/check':
         specifier: ^0.9.9
         version: 0.9.9(prettier@3.8.4)(typescript@5.9.3)
-      '@astrojs/markdown-remark':
-        specifier: ^7.2.0
-        version: 7.2.0
+      '@astrojs/markdown-satteri':
+        specifier: ^0.3.2
+        version: 0.3.2
       '@fontsource/inter':
         specifier: ^5.2.8
         version: 5.2.8
@@ -90,6 +90,9 @@ importers:
       satori:
         specifier: ^0.26.0
         version: 0.26.0
+      satteri:
+        specifier: ^0.9.3
+        version: 0.9.3
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
