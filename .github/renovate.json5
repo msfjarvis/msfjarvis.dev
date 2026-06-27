@@ -18,5 +18,4 @@
       minimumReleaseAge: "7 days",
     },
   ],
-  commitMessageSuffix: "[staging]",
 }
