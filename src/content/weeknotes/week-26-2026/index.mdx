@@ -1,0 +1,84 @@
+---
+title: "Weeknotes: Week #26 (2026)"
+date: "2026-06-28T11:51:11.378Z"
+lastmod: "2026-06-28T11:51:11.378Z"
+summary: "Another week of bad health days :("
+tags:
+  - health
+  - food
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import ham_and_cheese_sandwich from "./ham-and-cheese-sandwich.webp";
+import krypto_supergirl from "./krypto-supergirl.webp";
+import salad_nacho_dip from "./salad-nacho-dip.webp";
+import tomato_and_egg_rice from "./tomato-and-egg-rice.webp";
+
+# Personal
+
+I've been cooped up at home for most of this week due to health problems and just general \~\~_vibes_\~\~ so there wasn't a lot happening to talk about. However, I did manage to, at least, successfully navigate the passport portal and apply for one. Hopefully I'll be done with the process well in time for the Singapore trip a few friends and I have been planning. I also finally decided to try filing my own taxes and immediately ran into problems, so I'm back to having my CA deal with it. Maybe next year 🫡
+
+On Saturday [Yash](https://yashgarg.dev) and I met up with [Mayank](https://github.com/mayankofficial999) and [Swapnil](https://github.com/swapnilmadavi) to watch Supergirl. The movie was _okay_, it's pretty clear that it was a minor subplot setting up for something bigger but DC does not have a good track record on delivering here, so I'm not very hopeful.
+
+<Figure
+  src={krypto_supergirl}
+  title="Krypto is the absolute goodest boy. Give him more screen time!"
+  alt="A movie theater screen showing a dog beside a record player and a flying bottle."
+/>
+
+## Getting into skin care
+
+I've struggled with oily skin for a long time so this week after going through yet another bout of feeling sorry for myself, I decided to clean up the vanity and order some things. I went back to read some messages I had exchanged with my sister on the topic, and got a nice moisturizer, a salicylic acid thing and a mild face wash. Results are supposed to show up in 6 to 12 weeks, so I guess I'll know then. Why does everything take so long!!
+
+# Work
+
+Had a minor scare at work where I thought I was in trouble but as it turns out I had been doing things fine, and it was someone else causing confusion 😮‍💨. Other than that we finally managed to get our [big 3.x release](https://developers.cloudflare.com/realtime/realtimekit/release-notes/android-core/) out! This was a lot of work over multiple months, and I'm glad we can now do something else for a bit :)
+
+# Personal Projects
+
+Most of my week was spent mitigating the well documented constant barrage of AI scrapers doing a number on my [Git server](https://git.msfjarvis.dev). After a few missteps with [fail2ban](https://github.com/fail2ban/fail2ban) and Cloudflare's IP Access Rules, I've managed to land on the right rulesets on Cloudflare to keep the worst of it from hitting the server. According to Cloudflare's statistics, in the past week I've _blocked_ over 500K requests and even then I continued seeing problems until this morning when I finally got a comprehensive set of protections in place. I want to write a blog post about this since this was an annoying problem to deal with, but ultimately most of it is just "use Cloudflare" and I don't want it to come off as shilling. I am easily influenced, so reach out to express your interest if you want to read about it.
+
+# Meta
+
+The site is now running on Astro 7! Nothing user-facing should've changed, I've tried to not switch to any of the newer stuff like [Sätteri](https://satteri.bruits.org/) so I can evaluate it more comfortably. I did try out migrating to Sätteri, and was able to [get it done](https://github.com/msfjarvis/msfjarvis.dev/commit/2b1e6c22ae7b801e458a3846e20420d07736b8c9) but ultimately the UnifiedJS/Remark/Rehype ecosystem is much more mature and I don't currently feel the need for Sätteri's promised speedups.
+
+I've had Atom, RSS and JSON feeds for most taxonomies but was shockingly missing one for posts, so that has now [been added](/posts/feed.atom) (thanks Yash for letting me know). After some discussion with Yash I've also decided to update the main feeds at `https://msfjarvis.dev/feed.[extension]` to start including my shorter [notes](/notes) as well, so expect a minor wave of spam in your feed readers.
+
+I had also forgotten to put back my analytics script when the site was moved to Astro, that's now back so I can continue ignoring the stats it's recording.
+
+> [!NOTE]
+> Oh, we also have these now.
+
+# Gaming
+
+I played out my Marvel Rivals placement games with [Akhil](https://akhilnarang.dev) this week and got placed at Gold 2, then didn't touch ranked again this week. I've been logging in to keep up with the barrage of summer events in-game but not really doing much else. Most of the gaming time has gone into Helldivers with [Amogh](https://kat.bio), [Shreyansh](https://staticvar.dev), and my friend Prajwal. The new Supply FRV has been infinitely fun, and I'll miss when it inevitably stops being a permanent free stratagem :(
+
+# Cooking
+
+Cooking this week was a mixed bag, I ate ham and cheese sandwiches for most breakfasts, and dinner ranged from a delectable and rich chicken gravy to the humble khichdi. Regardless, here are some of the highlights.
+
+<Gallery>
+    <Figure
+        src={ham_and_cheese_sandwich}
+        title="I like having small things of Greek yogurt in the fridge to make impromptu dips"
+        alt="Two toasted sandwiches on a steel plate with a dip and a soda can."
+    />
+
+    <Figure
+        src={salad_nacho_dip}
+        title="Veggies with a non-fat dressing, some Feta cheese on top and nachos on the side. Perfect dinner"
+        alt="A bowl of chunky salad with corn, tomatoes, onions, and cheese."
+    />
+
+    <Figure
+        src={tomato_and_egg_rice}
+        title="This tomato and egg rice dish was delicious, Yash's stash of Instagram recipes is solid"
+        alt="A bowl of tomato egg rice next to sliced cucumbers."
+    />
+
+</Gallery>
