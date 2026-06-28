@@ -6,6 +6,12 @@ import Header from '../components/Header.astro';
 import { slugify } from '../utils';
 import WebmentionsSection from '../components/WebmentionsSection.astro';
 
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
 interface Props {
   title: string;
   description?: string;
@@ -16,9 +22,22 @@ interface Props {
   image?: string;
   autoImage?: boolean;
   collection?: 'posts' | 'notes' | 'weeknotes';
+  headings?: Heading[];
 }
 
-const { title, description, date, lastmod, minutesRead, tags, image, autoImage = false, collection } = Astro.props;
+const {
+  title,
+  description,
+  date,
+  lastmod,
+  minutesRead,
+  tags,
+  image,
+  autoImage = false,
+  collection,
+  headings = [],
+} = Astro.props;
+const tocHeadings = headings;
 ---
 
 <!doctype html>
@@ -78,6 +97,20 @@ const { title, description, date, lastmod, minutesRead, tags, image, autoImage =
             </ul>
           )}
         </header>
+        {tocHeadings.length > 0 && (
+          <aside class="post-toc" aria-label="Table of contents">
+            <div class="post-toc-inner">
+              <p class="post-toc-title">On this page</p>
+              <ul>
+                {tocHeadings.map(({ depth, slug, text }) => (
+                  <li class:list={[`depth-${depth}`]}>
+                    <a href={`#${slug}`}>{text}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        )}
         <div class="prose e-content">
           <slot />
         </div>
@@ -89,6 +122,60 @@ const { title, description, date, lastmod, minutesRead, tags, image, autoImage =
 </html>
 
 <style>
+  .post-toc {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-toc-inner {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .post-toc-title {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .post-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .post-toc li {
+    margin: 0;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .post-toc li.depth-2 {
+    padding-left: 0.75rem;
+  }
+
+  .post-toc li.depth-3 {
+    padding-left: 1.5rem;
+  }
+
+  .post-toc a {
+    color: var(--text-2);
+    border-bottom: none;
+    text-decoration: none;
+  }
+
+  .post-toc a:hover {
+    color: var(--accent);
+  }
   .post-header h1 {
     font-size: 1.4rem;
     margin-top: 0;
@@ -122,5 +209,23 @@ const { title, description, date, lastmod, minutesRead, tags, image, autoImage =
   }
   .tag a:hover {
     color: var(--accent);
+  }
+
+  @media (min-width: 1400px) {
+    .post-toc {
+      position: fixed;
+      top: 50vh;
+      left: calc(50% + (var(--max-width) / 2) + 2rem);
+      transform: translateY(-50%);
+      width: 12rem;
+      max-height: calc(100vh - 4rem);
+      overflow: auto;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      padding-left: 1rem;
+      border-bottom: none;
+      border-left: 1px solid var(--border);
+    }
   }
 </style>
