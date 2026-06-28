@@ -53,7 +53,7 @@ const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={openGraphImage} />
 
-<script defer src="https://stats01.msfjarvis.dev/script.js" data-website-id="8cec1982-7db5-4719-9b61-018401a7590d"></script>
+<script is:inline defer src="https://stats01.msfjarvis.dev/script.js" data-website-id="8cec1982-7db5-4719-9b61-018401a7590d"></script>
 
 <link rel="alternate" type="application/rss+xml"   title={`${SITE_TITLE} — RSS`}       href={new URL('rss.xml',  Astro.site)} />
 <link rel="alternate" type="application/atom+xml"  title={`${SITE_TITLE} — Atom`}      href={new URL('atom.xml', Astro.site)} />
