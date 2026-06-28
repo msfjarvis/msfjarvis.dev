@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import 'remark-github-blockquote-alert/alert.css'
 import { getImagePath } from 'astro-opengraph-images/util.js';
-import { SITE_TITLE } from '../consts';
 import type { AlternateFeed } from "../lib/feed.ts";
 
 interface Props {
@@ -26,8 +25,11 @@ const openGraphImage = image
   : autoImage
     ? getImagePath({ url: Astro.url, site: Astro.site })
     : new URL('/android-chrome-512x512.webp', Astro.url);
-// Hrefs rendered unconditionally below — excluded from alternateFeeds to prevent duplicates.
-const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
+const feeds = alternateFeeds ?? [
+  { type: 'application/rss+xml', title: 'Harsh Shandilya — RSS', href: '/rss.xml' },
+  { type: 'application/atom+xml', title: 'Harsh Shandilya — Atom', href: '/atom.xml' },
+  { type: 'application/feed+json', title: 'Harsh Shandilya — JSON Feed', href: '/feed.json' },
+];
 ---
 
 <meta charset="utf-8" />
@@ -55,16 +57,9 @@ const GLOBAL_FEED_HREFS = new Set(['/rss.xml', '/atom.xml', '/feed.json']);
 
 <script is:inline defer src="https://stats01.msfjarvis.dev/script.js" data-website-id="8cec1982-7db5-4719-9b61-018401a7590d"></script>
 
-<link rel="alternate" type="application/rss+xml"   title={`${SITE_TITLE} — RSS`}       href={new URL('rss.xml',  Astro.site)} />
-<link rel="alternate" type="application/atom+xml"  title={`${SITE_TITLE} — Atom`}      href={new URL('atom.xml', Astro.site)} />
-<link rel="alternate" type="application/feed+json" title={`${SITE_TITLE} — JSON Feed`} href={new URL('feed.json',Astro.site)} />
-{/* Section and section-less feeds from virtual:site-feeds — global feeds skipped, they're hardcoded above */}
-{alternateFeeds
-  ?.filter(f => !GLOBAL_FEED_HREFS.has(f.href))
-  .map(f => (
-    <link rel="alternate" type={f.type} title={f.title} href={new URL(f.href, Astro.site)} />
-  ))
-}
+{feeds.map(f => (
+  <link rel="alternate" type={f.type} title={f.title} href={new URL(f.href, Astro.site)} />
+))}
 
 <link rel="me" href="https://androiddev.social/@msfjarvis">
 <link rel="me" href="https://mstdn.games/@msfjarvis">

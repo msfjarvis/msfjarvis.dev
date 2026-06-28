@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../../consts.ts';
 import { filterDrafts } from '../../utils';
 
 export const prerender = true;
@@ -10,7 +11,15 @@ const posts = await getCollection('posts', filterDrafts);
 posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<BaseLayout title="Posts — Harsh Shandilya" description="All posts by Harsh Shandilya">
+<BaseLayout
+  title="Posts — Harsh Shandilya"
+  description="All posts by Harsh Shandilya"
+  alternateFeeds={[
+    { type: 'application/rss+xml', title: `Posts on ${SITE_TITLE} — RSS`, href: '/posts/rss.xml' },
+    { type: 'application/atom+xml', title: `Posts on ${SITE_TITLE} — Atom`, href: '/posts/atom.xml' },
+    { type: 'application/feed+json', title: `Posts on ${SITE_TITLE} — JSON Feed`, href: '/posts/feed.json' },
+  ]}
+>
   <h1>Posts</h1>
   <ul>
     {posts.map((post) => (
