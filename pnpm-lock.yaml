@@ -59,7 +59,7 @@ importers:
         version: 2.2.5
       '@iconify-json/simple-icons':
         specifier: ^1.2.86
-        version: 1.2.86
+        version: 1.2.87
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -639,8 +639,8 @@ packages:
   '@iarna/toml@2.2.5':
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
 
-  '@iconify-json/simple-icons@1.2.86':
-    resolution: {integrity: sha512-t3jck5qPQuK1qy+bRn9eCoDQhIB7XSazKz1Fjp8hcan3XOAsTI5Mq/s3F0ekOKSvMQqkVORYK6ns6o6T9f5EMA==}
+  '@iconify-json/simple-icons@1.2.87':
+    resolution: {integrity: sha512-8YciStObhSji3OZFmWAWK6kBujyqO5bLCxeDwLxf3CR3F4PVelq7keC2LBvgTqviWzSTysj5/g4PCFLiAMVGsw==}
 
   '@iconify/tools@5.0.12':
     resolution: {integrity: sha512-aFPwSFmFphUPVjNLUkgxgUPSPVgTEEjv0mE7NgvfoQBuE5TtsMrKa4HTY65cM5oXZ2a1xKQcW/RKhiOKEiAarw==}
@@ -4486,7 +4486,7 @@ snapshots:
 
   '@iarna/toml@2.2.5': {}
 
-  '@iconify-json/simple-icons@1.2.86':
+  '@iconify-json/simple-icons@1.2.87':
     dependencies:
       '@iconify/types': 2.0.0
 
