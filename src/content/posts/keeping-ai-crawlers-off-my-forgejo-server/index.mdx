@@ -2,7 +2,7 @@
 title: "Keeping AI crawlers off my Forgejo server"
 date: "2026-06-29T04:53:18.854Z"
 lastmod: "2026-06-29T04:53:18.854Z"
-summary: ""
+summary: "The short and bumbling journey to finally giving my tiny VPS some respite"
 tags:
   - forgejo
   - crawlers
@@ -10,7 +10,7 @@ tags:
   - cloudflare
 categories:
   - devops
-draft: true
+draft: false
 deleted: false
 ---
 
@@ -24,13 +24,11 @@ import grafana_cpu_usage from "./grafana-cpu-usage.webp";
 
 Beginning 2026-06-18 I was starting to see a lot of slowness in my Forgejo instance, which I hoped would eventually subside, so I chose to just watch the load dashboards and wait.
 
-The crawlers obviously did not relent, so I started earnestly mitigating it on 2026-06-25 by enabling fail2ban which unfortunately did not do much to help the situation.
+The crawlers obviously did not relent, so I started earnestly mitigating it on 2026-06-25 by enabling fail2ban which unfortunately did not do much to help the situation. I had to take a hammer to the problem and put in a Cloudflare [security rule](https://developers.cloudflare.com/security/rules/) banning the countries of China and Vietnam where most of the requests were originating. The rule also carried a specific ban for accesses to the `oneplus3` repository because it was surprisingly a "fan" favorite. The Cloudflare block immediately got to work and within 16 hours mitigated over 130K hits.
 
-I had to take a hammer to the problem and put in a Cloudflare [security rule](https://developers.cloudflare.com/security/rules/) banning the countries of China and Vietnam where most of the requests were originating. The rule also carried a specific ban for accesses to the `oneplus3` repository because it was surprisingly a "fan" favorite. The Cloudflare block immediately got to work and within 16 hours mitigated over 130K hits.
+However, the site's availability started dropping over the next few hours and I started seeing a near constant stream of `HTTP 521` responses which indicates Cloudflare couldn't reach my server. Turns out the log transformer I enabled for fail2ban to work wasn't logging the real client IPs, it was logging Cloudflare IPs, so fail2ban had just been banning Cloudflare 😬
 
-However, the site's reliability started dropping over the next few hours and I started seeing a near constant stream of `HTTP 521` responses. Turns out the `{common_log}` log transformer I was using wasn't logging the real client IPs, it was logging Cloudflare IPs, so I was just preventing Cloudflare from reaching the origin 😬
-
-Solving that wasn't too difficult, Caddy has the necessary config knobs to mark [reverse proxies as trusted](https://caddyserver.com/docs/caddyfile/options#trusted-proxies) and [forward the headers](https://caddyserver.com/docs/caddyfile/options#client-ip-headers) correctly. I unbanned all the IPs in fail2ban, and after that I followed [this example](https://github.com/fail2ban/fail2ban/blob/2c1eb69381796c49e8866bb26fdc057bca159bfd/config/action.d/cloudflare.conf) to make fail2ban directly block offenders via Cloudflare's IP Access Rules.
+Solving that wasn't too difficult, Caddy has the necessary config knobs to mark [reverse proxies as trusted](https://caddyserver.com/docs/caddyfile/options#trusted-proxies) and [forward the client IP headers](https://caddyserver.com/docs/caddyfile/options#client-ip-headers) correctly. I unbanned all the IPs in fail2ban, and after that I followed [this example](https://github.com/fail2ban/fail2ban/blob/2c1eb69381796c49e8866bb26fdc057bca159bfd/config/action.d/cloudflare.conf) to make fail2ban directly block offenders via Cloudflare's IP Access Rules.
 
 Within 3 hours I was up to 2200 individual IPs banned, so I decided to do some analysis of banned IPs to figure out if there's a broader block I can instate and prevent running into the 50,000 limit. Most of them were popular consumer providers like Comcast and Verizon, so I banned the ASNs south of them:
 
@@ -44,12 +42,12 @@ Within 3 hours I was up to 2200 individual IPs banned, so I decided to do some a
 
 This helped to some degree but not _quite_, and I was still getting a sustained 50 to a 100 RPS which wasn't impossible to serve, just very wasteful and causing other things to slow down on this rather weak VPS. After around 12 hours, I realized fail2ban had now banned 31K individual IPs which was coming dangerously close to the 50K IP Access Rules limit from Cloudflare, and was admittedly a rather naive way of addressing the problem.
 
-I turned off fail2ban, instead started doing analysis on my Forgejo logs to find patterns I could let Cloudflare handle via a [custom ruleset](https://developers.cloudflare.com/ruleset-engine/custom-rulesets/). In order, they were:
+I turned off fail2ban, and started poring through my Forgejo logs to find patterns I could let Cloudflare handle via a [custom ruleset](https://developers.cloudflare.com/ruleset-engine/custom-rulesets/). This took a bit to figure out, but ultimately I landed on these, in order:
 
-1. Ban China and Vietnam. These still have the worst of the residential proxy botnet problem.
-2. Ban the known-bad ASNs from before.
-3. Ban the `/oneplus3` and `/revanced-patches` repositories since they had become super attractive scraper honeypots for some reason, I don't really need either to be available so this was fine.
-4. Ban fetches of `.bundle` archives, since I don't use them and they're expensive to generate.
+1. Block China and Vietnam. These still have the worst of the residential proxy botnet problem.
+2. Block the known-bad ASNs from before.
+3. Block anyone accessing the `/oneplus3` and `/revanced-patches` repositories since they had become super attractive scraper honeypots for some reason, I don't really need either to be available so this was fine.
+4. Block fetches of `.bundle` archives, since I don't use them and they're expensive to generate.
 5. Block (downgraded to Managed Challenge later) paginated history crawling:
    ```
    http.request.method eq "GET" and
