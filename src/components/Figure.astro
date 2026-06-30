@@ -3,6 +3,7 @@ import ImageModal from './ImageModal.astro';
 
 interface Props {
   src: ImageMetadata | string;
+  srcDark?: ImageMetadata | string;
   alt?: string;
   title?: string;
   small?: boolean;
@@ -15,14 +16,17 @@ type ImageMetadata = {
   format: string;
 };
 
-const { src, alt = '', title, small = false } = Astro.props;
+const { src, srcDark, alt = '', title, small = false } = Astro.props;
 ---
 
 {typeof src === 'object' ? (
-  <ImageModal src={src} alt={alt} title={title} small={small} />
+  <ImageModal src={src} srcDark={srcDark} alt={alt} title={title} small={small} />
 ) : (
   <figure>
-    <img class={small && "half" || ""} src={src} alt={alt} />
+    <picture>
+      {srcDark && <source media="(prefers-color-scheme: dark)" srcset={typeof srcDark === 'object' ? srcDark.src : srcDark} />}
+      <img class={small && 'half' || ''} src={src} alt={alt} />
+    </picture>
     {title && <figcaption>{title}</figcaption>}
   </figure>
 )}

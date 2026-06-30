@@ -1,8 +1,7 @@
 ---
-import { Picture } from 'astro:assets';
-
 interface Props {
   src: ImageMetadata | string;
+  srcDark?: ImageMetadata | string;
   alt?: string;
   title?: string;
   small: boolean;
@@ -15,7 +14,7 @@ type ImageMetadata = {
   format: string;
 };
 
-const { src, alt = '', title, small } = Astro.props;
+const { src, srcDark, alt = '', title, small } = Astro.props;
 const dialogLabel = title || alt || 'Expanded image';
 ---
 
@@ -29,11 +28,17 @@ const dialogLabel = title || alt || 'Expanded image';
       aria-label={`Open ${alt || title || 'image'} in lightbox`}
     >
       <span class="image-modal__media">
-        {typeof src === 'object' ? (
-          <Picture src={src} alt={alt} formats={['avif', 'webp']} fallbackFormat="webp" />
-        ) : (
-          <img src={src} alt={alt} loading="lazy" decoding="async" />
-        )}
+        <picture>
+          {srcDark && <source media="(prefers-color-scheme: dark)" srcset={typeof srcDark === 'object' ? srcDark.src : srcDark} />}
+          <img
+            src={typeof src === 'object' ? src.src : src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            width={typeof src === 'object' ? src.width : undefined}
+            height={typeof src === 'object' ? src.height : undefined}
+          />
+        </picture>
         <span class="image-modal__hint" aria-hidden="true">Expand image</span>
       </span>
     </button>
@@ -66,11 +71,17 @@ const dialogLabel = title || alt || 'Expanded image';
         <span aria-hidden="true">✕</span>
       </button>
       <div data-lightbox-inner class="image-modal__content">
-        {typeof src === 'object' ? (
-          <Picture src={src} alt={alt} formats={['avif', 'webp']} fallbackFormat="webp" />
-        ) : (
-          <img src={src} alt={alt} loading="eager" decoding="async" />
-        )}
+        <picture>
+          {srcDark && <source media="(prefers-color-scheme: dark)" srcset={typeof srcDark === 'object' ? srcDark.src : srcDark} />}
+          <img
+            src={typeof src === 'object' ? src.src : src}
+            alt={alt}
+            loading="eager"
+            decoding="async"
+            width={typeof src === 'object' ? src.width : undefined}
+            height={typeof src === 'object' ? src.height : undefined}
+          />
+        </picture>
       </div>
       {title && <p class="image-modal__meta">{title}</p>}
     </div>
@@ -131,6 +142,7 @@ const dialogLabel = title || alt || 'Expanded image';
     transition: opacity 200ms ease, transform 200ms ease;
   }
 
+
   .image-modal__trigger:hover .image-modal__media,
   .image-modal__trigger:focus-visible .image-modal__media {
     transform: translateY(-2px);
@@ -187,7 +199,8 @@ const dialogLabel = title || alt || 'Expanded image';
 
   .image-modal__sheet {
     position: relative;
-    width: min(100%, 1440px);
+    width: fit-content;
+    max-width: min(100%, 1440px);
     max-height: calc(100vh - 3rem);
     display: grid;
     gap: 0.85rem;
