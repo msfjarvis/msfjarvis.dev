@@ -1,0 +1,53 @@
+---
+title: "My first spam Webmention"
+date: "2026-06-30T19:13:10.868Z"
+lastmod: "2026-06-30T19:13:10.868Z"
+summary: "Finally being forced to build moderation capabilities into my Webmentions server"
+tags:
+  - spam
+  - webmentions
+  - bluesky
+categories:
+  - meta
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import bsky_spam_post_dark from "./bsky-spam-post-dark.webp";
+import bsky_spam_post_light from "./bsky-spam-post-light.webp";
+import pages_with_webmentions_dark from "./pages-with-webmentions-dark.webp";
+import pages_with_webmentions_light from "./pages-with-webmentions-light.webp";
+import received_webmentions_dark from "./received-webmentions-dark.webp";
+import received_webmentions_light from "./received-webmentions-light.webp";
+
+I finally got my first spam Webmention on this site!
+
+<Figure
+  src={bsky_spam_post_light}
+  srcDark={bsky_spam_post_dark}
+  title="A spam post from Bluesky that bridged over as a Webmention"
+  alt="Screenshot of a Bluesky spam post asking the reader to visit a pinned page."
+/>
+
+I chanced across this on my latest weeknote, which seems to have already been deleted by Bluesky moderation or the poster by the time I got around to seeing it. I have been coasting along for a few months now without any moderation set up to easily moderate Webmentions, but I clearly should be paying more attention. This is far from being bad for spam standards, but I'd like to be prepared for the eventuality of something really terrible showing up in one of these.
+
+So far I had been resorting to manually running queries in the Cloudflare dashboard's [D1 SQL Explorer](https://developers.cloudflare.com/d1/get-started/#4-run-a-query-against-your-d1-database) but that's not quick enough for the potential future where someone ends up posting something worse into one of my posts.
+
+To that effect I now have a very brutalist dashboard being served by the Webmentions server (code [here](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/webmentions-server)) which has a list of all pages that have received Webmentions. To mask my inability to do good web design it is styled using the [Oat](https://oat.ink) CSS library.
+
+<Figure
+  src={pages_with_webmentions_light}
+  srcDark={pages_with_webmentions_dark}
+  alt="Webmentions admin page listing site pages with mention counts and verification times."
+/>
+
+Clicking on one of these links takes you to this equally offensive UI which could be reduced down to a list with delete buttons and still serve exactly the same purpose. Not exactly rocket science here.
+
+<Figure
+  src={received_webmentions_light}
+  srcDark={received_webmentions_dark}
+  alt="Admin page showing received webmentions for one post with delete buttons."
+/>
+
+I didn't want to figure out passwords and bearer auth, so the server does not attempt to do any authentication and just relies on Cloudflare Access to guard access to the UI and the endpoints this uses.
