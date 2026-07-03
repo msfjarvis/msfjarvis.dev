@@ -134,29 +134,30 @@ const mermaidModalStyles = `<style>
 
 export default function remarkMermaid() {
   return async function transform(tree: Root, file: VFile) {
-    const replacements: Array<Promise<void>> = [];
+    const mermaidNodes: Array<{
+      index: number;
+      parent: NonNullable<typeof tree.children>[number];
+    }> = [];
 
     visit(tree, "code", (node, index, parent) => {
       if (!parent || index == null || node.lang !== "mermaid") return;
 
-      replacements.push(
-        renderMermaidDiagram(node.value)
-          .then((svg) => {
-            const dialogLabel = `Expanded Mermaid diagram from ${file.basename ?? file.path ?? "document"}`;
-            parent.children[index] = {
-              type: "html",
-              value: `${mermaidModalStyles}<div data-mermaid-modal-root class="mermaid-modal"><figure class="mermaid-modal__figure"><div class="mermaid-modal__preview">${svg}</div><div class="mermaid-modal__actions"><button data-mermaid-modal-trigger type="button" class="mermaid-modal__open-button" aria-haspopup="dialog" aria-label="Open Mermaid diagram in lightbox">Expand diagram</button></div></figure><div data-mermaid-modal-container class="mermaid-modal__dialog" role="dialog" aria-modal="true" aria-label="${dialogLabel}" aria-hidden="true" inert><button type="button" class="mermaid-modal__overlay" data-mermaid-modal-overlay aria-label="Close Mermaid diagram lightbox" tabindex="-1"></button><div class="mermaid-modal__sheet" role="document"><button data-mermaid-modal-close type="button" class="mermaid-modal__close" aria-label="Close Mermaid diagram lightbox"><span aria-hidden="true">✕</span></button><div class="mermaid-modal__content">${svg}</div></div></div></div><script>(function(){const current=document.currentScript?.previousElementSibling;if(!(current instanceof HTMLElement)||current.dataset.mermaidModalBound==='true')return;current.dataset.mermaidModalBound='true';const trigger=current.querySelector('[data-mermaid-modal-trigger]');const dialog=current.querySelector('[data-mermaid-modal-container]');const closeButton=current.querySelector('[data-mermaid-modal-close]');const overlay=current.querySelector('[data-mermaid-modal-overlay]');if(!(trigger instanceof HTMLButtonElement)||!(dialog instanceof HTMLElement)||!(closeButton instanceof HTMLButtonElement)||!(overlay instanceof HTMLButtonElement))return;let lastFocused=null;const lockScroll=()=>{document.body.style.overflow='hidden';};const unlockScroll=()=>{document.body.style.overflow='';};const open=()=>{lastFocused=document.activeElement instanceof HTMLElement?document.activeElement:trigger;dialog.dataset.open='true';dialog.removeAttribute('inert');dialog.setAttribute('aria-hidden','false');lockScroll();closeButton.focus();};const close=()=>{dialog.dataset.open='false';dialog.setAttribute('inert','');dialog.setAttribute('aria-hidden','true');unlockScroll();lastFocused?.focus?.();};trigger.addEventListener('click',(event)=>{event.preventDefault();open();});closeButton.addEventListener('click',close);overlay.addEventListener('click',close);dialog.addEventListener('click',(event)=>{if(event.target===dialog)close();});dialog.addEventListener('keydown',(event)=>{if(event.key==='Escape'){event.preventDefault();close();}});})();</script>`,
-            };
-          })
-          .catch((error) => {
-            const location = file.path ?? file.history.at(0) ?? "unknown file";
-            throw new Error(
-              `Failed to render Mermaid diagram in ${location}: ${error instanceof Error ? error.message : String(error)}`,
-            );
-          }),
-      );
+      mermaidNodes.push({ index, parent });
     });
 
-    await Promise.all(replacements);
+    for (const { index, parent } of mermaidNodes) {
+      const svg = await renderMermaidDiagram(parent.children[index].value).catch((error) => {
+        const location = file.path ?? file.history.at(0) ?? "unknown file";
+        throw new Error(
+          `Failed to render Mermaid diagram in ${location}: ${error instanceof Error ? error.message : String(error)}`,
+        );
+      });
+
+      const dialogLabel = `Expanded Mermaid diagram from ${file.basename ?? file.path ?? "document"}`;
+      parent.children[index] = {
+        type: "html",
+        value: `${mermaidModalStyles}<div data-mermaid-modal-root class="mermaid-modal"><figure class="mermaid-modal__figure"><div class="mermaid-modal__preview">${svg}</div><div class="mermaid-modal__actions"><button data-mermaid-modal-trigger type="button" class="mermaid-modal__open-button" aria-haspopup="dialog" aria-label="Open Mermaid diagram in lightbox">Expand diagram</button></div></figure><div data-mermaid-modal-container class="mermaid-modal__dialog" role="dialog" aria-modal="true" aria-label="${dialogLabel}" aria-hidden="true" inert><button type="button" class="mermaid-modal__overlay" data-mermaid-modal-overlay aria-label="Close Mermaid diagram lightbox" tabindex="-1"></button><div class="mermaid-modal__sheet" role="document"><button data-mermaid-modal-close type="button" class="mermaid-modal__close" aria-label="Close Mermaid diagram lightbox"><span aria-hidden="true">✕</span></button><div class="mermaid-modal__content">${svg}</div></div></div></div><script>(function(){const current=document.currentScript?.previousElementSibling;if(!(current instanceof HTMLElement)||current.dataset.mermaidModalBound==='true')return;current.dataset.mermaidModalBound='true';const trigger=current.querySelector('[data-mermaid-modal-trigger]');const dialog=current.querySelector('[data-mermaid-modal-container]');const closeButton=current.querySelector('[data-mermaid-modal-close]');const overlay=current.querySelector('[data-mermaid-modal-overlay]');if(!(trigger instanceof HTMLButtonElement)||!(dialog instanceof HTMLElement)||!(closeButton instanceof HTMLButtonElement)||!(overlay instanceof HTMLButtonElement))return;let lastFocused=null;const lockScroll=()=>{document.body.style.overflow='hidden';};const unlockScroll=()=>{document.body.style.overflow='';};const open=()=>{lastFocused=document.activeElement instanceof HTMLElement?document.activeElement:trigger;dialog.dataset.open='true';dialog.removeAttribute('inert');dialog.setAttribute('aria-hidden','false');lockScroll();closeButton.focus();};const close=()=>{dialog.dataset.open='false';dialog.setAttribute('inert','');dialog.setAttribute('aria-hidden','true');unlockScroll();lastFocused?.focus?.();};trigger.addEventListener('click',(event)=>{event.preventDefault();open();});closeButton.addEventListener('click',close);overlay.addEventListener('click',close);dialog.addEventListener('click',(event)=>{if(event.target===dialog)close();});dialog.addEventListener('keydown',(event)=>{if(event.key==='Escape'){event.preventDefault();close();}});})();</script>`,
+      };
+    }
   };
 }

@@ -1,12 +1,32 @@
-import { createRequire } from "node:module";
+import * as cheerio from "cheerio";
 
-import { JSDOM } from "jsdom";
+const KROKI_BASE_URL = "https://kroki.io";
+const REQUEST_TIMEOUT_MS = 15_000;
+const CLASS_NAME = "mermaid-diagram";
 
-const require = createRequire(import.meta.url);
-
-let mermaidModule: typeof import("mermaid") | undefined;
-let isInitialized = false;
-let nextId = 0;
+const mermaidColorReplacements: Array<[string, string]> = [
+  ["#ffffff", "var(--bg)"],
+  ["#fff", "var(--bg)"],
+  ["#f7f7f7", "var(--bg-subtle)"],
+  ["#eaeaea", "var(--bg-subtle)"],
+  ["#ececff", "var(--bg-subtle)"],
+  ["#e8e8e8", "var(--border)"],
+  ["#666666", "var(--text-2)"],
+  ["#666", "var(--text-2)"],
+  ["#111111", "var(--text)"],
+  ["#000000", "var(--text)"],
+  ["black", "var(--text)"],
+  ["#444444", "var(--text-2)"],
+  ["#333333", "var(--text-2)"],
+  ["#333", "var(--text-2)"],
+  ["#999", "var(--border)"],
+  ["#e0c8db", "var(--accent-subtle)"],
+  ["#7a3d6e", "var(--accent)"],
+  ["#9370DB", "var(--accent)"],
+  ["#ECECFF", "var(--bg-subtle)"],
+  ["#aaaa33", "var(--accent)"],
+  ["#fff5ad", "var(--accent-subtle)"],
+];
 
 const mermaidThemeOverrides = `
   .actor,
@@ -73,30 +93,6 @@ const mermaidThemeOverrides = `
   }
 `;
 
-const mermaidColorReplacements: Array<[string, string]> = [
-  ["#ffffff", "var(--bg)"],
-  ["#fff", "var(--bg)"],
-  ["#f7f7f7", "var(--bg-subtle)"],
-  ["#eaeaea", "var(--bg-subtle)"],
-  ["#ececff", "var(--bg-subtle)"],
-  ["#e8e8e8", "var(--border)"],
-  ["#666666", "var(--text-2)"],
-  ["#666", "var(--text-2)"],
-  ["#111111", "var(--text)"],
-  ["#000000", "var(--text)"],
-  ["black", "var(--text)"],
-  ["#444444", "var(--text-2)"],
-  ["#333333", "var(--text-2)"],
-  ["#333", "var(--text-2)"],
-  ["#999", "var(--border)"],
-  ["#e0c8db", "var(--accent-subtle)"],
-  ["#7a3d6e", "var(--accent)"],
-  ["#9370DB", "var(--accent)"],
-  ["#ECECFF", "var(--bg-subtle)"],
-  ["#aaaa33", "var(--accent)"],
-  ["#fff5ad", "var(--accent-subtle)"],
-];
-
 function applyThemeVariables(svg: string): string {
   let themedSvg = svg;
 
@@ -108,110 +104,78 @@ function applyThemeVariables(svg: string): string {
   return themedSvg;
 }
 
-function ensureDom() {
-  if (typeof globalThis.window !== "undefined" && typeof globalThis.document !== "undefined") {
-    return;
+function ensureSvgDocument(svg: string): string {
+  const trimmed = svg.trim();
+  const $ = cheerio.load(trimmed, {
+    xmlMode: true,
+    decodeEntities: false,
+  });
+  const root = $.root().children().toArray();
+
+  if (root.length !== 1) {
+    throw new Error("Kroki returned invalid SVG markup");
   }
 
-  const { window: jsdomWindow } = new JSDOM("<body></body>", {
-    pretendToBeVisual: true,
-  });
-
-  globalThis.window = jsdomWindow;
-  globalThis.document = jsdomWindow.document as typeof globalThis.document;
-  globalThis.HTMLElement = jsdomWindow.HTMLElement;
-  globalThis.SVGElement = jsdomWindow.SVGElement;
-  globalThis.Element = jsdomWindow.Element;
-  globalThis.Node = jsdomWindow.Node;
-  globalThis.DOMParser = jsdomWindow.DOMParser;
-  globalThis.XMLSerializer = jsdomWindow.XMLSerializer;
-  globalThis.CSSStyleSheet = jsdomWindow.CSSStyleSheet;
-  Object.defineProperty(globalThis, "navigator", {
-    value: jsdomWindow.navigator,
-    configurable: true,
-  });
-  Object.defineProperty(globalThis, "getComputedStyle", {
-    value: jsdomWindow.getComputedStyle.bind(jsdomWindow),
-    configurable: true,
-  });
-  if (!jsdomWindow.SVGElement.prototype.getBBox) {
-    jsdomWindow.SVGElement.prototype.getBBox = function getBBox() {
-      const text = this.textContent ?? "";
-      const width = Math.max(text.length * 8, 16);
-      return { x: 0, y: 0, width, height: 16 };
-    };
+  const rootElement = root[0];
+  if (rootElement.tagName !== "svg" || rootElement.type !== "tag") {
+    throw new Error("Kroki returned invalid SVG markup");
   }
 
-  if (!jsdomWindow.SVGElement.prototype.getComputedTextLength) {
-    jsdomWindow.SVGElement.prototype.getComputedTextLength = function getComputedTextLength() {
-      const text = this.textContent ?? "";
-      return Math.max(text.length * 8, 16);
-    };
+  const serialized = $.xml(rootElement);
+  const $validated = cheerio.load(serialized, {
+    xmlMode: true,
+    decodeEntities: false,
+  });
+  const svgElement = $validated("svg").first();
+
+  if (svgElement.length !== 1) {
+    throw new Error("Kroki returned invalid SVG markup");
   }
 
-  const domPurify = {
-    sanitize: (value: string) => value,
-    addHook: () => {},
-    removeHook: () => {},
-  };
-
-  globalThis.DOMPurify = domPurify;
-  jsdomWindow.DOMPurify = domPurify;
+  const classAttribute = svgElement.attr("class");
+  svgElement.attr("class", classAttribute ? `${classAttribute} ${CLASS_NAME}` : CLASS_NAME);
+  return $validated.xml(svgElement);
 }
 
-function ensureInitialized() {
-  if (isInitialized) return;
-
-  ensureDom();
-  mermaidModule ??= require("mermaid");
-  mermaidModule.default.initialize({
-    startOnLoad: false,
-    securityLevel: "strict",
-    theme: "base",
-    fontFamily: "Atkinson Hyperlegible Next, system-ui, sans-serif",
-    themeVariables: {
-      background: "#ffffff",
-      primaryColor: "#f7f7f7",
-      primaryTextColor: "#111111",
-      primaryBorderColor: "#e8e8e8",
-      secondaryColor: "#e0c8db",
-      secondaryTextColor: "#111111",
-      secondaryBorderColor: "#7a3d6e",
-      tertiaryColor: "#ffffff",
-      tertiaryTextColor: "#444444",
-      tertiaryBorderColor: "#e8e8e8",
-      lineColor: "#444444",
-      textColor: "#111111",
-      mainBkg: "#f7f7f7",
-      secondBkg: "#e0c8db",
-      tertiaryBkg: "#ffffff",
-      actorBkg: "#f7f7f7",
-      actorBorder: "#e8e8e8",
-      actorTextColor: "#111111",
-      actorLineColor: "#e8e8e8",
-      signalColor: "#111111",
-      signalTextColor: "#111111",
-      labelBoxBkgColor: "#f7f7f7",
-      labelBoxBorderColor: "#e8e8e8",
-      labelTextColor: "#111111",
-      loopTextColor: "#111111",
-      noteBkgColor: "#e0c8db",
-      noteBorderColor: "#7a3d6e",
-      noteTextColor: "#111111",
-      activationBorderColor: "#e8e8e8",
-      activationBkgColor: "#ffffff",
-      sequenceNumberColor: "#ffffff",
-      sequenceNumberTextColor: "#111111",
-    },
-  });
-  isInitialized = true;
+function applyThemeToSvg(svg: string): string {
+  return applyThemeVariables(svg)
+    .replace("<svg ", '<svg style="color-scheme: light dark;" ')
+    .replace("</svg>", `<style>${mermaidThemeOverrides}</style></svg>`);
 }
 
 export async function renderMermaidDiagram(source: string): Promise<string> {
-  ensureInitialized();
-  const id = `mermaid-diagram-${nextId++}`;
-  const { svg } = await mermaidModule!.default.render(id, source);
-  return applyThemeVariables(svg)
-    .replace("<svg ", '<svg class="mermaid-diagram" ')
-    .replace("</svg>", `<style>${mermaidThemeOverrides}</style></svg>`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(KROKI_BASE_URL, {
+      method: "POST",
+      headers: {
+        Accept: "image/svg+xml",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        diagram_source: source,
+        diagram_type: "mermaid",
+        output_format: "svg",
+      }),
+      signal: controller.signal,
+    });
+
+    const body = await response.text();
+    if (!response.ok) {
+      throw new Error(
+        `Kroki request failed with ${response.status} ${response.statusText}: ${body.slice(0, 200)}`,
+      );
+    }
+
+    return applyThemeToSvg(ensureSvgDocument(body));
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`Kroki request timed out after ${REQUEST_TIMEOUT_MS}ms`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
