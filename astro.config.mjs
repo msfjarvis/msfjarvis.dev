@@ -105,7 +105,7 @@ export default defineConfig({
           return {
             build: {
               rolldownOptions: {
-                external: [...existing, "@napi-rs/wasm-runtime"],
+                external: [...existing, "@napi-rs/wasm-runtime", "@bruits/satteri-wasm32-wasi"],
               },
             },
           };
