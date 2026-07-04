@@ -132,6 +132,12 @@ function concretizeMermaidSvgForFeeds(svgHtml: string): string {
     .replaceAll("var(--accent-subtle)", "#e0c8db");
 }
 
+function mermaidSvgToFeedImage(svgHtml: string): string {
+  const svg = concretizeMermaidSvgForFeeds(svgHtml);
+  const src = `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}`;
+  return `<img src="${src}" alt="Mermaid diagram" loading="lazy" decoding="async" />`;
+}
+
 function flattenMermaidLightboxes(html: string): string {
   const $ = load(html);
   $("[data-mermaid-modal-root]").each((_, root) => {
@@ -140,7 +146,7 @@ function flattenMermaidLightboxes(html: string): string {
     if (!svgHtml) {
       throw Error("Failed to extract Mermaid SVG for feeds, has the layout changed?");
     }
-    $root.replaceWith(concretizeMermaidSvgForFeeds(svgHtml));
+    $root.replaceWith(mermaidSvgToFeedImage(svgHtml));
   });
   $("script").remove();
   return $.html();
