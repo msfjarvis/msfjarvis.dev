@@ -2,8 +2,10 @@
 title: "Weeknotes: Week #27 (2026)"
 date: "2026-07-04T18:33:17.540Z"
 lastmod: "2026-07-04T18:33:17.540Z"
-summary: ""
-tags: []
+summary: "Lots of socialising, food, and getting back into reading"
+tags:
+  - reading
+  - food
 categories:
   - weeknotes
 draft: true
@@ -15,9 +17,13 @@ import Gallery from "../../../components/Gallery.astro";
 import chicken_meal_at_maravanthe from "./chicken-meal-at-maravanthe.webp";
 import chickpea_curry from "./chickpea-curry.webp";
 import clickhouse_ad from "./clickhouse-ad.webp";
+import cloudflare_security_rules_dark from "./cloudflare-security-rules-dark.webp";
+import cloudflare_security_rules_light from "./cloudflare-security-rules-light.webp";
 import curries_at_zaitoon from "./curries-at-zaitoon.webp";
 import da_moon from "./da-moon.webp";
 import egg_rice from "./egg-rice.webp";
+import fail2ban_dark from "./fail2ban-dark.webp";
+import fail2ban_light from "./fail2ban-light.webp";
 import faluda_at_zaitoon from "./faluda-at-zaitoon.webp";
 import kebabs_at_zaitoon from "./kebabs-at-zaitoon.webp";
 
@@ -28,6 +34,38 @@ import kebabs_at_zaitoon from "./kebabs-at-zaitoon.webp";
   small={true}
 />
 
+# Personal
+
+My health was finally good enough this week to return to the gym, felt nice to be back in the swing of things. Hopefully the weather does not screw me over and I can work up to my old schedule again.
+
+## Reading
+
+I've been ramping up my reading so I can hit my self imposed 24 books a year goal. I finished reading the 3rd book of the Chaos Walking trilogy, [Monsters of Men](https://en.wikipedia.org/wiki/Monsters_of_Men). On [Amogh](https://kat.bio)'s recommendation, I've now started the [Mother of Learning](https://en.wikipedia.org/wiki/Draft:Mother_of_Learning) series. The first book is pretty good so far! I'm also making an effort to [only read this using KOReader](https://androiddev.social/@msfjarvis/116851965538384554) since I've had it installed for a while now and never really spent time with it to find what reading settings work for me.
+
+## Socialising
+
+The group chat had planned a visit to [Zaitoon](https://thezaitoon.com/) last week but it kept getting put off for one reason or another, but we finally went this week. The food was pretty good, I'm not usually a mutton enjoyer but quite liked the curry we ordered.
+
+<Gallery>
+  <Figure
+    src={curries_at_zaitoon}
+    title="Everything in the main course was delicious"
+    alt="Restaurant table with a variety of naan, and two rich curries in white bowls"
+  />
+  <Figure
+    src={kebabs_at_zaitoon}
+    title="A little drier than I would've liked but still quite tasty"
+    alt="Plate of grilled kebabs with dipping sauces, fries, and onions"
+  />
+  <Figure
+    src={faluda_at_zaitoon}
+    title="We made a mess trying to split this four ways lol"
+    alt="Tall faluda dessert with ice cream, wafers, fruit, and a small paper umbrella"
+  />
+</Gallery>
+
+We decided to burn the calories by walking back home, and saw this ClickHouse ad on a billboard. I didn't know ClickHouse had motion like that. Funnily enough the very next day I saw this post on [Lobsters](https://lobste.rs) : ["ClickHouse is winning the observability wars"](https://matduggan.com/clickhouse-is-winning-the-observability-wars/).
+
 <Figure
   src={clickhouse_ad}
   title="Only in Bengaluru am I subjected to database companies advertising on the streets"
@@ -35,12 +73,47 @@ import kebabs_at_zaitoon from "./kebabs-at-zaitoon.webp";
   small={true}
 />
 
+[Sasikanth](https://www.sasikanth.dev/) was back in Bengaluru, he visited me on Saturday to catch up for a bit, then we went for lunch to the nearby [Maravanthe Coastal Cuisine](https://maravanthe-coastal-cuisine.eatwithnia.com/) with Yash tagging along.
+
 <Figure
   src={chicken_meal_at_maravanthe}
   title="Not the best meal we've had but you can't really beat their prices"
   alt="Chicken meal on a banana leaf with rice, curry, papad, and side dishes"
   small={true}
 />
+
+# Work
+
+Work was pretty quiet this week as we continued suffering through one access problem after another in our quest for new Flutter releases. Maybe next week 😔✊
+
+In our weekly sync with the US team I got the chance to talk about some LLM-driven performance improvements I had made to our native SDKs, bringing our meeting join times down by ~20%. I still consider it to be somewhat slower than I'd like, so work on this front will continue.
+
+We had a "minor" [incident](https://new.cloudflarestatus.com/incidents/4sfv79jntx9d) on Thursday night, our backend team spent multiple hours mitigating the fallout. Being on call in a company of this size is a scary prospect, and I'm always impressed with how incident response happens at Cloudflare.
+
+# Meta
+
+The site has received some upgrades! The image component now has the ability to have separate images for light/dark mode, which I've started using for UI screenshots, rejoice light mode users. There's now an unobtrusive ToC UI on the right of posts, and mermaid diagrams are now rendered using [Kroki](https://kroki.io) instead of the Mermaid JS library. Thanks to [Yash](https://yashgarg.dev) for the tip about Kroki!
+
+# Writing
+
+I published a new post on Monday about the changes I made last week to [keep AI crawlers off my Forgejo server](/posts/keeping-ai-crawlers-off-my-forgejo-server/). So far all the mitigations have borne fruit, but I still have a non-trivial number of the spammers reaching the origin and promptly getting banned.
+
+<Figure
+  src={cloudflare_security_rules_light}
+  srcDark={cloudflare_security_rules_dark}
+  alt="Cloudflare dashboard showing a series of security rules and the number of individual requests being handled by them"
+  title="I still don't know why those two repos specifically are so interesting to the crawlers"
+/>
+<Figure
+  src={fail2ban_light}
+  srcDark={fail2ban_dark}
+  alt="Grafana dashboard showing over 30 thousand bans issued by fail2ban"
+  title="The Cloudflare mitigations have taken care of most of the problems so far, I might take off the nuclear 404 -> ban rule from the server"
+/>
+
+# Cooking
+
+We cooked all nights we were at home, other than one where I fell asleep reading 😬. Nothing new this week, but Prime Day finally had a discount on a nutri blender Yash and I had been eyeing so there are many a blended cottage cheese recipes in our future.
 
 <Gallery>
   <Figure
@@ -52,23 +125,5 @@ import kebabs_at_zaitoon from "./kebabs-at-zaitoon.webp";
     src={chickpea_curry}
     title="TIL baking soda speeds up pressure cooking of chickpeas"
     alt="Steel plate with chapatis, a bowl of chickpea curry, and a glass of buttermilk"
-  />
-</Gallery>
-
-<Gallery>
-  <Figure
-    src={curries_at_zaitoon}
-    title=""
-    alt="Restaurant table with parottas, naan, and two rich curries in white bowls"
-  />
-  <Figure
-    src={kebabs_at_zaitoon}
-    title=""
-    alt="Plate of grilled kebabs with dipping sauces, fries, and onions"
-  />
-  <Figure
-    src={faluda_at_zaitoon}
-    title=""
-    alt="Tall faluda dessert with ice cream, wafers, fruit, and a small paper umbrella"
   />
 </Gallery>
