@@ -6,7 +6,6 @@
     "security:minimumReleaseAgeNpm",
     "github>msfjarvis/shared-workflows//renovate/automerge",
   ],
-  branchName: "renovate/dependency-updates",
   packageRules: [
     {
       matchManagers: ["npm"],
