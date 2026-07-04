@@ -113,7 +113,7 @@ export default defineConfig({
       },
     ],
     ssr: {
-      external: ["@resvg/resvg-js", "mermaid"],
+      external: ["@resvg/resvg-js"],
     },
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
