@@ -8,7 +8,7 @@ tags:
   - food
 categories:
   - weeknotes
-draft: true
+draft: false
 deleted: false
 ---
 
@@ -40,7 +40,7 @@ My health was finally good enough this week to return to the gym, felt nice to b
 
 ## Reading
 
-I've been ramping up my reading so I can hit my self imposed 24 books a year goal. I finished reading the 3rd book of the Chaos Walking trilogy, [Monsters of Men](https://en.wikipedia.org/wiki/Monsters_of_Men). On [Amogh](https://kat.bio)'s recommendation, I've now started the [Mother of Learning](https://en.wikipedia.org/wiki/Draft:Mother_of_Learning) series. The first book is pretty good so far! I'm also making an effort to [only read this using KOReader](https://androiddev.social/@msfjarvis/116851965538384554) since I've had it installed for a while now and never really spent time with it to find what reading settings work for me.
+I've been ramping up my reading so I can hit my self imposed 24 books a year goal. I finished reading the 3rd book of the Chaos Walking trilogy, [Monsters of Men](https://en.wikipedia.org/wiki/Monsters_of_Men). On [Amogh](https://kat.bio)'s recommendation, I've now started the [Mother of Learning](https://en.wikipedia.org/wiki/Draft:Mother_of_Learning) series. I'm 200 pages in already, the story's great and I've found myself choosing to climb into bed with the Kobo at times where I'd usually pull up Steam or a terminal. I'm also making a change and [reading this on KOReader](https://androiddev.social/@msfjarvis/116851965538384554) since I've had it installed for a while now and never really spent time with it to find what reading settings work for me.
 
 ## Socialising
 
@@ -64,7 +64,7 @@ The group chat had planned a visit to [Zaitoon](https://thezaitoon.com/) last we
   />
 </Gallery>
 
-We decided to burn the calories by walking back home, and saw this ClickHouse ad on a billboard. I didn't know ClickHouse had motion like that. Funnily enough the very next day I saw this post on [Lobsters](https://lobste.rs) : ["ClickHouse is winning the observability wars"](https://matduggan.com/clickhouse-is-winning-the-observability-wars/).
+We decided to burn the calories by walking back home, and came across a ClickHouse ad on a billboard, definitely "only in Bengaluru"! Funnily enough the very next day I saw this post on [Lobsters](https://lobste.rs) : ["ClickHouse is winning the observability wars"](https://matduggan.com/clickhouse-is-winning-the-observability-wars/).
 
 <Figure
   src={clickhouse_ad}
@@ -73,7 +73,7 @@ We decided to burn the calories by walking back home, and saw this ClickHouse ad
   small={true}
 />
 
-[Sasikanth](https://www.sasikanth.dev/) was back in Bengaluru, he visited me on Saturday to catch up for a bit, then we went for lunch to the nearby [Maravanthe Coastal Cuisine](https://maravanthe-coastal-cuisine.eatwithnia.com/) with Yash tagging along.
+[Sasikanth](https://www.sasikanth.dev/) is back in Bengaluru, he visited me on Saturday to catch up for a bit, then we went for lunch to the nearby [Maravanthe Coastal Cuisine](https://maravanthe-coastal-cuisine.eatwithnia.com/) with Yash tagging along.
 
 <Figure
   src={chicken_meal_at_maravanthe}
@@ -84,7 +84,7 @@ We decided to burn the calories by walking back home, and saw this ClickHouse ad
 
 # Work
 
-Work was pretty quiet this week as we continued suffering through one access problem after another in our quest for new Flutter releases. Maybe next week 😔✊
+Work was pretty quiet this week as we continued stumbling through one access problem after another trying to get new releases out for our Flutter SDK. Maybe next week 😔✊
 
 In our weekly sync with the US team I got the chance to talk about some LLM-driven performance improvements I had made to our native SDKs, bringing our meeting join times down by ~20%. I still consider it to be somewhat slower than I'd like, so work on this front will continue.
 
@@ -92,11 +92,11 @@ We had a "minor" [incident](https://new.cloudflarestatus.com/incidents/4sfv79jnt
 
 # Meta
 
-The site has received some upgrades! The image component now has the ability to have separate images for light/dark mode, which I've started using for UI screenshots, rejoice light mode users. There's now an unobtrusive ToC UI on the right of posts, and mermaid diagrams are now rendered using [Kroki](https://kroki.io) instead of the Mermaid JS library. Thanks to [Yash](https://yashgarg.dev) for the tip about Kroki!
+The site has received some upgrades! The image component now has the ability to have separate images for light/dark mode, which I've started using for UI screenshots; light mode users rejoice. There's now an unobtrusive ToC UI, and mermaid diagrams are now rendered using [Kroki](https://kroki.io) instead of the Mermaid JS library. Thanks to [Yash](https://yashgarg.dev) for the tip about Kroki!
 
 # Writing
 
-I published a new post on Monday about the changes I made last week to [keep AI crawlers off my Forgejo server](/posts/keeping-ai-crawlers-off-my-forgejo-server/). So far all the mitigations have borne fruit, but I still have a non-trivial number of the spammers reaching the origin and promptly getting banned.
+I published a new post on Monday about the changes I made last week to [keep AI crawlers off my Forgejo server](/posts/keeping-ai-crawlers-off-my-forgejo-server/). So far all the mitigations have borne fruit, and the number of IPs that need to be banned by my server has stopped going up. Since the penalty for the 404 ban lasts a full month, that graph will hold at that level until the end of July and hopefully never climb back up 🤞
 
 <Figure
   src={cloudflare_security_rules_light}
@@ -113,7 +113,7 @@ I published a new post on Monday about the changes I made last week to [keep AI 
 
 # Cooking
 
-We cooked all nights we were at home, other than one where I fell asleep reading 😬. Nothing new this week, but Prime Day finally had a discount on a nutri blender Yash and I had been eyeing so there are many a blended cottage cheese recipes in our future.
+We cooked all nights we were at home, other than one where I fell asleep reading 😬. Nothing new this week, but Prime Day finally had a discount on a blender Yash and I had been eyeing so there are many a blended cottage cheese recipes in our future.
 
 <Gallery>
   <Figure
@@ -127,3 +127,7 @@ We cooked all nights we were at home, other than one where I fell asleep reading
     alt="Steel plate with chapatis, a bowl of chickpea curry, and a glass of buttermilk"
   />
 </Gallery>
+
+<hr />
+
+Thanks for reading! You can keep up with these week notes via RSS, by sharing [this link](https://msfjarvis.dev/weeknotes/atom.xml) to your feed readers.
