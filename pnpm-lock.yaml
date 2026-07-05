@@ -21,8 +21,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.2
       '@sveltia/cms':
-        specifier: ^0.168.0
-        version: 0.168.0
+        specifier: ^0.170.0
+        version: 0.170.0
       astro:
         specifier: ^7.0.3
         version: 7.0.3(@astrojs/markdown-remark@7.2.0)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.0.1)(jiti@1.21.7)(yaml@2.9.0)
@@ -1529,8 +1529,8 @@ packages:
   '@speed-highlight/core@1.2.17':
     resolution: {integrity: sha512-Z92FwKpCtfaW1V0jTU/fh3QzYEZN8wDwrzRIBoADCJfn4mJCNcJN/XegifX7BDrQ8/h9Xh/JnbyMchL0FqXrkg==}
 
-  '@sveltia/cms@0.168.0':
-    resolution: {integrity: sha512-8ADEu9dpveL403BibDWlxnkXzLbIUNAdktQ3aXZx+3l45g5KP0g//Q/udkQHlYnltXGuG3UUbwHJ5viLBd2lvA==}
+  '@sveltia/cms@0.170.0':
+    resolution: {integrity: sha512-2bGgc5YT67YM+p0w7UeZaOgpw//9spHvlA2B+88NJPZRjucGbw+X8Frkrpi6f9os5dyq9Z9/RF+T/TcbxxfrIA==}
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -4649,7 +4649,7 @@ snapshots:
 
   '@speed-highlight/core@1.2.17': {}
 
-  '@sveltia/cms@0.168.0': {}
+  '@sveltia/cms@0.170.0': {}
 
   '@tybys/wasm-util@0.10.3':
     dependencies:
