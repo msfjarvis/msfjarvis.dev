@@ -13,14 +13,25 @@ const isActive = (path: string, exact = false): boolean =>
 <header class="site-header">
   <nav>
     <a href="/" class="site-name">{SITE_TITLE}</a>
-    <div class="nav-links">
-      {navLinks.map(link => (
-        <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
-      ))}
+    <div class="nav-actions">
+      <div class="nav-links">
+        {navLinks.map(link => (
+          <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
+        ))}
+      </div>
+      <pagefind-modal-trigger compact placeholder="Search"></pagefind-modal-trigger>
     </div>
   </nav>
 </header>
 
 <style>
   /* Scoped active-link state only — layout and typography live in global.css */
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
 </style>
