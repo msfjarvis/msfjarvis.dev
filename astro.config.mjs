@@ -8,6 +8,7 @@ import cloudflare from "@astrojs/cloudflare";
 import { defineConfig } from "astro/config";
 import { unified } from "@astrojs/markdown-remark";
 import icon from "astro-iconset";
+import pagefind from "./src/integrations/pagefind.ts";
 import remarkGfm from "remark-gfm";
 import { remarkAlert } from "remark-github-blockquote-alert";
 
@@ -36,6 +37,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
+    pagefind(),
     icon({
       include: {
         "simple-icons": ["mastodon", "forgejo"],
