@@ -49,7 +49,7 @@
             go
             hyperlink
             libwebp
-            nodejs
+            nodejs_latest
             pagefind
           ];
           commands = [
