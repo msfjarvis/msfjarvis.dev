@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import PagefindConfig from '../components/PagefindConfig.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import type { AlternateFeed } from "../lib/feed.ts";
 
@@ -48,10 +49,12 @@ const {
       <a class="u-url" href="https://androiddev.social/@msfjarvis" rel="me"></a>
       <a class="u-uid" href="https://msfjarvis.dev"></a>
     </div>
+    <PagefindConfig />
     <Header />
     <main>
       <slot />
     </main>
+    <pagefind-modal reset-on-close></pagefind-modal>
     <Footer />
   </body>
 </html>
