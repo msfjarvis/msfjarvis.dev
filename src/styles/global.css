@@ -80,6 +80,39 @@
     sans-serif;
 
   --max-width: 952px;
+
+  --pf-text: var(--text);
+  --pf-text-secondary: var(--text-2);
+  --pf-text-muted: var(--text-3);
+  --pf-background: var(--bg);
+  --pf-border: var(--border);
+  --pf-border-focus: var(--accent);
+  --pf-skeleton: var(--bg-subtle);
+  --pf-skeleton-shine: color-mix(in srgb, var(--bg-subtle) 80%, var(--bg) 20%);
+  --pf-hover: var(--bg-subtle);
+  --pf-mark: var(--text);
+  --pf-scroll-shadow: rgba(0, 0, 0, 0.08);
+  --pf-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --pf-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.2);
+  --pf-outline-focus: var(--accent);
+  --pf-outline-width: 2px;
+  --pf-outline-offset: 2px;
+  --pf-font: var(--font-sans);
+  --pf-input-height: 2.75rem;
+  --pf-input-font-size: 1rem;
+  --pf-summary-font-size: 0.875rem;
+  --pf-result-title-font-size: 1rem;
+  --pf-result-excerpt-font-size: 0.95rem;
+  --pf-border-radius: 8px;
+  --pf-modal-backdrop: rgba(0, 0, 0, 0.48);
+  --pf-modal-max-width: 44rem;
+  --pf-modal-max-height: min(80dvh, 48rem);
+  --pf-modal-top: 10dvh;
+  --pf-searchbox-max-width: 30rem;
+  --pf-searchbox-dropdown-max-height: 20rem;
+  --pf-dropdown-max-height: 18rem;
+  --pf-dropdown-z-index: 9999;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -92,6 +125,12 @@
     --text-3: #888888;
     --accent: #c084b8;
     --accent-subtle: #4a2a45;
+
+    --pf-scroll-shadow: rgba(255, 255, 255, 0.08);
+    --pf-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --pf-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+    --pf-modal-backdrop: rgba(0, 0, 0, 0.64);
   }
 }
 
@@ -288,4 +327,37 @@ th {
 .site-header .nav-links a:hover,
 .site-header .nav-links a.active {
   color: var(--accent);
+}
+
+/* ── Pagefind ── */
+pagefind-modal-trigger {
+  display: inline-flex;
+}
+
+pagefind-modal-trigger::part(button) {
+  font-family: var(--font-mono);
+  font-size: 0.967rem;
+  color: var(--text-2);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+pagefind-modal-trigger::part(button):hover {
+  color: var(--accent);
+  border-color: var(--accent-subtle);
+}
+
+pagefind-modal::part(container) {
+  border-radius: 12px;
+}
+
+pagefind-modal::part(header),
+pagefind-modal::part(body),
+pagefind-modal::part(footer) {
+  font-family: var(--font-sans);
+}
+
+pagefind-results::part(link) {
+  border-bottom: none;
 }

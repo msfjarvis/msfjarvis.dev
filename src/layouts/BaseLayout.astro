@@ -23,6 +23,22 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} alternateFeeds={alternateFeeds} />
+    <script is:inline>
+      const applyPagefindTheme = (isDark) => {
+        document.documentElement.toggleAttribute("data-pf-theme", isDark);
+        if (isDark) {
+          document.documentElement.setAttribute("data-pf-theme", "dark");
+          document.body?.setAttribute("data-pf-theme", "dark");
+        } else {
+          document.documentElement.removeAttribute("data-pf-theme");
+          document.body?.removeAttribute("data-pf-theme");
+        }
+      };
+
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      applyPagefindTheme(mediaQuery.matches);
+      mediaQuery.addEventListener("change", (event) => applyPagefindTheme(event.matches));
+    </script>
   </head>
   <body>
     <div class="h-card" style="display: none;">
