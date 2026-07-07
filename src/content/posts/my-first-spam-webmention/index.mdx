@@ -1,16 +1,16 @@
 ---
-title: "My first spam Webmention"
-date: "2026-06-30T19:13:10.868Z"
-lastmod: "2026-06-30T19:13:10.868Z"
-summary: "Finally being forced to build moderation capabilities into my Webmentions server"
+title: My first spam Webmention
+date: 2026-07-07T16:09:00+05:30
+lastmod: 2026-07-07T16:09:00+05:30
+summary: Finally being forced to build moderation capabilities into my Webmentions server
 tags:
   - spam
   - webmentions
   - bluesky
+draft: false
+deleted: false
 categories:
   - meta
-draft: true
-deleted: false
 ---
 
 import Figure from "../../../components/Figure.astro";
@@ -21,7 +21,7 @@ import pages_with_webmentions_light from "./pages-with-webmentions-light.webp";
 import received_webmentions_dark from "./received-webmentions-dark.webp";
 import received_webmentions_light from "./received-webmentions-light.webp";
 
-I finally got my first spam Webmention on this site!
+I finally got my first spam Webmention on this site
 
 <Figure
   src={bsky_spam_post_light}
@@ -30,11 +30,11 @@ I finally got my first spam Webmention on this site!
   alt="Screenshot of a Bluesky spam post asking the reader to visit a pinned page."
 />
 
-I chanced across this on my latest weeknote, which seems to have already been deleted by Bluesky moderation or the poster by the time I got around to seeing it. I have been coasting along for a few months now without any moderation set up to easily moderate Webmentions, but I clearly should be paying more attention. This is far from being bad for spam standards, but I'd like to be prepared for the eventuality of something really terrible showing up in one of these.
+I chanced across this on one of my weeknotes, which seems to have already been deleted by Bluesky moderation or the poster by the time I got around to seeing it. I have been coasting along for a few months now without any moderation set up to easily moderate Webmentions, but I clearly should be paying more attention. This is far from being bad as far as spam goes, but I'd like to be prepared for the eventuality of something really terrible showing up in one of these.
 
-So far I had been resorting to manually running queries in the Cloudflare dashboard's [D1 SQL Explorer](https://developers.cloudflare.com/d1/get-started/#4-run-a-query-against-your-d1-database) but that's not quick enough for the potential future where someone ends up posting something worse into one of my posts.
+So far I had been resorting to manually running queries in the Cloudflare dashboard's [D1 SQL Explorer](https://developers.cloudflare.com/d1/get-started/#4-run-a-query-against-your-d1-database), but that's too slow and complex to serve as an actual moderation tool.
 
-To that effect I now have a very brutalist dashboard being served by the Webmentions server (code [here](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/webmentions-server)) which has a list of all pages that have received Webmentions. To mask my inability to do good web design it is styled using the [Oat](https://oat.ink) CSS library.
+To that effect I now have a very brutalist dashboard being served by the Webmentions server (code [here](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/webmentions-server)) which has a list of all pages that have received Webmentions. To mask my inability to do good web design, it is styled using the [Oat](https://oat.ink) CSS library like all my non-blog web projects. I find the minimalist aesthetic of Oat quite nice and it rarely needs any significant changes to a semantically laid out page when you add it.  
 
 <Figure
   src={pages_with_webmentions_light}
@@ -42,7 +42,7 @@ To that effect I now have a very brutalist dashboard being served by the Webment
   alt="Webmentions admin page listing site pages with mention counts and verification times."
 />
 
-Clicking on one of these links takes you to this equally offensive UI which could be reduced down to a list with delete buttons and still serve exactly the same purpose. Not exactly rocket science here.
+Clicking on one of these links takes you to this equally terrible UI which could be reduced down to a list with delete buttons and still serve exactly the same purpose. Not exactly rocket science here.
 
 <Figure
   src={received_webmentions_light}
@@ -51,3 +51,5 @@ Clicking on one of these links takes you to this equally offensive UI which coul
 />
 
 I didn't want to figure out passwords and bearer auth, so the server does not attempt to do any authentication and just relies on Cloudflare Access to guard access to the UI and the endpoints this uses.
+
+Hopefully I never have to use it!
