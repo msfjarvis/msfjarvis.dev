@@ -315,8 +315,9 @@ The global `/rss.xml` feed includes only the `posts` collection. Exclusion rules
 This is a deliberate change from Hugo, where weeknotes lived in the `posts` section and appeared in the global feed. Moving them to their own collection removes them from the global feed cleanly.
 
 **Per-collection feeds:**
-| Feed | URL | Collections included |
-|---|---|---|
-| Global | `/rss.xml` | `posts` only |
-| Notes | `/notes/rss.xml` | `notes` only |
-| Weeknotes | `/weeknotes/rss.xml` | `weeknotes` only |
+
+| Feed      | URL                  | Collections included |
+| --------- | -------------------- | -------------------- |
+| Global    | `/rss.xml`           | `posts` only         |
+| Notes     | `/notes/rss.xml`     | `notes` only         |
+| Weeknotes | `/weeknotes/rss.xml` | `weeknotes` only     |

@@ -115,10 +115,7 @@ export default async (request: Request, context: Context) => {
     // Here's the JSON object we got earlier
     return context.json({
       subject: "acct:msfjarvis@fantastic.earth",
-      aliases: [
-        "https://fantastic.earth/@msfjarvis",
-        "https://fantastic.earth/users/msfjarvis",
-      ],
+      aliases: ["https://fantastic.earth/@msfjarvis", "https://fantastic.earth/users/msfjarvis"],
       links: [
         {
           rel: "http://webfinger.net/rel/profile-page",

@@ -49,6 +49,7 @@ Use Pagefind’s predefined Component UI, not a hand-rolled search implementatio
 ### 1. Prebuilt modal + dedicated search page built from predefined components (recommended)
 
 Use:
+
 - a local Pagefind integration in this repo, based on the `astro-pagefind` build/dev wiring
 - a local `PagefindConfig.astro` patterned after `astro-pagefind`
 - `<pagefind-modal-trigger>` in the header
@@ -56,12 +57,14 @@ Use:
 - `/search` page using predefined Pagefind components
 
 Pros:
+
 - Minimal custom JS
 - Fastest path to requested UX
 - Good accessibility defaults
 - Shared visual language between modal and full page
 
 Cons:
+
 - Markup control is more constrained than a fully custom shell
 
 ### 2. Custom modal layout using Pagefind building blocks
@@ -69,9 +72,11 @@ Cons:
 Use `<pagefind-input>`, `<pagefind-summary>`, `<pagefind-results>`, etc. inside a custom modal structure.
 
 Pros:
+
 - More control over layout and exact markup
 
 Cons:
+
 - More code, more moving pieces, higher maintenance burden
 - Easy to regress keyboard/focus/accessibility behavior relative to the stock modal
 
@@ -80,9 +85,11 @@ Cons:
 Use Pagefind APIs programmatically and build all UI and interaction ourselves.
 
 Pros:
+
 - Maximum flexibility
 
 Cons:
+
 - Overkill for this site
 - Highest complexity and risk
 - Not justified by current requirements
@@ -94,6 +101,7 @@ Cons:
 Add direct Pagefind support to the project using a local Astro integration.
 
 Intent:
+
 - build the Pagefind index as part of Astro builds
 - serve previously built `/pagefind/` assets in dev mode, following the working parts of `../astro-pagefind`
 - avoid the compatibility problems of depending on the published `astro-pagefind` package with this repo’s Astro/server setup
@@ -103,6 +111,7 @@ Intent:
 Mount shared Pagefind configuration at the layout level.
 
 Expected changes:
+
 - `src/components/PagefindConfig.astro`
   - local wrapper patterned after `../astro-pagefind/packages/astro-pagefind/src/components/PagefindConfig.astro`
   - imports `@pagefind/component-ui` and its CSS
@@ -119,11 +128,13 @@ Expected changes:
 Update `src/components/Header.astro` to add a compact search trigger in the nav.
 
 Intent:
+
 - preserve current nav structure and spacing
 - make the search control feel native to the existing header
 - use a compact button-like control, not a permanent inline input
 
 Preferred primitive:
+
 - `<pagefind-modal-trigger compact ...>` or equivalent predefined trigger configuration if styling is cleaner with non-compact text hidden via CSS
 
 ### Dedicated search page
@@ -131,11 +142,13 @@ Preferred primitive:
 Create `src/pages/search.astro`.
 
 Intent:
+
 - direct navigable destination for search
 - fallback/stable page for users who prefer a full-page search surface
 - reuse Pagefind presentation rather than inventing a second UI model
 
 Likely structure:
+
 - page title + short intro
 - shared Pagefind config/instance
 - predefined Pagefind components composing a full-page search surface
@@ -160,6 +173,7 @@ Map Pagefind variables to site variables:
 ### Modal tuning
 
 Adjust:
+
 - modal max width / height
 - top offset on larger screens
 - backdrop color to fit site tone
@@ -170,6 +184,7 @@ Adjust:
 The header search trigger should visually read like a native nav control.
 
 Likely adjustments:
+
 - remove stock button feel if needed
 - align with existing nav font sizing
 - use border/background tokens matching the rest of the site
@@ -178,12 +193,14 @@ Likely adjustments:
 ### Result presentation
 
 Use light overrides for:
+
 - result title spacing
 - excerpt spacing and line length
 - keyboard hint/footer polish if visible
 - dark mode parity with the existing `prefers-color-scheme: dark` token set
 
 Constraint:
+
 - prefer CSS variables first, then narrowly-scoped overrides only where Pagefind defaults do not match the site
 
 ## Interaction model
@@ -216,9 +233,11 @@ Constraint:
 ### Missing index in local dev
 
 Known limitation from Pagefind model:
+
 - search results may not be available in local dev until the site has been built and indexed at least once
 
 Decision:
+
 - accept this behavior
 - only document in code/comments if a comment is necessary for maintainers
 - do not add workaround complexity unless verification proves it is needed here
@@ -235,10 +254,12 @@ Decision:
   - add direct dependencies needed for Pagefind (`pagefind`, `@pagefind/component-ui`, and `sirv` if the local integration uses the same dev-server middleware pattern)
 - `astro.config.mjs`
   - register a local `pagefind()` integration
-+- `src/integrations/pagefind.ts`
-+  - local Astro integration adapted from `../astro-pagefind/packages/astro-pagefind/src/pagefind.ts`
-+- `src/components/PagefindConfig.astro`
-+  - local wrapper adapted from `../astro-pagefind/packages/astro-pagefind/src/components/PagefindConfig.astro`
+    +- `src/integrations/pagefind.ts`
+
+* - local Astro integration adapted from `../astro-pagefind/packages/astro-pagefind/src/pagefind.ts`
+    +- `src/components/PagefindConfig.astro`
+* - local wrapper adapted from `../astro-pagefind/packages/astro-pagefind/src/components/PagefindConfig.astro`
+
 - `src/components/BaseHead.astro`
   - wire shared Pagefind component assets if required
 - `src/layouts/BaseLayout.astro`
@@ -252,6 +273,7 @@ Decision:
   - add `--pf-*` theme variables and minimal overrides
 
 Potentially touched depending on final implementation details:
+
 - nav link data if a visible `/search` link is also desired later (not required by current decision)
 
 ## Verification plan
@@ -292,6 +314,7 @@ Run enough verification to prove both build-time and UI wiring work.
 ## Implementation recommendation to carry into planning
 
 Implement the smallest viable version first:
+
 1. add the local Pagefind integration and shared config
 2. get a stock modal trigger + modal working globally
 3. add `/search` page with predefined components
