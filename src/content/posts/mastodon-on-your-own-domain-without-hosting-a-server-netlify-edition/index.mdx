@@ -34,30 +34,30 @@ Maarten did however note that since they're relying on static hosting, they're u
 
 I wanted to also set up something like this, but without the limitation Maarten had run into. Since my website runs on Netlify, I decided to try out using an [Edge Function](https://docs.netlify.com/edge-functions/overview/) to build this up.
 
-Similar to Maarten, I first obtained my current Fediverse identity from the Mastodon server I am on: [androiddev.social](https://androiddev.social) (incredible props to [Mikhail](https://androiddev.social/@friendlymike) for making it a reality).
+Similar to Maarten, I first obtained my current Fediverse identity from the Mastodon server I am on: [fantastic.earth](https://fantastic.earth).
 
 ```json
-➜ curl -s https://androiddev.social/.well-known/webfinger?resource=acct:msfjarvis@androiddev.social | jq .
+➜ curl -s https://fantastic.earth/.well-known/webfinger?resource=acct:msfjarvis@fantastic.earth | jq .
 {
-  "subject": "acct:msfjarvis@androiddev.social",
+  "subject": "acct:msfjarvis@fantastic.earth",
   "aliases": [
-    "https://androiddev.social/@msfjarvis",
-    "https://androiddev.social/users/msfjarvis"
+    "https://fantastic.earth/@msfjarvis",
+    "https://fantastic.earth/users/msfjarvis"
   ],
   "links": [
     {
       "rel": "http://webfinger.net/rel/profile-page",
       "type": "text/html",
-      "href": "https://androiddev.social/@msfjarvis"
+      "href": "https://fantastic.earth/@msfjarvis"
     },
     {
       "rel": "self",
       "type": "application/activity+json",
-      "href": "https://androiddev.social/users/msfjarvis"
+      "href": "https://fantastic.earth/users/msfjarvis"
     },
     {
       "rel": "http://ostatus.org/schema/1.0/subscribe",
-      "template": "https://androiddev.social/authorize_interaction?uri={uri}"
+      "template": "https://fantastic.earth/authorize_interaction?uri={uri}"
     }
   ]
 }
@@ -114,25 +114,25 @@ export default async (request: Request, context: Context) => {
   } else {
     // Here's the JSON object we got earlier
     return context.json({
-      subject: "acct:msfjarvis@androiddev.social",
+      subject: "acct:msfjarvis@fantastic.earth",
       aliases: [
-        "https://androiddev.social/@msfjarvis",
-        "https://androiddev.social/users/msfjarvis",
+        "https://fantastic.earth/@msfjarvis",
+        "https://fantastic.earth/users/msfjarvis",
       ],
       links: [
         {
           rel: "http://webfinger.net/rel/profile-page",
           type: "text/html",
-          href: "https://androiddev.social/@msfjarvis",
+          href: "https://fantastic.earth/@msfjarvis",
         },
         {
           rel: "self",
           type: "application/activity+json",
-          href: "https://androiddev.social/users/msfjarvis",
+          href: "https://fantastic.earth/users/msfjarvis",
         },
         {
           rel: "http://ostatus.org/schema/1.0/subscribe",
-          template: "https://androiddev.social/authorize_interaction?uri={uri}",
+          template: "https://fantastic.earth/authorize_interaction?uri={uri}",
         },
       ],
     });
@@ -155,25 +155,25 @@ And that's it! You can test it out as below to verify things work as expected.
 
 ➜ curl -s https://msfjarvis.dev/.well-known/webfinger?resource=acct:harsh@msfjarvis.dev | jq .
 {
-  "subject": "acct:msfjarvis@androiddev.social",
+  "subject": "acct:msfjarvis@fantastic.earth",
   "aliases": [
-    "https://androiddev.social/@msfjarvis",
-    "https://androiddev.social/users/msfjarvis"
+    "https://fantastic.earth/@msfjarvis",
+    "https://fantastic.earth/users/msfjarvis"
   ],
   "links": [
     {
       "rel": "http://webfinger.net/rel/profile-page",
       "type": "text/html",
-      "href": "https://androiddev.social/@msfjarvis"
+      "href": "https://fantastic.earth/@msfjarvis"
     },
     {
       "rel": "self",
       "type": "application/activity+json",
-      "href": "https://androiddev.social/users/msfjarvis"
+      "href": "https://fantastic.earth/users/msfjarvis"
     },
     {
       "rel": "http://ostatus.org/schema/1.0/subscribe",
-      "template": "https://androiddev.social/authorize_interaction?uri={uri}"
+      "template": "https://fantastic.earth/authorize_interaction?uri={uri}"
     }
   ]
 }

@@ -8,7 +8,7 @@ export interface ProfileLink {
 export const profileLinks: ProfileLink[] = [
   {
     label: "mastodon",
-    href: "https://androiddev.social/@msfjarvis",
+    href: "https://fantastic.earth/@msfjarvis",
     description: "follow me on the fediverse",
     icon: "simple-icons:mastodon",
   },
