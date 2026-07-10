@@ -107,9 +107,13 @@ import { SITE_URL } from "../consts";
 
 			try {
 				const res = await fetch(`/api/webmentions.json?target=${encodeURIComponent(pageUrl)}`);
-				const data = await res.json();
+				const data = await res.json() as any;
 
-				if (!data.mentions || data.mentions.length === 0) {
+				const isSuccess = (data: any): data is { mentions: Mention[] } => {
+				  return !! data.mentions;
+				}
+
+				if (!isSuccess(data) || data.mentions.length === 0) {
 					container.innerHTML = '<p>No webmentions yet. <a href="https://indieweb.org/Webmention">What are webmentions?</a></p>';
 					return;
 				}
