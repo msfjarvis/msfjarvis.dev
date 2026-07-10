@@ -12,7 +12,7 @@
     "astro": "astro",
     "migrate": "node scripts/migrate-hugo.mjs",
     "generate-redirects": "node scripts/generate-redirects.mjs",
-    "generate-types": "wrangler types",
+    "generate-types": "wrangler types && oxfmt worker-configuration.d.ts",
     "new:post": "node scripts/new-entry.mjs posts",
     "new:note": "node scripts/new-entry.mjs notes",
     "new:weeknote": "node scripts/new-entry.mjs weeknotes",
