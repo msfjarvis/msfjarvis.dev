@@ -1,0 +1,140 @@
+---
+title: "Weeknotes: Week #28 (2026)"
+date: "2026-07-11T07:13:15.942Z"
+lastmod: "2026-07-11T07:13:15.942Z"
+summary: "30th weeknote in a row baby!"
+tags:
+  - reading
+  - movies
+  - cooking
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import instagram_egg_curry from "./instagram-egg-curry.webp";
+import truffles_1 from "./truffles-1.webp";
+import truffles_2 from "./truffles-2.webp";
+import truffles_3 from "./truffles-3.webp";
+import veggie_pasta from "./veggie-pasta.webp";
+import mayank_meme from "./mayank-meme.webp";
+
+# Personal
+
+Relatively quiet week for me as I mostly focused on getting back to exercising which has been going well. I occupied my days mostly with reading and taking evening naps which is making me feel old in a way I haven't felt before 😄.
+
+## Socialising
+
+Mayank is back home, and all week we've been making plans for one thing or another in the group chat. Genuinely this is how it feels when he hits us with the bombastic side eye while we're setting up times for basically one movie a week lol
+
+<Figure
+  src={mayank_meme}
+  title="Don't worry buddy we do miss you"
+  small={true}
+  alt="A meme of a wojak standing alone in the corner at a party while other people around him are having fun and mingling."
+/>
+
+Speaking of movies, this week we watched [Baby Do Die Do](https://www.imdb.com/title/tt37544992/). Pretty generic plot but the movie had some good moments, enough for a one time watch but nothing really noteworthy. It was quite late by the time we returned from there so dinner was at Truffles.
+
+<Gallery>
+    <Figure
+        src={truffles_1}
+        title="These were a little too oily, wouldn't recommend."
+        alt="Chicken popcorn with dipping sauce on a black platter."
+    />
+
+    <Figure
+        src={truffles_2}
+        title="This chicken club sandwich was awesome, everyone liked it."
+        alt="Grilled sandwich and crisps on a plate, with chicken popcorn behind."
+    />
+
+    <Figure
+        src={truffles_3}
+        title="The peri peri chicken burger was also great, would recommend."
+        alt="Burger and crisps beside fried chicken popcorn with dipping sauce."
+    />
+
+</Gallery>
+
+## Reading
+
+I've been very, very engrossed in the Mother of Learning series, so I've been trying to steal time for reading at pretty much every chance I get. Reading in bed has become my new favorite pastime, and also led to some ill-timed naps. All in all I'm reasonably confident about the 24 books a year reading goal now which was looking a little rough a couple of months ago.
+
+The office was shockingly empty on Wednesday, so I stayed back for an extra 2 hours just to read in comfort and managed to [finish Mother of Learning: ARC 1](https://bookwyrm.social/user/msfjarvis/generatednote/11975508). No spoilers, but the ending was a crazy cliffhanger to leave the reader with. I can't imagine the anxiety of being a web series reader when this story was being written live and having to wait weeks to know what happened to the protagonist.
+
+Thankfully, I can just flip over to the next book, which [I did](https://bookwyrm.social/user/msfjarvis/generatednote/11989593), and it's just as great.
+
+## Fediverse migrations
+
+I had to deal with some data migrations this week as I switched to [Abhinav's Mastodon server](https://fantastic.earth), away from [androiddev.social](https://androiddev.social) which could be shutting down in December, and I'd rather deal with the associated pains sooner than later. Abhinav runs a [bunch of services](https://stic.earth) at cost for friends at family, and I'm grateful he helped me out here.
+
+That said, my new Fediverse account is at [msfjarvis@fantastic.earth](https://fantastic.earth/@msfjarvis)! I have my old post history saved which I _might_ put up as a static archive somewhere so I can replace the links to my old posts, but that's a future yak to shave.
+
+I also tried migrating out of [Bookwyrm](https://bookwyrm.social) to Abhinav's server, but ran into a lot of problems with missing books on this server failing the user import. I'm slowly adding the missing books so I can get my user import done, but it has [been rather frustrating](https://fantastic.earth/@msfjarvis/116896699738136166), so I might stick it out with the old server after all.
+
+One might wonder why I bother dealing with so much Fediverse bullshit when so much of it is such a pain in the ass? Well, the Fediverse has Odin.
+
+<blockquote
+  lang="en"
+  cite="https://infosec.exchange/@0xabad1dea/116900098449254586"
+  data-source="fediverse"
+>
+  <p>
+    Odin got a bit hyper this morning when he realized that mommy had *not* snuck out the door at
+    the crack of dawn this time
+  </p>
+  <figure>
+    <img
+      src="https://media.infosec.exchange/infosec.exchange/media_attachments/files/116/900/098/232/693/858/original/306f8447de78adee.jpeg"
+      width="416"
+      height="554"
+      alt="Odin the Newfie full of love, wonder and drool"
+      loading="lazy"
+    />
+  </figure>
+  <footer>
+    — abadidea (@0xabad1dea@infosec.exchange){" "}
+    <a href="https://infosec.exchange/@0xabad1dea/116900098449254586">
+      <time dateTime="2026-07-11T07:12:23.000Z">7/11/2026, 12:42:23 PM</time>
+    </a>
+  </footer>
+</blockquote>
+
+# Work
+
+With two incidents in quick succession we've ended up with a deployment freeze and a big list of hardening work to prevent such problems in the future. I'm planning to get involved with the backend side of things to help along as the SDK workload has drastically reduced with all our major roadmap items already shipped out.
+
+# Meta
+
+I resisted the urge to do too much on the site, only working to restore the search feature that I hadn't ported over from the old Hugo site. It's still built on [Pagefind](https://pagefind.app), but I've styled the UI to match the site a bit better.
+
+On Friday night I accidentally deployed my drafts site to production while working on the site locally and didn't realize until I saw notifications from my RSS reader picking up duplicate posts. Sorry again for everyone else who got spammed by that mistake 🙇
+
+## Writing
+
+Shockingly productive week on the writing front! I wrote [about a spam Webmention](https://msfjarvis.dev/posts/my-first-spam-webmention/) I received some time ago and the moderation UI I had to build to combat future instances, and a [reply post](https://msfjarvis.dev/posts/julyreply-re-stuck-in-draft/) as part of the [JulyReply blogging event](https://robertbirming.com/julyreply-2026-blog-connecting/). I also had to write a small [apology post](https://msfjarvis.dev/posts/apologies-for-the-rss-mishap/) for the bit of spam I spread via my RSS mishap.
+
+# Cooking
+
+Yash's stash of Instagram recipes continues to keep us fed. No blender-based recipes yet, will definitely try to find one soon™.
+
+<Gallery>
+  <Figure
+    src={instagram_egg_curry}
+    title="We flubbed like 4 separate steps on this recipe and it still came out delicious, definitely a candidate for the permanent rotation."
+    alt="Egg curry served over rice in a metal bowl."
+  />
+  <Figure
+    src={veggie_pasta}
+    title="Veggies, spices, some sauces and a carb in a pan. Unbeatable combination every single time."
+    alt="Penne pasta with vegetables in a metal bowl."
+  />
+</Gallery>
+
+<hr />
+
+Thanks for reading! You can keep up with these week notes via RSS, by sharing [this link](https://msfjarvis.dev/weeknotes/atom.xml) to your feed readers.
