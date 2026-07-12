@@ -1,0 +1,150 @@
+---
+import { fetchMastodonStatus } from "../lib/mastodon.ts";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+const status = await fetchMastodonStatus({ url });
+const displayTimestamp = new Intl.DateTimeFormat("en-GB", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "UTC",
+}).format(new Date(status.createdAt));
+---
+
+<blockquote class="mastodon-post" lang="en" cite={status.canonicalUrl} data-source="fediverse">
+  <header class="mastodon-post__author">
+    <span class="mastodon-post__name">{status.author.displayName}</span>
+    <span class="mastodon-post__account">{status.author.account}</span>
+  </header>
+
+  <div class="mastodon-post__content">
+    {status.paragraphs.map((paragraph) => (
+      <p>
+        {paragraph.split("\n").map((line, index) => (
+          <>{index > 0 && <br />}{line}</>
+        ))}
+      </p>
+    ))}
+  </div>
+
+  {status.images.map((image) => (
+    <figure class="mastodon-post__media">
+      <img
+        src={image.url}
+        alt={image.alt}
+        loading="lazy"
+      />
+    </figure>
+  ))}
+
+  {status.attachments.map((attachment) => (
+    <p class="mastodon-post__attachment"><a href={attachment.url}>{attachment.label}</a></p>
+  ))}
+
+  <footer class="mastodon-post__footer">
+    <time datetime={status.createdAt}>{displayTimestamp}</time>
+    <a href={status.canonicalUrl}>View original post <span aria-hidden="true">↗</span></a>
+  </footer>
+</blockquote>
+
+<style>
+  .mastodon-post {
+    margin: 1.75rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 0.35rem;
+    background: var(--bg);
+    color: var(--text);
+    box-shadow: 0.35rem 0.35rem 0 var(--accent-subtle);
+  }
+
+  .mastodon-post::before {
+    content: "mastodon";
+    display: block;
+    margin: -1.25rem -1.25rem 1.25rem;
+    padding: 0.6rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-subtle);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .mastodon-post__author {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.75rem;
+    align-items: baseline;
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .mastodon-post__name {
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+
+  .mastodon-post__account {
+    color: var(--text-2);
+  }
+
+  .mastodon-post__content {
+    margin-top: 1.25rem;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .mastodon-post__content p:last-child,
+  .mastodon-post__attachment:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .mastodon-post__media {
+    margin: 1.25rem 0 0;
+    padding-left: 0.75rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .mastodon-post__media img {
+    display: block;
+    border-radius: 0.2rem;
+  }
+
+  .mastodon-post__attachment {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .mastodon-post__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .mastodon-post__footer a {
+    color: var(--accent);
+    border-bottom-color: var(--accent-subtle);
+  }
+
+  @media (min-width: 768px) {
+    .mastodon-post {
+      max-inline-size: 50%;
+      margin-inline: auto;
+    }
+  }
+</style>
