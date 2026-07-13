@@ -1,0 +1,31 @@
+---
+title: "Debugging how I accidentally blocked someone from using my app"
+date: "2026-07-13T15:20:23.598Z"
+lastmod: "2026-07-13T15:20:23.598Z"
+summary: "How an old anti-crawler Caddy rule came back to bite me"
+tags:
+  - debugging
+categories:
+  - homelab
+draft: false
+deleted: false
+---
+
+I received a [bug report](https://github.com/msfjarvis/compose-lobsters/issues/1234) today from a user of [Claw](https://github.com/msfjarvis/compose-lobsters), my Android app for the [Lobsters](https://lobste.rs) microblogging community.
+They complained that the app refused to work for them over their VPN because it was causing the [Zipline](https://github.com/cashapp/zipline) manifest to fail to load. <small>(I [made that fallible](https://github.com/msfjarvis/compose-lobsters/commit/2c9fc7e5dc8f210157beaeef0661f11a906160e0) separately)</small>
+
+I had a false start looking at Cloudflare as the likely culprit, but thanks to that I was at least able to recover the IP address for the failing request. Correlating that to my web server logs made the problem immediately obvious.
+
+```
+[root@wailord:/var/log/caddy]# grep -r {redacted.ip} access-claw.msfjarvis.dev.log
+{redacted.ip} - - [1783746921] "GET /current/manifest.zipline.json HTTP/2.0" 0 0
+{redacted.ip} - - [1783746923] "GET /current/manifest.zipline.json HTTP/2.0" 0 0
+{redacted.ip} - - [1783746925] "GET /current/manifest.zipline.json HTTP/2.0" 0 0
+{redacted.ip} - - [1783746927] "GET /current/manifest.zipline.json HTTP/2.0" 0 0
+{redacted.ip} - - [1783746928] "GET /current/manifest.zipline.json HTTP/2.0" 0 0
+{redacted.ip} - - [1783746932] "GET /current/manifest.zipline.json HTTP/2.0" 0 0
+```
+
+This bug report made me remember that in pursuit of what ultimately became the [Keeping AI crawlers off my Forgejo server](/posts/keeping-ai-crawlers-off-my-forgejo-server/) post, I had tried blocking all data centers from my servers. [caddy-defender](https://github.com/JasonLovesDoggo/caddy-defender) comes with a handy way to drop traffic from a list of providers based on their published IP ranges, which I used for this purpose. I have [this reusable snippet](https://github.com/msfjarvis/dotfiles/blob/0ae95ccc9f53def118bdaafecb2f73bd97cb4ae6/modules/nixos/caddy/default.nix#L120-L124) in my NixOS configuration that I default to applying on all public-facing sites. This was causing the user's requests to get terminated, and the fix was as simple as [just removing that rule](https://github.com/msfjarvis/dotfiles/commit/0ae95ccc9f53def118bdaafecb2f73bd97cb4ae6).
+
+Fun way to wind down an evening!
