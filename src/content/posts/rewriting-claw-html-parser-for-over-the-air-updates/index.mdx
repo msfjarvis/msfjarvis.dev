@@ -165,3 +165,50 @@ sequenceDiagram
 The deserialization code will look pretty self-explanatory if you were able to follow the serializer. We define an `index` variable at value 0, sliced the input string for the first length to calculate how far ahead we need to go, and slice off that much after the `:` for our first variable's value. This is repeated until the full string is traversed, after which we assemble the actual Kotlin object.
 
 This technique both saves memory over the bridge since this representation is more compact than JSON, and saves memory during parsing since the algorithm is so simple it avoids JSON's need for recursion.
+
+## Deployment
+
+Once we had the code working, the only remaining part was deployment. I didn't want to make this complicated or rely on GitHub Pages as a CDN which they discourage, so I opted to host it myself. The directory layout I chose is intentionally quite simplified and idiot proofed against yours truly, who did fuck it up many times. The directory structure is self-explanatory:
+
+```
+/var/lib/claw-deploy
+├── current -> /var/lib/claw-deploy/releases/20260712T113110Z
+└── releases
+    ├── 20260710T065949Z
+    │   ├── Claw-zipline-parser.zipline
+    │   ├── fleeksoft-io-charset.zipline
+    │   ├── fleeksoft-io-io-core.zipline
+    │   ├── kotlin-kotlin-stdlib.zipline
+    │   ├── kotlin_org_jetbrains_kotlin_kotlin_dom_api_compat.zipline
+    │   ├── kotlinx-atomicfu.zipline
+    │   ├── kotlinx-coroutines-core.zipline
+    │   ├── kotlinx-serialization-kotlinx-serialization-core.zipline
+    │   ├── kotlinx-serialization-kotlinx-serialization-json.zipline
+    │   ├── ksoup.zipline
+    │   ├── manifest.zipline.json
+    │   ├── Stately-stately-concurrency.zipline
+    │   ├── Stately-stately-strict.zipline
+    │   └── zipline-root-zipline.zipline
+    └── 20260712T113110Z
+        ├── Claw-zipline-parser.zipline
+        ├── fleeksoft-io-charset.zipline
+        ├── fleeksoft-io-io-core.zipline
+        ├── kotlin-kotlin-stdlib.zipline
+        ├── kotlin_org_jetbrains_kotlin_kotlin_dom_api_compat.zipline
+        ├── kotlinx-atomicfu.zipline
+        ├── kotlinx-coroutines-core.zipline
+        ├── kotlinx-serialization-kotlinx-serialization-core.zipline
+        ├── kotlinx-serialization-kotlinx-serialization-json.zipline
+        ├── ksoup.zipline
+        ├── manifest.zipline.json
+        ├── Stately-stately-concurrency.zipline
+        ├── Stately-stately-strict.zipline
+        └── zipline-root-zipline.zipline
+```
+
+
+`current` is a symlink to a timestamped directory containing the compiled Zipline artifacts, the total size is tiny so I keep all previous releases around, making it easy to roll back during one of those aforementioned fuck ups.
+
+## Closing notes
+
+This was a fair bit of effort that ultimately helped me both learn about Zipline which I've wanted to do for a long while, and solved a real problem that I was fully expecting to hit. This didn't bear fruit until over a month later, where I was able to roll out a fix via Zipline before publishing it to Google Play, and then follow up with some more fixes that I had missed before I made the release. Those still haven't hit Google Play! So far the only issue I've had so far was me [accidentally blocking a user](/notes/debugging-how-i-accidentally-blocked-someone-from-using-my-app/) from accessing the manifest server, but that was trivially resolved. Hopefully it stays this way 🤞
