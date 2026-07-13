@@ -4,6 +4,10 @@ const KROKI_BASE_URL = "https://kroki.io";
 const REQUEST_TIMEOUT_MS = 15_000;
 const CLASS_NAME = "mermaid-diagram";
 
+// Retain rendered SVGs for the lifetime of the dev server/build process. Caching
+// the promise also coalesces concurrent renders of the same fenced source.
+const renderedDiagrams = new Map<string, Promise<string>>();
+
 const mermaidColorReplacements: Array<[string, string]> = [
   ["#ffffff", "var(--bg)"],
   ["#fff", "var(--bg)"],
@@ -143,7 +147,21 @@ function applyThemeToSvg(svg: string): string {
     .replace("</svg>", `<style>${mermaidThemeOverrides}</style></svg>`);
 }
 
-export async function renderMermaidDiagram(source: string): Promise<string> {
+export function renderMermaidDiagram(source: string): Promise<string> {
+  const cachedDiagram = renderedDiagrams.get(source);
+  if (cachedDiagram) return cachedDiagram;
+
+  const renderedDiagram = renderMermaidDiagramUncached(source).catch((error: unknown) => {
+    // A transient failure must not make this source permanently fail until the
+    // process restarts; retry it on the next render.
+    renderedDiagrams.delete(source);
+    throw error;
+  });
+  renderedDiagrams.set(source, renderedDiagram);
+  return renderedDiagram;
+}
+
+async function renderMermaidDiagramUncached(source: string): Promise<string> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
