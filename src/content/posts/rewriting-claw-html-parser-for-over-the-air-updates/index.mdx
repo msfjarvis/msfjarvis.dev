@@ -14,6 +14,62 @@ categories:
   - programming
 ---
 
+<!--
+
+GPT-5.6-Terra's review notes:
+
+ High-priority
+
+ - The causal conclusion is not supported (:78–80, :90, :98, :167). The post moves from an unverified “memory starvation” theory to asserting that the custom serializer prevented the stack overflow. But you also fixed recursive comment construction,
+   increased the thread stack, and confined all Zipline work to that thread. Present this as a set of interacting fixes, or provide a reproduction matrix that isolates each change.
+
+ - It overstates what the custom serializer replaces (:98, :131, :167). Zipline still uses a JSON RPC envelope; the serializer changes the model representation from a JSON object to a length-prefixed string. “Avoids JSON’s need for recursion” and
+   “instead of building up a JSON object” imply JSON is no longer on the boundary, which is misleading.
+
+ - The OTA deployment story omits the most important operational and security details (:33, :68, :169–210). The post should explain:
+     - manifest signing and key ownership/rotation;
+     - what is verified before a bundle runs;
+     - the refresh/fallback/rollback flow;
+     - immutable-release caching versus the mutable current manifest;
+     - how the symlink becomes a public URL and is updated atomically.
+
+   This is especially important for a post advocating downloadable executable behavior. Address applicable Play policy and why this particular design is compliant, rather than leaving readers to infer it.
+
+ - “Cache invalidation problems” is promised but never discussed (:35). The deployment section shows a directory tree only. It needs the actual cache strategy—especially manifest TTL/no-cache behavior, immutable asset cache headers, and how clients
+   recover from a stale or unavailable manifest.
+
+ - Claims of size and memory wins need measurements (:131, :167, :210). “Net smaller output,” “saves memory,” and “total size is tiny” are assertions. Include before/after bundle size, representative bridge-payload sizes, and ideally crash/reproduction
+   results. The length-prefix format is not universally smaller once JSON-string escaping, the RPC envelope, and short values are considered.
+
+ Medium-priority
+
+ - The custom protocol’s compatibility and validation story is missing (:131–167). A positional format is tightly coupled to host and guest schemas. Explain how an old host behaves with a new guest that adds/reorders fields, whether a protocol version
+   exists, and what prevents malformed lengths, absurd list counts, overflow, or trailing data from being accepted. The prose says parsing continues “until the full string is traversed” (:165), but the implementation reads a schema-defined prefix; that
+   distinction matters.
+
+ - The post has a temporal inconsistency. The frontmatter says July 10 (:3–4), while the deployment example’s current release is July 12 (:175, :192) and the conclusion describes later results (:214). Update date/lastmod before publishing.
+
+ - The LLM narrative is too prominent (:39–40, :78, :86–98). The candid tone is good, but it displaces the engineering lesson and weakens confidence in a design that executes remotely delivered code. Condense it, then replace it with the evidence you
+   used to validate the eventual fix.
+
+ - “Worked perfectly” is too absolute (:92). Say what was tested: devices/Android versions, fixtures, malformed input, cold start, remote update, offline fallback, rollback, and bundle compatibility.
+
+ - The sequence diagrams are more verbose than illuminating (:102–163). One short encode/decode example or a format table would explain this protocol faster. The full payload is repeated several times and the diagrams obscure the key takeaway:
+   length:value, -1: for null, and positional field order.
+
+ Editorial issues
+
+ - Add a non-empty summary (:5).
+ - Title case/hyphenation: “Rewriting Claw’s HTML Parser for Over-the-Air Updates” (:2).
+ - Fix wording:
+     - “no-brainer,” not “nobrainer” (:35);
+     - “Zipline-enabled parsers,” not “Zipline-d parsers” (:64);
+     - “and/or,” not “and or” (:40);
+     - “set index to 0,” “slice,” not “sliced” (:165).
+ - Break up the very long paragraphs, particularly :17, :25, :80, :82, :88, :98, and :214.
+ - The repeated self-deprecation and profanity may fit your voice, but reduce it where it interrupts a technical claim. The post is strongest when it explains a concrete failure and its evidence.
+-->
+
 First, some background. Claw is an Android app for browsing the linkblogging community known as [Lobsters](https://lobste.rs). For years, the app relied on a JSON API to interact with the site. Some months ago, I came across [a GitHub comment](https://github.com/lobsters/lobsters/issues/1663#issuecomment-3074472781) from the site admin explaining that the JSON API is considered a Ruby on Rails misfeature and not something he supports for external integrations. I don't expect it to ever fully disappear since many more third-party integrations rely on it, but I decided I should probably look into options anyway. I [filed an issue](https://github.com/msfjarvis/compose-lobsters/issues/929) with my initial findings then pretty much forgot about it for over half a year.
 
 > To skip right to the juicy parts, go to [The great Zipline migration](#the-great-zipline-migration).
