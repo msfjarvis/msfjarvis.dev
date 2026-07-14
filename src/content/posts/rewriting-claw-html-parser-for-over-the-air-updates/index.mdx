@@ -1,8 +1,8 @@
 ---
-title: Rewriting Claw's HTML parser for over the air updates
-date: 2026-07-10T13:05:00+05:30
-lastmod: 2026-07-10T13:05:00+05:30
-summary: 'Struggling through a brand new framework just to avoid Google Play'
+title: Rewriting Claw's HTML parser for Over-The-Air updates
+date: 2026-07-14T12:30:00+05:30
+lastmod: 2026-07-14T12:30:00+05:30
+summary: Struggling through a brand new framework just to avoid Google Play
 tags:
   - kotlin-multiplatform
   - android
@@ -14,65 +14,10 @@ categories:
   - programming
 ---
 
-<!--
-
-GPT-5.6-Terra's review notes:
-
- High-priority
-
- - The causal conclusion is not supported (:78–80, :90, :98, :167). The post moves from an unverified “memory starvation” theory to asserting that the custom serializer prevented the stack overflow. But you also fixed recursive comment construction,
-   increased the thread stack, and confined all Zipline work to that thread. Present this as a set of interacting fixes, or provide a reproduction matrix that isolates each change.
-
- - It overstates what the custom serializer replaces (:98, :131, :167). Zipline still uses a JSON RPC envelope; the serializer changes the model representation from a JSON object to a length-prefixed string. “Avoids JSON’s need for recursion” and
-   “instead of building up a JSON object” imply JSON is no longer on the boundary, which is misleading.
-
- - The OTA deployment story omits the most important operational and security details (:33, :68, :169–210). The post should explain:
-     - manifest signing and key ownership/rotation;
-     - what is verified before a bundle runs;
-     - the refresh/fallback/rollback flow;
-     - immutable-release caching versus the mutable current manifest;
-     - how the symlink becomes a public URL and is updated atomically.
-
-   This is especially important for a post advocating downloadable executable behavior. Address applicable Play policy and why this particular design is compliant, rather than leaving readers to infer it.
-
- - “Cache invalidation problems” is promised but never discussed (:35). The deployment section shows a directory tree only. It needs the actual cache strategy—especially manifest TTL/no-cache behavior, immutable asset cache headers, and how clients
-   recover from a stale or unavailable manifest.
-
- - Claims of size and memory wins need measurements (:131, :167, :210). “Net smaller output,” “saves memory,” and “total size is tiny” are assertions. Include before/after bundle size, representative bridge-payload sizes, and ideally crash/reproduction
-   results. The length-prefix format is not universally smaller once JSON-string escaping, the RPC envelope, and short values are considered.
-
- Medium-priority
-
- - The custom protocol’s compatibility and validation story is missing (:131–167). A positional format is tightly coupled to host and guest schemas. Explain how an old host behaves with a new guest that adds/reorders fields, whether a protocol version
-   exists, and what prevents malformed lengths, absurd list counts, overflow, or trailing data from being accepted. The prose says parsing continues “until the full string is traversed” (:165), but the implementation reads a schema-defined prefix; that
-   distinction matters.
-
- - The post has a temporal inconsistency. The frontmatter says July 10 (:3–4), while the deployment example’s current release is July 12 (:175, :192) and the conclusion describes later results (:214). Update date/lastmod before publishing.
-
- - The LLM narrative is too prominent (:39–40, :78, :86–98). The candid tone is good, but it displaces the engineering lesson and weakens confidence in a design that executes remotely delivered code. Condense it, then replace it with the evidence you
-   used to validate the eventual fix.
-
- - “Worked perfectly” is too absolute (:92). Say what was tested: devices/Android versions, fixtures, malformed input, cold start, remote update, offline fallback, rollback, and bundle compatibility.
-
- - The sequence diagrams are more verbose than illuminating (:102–163). One short encode/decode example or a format table would explain this protocol faster. The full payload is repeated several times and the diagrams obscure the key takeaway:
-   length:value, -1: for null, and positional field order.
-
- Editorial issues
-
- - Add a non-empty summary (:5).
- - Title case/hyphenation: “Rewriting Claw’s HTML Parser for Over-the-Air Updates” (:2).
- - Fix wording:
-     - “no-brainer,” not “nobrainer” (:35);
-     - “Zipline-enabled parsers,” not “Zipline-d parsers” (:64);
-     - “and/or,” not “and or” (:40);
-     - “set index to 0,” “slice,” not “sliced” (:165).
- - Break up the very long paragraphs, particularly :17, :25, :80, :82, :88, :98, and :214.
- - The repeated self-deprecation and profanity may fit your voice, but reduce it where it interrupts a technical claim. The post is strongest when it explains a concrete failure and its evidence.
--->
+> [!NOTE]
+> I used LLMs to help debug some of the code explained below, and ended up throwing away a lot of it while re-reviewing that work as part of writing this post. People have strong opinions on the use of LLMs and I don't want them to feel misled by discovering partway through that this work involved an LLM, so here's your PSA.
 
 First, some background. Claw is an Android app for browsing the linkblogging community known as [Lobsters](https://lobste.rs). For years, the app relied on a JSON API to interact with the site. Some months ago, I came across [a GitHub comment](https://github.com/lobsters/lobsters/issues/1663#issuecomment-3074472781) from the site admin explaining that the JSON API is considered a Ruby on Rails misfeature and not something he supports for external integrations. I don't expect it to ever fully disappear since many more third-party integrations rely on it, but I decided I should probably look into options anyway. I [filed an issue](https://github.com/msfjarvis/compose-lobsters/issues/929) with my initial findings then pretty much forgot about it for over half a year.
-
-> To skip right to the juicy parts, go to [The great Zipline migration](#the-great-zipline-migration).
 
 <hr />
 
@@ -88,12 +33,12 @@ The React Native folks have had this solved for years through [Expo](https://exp
 
 This is the question that CashApp seems to have asked themselves as well, and their answer is called [Zipline](https://github.com/cashapp/Zipline). It's a Gradle Plugin and Kotlin Multiplatform Library that enables you to run Kotlin/JS libraries on Kotlin/JVM and Kotlin/Native apps, using the [QuickJS](https://bellard.org/quickjs/) embeddable JavaScript engine. If you can compile your code to JavaScript, you can leverage Zipline to update it over the air in a reliable and secure manner.
 
-Zipline offered everything I was looking for, and since I was predominantly using Kotlin/JS capable libraries for the HTML parsing it seemed like a nobrainer to give this a go. What follows is a deep rabbit hole dive of fighting code size issues, stack overflows, and cache invalidation problems.
+Zipline offered everything I was looking for, and since I was predominantly using Kotlin/JS capable libraries for the HTML parsing it seemed like a no-brainer to give this a go. What follows is a deep rabbit hole dive of fighting code size issues, stack overflows, and cache invalidation problems.
 
 ## The great Zipline migration
 
 > [!WARNING]
-> There may be overlap between the _right_ way to use Zipline and _my_ way to use Zipline, but expect that number to trend towards zero. I've solved a lot of problems by bashing my head against a keyboard and or an LLM, which aren't necessarily the best ways to go about learning something new. I can't find much in the way of public documentation about Zipline, so hopefully this post will be useful to someone else trying to use this.
+> There may be overlap between the _right_ way to use Zipline and _my_ way to use Zipline, but expect that number to trend towards zero. I've solved a lot of problems by bashing my head against a keyboard and/or an LLM, which aren't necessarily the best ways to go about learning something new. I can't find much in the way of public documentation about Zipline, so hopefully this post will be useful to someone else trying to use this.
 
 My dependencies were all ready for Kotlin/JS, but my own code was woefully Android-specific and needed some refactoring. Before I started on this, I had to first decide on how I wanted to split the responsibilities between the K/JS "guest" and the Android "host". I ended up with this architecture:
 
@@ -117,7 +62,7 @@ sequenceDiagram
 
 Step 1: Convert the data model layer to Kotlin Multiplatform, [which went relatively fine](https://github.com/msfjarvis/compose-lobsters/commit/22f4e542e4ac820be152a16bda2bb650588d7b24).
 
-Step 2: Adding the [actual Zipline-d parsers](https://github.com/msfjarvis/compose-lobsters/commit/c1b35eb2019799547b53fd8fa4aecfab1b18e11c). The big change I made here was to eschew [Kspoon](https://github.com/fleeksoft/Kspoon) for the underlying [Ksoup](https://github.com/fleeksoft/Ksoup) library instead and calling methods manually instead of delegating to a `kotlinx.serialization` based parser.
+Step 2: Adding the [actual Zipline-backed parsers](https://github.com/msfjarvis/compose-lobsters/commit/c1b35eb2019799547b53fd8fa4aecfab1b18e11c). The big change I made here was to eschew [Kspoon](https://github.com/fleeksoft/Kspoon) for the underlying [Ksoup](https://github.com/fleeksoft/Ksoup) library instead and calling methods manually instead of delegating to a `kotlinx.serialization` based parser.
 
 Step 3: Cut over the Android code to using [this new parser](https://github.com/msfjarvis/compose-lobsters/commit/a015794e1f7c3eabad8a965c4a991b13de0c9be6). I've put together a [terrible kludge](https://github.com/msfjarvis/compose-lobsters/blob/a015794e1f7c3eabad8a965c4a991b13de0c9be6/api/src/main/kotlin/dev/msfjarvis/claw/api/converters/ZiplineHtmlConverterFactory.kt) to determine when to call which parser method, and I am sure there's a nicer way to do this that evaded me at the time.
 
@@ -127,33 +72,29 @@ And that should've been it! Except...
 
 ## The troubles begin
 
-The first issue I ran into was a native crash in QuickJS itself 🙃
+After the mechanical refactors I tried running the app and immediately ran into `stack overflow` errors. Zipline helpfully includes a [sampling profiler](https://github.com/cashapp/zipline/tree/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-profiler) to identify bottlenecks, but I wasn't able to figure out how to make it help with this specific problem.
 
-Zipline helpfully includes a [sampling profiler](https://github.com/cashapp/zipline/tree/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-profiler) to identify bottlenecks, but I wasn't able to figure out how to make it help with this specific problem.
+I didn't really know what a stack overflow in this situation could come from, so I tried reducing memory allocations through basic changes of replacing functional method chains with simple loops and caching Regex objects ([commit](https://github.com/msfjarvis/compose-lobsters/commit/344da065918d09e314ddba4bd8eb8e77bd27a5c2)).
 
-GPT-5.4 was convinced the root cause was memory starvation (without real evidence of course) so I decided to humor it by refactoring some [collection manipulation and Regex uses](https://github.com/msfjarvis/compose-lobsters/commit/344da065918d09e314ddba4bd8eb8e77bd27a5c2) which did make the crash go away so what do I even know.
-
-I then immediately started seeing `stack overflow` errors instead. Since the previous problem was a memory exhaustion issue, I took a stab in the dark and assumed this was code size instead. To test my theory, I duplicated all the model classes that were being used across the Zipline boundary into a new `zipline-parser-api` module and changed the JS code to only use those [[commit](https://github.com/msfjarvis/compose-lobsters/commit/b2adb282756a6cb02ae20ea8a70fde0b947c6338)]. This was done to [drop the `kotlinx.serialization` dependency](https://github.com/msfjarvis/compose-lobsters/commit/fbe6f65e74c978198f1bd91a87db1b67faa3b6b8) brought in by the existing model classes. In pursuit of more code size wins, I changed the Zipline models to [use `Long` instead of `Instant`](https://github.com/msfjarvis/compose-lobsters/commit/fbc0201c1060a7d175f59b4ba034053d798d848a) and maybe let some more code get optimized out.
+That didn't really solve the problem, so I thought the problem was maybe the code size being too large to be loaded in one go. To test my theory, I duplicated all the model classes that were being used across the Zipline boundary into a new `zipline-parser-api` module and changed the JS code to only use those ([commit](https://github.com/msfjarvis/compose-lobsters/commit/b2adb282756a6cb02ae20ea8a70fde0b947c6338)). This was done to [drop the `kotlinx.serialization` dependency](https://github.com/msfjarvis/compose-lobsters/commit/fbe6f65e74c978198f1bd91a87db1b67faa3b6b8) brought in by the existing model classes. In pursuit of more code size wins, I changed the Zipline models to [use `Long` instead of `Instant`](https://github.com/msfjarvis/compose-lobsters/commit/fbc0201c1060a7d175f59b4ba034053d798d848a) and maybe let some more code get optimized out.
 
 Obviously this was a little naive and the `stack overflow` remained so I started pursuing some more esoteric solutions instead. Having written plenty of amateur Rust over the years I had learned that recursion is a surefire way to eventually find yourself looking at a stack overflow bug, so I reversed course and started looking for recursive code. The obvious candidate was the parser for comments, where I convert the flat list from the API into a tree-like structure. I couldn't immediately see how to change the way I had written that code, so I had to go learn how to build trees in a simpler way. Thanks to [Wikipedia](https://en.wikipedia.org/wiki/Tree_traversal) I found out I can just use a stack and keep the code largely the same so [that's what I did](https://github.com/msfjarvis/compose-lobsters/commit/8d122636fd023a6596d338ae33760e2cd780037b).
 
-That solved the `stack overflow` but I was back to the native crash now!?!?! I started applying the same strategies as before: [lazy initialization](https://github.com/msfjarvis/compose-lobsters/commit/c2fd16939bbee04688d248941f8d2c8a7e1b69e4), [de-duplicating fields](https://github.com/msfjarvis/compose-lobsters/commit/a8e9a5bf0f50c21a737adcdfa6e994b9bda53db8), [removing data classes](https://github.com/msfjarvis/compose-lobsters/commit/c78a003cb9bb7ecf88e7e65cf8335dd6be3e1112), all to no avail.
+That solved the `stack overflow` but I was now seeing a native crash instead !?!?! I started applying the same strategies as before: [lazy initialization](https://github.com/msfjarvis/compose-lobsters/commit/c2fd16939bbee04688d248941f8d2c8a7e1b69e4), [de-duplicating fields](https://github.com/msfjarvis/compose-lobsters/commit/a8e9a5bf0f50c21a737adcdfa6e994b9bda53db8), [removing data classes](https://github.com/msfjarvis/compose-lobsters/commit/c78a003cb9bb7ecf88e7e65cf8335dd6be3e1112), all to no avail.
 
-At this point I was pretty exhausted and gave up on this adventure for a few days. After having some success at work with giving GPT-5.5 a harness based on the [`android` CLI](https://developer.android.com/tools/agents/android-cli) to let it debug a complex issue by itself, I decided to bring that hammer back to this problem. I wrote out a handoff doc, cloned a local copy of Zipline itself for references, and let GPT-5.5 ruminate on the problem overnight with the "thinking" effort cranked to `high`.
+At this point it had already been almost two weeks, and I was pretty exhausted and gave up on this adventure for a few days. After having some success at work with giving GPT-5.5 a harness based on the [`android` CLI](https://developer.android.com/tools/agents/android-cli) to let it debug a complex issue by itself, I decided to bring that hammer back to this problem. I wrote out a handoff doc, cloned a local copy of Zipline for the clanker to refer, and let it attach the problem overnight.
 
-In the morning it claimed to have solved the issue, which I was able to confirm myself. However, as is often the case with LLMs, the code was completely inscrutable to me and shockingly comment-free which is not a problem I've ever had with LLMs before. I asked it to commit the changes with a proper commit message but [that shed no real light](https://github.com/msfjarvis/compose-lobsters/commit/829a6fe4716a20f53560c61e0220eb83e7746b6f). There were [tests](https://github.com/msfjarvis/compose-lobsters/commit/829a6fe4716a20f53560c61e0220eb83e7746b6f#diff-e0524b31f8f252d91067b8d2101bca80c827aa9282036342bc3a2b914a51acb7), but it would appear the LLM was lazy and had chosen to invent a separate code path just for tests so it could get away with writing mostly useless fluff. I [deleted those](https://github.com/msfjarvis/compose-lobsters/commit/ed9ba64162875e61ae42b352922e68c8f2a7273d) and decided I'd add some manually written ones when I understood the code.
+In the morning it claimed to have solved the issue, which I was able to verify myself. However, as is often the case with LLMs, the code was completely inscrutable. I asked it to commit the changes with a proper commit message but [that shed no real light](https://github.com/msfjarvis/compose-lobsters/commit/829a6fe4716a20f53560c61e0220eb83e7746b6f). There were [tests](https://github.com/msfjarvis/compose-lobsters/commit/829a6fe4716a20f53560c61e0220eb83e7746b6f#diff-e0524b31f8f252d91067b8d2101bca80c827aa9282036342bc3a2b914a51acb7), but it was clear the clanker was too lazy and had chosen to invent a separate code path just for tests so it could get away with writing mostly useless fluff. I [deleted those](https://github.com/msfjarvis/compose-lobsters/commit/ed9ba64162875e61ae42b352922e68c8f2a7273d) and decided I'd add some manually written ones when I understood the code.
 
-GPT-5.5 had also found another source of problems, the stack size. It [raised the stack size limit](https://github.com/msfjarvis/compose-lobsters/commit/4539e0a6b9c13d583e3970044e480457636f5945), and changed the code to ensure every Zipline operation ran [on that same thread](https://github.com/msfjarvis/compose-lobsters/commit/13a9d72c35b679da523a436554f39f2e27d01b58). I had to go look that up, and apparently this is an [upstream recommendation](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline/src/hostMain/kotlin/app/cash/zipline/Zipline.kt#L199-L202) buried in a code comment. Also, TIL that `Thread` has a 4 argument constructor.
+GPT-5.5 had also found another source of problems, the stack size. It [raised the stack size limit](https://github.com/msfjarvis/compose-lobsters/commit/4539e0a6b9c13d583e3970044e480457636f5945), and changed the code to ensure every Zipline operation ran [on the same thread](https://github.com/msfjarvis/compose-lobsters/commit/13a9d72c35b679da523a436554f39f2e27d01b58). I had to go look that up, and apparently this is an [upstream recommendation](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline/src/hostMain/kotlin/app/cash/zipline/Zipline.kt#L199-L202) buried in a code comment. TIL that `Thread` has a 4 argument constructor!
 
-Once I was able to confirm this state of the branch worked perfectly, it was shipped to internal testing 🚀
+Once I was able to confirm everything on the branch seemed to be working, I shipped it to the internal testing track.
 
 ### _That_ bit of code
 
 While I did merge the branch without really understanding what the [ParserSerializers code](https://github.com/msfjarvis/compose-lobsters/commit/829a6fe4716a20f53560c61e0220eb83e7746b6f) was doing, I was determined to figure it out. To improve my understanding of it, I talked my way through the code to [Mayank](https://github.com/mayankofficial999) at work, and eventually put in some [handwritten tests](https://github.com/msfjarvis/compose-lobsters/commit/7740177b86e4630b5a48753d18047a4bf5e7ce71) to validate my mental model. Here is the artist's rendition of what that code does. _(Can you tell I just discovered sequence diagrams?)_
 
-Before we jump into my painstakingly authored diagrams, let's start with _why_ this helps at all. Once more I will concede that LLMs are blackboxes and I can't trace why the LLM thought this was a good idea, only what makes _me_ think it helped with the problem. Before this change, Zipline was implicitly converting all shared types across the JS bridge into JSON to pass them between the app and the QuickJS engine. JSON parsing is inherently recursive in nature, and there have been many vulnerabilities in JSON parsers due to there being unbounded recursion when provided maliciously crafted inputs. I believe this recursive nature contributes to the stack exhaustion that ultimately made QuickJS crash with `Stack overflow`. With the new serializer, decoding is now done linearly without any potential for going recursive, preventing the problem altogether.
-
-Now, back to my painstakingly authored diagrams. Here's how an instance of the `User` object is serialized using the new serialization code.
+Here's how an instance of the `User` object is serialized using the new serialization code.
 
 ```mermaid
 sequenceDiagram
@@ -220,11 +161,9 @@ sequenceDiagram
 
 The deserialization code will look pretty self-explanatory if you were able to follow the serializer. We define an `index` variable at value 0, sliced the input string for the first length to calculate how far ahead we need to go, and slice off that much after the `:` for our first variable's value. This is repeated until the full string is traversed, after which we assemble the actual Kotlin object.
 
-This technique both saves memory over the bridge since this representation is more compact than JSON, and saves memory during parsing since the algorithm is so simple it avoids JSON's need for recursion.
-
 ## Deployment
 
-Once we had the code working, the only remaining part was deployment. I didn't want to make this complicated or rely on GitHub Pages as a CDN which they discourage, so I opted to host it myself. The directory layout I chose is intentionally quite simplified and idiot proofed against yours truly, who did fuck it up many times. The directory structure is self-explanatory:
+Once I had the code working, the remaining part was deployment. I didn't want to make this complicated or rely on GitHub Pages as a CDN which they discourage, so I opted to host it myself. The directory layout I chose is intentionally quite simplified and idiot proofed against yours truly, who did fuck it up many times. The directory structure is hopefully self-explanatory:
 
 ```
 /var/lib/claw-deploy
@@ -262,10 +201,18 @@ Once we had the code working, the only remaining part was deployment. I didn't w
         └── zipline-root-zipline.zipline
 ```
 
-`current` is a symlink to a timestamped directory containing the compiled Zipline artifacts, the total size is tiny so I keep all previous releases around, making it easy to roll back during one of those aforementioned fuck ups.
+`current` is a symlink to a timestamped directory containing the compiled Zipline artifacts. The size of individual releases is relatively tiny so I keep all previous releases around, making it easy to roll back during one of those aforementioned fuck ups.
 
-This was where I ran into caching problems. While Zipline takes care of disabling the HTTP client cache when [downloading `.zipline` files](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-loader/src/commonMain/kotlin/app/cash/zipline/loader/internal/fetcher/HttpFetcher.kt#L150), it doesn't do so for [`manifest.zipline.json`](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-loader/src/commonMain/kotlin/app/cash/zipline/loader/internal/fetcher/HttpFetcher.kt#L142). Thus, a server with caching enabled can serve a stale manifest, which results in new `.zipline` modules being downloaded without an updated manifest, ultimately causing checksum verification to fail. This was a failure state I wasn't aware of when I first implemented Zipline in the app, and had to patch it on both ends: Setting the right [Cache-Control headers on the server](https://github.com/msfjarvis/dotfiles/commit/f6bb04b5e67005c04afe64bef20cd66fb2524d06), and deleting the [manifest URL cache entry in the app](https://github.com/msfjarvis/compose-lobsters/commit/a1940881850b4020199667e0b342ac15e6880b2b). That seems to have done the job, and I have been able to roll out two updates since making these changes without any problems.
+When I went to make my first over-the-air release, I ran into caching problems. While Zipline takes care of disabling the HTTP client cache when [downloading `.zipline` files](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-loader/src/commonMain/kotlin/app/cash/zipline/loader/internal/fetcher/HttpFetcher.kt#L150), it doesn't do so for [`manifest.zipline.json`](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-loader/src/commonMain/kotlin/app/cash/zipline/loader/internal/fetcher/HttpFetcher.kt#L142). Thus, a server with caching enabled can cause OkHttp to load its cached and outdated manifest, which results in new `.zipline` modules being downloaded without an updated manifest, ultimately causing checksum verification to fail. This was a failure state I wasn't aware of when I first implemented Zipline in the app, and had to patch it on both ends: Setting the right [Cache-Control headers on the server](https://github.com/msfjarvis/dotfiles/commit/f6bb04b5e67005c04afe64bef20cd66fb2524d06), and deleting the [manifest URL cache entry in the app](https://github.com/msfjarvis/compose-lobsters/commit/a1940881850b4020199667e0b342ac15e6880b2b). That seems to have done the job, and I have been able to roll out two updates since making these changes without any problems.
+
+## On debugging with LLMs
+
+I generally take pride in being meticulous and having great systems understandings of the code I work on, but here I gave up and deferred to an LLM which felt like admitting defeat. When it solved the problem overnight in a problem space I barely understood I was pretty glad in the moment to be done with it, but eventually that made way for just disappointment. I'd have probably felt better if I didn't give up at that point and just continued investigating and researching, after all that was the entire reason Claw even exists. I've used it for [nearly 5 years](https://github.com/msfjarvis/compose-lobsters/commit/29c374859b17c5fcef03585b8a01c00070de9097) to learn new things the hard way and I gave up on that this time just because I had a clanker handy.
+
+The real kicker? All that inscrutable code is also completely useless. The clanker made that change first, before moving on to increasing the stack size which was the real fix. Like I mentioned in the start, as part of writing this post I reviewed and validated every bit of code again which surfaced these hallucinations. The [custom serializer is gone](https://github.com/msfjarvis/compose-lobsters/commit/194ccb540abf74b9ab499bea4a8f94e8725d62ac). The [zipline-parser-api module is gone](https://github.com/msfjarvis/compose-lobsters/commit/7e53354a14e72f73a4d17fe28f68bfd06ec52155).
+
+I'll try to hold myself to a higher bar going forward. Massive thanks to [Jesse Wilson](https://publicobject.com/) who's been a very positive influence in me wanting to rediscover the fun of programming. Go check out his talk [Deconstructing OkHttp](https://publicobject.com/2026/05/22/deconstructing-okhttp/), it's a great use of your time even if you do not know or care about OkHttp :)
 
 ## Closing notes
 
-This was a fair bit of effort that ultimately helped me both learn about Zipline which I've wanted to do for a long while, and solved a real problem that I was fully expecting to hit. This didn't bear fruit until over a month later, where I was able to roll out a fix via Zipline before publishing it to Google Play, and then follow up with some more fixes that I had missed before I made the release. Those still haven't hit Google Play! So far the only issue I've had so far was me [accidentally blocking a user](/notes/debugging-how-i-accidentally-blocked-someone-from-using-my-app/) from accessing the manifest server, but that was trivially resolved. Hopefully it stays this way 🤞
+This was a fair bit of effort that ultimately helped me both learn a bit about Zipline which I've wanted to do for a long while, and solved a real problem that I was fully expecting to hit. This didn't bear fruit until over a month later, where I was able to roll out a fix via Zipline before publishing it to Google Play, and then follow up with some more fixes that I had missed before I made the release. Those still haven't hit Google Play! So far the only issue I've had so far was me [accidentally blocking a user](/notes/debugging-how-i-accidentally-blocked-someone-from-using-my-app/) from accessing the manifest server, but that was trivially resolved. Hopefully it stays this way 🤞
