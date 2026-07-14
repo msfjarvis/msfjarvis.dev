@@ -2,7 +2,7 @@
 title: Rewriting Claw's HTML parser for over the air updates
 date: 2026-07-10T13:05:00+05:30
 lastmod: 2026-07-10T13:05:00+05:30
-summary: ''
+summary: 'Struggling through a brand new framework just to avoid Google Play'
 tags:
   - kotlin-multiplatform
   - android
@@ -206,8 +206,9 @@ Once we had the code working, the only remaining part was deployment. I didn't w
         └── zipline-root-zipline.zipline
 ```
 
-
 `current` is a symlink to a timestamped directory containing the compiled Zipline artifacts, the total size is tiny so I keep all previous releases around, making it easy to roll back during one of those aforementioned fuck ups.
+
+This was where I ran into caching problems. While Zipline takes care of disabling the HTTP client cache when [downloading `.zipline` files](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-loader/src/commonMain/kotlin/app/cash/zipline/loader/internal/fetcher/HttpFetcher.kt#L150), it doesn't do so for [`manifest.zipline.json`](https://github.com/cashapp/zipline/blob/4fa57be9c61bf2b484a380e23d07e99e9b18f04f/zipline-loader/src/commonMain/kotlin/app/cash/zipline/loader/internal/fetcher/HttpFetcher.kt#L142). Thus, a server with caching enabled can serve a stale manifest, which results in new `.zipline` modules being downloaded without an updated manifest, ultimately causing checksum verification to fail. This was a failure state I wasn't aware of when I first implemented Zipline in the app, and had to patch it on both ends: Setting the right [Cache-Control headers on the server](https://github.com/msfjarvis/dotfiles/commit/f6bb04b5e67005c04afe64bef20cd66fb2524d06), and deleting the [manifest URL cache entry in the app](https://github.com/msfjarvis/compose-lobsters/commit/a1940881850b4020199667e0b342ac15e6880b2b). That seems to have done the job, and I have been able to roll out two updates since making these changes without any problems.
 
 ## Closing notes
 
