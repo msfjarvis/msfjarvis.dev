@@ -1,0 +1,55 @@
+---
+title: How to dig up historical execution logs from systemd
+date: 2026-07-16T23:10:00+05:30
+lastmod: 2026-07-16T23:10:00+05:30
+tags:
+  - systemd
+  - journalctl
+  - logging
+  - homelab
+deleted: false
+---
+
+While reporting a bug to a project which was failing to run on my server, I had to go and dig up the systemd logs for it from \~18 hours ago which had since been buried by normal runtime logs (I had worked around the issue). Since I've been trying to wean myself off reaching for the LLM crutch all the time, here's a short rundown of my spelunking to find how to do this.
+
+[This Unix StackExchange question](https://unix.stackexchange.com/questions/506833/show-journal-logs-from-the-time-a-service-was-restarted) introduce me to `journalctl INVOCATION_ID=$id + _SYSTEMD_INVOCATION_ID=$id` as a way to get logs for a specific "run" of a systemd service. Problem: `systemctl show -p InvocationID --value my-unit.service` shows the _current_ invocation ID which wasn't what I needed. I want an older one, when the service was failing.
+
+I continued searching around, and came across [this excellent article](https://jwodder.github.io/kbits/posts/systemd-logs) which also explains how the incantation above actually works. To dig up historical invocation IDs, this shell pipeline can pull out start/stop events and collate them to invocation IDs — exactly what was needed here!
+
+```plain
+journalctl -o json -t systemd -u $service | jq -r '"[\(.__REALTIME_TIMESTAMP|tonumber / 1000000 | todate)] [\(.INVOCATION_ID)] \(.MESSAGE)"'
+```
+
+This is actually pretty simple when you break it down: get the systemd logs for the specified service in JSON format; then pull out the `.__REALTIME_TIMESTAMP`, `.INVOCATION_ID`, and `.MESSAGE` fields from each line. This let me get the logs I was looking for
+
+```plain
+[2026-07-15T19:16:54Z] [b517a64c63744438bafdff79fefbcc50] Stopping atticd.service...
+[2026-07-15T19:16:54Z] [b517a64c63744438bafdff79fefbcc50] atticd.service: Deactivated successfully.
+[2026-07-15T19:16:54Z] [b517a64c63744438bafdff79fefbcc50] Stopped atticd.service.
+[2026-07-15T19:16:54Z] [b517a64c63744438bafdff79fefbcc50] atticd.service: Consumed 2min 16.326s CPU time over 1w 3d 10h 18min 28.002s wall clock time, 119.3M memory peak, 13.8M read from disk, 9.2G incoming IP traffic, 5.5G outgoing IP traffic.
+[2026-07-15T19:17:02Z] [ff392b40208744748a9a1332766d9ef7] Started atticd.service.
+[2026-07-15T19:17:02Z] [ff392b40208744748a9a1332766d9ef7] atticd.service: Main process exited, code=exited, status=1/FAILURE
+[2026-07-15T19:17:02Z] [ff392b40208744748a9a1332766d9ef7] atticd.service: Failed with result 'exit-code'.
+[2026-07-15T19:17:03Z] [ff392b40208744748a9a1332766d9ef7] atticd.service: Scheduled restart job immediately on client request, restart counter is at 1.
+[2026-07-15T19:17:03Z] [a026e6feb1e14c52b2afaab92e9b8432] Started atticd.service.
+[2026-07-15T19:17:03Z] [a026e6feb1e14c52b2afaab92e9b8432] atticd.service: Main process exited, code=exited, status=1/FAILURE
+[2026-07-15T19:17:03Z] [a026e6feb1e14c52b2afaab92e9b8432] atticd.service: Failed with result 'exit-code'.
+[2026-07-15T19:17:13Z] [a026e6feb1e14c52b2afaab92e9b8432] atticd.service: Scheduled restart job, restart counter is at 2.
+[2026-07-15T19:17:13Z] [aaf93ea69cb64ad4987649c8f0d42cdb] Started atticd.service.
+[2026-07-15T19:17:13Z] [aaf93ea69cb64ad4987649c8f0d42cdb] atticd.service: Main process exited, code=exited, status=1/FAILURE
+[2026-07-15T19:17:13Z] [aaf93ea69cb64ad4987649c8f0d42cdb] atticd.service: Failed with result 'exit-code'.
+[2026-07-15T19:17:23Z] [aaf93ea69cb64ad4987649c8f0d42cdb] atticd.service: Scheduled restart job, restart counter is at 3.
+```
+
+And with one of those invocation IDs:
+
+```plain
+$ journalctl _SYSTEMD_INVOCATION_ID=7f6d9e0339444adaad8460580ab6cd2c
+Jul 16 06:57:12 melody atticd[471429]: Attic Server 0.1.0 (release)
+Jul 16 06:57:12 melody atticd[471429]: 2026-07-16T01:27:12.730131Z  INFO attic_server::config: Using configurations: "/nix/store/zbx2sq3s9399pgyhrcq8hswq1ialyl15-checked-attic-server.toml"
+Jul 16 06:57:12 melody atticd[471429]: Running migrations...
+Jul 16 06:57:12 melody atticd[471429]: 2026-07-16T01:27:12.731051Z DEBUG sqlx_postgres::options::pgpass: `.pgpass` file not found path=/.pgpass
+Jul 16 06:57:12 melody atticd[471429]: Error: Database error: Connection Error: error returned from database: Peer authentication failed for user "anonymous" at line 334: error returned from database: Peer authentication failed for user "anonymous" at line 334
+```
+
+Thank you John T. Wodder II for your invaluable resource! They've written [many such posts](https://jwodder.github.io/kbits/authors/john-t-wodder-ii/) that collect information which is entirely too difficult to discover for no good reason.
