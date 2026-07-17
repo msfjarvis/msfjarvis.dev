@@ -27,7 +27,7 @@
     "@astrojs/mdx": "^7.0.0",
     "@astrojs/sitemap": "^3.7.3",
     "@pagefind/component-ui": "^1.5.0",
-    "@sveltia/cms": "^0.171.0",
+    "@sveltia/cms": "^0.172.0",
     "astro": "^7.0.3",
     "astro-iconset": "^0.0.6",
     "astro-opengraph-images": "^1.16.1",
