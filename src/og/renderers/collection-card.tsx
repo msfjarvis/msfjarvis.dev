@@ -178,7 +178,7 @@ export async function renderCollectionCard({
                   overflow: "hidden",
                 }}
               >
-                {summary ?? "No summary provided."}
+                {summary}
               </div>
 
               <div
