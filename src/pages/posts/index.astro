@@ -9,6 +9,13 @@ export const prerender = true;
 
 const posts = await getCollection('posts', filterDrafts);
 posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const groupedPosts = new Map<number, typeof posts>();
+posts.forEach((post) => {
+  const year = post.data.date.getFullYear();
+  const updated = groupedPosts.get(year) ?? [];
+  updated.push(post);
+  groupedPosts.set(year, updated)
+});
 ---
 
 <BaseLayout
@@ -21,14 +28,18 @@ posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
   ]}
 >
   <h1>Posts</h1>
-  <ul>
-    {posts.map((post) => (
+  {Array.from(groupedPosts.entries()).map(([year, posts]) => (
+    <h2>{year} – {posts.length} posts</h2>
+    <ul>
+      {posts.map((post) => (
       <li class="post-row">
         <a href={`/posts/${post.id}/`}>{post.data.title}</a>
         <span class="date"><FormattedDate date={post.data.date} /></span>
       </li>
-    ))}
-  </ul>
+      ))}
+    </ul>
+  ))}
+
 </BaseLayout>
 
 <style>
