@@ -136,17 +136,18 @@ export default function remarkMermaid() {
   return async function transform(tree: Root, file: VFile) {
     const mermaidNodes: Array<{
       index: number;
-      parent: NonNullable<typeof tree.children>[number];
+      parent: Extract<Root | Root["children"][number], { children: unknown[] }>;
+      source: string;
     }> = [];
 
     visit(tree, "code", (node, index, parent) => {
       if (!parent || index == null || node.lang !== "mermaid") return;
 
-      mermaidNodes.push({ index, parent });
+      mermaidNodes.push({ index, parent, source: node.value });
     });
 
-    for (const { index, parent } of mermaidNodes) {
-      const svg = await renderMermaidDiagram(parent.children[index].value).catch((error) => {
+    for (const { index, parent, source } of mermaidNodes) {
+      const svg = await renderMermaidDiagram(source).catch((error) => {
         const location = file.path ?? file.history.at(0) ?? "unknown file";
         throw new Error(
           `Failed to render Mermaid diagram in ${location}: ${error instanceof Error ? error.message : String(error)}`,

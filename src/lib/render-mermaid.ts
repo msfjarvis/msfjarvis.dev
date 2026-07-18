@@ -112,7 +112,6 @@ function ensureSvgDocument(svg: string): string {
   const trimmed = svg.trim();
   const $ = cheerio.load(trimmed, {
     xmlMode: true,
-    decodeEntities: false,
   });
   const root = $.root().children().toArray();
 
@@ -128,7 +127,6 @@ function ensureSvgDocument(svg: string): string {
   const serialized = $.xml(rootElement);
   const $validated = cheerio.load(serialized, {
     xmlMode: true,
-    decodeEntities: false,
   });
   const svgElement = $validated("svg").first();
 
