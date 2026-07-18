@@ -25,7 +25,7 @@ export const prerender = true;
         data: Record<string, unknown>;
       }): typeof entry {
         const data = structuredClone(entry.data ?? {});
-        if (!data.deleted) {
+        if (entry.collection !== 'pages' && !data.deleted) {
           data.deleted = false;
         }
         return { ...entry, data };
@@ -161,6 +161,20 @@ export const prerender = true;
               { label: 'Last modified', name: 'lastmod', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false, required: false },
               { label: 'Tags', name: 'tags', widget: 'list', required: false },
               { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
+              { label: 'Body', name: 'body', widget: 'markdown', modes: ['raw', 'rich_text'] },
+            ],
+          },
+          {
+            name: 'pages',
+            label: 'Pages',
+            folder: 'src/pages',
+            format: 'yaml-frontmatter',
+            extension: 'mdx',
+            create: false,
+            fields: [
+              { name: 'layout', widget: 'hidden', default: '../layouts/BaseLayout.astro' },
+              { label: 'Title', name: 'title', widget: 'string' },
+              { label: 'Description', name: 'description', widget: 'string' },
               { label: 'Body', name: 'body', widget: 'markdown', modes: ['raw', 'rich_text'] },
             ],
           },
