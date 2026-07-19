@@ -1,17 +1,11 @@
 packages:
   - "."
-overrides:
-  satteri: ^0.9.5
-patchedDependencies:
-  "@mermanjs/web@0.7.0": patches/@mermanjs__web@0.7.0.patch
 allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - "@astrojs/markdown-satteri"
-  - "@xingwangzhe/satteri-mermaid"
   - "@sveltia/cms"
   - "oxfmt"
   - "@oxfmt/binding-android-arm-eabi"

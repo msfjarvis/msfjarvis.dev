@@ -24,26 +24,23 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.0.1",
-    "@astrojs/markdown-satteri": "^0.3.4",
     "@astrojs/mdx": "^7.0.0",
     "@astrojs/sitemap": "^3.7.3",
-    "@mermanjs/web": "^0.7.0",
     "@pagefind/component-ui": "^1.5.0",
     "@sveltia/cms": "^0.172.0",
-    "@xingwangzhe/satteri-mermaid": "^0.5.2",
     "astro": "^7.0.3",
     "astro-iconset": "^0.0.6",
     "astro-opengraph-images": "^1.16.1",
     "cheerio": "^1.2.0",
-    "hast-util-from-html": "^2.0.3",
     "pagefind": "^1.5.0",
-    "property-information": "^7.2.0",
-    "satteri": "^0.9.5",
     "sharp": "^0.35.2",
-    "sirv": "^3.0.0"
+    "sirv": "^3.0.0",
+    "unist-util-visit": "^5.1.0",
+    "vfile": "^6.0.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/markdown-remark": "^7.2.0",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@iarna/toml": "^2.2.5",
@@ -59,12 +56,13 @@
     "oxfmt": "^0.59.0",
     "oxlint": "^1.70.0",
     "react": "^19.2.7",
+    "remark-gfm": "^4.0.1",
+    "remark-github-blockquote-alert": "^2.1.0",
     "satori": "^0.26.0",
     "typescript": "^5.9.3",
     "wrangler": "^4.106.0"
   },
   "overrides": {
-    "satteri": "^0.9.5",
     "vite": "^7"
   },
   "engines": {
