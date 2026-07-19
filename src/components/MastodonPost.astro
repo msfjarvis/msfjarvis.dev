@@ -30,15 +30,19 @@ const displayTimestamp = new Intl.DateTimeFormat("en-GB", {
     ))}
   </div>
 
-  {status.images.map((image) => (
-    <figure class="mastodon-post__media">
-      <img
-        src={image.url}
-        alt={image.alt}
-        loading="lazy"
-      />
-    </figure>
-  ))}
+  {status.images.length > 0 && (
+    <div class="mastodon-post__media-grid">
+      {status.images.map((image) => (
+        <figure class="mastodon-post__media">
+          <img
+            src={image.url}
+            alt={image.alt}
+            loading="lazy"
+          />
+        </figure>
+      ))}
+    </div>
+  )}
 
   {status.attachments.map((attachment) => (
     <p class="mastodon-post__attachment"><a href={attachment.url}>{attachment.label}</a></p>
@@ -106,14 +110,21 @@ const displayTimestamp = new Intl.DateTimeFormat("en-GB", {
     margin-bottom: 0;
   }
 
+  .mastodon-post__media-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
   .mastodon-post__media {
-    margin: 1.25rem 0 0;
-    padding-left: 0.75rem;
-    border-left: 3px solid var(--accent);
+    min-inline-size: 0;
+    margin: 0;
   }
 
   .mastodon-post__media img {
     display: block;
+    inline-size: 100%;
     border-radius: 0.2rem;
   }
 
