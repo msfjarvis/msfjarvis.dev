@@ -1,0 +1,84 @@
+---
+title: "Weeknotes: Week #29 (2026)"
+date: "2026-07-19T10:51:02.631Z"
+lastmod: "2026-07-19T10:51:02.631Z"
+summary: "This week went by a little too quickly..."
+tags:
+  - reading
+  - movies
+categories:
+  - weekly-notes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import MastodonPost from "../../../components/MastodonPost.astro";
+import beautiful_rain_sky from "./beautiful-rain-sky.webp";
+import empty_bengaluru_roads from "./empty-bengaluru-roads.webp";
+import paneer_rolls from "./paneer-rolls.webp";
+
+<Figure
+  src={beautiful_rain_sky}
+  title="After seemingly endless teasing, we finally got a bit of welcome rain"
+  alt="Dark rain clouds above buildings, power lines, and a streetlight."
+/>
+
+# Personal
+
+I had my passport application appointment this week, which got denied due to my landlord leaving the rent agreement incomplete 🙃. Will have to get that fixed then go back mid-August to get it reviewed again, and hopefully not run into any more problems.
+
+## Reading
+
+I've continued blazing through the Mother of Learning series, finishing [ARC 2](https://bookwyrm.social/user/msfjarvis/generatednote/12059415) on Saturday and immediately [picking up ARC 3](https://bookwyrm.social/user/msfjarvis/generatednote/12059456). These books are too good! I'm fully expecting to finish reading the series in the next 2 weeks, so suggestions are welcome! If you want a vibe check on my interests, [this](https://bookwyrm.social/user/msfjarvis/books/read) is the list of everything I've read in the past ~18 months.
+
+## Socializing
+
+Yash and Swapnil dragged me along to watch Dhamaal 4 which was just as terrible as I had expected it to be. The formula has become so repetitive and boring that the jokes have now turned meta. I was hoping they'd stop making these but the movie ends with an announcement for Dhamaal 5, so I suppose that's not happening anytime soon.
+
+<Figure
+  src={empty_bengaluru_roads}
+  title="While walking back from the movie a VIP forced a road closure, never seen an empty major road in Bengaluru before."
+  alt="A mostly empty Bengaluru road beneath a flyover at dusk."
+/>
+
+After the movie we went to Element 3 for food, which redeemed the night.
+
+On Saturday I went to [IndieWebClub](https://blr.indiewebclub.org/) and helped out a bit, but I wasn't feeling super well with the rain coming in, so I bailed a little early.
+
+# Work
+
+Things at work have been slow as we've all been heads down in debugging and remediation, but those events are starting to bear fruit. Hopefully by the end of next week we'll be in a much better spot.
+
+I still managed to get [a release out](https://developers.cloudflare.com/realtime/realtimekit/release-notes/android-core/#2026-07-17) for the mobile SDKs since we had a customer waiting on some improvements. Our release process has too many moving parts, I clearly haven't automated enough.
+
+# Meta
+
+The site now has [a changelog page](/changelog) which contains major changes made to the site. This week has been _slightly_ busy. As part of last week's fediverse migrations, I've now changed all links to my old Mastodon account to instead redirect to an archive I host. In case the `androiddev.social` server does go down, this will keep them working. The posts and notes lists now group by year so I can feel better/worse about how much more/less I've been writing :D
+
+To show off the `MastodonPost` embed component, here's the weekly Odin of the Fediverse.
+
+<MastodonPost url={"https://infosec.exchange/@0xabad1dea/116946074763792559"} />
+
+## Writing
+
+Good week on the writing front, I published a note [about finding old systemd logs](/notes/how-to-dig-up-historical-execution-logs-from-systemd/), and another about [debugging](/notes/debugging-how-i-accidentally-blocked-someone-from-using-my-app/) what part of my network stack had accidentally blocked a Claw user. I finally published the post I had been working on for the past 2 months: ["Rewriting Claw's HTML parser for over-the-air updates"](posts/rewriting-claw-html-parser-for-over-the-air-updates/) recounts my experience of porting my app Claw to use the [Zipline](https://github.com/cashapp/zipline) library. I rewrote the post multiple times, but I'm very proud of how it came together in the end. Huge thanks to [Swapnil](https://github.com/swapnilmadavi) who reviewed the final draft, it was very nice to see him walk into the office reading it :'D
+
+# Cooking
+
+Home cooking has been relatively slow this week as I mostly eat breakfast in nearby South Indian restaurants while returning from the gym, and wasn't feeling up for dinner on multiple nights. Yash's been making a bunch of Instagram stuff as he tries to figure out a long term solution for breakfast, check out [his weeknote](https://yashgarg.dev/weekly-notes-29-2026/#cooking) for some of those. That mousse really is the truth!
+
+We did make these tasty paneer rolls, albeit by getting a little lazy and ordering pre-made parathas 😅
+
+<Figure
+  src={paneer_rolls}
+  title="First time making a mint chutney in this house, I think I'll try to always have a small batch in the fridge going forward"
+  alt="Three paneer rolls on a steel plate with green chutney."
+  small={true}
+/>
+
+I made a batch of hummus this morning (after putting it off for 2 days...), so hopefully next week will involve some Mediterranean forays :D
+
+<hr />
+
+Thanks for reading! You can keep up with these week notes via RSS, by sharing [this link](https://msfjarvis.dev/weeknotes/atom.xml) to your feed readers.
