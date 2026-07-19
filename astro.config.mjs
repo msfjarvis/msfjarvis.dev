@@ -6,16 +6,21 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 import { defineConfig } from "astro/config";
-import { unified } from "@astrojs/markdown-remark";
+import { satteri } from "@astrojs/markdown-satteri";
+import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
 import icon from "astro-iconset";
 import pagefind from "./src/integrations/pagefind.ts";
-import remarkGfm from "remark-gfm";
-import { remarkAlert } from "remark-github-blockquote-alert";
 
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
 import opengraphImages from "./src/integrations/opengraph-images.ts";
 import webmentionsIntegration from "./src/integrations/webmentions.ts";
-import remarkMermaid from "./src/remark/remark-mermaid.ts";
+import {
+  githubAlerts,
+  legacyTableAlignment,
+  remarkSmartypantsCompatibility,
+} from "./src/satteri/compatibility.ts";
+import { mermaidLightbox } from "./src/satteri/mermaid-lightbox.ts";
+import { mermaidOptions } from "./src/satteri/mermaid-theme.ts";
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
 const siteUrl = isDrafts ? "https://drafts.msfjarvis.dev" : "https://msfjarvis.dev";
@@ -24,15 +29,24 @@ const webmentionAuthToken = process.env.WEBMENTION_AUTH_TOKEN;
 
 const { renderCollectionCard } = await import("./src/og/renderers/collection-card.tsx");
 
+const markdownProcessor = satteri({
+  features: {
+    gfm: true,
+    smartPunctuation: {
+      quotes: true,
+      dashes: false,
+      ellipses: true,
+    },
+  },
+  mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts, mermaidMdast()],
+  hastPlugins: [legacyTableAlignment, mermaidHast(mermaidOptions), mermaidLightbox],
+});
+
 export default defineConfig({
   site: siteUrl,
   output: "server",
   markdown: {
-    processor: unified({
-      gfm: true,
-      smartypants: true,
-      remarkPlugins: [remarkAlert, remarkGfm, remarkMermaid],
-    }),
+    processor: markdownProcessor,
   },
   integrations: [
     mdx(),
