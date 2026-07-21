@@ -24,6 +24,7 @@ import { mermaidOptions } from "./src/satteri/mermaid-theme.ts";
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
 const siteUrl = isDrafts ? "https://drafts.msfjarvis.dev" : "https://msfjarvis.dev";
+const wranglerConfigPath = process.env.WRANGLER_CONFIG_PATH;
 const webmentionWorkerOrigin = process.env.WEBMENTION_WORKER_ORIGIN;
 const webmentionAuthToken = process.env.WEBMENTION_AUTH_TOKEN;
 
@@ -98,6 +99,7 @@ export default defineConfig({
     }),
   ],
   adapter: cloudflare({
+    configPath: wranglerConfigPath,
     imageService: "compile",
     prerenderEnvironment: "workerd",
   }),

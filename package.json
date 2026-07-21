@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "serve": "astro dev",
     "build": "pnpm run generate-redirects && astro build",
-    "build:drafts": "INCLUDE_DRAFTS=true pnpm run build",
+    "build:drafts": "WRANGLER_CONFIG_PATH=wrangler.drafts.jsonc INCLUDE_DRAFTS=true pnpm run build",
     "test": "node --test ./**/*.test.ts",
     "preview": "astro preview",
     "astro": "astro",
