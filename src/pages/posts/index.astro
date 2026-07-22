@@ -33,7 +33,7 @@ posts.forEach((post) => {
     <ul>
       {posts.map((post) => (
       <li class="post-row">
-        <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+        <a href={`/posts/${post.id}/`}>{post.data.title}{post.data.draft ? " – [draft]" : ""}</a>
         <span class="date"><FormattedDate date={post.data.date} /></span>
       </li>
       ))}
