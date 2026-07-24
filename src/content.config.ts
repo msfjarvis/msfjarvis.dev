@@ -1,6 +1,8 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { editionSchema } from "./lib/bookwyrm-schemas";
+import { bookwyrmLoader } from "./lib/bookwyrm-loader";
 
 const postSchema = z.object({
   title: z.string(),
@@ -30,4 +32,9 @@ const weeknotes = defineCollection({
   schema: postSchema,
 });
 
-export const collections = { posts, notes, weeknotes };
+const readBooks = defineCollection({
+  loader: bookwyrmLoader({ profileUrl: "https://bookwyrm.social/user/msfjarvis" }),
+  schema: editionSchema,
+});
+
+export const collections = { posts, notes, weeknotes, readBooks };
