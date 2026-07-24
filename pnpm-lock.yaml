@@ -46,7 +46,7 @@ importers:
         version: 0.0.6(astro@7.1.3(@astrojs/markdown-remark@7.2.1(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@1.21.7)(yaml@2.9.0))(react@19.2.7)
       astro-opengraph-images:
         specifier: ^1.16.1
-        version: 1.16.1(tw-to-css@0.0.12)
+        version: 1.17.1(tw-to-css@0.0.12)
       cheerio:
         specifier: ^1.2.0
         version: 1.2.0
@@ -1760,8 +1760,8 @@ packages:
       vue:
         optional: true
 
-  astro-opengraph-images@1.16.1:
-    resolution: {integrity: sha512-8rjBoMIfujxmEgCWeJ2f8czZmrzodNvNX8rIMWUZAXFAelfU7X0VzZ3dtFIpSOlkMlzifRoPie914m/4M482rg==}
+  astro-opengraph-images@1.17.1:
+    resolution: {integrity: sha512-utt8gQ0PpBgmQ/SMe0yfaNXjlGkZGjW54+j+wxLEZpQ3I5kr8Ll2tmpYonpjpEX4tcAaAWNrCCpU4aBLEs9yXg==}
     peerDependencies:
       tw-to-css: ^0.0.12
 
@@ -4923,7 +4923,7 @@ snapshots:
     optionalDependencies:
       react: 19.2.7
 
-  astro-opengraph-images@1.16.1(tw-to-css@0.0.12):
+  astro-opengraph-images@1.17.1(tw-to-css@0.0.12):
     dependencies:
       '@resvg/resvg-js': 2.6.2
       jsdom: 29.1.1
