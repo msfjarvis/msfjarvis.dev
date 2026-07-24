@@ -1,0 +1,516 @@
+---
+import type { PollMode } from "../lib/votes.ts";
+
+interface PollOption {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  postId: string;
+  pollId: string;
+  question: string;
+  options: PollOption[];
+  mode?: PollMode;
+}
+
+const { postId, pollId, question, options, mode = "single" } = Astro.props;
+const idPattern = /^[A-Za-z0-9][A-Za-z0-9._~/-]{0,127}$/;
+const choiceIdPattern = /^[A-Za-z0-9][A-Za-z0-9._~/-]{0,63}$/;
+
+if (typeof postId !== "string" || !idPattern.test(postId)) {
+  throw new Error("Poll postId must be 1–128 URL-safe characters and start with a letter or number");
+}
+if (typeof pollId !== "string" || !idPattern.test(pollId)) {
+  throw new Error("Poll pollId must be 1–128 URL-safe characters and start with a letter or number");
+}
+if (mode !== "single" && mode !== "multiple") {
+  throw new Error('Poll mode must be "single" or "multiple"');
+}
+if (typeof question !== "string" || question.trim().length === 0) {
+  throw new Error("Poll question must not be empty");
+}
+if (!Array.isArray(options) || options.length < 2 || options.length > 10) {
+  throw new Error("Poll options must contain between 2 and 10 items");
+}
+
+const optionIds = new Set<string>();
+let totalChoiceCharacters = 0;
+for (const option of options) {
+  if (typeof option !== "object" || option === null) {
+    throw new Error("Each poll option must be an object with an id and label");
+  }
+  if (typeof option.id !== "string" || !choiceIdPattern.test(option.id)) {
+    throw new Error(
+      "Poll option IDs must be 1–64 URL-safe characters and start with a letter or number",
+    );
+  }
+  if (optionIds.has(option.id)) throw new Error(`Poll option ID must be unique: ${option.id}`);
+  if (typeof option.label !== "string" || option.label.trim().length === 0) {
+    throw new Error(`Poll option label must not be empty: ${option.id}`);
+  }
+  optionIds.add(option.id);
+  totalChoiceCharacters += option.id.length;
+}
+if (mode === "multiple" && totalChoiceCharacters > 512) {
+  throw new Error("Multiple-choice poll option IDs must total no more than 512 characters");
+}
+---
+
+<vote-poll
+  data-post-id={postId}
+  data-poll-id={pollId}
+  data-mode={mode}
+  aria-busy="true"
+>
+  <form data-form>
+    <fieldset disabled>
+      <legend>{question}</legend>
+      <p class="poll__instruction">
+        {mode === "single" ? "Choose one option." : "Choose one or more options."}
+      </p>
+      <div class="poll__options">
+        {
+          options.map((option) => (
+            <label class="poll__option">
+              <span class="poll__choice">
+                <input
+                  data-choice
+                  type={mode === "single" ? "radio" : "checkbox"}
+                  value={option.id}
+                  required={mode === "single"}
+                />
+                <span>{option.label}</span>
+              </span>
+              <span class="poll__result" data-result={option.id}>
+                <span class="poll__bar" aria-hidden="true" />
+                <span class="poll__count" data-result-count>0 votes</span>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+      <p class="poll__total">
+        <span data-total>0</span> <span data-ballot-label>ballots</span> cast
+      </p>
+      <div class="poll__actions">
+        <button class="poll__submit" type="submit" data-submit disabled>Vote</button>
+        <button class="poll__clear" type="button" data-clear disabled>Clear my vote</button>
+      </div>
+    </fieldset>
+    <div class="poll__feedback">
+      <p class="poll__status" data-status aria-live="polite" aria-atomic="true">
+        Loading poll…
+      </p>
+      <button type="button" data-retry aria-label="Retry loading poll" hidden>Retry</button>
+    </div>
+  </form>
+</vote-poll>
+
+<style>
+  vote-poll {
+    display: block;
+    margin: 2rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-subtle);
+    color: var(--text);
+  }
+
+  form,
+  fieldset {
+    margin: 0;
+  }
+
+  fieldset {
+    min-width: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  fieldset:disabled {
+    opacity: 0.72;
+  }
+
+  legend {
+    width: 100%;
+    padding: 0;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .poll__instruction,
+  .poll__total,
+  .poll__status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .poll__instruction {
+    margin: 0.3rem 0 1rem;
+    color: var(--text-2);
+  }
+
+  .poll__options {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .poll__option {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    cursor: pointer;
+  }
+
+  .poll__option:has(input:checked) {
+    border-color: var(--accent-subtle);
+  }
+
+  .poll__option:has(input:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .poll__choice {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    line-height: 1.4;
+  }
+
+  input {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    flex: none;
+    accent-color: var(--accent);
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+
+  .poll__result {
+    position: relative;
+    z-index: 1;
+    min-width: 4.5rem;
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-align: right;
+  }
+
+  .poll__bar {
+    position: absolute;
+    z-index: -1;
+    inset: -0.8rem -0.7rem -0.8rem auto;
+    width: calc(var(--poll-result, 0) * 1%);
+    background: var(--accent-subtle);
+    opacity: 0.42;
+    transition: width 180ms ease;
+  }
+
+  .poll__total {
+    margin: 0.75rem 0 0;
+    color: var(--text-2);
+  }
+
+  .poll__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  button {
+    min-height: 2.35rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+
+  .poll__submit {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  button:hover:not(:disabled) {
+    border-color: var(--accent-subtle);
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .poll__feedback {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+  }
+
+  .poll__status {
+    min-height: 1.5em;
+    margin: 0;
+    color: var(--text-2);
+  }
+
+  button[hidden] {
+    display: none;
+  }
+
+  .poll__status[data-error="true"] {
+    color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .poll__bar {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import type { PollMode, VoteSummary } from "../lib/votes.ts";
+  import {
+    clearVote,
+    fetchVoteSummary,
+    submitVote,
+    VoteApiError,
+    type BrowserVoteTarget,
+  } from "../lib/votes-client.ts";
+
+  let nextPollInstance = 0;
+
+  class VotePollElement extends HTMLElement {
+    private summary: Extract<VoteSummary, { type: "poll" }> | null = null;
+    private busy = false;
+
+    connectedCallback() {
+      if (this.dataset.initialized === "true") return;
+      this.dataset.initialized = "true";
+
+      const form = this.querySelector("[data-form]");
+      if (!(form instanceof HTMLFormElement)) return;
+
+      const inputName = `vote-poll-${nextPollInstance++}`;
+      this.choiceInputs().forEach((input) => (input.name = inputName));
+      form.addEventListener("input", () => {
+        this.setStatus("");
+        this.updateActions();
+      });
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        void this.submit();
+      });
+      this.querySelector("[data-clear]")?.addEventListener("click", () => void this.clear());
+      this.querySelector("[data-retry]")?.addEventListener("click", () => void this.load());
+      void this.load();
+    }
+
+    private get target(): BrowserVoteTarget {
+      return {
+        type: "poll",
+        postId: this.dataset.postId ?? "",
+        pollId: this.dataset.pollId ?? "",
+        mode: (this.dataset.mode ?? "single") as PollMode,
+      };
+    }
+
+    private choiceInputs(): HTMLInputElement[] {
+      return Array.from(this.querySelectorAll("[data-choice]")).filter(
+        (input): input is HTMLInputElement => input instanceof HTMLInputElement,
+      );
+    }
+
+    private selectedChoices(): string[] {
+      return this.choiceInputs()
+        .filter((input) => input.checked)
+        .map((input) => input.value);
+    }
+
+    private async load() {
+      this.setBusy(true);
+      this.setStatus("Loading poll…");
+      try {
+        const summary = await fetchVoteSummary(this.target);
+        if (summary.type !== "poll") throw new VoteApiError("Invalid poll response");
+        this.summary = summary;
+        this.renderSummary(true);
+        this.setStatus("");
+        this.setRetryVisible(false);
+      } catch (error) {
+        this.setStatus(errorMessage(error), true);
+        this.setRetryVisible(true);
+      } finally {
+        this.setBusy(false);
+      }
+    }
+
+    private async submit() {
+      if (this.busy || this.summary === null) return;
+      const choices = this.selectedChoices();
+      if (choices.length === 0) {
+        this.setStatus("Choose at least one option before voting.", true);
+        this.updateActions();
+        return;
+      }
+
+      this.setBusy(true);
+      this.setStatus("Saving your vote…");
+      try {
+        const target = this.target;
+        if (target.type !== "poll") return;
+        const summary =
+          target.mode === "single"
+            ? await submitVote({
+                type: "single",
+                postId: target.postId,
+                pollId: target.pollId,
+                choice: choices[0],
+              })
+            : await submitVote({
+                type: "multiple",
+                postId: target.postId,
+                pollId: target.pollId,
+                choices,
+              });
+        if (summary.type !== "poll") throw new VoteApiError("Invalid poll response");
+        const updated = this.summary.selection.length > 0;
+        this.summary = summary;
+        this.renderSummary(true);
+        this.setStatus(updated ? "Your vote was updated." : "Your vote was saved.");
+      } catch (error) {
+        this.setStatus(errorMessage(error), true);
+      } finally {
+        this.setBusy(false);
+      }
+    }
+
+    private async clear() {
+      if (this.busy || this.summary === null || this.summary.selection.length === 0) return;
+      this.setBusy(true);
+      this.setStatus("Clearing your vote…");
+      try {
+        const summary = await clearVote(this.target);
+        if (summary.type !== "poll") throw new VoteApiError("Invalid poll response");
+        this.summary = summary;
+        this.renderSummary(true);
+        this.setStatus("Your vote was cleared.");
+      } catch (error) {
+        this.setStatus(errorMessage(error), true);
+      } finally {
+        this.setBusy(false);
+      }
+    }
+
+    private renderSummary(syncSelection: boolean) {
+      if (this.summary === null) return;
+      if (syncSelection) {
+        const selected = new Set(this.summary.selection);
+        this.choiceInputs().forEach((input) => (input.checked = selected.has(input.value)));
+      }
+
+      const counts = new Map(this.summary.results.map(({ choice, votes }) => [choice, votes]));
+      this.querySelectorAll("[data-result]").forEach((result) => {
+        if (!(result instanceof HTMLElement)) return;
+        const votes = counts.get(result.dataset.result ?? "") ?? 0;
+        const count = result.querySelector("[data-result-count]");
+        if (count instanceof HTMLElement) {
+          count.textContent = `${votes} ${votes === 1 ? "vote" : "votes"}`;
+        }
+        const percentage =
+          this.summary === null || this.summary.total === 0
+            ? 0
+            : (votes / this.summary.total) * 100;
+        result.style.setProperty("--poll-result", String(Math.min(100, percentage)));
+      });
+
+      const total = this.querySelector("[data-total]");
+      if (total instanceof HTMLElement) total.textContent = this.summary.total.toLocaleString();
+      const ballotLabel = this.querySelector("[data-ballot-label]");
+      if (ballotLabel instanceof HTMLElement) {
+        ballotLabel.textContent = this.summary.total === 1 ? "ballot" : "ballots";
+      }
+      const submit = this.querySelector("[data-submit]");
+      if (submit instanceof HTMLButtonElement) {
+        submit.textContent = this.summary.selection.length > 0 ? "Update vote" : "Vote";
+      }
+      this.updateActions();
+    }
+
+    private setBusy(busy: boolean) {
+      this.busy = busy;
+      this.setAttribute("aria-busy", String(busy));
+      const fieldset = this.querySelector("fieldset");
+      if (fieldset instanceof HTMLFieldSetElement) {
+        fieldset.disabled = busy || this.summary === null;
+      }
+      const retry = this.querySelector("[data-retry]");
+      if (retry instanceof HTMLButtonElement) retry.disabled = busy;
+      this.updateActions();
+    }
+
+    private setRetryVisible(visible: boolean) {
+      const retry = this.querySelector("[data-retry]");
+      if (retry instanceof HTMLButtonElement) retry.hidden = !visible;
+    }
+
+    private updateActions() {
+      const submit = this.querySelector("[data-submit]");
+      const clear = this.querySelector("[data-clear]");
+      if (submit instanceof HTMLButtonElement) {
+        submit.disabled = this.busy || this.summary === null || this.selectedChoices().length === 0;
+      }
+      if (clear instanceof HTMLButtonElement) {
+        clear.disabled = this.busy || this.summary === null || this.summary.selection.length === 0;
+      }
+    }
+
+    private setStatus(message: string, isError = false) {
+      const status = this.querySelector("[data-status]");
+      if (!(status instanceof HTMLElement)) return;
+      status.textContent = message;
+      status.toggleAttribute("data-error", isError);
+    }
+  }
+
+  function errorMessage(error: unknown): string {
+    return error instanceof Error ? error.message : "Could not update this poll. Please try again.";
+  }
+
+  if (!customElements.get("vote-poll")) {
+    customElements.define("vote-poll", VotePollElement);
+  }
+</script>

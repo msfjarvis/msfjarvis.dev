@@ -18,6 +18,7 @@ const { Content, headings } = await render(entry);
 ---
 
 <PostLayout
+  postId={`weeknotes/${entry.id}`}
   title={entry.data.title}
   description={entry.data.summary}
   date={entry.data.date}
