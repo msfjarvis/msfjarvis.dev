@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import type { z } from "astro/zod";
 
-import { bookwyrmLoader } from "./bookwyrm-loader.ts";
+import { bookwyrmLoader, Shelf } from "./bookwyrm-loader.ts";
 
 const context = ["https://www.w3.org/ns/activitystreams", { Hashtag: "as:Hashtag" }];
 
@@ -103,7 +103,7 @@ test("preserves BookWyrm shelf order across pages", async () => {
   };
 
   try {
-    const loader = bookwyrmLoader({ profileUrl: "https://bookwyrm.social/user/reader" });
+    const loader = bookwyrmLoader({ profileUrl: "https://bookwyrm.social/user/reader", shelf: Shelf.read });
     await loader.load({
       store: {
         clear: () => (clearCalls += 1),

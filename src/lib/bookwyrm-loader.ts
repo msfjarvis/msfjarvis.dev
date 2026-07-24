@@ -2,12 +2,24 @@ import type { Loader } from "astro/loaders";
 import type { z } from "astro/zod";
 import { shelfSchema, pageSchema, editionSchema } from "./bookwyrm-schemas.ts";
 
-export function bookwyrmLoader(options: { profileUrl: string }) {
+// I would think an enum is the simpler option, but NodeJS' TypeScript
+// support does not support TypeScript enums. This article told me
+// TypeScript enums are dead so I just followed it: https://typescript.tv/best-practices/why-typescript-enums-are-dead/
+export const Shelf = {
+  read: 'read',
+  to_read: 'to-read',
+  reading: 'reading',
+  stopped_reading: 'stopped-reading',
+} as const;
+
+export type Shelf = (typeof Shelf)[keyof typeof Shelf]
+
+export function bookwyrmLoader(options: { profileUrl: string, shelf: Shelf }) {
   const bookwyrmProfileUrl = new URL(options.profileUrl);
   return {
     name: "feed-loader",
     load: async ({ store }) => {
-      const baseUrl = `${bookwyrmProfileUrl}/books/read`;
+      const baseUrl = `${bookwyrmProfileUrl}/books/${options.shelf.toString()}`;
       const shelfUrl = `${baseUrl}.json`;
 
       const shelfResponse = await fetch(shelfUrl);
