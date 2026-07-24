@@ -37,4 +37,9 @@ const readBooks = defineCollection({
   schema: editionSchema,
 });
 
-export const collections = { posts, notes, weeknotes, readBooks };
+const currentlyReading = defineCollection({
+  loader: bookwyrmLoader({ profileUrl: "https://bookwyrm.social/user/msfjarvis", shelf: Shelf.reading }),
+  schema: editionSchema,
+});
+
+export const collections = { posts, notes, weeknotes, readBooks, currentlyReading };

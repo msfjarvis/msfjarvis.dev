@@ -1,0 +1,161 @@
+---
+import { type z } from "astro/zod";
+import { editionSchema } from "../lib/bookwyrm-schemas";
+
+interface Props {
+  book: z.infer<typeof editionSchema>;
+}
+
+const { book } = Astro.props;
+
+function yearOf(date: Date | undefined) {
+  return date?.getFullYear();
+}
+
+const { authors, cover, firstPublishedDate, publishedDate, series, seriesNumber, title, work } =
+  book;
+const authorNames = authors.filter(
+  (author) => !author.startsWith("http://") && !author.startsWith("https://"),
+);
+const publicationYear = yearOf(publishedDate) ?? yearOf(firstPublishedDate);
+const seriesLabel = series && seriesNumber ? `${series} #${seriesNumber}` : series;
+---
+
+<li class="book">
+  <a class="book-link" href={work}>
+    <div class="cover-frame">
+      <span class="cover-placeholder" aria-hidden="true">{title}</span>
+      <img
+        class="cover"
+        src={cover.url}
+        alt={cover.name || `Cover of ${title}`}
+        loading="lazy"
+        decoding="async"
+        onerror="this.setAttribute('data-error', '')"
+      />
+    </div>
+    <div class="details">
+      <h2>{title}</h2>
+      {authorNames.length > 0 && <p class="authors">{authorNames.join(", ")}</p>}
+      {(seriesLabel || publicationYear) && (
+        <p class="publication">
+          {seriesLabel && <span>{seriesLabel}</span>}
+          {seriesLabel && publicationYear && <span aria-hidden="true"> · </span>}
+          {publicationYear && <time datetime={`${publicationYear}`}>{publicationYear}</time>}
+        </p>
+      )}
+    </div>
+  </a>
+</li>
+
+<style>
+.book-link {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  color: inherit;
+  border: 0;
+}
+
+.book-link:hover h2,
+.book-link:focus-visible h2 {
+  color: var(--accent);
+}
+
+.book-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.cover-frame {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg-subtle);
+  box-shadow: 3px 4px 0 var(--accent-subtle);
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+
+.cover-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-subtle);
+  object-fit: cover;
+}
+
+.cover[data-error] {
+  opacity: 0;
+}
+
+.book-link:hover .cover-frame,
+.book-link:focus-visible .cover-frame {
+  box-shadow: 5px 6px 0 var(--accent-subtle);
+  transform: translate(-2px, -2px);
+}
+
+.details {
+  padding-top: 0.75rem;
+}
+
+h2 {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  transition: color 150ms ease;
+}
+
+.authors,
+.publication {
+  margin: 0.35rem 0 0;
+  color: var(--text-2);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.publication {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.empty {
+  color: var(--text-2);
+}
+
+@media (min-width: 640px) {
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
+    gap: 2.5rem 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-frame,
+  h2 {
+    transition: none;
+  }
+
+  .book-link:hover .cover-frame,
+  .book-link:focus-visible .cover-frame {
+    transform: none;
+  }
+}
+</style>
