@@ -21,6 +21,10 @@ export const navLinks: NavLinks[] = [
     href: "/now",
   },
   {
+    label: "reading",
+    href: "/reading",
+  },
+  {
     label: "about",
     href: "/about",
   },
