@@ -8,6 +8,9 @@ const isActive = (path: string, exact = false): boolean =>
   exact
     ? pathname === path || pathname === path + '/'
     : pathname.startsWith(path);
+
+const primaryNavLinks = navLinks.slice(0, 3);
+const overflowNavLinks = navLinks.slice(3);
 ---
 
 <header class="site-header">
@@ -15,9 +18,24 @@ const isActive = (path: string, exact = false): boolean =>
     <a href="/" class="site-name">{SITE_TITLE}</a>
     <div class="nav-actions">
       <div class="nav-links">
-        {navLinks.map(link => (
+        {primaryNavLinks.map(link => (
           <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
         ))}
+        <button
+          type="button"
+          class="more-links-trigger"
+          popovertarget="more-links"
+          aria-label="Show more navigation links">
+          more
+          <svg aria-hidden="true" viewBox="0 0 12 12" focusable="false">
+            <path d="m3 5 3 3 3-3" />
+          </svg>
+        </button>
+        <div id="more-links" class="more-links-popover" popover="auto">
+          {overflowNavLinks.map(link => (
+            <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
+          ))}
+        </div>
       </div>
       <pagefind-modal-trigger compact placeholder="Search"></pagefind-modal-trigger>
     </div>
@@ -33,5 +51,95 @@ const isActive = (path: string, exact = false): boolean =>
     justify-content: flex-end;
     gap: 0.75rem;
     flex-wrap: wrap;
+  }
+
+  .more-links-trigger {
+    anchor-name: --more-links-trigger;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0;
+    font: inherit;
+    font-size: 1.042rem;
+    line-height: inherit;
+    color: var(--text-2);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .more-links-trigger:hover,
+  .more-links-trigger:has(+ .more-links-popover:popover-open) {
+    color: var(--accent);
+  }
+
+  .more-links-trigger:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .more-links-trigger svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    transition: transform 150ms ease;
+  }
+
+  .more-links-trigger:has(+ .more-links-popover:popover-open) svg {
+    transform: rotate(180deg);
+  }
+
+  .more-links-popover {
+    position: fixed;
+    position-anchor: --more-links-trigger;
+    inset: auto;
+    top: anchor(bottom);
+    right: anchor(right);
+    width: max-content;
+    min-width: 9rem;
+    max-width: calc(100vw - 2rem);
+    margin: 0.5rem 0 0;
+    padding: 0.35rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgb(0 0 0 / 12%);
+  }
+
+  .more-links-popover:popover-open {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .more-links-popover a {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    color: var(--text-2);
+    border-bottom: 0;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .more-links-popover a:hover,
+  .more-links-popover a.active {
+    color: var(--accent);
+    background: var(--bg-subtle);
+  }
+
+  .more-links-popover a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .more-links-trigger svg {
+      transition: none;
+    }
   }
 </style>
