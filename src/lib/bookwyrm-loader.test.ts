@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import type { z } from "astro/zod";
 
 import { bookwyrmLoader } from "./bookwyrm-loader.ts";
 
@@ -106,9 +107,9 @@ test("preserves BookWyrm shelf order across pages", async () => {
     await loader.load({
       store: {
         clear: () => (clearCalls += 1),
-        set: (entry) => storedIds.push(entry.id),
+        set: (entry: z.infer<typeof loader.schema>) => storedIds.push(entry.id),
       },
-    } as Parameters<typeof loader.load>[0]);
+    } as unknown as Parameters<typeof loader.load>[0]);
 
     assert.equal(clearCalls, 1);
     assert.deepEqual(storedIds, [
