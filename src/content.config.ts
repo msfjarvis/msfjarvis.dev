@@ -33,12 +33,18 @@ const weeknotes = defineCollection({
 });
 
 const readBooks = defineCollection({
-  loader: bookwyrmLoader({ profileUrl: "https://bookwyrm.social/user/msfjarvis", shelf: Shelf.read }),
+  loader: bookwyrmLoader({
+    profileUrl: "https://bookwyrm.social/user/msfjarvis",
+    shelf: Shelf.read,
+  }),
   schema: editionSchema,
 });
 
 const currentlyReading = defineCollection({
-  loader: bookwyrmLoader({ profileUrl: "https://bookwyrm.social/user/msfjarvis", shelf: Shelf.reading }),
+  loader: bookwyrmLoader({
+    profileUrl: "https://bookwyrm.social/user/msfjarvis",
+    shelf: Shelf.reading,
+  }),
   schema: editionSchema,
 });
 
