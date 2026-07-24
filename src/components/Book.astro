@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { type z } from "astro/zod";
 import { editionSchema } from "../lib/bookwyrm-schemas";
 
@@ -25,10 +26,15 @@ const seriesLabel = series && seriesNumber ? `${series} #${seriesNumber}` : seri
   <a class="book-link" href={work}>
     <div class="cover-frame">
       <span class="cover-placeholder" aria-hidden="true">{title}</span>
-      <img
+      <Image
         class="cover"
         src={cover.url}
         alt={cover.name || `Cover of ${title}`}
+        width={320}
+        height={480}
+        densities={[1, 2]}
+        format="webp"
+        fit="cover"
         loading="lazy"
         decoding="async"
         onerror="this.setAttribute('data-error', '')"

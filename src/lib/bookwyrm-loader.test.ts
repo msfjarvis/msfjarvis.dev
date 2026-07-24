@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import type { z } from "astro/zod";
 
 import { bookwyrmLoader, Shelf } from "./bookwyrm-loader.ts";
 
 const context = ["https://www.w3.org/ns/activitystreams", { Hashtag: "as:Hashtag" }];
+const coverUrl =
+  "https://bookwyrm-social.sfo3.digitaloceanspaces.com/images/covers/b16526ac-5885-4889-bcfa-e618f846c12e.jpeg";
 
 function edition(id: string, publishedDate: string) {
   return {
@@ -33,7 +34,7 @@ function edition(id: string, publishedDate: string) {
     fileLinks: [],
     cover: {
       type: "Image",
-      url: "https://example.com/cover.jpg",
+      url: coverUrl,
       name: id,
       "@context": context,
     },
@@ -63,10 +64,10 @@ function jsonResponse(body: unknown) {
   return new Response(JSON.stringify(body));
 }
 
-test("preserves BookWyrm shelf order across pages", async () => {
+test("preserves BookWyrm shelf order and remote cover URLs", async () => {
   const originalFetch = globalThis.fetch;
   let clearCalls = 0;
-  const storedIds: string[] = [];
+  const storedBooks: { id: string; coverUrl: string }[] = [];
 
   globalThis.fetch = async (input) => {
     switch (String(input)) {
@@ -103,21 +104,32 @@ test("preserves BookWyrm shelf order across pages", async () => {
   };
 
   try {
-    const loader = bookwyrmLoader({ profileUrl: "https://bookwyrm.social/user/reader", shelf: Shelf.read });
+    const loader = bookwyrmLoader({
+      profileUrl: "https://bookwyrm.social/user/reader",
+      shelf: Shelf.read,
+    });
     await loader.load({
       store: {
         clear: () => (clearCalls += 1),
-        set: (entry: z.infer<typeof loader.schema>) => storedIds.push(entry.id),
+        set: (entry: { id: string; data: { cover: { url: string } } }) =>
+          storedBooks.push({ id: entry.id, coverUrl: entry.data.cover.url }),
       },
     } as unknown as Parameters<typeof loader.load>[0]);
 
     assert.equal(clearCalls, 1);
-    assert.deepEqual(storedIds, [
-      "00000000:https://bookwyrm.social/book/most-recent-shelf-book",
-      "00000001:https://bookwyrm.social/book/page-one-last",
-      "00000002:https://bookwyrm.social/book/page-two-first",
-      "00000003:https://bookwyrm.social/book/oldest-shelf-book",
-    ]);
+    assert.deepEqual(
+      storedBooks.map((book) => book.id),
+      [
+        "00000000:https://bookwyrm.social/book/most-recent-shelf-book",
+        "00000001:https://bookwyrm.social/book/page-one-last",
+        "00000002:https://bookwyrm.social/book/page-two-first",
+        "00000003:https://bookwyrm.social/book/oldest-shelf-book",
+      ],
+    );
+    assert.deepEqual(
+      storedBooks.map((book) => book.coverUrl),
+      [coverUrl, coverUrl, coverUrl, coverUrl],
+    );
   } finally {
     globalThis.fetch = originalFetch;
   }
