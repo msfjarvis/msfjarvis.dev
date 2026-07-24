@@ -88,7 +88,7 @@ export const githubAlerts = defineMdastPlugin({
       type: "paragraph",
       data: {
         hProperties: {
-          className: "markdown-alert-title",
+          className: ["markdown-alert-title"],
           dir: "auto",
         },
       },
