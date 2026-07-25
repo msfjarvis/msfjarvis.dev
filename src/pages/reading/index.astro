@@ -14,10 +14,14 @@ const bookCount = new Intl.NumberFormat("en-US").format(readBooks.length);
   title="Reading"
   description="Books Harsh Shandilya has marked as read on BookWyrm.">
 
-  <h2>currently reading</h2>
-  <ol class="book-grid">
-    {currentlyReading.map((book) => ( <Book book={book.data} /> ))}
-  </ol>
+  {currentlyReading.length > 0 ?
+    (
+      <h2>currently reading</h2>
+      <ol class="book-grid">
+        {currentlyReading.map((book) => ( <Book book={book.data} /> ))}
+      </ol>
+    ) : (<></>)
+  }
 
   <h2>finished reading</h2>
   <ol class="book-grid">
