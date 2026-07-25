@@ -1,0 +1,12 @@
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: "15 5 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS -X POST "${{ secrets.PROD_DEPLOY_HOOK }}"
