@@ -12,26 +12,18 @@ const bookCount = new Intl.NumberFormat("en-US").format(readBooks.length);
 
 <BaseLayout
   title="Reading"
-  description="Books Harsh Shandilya has marked as read on BookWyrm."
->
+  description="Books Harsh Shandilya has marked as read on BookWyrm.">
+
   <h2>currently reading</h2>
   <ol class="book-grid">
     {currentlyReading.map((book) => ( <Book book={book.data} /> ))}
   </ol>
 
   <h2>finished reading</h2>
-  <p class="lede">
-    {bookCount} books I’ve marked as read. Each one links back to its entry on BookWyrm.
-  </p>
-  {
-    readBooks.length > 0 ? (
-      <ol class="book-grid">
-        {readBooks.map((book) => ( <Book book={book.data} /> ))}
-      </ol>
-    ) : (
-      <p class="empty">No books here yet.</p>
-    )
-  }
+  <ol class="book-grid">
+    {readBooks.map((book) => ( <Book book={book.data} /> ))}
+  </ol>
+
 </BaseLayout>
 
 <style>
@@ -42,10 +34,6 @@ const bookCount = new Intl.NumberFormat("en-US").format(readBooks.length);
     font-size: 0.8rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-  }
-
-  .lede {
-    color: var(--text-2);
   }
 
   .book-grid {
