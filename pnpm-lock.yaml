@@ -36,8 +36,8 @@ importers:
         specifier: ^0.172.0
         version: 0.172.4
       '@xingwangzhe/satteri-mermaid':
-        specifier: ^0.5.2
-        version: 0.5.2(satteri@0.9.5)
+        specifier: ^0.7.0
+        version: 0.7.1(satteri@0.9.5)
       astro:
         specifier: ^7.1.3
         version: 7.1.3(@astrojs/markdown-remark@7.2.1(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@1.21.7)(yaml@2.9.0)
@@ -74,16 +74,16 @@ importers:
         version: 0.9.9(prettier@3.9.1)(typescript@5.9.3)
       '@fontsource/inter':
         specifier: ^5.2.8
-        version: 5.2.8
+        version: 5.3.0
       '@fontsource/jetbrains-mono':
         specifier: ^5.2.8
-        version: 5.2.8
+        version: 5.3.0
       '@iarna/toml':
         specifier: ^2.2.5
         version: 2.2.5
       '@iconify-json/simple-icons':
         specifier: ^1.2.86
-        version: 1.2.90
+        version: 1.2.91
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -682,17 +682,17 @@ packages:
       '@noble/hashes':
         optional: true
 
-  '@fontsource/inter@5.2.8':
-    resolution: {integrity: sha512-P6r5WnJoKiNVV+zvW2xM13gNdFhAEpQ9dQJHt3naLvfg+LkF2ldgSLiF4T41lf1SQCM9QmkqPTn4TH568IRagg==}
+  '@fontsource/inter@5.3.0':
+    resolution: {integrity: sha512-RofMylZmjlJEfELXeNHFWBRcSs75rGU/6bV2S2jfnvv/3rPXPGe0LgUJTklcHZ9lM4OZmAVFhcJPnACfb91A3g==}
 
-  '@fontsource/jetbrains-mono@5.2.8':
-    resolution: {integrity: sha512-6w8/SG4kqvIMu7xd7wt6x3idn1Qux3p9N62s6G3rfldOUYHpWcc2FKrqf+Vo44jRvqWj2oAtTHrZXEP23oSKwQ==}
+  '@fontsource/jetbrains-mono@5.3.0':
+    resolution: {integrity: sha512-fqDfB5I9f1p1TV486aUgB9t8zP84P0O1FtQR5Ol9vjwPy+S+EIGlVYm1cvj2W5shcZMTg2nZFdVMoH5wFu8a1A==}
 
   '@iarna/toml@2.2.5':
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
 
-  '@iconify-json/simple-icons@1.2.90':
-    resolution: {integrity: sha512-zt2o2ZvQpHVvZJARIkZ51RnaHY2oqcPJMvHE+mVnxkSr+c33fnX4gciiXu+wyX5ei+s0qbVX1wD0DWBbaGBYMA==}
+  '@iconify-json/simple-icons@1.2.91':
+    resolution: {integrity: sha512-plQJHZxzpkIXaeYjJF0Sc9nkzYF32EDX9olx7j1hcKYFaiTrQXbcngZmvzuV0pG6uZPU3ZuA/GIsgxSHOm6jrQ==}
 
   '@iconify/tools@5.0.12':
     resolution: {integrity: sha512-aFPwSFmFphUPVjNLUkgxgUPSPVgTEEjv0mE7NgvfoQBuE5TtsMrKa4HTY65cM5oXZ2a1xKQcW/RKhiOKEiAarw==}
@@ -1670,8 +1670,9 @@ packages:
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
 
-  '@xingwangzhe/satteri-mermaid@0.5.2':
-    resolution: {integrity: sha512-+74OFnQh2bWDQ4+Zwgb/3hrrlJ/o3+WZdGakWi2e6DMTyFoJG9/cyeLYeEBkOLyN1YeHObDZh2WZFO5C9DiPiA==}
+  '@xingwangzhe/satteri-mermaid@0.7.1':
+    resolution: {integrity: sha512-b3dDU+oEuynei8iOw1i1dDztFJiYdC8aLaj7t76lU28JknR5SVcD3eQPgIZKgEuZs3fWpM3mTycNCp4FUZ5S1g==}
+    engines: {node: '>= 18.17.0'}
     peerDependencies:
       satteri: ^0.9.5
 
@@ -4125,13 +4126,13 @@ snapshots:
 
   '@exodus/bytes@1.15.1': {}
 
-  '@fontsource/inter@5.2.8': {}
+  '@fontsource/inter@5.3.0': {}
 
-  '@fontsource/jetbrains-mono@5.2.8': {}
+  '@fontsource/jetbrains-mono@5.3.0': {}
 
   '@iarna/toml@2.2.5': {}
 
-  '@iconify-json/simple-icons@1.2.90':
+  '@iconify-json/simple-icons@1.2.91':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -4863,9 +4864,8 @@ snapshots:
 
   '@vscode/l10n@0.0.18': {}
 
-  '@xingwangzhe/satteri-mermaid@0.5.2(satteri@0.9.5)':
+  '@xingwangzhe/satteri-mermaid@0.7.1(satteri@0.9.5)':
     dependencies:
-      '@mermanjs/web': 0.7.0(patch_hash=2955a4e4b2b15047996ac78f6d72ff920e456176817f064ee61c0270c38a2be6)
       satteri: 0.9.5
 
   acorn-jsx@5.3.2(acorn@8.17.0):
