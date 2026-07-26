@@ -36,7 +36,26 @@
       {
         formatter =
           let
-            treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+            treefmtEval = treefmt-nix.lib.evalModule pkgs {
+              projectRootFile = "flake.nix";
+              package = pkgs.treefmt;
+
+              programs = {
+                actionlint.enable = true;
+                biome = {
+                  enable = true;
+                  settings.formatter.indentStyle = "space";
+                };
+                deadnix.enable = true;
+                nixfmt = {
+                  enable = true;
+                  package = pkgs.nixfmt;
+                };
+                statix.enable = true;
+                taplo.enable = true;
+                yamlfmt.enable = true;
+              };
+            };
           in
           treefmtEval.config.build.wrapper;
         devShell = pkgs.devshell.mkShell {
