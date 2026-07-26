@@ -134,6 +134,14 @@ const tocHeadings = headings;
         <div class="prose e-content">
           <slot />
         </div>
+        {
+          (collection == "weeknotes") ? (
+            <>
+              <hr />
+              Thanks for reading! You can keep up with these week notes via RSS, by sharing <a href="/weeknotes/atom.xml">this link</a> to your feed readers.
+            </>
+          ) : (<></>)
+        }
         <WebmentionsSection />
       </article>
     </main>
