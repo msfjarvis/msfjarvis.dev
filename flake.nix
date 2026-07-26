@@ -77,47 +77,47 @@
               command = "pnpm run dev";
               help = "Run the Hugo development server";
             }
-            {
-              name = "diffs";
-              category = "development";
-              command = ''
-                set -x
-                OLD_DIR=$(mktemp -d)
-                NEW_DIR=$(mktemp -d)
-
-                # Build the current working directory
-                build
-
-                # Relocate the outputs to `$NEW_DIR`
-                cp -rT dist/ $NEW_DIR/
-                git stash
-
-                # Stash any changes
-                git stash || true
-
-                # Checkout the remote main branch for baseline
-                git checkout origin/main
-
-                # Build the baseline
-                build
-
-                # Relocate site to `$OLD_DIR`
-                cp -rT dist/ $OLD_DIR/
-
-                # Revert to the default branch
-                git checkout main
-
-                # Pop any potentially stashed changes
-                git stash pop || true
-
-                # Launch meld with the `$OLD_DIR` and `$NEW_DIR` directories to diff them
-                ${pkgs.lib.getExe pkgs.meld} $OLD_DIR $NEW_DIR
-
-                # Clean up the temporary folders when `meld` exits
-                rm -rf $OLD_DIR $NEW_DIR
-              '';
-              help = "Launch meld to diff between the `old` and `new` folders";
-            }
+#             {
+#               name = "diffs";
+#               category = "development";
+#               command = ''
+#                 set -x
+#                 OLD_DIR=$(mktemp -d)
+#                 NEW_DIR=$(mktemp -d)
+# 
+#                 # Build the current working directory
+#                 build
+# 
+#                 # Relocate the outputs to `$NEW_DIR`
+#                 cp -rT dist/ $NEW_DIR/
+#                 git stash
+# 
+#                 # Stash any changes
+#                 git stash || true
+# 
+#                 # Checkout the remote main branch for baseline
+#                 git checkout origin/main
+# 
+#                 # Build the baseline
+#                 build
+# 
+#                 # Relocate site to `$OLD_DIR`
+#                 cp -rT dist/ $OLD_DIR/
+# 
+#                 # Revert to the default branch
+#                 git checkout main
+# 
+#                 # Pop any potentially stashed changes
+#                 git stash pop || true
+# 
+#                 # Launch meld with the `$OLD_DIR` and `$NEW_DIR` directories to diff them
+#                 ${pkgs.lib.getExe pkgs.meld} $OLD_DIR $NEW_DIR
+# 
+#                 # Clean up the temporary folders when `meld` exits
+#                 rm -rf $OLD_DIR $NEW_DIR
+#               '';
+#               help = "Launch meld to diff between the `old` and `new` folders";
+#             }
             {
               name = "new";
               category = "development";
