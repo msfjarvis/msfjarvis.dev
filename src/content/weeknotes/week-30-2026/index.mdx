@@ -1,0 +1,92 @@
+---
+title: "Weeknotes: Week #30 (2026)"
+date: "2026-07-26T11:44:25.124Z"
+lastmod: "2026-07-26T11:44:25.124Z"
+summary: "Reading, sleeping, then reading again. Truly a week of all time."
+tags:
+  - reading
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+import MastodonPost from "../../../components/MastodonPost.astro";
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import caramel_frappuccino from "./caramel_frappuccino.webp";
+import chicken_toasties from "./chicken_toasties.webp";
+import koreader_stats from "./koreader_stats.webp";
+import paneer_curry from "./paneer_curry.webp";
+import waffles from "./waffles.webp";
+
+# Personal
+
+Going through my journal it seems I did little this week outside of read, end up napping since I was reading in bed, then wake up and read again. Solid 9/10 week, no complaints 👌
+
+## Reading
+
+<Figure
+  src={koreader_stats}
+  title="There are worse problems to have than finishing a new favorite book series but it is up there"
+  alt="Reading statistics page in KOReader, showing I've been reading every day since July 3 and finished 4 Mother of Learning books."
+  small={true}
+/>
+
+This entire month has gone into reading through the Mother of Learning series which I grew to love immensely, and I'm genuinely a little sad that there's no more of it 🙃
+
+Given how consistent I've been this month, I've decided to threaten that with non-fiction once again, hopefully it will go better this time. As part of this refreshed fervour I have also added a [/reading](/reading/) page to this site that pulls data from my [Bookwyrm profile](https://bookwyrm.social/user/msfjarvis).
+
+## Socializing
+
+Extremely misleading section header given how little I actually interacted with people this week. On Thursday I started working then quickly decided I wasn't really feeling it, and took the day off — shockingly — to read. By Sunday, I was off the high having finished MoL, so I went on a solo brunch just to get some time out in the sun. Had a nice time at [Cafe Grey](https://www.bangaloreeats.com/place/cafe-grey-by-dongle-and-co-indiranagar) and as usual both their food and coffee were delicious.
+
+<Gallery>
+<Figure
+  src={waffles}
+  title="The waffles were just the right level of sweet"
+  alt="Waffles dusted with powdered sugar, served with syrup and butter"
+/>
+
+<Figure
+  src={caramel_frappuccino}
+  title="Starbucks could learn a thing or two about how much ice actually goes in one of these"
+  alt="A tall glass of frothy coffee on a cafe table"
+/>
+
+<Figure
+  src={chicken_toasties}
+  title="The toasties were surprisingly filling despite looking like rather small portions"
+  alt="Toasted bread topped with chicken, peppers, tomatoes, and melted cheese"
+/>
+
+</Gallery>
+
+# Work
+
+I have complex feelings about [Sean Goedecke](https://www.seangoedecke.com/about)'s writing, but I decided to take some of the advice from the [doing nothing at work](https://www.seangoedecke.com/doing-nothing-at-work/) essay to free up my time for interesting opportunities that might turn up. This paid off pretty quickly, and I spent this week mostly focusing on one of those projects. A bulk of the work was already in place, so I've been able to move fast on it. Hopefully it'll be done and dusted by next week, and I can go back to focusing on new feature work for [RealtimeKit](https://developers.cloudflare.com/realtime/realtimekit/).
+
+That said, I did cap off the RealtimeKit [monorepo](https://en.wikipedia.org/wiki/Monorepo) side quest by moving the final piece in: the iOS UI Kit. This was a bit of a hassle due to how the dependencies work out, but ultimately everything fell into place. I am fully confident this house of cards will fall apart the second I trigger the release pipeline, but that's a problem for a later date.
+
+# Meta
+
+The site has had a bunch of changes this week as I mucked around with adding the [/reading](/reading) page. The nav links at the top are now truncated to be 3 + overflow as I keep adding standalone pages. The resulting UI is still a little too wide for mobile, so I will probably keep iterating on this to make it look nice on all sizes.
+
+The webmentions server that processes outgoing content now uses the hidden `p-summary` element instead of `e-content` to populate the body, so people receiving Webmentions from me will start seeing shorter "description" fields instead of the awkwardly HTML-stripped main content.
+
+# Cooking
+
+Not a lot of cooking this week as we first made a big portion of paneer and ate it over two days, then Yash fell sick so we were down to plain khichdi. I'm also not having the best time with food, so the kitchen was mostly unused this week. The paneer was our first foray into blending roasted veggies to make a curry and the result was exactly as smooth and creamy as promised. Will definitely be doing more of this going forward given how easy it was to put together.
+
+<Figure
+  src={paneer_curry}
+  title="We decided to make a big portion of this and get two dinners out of it, totally the right call"
+  alt="Paneer curry with peas in a large pan"
+  small={true}
+/>
+
+# Odin of the Week
+
+Seeing Odin on my Mastodon feed gives me infinite joy, so I've decided that Odin of the Week can now just be a running segment. Who would not want to see this human-sized Newfoundlander puppy? Here is a handy [FAQ](https://infosec.exchange/@0xabad1dea/113380498047949124) about Odin, so you know what you're getting into :D
+
+<MastodonPost url={"https://infosec.exchange/@0xabad1dea/116980897659510296"} />
