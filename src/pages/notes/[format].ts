@@ -12,7 +12,8 @@ export const { getStaticPaths, GET } = createFeedEndpoint({
     return [
       {
         entries: notes,
-        urlBuilder: (entry: any, origin: string) => `${origin}/notes/${entry.id}/`,
+        urlBuilder: (entry: any, origin: string) =>
+          `${origin}/notes/${entry.id}/`,
       },
     ];
   },

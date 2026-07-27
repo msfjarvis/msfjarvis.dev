@@ -5,7 +5,10 @@ import { fileURLToPath } from "node:url";
 import { find, svg as svgSchema } from "property-information";
 import { defineHastPlugin } from "satteri";
 
-import { applyMermaidThemeVariables, mermaidSvgThemeStyles } from "./mermaid-theme.ts";
+import {
+  applyMermaidThemeVariables,
+  mermaidSvgThemeStyles,
+} from "./mermaid-theme.ts";
 
 import type { HastNode } from "satteri";
 
@@ -143,19 +146,31 @@ function fileName(fileURL: URL | undefined): string {
 }
 
 function ensureSvgDocument(svg: string): string {
-  const $ = cheerio.load(applyMermaidThemeVariables(svg.trim()), { xmlMode: true });
+  const $ = cheerio.load(applyMermaidThemeVariables(svg.trim()), {
+    xmlMode: true,
+  });
   const root = $.root().children().toArray();
   const rootElement = root[0];
 
-  if (root.length !== 1 || rootElement?.type !== "tag" || rootElement.tagName !== "svg") {
+  if (
+    root.length !== 1 ||
+    rootElement?.type !== "tag" ||
+    rootElement.tagName !== "svg"
+  ) {
     throw new Error("Satteri Mermaid returned invalid SVG markup");
   }
 
   const svgElement = $(rootElement);
   const className = svgElement.attr("class");
   const style = svgElement.attr("style");
-  svgElement.attr("class", className ? `${className} mermaid-diagram` : "mermaid-diagram");
-  svgElement.attr("style", `color-scheme: light dark;${style ? ` ${style}` : ""}`);
+  svgElement.attr(
+    "class",
+    className ? `${className} mermaid-diagram` : "mermaid-diagram",
+  );
+  svgElement.attr(
+    "style",
+    `color-scheme: light dark;${style ? ` ${style}` : ""}`,
+  );
   svgElement.append(`<style>${mermaidSvgThemeStyles}</style>`);
   return $.xml(rootElement);
 }
@@ -175,13 +190,21 @@ function prepareForSatteri(node: HastNode, insideSvg = false): HastNode {
   for (const [name, value] of Object.entries(node.properties)) {
     const attributeName = isSvg ? find(svgSchema, name).attribute : name;
     const normalizedValue =
-      typeof value === "number" ? String(value) : Array.isArray(value) ? value.map(String) : value;
+      typeof value === "number"
+        ? String(value)
+        : Array.isArray(value)
+          ? value.map(String)
+          : value;
 
     if (attributeName !== name) delete node.properties[name];
     node.properties[attributeName] = normalizedValue;
   }
   node.children = node.children.map(
-    (child) => prepareForSatteri(child as HastNode, isSvg) as (typeof node.children)[number],
+    (child) =>
+      prepareForSatteri(
+        child as HastNode,
+        isSvg,
+      ) as (typeof node.children)[number],
   );
   return node;
 }
@@ -190,7 +213,8 @@ export const mermaidLightbox = defineHastPlugin({
   name: "mermaid-lightbox",
 
   raw(node, context) {
-    if (!node.value.startsWith('<div class="mermaid" data-mermaid-ssg="true"')) return;
+    if (!node.value.startsWith('<div class="mermaid" data-mermaid-ssg="true"'))
+      return;
 
     const svgStart = node.value.indexOf("<svg");
     const svgEnd = node.value.lastIndexOf("</svg>");
@@ -200,9 +224,15 @@ export const mermaidLightbox = defineHastPlugin({
       );
     }
 
-    const svg = ensureSvgDocument(node.value.slice(svgStart, svgEnd + "</svg>".length));
-    const fragment = fromHtml(modalMarkup(svg, fileName(context.fileURL)), { fragment: true });
-    const children = fragment.children.map((child) => prepareForSatteri(child as HastNode));
+    const svg = ensureSvgDocument(
+      node.value.slice(svgStart, svgEnd + "</svg>".length),
+    );
+    const fragment = fromHtml(modalMarkup(svg, fileName(context.fileURL)), {
+      fragment: true,
+    });
+    const children = fragment.children.map((child) =>
+      prepareForSatteri(child as HastNode),
+    );
     const [style, modal, script] = children;
     if (!style || !modal || !script || children.length !== 3) {
       throw new Error("Failed to build Mermaid lightbox markup");

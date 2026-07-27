@@ -16,12 +16,19 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
   <button type="button" data-upvote aria-pressed="false" disabled>
     <span class="upvote-button__arrow" aria-hidden="true">↑</span>
     <span>Upvote</span>
-    <span class="upvote-button__count" data-count aria-label="vote count">…</span>
+    <span class="upvote-button__count" data-count aria-label="vote count"
+      >…</span
+    >
   </button>
-  <span class="upvote-button__status" data-status aria-live="polite" aria-atomic="true"
-    >Loading votes…</span
+  <span
+    class="upvote-button__status"
+    data-status
+    aria-live="polite"
+    aria-atomic="true">Loading votes…</span
   >
-  <button type="button" data-retry aria-label="Retry loading upvotes" hidden>Retry</button>
+  <button type="button" data-retry aria-label="Retry loading upvotes" hidden
+    >Retry</button
+  >
 </upvote-button>
 
 <style>
@@ -129,7 +136,11 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
 
       const button = this.querySelector("[data-upvote]");
       const retry = this.querySelector("[data-retry]");
-      if (!(button instanceof HTMLButtonElement) || !(retry instanceof HTMLButtonElement)) return;
+      if (
+        !(button instanceof HTMLButtonElement) ||
+        !(retry instanceof HTMLButtonElement)
+      )
+        return;
       button.addEventListener("click", () => void this.toggle());
       retry.addEventListener("click", () => void this.load());
       void this.load();
@@ -143,8 +154,12 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
       this.setBusy(true);
       this.setStatus("Loading votes…");
       try {
-        const summary = await fetchVoteSummary({ type: "upvote", postId: this.postId });
-        if (summary.type !== "upvote") throw new VoteApiError("Invalid upvote response");
+        const summary = await fetchVoteSummary({
+          type: "upvote",
+          postId: this.postId,
+        });
+        if (summary.type !== "upvote")
+          throw new VoteApiError("Invalid upvote response");
         this.summary = summary;
         this.renderSummary();
         this.setStatus("");
@@ -167,7 +182,8 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
         const summary = wasVoted
           ? await clearVote({ type: "upvote", postId: this.postId })
           : await submitVote({ type: "upvote", postId: this.postId });
-        if (summary.type !== "upvote") throw new VoteApiError("Invalid upvote response");
+        if (summary.type !== "upvote")
+          throw new VoteApiError("Invalid upvote response");
         this.summary = summary;
         this.renderSummary();
         this.setStatus(wasVoted ? "Upvote removed." : "Upvote added.");
@@ -182,7 +198,11 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
       if (this.summary === null) return;
       const button = this.querySelector("[data-upvote]");
       const count = this.querySelector("[data-count]");
-      if (!(button instanceof HTMLButtonElement) || !(count instanceof HTMLElement)) return;
+      if (
+        !(button instanceof HTMLButtonElement) ||
+        !(count instanceof HTMLElement)
+      )
+        return;
 
       button.setAttribute("aria-pressed", String(this.summary.voted));
       count.textContent = this.summary.total.toLocaleString();
@@ -196,7 +216,8 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
       this.busy = busy;
       this.setAttribute("aria-busy", String(busy));
       const button = this.querySelector("[data-upvote]");
-      if (button instanceof HTMLButtonElement) button.disabled = busy || this.summary === null;
+      if (button instanceof HTMLButtonElement)
+        button.disabled = busy || this.summary === null;
       const retry = this.querySelector("[data-retry]");
       if (retry instanceof HTMLButtonElement) retry.disabled = busy;
     }
@@ -215,7 +236,9 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
   }
 
   function errorMessage(error: unknown): string {
-    return error instanceof Error ? error.message : "Could not update this upvote. Please try again.";
+    return error instanceof Error
+      ? error.message
+      : "Could not update this upvote. Please try again.";
   }
 
   if (!customElements.get("upvote-button")) {

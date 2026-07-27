@@ -54,10 +54,17 @@ export default function opengraphImages({
             const html = (await fs.readFile(htmlFile)).toString();
             const document = new JSDOM(sanitizeHtml(html)).window.document;
             const pageDetails = extract(document);
-            const renderInput: RenderFunctionInput = { ...page, ...pageDetails, dir, document };
+            const renderInput: RenderFunctionInput = {
+              ...page,
+              ...pageDetails,
+              dir,
+              document,
+            };
 
             if (filter) {
-              const shouldRender = await (filter as FilterFunction)(renderInput);
+              const shouldRender = await (filter as FilterFunction)(
+                renderInput,
+              );
               if (!shouldRender) {
                 if (optionsWithDefaults.verbose) {
                   logger.info(`Skipping page ${page.pathname}.`);
@@ -79,7 +86,9 @@ export default function opengraphImages({
             const relativePngFile = path
               .relative(fileURLToPath(dir), pngFile)
               .replaceAll("\\", "/");
-            const imageUrl = decodeURIComponent(new URL(pageDetails.image).pathname.slice(1));
+            const imageUrl = decodeURIComponent(
+              new URL(pageDetails.image).pathname.slice(1),
+            );
             if (imageUrl !== relativePngFile) {
               throw new Error(
                 `The og:image property in ${htmlFile} (${imageUrl}) does not match the generated image (${relativePngFile}).`,

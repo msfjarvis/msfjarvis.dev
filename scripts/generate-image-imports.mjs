@@ -19,7 +19,9 @@ function generateImageImports(imageDir) {
   const imageFiles = fs
     .readdirSync(imageDir)
     .map((file) => path.join(imageDir, file))
-    .filter((file) => fs.statSync(file).isFile() && path.extname(file) === ".webp")
+    .filter(
+      (file) => fs.statSync(file).isFile() && path.extname(file) === ".webp",
+    )
     .sort();
 
   if (imageFiles.length === 0) {
@@ -29,7 +31,10 @@ function generateImageImports(imageDir) {
 
   // Generate imports
   const imports = imageFiles.map((imagePath) => {
-    const imageNameWithoutExt = path.basename(imagePath, path.extname(imagePath));
+    const imageNameWithoutExt = path.basename(
+      imagePath,
+      path.extname(imagePath),
+    );
 
     // Convert kebab-case to snake_case
     const importName = imageNameWithoutExt.replace(/-/g, "_");
@@ -47,7 +52,9 @@ const imageDir = process.argv[2];
 
 if (!imageDir) {
   console.error("Usage: node generate-image-imports.mjs <path-to-mdx-file>");
-  console.error("Example: node generate-image-imports.mjs src/content/weeknotes/week-18-2026");
+  console.error(
+    "Example: node generate-image-imports.mjs src/content/weeknotes/week-18-2026",
+  );
   process.exit(1);
 }
 

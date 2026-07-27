@@ -16,7 +16,10 @@ test("normalizes HTTP status URLs before fetching", async () => {
   });
 
   assert.equal(status.canonicalUrl, statusUrl);
-  assert.equal(requestedUrl, "https://infosec.exchange/api/v1/statuses/116900098449254586");
+  assert.equal(
+    requestedUrl,
+    "https://infosec.exchange/api/v1/statuses/116900098449254586",
+  );
 });
 
 test("ignores query strings and fragments on status URLs", async () => {
@@ -30,7 +33,10 @@ test("ignores query strings and fragments on status URLs", async () => {
   });
 
   assert.equal(status.canonicalUrl, statusUrl);
-  assert.equal(requestedUrl, "https://infosec.exchange/api/v1/statuses/116900098449254586");
+  assert.equal(
+    requestedUrl,
+    "https://infosec.exchange/api/v1/statuses/116900098449254586",
+  );
 });
 
 test("blocks redirects with a Cloudflare-compatible fetch policy", async () => {
@@ -66,7 +72,8 @@ test("rejects unsupported status URLs", async () => {
 test("keeps local account attribution fully qualified", async () => {
   const status = await fetchMastodonStatus({
     url: statusUrl,
-    fetchImpl: async () => validStatus({ account: { display_name: "Ada", acct: "ada" } }),
+    fetchImpl: async () =>
+      validStatus({ account: { display_name: "Ada", acct: "ada" } }),
   });
 
   assert.equal(status.author.account, "@ada@infosec.exchange");
@@ -84,13 +91,19 @@ test("normalizes status content and usable attachments", async () => {
             url: "https://cdn.example/image.png",
             description: "An image",
           },
-          { type: "video", url: "https://cdn.example/video.mp4", description: "A video" },
+          {
+            type: "video",
+            url: "https://cdn.example/video.mp4",
+            description: "A video",
+          },
         ],
       }),
   });
 
   assert.deepEqual(status.paragraphs, ["Hello world\nagain", "Next"]);
-  assert.deepEqual(status.images, [{ url: "https://cdn.example/image.png", alt: "An image" }]);
+  assert.deepEqual(status.images, [
+    { url: "https://cdn.example/image.png", alt: "An image" },
+  ]);
   assert.deepEqual(status.attachments, [
     { url: "https://cdn.example/video.mp4", label: "A video" },
   ]);
@@ -112,18 +125,32 @@ test("omits invalid media and uses safe fallbacks for usable attachments", async
       validStatus({
         media_attachments: [
           { type: "image", url: "javascript:alert(1)" },
-          { type: "image", url: "https://cdn.example/image.png", description: 42 },
+          {
+            type: "image",
+            url: "https://cdn.example/image.png",
+            description: 42,
+          },
           { type: "video", url: "data:video/mp4;base64,AA==" },
-          { type: "unknown", url: "https://cdn.example/file.bin", description: 42 },
+          {
+            type: "unknown",
+            url: "https://cdn.example/file.bin",
+            description: 42,
+          },
         ],
       }),
   });
 
   assert.deepEqual(status.images, [
-    { url: "https://cdn.example/image.png", alt: "https://cdn.example/image.png" },
+    {
+      url: "https://cdn.example/image.png",
+      alt: "https://cdn.example/image.png",
+    },
   ]);
   assert.deepEqual(status.attachments, [
-    { url: "https://cdn.example/file.bin", label: "https://cdn.example/file.bin" },
+    {
+      url: "https://cdn.example/file.bin",
+      label: "https://cdn.example/file.bin",
+    },
   ]);
 });
 
@@ -171,11 +198,17 @@ test("throws on HTTP, invalid JSON, and malformed status payloads", async () => 
     /404/,
   );
   await assert.rejects(
-    fetchMastodonStatus({ url: statusUrl, fetchImpl: async () => new Response("not json") }),
+    fetchMastodonStatus({
+      url: statusUrl,
+      fetchImpl: async () => new Response("not json"),
+    }),
     /JSON/i,
   );
   await assert.rejects(
-    fetchMastodonStatus({ url: statusUrl, fetchImpl: async () => new Response("{}") }),
+    fetchMastodonStatus({
+      url: statusUrl,
+      fetchImpl: async () => new Response("{}"),
+    }),
     /content/,
   );
 });

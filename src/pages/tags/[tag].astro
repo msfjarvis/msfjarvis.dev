@@ -1,24 +1,30 @@
 ---
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { slugify } from '../../utils';
-import { filterDrafts } from '../../utils';
-import {SITE_TITLE} from "../../consts.ts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { slugify } from "../../utils";
+import { filterDrafts } from "../../utils";
+import { SITE_TITLE } from "../../consts.ts";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
   const [posts, notes, weeknotes] = await Promise.all([
-    getCollection('posts',     filterDrafts),
-    getCollection('notes',     filterDrafts),
-    getCollection('weeknotes', filterDrafts),
+    getCollection("posts", filterDrafts),
+    getCollection("notes", filterDrafts),
+    getCollection("weeknotes", filterDrafts),
   ]);
 
   // Build a map of tag → entries
-  const tagMap = new Map<string, { title: string; date: Date; url: string }[]>();
+  const tagMap = new Map<
+    string,
+    { title: string; date: Date; url: string }[]
+  >();
 
-  const addEntries = (entries: typeof posts | typeof notes | typeof weeknotes, urlBase: string) => {
+  const addEntries = (
+    entries: typeof posts | typeof notes | typeof weeknotes,
+    urlBase: string,
+  ) => {
     for (const entry of entries) {
       for (const tag of entry.data.tags) {
         if (!tagMap.has(tag)) tagMap.set(tag, []);
@@ -31,9 +37,9 @@ export async function getStaticPaths() {
     }
   };
 
-  addEntries(posts,     '/posts');
-  addEntries(notes,     '/notes');
-  addEntries(weeknotes, '/weeknotes');
+  addEntries(posts, "/posts");
+  addEntries(notes, "/notes");
+  addEntries(weeknotes, "/weeknotes");
 
   return [...tagMap.entries()].map(([tag, entries]) => ({
     params: { tag: slugify(tag) },
@@ -51,35 +57,70 @@ const { tag, entries } = Astro.props;
   title={`${tag} — Tags`}
   description={`Posts tagged ${tag}`}
   alternateFeeds={[
-    { type: 'application/rss+xml',   title: `Posts about ${tag} on ${SITE_TITLE} — RSS`,       href: `/tags/${Astro.params.tag}/rss.xml`   },
-    { type: 'application/atom+xml',  title: `Posts about ${tag} on ${SITE_TITLE} — Atom`,      href: `/tags/${Astro.params.tag}/atom.xml`  },
-    { type: 'application/feed+json', title: `Posts about ${tag} on ${SITE_TITLE} — JSON Feed`, href: `/tags/${Astro.params.tag}/feed.json` },
+    {
+      type: "application/rss+xml",
+      title: `Posts about ${tag} on ${SITE_TITLE} — RSS`,
+      href: `/tags/${Astro.params.tag}/rss.xml`,
+    },
+    {
+      type: "application/atom+xml",
+      title: `Posts about ${tag} on ${SITE_TITLE} — Atom`,
+      href: `/tags/${Astro.params.tag}/atom.xml`,
+    },
+    {
+      type: "application/feed+json",
+      title: `Posts about ${tag} on ${SITE_TITLE} — JSON Feed`,
+      href: `/tags/${Astro.params.tag}/feed.json`,
+    },
   ]}
 >
   <h1><a href="/tags/">Tags</a> <span class="sep">›</span> {tag}</h1>
-  <p class="count">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
+  <p class="count">
+    {entries.length}
+    {entries.length === 1 ? "entry" : "entries"}
+  </p>
   <ul>
-    {entries.map(({ title, date, url }) => (
-      <li class="entry-row">
-        <a href={url}>{title}</a>
-        <span class="date"><FormattedDate date={date} /></span>
-      </li>
-    ))}
+    {
+      entries.map(({ title, date, url }) => (
+        <li class="entry-row">
+          <a href={url}>{title}</a>
+          <span class="date">
+            <FormattedDate date={date} />
+          </span>
+        </li>
+      ))
+    }
   </ul>
 </BaseLayout>
 
 <style>
-  h1 { margin-top: 0; margin-bottom: 0.25rem; }
-  h1 a { color: var(--text-2); border-bottom: none; }
-  h1 a:hover { color: var(--accent); }
-  .sep { color: var(--text-2); margin: 0 0.25em; font-weight: 400; }
+  h1 {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+  h1 a {
+    color: var(--text-2);
+    border-bottom: none;
+  }
+  h1 a:hover {
+    color: var(--accent);
+  }
+  .sep {
+    color: var(--text-2);
+    margin: 0 0.25em;
+    font-weight: 400;
+  }
   .count {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--text-2);
     margin: 0 0 1.5rem;
   }
-  ul { list-style: none; padding: 0; margin: 0; }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
   .entry-row {
     display: flex;
     justify-content: space-between;
@@ -88,14 +129,18 @@ const { tag, entries } = Astro.props;
     border-bottom: 1px solid var(--border);
     gap: 0.75rem;
   }
-  .entry-row:last-child { border-bottom: none; }
+  .entry-row:last-child {
+    border-bottom: none;
+  }
   .entry-row a {
     font-family: var(--font-mono);
     font-size: 0.9rem;
     color: var(--accent);
     border-bottom: none;
   }
-  .entry-row a:hover { color: var(--text); }
+  .entry-row a:hover {
+    color: var(--text);
+  }
   .date {
     font-family: var(--font-mono);
     font-size: 0.75rem;

@@ -69,9 +69,16 @@ export function createKvVoteStore(namespace: KVNamespace): VoteStore {
       await namespace.delete(key);
     },
     async list(prefix, cursor) {
-      const result = await namespace.list<unknown>({ prefix, cursor, limit: 1_000 });
+      const result = await namespace.list<unknown>({
+        prefix,
+        cursor,
+        limit: 1_000,
+      });
       return {
-        entries: result.keys.map(({ name, metadata }) => ({ key: name, metadata })),
+        entries: result.keys.map(({ name, metadata }) => ({
+          key: name,
+          metadata,
+        })),
         ...(!result.list_complete && { cursor: result.cursor }),
       };
     },
@@ -98,7 +105,10 @@ export function parseVoteSubmission(input: unknown): VoteSubmission {
       if (!Array.isArray(body.choices)) {
         throw new VoteValidationError("choices must be an array");
       }
-      if (body.choices.length === 0 || body.choices.length > MAX_MULTIPLE_CHOICES) {
+      if (
+        body.choices.length === 0 ||
+        body.choices.length > MAX_MULTIPLE_CHOICES
+      ) {
         throw new VoteValidationError(
           `choices must contain between 1 and ${MAX_MULTIPLE_CHOICES} items`,
         );
@@ -109,7 +119,8 @@ export function parseVoteSubmission(input: unknown): VoteSubmission {
         throw new VoteValidationError("choices must not contain duplicates");
       }
       if (
-        choices.reduce((total, choice) => total + choice.length, 0) > MAX_TOTAL_CHOICE_CHARACTERS
+        choices.reduce((total, choice) => total + choice.length, 0) >
+        MAX_TOTAL_CHOICE_CHARACTERS
       ) {
         throw new VoteValidationError(
           `choice IDs must total no more than ${MAX_TOTAL_CHOICE_CHARACTERS} characters`,
@@ -156,8 +167,13 @@ export function voteTargetFromQuery(searchParams: URLSearchParams): VoteTarget {
 }
 
 export async function hashVoterId(voterId: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(voterId));
-  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(voterId),
+  );
+  return Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
 }
 
 export async function recordVote(
@@ -216,14 +232,18 @@ export async function getVoteSummary(
       }
       for (const choice of metadata.choices) {
         if (!counts.has(choice) && counts.size >= MAX_DISTINCT_CHOICES) {
-          throw new VoteCapacityError("This poll has too many distinct choices");
+          throw new VoteCapacityError(
+            "This poll has too many distinct choices",
+          );
         }
         counts.set(choice, (counts.get(choice) ?? 0) + 1);
       }
     }
 
     if (total > MAX_BALLOTS_PER_TARGET) {
-      throw new VoteCapacityError("This vote has too many ballots to aggregate from KV");
+      throw new VoteCapacityError(
+        "This vote has too many ballots to aggregate from KV",
+      );
     }
     cursor = page.cursor;
   } while (cursor !== undefined);
@@ -243,7 +263,10 @@ export async function getVoteSummary(
   };
 }
 
-export function applyVoteToSummary(summary: VoteSummary, submission: VoteSubmission): VoteSummary {
+export function applyVoteToSummary(
+  summary: VoteSummary,
+  submission: VoteSubmission,
+): VoteSummary {
   const target = voteTargetForSubmission(submission);
   assertSummaryTarget(summary, target);
 
@@ -257,7 +280,9 @@ export function applyVoteToSummary(summary: VoteSummary, submission: VoteSubmiss
   }
 
   if (summary.selection.length === 0) assertBallotCapacity(summary.total);
-  const counts = new Map(summary.results.map(({ choice, votes }) => [choice, votes]));
+  const counts = new Map(
+    summary.results.map(({ choice, votes }) => [choice, votes]),
+  );
   for (const choice of summary.selection) {
     const votes = (counts.get(choice) ?? 0) - 1;
     if (votes <= 0) counts.delete(choice);
@@ -286,7 +311,9 @@ export function applyRetractionToSummary(summary: VoteSummary): VoteSummary {
   }
   if (summary.selection.length === 0) return summary;
 
-  const counts = new Map(summary.results.map(({ choice, votes }) => [choice, votes]));
+  const counts = new Map(
+    summary.results.map(({ choice, votes }) => [choice, votes]),
+  );
   for (const choice of summary.selection) {
     const votes = (counts.get(choice) ?? 0) - 1;
     if (votes <= 0) counts.delete(choice);
@@ -300,7 +327,9 @@ export function applyRetractionToSummary(summary: VoteSummary): VoteSummary {
   };
 }
 
-export function voteTargetForSubmission(submission: VoteSubmission): VoteTarget {
+export function voteTargetForSubmission(
+  submission: VoteSubmission,
+): VoteTarget {
   return submission.type === "upvote"
     ? { type: "upvote", postId: submission.postId }
     : {
@@ -322,9 +351,14 @@ function ballotKey(target: VoteTarget, voterHash: string): string {
   return `${targetPrefix(target)}${voterHash}`;
 }
 
-function isBallotForTarget(metadata: unknown, target: VoteTarget): metadata is BallotMetadata {
+function isBallotForTarget(
+  metadata: unknown,
+  target: VoteTarget,
+): metadata is BallotMetadata {
   if (!isBallotMetadata(metadata)) return false;
-  return target.type === "upvote" ? metadata.type === "upvote" : metadata.type === target.mode;
+  return target.type === "upvote"
+    ? metadata.type === "upvote"
+    : metadata.type === target.mode;
 }
 
 function isBallotMetadata(value: unknown): value is BallotMetadata {
@@ -332,7 +366,11 @@ function isBallotMetadata(value: unknown): value is BallotMetadata {
   const metadata = value as Record<string, unknown>;
   if (metadata.version !== 1 || !Array.isArray(metadata.choices)) return false;
   const choices = metadata.choices;
-  if (!choices.every((choice) => typeof choice === "string" && CHOICE_ID_PATTERN.test(choice))) {
+  if (
+    !choices.every(
+      (choice) => typeof choice === "string" && CHOICE_ID_PATTERN.test(choice),
+    )
+  ) {
     return metadata.type === "upvote" && choices.length === 0;
   }
   if (metadata.type === "single") return choices.length === 1;
@@ -341,13 +379,17 @@ function isBallotMetadata(value: unknown): value is BallotMetadata {
       choices.length > 0 &&
       choices.length <= MAX_MULTIPLE_CHOICES &&
       new Set(choices).size === choices.length &&
-      choices.reduce((total, choice) => total + choice.length, 0) <= MAX_TOTAL_CHOICE_CHARACTERS
+      choices.reduce((total, choice) => total + choice.length, 0) <=
+        MAX_TOTAL_CHOICE_CHARACTERS
     );
   }
   return metadata.type === "upvote" && choices.length === 0;
 }
 
-function ballotMetadataEqual(left: BallotMetadata, right: BallotMetadata): boolean {
+function ballotMetadataEqual(
+  left: BallotMetadata,
+  right: BallotMetadata,
+): boolean {
   return (
     left.type === right.type &&
     left.choices.length === right.choices.length &&
@@ -360,8 +402,11 @@ function assertSummaryTarget(summary: VoteSummary, target: VoteTarget): void {
     summary.type === target.type &&
     summary.postId === target.postId &&
     (summary.type === "upvote" ||
-      (target.type === "poll" && summary.pollId === target.pollId && summary.mode === target.mode));
-  if (!matches) throw new VoteValidationError("vote does not match its summary target");
+      (target.type === "poll" &&
+        summary.pollId === target.pollId &&
+        summary.mode === target.mode));
+  if (!matches)
+    throw new VoteValidationError("vote does not match its summary target");
 }
 
 function assertBallotCapacity(total: number): void {
@@ -370,9 +415,11 @@ function assertBallotCapacity(total: number): void {
   }
 }
 
-function sortedResults(counts: Map<string, number>): Array<{ choice: string; votes: number }> {
-  return Array.from(counts, ([choice, votes]) => ({ choice, votes })).sort((a, b) =>
-    a.choice.localeCompare(b.choice),
+function sortedResults(
+  counts: Map<string, number>,
+): Array<{ choice: string; votes: number }> {
+  return Array.from(counts, ([choice, votes]) => ({ choice, votes })).sort(
+    (a, b) => a.choice.localeCompare(b.choice),
   );
 }
 

@@ -27,11 +27,17 @@ For hobbyist projects without any real budget (like this site and the couple oth
 
 - First thing that you want to do is to setup the `CNAME` record that will let GitHub Pages service your status page to a subdomain of your website. Head to your domain registrar (Cloudflare for me) and add a CNAME record for `<your github username>.github.io`
 
-<Figure src={statuspage_cname_record} alt="CNAME record for status.msfjarvis.dev at Cloudflare" />
+<Figure
+  src={statuspage_cname_record}
+  alt="CNAME record for status.msfjarvis.dev at Cloudflare"
+/>
 
 - Next, create a GitHub repository that will hold the Actions workflow for generating your status page as well as the actual status page itself. This repo can be private, as the generated sites are always publicly available.
 
-<Figure src={statuspage_github_repo} alt="GitHub repository for our status page" />
+<Figure
+  src={statuspage_github_repo}
+  alt="GitHub repository for our status page"
+/>
 
 - Clone this empty repository. Now create a file with the name of `CNAME` and enter your custom domain into it. This lets GitHub Pages know where to redirect users if they ever access the site through your `.github.io` subdomain. Commit this file.
 

@@ -28,7 +28,10 @@ const notes = defineCollection({
 });
 
 const weeknotes = defineCollection({
-  loader: glob({ base: "./src/content/weeknotes", pattern: "**/index.{md,mdx}" }),
+  loader: glob({
+    base: "./src/content/weeknotes",
+    pattern: "**/index.{md,mdx}",
+  }),
   schema: postSchema,
 });
 
@@ -48,4 +51,10 @@ const currentlyReading = defineCollection({
   schema: editionSchema,
 });
 
-export const collections = { posts, notes, weeknotes, readBooks, currentlyReading };
+export const collections = {
+  posts,
+  notes,
+  weeknotes,
+  readBooks,
+  currentlyReading,
+};

@@ -1,7 +1,11 @@
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
 import { SITE_URL } from "../consts";
-import { buildManifest, buildManifestEntry, type WebmentionsCollection } from "../lib/webmentions";
+import {
+  buildManifest,
+  buildManifestEntry,
+  type WebmentionsCollection,
+} from "../lib/webmentions";
 import { filterDrafts } from "../utils";
 
 export const prerender = true;
@@ -15,7 +19,9 @@ export async function GET(_context: APIContext) {
   ]);
 
   const entries = collections.flatMap((items, index) => {
-    const collection = ["posts", "notes", "weeknotes"][index] as WebmentionsCollection;
+    const collection = ["posts", "notes", "weeknotes"][
+      index
+    ] as WebmentionsCollection;
     return items.flatMap((item) => {
       const entry = buildManifestEntry({
         collection,

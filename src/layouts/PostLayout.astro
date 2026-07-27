@@ -1,11 +1,11 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
-import PagefindConfig from '../components/PagefindConfig.astro';
-import { slugify } from '../utils';
-import WebmentionsSection from '../components/WebmentionsSection.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+import PagefindConfig from "../components/PagefindConfig.astro";
+import { slugify } from "../utils";
+import WebmentionsSection from "../components/WebmentionsSection.astro";
 
 interface Heading {
   depth: number;
@@ -23,7 +23,7 @@ interface Props {
   tags?: string[];
   image?: string;
   autoImage?: boolean;
-  collection?: 'posts' | 'notes' | 'weeknotes';
+  collection?: "posts" | "notes" | "weeknotes";
   headings?: Heading[];
 }
 
@@ -46,7 +46,12 @@ const tocHeadings = headings;
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description ?? title} image={image} autoImage={autoImage} />
+    <BaseHead
+      title={title}
+      description={description ?? title}
+      image={image}
+      autoImage={autoImage}
+    />
     <style is:inline>
       .post-header {
         border-bottom: 1px solid var(--border);
@@ -82,7 +87,9 @@ const tocHeadings = headings;
 
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       applyPagefindTheme(mediaQuery.matches);
-      mediaQuery.addEventListener("change", (event) => applyPagefindTheme(event.matches));
+      mediaQuery.addEventListener("change", (event) =>
+        applyPagefindTheme(event.matches),
+      );
     </script>
   </head>
   <body>
@@ -94,53 +101,75 @@ const tocHeadings = headings;
           <h1 class="p-name">{title}</h1>
           <p class="post-meta">
             <FormattedDate date={date} class="dt-published" />
-            {lastmod && lastmod.getTime() !== date.getTime() && (
-              <> · updated <FormattedDate date={lastmod} class="dt-updated" /></>
-            )}
-            {minutesRead != null && minutesRead > 0 && <> · {minutesRead} min read</>}
+            {
+              lastmod && lastmod.getTime() !== date.getTime() && (
+                <>
+                  {" "}
+                  · updated <FormattedDate date={lastmod} class="dt-updated" />
+                </>
+              )
+            }
+            {
+              minutesRead != null && minutesRead > 0 && (
+                <> · {minutesRead} min read</>
+              )
+            }
           </p>
           <span hidden data-og-date={date.toISOString()}></span>
-          {collection && <span hidden data-og-collection={collection}></span>}
+          {collection && <span hidden data-og-collection={collection} />}
           <span class="p-author h-card" hidden data-pagefind-ignore="all">
             <img class="u-photo" src="/harsh-shandilya.webp" alt="" />
             <a class="p-name u-url" href="/">Harsh Shandilya</a>
           </span>
-          <a class="u-url" href={Astro.url.pathname} hidden aria-hidden="true"></a>
-          {description && <p class="p-summary" hidden>{description}</p>}
-          {tags && tags.length > 0 && (
-            <ul class="tags">
-              {tags.map(tag => (
-                <li class="tag p-category">
-                  <a href={`/tags/${slugify(tag)}/`}>{tag}</a>
-                </li>
-              ))}
-            </ul>
-          )}
-        </header>
-        {tocHeadings.length > 0 && (
-          <aside class="post-toc" aria-label="Table of contents">
-            <div class="post-toc-inner">
-              <p class="post-toc-title">On this page</p>
-              <ul>
-                {tocHeadings.map(({ depth, slug, text }) => (
-                  <li class:list={[`depth-${depth}`]}>
-                    <a href={`#${slug}`}>{text}</a>
+          <a class="u-url" href={Astro.url.pathname} hidden aria-hidden="true"
+          ></a>
+          {
+            description && (
+              <p class="p-summary" hidden>
+                {description}
+              </p>
+            )
+          }
+          {
+            tags && tags.length > 0 && (
+              <ul class="tags">
+                {tags.map((tag) => (
+                  <li class="tag p-category">
+                    <a href={`/tags/${slugify(tag)}/`}>{tag}</a>
                   </li>
                 ))}
               </ul>
-            </div>
-          </aside>
-        )}
+            )
+          }
+        </header>
+        {
+          tocHeadings.length > 0 && (
+            <aside class="post-toc" aria-label="Table of contents">
+              <div class="post-toc-inner">
+                <p class="post-toc-title">On this page</p>
+                <ul>
+                  {tocHeadings.map(({ depth, slug, text }) => (
+                    <li class:list={[`depth-${depth}`]}>
+                      <a href={`#${slug}`}>{text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+          )
+        }
         <div class="prose e-content">
           <slot />
         </div>
         {
-          (collection == "weeknotes") ? (
+          collection == "weeknotes" && (
             <>
               <hr />
-              Thanks for reading! You can keep up with these week notes via RSS, by sharing <a href="/weeknotes/atom.xml">this link</a> to your feed readers.
+              Thanks for reading! You can keep up with these week notes via RSS,
+              by sharing <a href="/weeknotes/atom.xml">this link</a> to your
+              feed readers.
             </>
-          ) : (<></>)
+          )
         }
         <WebmentionsSection />
       </article>

@@ -81,8 +81,8 @@ Jobs in a workflow run in parallel by default, and GitHub comes with an amazing 
 | Nightly | Windows + Nightly | MacOS + Nightly | Ubuntu + Nightly |
 
 > <sub>
->   This particular matrix is for Rust, to test a codebase across Windows, Ubuntu, and macOS using
->   the Rust stable, beta, and nightly toolchains.
+>   This particular matrix is for Rust, to test a codebase across Windows,
+>   Ubuntu, and macOS using the Rust stable, beta, and nightly toolchains.
 > </sub>
 
 In GitHub Actions, we can simply provide the platforms (Windows, MacOS and, Ubuntu) and the Rust channels (Stable, Beta, and Nightly) inside a single job and let it figure out how to make the permutations and create separate jobs for them. To configure such a matrix, we write something like this:
@@ -145,11 +145,14 @@ Tags are moving qualifiers, and can be [force pushed at any moment](https://juli
 
 To get the commit hash for a specific tag, head to the Releases page of the repository, then click the short SHA1 hash below the tag name and copy the full hash from the URL.
 
-<Figure src={actions_tips_tricks_commit_hash} alt="A tag along with its commit hash" />
+<Figure
+  src={actions_tips_tricks_commit_hash}
+  alt="A tag along with its commit hash"
+/>
 
 > <sub>
->   Here, the commit hash is feb985e. Ideally, you want to click that link and copy the full hash
->   from the URL
+>   Here, the commit hash is feb985e. Ideally, you want to click that link and
+>   copy the full hash from the URL
 > </sub>
 
 ```diff

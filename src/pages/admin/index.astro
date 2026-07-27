@@ -16,7 +16,7 @@ export const prerender = true;
   </head>
   <body>
     <script>
-      import CMS, { type CmsConfig } from '@sveltia/cms';
+      import CMS, { type CmsConfig } from "@sveltia/cms";
 
       // ─── Tombstone hook ───────────────────────────────────────────────────────
 
@@ -25,21 +25,24 @@ export const prerender = true;
         data: Record<string, unknown>;
       }): typeof entry {
         const data = structuredClone(entry.data ?? {});
-        if (entry.collection !== 'pages' && !data.deleted) {
+        if (entry.collection !== "pages" && !data.deleted) {
           data.deleted = false;
         }
         return { ...entry, data };
       }
 
       CMS.registerEventListener({
-        name: 'preSave',
+        name: "preSave",
         handler: ({ entry }) => {
           const plain = entry.toJS();
           const normalized = normalizeBlogEntryForSave({
             collection: plain.collection,
             data: plain.data,
           });
-          return entry.set('data', entry.get('data').clear().merge(normalized.data));
+          return entry.set(
+            "data",
+            entry.get("data").clear().merge(normalized.data),
+          );
         },
       });
 
@@ -49,11 +52,15 @@ export const prerender = true;
       const ATTR_PATTERN = /(\w+)="((?:\\.|[^"\\])*)"/g;
 
       function escapeAttr(value: unknown): string {
-        return String(value ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+        return String(value ?? "")
+          .replace(/\\/g, "\\\\")
+          .replace(/"/g, '\\"');
       }
 
       function unescapeAttr(value: unknown): string {
-        return String(value ?? '').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+        return String(value ?? "")
+          .replace(/\\"/g, '"')
+          .replace(/\\\\/g, "\\");
       }
 
       function parseAttrs(str: string): Record<string, string> {
@@ -67,26 +74,35 @@ export const prerender = true;
       }
 
       CMS.registerEditorComponent({
-        id: 'figure',
-        label: 'Figure',
+        id: "figure",
+        label: "Figure",
         fields: [
-          { name: 'src', label: 'Image', widget: 'image' },
-          { name: 'alt', label: 'Alt text', widget: 'text', required: false },
-          { name: 'title', label: 'Title/caption', widget: 'string', required: false },
+          { name: "src", label: "Image", widget: "image" },
+          { name: "alt", label: "Alt text", widget: "text", required: false },
+          {
+            name: "title",
+            label: "Title/caption",
+            widget: "string",
+            required: false,
+          },
         ],
         pattern: FIGURE_MDX_PATTERN,
         fromBlock(match: RegExpMatchArray) {
-          const attrs = parseAttrs(match[1] ?? '');
-          return { src: attrs.src, alt: attrs.alt ?? '', title: attrs.title ?? '' };
+          const attrs = parseAttrs(match[1] ?? "");
+          return {
+            src: attrs.src,
+            alt: attrs.alt ?? "",
+            title: attrs.title ?? "",
+          };
         },
         toBlock(data: Record<string, string>) {
           const parts = [`src="${escapeAttr(data.src)}"`];
           if (data.alt) parts.push(`alt="${escapeAttr(data.alt)}"`);
           if (data.title) parts.push(`title="${escapeAttr(data.title)}"`);
-          return `<Figure ${parts.join(' ')} />`;
+          return `<Figure ${parts.join(" ")} />`;
         },
         toPreview(data: Record<string, string>) {
-          const img = `<img src="${data.src}" alt="${data.alt ?? ''}">`;
+          const img = `<img src="${data.src}" alt="${data.alt ?? ""}">`;
           return data.title
             ? `<figure>${img}<figcaption>${data.title}</figcaption></figure>`
             : `<figure>${img}</figure>`;
@@ -98,22 +114,22 @@ export const prerender = true;
       const config: CmsConfig = {
         load_config_file: false,
         backend: {
-          name: 'github',
-          repo: 'msfjarvis/msfjarvis.dev',
-          base_url: 'https://sveltia-cms-auth.tiger-shark.workers.dev/',
+          name: "github",
+          repo: "msfjarvis/msfjarvis.dev",
+          base_url: "https://sveltia-cms-auth.tiger-shark.workers.dev/",
           skip_ci: true,
         },
         media_libraries: {
           cloudflare_r2: {
-            access_key_id: 'a1e50eaa4bbd04c61611f5c20545ea6a',
-            bucket: 'blog-images',
-            account_id: '07d4cd9cc7e8077fcafc5dd2fc30391b',
-            public_url: 'https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev',
+            access_key_id: "a1e50eaa4bbd04c61611f5c20545ea6a",
+            bucket: "blog-images",
+            account_id: "07d4cd9cc7e8077fcafc5dd2fc30391b",
+            public_url: "https://pub-fc205806d138406e8667d8d0c8a32a9f.r2.dev",
           },
           default: {
             config: {
               transformations: {
-                raster_image: { format: 'webp', quality: 85 },
+                raster_image: { format: "webp", quality: 85 },
                 svg: { optimize: true },
               },
             },
@@ -121,84 +137,190 @@ export const prerender = true;
         },
         collections: [
           {
-            name: 'posts',
-            label: 'Posts',
-            folder: 'src/content/posts',
-            format: 'yaml-frontmatter',
-            extension: 'mdx',
+            name: "posts",
+            label: "Posts",
+            folder: "src/content/posts",
+            format: "yaml-frontmatter",
+            extension: "mdx",
             create: true,
-            path: '{{slug}}/index',
-            slug: '{{slug}}',
-            media_folder: '',
-            public_folder: '',
+            path: "{{slug}}/index",
+            slug: "{{slug}}",
+            media_folder: "",
+            public_folder: "",
             editor: { preview: true },
             fields: [
-              { label: 'Title', name: 'title', widget: 'string' },
-              { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false },
-              { label: 'Last modified', name: 'lastmod', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false, required: false },
-              { label: 'Summary', name: 'summary', widget: 'string', required: false },
-              { label: 'Tags', name: 'tags', widget: 'list', required: false },
-              { label: 'Draft', name: 'draft', widget: 'boolean', required: false },
-              { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
-              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'], modes: ['raw', 'rich_text'] },
+              { label: "Title", name: "title", widget: "string" },
+              {
+                label: "Date",
+                name: "date",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                default: "{{now}}",
+                picker_utc: false,
+              },
+              {
+                label: "Last modified",
+                name: "lastmod",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                default: "{{now}}",
+                picker_utc: false,
+                required: false,
+              },
+              {
+                label: "Summary",
+                name: "summary",
+                widget: "string",
+                required: false,
+              },
+              { label: "Tags", name: "tags", widget: "list", required: false },
+              {
+                label: "Draft",
+                name: "draft",
+                widget: "boolean",
+                required: false,
+              },
+              {
+                label: "Deleted",
+                name: "deleted",
+                widget: "boolean",
+                required: false,
+              },
+              {
+                label: "Body",
+                name: "body",
+                widget: "markdown",
+                editor_components: ["code-block", "image", "figure"],
+                modes: ["raw", "rich_text"],
+              },
             ],
           },
           {
-            name: 'notes',
-            label: 'Notes',
-            folder: 'src/content/notes',
-            format: 'yaml-frontmatter',
-            extension: 'mdx',
+            name: "notes",
+            label: "Notes",
+            folder: "src/content/notes",
+            format: "yaml-frontmatter",
+            extension: "mdx",
             create: true,
-            path: '{{slug}}/index',
-            slug: '{{slug}}',
-            media_folder: '',
-            public_folder: '',
+            path: "{{slug}}/index",
+            slug: "{{slug}}",
+            media_folder: "",
+            public_folder: "",
             editor: { preview: false },
             fields: [
-              { label: 'Title', name: 'title', widget: 'string' },
-              { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false },
-              { label: 'Last modified', name: 'lastmod', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false, required: false },
-              { label: 'Tags', name: 'tags', widget: 'list', required: false },
-              { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
-              { label: 'Body', name: 'body', widget: 'markdown', modes: ['raw', 'rich_text'] },
+              { label: "Title", name: "title", widget: "string" },
+              {
+                label: "Date",
+                name: "date",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                default: "{{now}}",
+                picker_utc: false,
+              },
+              {
+                label: "Last modified",
+                name: "lastmod",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                default: "{{now}}",
+                picker_utc: false,
+                required: false,
+              },
+              { label: "Tags", name: "tags", widget: "list", required: false },
+              {
+                label: "Deleted",
+                name: "deleted",
+                widget: "boolean",
+                required: false,
+              },
+              {
+                label: "Body",
+                name: "body",
+                widget: "markdown",
+                modes: ["raw", "rich_text"],
+              },
             ],
           },
           {
-            name: 'pages',
-            label: 'Pages',
-            folder: 'src/pages',
-            format: 'yaml-frontmatter',
-            extension: 'mdx',
+            name: "pages",
+            label: "Pages",
+            folder: "src/pages",
+            format: "yaml-frontmatter",
+            extension: "mdx",
             create: false,
             fields: [
-              { name: 'layout', widget: 'hidden', default: '../layouts/BaseLayout.astro' },
-              { label: 'Title', name: 'title', widget: 'string' },
-              { label: 'Description', name: 'description', widget: 'string' },
-              { label: 'Body', name: 'body', widget: 'markdown', modes: ['raw', 'rich_text'] },
+              {
+                name: "layout",
+                widget: "hidden",
+                default: "../layouts/BaseLayout.astro",
+              },
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "string" },
+              {
+                label: "Body",
+                name: "body",
+                widget: "markdown",
+                modes: ["raw", "rich_text"],
+              },
             ],
           },
           {
-            name: 'weeknotes',
-            label: 'Weeknotes',
-            folder: 'src/content/weeknotes',
-            format: 'yaml-frontmatter',
-            extension: 'mdx',
+            name: "weeknotes",
+            label: "Weeknotes",
+            folder: "src/content/weeknotes",
+            format: "yaml-frontmatter",
+            extension: "mdx",
             create: true,
-            path: '{{slug}}/index',
-            slug: 'week-{{week}}-{{year}}',
-            media_folder: '',
-            public_folder: '',
+            path: "{{slug}}/index",
+            slug: "week-{{week}}-{{year}}",
+            media_folder: "",
+            public_folder: "",
             editor: { preview: true },
             fields: [
-              { label: 'Title', name: 'title', widget: 'string' },
-              { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false },
-              { label: 'Last modified', name: 'lastmod', widget: 'datetime', format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}', picker_utc: false, required: false },
-              { label: 'Summary', name: 'summary', widget: 'string', required: false },
-              { label: 'Tags', name: 'tags', widget: 'list', required: false },
-              { label: 'Draft', name: 'draft', widget: 'boolean', required: false },
-              { label: 'Deleted', name: 'deleted', widget: 'boolean', required: false },
-              { label: 'Body', name: 'body', widget: 'markdown', editor_components: ['code-block', 'image', 'figure'], modes: ['raw', 'rich_text'] },
+              { label: "Title", name: "title", widget: "string" },
+              {
+                label: "Date",
+                name: "date",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                default: "{{now}}",
+                picker_utc: false,
+              },
+              {
+                label: "Last modified",
+                name: "lastmod",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                default: "{{now}}",
+                picker_utc: false,
+                required: false,
+              },
+              {
+                label: "Summary",
+                name: "summary",
+                widget: "string",
+                required: false,
+              },
+              { label: "Tags", name: "tags", widget: "list", required: false },
+              {
+                label: "Draft",
+                name: "draft",
+                widget: "boolean",
+                required: false,
+              },
+              {
+                label: "Deleted",
+                name: "deleted",
+                widget: "boolean",
+                required: false,
+              },
+              {
+                label: "Body",
+                name: "body",
+                widget: "markdown",
+                editor_components: ["code-block", "image", "figure"],
+                modes: ["raw", "rich_text"],
+              },
             ],
           },
         ],

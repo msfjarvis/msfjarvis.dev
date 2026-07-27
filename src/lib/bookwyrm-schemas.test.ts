@@ -3,7 +3,10 @@ import test from "node:test";
 
 import { pageSchema } from "./bookwyrm-schemas.ts";
 
-const context = ["https://www.w3.org/ns/activitystreams", { Hashtag: "as:Hashtag" }];
+const context = [
+  "https://www.w3.org/ns/activitystreams",
+  { Hashtag: "as:Hashtag" },
+];
 
 function edition(overrides: Record<string, unknown> = {}) {
   return {
@@ -94,12 +97,22 @@ test("parses BookWyrm pages with independently optional edition metadata", () =>
   assert.equal(page.orderedItems[4].inventaireId, "isbn:9780593135204");
   assert.equal(page.orderedItems[5].subtitle, undefined);
   assert.equal(page.orderedItems[0].firstPublishedDate, undefined);
-  assert.equal(page.orderedItems[1].firstPublishedDate?.toISOString(), "2010-05-03T00:00:00.000Z");
-  assert.equal(page.orderedItems[0].publishedDate?.toISOString(), "2022-09-05T00:00:00.000Z");
+  assert.equal(
+    page.orderedItems[1].firstPublishedDate?.toISOString(),
+    "2010-05-03T00:00:00.000Z",
+  );
+  assert.equal(
+    page.orderedItems[0].publishedDate?.toISOString(),
+    "2022-09-05T00:00:00.000Z",
+  );
 });
 
 test("parses sparse editions and a previous-page link", () => {
-  const { pages, subtitle, ...feverCode } = edition({
+  const {
+    pages: _pages,
+    subtitle: _subtitle,
+    ...feverCode
+  } = edition({
     id: "https://bookwyrm.social/book/521695",
     inventaireId: "isbn:9780553513097",
     title: "The Fever Code",
@@ -119,7 +132,10 @@ test("parses sparse editions and a previous-page link", () => {
     "@context": context,
   });
 
-  assert.equal(page.prev, "https://bookwyrm.social/user/msfjarvis/books/read?page=1");
+  assert.equal(
+    page.prev,
+    "https://bookwyrm.social/user/msfjarvis/books/read?page=1",
+  );
   assert.equal(page.orderedItems[0].subtitle, undefined);
   assert.equal(page.orderedItems[0].pages, undefined);
 });

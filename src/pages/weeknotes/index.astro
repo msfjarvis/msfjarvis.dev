@@ -1,12 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { filterDrafts } from '../../utils';
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { filterDrafts } from "../../utils";
 
 export const prerender = true;
 
-const weeknotes = await getCollection('weeknotes', filterDrafts);
+const weeknotes = await getCollection("weeknotes", filterDrafts);
 weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
@@ -14,28 +14,50 @@ weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
   title="Weeknotes — Harsh Shandilya"
   description="Weekly notes by Harsh Shandilya"
   alternateFeeds={[
-    { type: 'application/rss+xml',   title: 'Weeknotes — RSS',       href: '/weeknotes/rss.xml'   },
-    { type: 'application/atom+xml',  title: 'Weeknotes — Atom',      href: '/weeknotes/atom.xml'  },
-    { type: 'application/feed+json', title: 'Weeknotes — JSON Feed', href: '/weeknotes/feed.json' },
+    {
+      type: "application/rss+xml",
+      title: "Weeknotes — RSS",
+      href: "/weeknotes/rss.xml",
+    },
+    {
+      type: "application/atom+xml",
+      title: "Weeknotes — Atom",
+      href: "/weeknotes/atom.xml",
+    },
+    {
+      type: "application/feed+json",
+      title: "Weeknotes — JSON Feed",
+      href: "/weeknotes/feed.json",
+    },
   ]}
 >
   <h1>Weeknotes</h1>
   <ul>
-    {weeknotes.map((entry) => (
-      <li class="weeknote-row">
-        <div class="weeknote-main">
-          <a href={`/weeknotes/${entry.id}/`}>{entry.data.title}</a>
-          {entry.data.summary && <p class="summary">{entry.data.summary}</p>}
-        </div>
-        <span class="date"><FormattedDate date={entry.data.date} /></span>
-      </li>
-    ))}
+    {
+      weeknotes.map((entry) => (
+        <li class="weeknote-row">
+          <div class="weeknote-main">
+            <a href={`/weeknotes/${entry.id}/`}>{entry.data.title}</a>
+            {entry.data.summary && <p class="summary">{entry.data.summary}</p>}
+          </div>
+          <span class="date">
+            <FormattedDate date={entry.data.date} />
+          </span>
+        </li>
+      ))
+    }
   </ul>
 </BaseLayout>
 
 <style>
-  h1 { margin-top: 0; }
-  ul { list-style: none; padding: 0; margin: 0; }
+  h1 {
+    margin-top: 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
   .weeknote-row {
     display: flex;
     justify-content: space-between;
@@ -44,8 +66,12 @@ weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
     border-bottom: 1px solid var(--border);
     gap: 1rem;
   }
-  .weeknote-row:last-child { border-bottom: none; }
-  .weeknote-main { min-width: 0; }
+  .weeknote-row:last-child {
+    border-bottom: none;
+  }
+  .weeknote-main {
+    min-width: 0;
+  }
   .weeknote-main a {
     font-family: var(--font-mono);
     font-size: 0.9rem;
@@ -53,7 +79,9 @@ weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
     border-bottom: none;
     display: block;
   }
-  .weeknote-main a:hover { color: var(--text); }
+  .weeknote-main a:hover {
+    color: var(--text);
+  }
   .summary {
     font-size: 0.85rem;
     color: var(--text-2);

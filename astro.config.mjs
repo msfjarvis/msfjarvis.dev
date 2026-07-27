@@ -23,12 +23,15 @@ import { mermaidLightbox } from "./src/satteri/mermaid-lightbox.ts";
 import { mermaidOptions } from "./src/satteri/mermaid-theme.ts";
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
-const siteUrl = isDrafts ? "https://drafts.msfjarvis.dev" : "https://msfjarvis.dev";
+const siteUrl = isDrafts
+  ? "https://drafts.msfjarvis.dev"
+  : "https://msfjarvis.dev";
 const wranglerConfigPath = process.env.WRANGLER_CONFIG_PATH;
 const webmentionWorkerOrigin = process.env.WEBMENTION_WORKER_ORIGIN;
 const webmentionAuthToken = process.env.WEBMENTION_AUTH_TOKEN;
 
-const { renderCollectionCard } = await import("./src/og/renderers/collection-card.tsx");
+const { renderCollectionCard } =
+  await import("./src/og/renderers/collection-card.tsx");
 
 const markdownProcessor = satteri({
   features: {
@@ -40,7 +43,11 @@ const markdownProcessor = satteri({
     },
   },
   mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts, mermaidMdast()],
-  hastPlugins: [legacyTableAlignment, mermaidHast(mermaidOptions), mermaidLightbox],
+  hastPlugins: [
+    legacyTableAlignment,
+    mermaidHast(mermaidOptions),
+    mermaidLightbox,
+  ],
 });
 
 export default defineConfig({
@@ -69,7 +76,8 @@ export default defineConfig({
       },
     }),
     opengraphImages({
-      matchPathname: (pathname) => /^(posts|notes|weeknotes)\/[^/]+\/$/.test(pathname),
+      matchPathname: (pathname) =>
+        /^(posts|notes|weeknotes)\/[^/]+\/$/.test(pathname),
       options: {
         verbose: false,
         fonts: [
@@ -133,7 +141,11 @@ export default defineConfig({
           return {
             build: {
               rolldownOptions: {
-                external: [...existing, "@napi-rs/wasm-runtime", "@bruits/satteri-wasm32-wasi"],
+                external: [
+                  ...existing,
+                  "@napi-rs/wasm-runtime",
+                  "@bruits/satteri-wasm32-wasi",
+                ],
               },
             },
           };

@@ -31,7 +31,15 @@ const PROJECT_ROOT = join(__dirname, "..");
 const WEEKNOTE_DIR_RE = /^weeknotes-week-(\d+)-(\d{4})$/;
 
 /** Image extensions to copy alongside content. */
-const IMAGE_EXTS = new Set([".webp", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".avif"]);
+const IMAGE_EXTS = new Set([
+  ".webp",
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".gif",
+  ".svg",
+  ".avif",
+]);
 
 /** MDX component import lines keyed by component name. */
 const MDX_IMPORTS = {
@@ -74,12 +82,16 @@ function buildFrontmatter(data, schemaType) {
 
   // date — required; TOML gives us a Date object
   if (data.date) {
-    out.date = data.date instanceof Date ? data.date.toISOString() : String(data.date);
+    out.date =
+      data.date instanceof Date ? data.date.toISOString() : String(data.date);
   }
 
   // lastmod — optional; skip if identical to date
   if (data.lastmod) {
-    const lm = data.lastmod instanceof Date ? data.lastmod.toISOString() : String(data.lastmod);
+    const lm =
+      data.lastmod instanceof Date
+        ? data.lastmod.toISOString()
+        : String(data.lastmod);
     if (lm !== out.date) out.lastmod = lm;
   }
 
@@ -92,7 +104,11 @@ function buildFrontmatter(data, schemaType) {
     out.tags = data.tags;
   }
 
-  if (schemaType !== "note" && Array.isArray(data.categories) && data.categories.length > 0) {
+  if (
+    schemaType !== "note" &&
+    Array.isArray(data.categories) &&
+    data.categories.length > 0
+  ) {
     out.categories = data.categories;
   }
 
@@ -125,7 +141,10 @@ function parseShortcodeAttrs(attrStr) {
   const re = /(\w+)=(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)')/g;
   let m;
   while ((m = re.exec(attrStr)) !== null) {
-    const value = (m[2] ?? m[3]).replace(/\\"/g, '"').replace(/\\'/g, "'").replace(/\\\\/g, "\\");
+    const value = (m[2] ?? m[3])
+      .replace(/\\"/g, '"')
+      .replace(/\\'/g, "'")
+      .replace(/\\\\/g, "\\");
     attrs[m[1]] = value;
   }
   return attrs;
@@ -145,9 +164,12 @@ function transformContent(body, slug, collection) {
   // ---- details shortcode → native HTML <details> ----
   // Opening: {{< details summary="text" >}} or {{<details summary="text">}}
   // Closing:  {{< /details >}} or {{</details>}} (Hugo accepts both forms)
-  body = body.replace(/\{\{<\s*details\s+summary="([^"]+)"\s*>\}\}/g, (_, summary) => {
-    return `<details>\n<summary>${summary}</summary>`;
-  });
+  body = body.replace(
+    /\{\{<\s*details\s+summary="([^"]+)"\s*>\}\}/g,
+    (_, summary) => {
+      return `<details>\n<summary>${summary}</summary>`;
+    },
+  );
   body = body.replace(/\{\{<\s*\/details\s*>\}\}/g, "</details>");
 
   // ---- gfycat: defunct service, remove ----
@@ -178,7 +200,9 @@ function transformContent(body, slug, collection) {
     const title = attrs.title || "";
 
     // Convert relative src to absolute public path
-    const publicSrc = src.startsWith("/") ? src : `/${collection}/${slug}/${src}`;
+    const publicSrc = src.startsWith("/")
+      ? src
+      : `/${collection}/${slug}/${src}`;
 
     // Escape double quotes in attribute values for JSX — without this,
     // alt text containing `"quoted words"` breaks the MDX parser.
@@ -203,7 +227,11 @@ function transformContent(body, slug, collection) {
   body = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, target) => {
     const [rawSrc, ...titleParts] = target.split(/\s+(?=")/);
     const title = titleParts.join(" ");
-    if (rawSrc.startsWith("/") || rawSrc.startsWith("http") || rawSrc.startsWith("#")) {
+    if (
+      rawSrc.startsWith("/") ||
+      rawSrc.startsWith("http") ||
+      rawSrc.startsWith("#")
+    ) {
       return match; // already absolute or anchor
     }
     if (!imageExtRe.test(rawSrc)) return match; // not an image
@@ -212,13 +240,20 @@ function transformContent(body, slug, collection) {
   });
 
   // Reference-style image definitions: [ref]: relative.ext
-  body = body.replace(/^(\[[^\]]+\]):\s*([^\s]+)(.*)/gm, (match, ref, target, rest) => {
-    if (target.startsWith("/") || target.startsWith("http") || target.startsWith("#")) {
-      return match;
-    }
-    if (!imageExtRe.test(target)) return match;
-    return `${ref}: /${collection}/${slug}/${target}${rest}`;
-  });
+  body = body.replace(
+    /^(\[[^\]]+\]):\s*([^\s]+)(.*)/gm,
+    (match, ref, target, rest) => {
+      if (
+        target.startsWith("/") ||
+        target.startsWith("http") ||
+        target.startsWith("#")
+      ) {
+        return match;
+      }
+      if (!imageExtRe.test(target)) return match;
+      return `${ref}: /${collection}/${slug}/${target}${rest}`;
+    },
+  );
 
   return { body, usedComponents };
 }
@@ -231,7 +266,10 @@ function transformContent(body, slug, collection) {
  */
 function escapeMdxProse(body) {
   // Convert HTML comments to JSX comments — <!-- --> is invalid in MDX
-  body = body.replace(/<!--([/\s\S]*?)-->/g, (_, content) => `{/*${content}*/}`);
+  body = body.replace(
+    /<!--([/\s\S]*?)-->/g,
+    (_, content) => `{/*${content}*/}`,
+  );
   // Replace bare <> with HTML entities
   body = body.replace(/<>/g, "&lt;&gt;");
   // Replace < that isn't the start of a real tag (letter, /, !, ?) with &lt;
@@ -264,7 +302,13 @@ function buildImports(usedComponents) {
  * @param {string} astroDestDir  - Destination src/content/<collection>/ directory
  * @param {string} publicDestDir - Destination public/<collection>/ directory
  */
-function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir) {
+function migratePageBundle(
+  srcDir,
+  slug,
+  collection,
+  astroDestDir,
+  publicDestDir,
+) {
   const indexPath = join(srcDir, "index.md");
   if (!existsSync(indexPath)) {
     console.warn(`  ⚠ No index.md in ${srcDir} — skipping`);
@@ -284,11 +328,17 @@ function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir
   // We must use it as the output filename so URLs stay correct.
   const outputSlug = data.slug ? String(data.slug) : slug;
 
-  const { body: transformedBody, usedComponents } = transformContent(body, outputSlug, collection);
+  const { body: transformedBody, usedComponents } = transformContent(
+    body,
+    outputSlug,
+    collection,
+  );
 
   const frontmatter = buildFrontmatter(data, collection);
   const needsMdx = usedComponents.size > 0;
-  const processedBody = needsMdx ? escapeMdxProse(transformedBody) : transformedBody;
+  const processedBody = needsMdx
+    ? escapeMdxProse(transformedBody)
+    : transformedBody;
   const ext = needsMdx ? ".mdx" : ".md";
 
   let output = frontmatter + "\n";
@@ -306,7 +356,9 @@ function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir
   const entries = readdirSync(srcDir);
   const images = entries.filter((f) => {
     const fullPath = join(srcDir, f);
-    return statSync(fullPath).isFile() && IMAGE_EXTS.has(extname(f).toLowerCase());
+    return (
+      statSync(fullPath).isFile() && IMAGE_EXTS.has(extname(f).toLowerCase())
+    );
   });
 
   if (images.length > 0) {
@@ -315,7 +367,9 @@ function migratePageBundle(srcDir, slug, collection, astroDestDir, publicDestDir
     for (const img of images) {
       copyFileSync(join(srcDir, img), join(publicSlugDir, img));
     }
-    console.log(`    + ${images.length} image(s) → public/${collection}/${outputSlug}/`);
+    console.log(
+      `    + ${images.length} image(s) → public/${collection}/${outputSlug}/`,
+    );
   }
 }
 
@@ -376,7 +430,9 @@ async function main() {
   //    Weeknotes are identified by slug pattern: weeknotes-week-N-YYYY
   //    They must be processed to the weeknotes collection with slug week-N-YYYY.
   // -------------------------------------------------------------------------
-  console.log("\n── Posts & Weeknotes ──────────────────────────────────────────");
+  console.log(
+    "\n── Posts & Weeknotes ──────────────────────────────────────────",
+  );
 
   const postDirs = readdirSync(hugoPostsDir)
     .filter((name) => statSync(join(hugoPostsDir, name)).isDirectory())
@@ -415,13 +471,17 @@ async function main() {
   // -------------------------------------------------------------------------
   // 2. Notes (flat .md files in content/notes/, skip _index.md)
   // -------------------------------------------------------------------------
-  console.log("\n── Notes ──────────────────────────────────────────────────────");
+  console.log(
+    "\n── Notes ──────────────────────────────────────────────────────",
+  );
 
   const noteFiles = readdirSync(hugoNotesDir)
     .filter((name) => {
       const fullPath = join(hugoNotesDir, name);
       return (
-        statSync(fullPath).isFile() && extname(name) === ".md" && basename(name) !== "_index.md"
+        statSync(fullPath).isFile() &&
+        extname(name) === ".md" &&
+        basename(name) !== "_index.md"
       );
     })
     .sort();

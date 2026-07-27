@@ -31,7 +31,8 @@
 }
 
 .markdown-alert {
-  border-left: 0.25em solid var(--borderColor-default, var(--color-border-default));
+  border-left: 0.25em solid
+    var(--borderColor-default, var(--color-border-default));
   color: inherit;
   margin-bottom: 16px;
   padding: 0.5rem 1em;
@@ -56,7 +57,10 @@
 }
 
 .markdown-alert.markdown-alert-note {
-  border-left-color: var(--borderColor-accent-emphasis, var(--color-accent-emphasis));
+  border-left-color: var(
+    --borderColor-accent-emphasis,
+    var(--color-accent-emphasis)
+  );
 }
 
 .markdown-alert.markdown-alert-note .markdown-alert-title {
@@ -65,7 +69,10 @@
 }
 
 .markdown-alert.markdown-alert-tip {
-  border-left-color: var(--borderColor-success-emphasis, var(--color-success-emphasis));
+  border-left-color: var(
+    --borderColor-success-emphasis,
+    var(--color-success-emphasis)
+  );
 }
 
 .markdown-alert.markdown-alert-tip .markdown-alert-title {
@@ -74,7 +81,10 @@
 }
 
 .markdown-alert.markdown-alert-important {
-  border-left-color: var(--borderColor-done-emphasis, var(--color-done-emphasis));
+  border-left-color: var(
+    --borderColor-done-emphasis,
+    var(--color-done-emphasis)
+  );
 }
 
 .markdown-alert.markdown-alert-important .markdown-alert-title {
@@ -83,7 +93,10 @@
 }
 
 .markdown-alert.markdown-alert-warning {
-  border-left-color: var(--borderColor-attention-emphasis, var(--color-attention-emphasis));
+  border-left-color: var(
+    --borderColor-attention-emphasis,
+    var(--color-attention-emphasis)
+  );
 }
 
 .markdown-alert.markdown-alert-warning .markdown-alert-title {
@@ -92,7 +105,10 @@
 }
 
 .markdown-alert.markdown-alert-caution {
-  border-left-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis));
+  border-left-color: var(
+    --borderColor-danger-emphasis,
+    var(--color-danger-emphasis)
+  );
 }
 
 .markdown-alert.markdown-alert-caution .markdown-alert-title {

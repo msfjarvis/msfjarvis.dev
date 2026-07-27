@@ -3,7 +3,10 @@ import test from "node:test";
 
 import { bookwyrmLoader, Shelf } from "./bookwyrm-loader.ts";
 
-const context = ["https://www.w3.org/ns/activitystreams", { Hashtag: "as:Hashtag" }];
+const context = [
+  "https://www.w3.org/ns/activitystreams",
+  { Hashtag: "as:Hashtag" },
+];
 const coverUrl =
   "https://bookwyrm-social.sfo3.digitaloceanspaces.com/images/covers/b16526ac-5885-4889-bcfa-e618f846c12e.jpeg";
 

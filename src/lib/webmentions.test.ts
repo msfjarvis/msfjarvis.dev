@@ -29,8 +29,14 @@ test("buildManifest sorts entries and emits schemaVersion 2", () => {
     siteUrl: "https://example.com",
     generatedAt: new Date("2026-05-15T00:00:00.000Z"),
     entries: [
-      { url: "https://example.com/posts/z/", lastmod: "2026-01-02T00:00:00.000Z" },
-      { url: "https://example.com/notes/a/", lastmod: "2026-01-01T00:00:00.000Z" },
+      {
+        url: "https://example.com/posts/z/",
+        lastmod: "2026-01-02T00:00:00.000Z",
+      },
+      {
+        url: "https://example.com/notes/a/",
+        lastmod: "2026-01-01T00:00:00.000Z",
+      },
     ],
   });
 
@@ -47,9 +53,18 @@ test("diffManifests classifies publish update and delete", () => {
     siteOrigin: "https://example.com",
     generatedAt: "2026-05-14T00:00:00.000Z",
     entries: [
-      { url: "https://example.com/posts/old/", lastmod: "2026-05-01T00:00:00.000Z" },
-      { url: "https://example.com/posts/same/", lastmod: "2026-05-01T00:00:00.000Z" },
-      { url: "https://example.com/posts/gone/", lastmod: "2026-05-01T00:00:00.000Z" },
+      {
+        url: "https://example.com/posts/old/",
+        lastmod: "2026-05-01T00:00:00.000Z",
+      },
+      {
+        url: "https://example.com/posts/same/",
+        lastmod: "2026-05-01T00:00:00.000Z",
+      },
+      {
+        url: "https://example.com/posts/gone/",
+        lastmod: "2026-05-01T00:00:00.000Z",
+      },
     ],
   };
 
@@ -58,9 +73,18 @@ test("diffManifests classifies publish update and delete", () => {
     siteOrigin: "https://example.com",
     generatedAt: "2026-05-15T00:00:00.000Z",
     entries: [
-      { url: "https://example.com/posts/old/", lastmod: "2026-05-02T00:00:00.000Z" },
-      { url: "https://example.com/posts/same/", lastmod: "2026-05-01T00:00:00.000Z" },
-      { url: "https://example.com/posts/new/", lastmod: "2026-05-15T00:00:00.000Z" },
+      {
+        url: "https://example.com/posts/old/",
+        lastmod: "2026-05-02T00:00:00.000Z",
+      },
+      {
+        url: "https://example.com/posts/same/",
+        lastmod: "2026-05-01T00:00:00.000Z",
+      },
+      {
+        url: "https://example.com/posts/new/",
+        lastmod: "2026-05-15T00:00:00.000Z",
+      },
     ],
   };
 
@@ -107,7 +131,10 @@ test("sendEvents attempts all sends and records failures", async () => {
       const body = JSON.parse(String(init?.body));
       calls.push(body);
       if (body.pageUrl.endsWith("/b/")) {
-        return new Response("boom", { status: 500, statusText: "Internal Server Error" });
+        return new Response("boom", {
+          status: 500,
+          statusText: "Internal Server Error",
+        });
       }
       return new Response("ok", { status: 202, statusText: "Accepted" });
     },
@@ -138,7 +165,10 @@ test("assorted posts use timezone-explicit lastmod values", async () => {
   ];
 
   for (const file of files) {
-    const content = await readFile(new URL(`../../${file}`, import.meta.url), "utf8");
+    const content = await readFile(
+      new URL(`../../${file}`, import.meta.url),
+      "utf8",
+    );
     const match = content.match(/^lastmod:\s*"([^"]+)"/m);
     assert.ok(match, `expected lastmod in ${file}`);
     assert.match(match[1], /(?:Z|[+-]\d\d:\d\d)$/);

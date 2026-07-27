@@ -1,6 +1,6 @@
 ---
-import { Icon } from 'astro-iconset/components';
-import type { ProfileLink } from '../data/profile-links';
+import { Icon } from "astro-iconset/components";
+import type { ProfileLink } from "../data/profile-links";
 
 interface Props {
   items: ProfileLink[];
@@ -10,15 +10,22 @@ const { items } = Astro.props;
 ---
 
 <div class="profile-links" aria-label="Elsewhere on the web">
-  {items.map((item) => (
-    <a href={item.href} class="profile-link" target="_blank" rel="noopener noreferrer">
-      <div class="profile-link-top">
-        <Icon name={item.icon} class="profile-link-icon" aria-hidden="true" />
-        <span class="profile-link-label">{item.label}</span>
-      </div>
-      <span class="profile-link-meta">{item.description}</span>
-    </a>
-  ))}
+  {
+    items.map((item) => (
+      <a
+        href={item.href}
+        class="profile-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="profile-link-top">
+          <Icon name={item.icon} class="profile-link-icon" aria-hidden="true" />
+          <span class="profile-link-label">{item.label}</span>
+        </div>
+        <span class="profile-link-meta">{item.description}</span>
+      </a>
+    ))
+  }
 </div>
 
 <style>

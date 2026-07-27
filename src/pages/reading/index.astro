@@ -7,27 +7,29 @@ export const prerender = true;
 
 const currentlyReading = await getCollection("currentlyReading");
 const readBooks = await getCollection("readBooks");
-const bookCount = new Intl.NumberFormat("en-US").format(readBooks.length);
 ---
 
 <BaseLayout
   title="Reading"
-  description="Books Harsh Shandilya has marked as read on BookWyrm.">
-
-  {currentlyReading.length > 0 ?
-    (
-      <h2>currently reading</h2>
-      <ol class="book-grid">
-        {currentlyReading.map((book) => ( <Book book={book.data} /> ))}
-      </ol>
-    ) : (<></>)
+  description="Books Harsh Shandilya has marked as read on BookWyrm."
+>
+  {
+    currentlyReading.length > 0 && (
+      <>
+        <h2>currently reading</h2>
+        <ol class="book-grid">
+          {currentlyReading.map((book) => (
+            <Book book={book.data} />
+          ))}
+        </ol>
+      </>
+    )
   }
 
   <h2>finished reading</h2>
   <ol class="book-grid">
-    {readBooks.map((book) => ( <Book book={book.data} /> ))}
+    {readBooks.map((book) => <Book book={book.data} />)}
   </ol>
-
 </BaseLayout>
 
 <style>
