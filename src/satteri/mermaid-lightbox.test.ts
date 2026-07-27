@@ -28,9 +28,8 @@ test("renders Mermaid through Satteri while preserving the lightbox contract", a
   assert.match(html, /data-mermaid-modal-close/);
   assert.match(html, /aria-label="Expanded Mermaid diagram from example\.mdx"/);
   assert.match(html, /<script>/);
-  assert.match(html, /marker-end=/);
-  assert.match(html, /dominant-baseline=/);
-  assert.match(html, /xmlns:xlink=/);
+  assert.match(html, /<defs><marker /);
+  assert.match(html, /class="edgePath"/);
   assert.doesNotMatch(
     html,
     /markerEnd=|strokeWidth=|textAnchor=|dominantBaseline=|fillRule=|xmlnsXlink=/,
