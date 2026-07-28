@@ -1,20 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE_TITLE } from '../../consts.ts';
-import { filterDrafts } from '../../utils';
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE_TITLE } from "../../consts.ts";
+import { filterDrafts } from "../../utils";
 
 export const prerender = true;
 
-const posts = await getCollection('posts', filterDrafts);
+const posts = await getCollection("posts", filterDrafts);
 posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const groupedPosts = new Map<number, typeof posts>();
 posts.forEach((post) => {
   const year = post.data.date.getFullYear();
   const updated = groupedPosts.get(year) ?? [];
   updated.push(post);
-  groupedPosts.set(year, updated)
+  groupedPosts.set(year, updated);
 });
 ---
 
@@ -22,29 +22,57 @@ posts.forEach((post) => {
   title="Posts — Harsh Shandilya"
   description="All posts by Harsh Shandilya"
   alternateFeeds={[
-    { type: 'application/rss+xml', title: `Posts on ${SITE_TITLE} — RSS`, href: '/posts/rss.xml' },
-    { type: 'application/atom+xml', title: `Posts on ${SITE_TITLE} — Atom`, href: '/posts/atom.xml' },
-    { type: 'application/feed+json', title: `Posts on ${SITE_TITLE} — JSON Feed`, href: '/posts/feed.json' },
+    {
+      type: "application/rss+xml",
+      title: `Posts on ${SITE_TITLE} — RSS`,
+      href: "/posts/rss.xml",
+    },
+    {
+      type: "application/atom+xml",
+      title: `Posts on ${SITE_TITLE} — Atom`,
+      href: "/posts/atom.xml",
+    },
+    {
+      type: "application/feed+json",
+      title: `Posts on ${SITE_TITLE} — JSON Feed`,
+      href: "/posts/feed.json",
+    },
   ]}
 >
   <h1>Posts</h1>
-  {Array.from(groupedPosts.entries()).map(([year, posts]) => (
-    <h2>{year} – {posts.length} posts</h2>
-    <ul>
-      {posts.map((post) => (
-      <li class="post-row">
-        <a href={`/posts/${post.id}/`}>{post.data.title}{post.data.draft ? " – [draft]" : ""}</a>
-        <span class="date"><FormattedDate date={post.data.date} /></span>
-      </li>
-      ))}
-    </ul>
-  ))}
-
+  {
+    Array.from(groupedPosts.entries()).map(([year, posts]) => (
+      <>
+        <h2>
+          {year} – {posts.length} posts
+        </h2>
+        <ul>
+          {posts.map((post) => (
+            <li class="post-row">
+              <a href={`/posts/${post.id}/`}>
+                {post.data.title}
+                {post.data.draft ? " – [draft]" : ""}
+              </a>
+              <span class="date">
+                <FormattedDate date={post.data.date} />
+              </span>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
 </BaseLayout>
 
 <style>
-  h1 { margin-top: 0; }
-  ul { list-style: none; padding: 0; margin: 0; }
+  h1 {
+    margin-top: 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
   .post-row {
     display: flex;
     justify-content: space-between;
@@ -53,14 +81,18 @@ posts.forEach((post) => {
     border-bottom: 1px solid var(--border);
     gap: 0.75rem;
   }
-  .post-row:last-child { border-bottom: none; }
+  .post-row:last-child {
+    border-bottom: none;
+  }
   .post-row a {
     font-family: var(--font-mono);
     font-size: 0.9rem;
     color: var(--accent);
     border-bottom: none;
   }
-  .post-row a:hover { color: var(--text); }
+  .post-row a:hover {
+    color: var(--text);
+  }
   .date {
     font-family: var(--font-mono);
     font-size: 0.75rem;

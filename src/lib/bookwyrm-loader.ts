@@ -24,11 +24,15 @@ export function bookwyrmLoader(options: { profileUrl: string; shelf: Shelf }) {
 
       const shelfResponse = await fetch(shelfUrl);
       if (!shelfResponse.ok) {
-        throw new Error(`Failed to fetch shelf data: ${shelfResponse.statusText}`);
+        throw new Error(
+          `Failed to fetch shelf data: ${shelfResponse.statusText}`,
+        );
       }
 
       const shelfData = shelfSchema.parse(await shelfResponse.json());
-      const totalPages = parseInt(new URL(shelfData.last).searchParams.get("page") ?? "0");
+      const totalPages = parseInt(
+        new URL(shelfData.last).searchParams.get("page") ?? "0",
+      );
       type Book = z.infer<typeof editionSchema>;
       const books: Book[] = [];
 
@@ -36,7 +40,9 @@ export function bookwyrmLoader(options: { profileUrl: string; shelf: Shelf }) {
         const pageUrl = `${baseUrl}.json?page=${page}`;
         const response = await fetch(pageUrl);
         if (!response.ok) {
-          throw new Error(`Error fetching page ${page}: ${response.statusText}`);
+          throw new Error(
+            `Error fetching page ${page}: ${response.statusText}`,
+          );
         }
 
         const data = pageSchema.parse(await response.json());
@@ -49,7 +55,10 @@ export function bookwyrmLoader(options: { profileUrl: string; shelf: Shelf }) {
       // This retains BookWyrm's newest-first order after the content store is serialized.
       store.clear();
       books.forEach((book, index) => {
-        store.set({ id: `${String(index).padStart(8, "0")}:${book.id}`, data: book });
+        store.set({
+          id: `${String(index).padStart(8, "0")}:${book.id}`,
+          data: book,
+        });
       });
     },
     schema: editionSchema,

@@ -15,9 +15,7 @@ type MultiplePollSubmission = {
 };
 
 export type BrowserVoteSubmission =
-  | UpvoteSubmission
-  | SinglePollSubmission
-  | MultiplePollSubmission;
+  UpvoteSubmission | SinglePollSubmission | MultiplePollSubmission;
 
 export type BrowserVoteTarget =
   | UpvoteSubmission
@@ -25,9 +23,13 @@ export type BrowserVoteTarget =
 
 export class VoteApiError extends Error {}
 
-const summaryRequestQueueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
+const summaryRequestQueueKey = Symbol.for(
+  "msfjarvis.dev.votes.summary-request-queue",
+);
 
-export function fetchVoteSummary(target: BrowserVoteTarget): Promise<VoteSummary> {
+export function fetchVoteSummary(
+  target: BrowserVoteTarget,
+): Promise<VoteSummary> {
   const params = new URLSearchParams({ postId: target.postId });
   if (target.type === "poll") {
     params.set("pollId", target.pollId);
@@ -39,7 +41,9 @@ export function fetchVoteSummary(target: BrowserVoteTarget): Promise<VoteSummary
   );
 }
 
-export function submitVote(submission: BrowserVoteSubmission): Promise<VoteSummary> {
+export function submitVote(
+  submission: BrowserVoteSubmission,
+): Promise<VoteSummary> {
   return requestVote(
     "/api/votes.json",
     {
@@ -63,11 +67,16 @@ export function clearVote(target: BrowserVoteTarget): Promise<VoteSummary> {
   );
 }
 
-export function parseVoteSummary(input: unknown, target: BrowserVoteTarget): VoteSummary {
-  if (!isRecord(input)) throw new VoteApiError("The vote server returned an invalid response");
+export function parseVoteSummary(
+  input: unknown,
+  target: BrowserVoteTarget,
+): VoteSummary {
+  if (!isRecord(input))
+    throw new VoteApiError("The vote server returned an invalid response");
 
   const { total } = input;
-  if (!isCount(total)) throw new VoteApiError("The vote server returned an invalid vote total");
+  if (!isCount(total))
+    throw new VoteApiError("The vote server returned an invalid vote total");
 
   if (target.type === "upvote") {
     if (
@@ -75,7 +84,9 @@ export function parseVoteSummary(input: unknown, target: BrowserVoteTarget): Vot
       input.postId !== target.postId ||
       typeof input.voted !== "boolean"
     ) {
-      throw new VoteApiError("The vote server returned a response for a different upvote");
+      throw new VoteApiError(
+        "The vote server returned a response for a different upvote",
+      );
     }
     return { type: "upvote", postId: target.postId, total, voted: input.voted };
   }
@@ -88,18 +99,30 @@ export function parseVoteSummary(input: unknown, target: BrowserVoteTarget): Vot
     !Array.isArray(input.results) ||
     !Array.isArray(input.selection)
   ) {
-    throw new VoteApiError("The vote server returned a response for a different poll");
+    throw new VoteApiError(
+      "The vote server returned a response for a different poll",
+    );
   }
 
   const results: Array<{ choice: string; votes: number }> = [];
   for (const result of input.results) {
-    if (!isRecord(result) || typeof result.choice !== "string" || !isCount(result.votes)) {
+    if (
+      !isRecord(result) ||
+      typeof result.choice !== "string" ||
+      !isCount(result.votes)
+    ) {
       throw new VoteApiError("The vote server returned invalid poll results");
     }
     results.push({ choice: result.choice, votes: result.votes });
   }
-  if (!input.selection.every((choice): choice is string => typeof choice === "string")) {
-    throw new VoteApiError("The vote server returned an invalid poll selection");
+  if (
+    !input.selection.every(
+      (choice): choice is string => typeof choice === "string",
+    )
+  ) {
+    throw new VoteApiError(
+      "The vote server returned an invalid poll selection",
+    );
   }
 
   return {
@@ -113,9 +136,13 @@ export function parseVoteSummary(input: unknown, target: BrowserVoteTarget): Vot
   };
 }
 
-function queueSummaryRequest(request: () => Promise<VoteSummary>): Promise<VoteSummary> {
-  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, Promise<void> | undefined>;
-  const previousRequest = sharedGlobal[summaryRequestQueueKey] ?? Promise.resolve();
+function queueSummaryRequest(
+  request: () => Promise<VoteSummary>,
+): Promise<VoteSummary> {
+  const sharedGlobal = globalThis as typeof globalThis &
+    Record<symbol, Promise<void> | undefined>;
+  const previousRequest =
+    sharedGlobal[summaryRequestQueueKey] ?? Promise.resolve();
   const result = previousRequest.catch(() => undefined).then(request);
 
   sharedGlobal[summaryRequestQueueKey] = result.then(
@@ -137,7 +164,9 @@ async function requestVote(
       headers: { Accept: "application/json", ...init.headers },
     });
   } catch {
-    throw new VoteApiError("Could not reach the vote server. Please try again.");
+    throw new VoteApiError(
+      "Could not reach the vote server. Please try again.",
+    );
   }
 
   let body: unknown;
@@ -148,14 +177,19 @@ async function requestVote(
   }
 
   if (!response.ok) {
-    const message = isRecord(body) && typeof body.error === "string" ? body.error : null;
-    throw new VoteApiError(message ?? `Vote request failed (${response.status})`);
+    const message =
+      isRecord(body) && typeof body.error === "string" ? body.error : null;
+    throw new VoteApiError(
+      message ?? `Vote request failed (${response.status})`,
+    );
   }
 
   return parseVoteSummary(body, target);
 }
 
-function targetForSubmission(submission: BrowserVoteSubmission): BrowserVoteTarget {
+function targetForSubmission(
+  submission: BrowserVoteSubmission,
+): BrowserVoteTarget {
   return submission.type === "upvote"
     ? submission
     : {

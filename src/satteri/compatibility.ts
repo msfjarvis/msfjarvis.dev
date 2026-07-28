@@ -70,7 +70,8 @@ export const githubAlerts = defineMdastPlugin({
         };
       } else {
         child.children = child.children.filter(
-          (item, index) => index !== 0 && !(index === 1 && item.type === "break"),
+          (item, index) =>
+            index !== 0 && !(index === 1 && item.type === "break"),
         );
       }
     }
@@ -92,7 +93,10 @@ export const githubAlerts = defineMdastPlugin({
           dir: "auto",
         },
       },
-      children: [alertIcon(alertType), { type: "text", value: alertType.toLocaleUpperCase() }],
+      children: [
+        alertIcon(alertType),
+        { type: "text", value: alertType.toLocaleUpperCase() },
+      ],
     } satisfies Paragraph);
 
     return replacement as MdastNode;

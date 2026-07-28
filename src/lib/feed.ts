@@ -111,7 +111,9 @@ function removeLightboxDuplicates(html: string): string {
     if ($trigger.length > 0) {
       const imageHtml = $trigger.find("picture, img").first().prop("outerHTML");
       if (!imageHtml) {
-        throw Error("Failed to extract lightbox image for feeds, has the layout changed?");
+        throw Error(
+          "Failed to extract lightbox image for feeds, has the layout changed?",
+        );
       }
       $trigger.replaceWith(imageHtml);
     }
@@ -142,9 +144,14 @@ function flattenMermaidLightboxes(html: string): string {
   const $ = load(html);
   $("[data-mermaid-modal-root]").each((_, root) => {
     const $root = $(root);
-    const svgHtml = $root.find(".mermaid-modal__preview svg").first().prop("outerHTML");
+    const svgHtml = $root
+      .find(".mermaid-modal__preview svg")
+      .first()
+      .prop("outerHTML");
     if (!svgHtml) {
-      throw Error("Failed to extract Mermaid SVG for feeds, has the layout changed?");
+      throw Error(
+        "Failed to extract Mermaid SVG for feeds, has the layout changed?",
+      );
     }
     $root.replaceWith(mermaidSvgToFeedImage(svgHtml));
   });
@@ -225,7 +232,9 @@ export function rssSerializer(opts: {
 
   const needsContent = items.some((i) => i.html);
   const ns = [
-    needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : "",
+    needsContent
+      ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"'
+      : "",
     'xmlns:atom="http://www.w3.org/2005/Atom"',
   ]
     .filter(Boolean)
@@ -273,7 +282,8 @@ export function atomSerializer(opts: {
   const { title, description, selfPath, items } = opts;
   const site = opts.context.site!;
 
-  const updated = items.length > 0 ? items[0].date.toISOString() : new Date().toISOString();
+  const updated =
+    items.length > 0 ? items[0].date.toISOString() : new Date().toISOString();
 
   const entries = items
     .map(

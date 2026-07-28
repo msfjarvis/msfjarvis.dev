@@ -10,7 +10,8 @@ const { instance, ...props } = Astro.props;
 const bundlePath = join(import.meta.env.BASE_URL, "pagefind/");
 ---
 
-<pagefind-config {...props} instance={instance} bundle-path={bundlePath}></pagefind-config>
+<pagefind-config {...props} instance={instance} bundle-path={bundlePath}
+></pagefind-config>
 <script>
   import "@pagefind/component-ui";
 </script>

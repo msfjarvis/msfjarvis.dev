@@ -1,5 +1,5 @@
 ---
-import ImageModal from './ImageModal.astro';
+import ImageModal from "./ImageModal.astro";
 
 interface Props {
   src: ImageMetadata | string;
@@ -16,17 +16,30 @@ type ImageMetadata = {
   format: string;
 };
 
-const { src, srcDark, alt = '', title, small = false } = Astro.props;
+const { src, srcDark, alt = "", title, small = false } = Astro.props;
 ---
 
-{typeof src === 'object' ? (
-  <ImageModal src={src} srcDark={srcDark} alt={alt} title={title} small={small} />
-) : (
-  <figure>
-    <picture>
-      {srcDark && <source media="(prefers-color-scheme: dark)" srcset={typeof srcDark === 'object' ? srcDark.src : srcDark} />}
-      <img class={small && 'half' || ''} src={src} alt={alt} />
-    </picture>
-    {title && <figcaption>{title}</figcaption>}
-  </figure>
-)}
+{
+  typeof src === "object" ? (
+    <ImageModal
+      src={src}
+      srcDark={srcDark}
+      alt={alt}
+      title={title}
+      small={small}
+    />
+  ) : (
+    <figure>
+      <picture>
+        {srcDark && (
+          <source
+            media="(prefers-color-scheme: dark)"
+            srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
+          />
+        )}
+        <img class={(small && "half") || ""} src={src} alt={alt} />
+      </picture>
+      {title && <figcaption>{title}</figcaption>}
+    </figure>
+  )
+}

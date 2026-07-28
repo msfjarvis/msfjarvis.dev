@@ -1,18 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ProfileLinks from '../components/ProfileLinks.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { profileLinks } from '../data/profile-links';
-import { filterDrafts } from '../utils';
-import { feeds } from 'virtual:site-feeds';
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProfileLinks from "../components/ProfileLinks.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { profileLinks } from "../data/profile-links";
+import { filterDrafts } from "../utils";
+import { feeds } from "virtual:site-feeds";
 
 export const prerender = true;
 
-const posts = await getCollection('posts', filterDrafts);
-const weeknotes = await getCollection('weeknotes', filterDrafts);
-const notes = await getCollection('notes', filterDrafts);
+const posts = await getCollection("posts", filterDrafts);
+const weeknotes = await getCollection("weeknotes", filterDrafts);
+const notes = await getCollection("notes", filterDrafts);
 
 const recentPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -27,8 +27,14 @@ const noteCount = notes.length;
 const weeknoteCount = weeknotes.length;
 ---
 
-{/* Pass all discovered feeds so the home page advertises every feed on the site */}
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} alternateFeeds={feeds}>
+{
+  /* Pass all discovered feeds so the home page advertises every feed on the site */
+}
+<BaseLayout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  alternateFeeds={feeds}
+>
   <section class="bio">
     <p class="bio-desc">{SITE_DESCRIPTION}</p>
     <ProfileLinks items={profileLinks} />
@@ -58,23 +64,35 @@ const weeknoteCount = weeknotes.length;
       <div class="recent-col">
         <h2 class="section-heading"><a href="/posts">Posts</a></h2>
         <ul>
-          {recentPosts.map((post) => (
-            <li class="post-row">
-              <a href={`/posts/${post.id}/`} class="post-title">{post.data.title}</a>
-              <span class="post-date"><FormattedDate date={post.data.date} /></span>
-            </li>
-          ))}
+          {
+            recentPosts.map((post) => (
+              <li class="post-row">
+                <a href={`/posts/${post.id}/`} class="post-title">
+                  {post.data.title}
+                </a>
+                <span class="post-date">
+                  <FormattedDate date={post.data.date} />
+                </span>
+              </li>
+            ))
+          }
         </ul>
       </div>
       <div class="recent-col">
         <h2 class="section-heading"><a href="/weeknotes">Weeknotes</a></h2>
         <ul>
-          {recentWeeknotes.map((note) => (
-            <li class="post-row">
-              <a href={`/weeknotes/${note.id}/`} class="post-title">{note.data.title}</a>
-              <span class="post-date"><FormattedDate date={note.data.date} /></span>
-            </li>
-          ))}
+          {
+            recentWeeknotes.map((note) => (
+              <li class="post-row">
+                <a href={`/weeknotes/${note.id}/`} class="post-title">
+                  {note.data.title}
+                </a>
+                <span class="post-date">
+                  <FormattedDate date={note.data.date} />
+                </span>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
@@ -82,8 +100,16 @@ const weeknoteCount = weeknotes.length;
 </BaseLayout>
 
 <style>
-  .bio { margin-bottom: 2rem; padding: 0.4rem 0 1.5rem; border-bottom: 1px solid var(--border); }
-  .bio-desc { color: var(--text-2); font-size: 1.1rem; margin: 0; }
+  .bio {
+    margin-bottom: 2rem;
+    padding: 0.4rem 0 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .bio-desc {
+    color: var(--text-2);
+    font-size: 1.1rem;
+    margin: 0;
+  }
 
   .section-grid {
     display: grid;
@@ -99,14 +125,19 @@ const weeknoteCount = weeknotes.length;
     border-radius: 5px;
     padding: 0.75rem 1rem;
   }
-  .section-tile:hover { border-color: var(--accent); }
+  .section-tile:hover {
+    border-color: var(--accent);
+  }
   .tile-label {
     font-family: var(--font-mono);
     font-weight: 600;
     font-size: 1.05rem;
     color: var(--accent);
   }
-  .tile-meta { font-size: 0.925rem; color: var(--text-2); }
+  .tile-meta {
+    font-size: 0.925rem;
+    color: var(--text-2);
+  }
 
   .recent-grid {
     display: grid;
@@ -114,7 +145,10 @@ const weeknoteCount = weeknotes.length;
     gap: 2rem;
   }
   @media (max-width: 540px) {
-    .recent-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .recent-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
   }
   .section-heading {
     font-family: var(--font-mono);
@@ -129,8 +163,14 @@ const weeknoteCount = weeknotes.length;
     color: inherit;
     border-bottom: none;
   }
-  .section-heading a:hover { color: var(--accent); }
-  ul { list-style: none; padding: 0; margin: 0; }
+  .section-heading a:hover {
+    color: var(--accent);
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
   .post-row {
     display: flex;
     justify-content: space-between;
@@ -139,14 +179,19 @@ const weeknoteCount = weeknotes.length;
     border-bottom: 1px solid var(--border);
     gap: 0.75rem;
   }
-  .post-row:last-child { border-bottom: none; }
+  .post-row:last-child {
+    border-bottom: none;
+  }
   .post-title {
     font-family: var(--font-mono);
     font-size: 1.05rem;
     color: var(--accent);
     border-bottom: none;
   }
-  .post-title:hover { border-bottom: none; color: var(--text); }
+  .post-title:hover {
+    border-bottom: none;
+    color: var(--text);
+  }
   .post-date {
     font-family: var(--font-mono);
     font-size: 0.925rem;

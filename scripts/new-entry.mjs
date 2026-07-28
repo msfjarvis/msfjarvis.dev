@@ -14,7 +14,9 @@ const TYPE_TO_DIR = {
 };
 
 function getIsoWeekParts(date) {
-  const utcDate = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const utcDate = new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
+  );
   const day = utcDate.getUTCDay() || 7;
   utcDate.setUTCDate(utcDate.getUTCDate() + 4 - day);
   const yearStart = new Date(Date.UTC(utcDate.getUTCFullYear(), 0, 1));
@@ -43,7 +45,12 @@ function buildFrontmatter({ title, now }) {
   return `---\ntitle: ${JSON.stringify(title)}\ndate: ${JSON.stringify(timestamp)}\nlastmod: ${JSON.stringify(timestamp)}\nsummary: ""\ntags: []\ncategories: []\ndraft: true\ndeleted: false\n---\n`;
 }
 
-export function createEntry({ root = PROJECT_ROOT, type, title, now = new Date() }) {
+export function createEntry({
+  root = PROJECT_ROOT,
+  type,
+  title,
+  now = new Date(),
+}) {
   const collection = TYPE_TO_DIR[type];
   if (!collection) {
     throw new Error(`Invalid content type: ${type}`);
@@ -61,7 +68,13 @@ export function createEntry({ root = PROJECT_ROOT, type, title, now = new Date()
   }
 
   const { title: resolvedTitle, slug } = resolved;
-  const entryDir = path.join(root, "src", "content", collection, slug.toLowerCase());
+  const entryDir = path.join(
+    root,
+    "src",
+    "content",
+    collection,
+    slug.toLowerCase(),
+  );
   const entryPath = path.join(entryDir, "index.mdx");
 
   if (existsSync(entryPath)) {
@@ -69,7 +82,11 @@ export function createEntry({ root = PROJECT_ROOT, type, title, now = new Date()
   }
 
   mkdirSync(entryDir, { recursive: true });
-  writeFileSync(entryPath, `${buildFrontmatter({ title: resolvedTitle, now })}\n`, "utf8");
+  writeFileSync(
+    entryPath,
+    `${buildFrontmatter({ title: resolvedTitle, now })}\n`,
+    "utf8",
+  );
   return entryPath;
 }
 

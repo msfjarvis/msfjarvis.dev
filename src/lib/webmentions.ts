@@ -62,14 +62,17 @@ export function buildManifest(input: {
 }
 
 export function parseManifest(value: unknown): WebmentionsManifest {
-  if (!value || typeof value !== "object") throw new Error("Invalid webmentions manifest");
+  if (!value || typeof value !== "object")
+    throw new Error("Invalid webmentions manifest");
   const manifest = value as WebmentionsManifest;
-  if (!Array.isArray(manifest.entries)) throw new Error("Invalid webmentions manifest entries");
+  if (!Array.isArray(manifest.entries))
+    throw new Error("Invalid webmentions manifest entries");
 
   if (manifest.schemaVersion !== 2)
     throw new Error("Unsupported webmentions manifest schemaVersion");
   for (const entry of manifest.entries) {
-    if (!entry || typeof entry !== "object") throw new Error("Invalid webmentions manifest entry");
+    if (!entry || typeof entry !== "object")
+      throw new Error("Invalid webmentions manifest entry");
     if (typeof entry.url !== "string" || typeof entry.lastmod !== "string") {
       throw new Error("Invalid webmentions manifest entry shape");
     }
@@ -81,8 +84,12 @@ export function diffManifests(
   previous: WebmentionsManifest,
   next: WebmentionsManifest,
 ): WebmentionSendEvent[] {
-  const previousMap = new Map(previous.entries.map((entry) => [entry.url, entry.lastmod]));
-  const nextMap = new Map(next.entries.map((entry) => [entry.url, entry.lastmod]));
+  const previousMap = new Map(
+    previous.entries.map((entry) => [entry.url, entry.lastmod]),
+  );
+  const nextMap = new Map(
+    next.entries.map((entry) => [entry.url, entry.lastmod]),
+  );
   const events: WebmentionSendEvent[] = [];
 
   for (const [url, lastmod] of previousMap) {
@@ -102,7 +109,8 @@ export function diffManifests(
   }
 
   return events.sort(
-    (a, b) => a.pageUrl.localeCompare(b.pageUrl) || a.reason.localeCompare(b.reason),
+    (a, b) =>
+      a.pageUrl.localeCompare(b.pageUrl) || a.reason.localeCompare(b.reason),
   );
 }
 
@@ -112,7 +120,10 @@ export function formatSendSummary(results: WebmentionSendResult[]): string {
     pageUrl: result.pageUrl,
     reason: result.reason,
     result: result.ok ? "success" : "failed",
-    detail: result.status === null ? result.detail : `${result.status} ${result.detail}`.trim(),
+    detail:
+      result.status === null
+        ? result.detail
+        : `${result.status} ${result.detail}`.trim(),
   }));
   const widths = headers.map((header) =>
     Math.max(header.length, ...rows.map((row) => row[header].length)),
@@ -144,7 +155,8 @@ export async function sendEvents(input: {
           },
           body: JSON.stringify(event),
         });
-        const detail = response.statusText || (response.ok ? "OK" : "Request failed");
+        const detail =
+          response.statusText || (response.ok ? "OK" : "Request failed");
         return {
           pageUrl: event.pageUrl,
           reason: event.reason,

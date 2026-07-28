@@ -24,9 +24,12 @@ export const GET: APIRoute = async ({ url }) => {
     });
   } catch (err) {
     console.error("Webmention API error:", err);
-    return new Response(JSON.stringify({ error: "Failed to fetch webmentions" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch webmentions" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
   }
 };

@@ -65,7 +65,9 @@ The relevant DataViewJS code is this:
   let any = false;
 
   for (const p of pages) {
-    const bullets = (p.file.lists ?? []).filter((li) => (li.text ?? "").includes(TAG));
+    const bullets = (p.file.lists ?? []).filter((li) =>
+      (li.text ?? "").includes(TAG),
+    );
     if (!bullets.length) continue;
 
     any = true;

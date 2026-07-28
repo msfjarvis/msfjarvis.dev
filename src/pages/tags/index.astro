@@ -1,16 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { slugify } from '../../utils';
-import { filterDrafts } from '../../utils';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { slugify } from "../../utils";
+import { filterDrafts } from "../../utils";
 
 export const prerender = true;
 
 // Collect tags from all three collections and count frequency
 const [posts, notes, weeknotes] = await Promise.all([
-  getCollection('posts',     filterDrafts),
-  getCollection('notes',     filterDrafts),
-  getCollection('weeknotes', filterDrafts),
+  getCollection("posts", filterDrafts),
+  getCollection("notes", filterDrafts),
+  getCollection("weeknotes", filterDrafts),
 ]);
 
 const counts = new Map<string, number>();
@@ -22,8 +22,8 @@ for (const entry of [...posts, ...notes, ...weeknotes]) {
 
 const tags = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
 
-const MIN_SIZE = 0.8;  // rem
-const MAX_SIZE = 2.2;  // rem
+const MIN_SIZE = 0.8; // rem
+const MAX_SIZE = 2.2; // rem
 const freqs = [...counts.values()];
 const minFreq = Math.min(...freqs);
 const maxFreq = Math.max(...freqs);
@@ -39,20 +39,26 @@ function tagSize(count: number): string {
 <BaseLayout title="Tags — Harsh Shandilya" description="All tags">
   <h1>Tags</h1>
   <div class="cloud" role="list">
-    {tags.map(([tag, count]) => (
-      <a
-        href={`/tags/${slugify(tag)}/`}
-        class="cloud-tag"
-        style={`font-size: ${tagSize(count)}`}
-        role="listitem"
-        title={`${count} ${count === 1 ? 'post' : 'posts'}`}
-      >{tag}</a>
-    ))}
+    {
+      tags.map(([tag, count]) => (
+        <a
+          href={`/tags/${slugify(tag)}/`}
+          class="cloud-tag"
+          style={`font-size: ${tagSize(count)}`}
+          role="listitem"
+          title={`${count} ${count === 1 ? "post" : "posts"}`}
+        >
+          {tag}
+        </a>
+      ))
+    }
   </div>
 </BaseLayout>
 
 <style>
-  h1 { margin-top: 0; }
+  h1 {
+    margin-top: 0;
+  }
   .cloud {
     display: flex;
     flex-wrap: wrap;
@@ -66,5 +72,7 @@ function tagSize(count: number): string {
     border-bottom: none;
     line-height: 1.4;
   }
-  .cloud-tag:hover { color: var(--text); }
+  .cloud-tag:hover {
+    color: var(--text);
+  }
 </style>

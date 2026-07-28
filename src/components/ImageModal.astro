@@ -14,29 +14,36 @@ type ImageMetadata = {
   format: string;
 };
 
-const { src, srcDark, alt = '', title, small } = Astro.props;
-const dialogLabel = title || alt || 'Expanded image';
+const { src, srcDark, alt = "", title, small } = Astro.props;
+const dialogLabel = title || alt || "Expanded image";
 ---
 
-<div data-image-modal-root class={small ? 'half' : undefined}>
+<div data-image-modal-root class={small ? "half" : undefined}>
   <figure data-image-lightbox>
     <button
       data-lightbox-trigger
       type="button"
       class="image-modal__trigger"
       aria-haspopup="dialog"
-      aria-label={`Open ${alt || title || 'image'} in lightbox`}
+      aria-label={`Open ${alt || title || "image"} in lightbox`}
     >
       <span class="image-modal__media">
         <picture>
-          {srcDark && <source media="(prefers-color-scheme: dark)" srcset={typeof srcDark === 'object' ? srcDark.src : srcDark} />}
+          {
+            srcDark && (
+              <source
+                media="(prefers-color-scheme: dark)"
+                srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
+              />
+            )
+          }
           <img
-            src={typeof src === 'object' ? src.src : src}
+            src={typeof src === "object" ? src.src : src}
             alt={alt}
             loading="lazy"
             decoding="async"
-            width={typeof src === 'object' ? src.width : undefined}
-            height={typeof src === 'object' ? src.height : undefined}
+            width={typeof src === "object" ? src.width : undefined}
+            height={typeof src === "object" ? src.height : undefined}
           />
         </picture>
         <span class="image-modal__hint" aria-hidden="true">Expand image</span>
@@ -59,8 +66,7 @@ const dialogLabel = title || alt || 'Expanded image';
       class="image-modal__overlay"
       data-lightbox-overlay
       aria-label="Close image lightbox"
-      tabindex="-1"
-    ></button>
+      tabindex="-1"></button>
     <div class="image-modal__sheet" role="document">
       <button
         data-lightbox-close
@@ -72,14 +78,21 @@ const dialogLabel = title || alt || 'Expanded image';
       </button>
       <div data-lightbox-inner class="image-modal__content">
         <picture>
-          {srcDark && <source media="(prefers-color-scheme: dark)" srcset={typeof srcDark === 'object' ? srcDark.src : srcDark} />}
+          {
+            srcDark && (
+              <source
+                media="(prefers-color-scheme: dark)"
+                srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
+              />
+            )
+          }
           <img
-            src={typeof src === 'object' ? src.src : src}
+            src={typeof src === "object" ? src.src : src}
             alt={alt}
             loading="eager"
             decoding="async"
-            width={typeof src === 'object' ? src.width : undefined}
-            height={typeof src === 'object' ? src.height : undefined}
+            width={typeof src === "object" ? src.width : undefined}
+            height={typeof src === "object" ? src.height : undefined}
           />
         </picture>
       </div>
@@ -114,7 +127,9 @@ const dialogLabel = title || alt || 'Expanded image';
     overflow: hidden;
     border-radius: 10px;
     transform: translateY(0);
-    transition: transform 220ms ease, opacity 220ms ease;
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease;
   }
 
   .image-modal__media :global(img),
@@ -139,9 +154,10 @@ const dialogLabel = title || alt || 'Expanded image';
     font-size: 0.7rem;
     opacity: 0;
     transform: translateY(0.35rem);
-    transition: opacity 200ms ease, transform 200ms ease;
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease;
   }
-
 
   .image-modal__trigger:hover .image-modal__media,
   .image-modal__trigger:focus-visible .image-modal__media {
@@ -159,7 +175,9 @@ const dialogLabel = title || alt || 'Expanded image';
   }
 
   .image-modal__trigger:focus-visible .image-modal__media {
-    box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+    box-shadow:
+      0 0 0 2px var(--bg),
+      0 0 0 4px var(--accent);
   }
 
   .image-modal__caption {
@@ -179,10 +197,12 @@ const dialogLabel = title || alt || 'Expanded image';
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 220ms ease, visibility 220ms ease;
+    transition:
+      opacity 220ms ease,
+      visibility 220ms ease;
   }
 
-  .image-modal__dialog[data-open='true'] {
+  .image-modal__dialog[data-open="true"] {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -206,10 +226,12 @@ const dialogLabel = title || alt || 'Expanded image';
     gap: 0.85rem;
     transform: translateY(1rem) scale(0.985);
     opacity: 0;
-    transition: transform 260ms ease, opacity 260ms ease;
+    transition:
+      transform 260ms ease,
+      opacity 260ms ease;
   }
 
-  .image-modal__dialog[data-open='true'] .image-modal__sheet {
+  .image-modal__dialog[data-open="true"] .image-modal__sheet {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
@@ -273,22 +295,26 @@ const dialogLabel = title || alt || 'Expanded image';
     window.__imageModalInit = true;
 
     const lockScroll = () => {
-      document.body.dataset.imageModalScrollLock = 'true';
-      document.body.style.overflow = 'hidden';
+      document.body.dataset.imageModalScrollLock = "true";
+      document.body.style.overflow = "hidden";
     };
 
     const unlockScroll = () => {
       delete document.body.dataset.imageModalScrollLock;
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
 
     const setupImageModal = (root) => {
-      if (!(root instanceof HTMLElement) || root.dataset.imageModalBound === 'true') return;
+      if (
+        !(root instanceof HTMLElement) ||
+        root.dataset.imageModalBound === "true"
+      )
+        return;
 
-      const trigger = root.querySelector('[data-lightbox-trigger]');
-      const dialog = root.querySelector('[data-lightbox-container]');
-      const closeButton = root.querySelector('[data-lightbox-close]');
-      const overlay = root.querySelector('[data-lightbox-overlay]');
+      const trigger = root.querySelector("[data-lightbox-trigger]");
+      const dialog = root.querySelector("[data-lightbox-container]");
+      const closeButton = root.querySelector("[data-lightbox-close]");
+      const overlay = root.querySelector("[data-lightbox-overlay]");
 
       if (
         !(trigger instanceof HTMLButtonElement) ||
@@ -299,38 +325,41 @@ const dialogLabel = title || alt || 'Expanded image';
         return;
       }
 
-      root.dataset.imageModalBound = 'true';
+      root.dataset.imageModalBound = "true";
       let lastFocused = null;
 
       const open = () => {
-        lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : trigger;
-        dialog.dataset.open = 'true';
-        dialog.removeAttribute('inert');
-        dialog.setAttribute('aria-hidden', 'false');
+        lastFocused =
+          document.activeElement instanceof HTMLElement
+            ? document.activeElement
+            : trigger;
+        dialog.dataset.open = "true";
+        dialog.removeAttribute("inert");
+        dialog.setAttribute("aria-hidden", "false");
         lockScroll();
         closeButton.focus();
       };
 
       const close = () => {
-        dialog.dataset.open = 'false';
-        dialog.setAttribute('inert', '');
-        dialog.setAttribute('aria-hidden', 'true');
+        dialog.dataset.open = "false";
+        dialog.setAttribute("inert", "");
+        dialog.setAttribute("aria-hidden", "true");
         unlockScroll();
         lastFocused?.focus?.();
       };
 
-      trigger.addEventListener('click', (event) => {
+      trigger.addEventListener("click", (event) => {
         event.preventDefault();
         open();
       });
 
-      closeButton.addEventListener('click', close);
-      overlay.addEventListener('click', close);
-      dialog.addEventListener('click', (event) => {
+      closeButton.addEventListener("click", close);
+      overlay.addEventListener("click", close);
+      dialog.addEventListener("click", (event) => {
         if (event.target === dialog) close();
       });
-      dialog.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
+      dialog.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
           event.preventDefault();
           close();
         }
@@ -338,13 +367,13 @@ const dialogLabel = title || alt || 'Expanded image';
     };
 
     const init = () => {
-      document.querySelectorAll('[data-image-modal-root]').forEach((root) => {
+      document.querySelectorAll("[data-image-modal-root]").forEach((root) => {
         setupImageModal(root);
       });
     };
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init, { once: true });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init, { once: true });
     } else {
       init();
     }

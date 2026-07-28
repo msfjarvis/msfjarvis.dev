@@ -23,17 +23,25 @@ export async function getStaticPaths() {
     getCollection("weeknotes", filterDrafts),
   ]);
 
-  const catNames = new Set([...posts, ...weeknotes].flatMap((e) => e.data.categories));
+  const catNames = new Set(
+    [...posts, ...weeknotes].flatMap((e) => e.data.categories),
+  );
 
   return [...catNames].flatMap((name) => {
     const slug = slugify(name);
-    const filteredPosts = posts.filter((e) => e.data.categories.map(slugify).includes(slug));
+    const filteredPosts = posts.filter((e) =>
+      e.data.categories.map(slugify).includes(slug),
+    );
     const filteredWeeknotes = weeknotes.filter((e) =>
       e.data.categories.map(slugify).includes(slug),
     );
     return FEED_FORMATS.map((format) => ({
       params: { category: slug, format },
-      props: { categoryName: name, filteredPosts, filteredWeeknotes } satisfies CategoryFeedProps,
+      props: {
+        categoryName: name,
+        filteredPosts,
+        filteredWeeknotes,
+      } satisfies CategoryFeedProps,
     }));
   });
 }
@@ -41,7 +49,8 @@ export async function getStaticPaths() {
 export async function GET(context: APIContext) {
   const { category, format } = context.params;
   if (!category || !format) return new Response("Bad Request", { status: 400 });
-  const { categoryName, filteredPosts, filteredWeeknotes } = context.props as CategoryFeedProps;
+  const { categoryName, filteredPosts, filteredWeeknotes } =
+    context.props as CategoryFeedProps;
   if (!categoryName) return new Response("Internal Error", { status: 500 });
 
   const serializer = FEED_SERIALIZERS[format as FeedFormat];

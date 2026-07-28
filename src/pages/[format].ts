@@ -1,6 +1,10 @@
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
-import { SITE_DESCRIPTION, SITE_TITLE, WEEKNOTES_LEGACY_CUTOFF } from "../consts";
+import {
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  WEEKNOTES_LEGACY_CUTOFF,
+} from "../consts";
 import { filterDrafts } from "../utils";
 import { createFeedEndpoint } from "../lib/feed";
 
@@ -13,7 +17,8 @@ export const { getStaticPaths, GET } = createFeedEndpoint({
     return [
       {
         entries: posts,
-        urlBuilder: (entry: any, origin: string) => `${origin}/posts/${entry.id}/`,
+        urlBuilder: (entry: any, origin: string) =>
+          `${origin}/posts/${entry.id}/`,
       },
       {
         entries: weeknotes,

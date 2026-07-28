@@ -104,7 +104,10 @@ function main() {
     for (const entry of allEntries) {
       for (const alias of entry.data.aliases) {
         // Normalise: ensure leading slash and trailing slash
-        const src = ("/" + String(alias).replace(/^\//, "")).replace(/\/?$/, "/");
+        const src = ("/" + String(alias).replace(/^\//, "")).replace(
+          /\/?$/,
+          "/",
+        );
         lines.push(`${src}\t${entry.canonical}\t301`);
       }
     }
@@ -121,8 +124,12 @@ function main() {
   const dest = join(PROJECT_ROOT, "public", "_redirects");
   writeFileSync(dest, lines.join("\n"), "utf8");
 
-  const total = oldWeeknotePaths.length + allEntries.reduce((n, e) => n + e.data.aliases.length, 0);
-  console.log(`✓ public/_redirects written (${total} redirect${total !== 1 ? "s" : ""})`);
+  const total =
+    oldWeeknotePaths.length +
+    allEntries.reduce((n, e) => n + e.data.aliases.length, 0);
+  console.log(
+    `✓ public/_redirects written (${total} redirect${total !== 1 ? "s" : ""})`,
+  );
 }
 
 main();

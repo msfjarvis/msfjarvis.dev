@@ -1,9 +1,9 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import PagefindConfig from '../components/PagefindConfig.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import PagefindConfig from "../components/PagefindConfig.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import type { AlternateFeed } from "../lib/feed.ts";
 
 interface Props {
@@ -22,7 +22,11 @@ const {
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} alternateFeeds={alternateFeeds} />
+    <BaseHead
+      title={title}
+      description={description}
+      alternateFeeds={alternateFeeds}
+    />
     <script is:inline>
       const applyPagefindTheme = (isDark) => {
         document.documentElement.toggleAttribute("data-pf-theme", isDark);
@@ -37,7 +41,9 @@ const {
 
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       applyPagefindTheme(mediaQuery.matches);
-      mediaQuery.addEventListener("change", (event) => applyPagefindTheme(event.matches));
+      mediaQuery.addEventListener("change", (event) =>
+        applyPagefindTheme(event.matches),
+      );
     </script>
   </head>
   <body>
@@ -50,11 +56,15 @@ const {
       <p>
         I am <span class="p-name">Harsh Shandilya</span>.
         <span class="p-note"
-          >I'm a <span class="p-job-title">Systems Engineer</span> currently living in
-          <span class="p-locality">Bangalore</span>, <span class="p-country-name">India</span>.
-          I currently work at
+          >I'm a <span class="p-job-title">Systems Engineer</span> currently living
+          in
+          <span class="p-locality">Bangalore</span>, <span
+            class="p-country-name">India</span
+          >. I currently work at
           <span class="p-org"
-            ><a href="https://cloudflare.com" target="_blank" rel="noopener">Cloudflare</a></span
+            ><a href="https://cloudflare.com" target="_blank" rel="noopener"
+              >Cloudflare</a
+            ></span
           >.</span
         >
       </p>

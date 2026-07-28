@@ -1,12 +1,12 @@
 ---
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE } from "../consts";
 import { navLinks } from "../data/nav-links.ts";
 
 const pathname = new URL(Astro.request.url).pathname;
 // Returns true if the current path matches, supporting both trailing-slash and non-trailing-slash forms
 const isActive = (path: string, exact = false): boolean =>
   exact
-    ? pathname === path || pathname === path + '/'
+    ? pathname === path || pathname === path + "/"
     : pathname.startsWith(path);
 
 const primaryNavLinks = navLinks.slice(0, 3);
@@ -18,26 +18,39 @@ const overflowNavLinks = navLinks.slice(3);
     <a href="/" class="site-name">{SITE_TITLE}</a>
     <div class="nav-actions">
       <div class="nav-links">
-        {primaryNavLinks.map(link => (
-          <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
-        ))}
+        {
+          primaryNavLinks.map((link) => (
+            <a href={link.href} class:list={[{ active: isActive(link.href) }]}>
+              {link.label}
+            </a>
+          ))
+        }
         <button
           type="button"
           class="more-links-trigger"
           popovertarget="more-links"
-          aria-label="Show more navigation links">
+          aria-label="Show more navigation links"
+        >
           more
           <svg aria-hidden="true" viewBox="0 0 12 12" focusable="false">
-            <path d="m3 5 3 3 3-3" />
+            <path d="m3 5 3 3 3-3"></path>
           </svg>
         </button>
         <div id="more-links" class="more-links-popover" popover="auto">
-          {overflowNavLinks.map(link => (
-            <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
-          ))}
+          {
+            overflowNavLinks.map((link) => (
+              <a
+                href={link.href}
+                class:list={[{ active: isActive(link.href) }]}
+              >
+                {link.label}
+              </a>
+            ))
+          }
         </div>
       </div>
-      <pagefind-modal-trigger compact placeholder="Search"></pagefind-modal-trigger>
+      <pagefind-modal-trigger compact placeholder="Search"
+      ></pagefind-modal-trigger>
     </div>
   </nav>
 </header>

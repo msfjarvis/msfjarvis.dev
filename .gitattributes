@@ -1,2 +1,8 @@
+# A Git flake with `?rev=<commit>&exportIgnore=1` contains only the files needed
+# to evaluate this development shell, rather than a copy of the entire site.
+* export-ignore
+flake.nix -export-ignore
+flake.lock -export-ignore
+
 public/pretty-feed-v3.xsl linguist-vendored
 worker-configuration.d.ts linguist-generated

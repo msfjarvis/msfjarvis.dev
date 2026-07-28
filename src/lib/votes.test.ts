@@ -16,19 +16,33 @@ import {
 
 test("records idempotent upvotes once per voter", async () => {
   const memory = createMemoryStore();
-  const submission = parseVoteSubmission({ type: "upvote", postId: "hello-world" });
+  const submission = parseVoteSubmission({
+    type: "upvote",
+    postId: "hello-world",
+  });
 
   assert.equal(await recordVote(memory.store, submission, "alice"), "created");
-  assert.equal(await recordVote(memory.store, submission, "alice"), "unchanged");
+  assert.equal(
+    await recordVote(memory.store, submission, "alice"),
+    "unchanged",
+  );
   assert.equal(await recordVote(memory.store, submission, "bob"), "created");
   assert.equal(memory.writes(), 2);
 
   assert.deepEqual(
-    await getVoteSummary(memory.store, { type: "upvote", postId: "hello-world" }, "alice"),
+    await getVoteSummary(
+      memory.store,
+      { type: "upvote", postId: "hello-world" },
+      "alice",
+    ),
     { type: "upvote", postId: "hello-world", total: 2, voted: true },
   );
   assert.deepEqual(
-    await getVoteSummary(memory.store, { type: "upvote", postId: "hello-world" }, "carol"),
+    await getVoteSummary(
+      memory.store,
+      { type: "upvote", postId: "hello-world" },
+      "carol",
+    ),
     { type: "upvote", postId: "hello-world", total: 2, voted: false },
   );
 });
@@ -234,7 +248,8 @@ test("validates vote payloads and targets", () => {
     VoteValidationError,
   );
   assert.throws(
-    () => parseVoteSubmission({ type: "single", postId: "post", pollId: "poll" }),
+    () =>
+      parseVoteSubmission({ type: "single", postId: "post", pollId: "poll" }),
     /choice/,
   );
   assert.throws(
@@ -247,12 +262,20 @@ test("validates vote payloads and targets", () => {
         type: "multiple",
         postId: "post",
         pollId: "poll",
-        choices: Array.from({ length: 9 }, (_, index) => `${index}${"x".repeat(63)}`),
+        choices: Array.from(
+          { length: 9 },
+          (_, index) => `${index}${"x".repeat(63)}`,
+        ),
       }),
     /total no more/,
   );
   assert.deepEqual(
-    parseVoteTarget({ type: "poll", postId: "post", pollId: "poll", mode: "single" }),
+    parseVoteTarget({
+      type: "poll",
+      postId: "post",
+      pollId: "poll",
+      mode: "single",
+    }),
     {
       type: "poll",
       postId: "post",
@@ -260,12 +283,18 @@ test("validates vote payloads and targets", () => {
       mode: "single",
     },
   );
-  assert.deepEqual(voteTargetFromQuery(new URLSearchParams({ postId: "post" })), {
-    type: "upvote",
-    postId: "post",
-  });
+  assert.deepEqual(
+    voteTargetFromQuery(new URLSearchParams({ postId: "post" })),
+    {
+      type: "upvote",
+      postId: "post",
+    },
+  );
   assert.throws(
-    () => voteTargetFromQuery(new URLSearchParams({ postId: "post", pollId: "poll" })),
+    () =>
+      voteTargetFromQuery(
+        new URLSearchParams({ postId: "post", pollId: "poll" }),
+      ),
     /mode/,
   );
 });

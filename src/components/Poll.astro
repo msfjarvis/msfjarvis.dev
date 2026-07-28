@@ -19,10 +19,14 @@ const idPattern = /^[A-Za-z0-9][A-Za-z0-9._~/-]{0,127}$/;
 const choiceIdPattern = /^[A-Za-z0-9][A-Za-z0-9._~/-]{0,63}$/;
 
 if (typeof postId !== "string" || !idPattern.test(postId)) {
-  throw new Error("Poll postId must be 1–128 URL-safe characters and start with a letter or number");
+  throw new Error(
+    "Poll postId must be 1–128 URL-safe characters and start with a letter or number",
+  );
 }
 if (typeof pollId !== "string" || !idPattern.test(pollId)) {
-  throw new Error("Poll pollId must be 1–128 URL-safe characters and start with a letter or number");
+  throw new Error(
+    "Poll pollId must be 1–128 URL-safe characters and start with a letter or number",
+  );
 }
 if (mode !== "single" && mode !== "multiple") {
   throw new Error('Poll mode must be "single" or "multiple"');
@@ -45,7 +49,8 @@ for (const option of options) {
       "Poll option IDs must be 1–64 URL-safe characters and start with a letter or number",
     );
   }
-  if (optionIds.has(option.id)) throw new Error(`Poll option ID must be unique: ${option.id}`);
+  if (optionIds.has(option.id))
+    throw new Error(`Poll option ID must be unique: ${option.id}`);
   if (typeof option.label !== "string" || option.label.trim().length === 0) {
     throw new Error(`Poll option label must not be empty: ${option.id}`);
   }
@@ -53,7 +58,9 @@ for (const option of options) {
   totalChoiceCharacters += option.id.length;
 }
 if (mode === "multiple" && totalChoiceCharacters > 512) {
-  throw new Error("Multiple-choice poll option IDs must total no more than 512 characters");
+  throw new Error(
+    "Multiple-choice poll option IDs must total no more than 512 characters",
+  );
 }
 ---
 
@@ -67,7 +74,11 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
     <fieldset disabled>
       <legend>{question}</legend>
       <p class="poll__instruction">
-        {mode === "single" ? "Choose one option." : "Choose one or more options."}
+        {
+          mode === "single"
+            ? "Choose one option."
+            : "Choose one or more options."
+        }
       </p>
       <div class="poll__options">
         {
@@ -84,25 +95,34 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
               </span>
               <span class="poll__result" data-result={option.id}>
                 <span class="poll__bar" aria-hidden="true" />
-                <span class="poll__count" data-result-count>0 votes</span>
+                <span class="poll__count" data-result-count>
+                  0 votes
+                </span>
               </span>
             </label>
           ))
         }
       </div>
       <p class="poll__total">
-        <span data-total>0</span> <span data-ballot-label>ballots</span> cast
+        <span data-total>0</span>
+        <span data-ballot-label>ballots</span> cast
       </p>
       <div class="poll__actions">
-        <button class="poll__submit" type="submit" data-submit disabled>Vote</button>
-        <button class="poll__clear" type="button" data-clear disabled>Clear my vote</button>
+        <button class="poll__submit" type="submit" data-submit disabled
+          >Vote</button
+        >
+        <button class="poll__clear" type="button" data-clear disabled
+          >Clear my vote</button
+        >
       </div>
     </fieldset>
     <div class="poll__feedback">
       <p class="poll__status" data-status aria-live="polite" aria-atomic="true">
         Loading poll…
       </p>
-      <button type="button" data-retry aria-label="Retry loading poll" hidden>Retry</button>
+      <button type="button" data-retry aria-label="Retry loading poll" hidden
+        >Retry</button
+      >
     </div>
   </form>
 </vote-poll>
@@ -334,8 +354,14 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
         event.preventDefault();
         void this.submit();
       });
-      this.querySelector("[data-clear]")?.addEventListener("click", () => void this.clear());
-      this.querySelector("[data-retry]")?.addEventListener("click", () => void this.load());
+      this.querySelector("[data-clear]")?.addEventListener(
+        "click",
+        () => void this.clear(),
+      );
+      this.querySelector("[data-retry]")?.addEventListener(
+        "click",
+        () => void this.load(),
+      );
       void this.load();
     }
 
@@ -365,7 +391,8 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
       this.setStatus("Loading poll…");
       try {
         const summary = await fetchVoteSummary(this.target);
-        if (summary.type !== "poll") throw new VoteApiError("Invalid poll response");
+        if (summary.type !== "poll")
+          throw new VoteApiError("Invalid poll response");
         this.summary = summary;
         this.renderSummary(true);
         this.setStatus("");
@@ -406,11 +433,14 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
                 pollId: target.pollId,
                 choices,
               });
-        if (summary.type !== "poll") throw new VoteApiError("Invalid poll response");
+        if (summary.type !== "poll")
+          throw new VoteApiError("Invalid poll response");
         const updated = this.summary.selection.length > 0;
         this.summary = summary;
         this.renderSummary(true);
-        this.setStatus(updated ? "Your vote was updated." : "Your vote was saved.");
+        this.setStatus(
+          updated ? "Your vote was updated." : "Your vote was saved.",
+        );
       } catch (error) {
         this.setStatus(errorMessage(error), true);
       } finally {
@@ -419,12 +449,18 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
     }
 
     private async clear() {
-      if (this.busy || this.summary === null || this.summary.selection.length === 0) return;
+      if (
+        this.busy ||
+        this.summary === null ||
+        this.summary.selection.length === 0
+      )
+        return;
       this.setBusy(true);
       this.setStatus("Clearing your vote…");
       try {
         const summary = await clearVote(this.target);
-        if (summary.type !== "poll") throw new VoteApiError("Invalid poll response");
+        if (summary.type !== "poll")
+          throw new VoteApiError("Invalid poll response");
         this.summary = summary;
         this.renderSummary(true);
         this.setStatus("Your vote was cleared.");
@@ -439,10 +475,14 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
       if (this.summary === null) return;
       if (syncSelection) {
         const selected = new Set(this.summary.selection);
-        this.choiceInputs().forEach((input) => (input.checked = selected.has(input.value)));
+        this.choiceInputs().forEach(
+          (input) => (input.checked = selected.has(input.value)),
+        );
       }
 
-      const counts = new Map(this.summary.results.map(({ choice, votes }) => [choice, votes]));
+      const counts = new Map(
+        this.summary.results.map(({ choice, votes }) => [choice, votes]),
+      );
       this.querySelectorAll("[data-result]").forEach((result) => {
         if (!(result instanceof HTMLElement)) return;
         const votes = counts.get(result.dataset.result ?? "") ?? 0;
@@ -454,18 +494,24 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
           this.summary === null || this.summary.total === 0
             ? 0
             : (votes / this.summary.total) * 100;
-        result.style.setProperty("--poll-result", String(Math.min(100, percentage)));
+        result.style.setProperty(
+          "--poll-result",
+          String(Math.min(100, percentage)),
+        );
       });
 
       const total = this.querySelector("[data-total]");
-      if (total instanceof HTMLElement) total.textContent = this.summary.total.toLocaleString();
+      if (total instanceof HTMLElement)
+        total.textContent = this.summary.total.toLocaleString();
       const ballotLabel = this.querySelector("[data-ballot-label]");
       if (ballotLabel instanceof HTMLElement) {
-        ballotLabel.textContent = this.summary.total === 1 ? "ballot" : "ballots";
+        ballotLabel.textContent =
+          this.summary.total === 1 ? "ballot" : "ballots";
       }
       const submit = this.querySelector("[data-submit]");
       if (submit instanceof HTMLButtonElement) {
-        submit.textContent = this.summary.selection.length > 0 ? "Update vote" : "Vote";
+        submit.textContent =
+          this.summary.selection.length > 0 ? "Update vote" : "Vote";
       }
       this.updateActions();
     }
@@ -491,10 +537,16 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
       const submit = this.querySelector("[data-submit]");
       const clear = this.querySelector("[data-clear]");
       if (submit instanceof HTMLButtonElement) {
-        submit.disabled = this.busy || this.summary === null || this.selectedChoices().length === 0;
+        submit.disabled =
+          this.busy ||
+          this.summary === null ||
+          this.selectedChoices().length === 0;
       }
       if (clear instanceof HTMLButtonElement) {
-        clear.disabled = this.busy || this.summary === null || this.summary.selection.length === 0;
+        clear.disabled =
+          this.busy ||
+          this.summary === null ||
+          this.summary.selection.length === 0;
       }
     }
 
@@ -507,7 +559,9 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
   }
 
   function errorMessage(error: unknown): string {
-    return error instanceof Error ? error.message : "Could not update this poll. Please try again.";
+    return error instanceof Error
+      ? error.message
+      : "Could not update this poll. Please try again.";
   }
 
   if (!customElements.get("vote-poll")) {

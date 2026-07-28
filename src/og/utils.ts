@@ -1,10 +1,14 @@
 export type CollectionKind = "posts" | "notes" | "weeknotes";
 
-export function isCollectionKind(value: string | null | undefined): value is CollectionKind {
+export function isCollectionKind(
+  value: string | null | undefined,
+): value is CollectionKind {
   return value === "posts" || value === "notes" || value === "weeknotes";
 }
 
-export function getCollectionKindFromPath(pathname: string): CollectionKind | null {
+export function getCollectionKindFromPath(
+  pathname: string,
+): CollectionKind | null {
   if (pathname.startsWith("/posts/")) return "posts";
   if (pathname.startsWith("/notes/")) return "notes";
   if (pathname.startsWith("/weeknotes/")) return "weeknotes";
@@ -30,14 +34,20 @@ export function formatOGDate(input: string): string {
   }).format(new Date(input));
 }
 
-export function readMetaContent(document: Document, selector: string): string | undefined {
+export function readMetaContent(
+  document: Document,
+  selector: string,
+): string | undefined {
   const value = document.querySelector(selector)?.getAttribute("content");
   return value?.trim() || undefined;
 }
 
 export function readDate(document: Document): string | undefined {
   return (
-    document.querySelector("[data-og-date]")?.getAttribute("data-og-date")?.trim() || undefined
+    document
+      .querySelector("[data-og-date]")
+      ?.getAttribute("data-og-date")
+      ?.trim() || undefined
   );
 }
 

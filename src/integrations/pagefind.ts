@@ -9,7 +9,9 @@ export interface PagefindOptions {
   indexConfig?: PagefindServiceConfig;
 }
 
-export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIntegration {
+export default function pagefind({
+  indexConfig,
+}: PagefindOptions = {}): AstroIntegration {
   let clientDir: string | undefined;
   return {
     name: "pagefind",
@@ -20,7 +22,9 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
         }
       },
       "astro:server:setup": ({ server, logger }) => {
-        const outDir = clientDir ?? path.join(server.config.root, server.config.build.outDir);
+        const outDir =
+          clientDir ??
+          path.join(server.config.root, server.config.build.outDir);
         logger.debug(`Serving pagefind from ${outDir}`);
         const serve = sirv(outDir, {
           dev: true,
@@ -42,7 +46,9 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
           createErrors.forEach(logger.error);
           return;
         }
-        const { page_count, errors: addErrors } = await index.addDirectory({ path: outDir });
+        const { page_count, errors: addErrors } = await index.addDirectory({
+          path: outDir,
+        });
         if (addErrors.length) {
           logger.error("Pagefind failed to index files");
           addErrors.forEach(logger.error);
