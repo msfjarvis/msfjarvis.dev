@@ -1,3 +1,1 @@
-# msfjarvis.dev
-
-Source code for my website at [msfjarvis.dev](https://msfjarvis.dev). ~~It's built with [Hugo](https://github.com/gohugoio/hugo), deployed continuously to Netlify.~~ It's noww powered by [Astro](https://astro.build), and built by [Cloudflare](https://cloudflare.com).
+Source code for my website at [msfjarvis.dev](https://msfjarvis.dev). ~~It's built with [Hugo](https://github.com/gohugoio/hugo), deployed continuously to Netlify.~~ It's now powered by [Astro](https://astro.build), and hosted on by [Cloudflare](https://cloudflare.com).
