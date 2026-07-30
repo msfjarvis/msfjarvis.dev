@@ -1,0 +1,83 @@
+<script>
+  import "photoswipe/style.css";
+  import PhotoSwipe from "photoswipe";
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import { defaultSelector } from "@xingwangzhe/satteri-photoswipe";
+
+  const createLightbox = (gallery: HTMLElement, children: string) => {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery,
+      children,
+      pswpModule: PhotoSwipe,
+    });
+
+    lightbox.on("uiRegister", () => {
+      const ui = lightbox.pswp?.ui;
+      if (!ui) return;
+
+      ui.registerElement({
+        name: "caption",
+        className: "pswp__caption",
+        appendTo: "root",
+        onInit: (element, pswp) => {
+          pswp.on("change", () => {
+            const slideElement = pswp.currSlide?.data.element;
+            const caption =
+              slideElement instanceof HTMLElement
+                ? slideElement.dataset.pswpCaption
+                : undefined;
+            element.textContent = caption ?? "";
+            element.toggleAttribute("hidden", !caption);
+          });
+        },
+      });
+    });
+
+    lightbox.init();
+  };
+
+  const updateColorScheme = (isDark: boolean) => {
+    document
+      .querySelectorAll<HTMLAnchorElement>("[data-pswp-dark-src]")
+      .forEach((item) => {
+        const source = isDark
+          ? item.dataset.pswpDarkSrc
+          : item.dataset.pswpLightSrc;
+        if (source) item.href = source;
+      });
+  };
+
+  const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+  updateColorScheme(colorScheme.matches);
+  colorScheme.addEventListener("change", (event) =>
+    updateColorScheme(event.matches),
+  );
+
+  document.querySelectorAll("[data-pswp-gallery]").forEach((gallery) => {
+    if (gallery instanceof HTMLElement) {
+      createLightbox(gallery, defaultSelector);
+    }
+  });
+
+  const standaloneSelector = `${defaultSelector}:not([data-pswp-gallery] ${defaultSelector})`;
+  document.querySelectorAll("[data-pagefind-body]").forEach((article) => {
+    if (article instanceof HTMLElement) {
+      createLightbox(article, standaloneSelector);
+    }
+  });
+</script>
+
+<style is:global>
+  .pswp__caption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    margin: 0 auto;
+    max-width: min(100% - 2rem, 48rem);
+    padding: 0.5rem 0.75rem;
+    background: rgb(0 0 0 / 0.75);
+    color: white;
+    text-align: center;
+  }
+</style>

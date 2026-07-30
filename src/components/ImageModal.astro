@@ -15,367 +15,86 @@ type ImageMetadata = {
 };
 
 const { src, srcDark, alt = "", title, small } = Astro.props;
-const dialogLabel = title || alt || "Expanded image";
+const image = typeof src === "object" ? src : undefined;
+const imageSrc = typeof src === "object" ? src.src : src;
+const darkImageSrc =
+  typeof srcDark === "object" ? srcDark.src : (srcDark ?? undefined);
+const imageLabel = alt || title || "Open image in gallery";
 ---
 
-<div data-image-modal-root class={small ? "half" : undefined}>
-  <figure data-image-lightbox>
-    <button
-      data-lightbox-trigger
-      type="button"
-      class="image-modal__trigger"
-      aria-haspopup="dialog"
-      aria-label={`Open ${alt || title || "image"} in lightbox`}
-    >
-      <span class="image-modal__media">
-        <picture>
-          {
-            srcDark && (
-              <source
-                media="(prefers-color-scheme: dark)"
-                srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
-              />
-            )
-          }
-          <img
-            src={typeof src === "object" ? src.src : src}
-            alt={alt}
-            loading="lazy"
-            decoding="async"
-            width={typeof src === "object" ? src.width : undefined}
-            height={typeof src === "object" ? src.height : undefined}
-          />
-        </picture>
-        <span class="image-modal__hint" aria-hidden="true">Expand image</span>
-      </span>
-    </button>
-    {title && <figcaption class="image-modal__caption">{title}</figcaption>}
-  </figure>
-
-  <div
-    data-lightbox-container
-    class="image-modal__dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-label={dialogLabel}
-    aria-hidden="true"
-    inert
+<figure data-image-modal-root class={small ? "half" : undefined}>
+  <a
+    class="pswp-gallery-item image-modal__trigger"
+    href={imageSrc}
+    data-pswp-light-src={imageSrc}
+    data-pswp-dark-src={darkImageSrc}
+    data-pswp-width={image?.width}
+    data-pswp-height={image?.height}
+    data-pswp-caption={title}
+    aria-label={imageLabel}
   >
-    <button
-      type="button"
-      class="image-modal__overlay"
-      data-lightbox-overlay
-      aria-label="Close image lightbox"
-      tabindex="-1"></button>
-    <div class="image-modal__sheet" role="document">
-      <button
-        data-lightbox-close
-        type="button"
-        class="image-modal__close"
-        aria-label="Close image lightbox"
-      >
-        <span aria-hidden="true">✕</span>
-      </button>
-      <div data-lightbox-inner class="image-modal__content">
-        <picture>
-          {
-            srcDark && (
-              <source
-                media="(prefers-color-scheme: dark)"
-                srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
-              />
-            )
-          }
-          <img
-            src={typeof src === "object" ? src.src : src}
-            alt={alt}
-            loading="eager"
-            decoding="async"
-            width={typeof src === "object" ? src.width : undefined}
-            height={typeof src === "object" ? src.height : undefined}
-          />
-        </picture>
-      </div>
-      {title && <p class="image-modal__meta">{title}</p>}
-    </div>
-  </div>
-</div>
+    <span class="image-modal__media">
+      <picture>
+        {
+          srcDark && (
+            <source
+              media="(prefers-color-scheme: dark)"
+              srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
+            />
+          )
+        }
+        <img
+          src={imageSrc}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          width={image?.width}
+          height={image?.height}
+        />
+      </picture>
+      <span class="image-modal__hint" aria-hidden="true">Expand image</span>
+    </span>
+  </a>
+  {title && <figcaption>{title}</figcaption>}
+</figure>
 
 <style>
   [data-image-modal-root] {
     display: block;
   }
 
-  figure[data-image-lightbox] {
-    margin: 1.5rem 0;
-    text-align: center;
-  }
-
   .image-modal__trigger {
     display: block;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: none;
     cursor: zoom-in;
-    text-align: inherit;
   }
 
   .image-modal__media {
     position: relative;
     display: block;
-    overflow: hidden;
-    border-radius: 10px;
-    transform: translateY(0);
-    transition:
-      transform 220ms ease,
-      opacity 220ms ease;
   }
 
-  .image-modal__media :global(img),
-  .image-modal__media :global(picture) {
+  .image-modal__media picture,
+  .image-modal__media img {
     display: block;
     width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-radius: inherit;
   }
 
   .image-modal__hint {
     position: absolute;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    padding: 0.3rem 0.55rem;
-    border: 1px solid color-mix(in srgb, var(--bg) 40%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.2rem;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
     color: var(--text);
     font-family: var(--font-mono);
     font-size: 0.7rem;
     opacity: 0;
-    transform: translateY(0.35rem);
-    transition:
-      opacity 200ms ease,
-      transform 200ms ease;
-  }
-
-  .image-modal__trigger:hover .image-modal__media,
-  .image-modal__trigger:focus-visible .image-modal__media {
-    transform: translateY(-2px);
+    transition: opacity 150ms ease;
   }
 
   .image-modal__trigger:hover .image-modal__hint,
   .image-modal__trigger:focus-visible .image-modal__hint {
     opacity: 1;
-    transform: translateY(0);
-  }
-
-  .image-modal__trigger:focus-visible {
-    outline: none;
-  }
-
-  .image-modal__trigger:focus-visible .image-modal__media {
-    box-shadow:
-      0 0 0 2px var(--bg),
-      0 0 0 4px var(--accent);
-  }
-
-  .image-modal__caption {
-    margin-top: 0.6rem;
-    font-size: 0.95rem;
-    color: var(--text-2);
-    font-style: italic;
-  }
-
-  .image-modal__dialog {
-    position: fixed;
-    inset: 0;
-    z-index: 40000;
-    display: grid;
-    place-items: center;
-    padding: 1.5rem;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition:
-      opacity 220ms ease,
-      visibility 220ms ease;
-  }
-
-  .image-modal__dialog[data-open="true"] {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .image-modal__overlay {
-    position: absolute;
-    inset: 0;
-    border: 0;
-    background: rgb(0 0 0 / 0.72);
-    backdrop-filter: blur(10px);
-    cursor: pointer;
-  }
-
-  .image-modal__sheet {
-    position: relative;
-    width: fit-content;
-    max-width: min(100%, 1440px);
-    max-height: calc(100vh - 3rem);
-    display: grid;
-    gap: 0.85rem;
-    transform: translateY(1rem) scale(0.985);
-    opacity: 0;
-    transition:
-      transform 260ms ease,
-      opacity 260ms ease;
-  }
-
-  .image-modal__dialog[data-open="true"] .image-modal__sheet {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-
-  .image-modal__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .image-modal__content :global(img),
-  .image-modal__content :global(picture) {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: calc(100vh - 4rem);
-    height: auto;
-    border-radius: 12px;
-  }
-
-  .image-modal__close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid color-mix(in srgb, white 24%, transparent);
-    border-radius: 999px;
-    background: rgb(17 17 17 / 0.55);
-    color: white;
-    padding: 0.6rem;
-    cursor: pointer;
-    backdrop-filter: blur(12px);
-  }
-
-  .image-modal__close:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 2px;
-  }
-
-  .image-modal__meta {
-    margin: 0;
-    color: rgb(255 255 255 / 0.86);
-    text-align: center;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .image-modal__media,
-    .image-modal__hint,
-    .image-modal__dialog,
-    .image-modal__sheet {
-      transition: none;
-    }
   }
 </style>
-
-<script is:inline>
-  if (!window.__imageModalInit) {
-    window.__imageModalInit = true;
-
-    const lockScroll = () => {
-      document.body.dataset.imageModalScrollLock = "true";
-      document.body.style.overflow = "hidden";
-    };
-
-    const unlockScroll = () => {
-      delete document.body.dataset.imageModalScrollLock;
-      document.body.style.overflow = "";
-    };
-
-    const setupImageModal = (root) => {
-      if (
-        !(root instanceof HTMLElement) ||
-        root.dataset.imageModalBound === "true"
-      )
-        return;
-
-      const trigger = root.querySelector("[data-lightbox-trigger]");
-      const dialog = root.querySelector("[data-lightbox-container]");
-      const closeButton = root.querySelector("[data-lightbox-close]");
-      const overlay = root.querySelector("[data-lightbox-overlay]");
-
-      if (
-        !(trigger instanceof HTMLButtonElement) ||
-        !(dialog instanceof HTMLElement) ||
-        !(closeButton instanceof HTMLButtonElement) ||
-        !(overlay instanceof HTMLButtonElement)
-      ) {
-        return;
-      }
-
-      root.dataset.imageModalBound = "true";
-      let lastFocused = null;
-
-      const open = () => {
-        lastFocused =
-          document.activeElement instanceof HTMLElement
-            ? document.activeElement
-            : trigger;
-        dialog.dataset.open = "true";
-        dialog.removeAttribute("inert");
-        dialog.setAttribute("aria-hidden", "false");
-        lockScroll();
-        closeButton.focus();
-      };
-
-      const close = () => {
-        dialog.dataset.open = "false";
-        dialog.setAttribute("inert", "");
-        dialog.setAttribute("aria-hidden", "true");
-        unlockScroll();
-        lastFocused?.focus?.();
-      };
-
-      trigger.addEventListener("click", (event) => {
-        event.preventDefault();
-        open();
-      });
-
-      closeButton.addEventListener("click", close);
-      overlay.addEventListener("click", close);
-      dialog.addEventListener("click", (event) => {
-        if (event.target === dialog) close();
-      });
-      dialog.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          event.preventDefault();
-          close();
-        }
-      });
-    };
-
-    const init = () => {
-      document.querySelectorAll("[data-image-modal-root]").forEach((root) => {
-        setupImageModal(root);
-      });
-    };
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", init, { once: true });
-    } else {
-      init();
-    }
-  }
-</script>

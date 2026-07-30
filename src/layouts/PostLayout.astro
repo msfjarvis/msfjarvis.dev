@@ -4,6 +4,7 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
 import PagefindConfig from "../components/PagefindConfig.astro";
+import PhotoSwipe from "../components/PhotoSwipe.astro";
 import { slugify } from "../utils";
 import WebmentionsSection from "../components/WebmentionsSection.astro";
 
@@ -175,6 +176,7 @@ const tocHeadings = headings;
       </article>
     </main>
     <pagefind-modal reset-on-close></pagefind-modal>
+    <PhotoSwipe />
     <Footer />
   </body>
 </html>

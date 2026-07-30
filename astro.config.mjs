@@ -8,6 +8,7 @@ import cloudflare from "@astrojs/cloudflare";
 import { defineConfig } from "astro/config";
 import { satteri } from "@astrojs/markdown-satteri";
 import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
+import { photoswipe } from "@xingwangzhe/satteri-photoswipe";
 import icon from "astro-iconset";
 import pagefind from "./src/integrations/pagefind.ts";
 
@@ -47,6 +48,7 @@ const markdownProcessor = satteri({
     legacyTableAlignment,
     mermaidHast(mermaidOptions),
     mermaidLightbox,
+    photoswipe(),
   ],
 });
 
