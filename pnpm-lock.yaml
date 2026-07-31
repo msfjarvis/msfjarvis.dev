@@ -139,8 +139,8 @@ importers:
         specifier: ^19.2.7
         version: 19.2.8
       satori:
-        specifier: ^0.28.0
-        version: 0.28.2
+        specifier: ^0.29.0
+        version: 0.29.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -3103,8 +3103,8 @@ packages:
     resolution: {integrity: sha512-tkMFrfIs3l2mQ2JEcyW0ADTy3zGggFRFzi6Ef8YozQSFsFKEqaSO1Y8F9wJg4//PJGQauMalHGTUEkPrFwhVPA==}
     engines: {node: '>=16'}
 
-  satori@0.28.2:
-    resolution: {integrity: sha512-AZBuptlBvlMf+EC/WI6Ss5MJwSEstrC6Pf1o5b2keg6h1QbvjStmrnJXUDGWOrfC1KSU0FApyGhF2xnBwmJRgA==}
+  satori@0.29.0:
+    resolution: {integrity: sha512-fPAfrwNaIQ7EsJLhY382STEqpczN6ZEH9NsKXDQgRcxUXNNPB73iAjSshzFwTaaScT68pxV0pmG6TBzDQ4sEGw==}
     engines: {node: '>=16'}
 
   satteri@0.9.5:
@@ -7063,7 +7063,7 @@ snapshots:
       postcss-value-parser: 4.2.0
       yoga-layout: 3.2.1
 
-  satori@0.28.2:
+  satori@0.29.0:
     dependencies:
       '@shuding/opentype.js': 1.4.0-beta.0
       css-background-parser: 0.1.0
