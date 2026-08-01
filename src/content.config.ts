@@ -3,6 +3,7 @@ import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { editionSchema } from "./lib/bookwyrm-schemas";
 import { bookwyrmLoader, Shelf } from "./lib/bookwyrm-loader";
+import { bookSchema } from "./lib/books";
 
 const postSchema = z.object({
   title: z.string(),
@@ -51,10 +52,16 @@ const currentlyReading = defineCollection({
   schema: editionSchema,
 });
 
+const books = defineCollection({
+  loader: glob({ base: "./src/content/books", pattern: "**/index.{md,mdx}" }),
+  schema: bookSchema,
+});
+
 export const collections = {
   posts,
   notes,
   weeknotes,
   readBooks,
   currentlyReading,
+  books,
 };
