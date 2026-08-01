@@ -1,70 +1,67 @@
 ---
+import type { Book } from "../lib/books";
 import { Image } from "astro:assets";
-import { type z } from "astro/zod";
-import { editionSchema } from "../lib/bookwyrm-schemas";
 
 interface Props {
-  book: z.infer<typeof editionSchema>;
+  book: Book;
 }
 
 const { book } = Astro.props;
 
-function yearOf(date: Date | undefined) {
-  return date?.getFullYear();
-}
-
 const {
-  authors,
-  cover,
-  firstPublishedDate,
-  publishedDate,
-  series,
-  seriesNumber,
-  title,
-  work,
+  bookAuthors,
+  bookCover,
+  bookCoverAlt,
+  bookPublishedYear,
+  bookSeries,
+  bookSeriesNumber,
+  bookTitle,
+  bookWork,
 } = book;
-const authorNames = authors.filter(
-  (author) => !author.startsWith("http://") && !author.startsWith("https://"),
-);
-const publicationYear = yearOf(publishedDate) ?? yearOf(firstPublishedDate);
 const seriesLabel =
-  series && seriesNumber ? `${series} #${seriesNumber}` : series;
+  bookSeries && bookSeriesNumber
+    ? `${bookSeries} #${bookSeriesNumber}`
+    : bookSeries;
 ---
 
 <li class="book">
-  <a class="book-link" href={work}>
+  <a class="book-link" href={bookWork}>
     <div class="cover-frame">
-      <span class="cover-placeholder" aria-hidden="true">{title}</span>
-      <Image
-        class="cover"
-        src={cover.url}
-        alt={cover.name || `Cover of ${title}`}
-        width={320}
-        height={480}
-        densities={[1, 2]}
-        format="webp"
-        fit="cover"
-        loading="lazy"
-        decoding="async"
-        onerror="this.setAttribute('data-error', '')"
-      />
+      <span class="cover-placeholder" aria-hidden="true">{bookTitle}</span>
+      {
+        bookCover && (
+          <Image
+            class="cover"
+            src={bookCover}
+            alt={bookCoverAlt || `Cover of ${bookTitle}`}
+            width={320}
+            height={480}
+            densities={[1, 2]}
+            format="webp"
+            fit="cover"
+            loading="lazy"
+            decoding="async"
+            onerror="this.setAttribute('data-error', '')"
+          />
+        )
+      }
     </div>
     <div class="details">
-      <h2>{title}</h2>
+      <h2>{bookTitle}</h2>
       {
-        authorNames.length > 0 && (
-          <p class="authors">{authorNames.join(", ")}</p>
+        bookAuthors.length > 0 && (
+          <p class="authors">{bookAuthors.join(", ")}</p>
         )
       }
       {
-        (seriesLabel || publicationYear) && (
+        (seriesLabel || bookPublishedYear) && (
           <p class="publication">
             {seriesLabel && <span>{seriesLabel}</span>}
-            {seriesLabel && publicationYear && (
+            {seriesLabel && bookPublishedYear && (
               <span aria-hidden="true"> · </span>
             )}
-            {publicationYear && (
-              <time datetime={`${publicationYear}`}>{publicationYear}</time>
+            {bookPublishedYear && (
+              <time datetime={`${bookPublishedYear}`}>{bookPublishedYear}</time>
             )}
           </p>
         )
