@@ -2,16 +2,18 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Book from "../../components/Book.astro";
+import { partitionBooks } from "../../lib/books";
 
 export const prerender = true;
 
-const currentlyReading = await getCollection("currentlyReading");
-const readBooks = await getCollection("readBooks");
+const { currentlyReading, finishedReading, stoppedReading } = partitionBooks(
+  await getCollection("books"),
+);
 ---
 
 <BaseLayout
   title="Reading"
-  description="Books Harsh Shandilya has marked as read on BookWyrm."
+  description="Books Harsh Shandilya is reading and has finished reading."
 >
   {
     currentlyReading.length > 0 && (
@@ -28,8 +30,21 @@ const readBooks = await getCollection("readBooks");
 
   <h2>finished reading</h2>
   <ol class="book-grid">
-    {readBooks.map((book) => <Book book={book.data} />)}
+    {finishedReading.map((book) => <Book book={book.data} />)}
   </ol>
+
+  {
+    stoppedReading.length > 0 && (
+      <>
+        <h2>stopped reading</h2>
+        <ol class="book-grid">
+          {stoppedReading.map((book) => (
+            <Book book={book.data} />
+          ))}
+        </ol>
+      </>
+    )
+  }
 </BaseLayout>
 
 <style>
