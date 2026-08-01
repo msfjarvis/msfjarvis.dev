@@ -12,6 +12,7 @@
     "fmt:check": "prettier --check .",
     "format:check": "prettier --check .",
     "generate-redirects": "node scripts/generate-redirects.mjs",
+    "import:bookwyrm": "node scripts/import-bookwyrm-reading.mjs",
     "lint": "eslint .",
     "migrate": "node scripts/migrate-hugo.mjs",
     "new:note": "node scripts/new-entry.mjs notes",
@@ -19,7 +20,7 @@
     "new:weeknote": "node scripts/new-entry.mjs weeknotes",
     "preview": "astro preview",
     "serve": "astro dev",
-    "test": "node --test ./**/*.test.ts",
+    "test": "node --test ./**/*.test.ts scripts/import-bookwyrm-reading.test.mjs",
     "types": "wrangler types && prettier --write worker-configuration.d.ts"
   },
   "dependencies": {
