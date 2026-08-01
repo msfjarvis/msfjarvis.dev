@@ -17,6 +17,13 @@ export const prerender = true;
   <body>
     <script>
       import CMS, { type CmsConfig } from "@sveltia/cms";
+      import {
+        applyPendingBook,
+        consumePendingBook,
+        createOpenLibraryBookField,
+        getPendingBook,
+        type CmsReactRuntime,
+      } from "../../lib/cms/open-library-book-field";
 
       // ─── Tombstone hook ───────────────────────────────────────────────────────
 
@@ -31,20 +38,74 @@ export const prerender = true;
         return { ...entry, data };
       }
 
+      function expandPendingBook(
+        data: Record<string, unknown>,
+        isNew: boolean,
+      ): Record<string, unknown> {
+        const pending = getPendingBook(String(data.bookTitle ?? ""));
+        return pending ? applyPendingBook(data, pending, isNew) : data;
+      }
+
+      function presentTimestamp(value: unknown): string | undefined {
+        return typeof value === "string" && value.trim() ? value : undefined;
+      }
+
+      function normalizeBookForSave(
+        data: Record<string, unknown>,
+      ): Record<string, unknown> {
+        const normalized = structuredClone(data);
+        if (normalized.bookAuthors === undefined) normalized.bookAuthors = [];
+        const finishedAt = presentTimestamp(normalized.readingFinishedAt);
+        const stoppedAt = presentTimestamp(normalized.readingStoppedAt);
+        if (finishedAt && stoppedAt) {
+          throw new Error("A book cannot be both finished and stopped.");
+        }
+        const lastReadAt =
+          finishedAt ??
+          stoppedAt ??
+          presentTimestamp(normalized.readingStartedAt);
+        if (lastReadAt) normalized.readingLastReadAt = lastReadAt;
+        return normalized;
+      }
+
       CMS.registerEventListener({
         name: "preSave",
         handler: ({ entry }) => {
           const plain = entry.toJS();
+          const isNew = !plain.path;
+          const data =
+            plain.collection === "books"
+              ? normalizeBookForSave(expandPendingBook(plain.data, isNew))
+              : plain.data;
+          if (
+            plain.collection === "books" &&
+            !plain.path &&
+            (!String(data.bookTitle ?? "").trim() ||
+              !String(data.bookWork ?? "").trim())
+          ) {
+            throw new Error(
+              "New books require a title and Open Library work URL.",
+            );
+          }
           const normalized = normalizeBlogEntryForSave({
             collection: plain.collection,
-            data: plain.data,
+            data,
           });
+          if (plain.collection === "books") {
+            consumePendingBook(String(data.bookTitle ?? ""));
+          }
           return entry.set(
             "data",
             entry.get("data").clear().merge(normalized.data),
           );
         },
       });
+
+      const cmsReact = window as typeof window & CmsReactRuntime;
+      CMS.registerFieldType(
+        "open-library-book",
+        createOpenLibraryBookField(cmsReact),
+      );
 
       // ─── Figure editor component ──────────────────────────────────────────────
 
@@ -113,6 +174,10 @@ export const prerender = true;
 
       const config: CmsConfig = {
         load_config_file: false,
+        output: {
+          omit_empty_optional_fields: true,
+          yaml: { quote: "double" },
+        },
         backend: {
           name: "github",
           repo: "msfjarvis/msfjarvis.dev",
@@ -231,6 +296,116 @@ export const prerender = true;
                 label: "Deleted",
                 name: "deleted",
                 widget: "boolean",
+                required: false,
+              },
+              {
+                label: "Body",
+                name: "body",
+                widget: "markdown",
+                modes: ["raw", "rich_text"],
+              },
+            ],
+          },
+          {
+            name: "books",
+            label: "Books",
+            folder: "src/content/books",
+            format: "yaml-frontmatter",
+            extension: "mdx",
+            create: true,
+            path: "{{slug}}/index",
+            // Sveltia normalizes this template into a URL slug. Collision
+            // resolution is intentionally left to the CMS save flow; no
+            // undocumented slug API is used here.
+            slug: "{{bookTitle}}",
+            media_folder: "",
+            public_folder: "",
+            summary: "{{bookTitle}} — {{readingShelf}}",
+            sortable_fields: {
+              fields: ["readingLastReadAt"],
+              default: { field: "readingLastReadAt", direction: "descending" },
+            },
+            editor: { preview: false },
+            fields: [
+              {
+                label: "Book",
+                name: "bookTitle",
+                widget: "open-library-book",
+                required: false,
+              },
+              {
+                label: "Authors",
+                name: "bookAuthors",
+                widget: "list",
+                required: false,
+              },
+              {
+                label: "Cover",
+                name: "bookCover",
+                widget: "string",
+                type: "url",
+                required: false,
+              },
+              {
+                label: "Cover alt text",
+                name: "bookCoverAlt",
+                widget: "string",
+                required: false,
+              },
+              {
+                label: "Series",
+                name: "bookSeries",
+                widget: "string",
+                required: false,
+              },
+              {
+                label: "Series number",
+                name: "bookSeriesNumber",
+                widget: "string",
+                required: false,
+              },
+              {
+                label: "Published year",
+                name: "bookPublishedYear",
+                widget: "number",
+              },
+              {
+                label: "Reading shelf",
+                name: "readingShelf",
+                widget: "select",
+                default: "reading",
+                options: ["read", "reading", "stopped-reading"],
+              },
+              {
+                label: "Started reading",
+                name: "readingStartedAt",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                picker_utc: true,
+                required: false,
+              },
+              {
+                label: "Finished reading",
+                name: "readingFinishedAt",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                picker_utc: true,
+                required: false,
+              },
+              {
+                label: "Stopped reading",
+                name: "readingStoppedAt",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                picker_utc: true,
+                required: false,
+              },
+              {
+                label: "Last read",
+                name: "readingLastReadAt",
+                widget: "datetime",
+                format: "YYYY-MM-DDTHH:mm:ssZ",
+                picker_utc: true,
                 required: false,
               },
               {
