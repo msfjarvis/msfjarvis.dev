@@ -1,0 +1,94 @@
+---
+title: "Weeknotes: Week #31 (2026)"
+date: "2026-08-02T11:29:03.716Z"
+lastmod: "2026-08-02T11:29:03.716Z"
+summary: "Why do I bother with Marvel movies any more..."
+tags:
+  - movies
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import rich_spicy_potato from "./rich-spicy-potato.webp";
+import simple_chicken_pasta from "./simple-chicken-pasta.webp";
+import spiderman_bnd_poster from "./spiderman-bnd-poster.webp";
+import spiderman_bnd_title from "./spiderman-bnd-title.webp";
+import tehri_with_paneer from "./tehri-with-paneer.webp";
+
+Rather slow week for me as I was sick for the first 2 days, but things kept happening anyway 🙃
+
+## Socializing
+
+The gang had booked tickets for Spider-Man: Brand New Day so we got together to watch that on Friday evening. The movie itself was rather weak, maybe a 6/10 as far as I'm concerned. The characters didn't really get a chance to develop, and one of the comic arcs I was expecting to see in the movie got written out through the usual "power of friendship and true love" trope.
+
+<Gallery>
+    <Figure
+        src={spiderman_bnd_poster}
+        title="Got a nice poster at least"
+        alt="Spider-Man: Brand New Day movie poster"
+    />
+
+    <Figure
+        src={spiderman_bnd_title}
+        title="The whole theater was hollering at this"
+        alt="Spider-Man: Brand New Day title on a cinema screen"
+    />
+
+</Gallery>
+
+We reached Indiranagar around 11:30 PM after the movie so our only real option for a meal was the suffocatingly packed [Toit Bar and Restaurant](https://toit.in/). Unfortunately I didn't bother to get many pictures so you can go check out [Yash's week notes](https://yashgarg.dev/weekly-notes/) for those.
+
+# Work
+
+Big week at work! Some high profile departures were announced from our office, and I'll be starting on a new project next week which should be quite exciting.
+
+Our office manager Jyothi had baked some very delicious brownies and I got to sample a piece, which was honestly the highlight of my week.
+
+# Meta
+
+I've been working towards making this website the source of truth for my [reading activity](/reading), and it's been going rather poorly. I've managed to make a high fidelity copy of the data from Bookwyrm into MDX files in this repository but the authoring flow of adding a new book is still quite subpar. I might abandon this approach in favour of just switching to a different service and self-host it, since ultimately my real problem with Bookwyrm is just how painfully slow the flagship instance is. My efforts to move to a different Bookwyrm instance have not borne fruit since the book collections vary a lot between servers. Most of the books I imported into [linguistic.earth](https://linguistic.earth/) failed because it's a much smaller server and thus has a very sparse collection of known books.
+
+Other than that, I've also migrated the image modals I use to the [Photoswipe](https://photoswipe.com/) library instead of my hand rolled version since it offers a lot of niceties I didn't wish to add or maintain.
+
+# Personal Projects
+
+I threw GPT-5.6 Sol at max thinking on [Claw](https://github.com/msfjarvis/compose-lobsters) with a prompt to identify opportunities to improve query performance, push operations down from Kotlin to SQLite, and any other improvements that have become available in the year or so since I last had an LLM audit my miniscule amount of SQL. I mostly do this to find out SQLite features, and got to learn about a few more tricks.
+
+- `INSERT OR REPLACE` can accidentally trigger cascading deletions via foreign key relations, so it is better spelled out using `ON CONFLICT(primaryKey) DO UPDATE SET column1 = new.column1;`
+- Specifying `WITHOUT ROWID` when creating a table skips a hidden column that SQLite uses as a more efficient primary key for searching for the row in the storage engine. This can yield modest storage savings for bigger data sets. More on that [here](https://sqlite.org/rowidtable.html).
+- Use `RETURNING <field>` to have a query both update and return data, which can be used to avoid an additional query to read back the updated data.
+
+## CLANK CLANK CLANK
+
+This week I changed my [Pi](https://pi.dev) setup to ditch the third-party subagent extension and instead go back to the barebones example subagent extension from the main Pi repo. I updated it to [handle some more of my local tools](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/fece2293c9795924229ceac59e09ffce884cf696), and added a config option to [limit nested subagents](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/bc026882d549c4586d9548657c401534408bb81a) which was a problem that I had seen with GPT-5.6 models which recursively spawned subagents and racked up massive bills.
+
+I also finally managed to make the `websearch` tool from [tau](https://github.com/goncalossilva/tau) work on my setup. I hadn't realized that [llm-agents.nix](https://github.com/numtide/llm-agents.nix) bundles Pi with the Bun JS runtime which didn't have the necessary `node:sqlite` module. Switching that to Node.js solved the problem for me.
+
+# Food
+
+Pretty good week for home cooking, though it all fell apart during the weekend :D
+
+<Gallery>
+    <Figure
+        src={rich_spicy_potato}
+        title="The recipe asked for approximately 3 times the oil this actually needed. So very delicious though."
+        alt="Bowl of spicy potatoes"
+    />
+
+    <Figure
+        src={simple_chicken_pasta}
+        title="I threw together this pasta with some frozen chicken sausages one of the nights, was quite delicious."
+        alt="Creamy chicken pasta in a bowl"
+    />
+
+    <Figure
+        src={tehri_with_paneer}
+        title="Another IG recipe but at least it reminded me frozen veggies exist, so yay."
+        alt="Bowl of vegetable rice with paneer"
+    />
+
+</Gallery>
