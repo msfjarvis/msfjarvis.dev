@@ -3,7 +3,17 @@ import { AUTHOR_NAME } from "../consts";
 ---
 
 <footer>
-  <p>© {new Date().getFullYear()} {AUTHOR_NAME}</p>
+  <nav class="webring" aria-label="IndieWebClub Bangalore webring">
+    <a href="https://blr.indiewebclub.org/webring/msfjarvis-dev/previous.html"
+      >← Previous</a
+    >
+    <span aria-hidden="true">|</span>
+    <a href="https://blr.indiewebclub.org/">IndieWebClub Bangalore Webring</a>
+    <span aria-hidden="true">|</span>
+    <a href="https://blr.indiewebclub.org/webring/msfjarvis-dev/next.html"
+      >Next →</a
+    >
+  </nav>
 </footer>
 
 <style>
@@ -11,12 +21,33 @@ import { AUTHOR_NAME } from "../consts";
     border-top: 1px solid var(--border);
     margin-top: 4rem;
   }
-  p {
+
+  .webring {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 0.5rem;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
+    color: var(--text-2);
     font-family: var(--font-mono);
     font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .webring a {
     color: var(--text-2);
+    border-bottom: none;
+  }
+
+  .webring a:hover {
+    color: var(--accent);
+  }
+
+  .webring a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 </style>
