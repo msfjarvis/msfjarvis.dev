@@ -107,7 +107,7 @@ importers:
         version: 19.2.17
       '@xingwangzhe/satteri-photoswipe':
         specifier: ^0.2.0
-        version: 0.2.0(satteri@0.9.5)
+        version: 0.2.1(satteri@0.9.5)
       eslint:
         specifier: ^10.7.0
         version: 10.8.0(jiti@1.21.7)(supports-color@10.2.2)
@@ -1673,8 +1673,8 @@ packages:
     peerDependencies:
       satteri: ^0.9.5
 
-  '@xingwangzhe/satteri-photoswipe@0.2.0':
-    resolution: {integrity: sha512-mvALiz/FOXwoc2QFzKnLDVxIg/8JHEKX/kjYxOhJDj1Sho16zp7fOdLPDVpj8oevdjE3FgbeyQ06NlMoWHmR6w==}
+  '@xingwangzhe/satteri-photoswipe@0.2.1':
+    resolution: {integrity: sha512-pPEoQTRRyPljwXs8Wqxn9ie3biyTuMhr3GVhwn2UU/yqkraBBSrr9xh1G+fMXyGVSYcdq5Z9WWgZEsZu4RsH5Q==}
     peerDependencies:
       satteri: ^0.9.5
 
@@ -5208,7 +5208,7 @@ snapshots:
     dependencies:
       satteri: 0.9.5
 
-  '@xingwangzhe/satteri-photoswipe@0.2.0(satteri@0.9.5)':
+  '@xingwangzhe/satteri-photoswipe@0.2.1(satteri@0.9.5)':
     dependencies:
       satteri: 0.9.5
 
