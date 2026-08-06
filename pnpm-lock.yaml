@@ -37,7 +37,7 @@ importers:
         version: 0.180.0
       '@xingwangzhe/satteri-mermaid':
         specifier: ^0.7.0
-        version: 0.7.1(satteri@0.9.5)
+        version: 0.7.2(satteri@0.9.5)
       astro:
         specifier: ^7.1.3
         version: 7.1.6(@astrojs/markdown-remark@7.2.2(supports-color@10.2.2))(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@1.21.7)(yaml@2.9.0)
@@ -1667,8 +1667,8 @@ packages:
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
 
-  '@xingwangzhe/satteri-mermaid@0.7.1':
-    resolution: {integrity: sha512-b3dDU+oEuynei8iOw1i1dDztFJiYdC8aLaj7t76lU28JknR5SVcD3eQPgIZKgEuZs3fWpM3mTycNCp4FUZ5S1g==}
+  '@xingwangzhe/satteri-mermaid@0.7.2':
+    resolution: {integrity: sha512-bbOVjtnjsCy4OIFf5aCE5J7Z1z916sR1lUBoc4GipPJHdQz2nyj0PLrKMp3XzKoqKjWQrB85XF39yDzCuFgLmg==}
     engines: {node: '>= 18.17.0'}
     peerDependencies:
       satteri: ^0.9.5
@@ -3014,10 +3014,6 @@ packages:
 
   postcss@8.5.20:
     resolution: {integrity: sha512-lW616l85ucIQL+FocMmL7pQFPqBmwejrCMg+iPxyImlrANNJG9NHq/RkyCZopDhd8C3LA03PHRJDjkbGu8vvug==}
-    engines: {node: ^10 || ^12 || >=14}
-
-  postcss@8.5.24:
-    resolution: {integrity: sha512-8RyVklq0owXUTa4xlpzu4l9AaVKIdQvAcOHZWaMh98HgySsUtxRVf/chRe3dsSLqb6i40BzGRzEUddRaI+9TSw==}
     engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.25:
@@ -5208,7 +5204,7 @@ snapshots:
 
   '@vscode/l10n@0.0.18': {}
 
-  '@xingwangzhe/satteri-mermaid@0.7.1(satteri@0.9.5)':
+  '@xingwangzhe/satteri-mermaid@0.7.2(satteri@0.9.5)':
     dependencies:
       satteri: 0.9.5
 
@@ -6938,28 +6934,28 @@ snapshots:
       extend: 3.0.2
       postcss: 8.4.31
 
-  postcss-import@15.1.0(postcss@8.5.24):
+  postcss-import@15.1.0(postcss@8.5.25):
     dependencies:
-      postcss: 8.5.24
+      postcss: 8.5.25
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.12
 
-  postcss-js@4.1.0(postcss@8.5.24):
+  postcss-js@4.1.0(postcss@8.5.25):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.5.24
+      postcss: 8.5.25
 
-  postcss-load-config@4.0.2(postcss@8.5.24):
+  postcss-load-config@4.0.2(postcss@8.5.25):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.9.0
     optionalDependencies:
-      postcss: 8.5.24
+      postcss: 8.5.25
 
-  postcss-nested@6.2.0(postcss@8.5.24):
+  postcss-nested@6.2.0(postcss@8.5.25):
     dependencies:
-      postcss: 8.5.24
+      postcss: 8.5.25
       postcss-selector-parser: 6.1.4
 
   postcss-selector-parser@6.1.4:
@@ -6981,12 +6977,6 @@ snapshots:
       source-map-js: 1.2.1
 
   postcss@8.5.20:
-    dependencies:
-      nanoid: 3.3.16
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
-  postcss@8.5.24:
     dependencies:
       nanoid: 3.3.16
       picocolors: 1.1.1
@@ -7456,11 +7446,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.24
-      postcss-import: 15.1.0(postcss@8.5.24)
-      postcss-js: 4.1.0(postcss@8.5.24)
-      postcss-load-config: 4.0.2(postcss@8.5.24)
-      postcss-nested: 6.2.0(postcss@8.5.24)
+      postcss: 8.5.25
+      postcss-import: 15.1.0(postcss@8.5.25)
+      postcss-js: 4.1.0(postcss@8.5.25)
+      postcss-load-config: 4.0.2(postcss@8.5.25)
+      postcss-nested: 6.2.0(postcss@8.5.25)
       postcss-selector-parser: 6.1.4
       postcss-value-parser: 4.2.0
       resolve: 1.22.12
