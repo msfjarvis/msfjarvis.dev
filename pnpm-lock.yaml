@@ -34,7 +34,7 @@ importers:
         version: 1.5.2
       '@sveltia/cms':
         specifier: ^0.181.0
-        version: 0.181.0
+        version: 0.181.1
       '@xingwangzhe/satteri-mermaid':
         specifier: ^0.7.0
         version: 0.7.2(satteri@0.9.5)
@@ -1522,8 +1522,8 @@ packages:
   '@speed-highlight/core@1.2.17':
     resolution: {integrity: sha512-Z92FwKpCtfaW1V0jTU/fh3QzYEZN8wDwrzRIBoADCJfn4mJCNcJN/XegifX7BDrQ8/h9Xh/JnbyMchL0FqXrkg==}
 
-  '@sveltia/cms@0.181.0':
-    resolution: {integrity: sha512-A2fN/fx5sfhw4sNFBdE55wUxsE7qP+KNZQeo7D8aa5cPUs5SJRjf+Z9Eq3pzB4tLLZgiU+cl7OGIGdEjvBdIyA==}
+  '@sveltia/cms@0.181.1':
+    resolution: {integrity: sha512-FzuJ6BAgZsIPFSCuZM9nqcqtFyS+tglRdS6BEygl25Csat13m9cbSyL73GMVZHZEJHcAhEw5iO73M9GN2RffDA==}
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -5038,7 +5038,7 @@ snapshots:
 
   '@speed-highlight/core@1.2.17': {}
 
-  '@sveltia/cms@0.181.0': {}
+  '@sveltia/cms@0.181.1': {}
 
   '@tybys/wasm-util@0.10.3':
     dependencies:
