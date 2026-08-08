@@ -1,0 +1,310 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const books = await getCollection("books");
+  return books.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const hasReview =
+  typeof entry.body === "string" && entry.body.trim().length > 0;
+const {
+  bookTitle,
+  bookAuthors,
+  bookCover,
+  bookCoverAlt,
+  bookPublishedYear,
+  bookSeries,
+  bookSeriesNumber,
+  bookWork,
+  readingShelf,
+  readingStartedAt,
+  readingFinishedAt,
+  readingStoppedAt,
+} = entry.data;
+
+const shelfLabels = {
+  read: "Finished",
+  reading: "Reading",
+  "stopped-reading": "Stopped reading",
+} as const;
+const shelfLabel = shelfLabels[readingShelf];
+const seriesLabel = bookSeries
+  ? `${bookSeries}${bookSeriesNumber ? ` #${bookSeriesNumber}` : ""}`
+  : bookSeriesNumber
+    ? `#${bookSeriesNumber}`
+    : undefined;
+const formatDate = (value: string) =>
+  new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(value));
+const dateOnly = (value: string) => value.slice(0, 10);
+---
+
+<BaseLayout title={bookTitle} description={`Review of ${bookTitle}.`}>
+  <div class="book-page">
+    <a class="back-link" href="/reading">← Back to reading</a>
+
+    <div class="book-layout">
+      <aside class="book-sidebar" aria-label="Book details">
+        <div class="cover-frame">
+          {
+            bookCover ? (
+              <Image
+                class="cover"
+                src={bookCover}
+                alt={bookCoverAlt || `Cover of ${bookTitle}`}
+                width={320}
+                height={480}
+                densities={[1, 2]}
+                format="webp"
+                fit="cover"
+                decoding="async"
+                onerror="this.setAttribute('data-error', '')"
+              />
+            ) : (
+              <span class="cover-fallback">{bookTitle}</span>
+            )
+          }
+        </div>
+
+        <h1 id="book-title">{bookTitle}</h1>
+        {
+          bookAuthors.length > 0 && (
+            <p class="authors">{bookAuthors.join(", ")}</p>
+          )
+        }
+
+        <dl class="facts">
+          <div>
+            <dt>Status</dt>
+            <dd>{shelfLabel}</dd>
+          </div>
+          {
+            seriesLabel && (
+              <div>
+                <dt>Series</dt>
+                <dd>{seriesLabel}</dd>
+              </div>
+            )
+          }
+          {
+            bookPublishedYear && (
+              <div>
+                <dt>Published</dt>
+                <dd>
+                  <time datetime={`${bookPublishedYear}`}>
+                    {bookPublishedYear}
+                  </time>
+                </dd>
+              </div>
+            )
+          }
+          {
+            readingStartedAt && (
+              <div>
+                <dt>Started</dt>
+                <dd>
+                  <time datetime={dateOnly(readingStartedAt)}>
+                    {formatDate(readingStartedAt)}
+                  </time>
+                </dd>
+              </div>
+            )
+          }
+          {
+            readingFinishedAt && (
+              <div>
+                <dt>Finished</dt>
+                <dd>
+                  <time datetime={dateOnly(readingFinishedAt)}>
+                    {formatDate(readingFinishedAt)}
+                  </time>
+                </dd>
+              </div>
+            )
+          }
+          {
+            readingStoppedAt && (
+              <div>
+                <dt>Stopped</dt>
+                <dd>
+                  <time datetime={dateOnly(readingStoppedAt)}>
+                    {formatDate(readingStoppedAt)}
+                  </time>
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+
+        <a
+          class="bookwyrm-link"
+          href={bookWork}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          BookWyrm ↗
+        </a>
+      </aside>
+
+      <article
+        class="review"
+        aria-label={hasReview
+          ? `${bookTitle} review`
+          : `${bookTitle} review status`}
+      >
+        {hasReview ? <Content /> : <p>No review yet.</p>}
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .book-page {
+    max-width: 70rem;
+    margin-inline: auto;
+  }
+
+  .back-link,
+  .bookwyrm-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 3rem;
+  }
+
+  .book-layout {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .book-sidebar {
+    min-width: 0;
+  }
+
+  .cover-frame {
+    position: relative;
+    max-width: 14rem;
+    aspect-ratio: 2 / 3;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+  }
+
+  .cover,
+  .cover-fallback {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cover {
+    object-fit: cover;
+  }
+
+  .cover[data-error] {
+    opacity: 0;
+  }
+
+  .cover-fallback {
+    display: grid;
+    padding: 1rem;
+    place-items: center;
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    line-height: 1.1;
+  }
+
+  .authors {
+    margin: 0.4rem 0 0;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  .facts {
+    display: grid;
+    gap: 0.75rem;
+    margin: 2rem 0 1.5rem;
+    padding: 1rem 0;
+    border-block: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .facts div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .facts dt {
+    color: var(--text-3);
+  }
+
+  .facts dd {
+    margin: 0;
+    text-align: right;
+  }
+
+  .review {
+    min-width: 0;
+    max-width: 46rem;
+    font-size: 1.08rem;
+    line-height: 1.75;
+  }
+
+  .review :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .review :global(img) {
+    max-width: 100%;
+  }
+
+  :global(a:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-bottom-color: transparent;
+  }
+
+  @media (min-width: 700px) {
+    .book-layout {
+      grid-template-columns: minmax(11rem, 14rem) minmax(0, 1fr);
+      gap: clamp(3rem, 8vw, 7rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
