@@ -4,9 +4,10 @@ import { Image } from "astro:assets";
 
 interface Props {
   book: Book;
+  href: string;
 }
 
-const { book } = Astro.props;
+const { book, href } = Astro.props;
 
 const {
   bookAuthors,
@@ -16,7 +17,6 @@ const {
   bookSeries,
   bookSeriesNumber,
   bookTitle,
-  bookWork,
 } = book;
 const seriesLabel =
   bookSeries && bookSeriesNumber
@@ -25,7 +25,7 @@ const seriesLabel =
 ---
 
 <li class="book">
-  <a class="book-link" href={bookWork}>
+  <a class="book-link" href={href}>
     <div class="cover-frame">
       <span class="cover-placeholder" aria-hidden="true">{bookTitle}</span>
       {

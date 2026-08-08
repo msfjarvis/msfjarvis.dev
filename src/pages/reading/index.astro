@@ -21,7 +21,7 @@ const { currentlyReading, finishedReading, stoppedReading } = partitionBooks(
         <h2>currently reading</h2>
         <ol class="book-grid">
           {currentlyReading.map((book) => (
-            <Book book={book.data} />
+            <Book book={book.data} href={`/reading/${book.id}/`} />
           ))}
         </ol>
       </>
@@ -30,7 +30,11 @@ const { currentlyReading, finishedReading, stoppedReading } = partitionBooks(
 
   <h2>finished reading</h2>
   <ol class="book-grid">
-    {finishedReading.map((book) => <Book book={book.data} />)}
+    {
+      finishedReading.map((book) => (
+        <Book book={book.data} href={`/reading/${book.id}/`} />
+      ))
+    }
   </ol>
 
   {
@@ -39,7 +43,7 @@ const { currentlyReading, finishedReading, stoppedReading } = partitionBooks(
         <h2>stopped reading</h2>
         <ol class="book-grid">
           {stoppedReading.map((book) => (
-            <Book book={book.data} />
+            <Book book={book.data} href={`/reading/${book.id}/`} />
           ))}
         </ol>
       </>
