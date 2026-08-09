@@ -1,11 +1,13 @@
+import type { ImageMetadata } from "astro";
 import { z } from "astro/zod";
 
-const httpsUrl = z
-  .url()
-  .refine(
-    (value) => new URL(value).protocol === "https:",
-    "URL must use https",
-  );
+const httpsUrl = z.url().refine((value) => {
+  try {
+    return new URL(value).protocol === "https:";
+  } catch {
+    return false;
+  }
+}, "URL must use https");
 
 const readingTimestamp = z
   .string()
@@ -17,43 +19,53 @@ const readingTimestamp = z
     "Timestamp must be an ISO 8601 date-time with an offset",
   );
 
-export const bookSchema = z
-  .object({
-    bookTitle: z.string().trim().min(1),
-    bookAuthors: z.array(z.string()),
-    bookWork: httpsUrl,
-    bookCover: httpsUrl.optional(),
-    bookCoverAlt: z.string().optional(),
-    bookSeries: z.string().optional(),
-    bookSeriesNumber: z.string().optional(),
-    bookPublishedYear: z.number().int().optional(),
-    readingShelf: z.enum(["read", "reading", "stopped-reading"]),
-    readingStartedAt: readingTimestamp.optional(),
-    readingFinishedAt: readingTimestamp.optional(),
-    readingStoppedAt: readingTimestamp.optional(),
-    readingLastReadAt: readingTimestamp.optional(),
-  })
-  .superRefine((book, context) => {
-    if (book.readingFinishedAt && book.readingStoppedAt) {
-      context.addIssue({
-        code: "custom",
-        message: "A book cannot be both finished and stopped",
-        path: ["readingStoppedAt"],
-      });
-    }
-    const lastReadAt =
-      book.readingFinishedAt ?? book.readingStoppedAt ?? book.readingStartedAt;
-    if (book.readingLastReadAt !== lastReadAt) {
-      context.addIssue({
-        code: "custom",
-        message:
-          "readingLastReadAt must equal the finished, stopped, or started timestamp",
-        path: ["readingLastReadAt"],
-      });
-    }
-  });
+export function createBookSchema<T extends z.ZodType>(localBookCover: T) {
+  return z
+    .object({
+      bookTitle: z.string().trim().min(1),
+      bookAuthors: z.array(z.string()),
+      bookWork: httpsUrl,
+      bookCover: z.union([httpsUrl, localBookCover]).optional(),
+      bookCoverAlt: z.string().optional(),
+      bookSeries: z.string().optional(),
+      bookSeriesNumber: z.string().optional(),
+      bookPublishedYear: z.number().int().optional(),
+      readingShelf: z.enum(["read", "reading", "stopped-reading"]),
+      readingStartedAt: readingTimestamp.optional(),
+      readingFinishedAt: readingTimestamp.optional(),
+      readingStoppedAt: readingTimestamp.optional(),
+      readingLastReadAt: readingTimestamp.optional(),
+    })
+    .superRefine((book, context) => {
+      if (book.readingFinishedAt && book.readingStoppedAt) {
+        context.addIssue({
+          code: "custom",
+          message: "A book cannot be both finished and stopped",
+          path: ["readingStoppedAt"],
+        });
+      }
+      const lastReadAt =
+        book.readingFinishedAt ??
+        book.readingStoppedAt ??
+        book.readingStartedAt;
+      if (book.readingLastReadAt !== lastReadAt) {
+        context.addIssue({
+          code: "custom",
+          message:
+            "readingLastReadAt must equal the finished, stopped, or started timestamp",
+          path: ["readingLastReadAt"],
+        });
+      }
+    });
+}
 
-export type Book = z.infer<typeof bookSchema>;
+export const bookSchema = createBookSchema(
+  z.string().startsWith("./", "Local book covers must be relative paths"),
+);
+
+export type Book = Omit<z.infer<typeof bookSchema>, "bookCover"> & {
+  bookCover?: string | ImageMetadata;
+};
 
 export type BookEntry = { data: Book; id: string };
 

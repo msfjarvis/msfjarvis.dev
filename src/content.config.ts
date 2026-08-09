@@ -1,7 +1,7 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { bookSchema } from "./lib/books";
+import { createBookSchema } from "./lib/books";
 
 const postSchema = z.object({
   title: z.string(),
@@ -36,7 +36,7 @@ const weeknotes = defineCollection({
 
 const books = defineCollection({
   loader: glob({ base: "./src/content/books", pattern: "**/index.{md,mdx}" }),
-  schema: bookSchema,
+  schema: ({ image }) => createBookSchema(image()),
 });
 
 export const collections = {

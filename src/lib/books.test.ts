@@ -40,6 +40,12 @@ test("parses the flat book frontmatter contract", () => {
   assert.equal(parsed.readingStoppedAt, "2026-01-02T00:00:00Z");
 });
 
+test("allows local cover paths", () => {
+  const parsed = bookSchema.parse(book({ bookCover: "./cover.jpg" }));
+
+  assert.equal(parsed.bookCover, "./cover.jpg");
+});
+
 test("allows missing optional book and reading metadata", () => {
   const parsed = bookSchema.parse(
     book({

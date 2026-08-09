@@ -1,5 +1,5 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { extname, join } from "node:path";
 import { gunzipSync } from "node:zlib";
 
 const DEFAULT_DESTINATION = "src/content/books";
@@ -170,6 +170,19 @@ function coverUrl(cover) {
   return undefined;
 }
 
+async function downloadCover(sourceUrl, fetch) {
+  if (!sourceUrl) return undefined;
+  const response = await fetch(sourceUrl);
+  if (!response.ok)
+    throw new Error(
+      `Failed to download cover (${response.status} ${response.statusText}): ${sourceUrl}`,
+    );
+  return {
+    filename: `cover${extname(new URL(sourceUrl).pathname)}`,
+    contents: Buffer.from(await response.arrayBuffer()),
+  };
+}
+
 /** Projects one book from BookWyrm's authenticated account export. */
 export function projectBook(source) {
   const edition = source?.edition;
@@ -281,6 +294,7 @@ export async function importReadingCatalog({
   exportData,
   destination = DEFAULT_DESTINATION,
   force = false,
+  fetch = globalThis.fetch,
   fs = { mkdir, readFile, writeFile, isPopulated },
 } = {}) {
   if (!exportData && !exportPath)
@@ -306,7 +320,7 @@ export async function importReadingCatalog({
     let suffix = 2;
     while (usedSlugs.has(slug)) slug = `${base}-${suffix++}`;
     usedSlugs.add(slug);
-    return { slug, shelf: book.readingShelf, content: renderMdx(book) };
+    return { slug, shelf: book.readingShelf, book };
   });
 
   if ((await fs.isPopulated(destination)) && !force) {
@@ -314,13 +328,29 @@ export async function importReadingCatalog({
       `Refusing to overwrite populated destination: ${destination} (use --force)`,
     );
   }
+  if (!fetch) throw new Error("No fetch implementation is available");
+  const entriesWithCovers = await Promise.all(
+    entries.map(async (entry) => ({
+      ...entry,
+      cover: await downloadCover(entry.book.bookCover, fetch),
+    })),
+  );
   await fs.mkdir(destination, { recursive: true });
   let writtenCount = 0;
-  for (const entry of entries) {
+  for (const entry of entriesWithCovers) {
     await fs.mkdir(join(destination, entry.slug), { recursive: true });
+    if (entry.cover) {
+      await fs.writeFile(
+        join(destination, entry.slug, entry.cover.filename),
+        entry.cover.contents,
+      );
+    }
     await fs.writeFile(
       join(destination, entry.slug, "index.mdx"),
-      entry.content,
+      renderMdx({
+        ...entry.book,
+        bookCover: entry.cover ? `./${entry.cover.filename}` : undefined,
+      }),
       "utf8",
     );
     writtenCount += 1;

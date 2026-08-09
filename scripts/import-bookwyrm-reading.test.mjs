@@ -63,6 +63,7 @@ test("imports all reading shelves and projects BookWyrm read-through timestamps"
   try {
     const result = await importReadingCatalog({
       destination,
+      fetch: async () => new Response("cover"),
       exportData: exportData(
         book("Earlier", "read", [
           readthrough({
@@ -101,6 +102,11 @@ test("imports all reading shelves and projects BookWyrm read-through timestamps"
     assert.match(current, /readingStartedAt: "2026-03-04T00:00:00Z"/);
     assert.match(current, /readingLastReadAt: "2026-03-04T00:00:00Z"/);
     assert.doesNotMatch(current, /reading(Finished|Stopped)At/);
+    assert.match(current, /bookCover: "\.\/cover\.jpg"/);
+    assert.deepEqual(
+      await readFile(join(destination, "current", "cover.jpg")),
+      Buffer.from("cover"),
+    );
 
     const stopped = await readFile(
       join(destination, "stopped", "index.mdx"),
