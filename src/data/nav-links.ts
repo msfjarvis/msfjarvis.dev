@@ -5,18 +5,6 @@ export interface NavLinks {
 
 export const navLinks: NavLinks[] = [
   {
-    label: "posts",
-    href: "/posts",
-  },
-  {
-    label: "notes",
-    href: "/notes",
-  },
-  {
-    label: "weeknotes",
-    href: "/weeknotes",
-  },
-  {
     label: "now",
     href: "/now",
   },
@@ -27,6 +15,18 @@ export const navLinks: NavLinks[] = [
   {
     label: "about",
     href: "/about",
+  },
+  {
+    label: "posts",
+    href: "/posts",
+  },
+  {
+    label: "notes",
+    href: "/notes",
+  },
+  {
+    label: "weeknotes",
+    href: "/weeknotes",
   },
   {
     label: "uses",
