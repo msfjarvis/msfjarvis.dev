@@ -1,0 +1,88 @@
+---
+title: "Weeknotes: Week #32 (2026)"
+date: "2026-08-09T09:27:24.507Z"
+lastmod: "2026-08-09T09:27:24.507Z"
+summary: "Bengaluru weather is so overrated"
+tags:
+  - reading
+  - tv
+  - food
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import kitchen_sink_pasta from "./kitchen-sink-pasta.webp";
+import shakshouka from "./shakshouka.webp";
+import veggie_salad from "./veggie-salad.webp";
+
+# Life
+
+I spent most of this week watching the original Avatar: The Last Airbender show, after watching Drew Gooden's [very eloquent and passionate rant](https://www.youtube.com/watch?v=7fmyTueYPhw) about how the live action remake gets literally everything wrong. I had forgotten a lot of things from the show so the rewatch was quite enjoyable.
+
+The constantly changing weather got to me, and I was down with a cold and fever on Thursday which forced me to take the day off work to lie in bed, and you guessed it, watch ATLA.
+
+My visit to the passport office last month had ended in failure as my rent agreement had some mistakes, which I was finally able to get rectified with mere days left for the next appointment. Hopefully it will be enough and I can be done with this process, and then apply for the visa.
+
+## Reading
+
+I finished reading [First Contact](https://www.beckyferreira.com/first-contact.html) earlier this week and picked up [The Emilie Adventures](https://books.google.co.in/books/about/The_Emilie_Adventures.html?id=hiAZEQAAQBAJ&redir_esc=y) by Martha Wells. I've been slowly working through the full Martha Wells catalogue and this is one of the last few.
+
+# Work
+
+Things at work have been hectic. I had to implement an emergency change to prevent an accidental DoS from the SDK allowing users to call an expensive endpoint without any rate limits. After that, I waded through our ever-shrinking backlog for anything that could potentially impact a new customer we're working super hard to lock down. The new project we were planning to start got pushed slightly down the priority list but Mayank has been making progress on early PoCs so we'll hopefully start having real
+
+# Meta
+
+I continued the work I [outlined last week](/weeknotes/week-31-2026/#meta) for moving my reading activity to this site, and out of Bookwyrm. This is almost complete now, after I added the ability to locally host reviews instead of just linking to Bookwyrm and to vendor the cover images in the repo itself. My research has not yielded a much better data source than OpenLibrary.org that can also serve unauthenticated requests, so I'll just stick with it and manually input books that don't exist on there.
+
+The new version is not yet in production, but I expect to merge that sometime next week.
+
+I also tweaked the code highlighting a bit, switching to the [Expressive Code](https://expressive-code.com/) framework and changing the default themes.
+
+# CLANK CLANK CLANK 🤖
+
+I decided to do some window shopping on [pi.dev/packages](https://pi.dev/packages) and picked up [pi-spark](https://pi.dev/packages/pi-spark), and [pi-codex-conversion](https://pi.dev/packages/@howaboua/pi-codex-conversion?name=pi-codex). My attempt to use the voice input feature failed which honestly I'm happier to not have. The extensions don't change anything user-facing too dramatically; pi-spark makes the editor and footer a bit more compact and adds the ability to use a ChatGPT Codex reset directly from Pi which is cool. pi-codex-conversion gives Pi LLM tools that match the default Codex harness, making the models more likely to have successful tool calls.
+
+I read the [Model Inversion study](https://www.greptile.com/blog/model-inversion) from Greptile some time ago so I tried to give that a go with Sonnet 5 (from GitHub Copilot) as the reviewer subagent but kept running into errors like this
+
+```json wrap
+{
+  "type": "error",
+  "error": {
+    "type": "invalid_request_error",
+    "message": "messages: Unexpected role \"system\". The Messages API accepts a top-level `system` parameter, not \"system\" as an input message role."
+  },
+  "request_id": "req_vrtx_011CdqjxHaBgstkZwDG1UdcV"
+}
+```
+
+I'm reasonably confident Pi doesn't ship a broken GitHub Copilot provider, so this has to be a result of my setup. I'll look into it next week if I still care.
+
+# Cooking
+
+Lots of cooking at home this week despite a string of sickness, which was very helpful for my very aching wallet. I was alone at home on Monday, so I made a small batch of veggie pasta and called it there. Next couple of days we had chhole, after which I got sick and opted to order in a chicken soup. On Friday we made a quick shakshouka, and I was alone again on Saturday so a veggie pasta with some low fat nachos were my dinner. I was craving something sweet right after that, so I tried making the "protein" staple balls of oats/banana/peanut butter/protein powder/honey. I didn't quite nail the consistency, and they were a little too wet. I opted to stuff it into a glass box and eat them as bars the next day instead, and it was still not quite firm but a great snack regardless.
+
+<Gallery>
+    <Figure
+        src={kitchen_sink_pasta}
+        title="Threw together everything I saw in my freezer. Yes that is chicken salami."
+        alt="Penne pasta mixed with vegetables in a large pan."
+    />
+
+    <Figure
+        src={shakshouka}
+        title="When we decided to make this we had neither enough tomatoes or any eggs, great stuff from us."
+        alt="Shakshuka served with toasted bread."
+    />
+
+    <Figure
+        src={veggie_salad}
+        title="Keeping a thing of Feta cheese in the fridge at all times makes impromptu salads so good."
+        alt="Creamy mixed vegetable salad in a bowl."
+    />
+
+</Gallery>
