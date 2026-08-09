@@ -30,7 +30,12 @@ export function createBookSchema<T extends z.ZodType>(localBookCover: T) {
       bookSeries: z.string().optional(),
       bookSeriesNumber: z.string().optional(),
       bookPublishedYear: z.number().int().optional(),
-      readingShelf: z.enum(["read", "reading", "stopped-reading"]),
+      readingShelf: z.enum([
+        "read",
+        "reading",
+        "stopped-reading",
+        "want-to-read",
+      ]),
       readingStartedAt: readingTimestamp.optional(),
       readingFinishedAt: readingTimestamp.optional(),
       readingStoppedAt: readingTimestamp.optional(),
@@ -97,6 +102,9 @@ export function partitionBooks<T extends BookEntry>(books: readonly T[]) {
     ),
     stoppedReading: ordered.filter(
       (book) => book.data.readingShelf === "stopped-reading",
+    ),
+    wantToRead: ordered.filter(
+      (book) => book.data.readingShelf === "want-to-read",
     ),
   };
 }
