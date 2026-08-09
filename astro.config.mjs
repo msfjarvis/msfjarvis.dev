@@ -23,6 +23,8 @@ import {
 import { mermaidLightbox } from "./src/satteri/mermaid-lightbox.ts";
 import { mermaidOptions } from "./src/satteri/mermaid-theme.ts";
 
+import expressiveCode from "astro-expressive-code";
+
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
 const siteUrl = isDrafts
   ? "https://drafts.msfjarvis.dev"
@@ -69,6 +71,9 @@ export default defineConfig({
     processor: markdownProcessor,
   },
   integrations: [
+    expressiveCode({
+      themes: ["catppuccin-latte", "gruvbox-dark-soft"],
+    }),
     mdx(),
     sitemap(),
     pagefind(),
