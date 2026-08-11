@@ -49,7 +49,7 @@ importers:
         version: 0.0.6(astro@7.1.6(@astrojs/markdown-remark@7.2.2(supports-color@10.2.2))(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@1.21.7)(yaml@2.9.0))(react@19.2.8)
       astro-opengraph-images:
         specifier: ^1.16.1
-        version: 1.17.4(tw-to-css@0.0.12)
+        version: 1.18.0(tw-to-css@0.0.12)
       cheerio:
         specifier: ^1.2.0
         version: 1.2.0
@@ -175,8 +175,8 @@ packages:
     resolution: {integrity: sha512-67RZDnYRc8H/8MLDgQCDE//zoqVFwajkepHZgmXrbwybzXOEwOWGPYGmALYl9J2DOLfFPPs6kKCqmbzV895hTQ==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
-  '@asamuzakjp/dom-selector@8.3.0':
-    resolution: {integrity: sha512-UJLfKXBhrc8i1vH2eJXuYQMwlsLKWFw3O+CPqXSuVEiikeAim3UgrfWX0k4tA/X8cRFM8iZ7OaqBokFGbYusdg==}
+  '@asamuzakjp/dom-selector@8.3.2':
+    resolution: {integrity: sha512-93Z1N+BQNXysodoicpOIyNh2drHfz/CTf9nnT0FEx72GJcIiwgydD7tGAr78j41LsYn3hlRn+LdGPuBLn1Bl8Q==}
     engines: {node: ^22.13.0 || >=24.0.0}
 
   '@asamuzakjp/generational-cache@1.0.1':
@@ -1788,8 +1788,8 @@ packages:
       vue:
         optional: true
 
-  astro-opengraph-images@1.17.4:
-    resolution: {integrity: sha512-tgKxoa6GNxAfMvjpNKlNrwuSmgzyOcLwsA7BcKx4Rx0u48fGjlnN4uTutPYJgtuzeELjuisqEWgqA0mc2+GK6A==}
+  astro-opengraph-images@1.18.0:
+    resolution: {integrity: sha512-NBXUE5lvCzwjwNNxhBfSs/34UYLfcdszPM0swcQbzF2UO1oRUGAv/OEyJfUh+XoVdJfp1X475jc0gpIf9c3XSw==}
     peerDependencies:
       tw-to-css: ^0.0.12
 
@@ -3463,8 +3463,8 @@ packages:
     resolution: {integrity: sha512-cRZYrTDwWznlnRiPjggAGxZXanty6M8RV1ff8Wm4LWXBp7/IG8v5DnOm74DtUBp9OONpK75YlPnIjQqX0dBDtA==}
     engines: {node: '>=20.18.1'}
 
-  undici@8.9.0:
-    resolution: {integrity: sha512-aWZpUj7XoGonMClx4gdDRfgBjqeA+F473aDmROQQbM9n6PRfK/u1q/a0X4wMTgcHfT8H6fpbt98PFuDUwFg2YA==}
+  undici@8.10.0:
+    resolution: {integrity: sha512-HvltHd7avK13QIw/oLe4qoOLyoVSoafqJ2jYOrtMRBkbYT31eiBQ8O0ehRKZiEZCMEyLFQNIADpgCWC5fALvYQ==}
     engines: {node: '>=22.19.0'}
 
   unenv@2.0.0-rc.24:
@@ -3922,7 +3922,7 @@ snapshots:
       css-tree: 3.2.1
       is-potential-custom-element-name: 1.0.1
 
-  '@asamuzakjp/dom-selector@8.3.0':
+  '@asamuzakjp/dom-selector@8.3.2':
     dependencies:
       bidi-js: 1.0.3
       css-tree: 3.2.1
@@ -5372,7 +5372,7 @@ snapshots:
     optionalDependencies:
       react: 19.2.8
 
-  astro-opengraph-images@1.17.4(tw-to-css@0.0.12):
+  astro-opengraph-images@1.18.0(tw-to-css@0.0.12):
     dependencies:
       '@resvg/resvg-js': 2.6.2
       jsdom: 30.0.1
@@ -6308,7 +6308,7 @@ snapshots:
   jsdom@30.0.1:
     dependencies:
       '@asamuzakjp/css-color': 6.0.5
-      '@asamuzakjp/dom-selector': 8.3.0
+      '@asamuzakjp/dom-selector': 8.3.2
       '@bramus/specificity': 2.4.2
       '@csstools/css-syntax-patches-for-csstree': 1.1.7(css-tree@3.2.1)
       '@exodus/bytes': 1.15.1
@@ -6322,7 +6322,7 @@ snapshots:
       saxes: 6.0.0
       symbol-tree: 3.2.4
       tough-cookie: 6.0.2
-      undici: 8.9.0
+      undici: 8.10.0
       w3c-xmlserializer: 5.0.0
       webidl-conversions: 8.0.1
       whatwg-mimetype: 5.0.0
@@ -7689,7 +7689,7 @@ snapshots:
 
   undici@7.28.0: {}
 
-  undici@8.9.0: {}
+  undici@8.10.0: {}
 
   unenv@2.0.0-rc.24:
     dependencies:
