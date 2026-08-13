@@ -67,6 +67,10 @@ export default defineConfig({
       },
     ],
   },
+  session: false,
+  experimental: {
+    incrementalBuild: true,
+  },
   markdown: {
     processor: markdownProcessor,
   },
