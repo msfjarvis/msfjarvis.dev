@@ -17,6 +17,7 @@ export const prerender = true;
   <body>
     <script>
       import CMS, { type CmsConfig } from "@sveltia/cms";
+      import { deriveWeeknoteMetadata } from "../../lib/weeknote-metadata";
       import {
         applyPendingBook,
         consumePendingBook,
@@ -171,6 +172,10 @@ export const prerender = true;
       });
 
       // ─── CMS configuration ────────────────────────────────────────────────────
+
+      // Sveltia has no ISO-week template tag. Calculate the configured default at
+      // load time instead, matching the CLI's canonical weeknote naming scheme.
+      const newWeeknote = deriveWeeknoteMetadata(new Date());
 
       const config: CmsConfig = {
         load_config_file: false,
@@ -447,12 +452,17 @@ export const prerender = true;
             extension: "mdx",
             create: true,
             path: "{{slug}}/index",
-            slug: "week-{{week}}-{{year}}",
+            slug: newWeeknote.slug,
             media_folder: "",
             public_folder: "",
             editor: { preview: true },
             fields: [
-              { label: "Title", name: "title", widget: "string" },
+              {
+                label: "Title",
+                name: "title",
+                widget: "string",
+                default: newWeeknote.title,
+              },
               {
                 label: "Date",
                 name: "date",

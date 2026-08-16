@@ -4,6 +4,8 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { deriveWeeknoteMetadata } from "../src/lib/weeknote-metadata.ts";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "..");
 
@@ -12,25 +14,6 @@ const TYPE_TO_DIR = {
   notes: "notes",
   weeknotes: "weeknotes",
 };
-
-function getIsoWeekParts(date) {
-  const utcDate = new Date(
-    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
-  );
-  const day = utcDate.getUTCDay() || 7;
-  utcDate.setUTCDate(utcDate.getUTCDate() + 4 - day);
-  const yearStart = new Date(Date.UTC(utcDate.getUTCFullYear(), 0, 1));
-  const week = Math.ceil(((utcDate - yearStart) / 86400000 + 1) / 7);
-  return { week, year: utcDate.getUTCFullYear() };
-}
-
-function deriveWeeknoteMetadata(now) {
-  const { week, year } = getIsoWeekParts(now);
-  return {
-    title: `Weeknotes: Week #${week} (${year})`,
-    slug: `week-${week}-${year}`,
-  };
-}
 
 export function slugifyTitle(str) {
   return str
