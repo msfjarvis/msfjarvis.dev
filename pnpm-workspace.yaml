@@ -13,6 +13,7 @@ minimumReleaseAgeExclude:
   - "astro"
   - "@astrojs/cloudflare"
   - "@astrojs/markdown-satteri"
+  - '@astrojs/underscore-redirects'
   - "@xingwangzhe/satteri-mermaid"
   - "@sveltia/cms"
 blockExoticSubdeps: true
