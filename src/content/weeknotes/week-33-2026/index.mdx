@@ -1,14 +1,53 @@
 ---
 title: "Weeknotes: Week #33 (2026)"
 date: "2026-08-16T09:23:00+05:30"
-lastmod: "2026-08-16T09:23:00+05:30"
-summary: "I genuinely don't know why I'm doing this"
+lastmod: "2026-08-18T20:44:00+05:30"
+summary: "Capped off a boring week with a debilitating bout of sickness"
 tags:
   - "health"
+  - "games"
 aliases:
   - "/weeknotes/week-1f116326c78a-2026/"
 draft: false
 deleted: false
 ---
 
-Unfortunately I'm way too sick this weekend to write an actual weeknote, but my delirious brain cares more about the "streak" than the weeknote having actual words. So, here's the bare minimum. If I get better in a couple of days I'll backfill this.
+Now that I'm feeling a lot better, time to actually write this weeknote.
+
+# Life
+
+Things were relatively quiet this week and, I had been looking forward to IndieWebClub but sadly I had to cancel last minute due to a raging viral fever I caught on the day of. I'm not exactly sure why I caught the fever, but getting absolutely fucking drenched on Tuesday while I was making my way back from the gym was probably a contributing factor.
+
+# Media
+
+Since I finished watching Avatar: The Last Airbender last week it only felt natural to catch up on The Legend of Korra, which was slightly helped by my fever addled brain keeping me glued to my bed for two straight days. Great show though, definitely doesn't size up to ATLA but it's nothing to scoff at.
+
+# Games
+
+Huge [Helldivers 2](https://www.reddit.com/r/Helldivers/comments/1vma2by/title_update_devoid_of_liberty_700/) update came out this week with a Warhammer 40000 collaboration and all the community cares for is that we can hug the SEAF soldiers. Brings a tear to my eye.
+
+I also moved my [Hololive Dreams](https://www.hololive-dreams.com/en) account to Steam and while I continue to be an absolute scrub at rhythm games it's been fun to learn. There are people beating the hardest chart in the game while playing with [spoons](https://www.youtube.com/watch?v=E95J2WZs5fI) and then there's me happily tapping away at the easiest difficulty...
+
+# Work
+
+Things at work have been a mixed bag, we've finally broken ground on our new project and Mayank's been doing excellent work here in the initial prototyping phase. I've been somewhat slower on my share of the work as I tried to put together a new release of the RealtimeKit SDKs but it kept getting dragged along as we kept uncovering more issues and I had big pile of review comments from the AI reviewer to work through. I do kind of dislike how the AI reviewer decides to take a fine tooth comb onto the codebase specifically in release PRs and not in the 50 PRs that went in before this to create said release. Anyways, I'll hopefully be able to wrap it up when I return to work.
+
+# Personal projects
+
+I finally scratched my itch of wanting to build something useful on WearOS and ended up with [wearos-calendar-sync](https://git.msfjarvis.dev/msfjarvis/wearos-calendar-sync), the most creativity-free name I could find. The README is still slop because by the time I started picking at the project in earnest I immediately fell sick but this shall be remedied soon. Getting this thing to come into existence was a whole saga that is described below because it deserves its separate rant.
+
+## CLANK CLANK CLANK 🤖
+
+I had mentioned [last week](/weeknotes/week-32-2026/) that I had issues with Claude models on my Pi setup, I was finally able to look into it and found it was a result of my bash-permissions extension appending a second `system` message which Anthropic's API doesn't support. That has [now been fixed](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/6fb223750a936812da4c408f62fb03656ecc0a73), so I'll probably have something to report on the reviewer test in a week or two.
+
+### Sidebar: Codex Cloud is a terrible product
+
+After struggling to even find where the option for it was, I finally kicked the tires on [Codex Cloud](https://learn.chatgpt.com/docs/cloud) to solve a longstanding gripe I have with WearOS version of Google Calendar: it refuses to sync non-Google calendars. This is not a problem shared by the Android counterpart, so I can only assume this is the result of incompetence.
+
+With my gripe about Google Calendar and my unfulfilled cope of learning WearOS development as an excuse to get this expensive Pixel Watch, I decided I'd build my own calendar (with some slop involved). I yapped at the ChatGPT app to explain my problems with Google Calendar, what I wanted out of my ideal replacement and the general architecture I wanted to go for. The clanker suggested making the watch app a simple presenter for JSON encoded calendar events that a companion phone app could periodically send to it, which would significantly reduce complexity and make it much more battery efficient. I couldn't really find a fault in that since it still checks off all my boxes so that's what I went with.
+
+Speaking of incompetence, that is also a quality shared by the people who run security at OpenAI and not just because of their recent accomplishments on the [FelonyBench](https://www.felonybench.com/) rankings. Codex Cloud does not let you export your changes from their sandbox to GitHub if the changes contain a binary file. OpenAI is aware that people do not want this nonsense [for nearly a year](https://github.com/openai/codex/issues/4867) and they've not changed anything here. Trying to set up an Android project by necessity means you have a small Gradle wrapper JAR in your source tree, which means you cannot bootstrap an Android app inside Codex Cloud. I deleted the JAR just so I could get the code out and vowed to never use this abomination ever again.
+
+# Cooking
+
+Honestly I can't remember why I don't have any pictures, but we definitely cooked! I think? Anyways, go check out Yash's [week note](https://yashgarg.dev/weekly-notes-33-2026/) for that.
