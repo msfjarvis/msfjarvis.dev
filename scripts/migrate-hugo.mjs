@@ -17,7 +17,7 @@ import { readdirSync, statSync } from "fs";
 import { join, extname, basename, dirname } from "path";
 import { fileURLToPath } from "url";
 import toml from "@iarna/toml";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import fse from "fs-extra";
 
 // ---------------------------------------------------------------------------

@@ -15,7 +15,7 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = join(__dirname, "..");
