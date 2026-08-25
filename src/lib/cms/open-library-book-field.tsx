@@ -1,26 +1,9 @@
 import type { CustomFieldControl, CustomFieldControlProps } from "@sveltia/cms";
-import {
-  applyPendingBook,
-  consumePendingBook,
-  getPendingBook,
-  setPendingBook,
-  updatePendingBook,
-  removePendingBook,
-} from "./open-library-book-pending";
+import { isImportedBook } from "./open-library-book-import";
 import {
   lookupOpenLibraryBook,
   type OpenLibraryBook,
 } from "../open-library-lookup";
-
-export {
-  applyPendingBook,
-  consumePendingBook,
-  getPendingBook,
-  removePendingBook,
-  setPendingBook,
-  updatePendingBook,
-};
-export type { PendingBook } from "./open-library-book-pending";
 
 type CmsElement = unknown;
 type H = (
@@ -32,8 +15,6 @@ type FieldState = {
   book?: OpenLibraryBook;
   error?: string;
   loading: boolean;
-  pendingKey?: string;
-  replace: boolean;
   url: string;
 };
 type FieldInstance = {
@@ -41,11 +22,6 @@ type FieldInstance = {
   state: FieldState;
   setState: (state: Partial<FieldState>) => void;
   lookup: () => void;
-  edit: <K extends keyof OpenLibraryBook>(
-    key: K,
-    value: OpenLibraryBook[K],
-  ) => void;
-  setReplace: (replace: boolean) => void;
 };
 type CreateClass = (spec: Record<string, unknown>) => CustomFieldControl;
 
@@ -65,25 +41,18 @@ export function createOpenLibraryBookField({
   return createClass({
     getInitialState(this: FieldInstance): FieldState {
       return {
+        book: isImportedBook(this.props.value) ? this.props.value : undefined,
         loading: false,
-        replace: false,
         url: "",
       };
-    },
-
-    componentWillUnmount(this: FieldInstance) {
-      if (this.state.pendingKey) removePendingBook(this.state.pendingKey);
     },
 
     async lookup(this: FieldInstance) {
       this.setState({ error: undefined, loading: true });
       try {
         const book = await lookupOpenLibraryBook(this.state.url);
-        this.setState({ book, pendingKey: book.bookTitle });
-        setPendingBook(book.bookTitle, book, this.state.replace, {
-          bookTitle: book.bookTitle,
-        });
-        this.props.onChange(book.bookTitle);
+        this.setState({ book });
+        this.props.onChange(book);
       } catch (reason) {
         this.setState({
           error: reason instanceof Error ? reason.message : "Lookup failed.",
@@ -93,34 +62,8 @@ export function createOpenLibraryBookField({
       }
     },
 
-    edit<K extends keyof OpenLibraryBook>(
-      this: FieldInstance,
-      key: K,
-      value: OpenLibraryBook[K],
-    ) {
-      const current = this.state.book;
-      if (!current) return;
-      const book = { ...current, [key]: value } as OpenLibraryBook;
-      updatePendingBook(current.bookTitle, book, { [key]: value });
-      this.setState({ book, pendingKey: book.bookTitle });
-      this.props.onChange(book.bookTitle);
-    },
-
-    setReplace(this: FieldInstance, replace: boolean) {
-      const book = this.state.book;
-      this.setState({ replace });
-      if (!book) return;
-      setPendingBook(
-        book.bookTitle,
-        book,
-        replace,
-        getPendingBook(book.bookTitle)?.overrides,
-      );
-      this.props.onChange(book.bookTitle);
-    },
-
     render(this: FieldInstance) {
-      const { book, error, loading, replace, url } = this.state;
+      const { book, error, loading, url } = this.state;
       const lookupId = `${this.props.forID}-lookup`;
       return h(
         "div",
@@ -160,91 +103,59 @@ export function createOpenLibraryBookField({
               "Retry",
             ),
           ),
-        book &&
-          h(
-            "div",
-            {
-              style: {
-                display: "grid",
-                gap: "0.25rem",
-                marginTop: "0.5rem",
-              },
-            },
-            editable(h, "Title", book.bookTitle, (value) =>
-              this.edit("bookTitle", value),
-            ),
-            editable(h, "Authors", book.bookAuthors.join(", "), (value) =>
-              this.edit(
-                "bookAuthors",
-                value
-                  .split(",")
-                  .map((author) => author.trim())
-                  .filter(Boolean),
-              ),
-            ),
-            editable(h, "Card link", book.bookWork, (value) =>
-              this.edit("bookWork", value),
-            ),
-            editable(h, "Cover", book.bookCover, (value) =>
-              this.edit("bookCover", value),
-            ),
-            editable(h, "Cover alt", book.bookCoverAlt, (value) =>
-              this.edit("bookCoverAlt", value),
-            ),
-            editable(h, "Series", book.bookSeries, (value) =>
-              this.edit("bookSeries", value),
-            ),
-            editable(h, "Series no.", book.bookSeriesNumber, (value) =>
-              this.edit("bookSeriesNumber", value),
-            ),
-            editable(
-              h,
-              "Year",
-              book.bookPublishedYear?.toString() ?? "",
-              (value) =>
-                this.edit(
-                  "bookPublishedYear",
-                  value ? Number(value) : undefined,
-                ),
-            ),
-            h(
-              "label",
-              null,
-              h("input", {
-                type: "checkbox",
-                checked: replace,
-                onChange: (event: Event) =>
-                  this.setReplace((event.target as HTMLInputElement).checked),
-              }),
-              " Replace existing metadata",
-            ),
-          ),
+        book && bookPreview(h, book),
       );
     },
   });
 }
 
-function editable(
-  h: H,
-  label: string,
-  value: string,
-  onChange: (value: string) => void,
-): CmsElement {
+function bookPreview(h: H, book: OpenLibraryBook): CmsElement {
+  const detail = (label: string, value: CmsElement[]): CmsElement[] => [
+    h("dt", { style: { fontWeight: "bold" } }, label),
+    h("dd", { style: { margin: "0" } }, ...value),
+  ];
   return h(
-    "label",
+    "section",
     {
       style: {
-        alignItems: "center",
         display: "grid",
-        gap: "0.35rem",
-        gridTemplateColumns: "6rem 1fr",
+        gap: "0.5rem",
+        marginTop: "0.75rem",
       },
     },
-    label,
-    h("input", {
-      value,
-      onChange: (event: Event) =>
-        onChange((event.target as HTMLInputElement).value),
-    }),
+    h("strong", null, "Imported book metadata"),
+    book.bookCover &&
+      h("img", {
+        src: book.bookCover,
+        alt: book.bookCoverAlt,
+        style: { maxWidth: "12rem" },
+      }),
+    h(
+      "dl",
+      {
+        style: {
+          display: "grid",
+          gap: "0.25rem 0.5rem",
+          gridTemplateColumns: "max-content 1fr",
+          margin: "0",
+        },
+      },
+      ...detail("Title", [book.bookTitle]),
+      ...detail("Authors", [book.bookAuthors.join(", ")]),
+      ...detail("Open Library", [
+        h(
+          "a",
+          { href: book.bookWork, rel: "noreferrer", target: "_blank" },
+          book.bookWork,
+        ),
+      ]),
+      ...(book.bookSeries ? detail("Series", [book.bookSeries]) : []),
+      ...(book.bookSeriesNumber
+        ? detail("Series number", [book.bookSeriesNumber])
+        : []),
+      ...(book.bookPublishedYear
+        ? detail("Published", [String(book.bookPublishedYear)])
+        : []),
+    ),
   );
 }

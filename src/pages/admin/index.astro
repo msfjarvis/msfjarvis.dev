@@ -18,11 +18,13 @@ export const prerender = true;
     <script>
       import CMS, { type CmsConfig } from "@sveltia/cms";
       import { deriveWeeknoteMetadata } from "../../lib/weeknote-metadata";
+      import { openLibraryBookMetadataFields } from "../../lib/cms/open-library-book-fields";
       import {
-        applyPendingBook,
-        consumePendingBook,
+        applyImportedBook,
+        isImportedBook,
+      } from "../../lib/cms/open-library-book-import";
+      import {
         createOpenLibraryBookField,
-        getPendingBook,
         type CmsReactRuntime,
       } from "../../lib/cms/open-library-book-field";
 
@@ -43,12 +45,13 @@ export const prerender = true;
         return { ...entry, data };
       }
 
-      function expandPendingBook(
+      function expandImportedBook(
         data: Record<string, unknown>,
-        isNew: boolean,
       ): Record<string, unknown> {
-        const pending = getPendingBook(String(data.bookTitle ?? ""));
-        return pending ? applyPendingBook(data, pending, isNew) : data;
+        const { bookImport, ...bookData } = data;
+        return isImportedBook(bookImport)
+          ? applyImportedBook(data, bookImport)
+          : bookData;
       }
 
       function presentTimestamp(value: unknown): string | undefined {
@@ -77,10 +80,9 @@ export const prerender = true;
         name: "preSave",
         handler: ({ entry }) => {
           const plain = entry.toJS();
-          const isNew = !plain.path;
           const data =
             plain.collection === "books"
-              ? normalizeBookForSave(expandPendingBook(plain.data, isNew))
+              ? normalizeBookForSave(expandImportedBook(plain.data))
               : plain.data;
           if (
             plain.collection === "books" &&
@@ -96,9 +98,6 @@ export const prerender = true;
             collection: plain.collection,
             data,
           });
-          if (plain.collection === "books") {
-            consumePendingBook(String(data.bookTitle ?? ""));
-          }
           return entry.set(
             "data",
             entry.get("data").clear().merge(normalized.data),
@@ -326,7 +325,7 @@ export const prerender = true;
             // Sveltia normalizes this template into a URL slug. Collision
             // resolution is intentionally left to the CMS save flow; no
             // undocumented slug API is used here.
-            slug: "{{bookTitle}}",
+            slug: "{{bookImport.bookTitle}}",
             media_folder: "",
             public_folder: "",
             summary: "{{bookTitle}} — {{readingShelf}}",
@@ -337,50 +336,18 @@ export const prerender = true;
             editor: { preview: false },
             fields: [
               {
-                label: "Book",
-                name: "bookTitle",
+                label: "Import from Open Library",
+                name: "bookImport",
                 widget: "open-library-book",
                 required: false,
               },
               {
-                label: "Authors",
-                name: "bookAuthors",
-                widget: "list",
-                required: false,
-              },
-              {
-                label: "Cover",
-                name: "bookCover",
-                widget: "string",
-                pattern: [
-                  "^(?:https://[^\\s]+|\\./[^\\s]+)$",
-                  "Use an https URL or a relative path beginning with ./",
-                ],
-                required: false,
-              },
-              {
-                label: "Cover alt text",
-                name: "bookCoverAlt",
+                label: "Title",
+                name: "bookTitle",
                 widget: "string",
                 required: false,
               },
-              {
-                label: "Series",
-                name: "bookSeries",
-                widget: "string",
-                required: false,
-              },
-              {
-                label: "Series number",
-                name: "bookSeriesNumber",
-                widget: "string",
-                required: false,
-              },
-              {
-                label: "Published year",
-                name: "bookPublishedYear",
-                widget: "number",
-              },
+              ...openLibraryBookMetadataFields,
               {
                 label: "Reading shelf",
                 name: "readingShelf",
@@ -425,6 +392,7 @@ export const prerender = true;
                 name: "body",
                 widget: "markdown",
                 modes: ["raw", "rich_text"],
+                required: false,
               },
             ],
           },
