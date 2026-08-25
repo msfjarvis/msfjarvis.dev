@@ -348,7 +348,10 @@ export const prerender = true;
                 label: "Cover",
                 name: "bookCover",
                 widget: "string",
-                type: "url",
+                pattern: [
+                  "^(?:https://[^\\s]+|\\./[^\\s]+)$",
+                  "Use an https URL or a relative path beginning with ./",
+                ],
                 required: false,
               },
               {
