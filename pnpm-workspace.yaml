@@ -12,9 +12,9 @@ minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - "astro"
   - "@astrojs/cloudflare"
-  - '@astrojs/internal-helpers'
+  - "@astrojs/internal-helpers"
   - "@astrojs/markdown-satteri"
-  - '@astrojs/underscore-redirects'
+  - "@astrojs/underscore-redirects"
   - "@xingwangzhe/satteri-mermaid"
   - "@sveltia/cms"
 blockExoticSubdeps: true
