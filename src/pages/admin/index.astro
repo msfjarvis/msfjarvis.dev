@@ -33,7 +33,11 @@ export const prerender = true;
         data: Record<string, unknown>;
       }): typeof entry {
         const data = structuredClone(entry.data ?? {});
-        if (entry.collection !== "pages" && !data.deleted) {
+        if (
+          entry.collection !== "pages" &&
+          entry.collection !== "books" &&
+          !data.deleted
+        ) {
           data.deleted = false;
         }
         return { ...entry, data };
