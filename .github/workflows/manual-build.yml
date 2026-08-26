@@ -1,8 +1,6 @@
-name: Daily rebuild
+name: Manual rebuild
 
 on:
-  schedule:
-    - cron: "15 5 * * *"
   workflow_dispatch: {}
 
 jobs:
