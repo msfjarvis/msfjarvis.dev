@@ -189,12 +189,9 @@ export function projectBook(source) {
   if (
     !edition ||
     typeof edition.id !== "string" ||
-    typeof edition.title !== "string" ||
-    typeof edition.work !== "string"
+    typeof edition.title !== "string"
   ) {
-    throw new Error(
-      "BookWyrm export book is missing edition ID, title, or work URL",
-    );
+    throw new Error("BookWyrm export book is missing edition ID or title");
   }
   const readingShelf = selectReadingShelf(source.shelves);
   if (!readingShelf) return undefined;
@@ -212,7 +209,6 @@ export function projectBook(source) {
   const book = {
     bookTitle: edition.title,
     bookAuthors: displayAuthors(source.authors ?? edition.authors),
-    bookWork: edition.work,
     bookCover: undefined,
     bookCoverAlt: undefined,
     bookSeries: undefined,
@@ -251,7 +247,6 @@ export function renderMdx(book) {
   } else {
     lines.push("bookAuthors: []");
   }
-  lines.push(`bookWork: ${yamlString(book.bookWork)}`);
   if (book.bookCover !== undefined) {
     lines.push(`bookCover: ${yamlString(book.bookCover)}`);
     lines.push(`bookCoverAlt: ${yamlString(book.bookCoverAlt)}`);
@@ -284,8 +279,7 @@ async function isPopulated(directory) {
 
 function catalogOrder(left, right) {
   return (
-    Date.parse(right.readingLastReadAt) - Date.parse(left.readingLastReadAt) ||
-    left.bookWork.localeCompare(right.bookWork)
+    Date.parse(right.readingLastReadAt) - Date.parse(left.readingLastReadAt)
   );
 }
 

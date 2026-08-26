@@ -26,7 +26,6 @@ const {
   bookPublishedYear,
   bookSeries,
   bookSeriesNumber,
-  bookWork,
   readingShelf,
   readingStartedAt,
   readingFinishedAt,
@@ -152,15 +151,6 @@ const coverSource = bookCover as ImageMetadata;
             )
           }
         </dl>
-
-        <a
-          class="bookwyrm-link"
-          href={bookWork}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          BookWyrm ↗
-        </a>
       </aside>
 
       <article
@@ -181,8 +171,7 @@ const coverSource = bookCover as ImageMetadata;
     margin-inline: auto;
   }
 
-  .back-link,
-  .bookwyrm-link {
+  .back-link {
     font-family: var(--font-mono);
     font-size: 0.8rem;
     font-weight: 700;

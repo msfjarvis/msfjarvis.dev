@@ -19,7 +19,6 @@ export function isImportedBook(value: unknown): value is OpenLibraryBook {
   return (
     typeof book.bookTitle === "string" &&
     Array.isArray(book.bookAuthors) &&
-    typeof book.bookWork === "string" &&
     typeof book.bookCover === "string" &&
     typeof book.bookCoverAlt === "string" &&
     typeof book.bookSeries === "string" &&

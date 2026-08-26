@@ -87,12 +87,9 @@ export const prerender = true;
           if (
             plain.collection === "books" &&
             !plain.path &&
-            (!String(data.bookTitle ?? "").trim() ||
-              !String(data.bookWork ?? "").trim())
+            !String(data.bookTitle ?? "").trim()
           ) {
-            throw new Error(
-              "New books require a title and Open Library work URL.",
-            );
+            throw new Error("New books require a title.");
           }
           const normalized = normalizeBlogEntryForSave({
             collection: plain.collection,

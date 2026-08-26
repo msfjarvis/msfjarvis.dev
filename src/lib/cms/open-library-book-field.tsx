@@ -142,13 +142,6 @@ function bookPreview(h: H, book: OpenLibraryBook): CmsElement {
       },
       ...detail("Title", [book.bookTitle]),
       ...detail("Authors", [book.bookAuthors.join(", ")]),
-      ...detail("Open Library", [
-        h(
-          "a",
-          { href: book.bookWork, rel: "noreferrer", target: "_blank" },
-          book.bookWork,
-        ),
-      ]),
       ...(book.bookSeries ? detail("Series", [book.bookSeries]) : []),
       ...(book.bookSeriesNumber
         ? detail("Series number", [book.bookSeriesNumber])

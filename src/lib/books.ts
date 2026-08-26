@@ -24,7 +24,6 @@ export function createBookSchema<T extends z.ZodType>(localBookCover: T) {
     .object({
       bookTitle: z.string().trim().min(1),
       bookAuthors: z.array(z.string()),
-      bookWork: httpsUrl,
       bookCover: z.union([httpsUrl, localBookCover]).optional(),
       bookCoverAlt: z.string().optional(),
       bookSeries: z.string().optional(),

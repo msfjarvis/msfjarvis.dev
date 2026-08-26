@@ -155,6 +155,19 @@ test("uses firstPublishedDate when publishedDate is absent", () => {
   assert.equal(projected.bookPublishedYear, 1987);
 });
 
+test("does not require a BookWyrm work URL", () => {
+  assert.doesNotThrow(() =>
+    projectBook(
+      book(
+        "No work URL",
+        "read",
+        [readthrough({ finish_date: "2026-01-02T00:00:00Z" })],
+        { edition: { work: undefined } },
+      ),
+    ),
+  );
+});
+
 test("normalizes diacritics, ampersands, and punctuation", () => {
   assert.equal(normalizeTitleSlug("Élan & Co. — Vol. 2"), "elan-and-co-vol-2");
 });

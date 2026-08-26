@@ -8,7 +8,6 @@ import type { OpenLibraryBook } from "../open-library-lookup";
 export const openLibraryBookMetadataFieldNames = [
   "bookTitle",
   "bookAuthors",
-  "bookWork",
   "bookCover",
   "bookCoverAlt",
   "bookSeries",
@@ -21,16 +20,6 @@ export const openLibraryBookMetadataFields = [
     label: "Authors",
     name: "bookAuthors",
     widget: "list",
-    required: false,
-  },
-  {
-    label: "Open Library work",
-    name: "bookWork",
-    widget: "string",
-    pattern: [
-      "^(?:$|https://openlibrary\\.org/works/OL\\d+W)$",
-      "Use a canonical HTTPS Open Library work URL.",
-    ],
     required: false,
   },
   {

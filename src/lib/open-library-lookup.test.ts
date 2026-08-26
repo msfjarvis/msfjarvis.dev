@@ -70,7 +70,6 @@ test("looks up a work with bounded authors and normalizes metadata", async () =>
   assert.deepEqual(result, {
     bookTitle: "A Work",
     bookAuthors: ["One", "Two"],
-    bookWork: "https://openlibrary.org/works/OL123W",
     bookCover: "https://covers.openlibrary.org/b/id/42-L.jpg",
     bookCoverAlt: "Cover of A Work",
     bookSeries: "",
@@ -99,7 +98,6 @@ test("resolves editions and falls back to work cover/year", async () => {
     "https://openlibrary.org/books/OL9M",
     { fetch },
   );
-  assert.equal(result.bookWork, "https://openlibrary.org/works/OL123W");
   assert.equal(result.bookTitle, "Edition");
   assert.equal(result.bookCover, "https://covers.openlibrary.org/b/id/7-L.jpg");
   assert.equal(result.bookPublishedYear, 2018);

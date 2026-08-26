@@ -7,7 +7,6 @@ function book(overrides: Record<string, unknown> = {}) {
   return {
     bookTitle: "A book",
     bookAuthors: ["An author"],
-    bookWork: "https://bookwyrm.social/book/1",
     readingShelf: "read",
     readingStartedAt: "2026-01-01T00:00:00Z",
     readingFinishedAt: "2026-01-02T00:00:00Z",
@@ -61,9 +60,6 @@ test("allows missing optional book and reading metadata", () => {
 });
 
 test("rejects invalid URLs, timestamps, and inconsistent reading data", () => {
-  assert.throws(() =>
-    bookSchema.parse(book({ bookWork: "http://example.com" })),
-  );
   assert.throws(() => bookSchema.parse(book({ bookPublishedYear: 2024.5 })));
   assert.throws(() =>
     bookSchema.parse(book({ readingStartedAt: "yesterday" })),

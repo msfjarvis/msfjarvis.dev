@@ -1,7 +1,6 @@
 export type OpenLibraryBook = {
   bookTitle: string;
   bookAuthors: string[];
-  bookWork: string;
   bookCover: string;
   bookCoverAlt: string;
   bookSeries: string;
@@ -105,7 +104,6 @@ async function lookup(
   return {
     bookTitle: title,
     bookAuthors: authors,
-    bookWork: `https://openlibrary.org/works/${workKey}`,
     bookCover: editionCover || workCover,
     bookCoverAlt: `Cover of ${title}`,
     bookSeries: series.name,

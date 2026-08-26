@@ -12,7 +12,6 @@ import {
 const fetched = {
   bookTitle: "Fetched",
   bookAuthors: ["Author"],
-  bookWork: "https://openlibrary.org/works/OL1W",
   bookCover: "cover",
   bookCoverAlt: "Cover of Fetched",
   bookSeries: "Series",
@@ -34,7 +33,7 @@ test("imported metadata is optional before the pre-save merge", () => {
 });
 
 test("optional metadata patterns accept empty fields before pre-save", () => {
-  for (const fieldName of ["bookWork", "bookCover"]) {
+  for (const fieldName of ["bookCover"]) {
     const field = openLibraryBookMetadataFields.find(
       (candidate) => candidate.name === fieldName,
     );
