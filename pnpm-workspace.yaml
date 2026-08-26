@@ -15,8 +15,16 @@ minimumReleaseAgeExclude:
   - "@astrojs/internal-helpers"
   - "@astrojs/markdown-satteri"
   - "@astrojs/underscore-redirects"
-  - "@xingwangzhe/satteri-mermaid"
+  - "@cloudflare/workerd-darwin-64"
+  - "@cloudflare/workerd-darwin-arm64"
+  - "@cloudflare/workerd-linux-64"
+  - "@cloudflare/workerd-linux-arm64"
+  - "@cloudflare/workerd-windows-64"
+  - "miniflare"
   - "@sveltia/cms"
+  - "workerd"
+  - "wrangler"
+  - "@xingwangzhe/satteri-mermaid"
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
 enableGlobalVirtualStore: false
