@@ -102,6 +102,24 @@ async function createContainer() {
   }
 }
 
+/**
+ * Feeds are built per-format (rss/atom/json) and per-grouping (tag,
+ * category, collection), so the same entry is frequently re-rendered many
+ * times over in a single build. AstroContainer creation and per-entry
+ * rendering (MDX render + two cheerio passes) are the expensive parts of
+ * feed generation, so both are memoized process-wide: the container is a
+ * singleton, and rendered entry HTML is cached by collection+id. This is
+ * safe because entry content and the site origin are both fixed for the
+ * lifetime of a single build/request process.
+ */
+let containerPromise: ReturnType<typeof createContainer> | undefined;
+function getSharedContainer() {
+  if (!containerPromise) containerPromise = createContainer();
+  return containerPromise;
+}
+
+const entryHtmlCache = new Map<string, Promise<string>>();
+
 /** Remove duplicate images from lightbox components for feeds. */
 function removeLightboxDuplicates(html: string): string {
   const $ = load(html);
@@ -174,14 +192,20 @@ async function renderEntryHtml(
   return absolutizeUrls(html, origin);
 }
 
-/** Convert a rendered collection entry into a FeedItem. */
+/** Convert a rendered collection entry into a FeedItem, caching rendered HTML by entry. */
 async function entryToFeedItem(
   container: Awaited<ReturnType<typeof createContainer>>,
   entry: any,
   url: string,
   origin: string,
 ): Promise<FeedItem> {
-  const html = await renderEntryHtml(container, entry, origin);
+  const cacheKey = `${origin}::${entry.collection}::${entry.id}`;
+  let htmlPromise = entryHtmlCache.get(cacheKey);
+  if (!htmlPromise) {
+    htmlPromise = renderEntryHtml(container, entry, origin);
+    entryHtmlCache.set(cacheKey, htmlPromise);
+  }
+  const html = await htmlPromise;
   return {
     title: entry.data.title,
     url,
@@ -408,7 +432,7 @@ export async function buildFeedFromSources(opts: {
   serializer: FeedSerializer;
 }): Promise<Response> {
   const site = opts.context.site!;
-  const container = await createContainer();
+  const container = await getSharedContainer();
   const items = await buildFeedItems(opts.sources, container, site.origin);
   return opts.serializer({
     context: opts.context,
