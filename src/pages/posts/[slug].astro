@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
-import { filterDrafts } from "../../utils";
+import { filterDrafts, getContentCacheKey } from "../../utils";
 
 export const prerender = true;
 
@@ -10,6 +10,7 @@ export async function getStaticPaths() {
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { entry: post },
+    cacheKey: getContentCacheKey([post]),
   }));
 }
 

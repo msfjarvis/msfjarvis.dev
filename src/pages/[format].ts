@@ -1,5 +1,4 @@
 import { getCollection } from "astro:content";
-import type { APIContext } from "astro";
 import {
   SITE_DESCRIPTION,
   SITE_TITLE,
@@ -11,7 +10,7 @@ import { createFeedEndpoint } from "../lib/feed";
 export const prerender = true;
 
 export const { getStaticPaths, GET } = createFeedEndpoint({
-  async getSources(_context: APIContext) {
+  async getSources() {
     const posts = await getCollection("posts", filterDrafts);
     const weeknotes = await getCollection("weeknotes", filterDrafts);
     return [

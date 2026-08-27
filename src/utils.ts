@@ -17,6 +17,35 @@ export function slugify(str: string): string {
     .replace(/^-|-$/g, ""); // trim leading/trailing hyphens
 }
 
+type ContentEntry = {
+  collection?: string;
+  id?: string;
+  url?: string;
+  digest?: string | number;
+};
+
+/** Return a stable key for the content entries that contribute to a page. */
+export function getContentCacheKey(entries: ContentEntry[]): string {
+  // A loader without a digest cannot safely reuse its previous output.
+  if (entries.some((entry) => entry.digest == null)) {
+    return crypto.randomUUID();
+  }
+
+  return JSON.stringify(
+    entries
+      .map(({ collection, id, url, digest }) => [
+        collection ?? "",
+        id ?? url ?? "",
+        String(digest),
+      ])
+      .sort(([leftCollection, leftId], [rightCollection, rightId]) =>
+        `${leftCollection}/${leftId}`.localeCompare(
+          `${rightCollection}/${rightId}`,
+        ),
+      ),
+  );
+}
+
 export const filterDrafts: (p: {
   data: { draft: boolean; deleted: boolean };
 }) => boolean = (p) => {

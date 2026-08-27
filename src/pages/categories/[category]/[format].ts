@@ -1,7 +1,7 @@
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
 import { SITE_TITLE, WEEKNOTES_LEGACY_CUTOFF } from "../../../consts";
-import { filterDrafts, slugify } from "../../../utils";
+import { filterDrafts, getContentCacheKey, slugify } from "../../../utils";
 import {
   type FeedFormat,
   FEED_FORMATS,
@@ -37,6 +37,10 @@ export async function getStaticPaths() {
     );
     return FEED_FORMATS.map((format) => ({
       params: { category: slug, format },
+      cacheKey: `${name}:${format}:${getContentCacheKey([
+        ...filteredPosts,
+        ...filteredWeeknotes,
+      ])}`,
       props: {
         categoryName: name,
         filteredPosts,

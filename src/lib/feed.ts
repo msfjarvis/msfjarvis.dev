@@ -4,6 +4,7 @@ import { render } from "astro:content";
 import { load } from "cheerio";
 import type { APIContext } from "astro";
 import { AUTHOR_NAME, SITE_URL } from "../consts";
+import { getContentCacheKey } from "../utils";
 
 /** Maximum number of entries to include in any feed. */
 const FEED_MAX_ENTRIES = 40;
@@ -45,7 +46,7 @@ export interface FeedEndpointConfig {
    * context is provided in case the implementation needs site/request info,
    * but most implementations will just call getCollection() here.
    */
-  getSources: (context: APIContext) => Promise<FeedSource[]>;
+  getSources: () => Promise<FeedSource[]>;
   title: string;
   description: string;
   /**
@@ -451,7 +452,13 @@ export async function buildFeedFromSources(opts: {
  *   export const { getStaticPaths, GET } = createFeedEndpoint({ ... });
  */
 export function createFeedEndpoint(config: FeedEndpointConfig): {
-  getStaticPaths: () => Array<{ params: { format: FeedFormat } }>;
+  getStaticPaths: () => Promise<
+    Array<{
+      params: { format: FeedFormat };
+      props: { sources: FeedSource[] };
+      cacheKey: string;
+    }>
+  >;
   GET: (context: APIContext) => Promise<Response>;
 } {
   // Register all format variants into the discovery registry.
@@ -469,14 +476,23 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
   }
 
   return {
-    getStaticPaths() {
-      return FEED_FORMATS.map((format) => ({ params: { format } }));
+    async getStaticPaths() {
+      const sources = await config.getSources();
+      const cacheKey = getContentCacheKey(
+        sources.flatMap(({ entries }) => entries),
+      );
+      return FEED_FORMATS.map((format) => ({
+        params: { format },
+        props: { sources },
+        cacheKey: `${cacheKey}:${format}`,
+      }));
     },
     async GET(context: APIContext): Promise<Response> {
       const format = context.params.format as FeedFormat;
       const serializer = FEED_SERIALIZERS[format];
       if (!serializer) return new Response("Not found", { status: 404 });
-      const sources = await config.getSources(context);
+      const sources = (context.props as { sources?: FeedSource[] }).sources;
+      if (!sources) return new Response("Internal Error", { status: 500 });
       return buildFeedFromSources({
         context,
         sources,

@@ -2,8 +2,7 @@
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { slugify } from "../../utils";
-import { filterDrafts } from "../../utils";
+import { filterDrafts, getContentCacheKey, slugify } from "../../utils";
 import { SITE_TITLE } from "../../consts.ts";
 
 export const prerender = true;
@@ -18,7 +17,7 @@ export async function getStaticPaths() {
   // Build a map of tag → entries
   const tagMap = new Map<
     string,
-    { title: string; date: Date; url: string }[]
+    { title: string; date: Date; url: string; digest?: string | number }[]
   >();
 
   const addEntries = (
@@ -32,6 +31,7 @@ export async function getStaticPaths() {
           title: entry.data.title,
           date: entry.data.date,
           url: `${urlBase}/${entry.id}/`,
+          digest: entry.digest,
         });
       }
     }
@@ -41,13 +41,19 @@ export async function getStaticPaths() {
   addEntries(notes, "/notes");
   addEntries(weeknotes, "/weeknotes");
 
-  return [...tagMap.entries()].map(([tag, entries]) => ({
-    params: { tag: slugify(tag) },
-    props: {
-      tag,
-      entries: entries.sort((a, b) => b.date.getTime() - a.date.getTime()),
-    },
-  }));
+  return [...tagMap.entries()].map(([tag, entries]) => {
+    const sortedEntries = entries.sort(
+      (a, b) => b.date.getTime() - a.date.getTime(),
+    );
+    return {
+      params: { tag: slugify(tag) },
+      props: {
+        tag,
+        entries: sortedEntries.map(({ digest: _, ...entry }) => entry),
+      },
+      cacheKey: `${tag}:${getContentCacheKey(sortedEntries)}`,
+    };
+  });
 }
 
 const { tag, entries } = Astro.props;

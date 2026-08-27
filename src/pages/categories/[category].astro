@@ -2,8 +2,7 @@
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { slugify } from "../../utils";
-import { filterDrafts } from "../../utils";
+import { filterDrafts, getContentCacheKey, slugify } from "../../utils";
 import { SITE_TITLE } from "../../consts.ts";
 
 export const prerender = true;
@@ -16,7 +15,7 @@ export async function getStaticPaths() {
 
   const catMap = new Map<
     string,
-    { title: string; date: Date; url: string }[]
+    { title: string; date: Date; url: string; digest?: string | number }[]
   >();
 
   const addEntries = (
@@ -30,6 +29,7 @@ export async function getStaticPaths() {
           title: entry.data.title,
           date: entry.data.date,
           url: `${urlBase}/${entry.id}/`,
+          digest: entry.digest,
         });
       }
     }
@@ -38,13 +38,19 @@ export async function getStaticPaths() {
   addEntries(posts, "/posts");
   addEntries(weeknotes, "/weeknotes");
 
-  return [...catMap.entries()].map(([category, entries]) => ({
-    params: { category: slugify(category) },
-    props: {
-      category,
-      entries: entries.sort((a, b) => b.date.getTime() - a.date.getTime()),
-    },
-  }));
+  return [...catMap.entries()].map(([category, entries]) => {
+    const sortedEntries = entries.sort(
+      (a, b) => b.date.getTime() - a.date.getTime(),
+    );
+    return {
+      params: { category: slugify(category) },
+      props: {
+        category,
+        entries: sortedEntries.map(({ digest: _, ...entry }) => entry),
+      },
+      cacheKey: `${category}:${getContentCacheKey(sortedEntries)}`,
+    };
+  });
 }
 
 const { category, entries } = Astro.props;

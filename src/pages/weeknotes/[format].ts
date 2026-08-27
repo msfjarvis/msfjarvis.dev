@@ -1,5 +1,4 @@
 import { getCollection } from "astro:content";
-import type { APIContext } from "astro";
 import { SITE_TITLE, WEEKNOTES_LEGACY_CUTOFF } from "../../consts";
 import { filterDrafts } from "../../utils";
 import { createFeedEndpoint } from "../../lib/feed";
@@ -7,7 +6,7 @@ import { createFeedEndpoint } from "../../lib/feed";
 export const prerender = true;
 
 export const { getStaticPaths, GET } = createFeedEndpoint({
-  async getSources(_context: APIContext) {
+  async getSources() {
     const weeknotes = await getCollection("weeknotes", filterDrafts);
     return [
       {
