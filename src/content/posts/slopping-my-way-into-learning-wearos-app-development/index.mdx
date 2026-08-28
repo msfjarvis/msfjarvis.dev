@@ -12,3 +12,11 @@ deleted: false
 ---
 
 When I was trying to justify the Pixel Watch 4 purchase to myself, I had told myself I'd learn how to write apps for WearOS. That cope never materialized, and I kind of forgot about it. Recently I discovered that the Google Calendar app for WearOS does not show events from non-Google calendars (which the Android app supports natively), so I decided to solve this by having my own [WearOS Complication](https://developer.android.com/design/ui/wear/guides/m2-5/surfaces/complication) that would render upcoming calendar events on my watch face.
+
+Thanks to my unending creativity the project is called [WearOS Calendar Sync](https://git.msfjarvis.dev/msfjarvis/wearos-calendar-sync), and it has a companion mobile app to snapshot events from a selection of calendars and shipping them off to the WearOS app on my watch. The UI is nothing to write home about:
+
+// TODO: Add phone screenshot
+
+# Data Architecture
+
+The initial data flow I had envisioned for the app was going to only have a WearOS app, and the app would take care of all the calendar sync work like the Google Calendar app does.
