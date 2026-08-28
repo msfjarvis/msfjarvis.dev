@@ -1,7 +1,7 @@
 packages:
   - "."
 overrides:
-  satteri: ^0.9.5
+  satteri: ^0.10.0
 patchedDependencies:
   "@mermanjs/web@0.7.0": patches/@mermanjs__web@0.7.0.patch
 allowBuilds:

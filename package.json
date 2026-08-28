@@ -41,7 +41,7 @@
     "pagefind": "^1.5.2",
     "photoswipe": "^5.4.4",
     "property-information": "^7.2.0",
-    "satteri": "^0.9.5",
+    "satteri": "^0.10.0",
     "sharp": "^0.35.3",
     "sirv": "^3.0.2"
   },
@@ -74,7 +74,7 @@
     "wrangler": "^4.125.0"
   },
   "overrides": {
-    "satteri": "^0.9.5",
+    "satteri": "^0.10.0",
     "vite": "^7"
   },
   "engines": {
