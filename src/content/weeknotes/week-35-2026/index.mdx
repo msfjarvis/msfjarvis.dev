@@ -1,0 +1,78 @@
+---
+title: "Weeknotes: Week #35 (2026)"
+date: "2026-08-30T10:00:29.898Z"
+lastmod: "2026-08-30T10:00:29.898Z"
+summary: "Slowly getting back to a normal schedule"
+tags:
+  - work
+  - llms
+categories: []
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import sheep_detectives from "./sheep-detectives.webp";
+import cream_pasta from "./cream-pasta.webp";
+
+# Life
+
+Coming off an extended bout of sickness I mostly took it easy this week, I wasn't physically feeling up for an early morning gym session and it rained most evenings which I didn't want to chance so this also ended up being a relatively sedentary week. My sleep schedule has been much better so I'm hoping to try in the upcoming week to get back into the gym in the morning shift.
+
+No better indication of the fact that I was still not a 100% was me falling asleep at 8:30 PM on Monday, which was followed by me waking up at 3:30 AM the next day and ending up in the office at 8:30 AM. Of course the 9:00 AM meeting I wanted to do at the office had been canceled the previous day, so that was egg on my face for not reading my email.
+
+Inspired by Tanvi's ~week~ [quarter note](https://tanvibhakta.in/weeknotes/week-of-months-of-may-june-july-2026-2026/) I started writing something about how I struggle with maintaining my relationship with my parents but chickened out around halfway through. Maybe some other day, after sufficient therapy.
+
+I did book my flights back home for Diwali, and the small crater the size of a large crater that it made in my credit card statement made me shed a tear.
+
+## Media
+
+The super-early morning on Tuesday was used to watch [The Sheep Detectives](https://www.imdb.com/title/tt32565993/) which I absolutely loved, very cute.
+
+<Figure
+  src={sheep_detectives}
+  title="Almost made me wanna take up shepherding. Almost."
+  alt="Hugh Jackman as George Hardy petting a brown sheep named Lily, voiced by Julia Louis-Dreyfus"
+/>
+
+I also watched [Mutiny](https://www.imdb.com/title/tt32338669) on a whim, Jason Statham does a great job playing Jason Statham in this one. Extremely forgettable.
+
+[Lanterns](https://www.imdb.com/title/tt26545992/) kept popping up in my feeds everywhere so I finally checked it out, and I fully get the hype. Shame there's only 2 episodes out though.
+
+[Yash](https://yashgarg.dev) and [Swapnil](https://github.com/swapnilmadavi) cooked up a plan to watch Odyssey on IMAX at 7:45 AM in the morning this coming Tuesday, so I'm excitedly looking forward to how we'll be managing that on a work day.
+
+On the [reading](/reading/) front, I finished The [Emilie Adventures](/reading/the-emilie-adventures/) and picked up [Negative Space](/reading/negative-space/). I don't remember who recommended it to me, but it's _really_ dark and I was in for quite the shock. That said, it is quite the departure from what I usually read so I'm okay with the change of pace.
+
+# Work
+
+This was my first day back at work after a full week of being out sick so there was expectedly a lot of unread messages to catch up on, but thankfully there were no big fires in my absence. I had a release planned before I got sick which unfortunately did not go out this week either as things kept piling on, will try again next week!
+
+I also fully wrapped up the project I was helping a Product Manager Intern with since his internship is going to end soon, slightly disappointed we didn't end up with something viable by the end but we did get some useful things out of it so not a total waste.
+
+# Personal Projects
+
+The homelab grew this week as I replaced [Calibre-Web](https://github.com/janeczku/calibre-web) with [BookOrbit](https://bookorbit.app/), mostly motivated by its excellent support for Kobo and KOReader. It took a fair bit of hassle to get it going on NixOS since it's not packaged yet and I chose to run the Docker image but ultimately I'm quite happy with the final result.
+
+I also [tweaked](https://git.msfjarvis.dev/msfjarvis/wearos-calendar-sync/commit/2875f6a78a53a2d4b70a248196fa993689567984) the WearOS Calendar app to prefer timed events over all-day ones when they overlap, and to show the date instead of time if an event is more than 24 hours away.
+
+## Meta
+
+While tinkering around with the site I noticed that the RSS feeds take a little _too_ long to generate and actually register as slow in Astro's build output, so went over it with a fine tooth comb and implemented some small changes that sped up the feed generation by nearly 2x. [Caching](https://github.com/msfjarvis/msfjarvis.dev/commit/4521d04a179a39ae96926055b9960da6b1f00d1a) the [AstroContainer](https://docs.astro.build/en/reference/container-reference/) object used to render individual feed entries as HTML so that it does not get re-rendered for each format gave the biggest win, and I figured while I was at it I'd also opt into Astro's experimental [build caching](https://github.com/msfjarvis/msfjarvis.dev/commit/4c158e6c19f4545375227a1c2cec6d51708d0fda).
+
+## 🤖 CLANK CLANK CLANK
+
+I spent some time making the [Pi](https://pi.dev) set up more portable and making it easier to hack on with code completion and what not. The trick for it is creating an NPM package at `~/.pi/agent` and then loading all the other extensions as workspaces which centralises `node_modules` and gets you dependencies even for the single-file extensions.
+
+I improved the MCP extension to [immediately load the UI](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/d721fd17ae0a4f7cc9f662e1d5e4ae651ad1f8cb) and refresh authentication status in the background to improve the user-facing interaction, and implemented a [command-driven model switcher](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/1a1cf169b2579a057e777f53169233b53b765079) so I can quickly swap models by running `/sol` or `/claude`.
+
+# Cooking
+
+Nothing super fancy this week, just our usual fare so I didn't bother with pictures. I did make a simple white sauce pasta on Saturday though.
+
+<Figure
+  src={cream_pasta}
+  title="Dumped everything I could find in the spice cabinet with a bit of cream and voila"
+  alt="A simple white sauce penne pasta in a bowl, with dried parsley and caramelized onions visible"
+  small={true}
+/>
