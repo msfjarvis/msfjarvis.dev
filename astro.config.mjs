@@ -34,7 +34,7 @@ const webmentionWorkerOrigin = process.env.WEBMENTION_WORKER_ORIGIN;
 const webmentionAuthToken = process.env.WEBMENTION_AUTH_TOKEN;
 
 const { renderCollectionCard } =
-  await import("./src/og/renderers/collection-card.tsx");
+  await import("./src/og/renderers/collection-card-split.tsx");
 
 const markdownProcessor = satteri({
   features: {
