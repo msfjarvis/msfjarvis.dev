@@ -57,16 +57,7 @@ const markdownProcessor = satteri({
 export default defineConfig({
   site: siteUrl,
   output: "server",
-  image: {
-    remotePatterns: [
-      { protocol: "https", hostname: "bookwyrm.social", pathname: "/**" },
-      {
-        protocol: "https",
-        hostname: "bookwyrm-social.sfo3.digitaloceanspaces.com",
-        pathname: "/images/covers/**",
-      },
-    ],
-  },
+  image: {},
   session: false,
   experimental: {
     incrementalBuild: true,
