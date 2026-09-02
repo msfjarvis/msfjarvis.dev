@@ -25,7 +25,7 @@
     },
     {
       matchDatasources: ["npm"],
-      matchPackageNames: ["satori"],
+      matchPackageNames: ["satori", "satteri"],
       enabled: false,
     },
   ],
