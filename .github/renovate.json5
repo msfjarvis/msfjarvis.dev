@@ -15,6 +15,8 @@
     {
       matchDatasources: ["npm"],
       minimumReleaseAge: "7 days",
+      groupName: "NPM dependencies",
+      groupSlug: "npm-deps"
     },
     {
       matchDatasources: ["npm"],
