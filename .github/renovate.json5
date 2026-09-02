@@ -23,5 +23,10 @@
       matchPackageNames: ["@sveltia/cms"],
       minimumReleaseAge: null,
     },
+    {
+      matchDatasources: ["npm"],
+      matchPackageNames: ["satori"],
+      disabled: true,
+    },
   ],
 }
