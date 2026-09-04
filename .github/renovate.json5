@@ -20,7 +20,7 @@
       commitMessagePrefix: "chore(deps):",
       commitMessageAction: "update",
       commitMessageTopic: "npm dependencies",
-      commitBody: "{{#each upgrades}}\n- {{{depName}}}: {{{currentValue}}} -> {{{newValue}}}\n{{/each}}",
+      commitBody: "{{#each upgrades}}\n- {{{depName}}}: {{{currentVersion}}} -> {{{newVersion}}}\n{{/each}}",
     },
     {
       matchDatasources: ["npm"],
