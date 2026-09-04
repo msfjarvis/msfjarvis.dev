@@ -16,7 +16,11 @@
       matchDatasources: ["npm"],
       minimumReleaseAge: "7 days",
       groupName: "NPM dependencies",
-      groupSlug: "npm-deps"
+      groupSlug: "npm-deps",
+      commitMessagePrefix: "chore(deps):",
+      commitMessageAction: "update",
+      commitMessageTopic: "npm dependencies",
+      commitBody: "{{#each upgrades}}\n- {{{depName}}}: {{{currentValue}}} -> {{{newValue}}}\n{{/each}}",
     },
     {
       matchDatasources: ["npm"],
