@@ -23,9 +23,21 @@ export function slugifyTitle(str) {
     .replace(/^-|-$/g, "");
 }
 
-function buildFrontmatter({ title, now }) {
+/**
+ * Emits a properly formatted YAML key for categories since I am tired of manually adding weeknotes
+ * category.
+ *
+ * @param {Array<string>} categories
+ */
+function formatCategories(categories) {
+  if (categories.length == 0) return "categories: []";
+  const formatted = categories.map((category) => `  - ${category}`).join("\n");
+  return `categories:\n${formatted}`;
+}
+
+function buildFrontmatter({ title, now, categories }) {
   const timestamp = now.toISOString();
-  return `---\ntitle: ${JSON.stringify(title)}\ndate: ${JSON.stringify(timestamp)}\nlastmod: ${JSON.stringify(timestamp)}\nsummary: ""\ntags: []\ncategories: []\ndraft: true\ndeleted: false\n---\n`;
+  return `---\ntitle: ${JSON.stringify(title)}\ndate: ${JSON.stringify(timestamp)}\nlastmod: ${JSON.stringify(timestamp)}\nsummary: ""\ntags: []\n${formatCategories(categories)}\ndraft: true\ndeleted: false\n---\n`;
 }
 
 export function createEntry({
@@ -67,7 +79,7 @@ export function createEntry({
   mkdirSync(entryDir, { recursive: true });
   writeFileSync(
     entryPath,
-    `${buildFrontmatter({ title: resolvedTitle, now })}\n`,
+    `${buildFrontmatter({ title: resolvedTitle, now, categories: type === "weeknotes" ? ["weeknotes"] : [] })}\n`,
     "utf8",
   );
   return entryPath;
