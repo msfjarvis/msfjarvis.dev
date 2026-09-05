@@ -13,10 +13,6 @@ export const navLinks: NavLinks[] = [
     href: "/reading",
   },
   {
-    label: "now",
-    href: "/now",
-  },
-  {
     label: "posts",
     href: "/posts",
   },
@@ -31,5 +27,9 @@ export const navLinks: NavLinks[] = [
   {
     label: "uses",
     href: "/uses",
+  },
+  {
+    label: "now",
+    href: "/now",
   },
 ];
