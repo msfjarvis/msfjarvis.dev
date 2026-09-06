@@ -1,0 +1,93 @@
+---
+title: "TIL: Prettier MDX/JSX formatting quirk with nested elements"
+date: "2026-09-06T07:45:19.992Z"
+lastmod: "2026-09-06T07:45:19.992Z"
+summary: "Prettier treats nested MDX elements based on the existing whitespace"
+tags:
+  - prettier
+  - javascript
+  - formatters
+deleted: false
+---
+
+[Prettier](https://prettier.io) is a JavaScript-based formatter that I use for this very site's codebase, since it is quite extensible and can handle a wide variety of formats. I recently noticed a specific quirk with it where you need to specifically pre-format JSX in a certain way to get a specific output from it. With this source document and no formatting configured:
+
+```mdx
+<Figure
+    src={lego_dino_onesie}
+    alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg"
+/>
+
+<Gallery>
+
+    <Figure
+        src={lego_dino_onesie}
+        alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg"
+    />
+
+    <Figure
+        src={lego_spiderman}
+        alt="A LEGO Spider-Man figure displayed among other models"
+    />
+
+</Gallery>
+```
+
+You will get this output ([Prettier playground](https://prettier.io/playground/#N4Igxg9gdgLgprEAuEAeAYgSwOYFcBOcAOlAATmkDO+YAvMADZzYQD6AJplG9HJZnAC+JCqQCGDGLSIgAgqQZj82OKULtSAGQCiAcQDypMAAslYsPHykA7nCVds40p26le-VcYgMXjsVQBbCQZnLghKMQJSZmwZEgB6AD4SElRdYLh8AE9kqBEKDBwCYjJRCmo6RmY2Fx4oPgFhUrLxSWk5BSUVNTgNHQMjU3xzSxs7fAcnWrd6j1IvH0n-SiCGENqIqJi45tIklN3CvEJ8lor6JhZWSgAHTHZMoKgmlvIJKRl5fsMAZTuH-AAWgAsmIyAAzIqEUK3RRZXriALQRwQGDGTKkJEPBiUHaifZ5KCoeLpNaZHIkEAAGhAEBuMEw0EoyFASnwEGsAAUlAhmSgJNYxFlmTSAEbDMAAazgMB+YgCcE0XDgyHBEkocBpEFFACs4BYAOrDG7IEA3Qga-AANxVYol0tlN3MDmQMHwuE1IA1AUwrvdnrgAA8bplMArYBJ9CHhjAIPhOeFMAzoKaEOxqSAg9GwwgYBIACqZKD2Piq9We-hQbBMACKuFRKqQapxnp1lEDPwctfr8DLLZpAEce3BOeybnyQGJKID6r1ehm3WJMAwHABhCABIKm4IZyvVuCyGBuzCi3DwTmZJX1PsamnGGABBgG4xJvhOsBwH68pOYK1JrKmmAlAiiAVoegAklADywD8YATPSshQT8MBZEwN6eua4RwEaYgmig5p8JkNoZmm+jglejYgAw4IZlwlowKOYjYFuTbljSTr4JapoBOwgYZuaXAwAa9xosgAAcAAMNKEEOmCEIxzFiOhNJ5qKwnsKJSAAEw0rgGr5mIop8s2t6ZgEoq9A87CaGCeBMXA6BxkER4uvyZ4QCAgiCEAA)):
+
+```mdx
+<Figure
+  src={lego_dino_onesie}
+  alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg"
+/>
+
+<Gallery>
+
+    <Figure
+        src={lego_dino_onesie}
+        alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg"
+    />
+
+    <Figure
+        src={lego_spiderman}
+        alt="A LEGO Spider-Man figure displayed among other models"
+    />
+
+</Gallery>
+```
+
+Notice how the outer Figure is now 2 space indented but the inner ones didn't change? Here's how you need to _manually_ lay out the inner text for Prettier to format it like the other one:
+
+```mdx
+<Figure
+  src={lego_dino_onesie}
+  alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg"
+/>
+
+<Gallery>
+    <Figure src={lego_dino_onesie} alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg" />
+    <Figure src={lego_spiderman} alt="A LEGO Spider-Man figure displayed among other models" />
+</Gallery>
+```
+
+Formatting this version with Prettier will give you the expected variant ([Prettier playground](https://prettier.io/playground/#N4Igxg9gdgLgprEAuEAeAYgSwOYFcBOcAOlAASkDO+YAvMADZzYQD6AJplK9HBZnAF8S5AIb0YNIiACCpeiPzY4pQm1IAZAKIBxAPKkwACwUiw8fKQDucBZ2ykRpDl1I8+ywxHrP7jigFsxeidOCAoRAlImbCkSAHoAPhISVG0guHwATySyclIMHAJlKloGJlZnbihefgEHcUkZOQUlFTg1LT0DY3xTcysbfDsHEJc3flJPb2G-QPpgyvDI6KlSROE8grxCSmo6RmYWCgAHTDYMwKg6sQkpWU79AGVT8-wAWgBZETIAM0KdjgneSZdoOfzQewQGCGDKkcHnegUVbrKCoOJpeYZbIgAA0IAgxxgmGgFGQoAU+AglgACgoEKSUGJLCJMqS8QAjXpgADWcBgjxE-jg6k4cGQPzEFDgeIg7IAVnAzAB1XrHZAgY6EKX4ABuYo5XN5-OOpjsyBg+Fw0pAUv8mHNlutcAAHscMpghbAxLo3b0YBB8NSwpgidB1Qg2LiQC7fR6EDAxAAVDJQWy8cWS618KDYRgARVwULFSAliOtcoozsednzhfgGbLeIAjnW4NTKccGSARBQ3tV2u0oxaRJh6HYAMIQfyBdVBKPZ3NwaQwC2Ydm4eDUjIi6oNqV4wwwfz0JWGEO8E1gOCPekhzA6kOZdVgChskA6q0ASSg51gjzAQyEtIP6PDAmSMHu1qamEcAqiIaooJqvAZHqUYRroPw7sWID0D8UacNqMDtiI2AziWmZ4ia+Dauq-hsM6UaapwMBKmc0LIAAHAADHihAtpghDEaRIiQXiCbsqxbDsUgABMeK4FKiYiOyDKlvu0b+Oy7TnGw6jfHgJFwOgAaBCuZqMhuEAgAIAhAA)):
+
+```mdx
+<Figure
+  src={lego_dino_onesie}
+  alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg"
+/>
+
+<Gallery>
+  <Figure
+    src={lego_dino_onesie}
+    alt="A large red LEGO character wearing a dino onesie holding a small dinosaur egg"
+  />
+  <Figure
+    src={lego_spiderman}
+    alt="A LEGO Spider-Man figure displayed among other models"
+  />
+</Gallery>
+```
+
+I _think_ it will be fixed by [this PR](https://github.com/prettier/prettier/pull/18533), but it has been in-progress for nearly 10 months now without any indication of an imminent merge.
