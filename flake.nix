@@ -64,12 +64,7 @@
             interactive = "";
           };
           packages = with pkgs; [
-            git
-            go
-            hyperlink
             libwebp
-            nodejs_latest
-            pagefind
           ];
           commands = [
             {
