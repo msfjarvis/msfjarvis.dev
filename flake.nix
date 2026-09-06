@@ -42,10 +42,6 @@
 
               programs = {
                 actionlint.enable = true;
-                biome = {
-                  enable = true;
-                  settings.formatter.indentStyle = "space";
-                };
                 deadnix.enable = true;
                 nixfmt = {
                   enable = true;
