@@ -1,5 +1,3 @@
-import assert from "node:assert/strict";
-import test from "node:test";
 import {
   openLibraryBookMetadataFieldNames,
   openLibraryBookMetadataFields,
@@ -8,6 +6,8 @@ import {
   applyImportedBook,
   isImportedBook,
 } from "./open-library-book-import.ts";
+import assert from "node:assert/strict";
+import test from "node:test";
 
 const fetched = {
   bookTitle: "Fetched",

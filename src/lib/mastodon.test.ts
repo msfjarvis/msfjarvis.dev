@@ -1,7 +1,6 @@
+import { fetchMastodonStatus } from "./mastodon.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
-
-import { fetchMastodonStatus } from "./mastodon.ts";
 
 const statusUrl = "https://infosec.exchange/@0xabad1dea/116900098449254586";
 

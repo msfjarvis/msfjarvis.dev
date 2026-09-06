@@ -1,7 +1,7 @@
-import { defineCollection } from "astro:content";
+import { createBookSchema } from "./lib/books";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { createBookSchema } from "./lib/books";
+import { defineCollection } from "astro:content";
 
 const postSchema = z.object({
   title: z.string(),

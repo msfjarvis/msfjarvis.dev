@@ -1,7 +1,3 @@
-import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import test from "node:test";
-
 import {
   buildManifest,
   buildManifestEntry,
@@ -9,6 +5,9 @@ import {
   formatSendSummary,
   sendEvents,
 } from "./webmentions.ts";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
 
 test("buildManifestEntry throws when lastmod is missing outside WORKERS_CI", () => {
   assert.throws(

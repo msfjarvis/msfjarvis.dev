@@ -1,6 +1,5 @@
-import { defineHastPlugin, defineMdastPlugin } from "satteri";
-
 import type { Blockquote, Emphasis, Paragraph } from "mdast";
+import { defineHastPlugin, defineMdastPlugin } from "satteri";
 import type { MdastNode } from "satteri";
 
 const alertPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i;

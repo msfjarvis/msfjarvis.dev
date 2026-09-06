@@ -1,15 +1,13 @@
+import {
+  applyMermaidThemeVariables,
+  mermaidSvgThemeStyles,
+} from "./mermaid-theme.ts";
 import * as cheerio from "cheerio";
 import { fromHtml } from "hast-util-from-html";
 import { basename } from "node:path";
 import { fileURLToPath } from "node:url";
 import { find, svg as svgSchema } from "property-information";
 import { defineHastPlugin } from "satteri";
-
-import {
-  applyMermaidThemeVariables,
-  mermaidSvgThemeStyles,
-} from "./mermaid-theme.ts";
-
 import type { HastNode } from "satteri";
 
 const mermaidModalStyles = `<style>

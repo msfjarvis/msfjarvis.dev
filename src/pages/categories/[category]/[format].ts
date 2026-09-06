@@ -1,13 +1,13 @@
-import { getCollection } from "astro:content";
-import type { APIContext } from "astro";
 import { SITE_TITLE, WEEKNOTES_LEGACY_CUTOFF } from "../../../consts";
-import { filterDrafts, getContentCacheKey, slugify } from "../../../utils";
 import {
-  type FeedFormat,
   FEED_FORMATS,
   FEED_SERIALIZERS,
+  type FeedFormat,
   buildFeedFromSources,
 } from "../../../lib/feed";
+import { filterDrafts, getContentCacheKey, slugify } from "../../../utils";
+import type { APIContext } from "astro";
+import { getCollection } from "astro:content";
 
 export const prerender = true;
 

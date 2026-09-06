@@ -1,7 +1,6 @@
+import { bookSchema, orderBooks, partitionBooks } from "./books.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
-
-import { bookSchema, orderBooks, partitionBooks } from "./books.ts";
 
 function book(overrides: Record<string, unknown> = {}) {
   return {

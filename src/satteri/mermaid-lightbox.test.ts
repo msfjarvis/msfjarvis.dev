@@ -1,10 +1,9 @@
-import assert from "node:assert/strict";
-import { test } from "node:test";
-import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
-import { markdownToHtml } from "satteri";
-
 import { mermaidLightbox } from "./mermaid-lightbox.ts";
 import { mermaidOptions } from "./mermaid-theme.ts";
+import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { markdownToHtml } from "satteri";
 
 const options = {
   mdastPlugins: [mermaidMdast()],

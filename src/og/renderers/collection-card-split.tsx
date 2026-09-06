@@ -8,9 +8,6 @@
  * To use, swap the import in astro.config.mjs:
  *   import { renderCollectionCard } from "./src/og/renderers/collection-card-split.tsx"
  */
-import type { RenderFunctionInput } from "astro-opengraph-images";
-import React, { type ReactNode } from "react";
-
 import {
   formatOGDate,
   getAccentColor,
@@ -19,6 +16,8 @@ import {
   readCollection,
   readDate,
 } from "../utils";
+import type { RenderFunctionInput } from "astro-opengraph-images";
+import React, { type ReactNode } from "react";
 
 // Right panel dimensions (1200px total, ~38 % left panel)
 const LEFT_PANEL_PERCENT = "38%";

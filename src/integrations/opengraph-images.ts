@@ -1,18 +1,18 @@
 import { Resvg } from "@resvg/resvg-js";
 import type { AstroIntegration } from "astro";
-import { extract, sanitizeHtml } from "astro-opengraph-images/extract.js";
-import { getFilePath } from "astro-opengraph-images/util.js";
-import * as fs from "node:fs/promises";
-import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
-import { JSDOM } from "jsdom";
-import satori from "satori";
 import type {
   FilterFunction,
   IntegrationInput,
   IntegrationOptions,
   RenderFunctionInput,
 } from "astro-opengraph-images";
+import { extract, sanitizeHtml } from "astro-opengraph-images/extract.js";
+import { getFilePath } from "astro-opengraph-images/util.js";
+import { JSDOM } from "jsdom";
+import * as fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import satori from "satori";
 
 type LocalIntegrationInput = IntegrationInput & {
   matchPathname?: (pathname: string) => boolean;

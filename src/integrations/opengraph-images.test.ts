@@ -1,7 +1,6 @@
+import { getPagePathname } from "./opengraph-images.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
-
-import { getPagePathname } from "./opengraph-images.ts";
 
 test("maps directory OpenGraph image paths back to their page paths", () => {
   assert.equal(getPagePathname("/posts/example/index.png"), "/posts/example/");

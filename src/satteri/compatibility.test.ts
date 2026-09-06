@@ -1,14 +1,12 @@
-import assert from "node:assert/strict";
-import { test } from "node:test";
-import { markdownToHtml } from "satteri";
-
-import type { CompileOptions } from "satteri";
-
 import {
   githubAlerts,
   legacyTableAlignment,
   remarkSmartypantsCompatibility,
 } from "./compatibility.ts";
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { markdownToHtml } from "satteri";
+import type { CompileOptions } from "satteri";
 
 const options: CompileOptions = {
   features: {

@@ -1,7 +1,6 @@
-import assert from "node:assert/strict";
-import test from "node:test";
-
 import {
+  type VoteStore,
+  VoteValidationError,
   applyRetractionToSummary,
   applyVoteToSummary,
   getVoteSummary,
@@ -9,10 +8,10 @@ import {
   parseVoteTarget,
   recordVote,
   retractVote,
-  VoteValidationError,
   voteTargetFromQuery,
-  type VoteStore,
 } from "./votes.ts";
+import assert from "node:assert/strict";
+import test from "node:test";
 
 test("records idempotent upvotes once per voter", async () => {
   const memory = createMemoryStore();

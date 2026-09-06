@@ -11,11 +11,10 @@
  *   2. Aliases in frontmatter: any path listed in the `aliases` field of a
  *      content file gets a 301 to that entry's canonical URL.
  */
-
-import { readFileSync, writeFileSync, readdirSync, statSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { readFileSync, readdirSync, statSync, writeFileSync } from "fs";
 import * as yaml from "js-yaml";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = join(__dirname, "..");

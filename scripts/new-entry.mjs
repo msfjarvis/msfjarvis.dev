@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
+import { deriveWeeknoteMetadata } from "../src/lib/weeknote-metadata.ts";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
-import { deriveWeeknoteMetadata } from "../src/lib/weeknote-metadata.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "..");

@@ -1,10 +1,10 @@
-import assert from "node:assert/strict";
-import test from "node:test";
 import {
   clearOpenLibraryCache,
   lookupOpenLibraryBook,
   parseOpenLibraryUrl,
 } from "./open-library-lookup.ts";
+import assert from "node:assert/strict";
+import test from "node:test";
 
 function mockFetch(records: Record<string, unknown>, calls: string[] = []) {
   return async (input: RequestInfo | URL) => {

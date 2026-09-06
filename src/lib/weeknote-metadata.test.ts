@@ -1,7 +1,6 @@
+import { deriveWeeknoteMetadata } from "./weeknote-metadata.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
-
-import { deriveWeeknoteMetadata } from "./weeknote-metadata.ts";
 
 test("derives canonical ISO weeknote metadata", () => {
   assert.deepEqual(

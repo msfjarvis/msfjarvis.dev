@@ -8,9 +8,6 @@
  * To use, swap the import in astro.config.mjs:
  *   import { renderCollectionCard } from "./src/og/renderers/collection-card-tag.tsx"
  */
-import type { RenderFunctionInput } from "astro-opengraph-images";
-import React, { type ReactNode } from "react";
-
 import {
   formatOGDate,
   getAccentColor,
@@ -19,6 +16,8 @@ import {
   readCollection,
   readDate,
 } from "../utils";
+import type { RenderFunctionInput } from "astro-opengraph-images";
+import React, { type ReactNode } from "react";
 
 const TITLE_LINE_HEIGHT = 1.04;
 const TITLE_FONT_SIZE = 58;

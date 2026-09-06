@@ -1,9 +1,9 @@
-import type { CustomFieldControl, CustomFieldControlProps } from "@sveltia/cms";
-import { isImportedBook } from "./open-library-book-import";
 import {
-  lookupOpenLibraryBook,
   type OpenLibraryBook,
+  lookupOpenLibraryBook,
 } from "../open-library-lookup";
+import { isImportedBook } from "./open-library-book-import";
+import type { CustomFieldControl, CustomFieldControlProps } from "@sveltia/cms";
 
 type CmsElement = unknown;
 type H = (

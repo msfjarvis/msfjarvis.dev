@@ -1,12 +1,11 @@
-import assert from "node:assert/strict";
-import test from "node:test";
-
 import {
+  VoteApiError,
   fetchVoteSummary,
   parseVoteSummary,
   submitVote,
-  VoteApiError,
 } from "./votes-client.ts";
+import assert from "node:assert/strict";
+import test from "node:test";
 
 test("parses an upvote summary for the requested target", () => {
   assert.deepEqual(

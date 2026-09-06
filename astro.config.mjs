@@ -1,19 +1,8 @@
 // astro.config.mjs
 // @ts-check
-import * as fs from "node:fs";
-
-import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
-import cloudflare from "@astrojs/cloudflare";
-import { defineConfig } from "astro/config";
-import { satteri } from "@astrojs/markdown-satteri";
-import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
-import { photoswipe } from "@xingwangzhe/satteri-photoswipe";
-import icon from "astro-iconset";
-import pagefind from "./src/integrations/pagefind.ts";
-
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
 import opengraphImages from "./src/integrations/opengraph-images.ts";
+import pagefind from "./src/integrations/pagefind.ts";
 import webmentionsIntegration from "./src/integrations/webmentions.ts";
 import {
   githubAlerts,
@@ -22,8 +11,16 @@ import {
 } from "./src/satteri/compatibility.ts";
 import { mermaidLightbox } from "./src/satteri/mermaid-lightbox.ts";
 import { mermaidOptions } from "./src/satteri/mermaid-theme.ts";
-
+import cloudflare from "@astrojs/cloudflare";
+import { satteri } from "@astrojs/markdown-satteri";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
+import { photoswipe } from "@xingwangzhe/satteri-photoswipe";
 import expressiveCode from "astro-expressive-code";
+import icon from "astro-iconset";
+import { defineConfig } from "astro/config";
+import * as fs from "node:fs";
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
 const siteUrl = isDrafts

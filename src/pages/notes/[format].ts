@@ -1,7 +1,7 @@
-import { getCollection } from "astro:content";
 import { SITE_TITLE } from "../../consts";
-import { filterDrafts } from "../../utils";
 import { createFeedEndpoint } from "../../lib/feed";
+import { filterDrafts } from "../../utils";
+import { getCollection } from "astro:content";
 
 export const prerender = true;
 

@@ -1,12 +1,12 @@
-import { getCollection } from "astro:content";
-import type { APIContext } from "astro";
 import { SITE_URL } from "../consts";
 import {
+  type WebmentionsCollection,
   buildManifest,
   buildManifestEntry,
-  type WebmentionsCollection,
 } from "../lib/webmentions";
 import { filterDrafts } from "../utils";
+import type { APIContext } from "astro";
+import { getCollection } from "astro:content";
 
 export const prerender = true;
 

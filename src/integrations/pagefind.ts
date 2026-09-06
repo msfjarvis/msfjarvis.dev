@@ -1,8 +1,7 @@
+import type { AstroIntegration } from "astro";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
-import type { AstroIntegration } from "astro";
-import { createIndex, type PagefindServiceConfig } from "pagefind";
+import { type PagefindServiceConfig, createIndex } from "pagefind";
 import sirv from "sirv";
 
 export interface PagefindOptions {
