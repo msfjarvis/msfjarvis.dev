@@ -53,6 +53,7 @@
     "@iarna/toml": "^2.2.5",
     "@iconify-json/simple-icons": "^1.2.93",
     "@resvg/resvg-js": "^2.6.2",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/jsdom": "^30.0.0",
     "@types/mdast": "^4.0.4",
     "@types/node": "^26.2.0",
