@@ -33,8 +33,8 @@ importers:
         specifier: ^1.5.2
         version: 1.5.2
       '@sveltia/cms':
-        specifier: ^0.206.0
-        version: 0.206.0
+        specifier: ^0.207.0
+        version: 0.207.1
       '@xingwangzhe/satteri-mermaid':
         specifier: ^0.7.7
         version: 0.7.7(satteri@0.9.5)
@@ -1616,8 +1616,8 @@ packages:
   '@speed-highlight/core@1.2.24':
     resolution: {integrity: sha512-qeW2e1l78afw8VhRPfPQ1Gjj+KU5XFQ/OFV5ti6eTa9bruO7mJyZtA4vw0ofqmA3tKCkROE9xLk3VZoeRc98nw==}
 
-  '@sveltia/cms@0.206.0':
-    resolution: {integrity: sha512-WYqUd7AVBiSzx+15xEfvdZ579Byf8IwjxcqNFBVQKM/osLwA78OPHBWlABe2C3Gzc3+KoZ8BgFc/GEPUVwFGfw==}
+  '@sveltia/cms@0.207.1':
+    resolution: {integrity: sha512-OJl0h889FUh+M6DMW/xCPYQQbgb6f5pYmd0dpjT7Ipxinr1yzWRSi6XWE4JcRnnmb+6Zy2cNxSVGVfo4yqz6GQ==}
 
   '@trivago/prettier-plugin-sort-imports@6.0.2':
     resolution: {integrity: sha512-3DgfkukFyC/sE/VuYjaUUWoFfuVjPK55vOFDsxD56XXynFMCZDYFogH2l/hDfOsQAm1myoU/1xByJ3tWqtulXA==}
@@ -5252,7 +5252,7 @@ snapshots:
 
   '@speed-highlight/core@1.2.24': {}
 
-  '@sveltia/cms@0.206.0': {}
+  '@sveltia/cms@0.207.1': {}
 
   '@trivago/prettier-plugin-sort-imports@6.0.2(prettier@3.9.6)(supports-color@10.2.2)':
     dependencies:
