@@ -13,7 +13,8 @@ type ImageMetadata = {
   src: string;
   width: number;
   height: number;
-  format: string;
+  format:
+    "jpeg" | "jpg" | "png" | "apng" | "tiff" | "webp" | "gif" | "svg" | "avif";
 };
 
 const { src, srcDark, alt = "", title, small = false } = Astro.props;

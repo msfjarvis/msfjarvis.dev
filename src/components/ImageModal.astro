@@ -1,4 +1,14 @@
 ---
+import { getImage } from "astro:assets";
+
+type ImageMetadata = {
+  src: string;
+  width: number;
+  height: number;
+  format:
+    "jpeg" | "jpg" | "png" | "apng" | "tiff" | "webp" | "gif" | "svg" | "avif";
+};
+
 interface Props {
   src: ImageMetadata | string;
   srcDark?: ImageMetadata | string;
@@ -7,18 +17,18 @@ interface Props {
   small: boolean;
 }
 
-type ImageMetadata = {
-  src: string;
-  width: number;
-  height: number;
-  format: string;
-};
-
 const { src, srcDark, alt = "", title, small } = Astro.props;
 const image = typeof src === "object" ? src : undefined;
+const darkImage = typeof srcDark === "object" ? srcDark : undefined;
 const imageSrc = typeof src === "object" ? src.src : src;
 const darkImageSrc =
   typeof srcDark === "object" ? srcDark.src : (srcDark ?? undefined);
+const [imageAvif, imageWebp, darkImageAvif, darkImageWebp] = await Promise.all([
+  image && getImage({ src: image, format: "avif" }),
+  image && getImage({ src: image, format: "webp" }),
+  darkImage && getImage({ src: darkImage, format: "avif" }),
+  darkImage && getImage({ src: darkImage, format: "webp" }),
+]);
 const imageLabel = alt || title || "Open image in gallery";
 ---
 
@@ -36,15 +46,31 @@ const imageLabel = alt || title || "Open image in gallery";
     <span class="image-modal__media">
       <picture>
         {
-          srcDark && (
+          darkImageAvif && (
             <source
               media="(prefers-color-scheme: dark)"
-              srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
+              srcset={darkImageAvif.src}
+              type="image/avif"
             />
           )
         }
+        {
+          darkImageWebp && (
+            <source
+              media="(prefers-color-scheme: dark)"
+              srcset={darkImageWebp.src}
+              type="image/webp"
+            />
+          )
+        }
+        {
+          typeof srcDark === "string" && (
+            <source media="(prefers-color-scheme: dark)" srcset={srcDark} />
+          )
+        }
+        {imageAvif && <source srcset={imageAvif.src} type="image/avif" />}
         <img
-          src={imageSrc}
+          src={imageWebp?.src ?? imageSrc}
           alt={alt}
           loading="lazy"
           decoding="async"
