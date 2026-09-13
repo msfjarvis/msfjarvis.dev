@@ -18,6 +18,8 @@ const postSchema = z.object({
 
 const gameSchema = z.object({
   title: z.string(),
+  date: z.coerce.date(),
+  image: z.string(),
 });
 
 const posts = defineCollection({

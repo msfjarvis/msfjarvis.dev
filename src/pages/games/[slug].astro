@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { getContentCacheKey } from "../../utils";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const notes = await getCollection("games");
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { entry: note },
+    cacheKey: getContentCacheKey([note]),
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<PostLayout
+  postId={`games/${entry.id}`}
+  title={entry.data.title}
+  date={entry.data.date}
+  image={entry.data.image}
+  autoImage={false}
+  collection="games"
+  headings={headings}
+>
+  <Content />
+</PostLayout>
