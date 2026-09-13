@@ -1,0 +1,74 @@
+---
+title: "Weeknotes: Week #37 (2026)"
+date: "2026-09-13T13:29:27.853Z"
+lastmod: "2026-09-13T13:29:27.853Z"
+summary: "Big cooking week, and a small return to programming things the 'old' way"
+tags:
+  - movies
+  - cooking
+  - programming
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import air_fryer_chicken_breasts from './air-fryer-chicken-breasts.webp';
+import chicken_and_veggie_salad from './chicken-and-veggie-salad.webp';
+import foxtail_millet_and_chickpea_salad from './foxtail-millet-and-chickpea-salad.webp';
+
+This week was a bit all over the place with work being a little weird, and me spending most of my free time working on [Claw](https://github.com/msfjarvis/compose-lobsters). Lots of cooking though!
+
+## Personal
+
+Not a _lot_ of socializing this week, since I mostly worked from home and opted to be a homebody. In total, I spent around 2 hours talking to my parents over voice and video calls which is a big change for me. It was rather pleasant! Though I will admit, learning that they're planning a trip to Bhubaneswar via orders to book their flights was a little annoying.
+
+On Thursday night we picked up a package from one friend for another and chatted a bit, was nice to catch up.
+
+I needed to buy a new pair of shoes so [Yash](https://yashgarg.dev) and I did that together on Sunday afternoon to get some time under the sun. 1 PM was a little hot for this but the walk was enjoyable. The Skechers store here in Indirangar didn't have the best collection, but I was able to find something acceptable.
+
+## Work
+
+Things at work have been rather quiet as everyone is in the middle of long duration projects and the day-to-day has slowed down quite a lot. The next Monday being a holiday will be nice, given I have 3 straight hours of meetings on Tuesday, starting at **8:30 AM**. I suppose this is my pre-training for an eventual managerial position, which is not serving its intended purpose as far as I am concerned.
+
+## Movies
+
+With most lunchtimes being at home, the second monitor had some movies going. I watched [Crime 101](https://www.imdb.com/title/tt32430579/) which was decent enough but rather formulaic. [Top Gun: Maverick](https://www.imdb.com/title/tt1745960/) was up next and once again it's just Tom Cruise being excellently Tom Cruise. Great movie, good character development, and may Cruise never die but preferably stop being a Scientologist.
+
+## Games
+
+A lot of gaming this week, primarily in [Sucker For Love: Crush Landing](https://store.steampowered.com/app/3848900/Sucker_for_Love_Crush_Landing/) and [HoloTrials: Case Covered](https://store.steampowered.com/app/4252960/HoloTrials_Case_Covered/). Both games are visual novels, and feature some _gorgeous_ art. The HoloTrials art inspired me so much I am now finally setting up the in-game photography collection on my website so I can share it. It's technically already live, but it needs a lot more work before I can start sharing it. Next week!
+
+## Personal projects
+
+Inspired by the blog roll replay feature we now have on the [IWCB Mastodon Bot](https://indieweb.social/@blr) I wanted to implement something similar for Claw, given I am currently sitting on around 1700+ bookmarked posts. I chose to forego LLMs for this and spent a few nights and mornings to implement it (pull request [here](https://github.com/msfjarvis/compose-lobsters/pull/1264)). It was fun to iterate on this over a few days since the notifications were scheduled to be once-a-day. I realized that because I've written and reviewed so much LLM authored code in my work project, I've kind of started writing new code in a similar style. Initially I was a little distraught, but thinking about it, it's just an uglier version of the "functional core, imperative shell" paradigm that I already liked before LLMs became any good. Extracting a small bit of pure logic out of a class with complex dependencies and testing it in isolation was something I had been taught way before I had had the misfortune of hearing of OpenAI. Despair conquered 🙃
+
+### 🤖 CLANK CLANK CLANK 🤖
+
+A few weeks ago I had clanked together a [CLI tool](https://git.msfjarvis.dev/msfjarvis/actual-budget-backfiller) to reconcile my Actual Budget account and my credit card statement. I kept tacking on small improvements as I needed them but since this is fully slop coded, the cracks have started to show, and I'm now looking at 8K lines of rubbish. I _could_ rewrite this by hand, but for something I'll use once a month at most, I chose to try a different approach to clanking to see if it yields any better results. I've seen people speak highly of [Matt Pocock's skills](https://github.com/mattpocock/skills) and decided to use them to fully restart this project from scratch. In 3 sessions it has so far fully reconstructed every feature short of actually writing transactions to Actual Budget, and done so with a properly managed issue tracker. All decisions have justifications and a record on [Linear](https://linear.app), and everything is as I wanted it to be. I'll see if I want to write about this separately, but I'm pretty impressed so far. For all intents and purposes this is still slop, but it's **significantly** more readable and looks like something I could dive into myself if needed.
+
+## Cooking
+
+Lots of home cooking this week given both [Yash](https://yashgarg.dev/weekly-notes-37-2026/) and I were feeling a little health conscious. Not pictured below: a spicy shahi paneer and a veggie-laden pulav.
+
+<Gallery>
+    <Figure
+        src={air_fryer_chicken_breasts}
+        title="We ate these straight out of the air fryer like goblins. 10/10"
+        alt="Seasoned chicken breasts in an air fryer"
+    />
+
+    <Figure
+        src={chicken_and_veggie_salad}
+        title="Salads are probably my favorite dinner. Get a veggie chopper!"
+        alt="Vegetable salad topped with grilled chicken"
+    />
+
+    <Figure
+        src={foxtail_millet_and_chickpea_salad}
+        title="A little too much hassle personally, need a different recipe"
+        alt="Foxtail millet and chickpea salad with vegetables"
+    />
+</Gallery>
