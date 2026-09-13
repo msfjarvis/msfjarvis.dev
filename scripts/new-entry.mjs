@@ -12,6 +12,7 @@ const TYPE_TO_DIR = {
   posts: "posts",
   notes: "notes",
   weeknotes: "weeknotes",
+  games: "games",
 };
 
 export function slugifyTitle(str) {
@@ -34,7 +35,11 @@ function formatCategories(categories) {
   return `categories:\n${formatted}`;
 }
 
-function buildFrontmatter({ title, now, categories }) {
+function buildFrontmatter({ title, now, categories, type }) {
+  if (type === "games") {
+    return `---\ntitle: ${JSON.stringify(title)}\n---\n`;
+  }
+
   const timestamp = now.toISOString();
   return `---\ntitle: ${JSON.stringify(title)}\ndate: ${JSON.stringify(timestamp)}\nlastmod: ${JSON.stringify(timestamp)}\nsummary: ""\ntags: []\n${formatCategories(categories)}\ndraft: true\ndeleted: false\n---\n`;
 }
@@ -78,7 +83,12 @@ export function createEntry({
   mkdirSync(entryDir, { recursive: true });
   writeFileSync(
     entryPath,
-    `${buildFrontmatter({ title: resolvedTitle, now, categories: type === "weeknotes" ? ["weeknotes"] : [] })}\n`,
+    `${buildFrontmatter({
+      title: resolvedTitle,
+      now,
+      type,
+      categories: type === "weeknotes" ? ["weeknotes"] : [],
+    })}\n`,
     "utf8",
   );
   return entryPath;
@@ -89,7 +99,9 @@ function main() {
   const title = titleParts.join(" ").trim();
 
   if (!type || (type !== "weeknotes" && !title)) {
-    console.error("Usage: node scripts/new-entry.mjs <posts|notes> <title>");
+    console.error(
+      "Usage: node scripts/new-entry.mjs <posts|notes|games> <title>",
+    );
     console.error("   or: node scripts/new-entry.mjs <weeknotes>");
     process.exit(1);
   }

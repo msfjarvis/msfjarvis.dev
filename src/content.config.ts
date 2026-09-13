@@ -16,6 +16,10 @@ const postSchema = z.object({
   deleted: z.boolean().optional().default(false),
 });
 
+const gameSchema = z.object({
+  title: z.string(),
+});
+
 const posts = defineCollection({
   loader: glob({ base: "./src/content/posts", pattern: "**/index.{md,mdx}" }),
   schema: postSchema,
@@ -34,6 +38,11 @@ const weeknotes = defineCollection({
   schema: postSchema,
 });
 
+const games = defineCollection({
+  loader: glob({ base: "./src/content/games", pattern: "**/index.{md,mdx}" }),
+  schema: gameSchema,
+});
+
 const books = defineCollection({
   loader: glob({ base: "./src/content/books", pattern: "**/index.{md,mdx}" }),
   schema: ({ image }) => createBookSchema(image()),
@@ -43,5 +52,6 @@ export const collections = {
   posts,
   notes,
   weeknotes,
+  games,
   books,
 };
