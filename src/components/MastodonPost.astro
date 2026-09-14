@@ -1,12 +1,13 @@
 ---
-import { fetchMastodonStatus } from "../lib/mastodon.ts";
+import { mastodonSnapshots } from "../data/mastodon-snapshots.ts";
+import { getMastodonStatusSnapshot } from "../lib/mastodon.ts";
 
 interface Props {
   url: string;
 }
 
 const { url } = Astro.props;
-const status = await fetchMastodonStatus({ url });
+const status = getMastodonStatusSnapshot({ url, snapshots: mastodonSnapshots });
 const displayTimestamp = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",
   timeStyle: "short",

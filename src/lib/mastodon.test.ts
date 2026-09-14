@@ -1,8 +1,38 @@
-import { fetchMastodonStatus } from "./mastodon.ts";
+import {
+  type MastodonStatus,
+  fetchMastodonStatus,
+  getMastodonStatusSnapshot,
+} from "./mastodon.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
 
 const statusUrl = "https://infosec.exchange/@0xabad1dea/116900098449254586";
+
+test("loads a snapshot using the normalized status URL", () => {
+  const snapshot: MastodonStatus = {
+    canonicalUrl: statusUrl,
+    paragraphs: ["A saved post"],
+    createdAt: "2026-07-11T12:00:00.000Z",
+    author: { displayName: "Ada", account: "@ada@infosec.exchange" },
+    images: [],
+    attachments: [],
+  };
+
+  assert.deepEqual(
+    getMastodonStatusSnapshot({
+      url: `http://${statusUrl.slice("https://".length)}`,
+      snapshots: { [statusUrl]: snapshot },
+    }),
+    snapshot,
+  );
+});
+
+test("fails descriptively when a Mastodon snapshot is missing", () => {
+  assert.throws(
+    () => getMastodonStatusSnapshot({ url: statusUrl, snapshots: {} }),
+    /Missing Mastodon status snapshot.*pnpm mastodon:refresh/s,
+  );
+});
 
 test("normalizes HTTP status URLs before fetching", async () => {
   let requestedUrl = "";

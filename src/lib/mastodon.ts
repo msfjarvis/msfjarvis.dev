@@ -94,6 +94,10 @@ function accountAddress(acct: string, instance: string): string {
   return acct.includes("@") ? `@${acct}` : `@${acct}@${instance}`;
 }
 
+export function getMastodonSnapshotKey(url: string): string {
+  return parseStatusUrl(url).canonicalUrl;
+}
+
 function normalizeStatus(
   value: unknown,
   requested: ParsedStatusUrl,
@@ -137,6 +141,86 @@ function normalizeStatus(
     images,
     attachments,
   };
+}
+
+function snapshotString(value: unknown, label: string): string {
+  if (typeof value !== "string") {
+    throw new Error(`Invalid Mastodon status snapshot: ${label}`);
+  }
+  return value;
+}
+
+function snapshotStringList(value: unknown, label: string): string[] {
+  if (!Array.isArray(value)) {
+    throw new Error(`Invalid Mastodon status snapshot: ${label}`);
+  }
+  return value.map((item, index) => snapshotString(item, `${label}[${index}]`));
+}
+
+function snapshotList(
+  value: unknown,
+  label: string,
+  fields: readonly string[],
+): Array<Record<string, string>> {
+  if (!Array.isArray(value)) {
+    throw new Error(`Invalid Mastodon status snapshot: ${label}`);
+  }
+  return value.map((item, index) => {
+    const record = requiredRecord(item, `${label}[${index}]`);
+    return Object.fromEntries(
+      fields.map((field) => [
+        field,
+        snapshotString(record[field], `${label}[${index}].${field}`),
+      ]),
+    );
+  });
+}
+
+function normalizeSnapshot(
+  value: unknown,
+  canonicalUrl: string,
+): MastodonStatus {
+  const data = requiredRecord(value, "payload");
+  if (data.canonicalUrl !== canonicalUrl) {
+    throw new Error("Invalid Mastodon status snapshot: canonicalUrl");
+  }
+
+  const author = requiredRecord(data.author, "author");
+  const paragraphs = snapshotStringList(data.paragraphs, "paragraphs");
+  const images = snapshotList(data.images, "images", ["url", "alt"]).map(
+    ({ url, alt }) => ({ url, alt }),
+  );
+  const attachments = snapshotList(data.attachments, "attachments", [
+    "url",
+    "label",
+  ]).map(({ url, label }) => ({ url, label }));
+
+  return {
+    canonicalUrl,
+    paragraphs,
+    createdAt: parseTimestamp(data.createdAt),
+    author: {
+      displayName: snapshotString(author.displayName, "author.displayName"),
+      account: snapshotString(author.account, "author.account"),
+    },
+    images,
+    attachments,
+  };
+}
+
+/** Load a checked-in status snapshot; builds never fall back to the network. */
+export function getMastodonStatusSnapshot(input: {
+  url: string;
+  snapshots: Record<string, unknown>;
+}): MastodonStatus {
+  const canonicalUrl = getMastodonSnapshotKey(input.url);
+  const snapshot = input.snapshots[canonicalUrl];
+  if (!snapshot) {
+    throw new Error(
+      `Missing Mastodon status snapshot for ${canonicalUrl}. Run pnpm mastodon:refresh.`,
+    );
+  }
+  return normalizeSnapshot(snapshot, canonicalUrl);
 }
 
 export async function fetchMastodonStatus(input: {

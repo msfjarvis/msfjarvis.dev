@@ -8,22 +8,20 @@ Implement a server-rendered Astro component, `src/components/MastodonPost.astro`
 <MastodonPost url="https://infosec.exchange/@0xabad1dea/116900098449254586" />
 ```
 
-The component parses a repository-controlled Mastodon status URL and fetches the instance-local public REST endpoint, `https://<instance>/api/v1/statuses/<status-id>`. It emits a semantic, intentionally unstyled `blockquote` with `lang`, `cite`, and `data-source="fediverse"` attributes; post text; image attachments; and an author/timestamp footer linking to the canonical post URL.
+The component parses a repository-controlled Mastodon status URL and loads its checked-in normalized snapshot. It emits a semantic, intentionally unstyled `blockquote` with `lang`, `cite`, and `data-source="fediverse"` attributes; post text; image attachments; and an author/timestamp footer linking to the canonical post URL.
 
 ## Rendering model
 
-- Add `src/lib/mastodon.ts` for URL parsing, endpoint construction, fetch/response validation, and normalization. Keep it separate from Astro markup and accept an injectable `fetch` implementation for Node tests. The `url` prop is trusted site content, not untrusted request input: do not reuse this fetch path for visitor-supplied URLs without an outbound network policy that resolves and pins public IP addresses.
-- Render with `MastodonPost.astro`; content pages are prerendered today, so the status fetch happens during the Astro build for those pages. The same component remains compatible with server-rendered routes.
+- `src/lib/mastodon.ts` owns URL parsing, endpoint construction, live response validation/normalization for refreshes, and snapshot validation/loading for rendering. Keep it separate from Astro markup and accept an injectable `fetch` implementation for Node tests. The `url` prop is trusted site content, not untrusted request input: do not reuse the refresh fetch path for visitor-supplied URLs without an outbound network policy that resolves and pins public IP addresses.
+- Run `pnpm mastodon:refresh` after adding or changing an embed. The command scans `src/**/*.astro` and `src/**/*.mdx` for live literal `MastodonPost` URL props, fetches the public REST endpoint, and atomically regenerates the checked-in `src/data/mastodon-snapshots.ts` module. MDX authoring stays `<MastodonPost url="…" />`; the generated data is never refreshed during a normal build.
+- Render with `MastodonPost.astro`; pages and feeds consume the same snapshot and make no Mastodon network requests at build or request time.
 - Convert remote status HTML into escaped plain-text paragraphs, preserving `<p>` and line-break structure. Do not inject provider HTML with `set:html`: content from arbitrary Mastodon instances is untrusted.
-- Render image attachments as `<figure><img ... loading="lazy"></figure>`, using original width, height, URL, and description where supplied by the API.
-- Render non-image attachments as ordinary links rather than adding media-player behavior.
+- Render image attachments as `<figure><img ... loading="lazy"></figure>` using their URL and description. Render non-image attachments as ordinary links rather than adding media-player behavior.
 - Attribute the post with the API status/account display name, federated account address, canonical status URL, and ISO timestamp. Render the blockquote with the deterministic `lang="en"` attribute; do not trust or pass through the API's optional `language` field.
 
 ## Failure behavior
 
-Failure is deliberate: invalid or unsupported URL shapes, non-success responses, malformed API payloads, unavailable/deleted statuses, and network errors must throw descriptive errors. A broken upstream post must fail the build/request rather than silently produce a fallback link or incomplete page.
-
-There is no fetch cache or retry policy in the first version. Each component render fetches its status once; caching can be added later if repeated embeds make it necessary.
+Failure is deliberate: normal builds fail descriptively when a snapshot is missing, malformed, or mismatched with its URL. They never fall back to a live fetch. The explicit refresh command fails on invalid or unsupported URL shapes, non-success responses, malformed API payloads, unavailable/deleted statuses, and network errors; it writes nothing unless every referenced embed refreshes successfully. There is no automatic refresh, retry, or stale-data policy.
 
 ## Scope and alternatives
 
@@ -33,4 +31,4 @@ ActivityPub document fetching was rejected for now because cross-software object
 
 ## Verification
 
-Use the repository's Node test runner (`node --test ./**/*.test.ts`). Unit tests should cover URL parsing and endpoint generation, successful response normalization (body paragraphs, image metadata, and attribution), and all failure paths through injected `fetch` implementations. Run formatting, linting, Astro type checking, and the test suite after implementation.
+Use the repository's Node test runner (`pnpm test`). Unit tests cover URL parsing, snapshot lookup, response normalization, and failure paths through injected `fetch` implementations. Refresh-command tests cover literal MDX URL extraction and deterministic generated output. Run formatting, linting, Astro type checking, and the test suite after implementation.

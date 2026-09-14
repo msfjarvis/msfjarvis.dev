@@ -16,13 +16,14 @@
     "import:bookwyrm": "node scripts/import-bookwyrm-reading.mjs",
     "lint": "eslint .",
     "migrate": "node scripts/migrate-hugo.mjs",
+    "mastodon:refresh": "node scripts/refresh-mastodon-snapshots.mjs",
     "new:game": "node scripts/new-entry.mjs games",
     "new:note": "node scripts/new-entry.mjs notes",
     "new:post": "node scripts/new-entry.mjs posts",
     "new:weeknote": "node scripts/new-entry.mjs weeknotes",
     "preview": "astro preview",
     "serve": "astro dev",
-    "test": "node --test ./**/*.test.ts scripts/import-bookwyrm-reading.test.mjs",
+    "test": "node --test ./**/*.test.ts scripts/*.test.mjs",
     "types": "wrangler types && prettier --write worker-configuration.d.ts"
   },
   "dependencies": {
