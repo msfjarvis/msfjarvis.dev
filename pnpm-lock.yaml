@@ -1187,8 +1187,8 @@ packages:
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
-  '@iconify/utils@3.1.5':
-    resolution: {integrity: sha512-nT+AWyh5caHY6xa0PdLXpUooIz6l7qsT+adqsCTYBfbdn5Q18VrWs2fvuTa7KEoJnPBfEPqWkmAIht0EHtCi2A==}
+  '@iconify/utils@3.1.7':
+    resolution: {integrity: sha512-JZHlwdID+dy+lTgbYC8NEC4zeugqeYsc6jewvzb4c58kHauJn+X7rNwQjxz5p2qSjqaEeQoLkCIQ9v/H4PK0/w==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2172,8 +2172,8 @@ packages:
   bcp-47@2.1.1:
     resolution: {integrity: sha512-KLw+H/gd2p4zly1X7Yh/qziuyae5/w/QFnvTng9eZL5fvszL7Whl3MBoWF8yxL7ksUjBfOD+OxkytiqbBpG+Fw==}
 
-  bidi-js@1.0.3:
-    resolution: {integrity: sha512-RKshQI1R3YQ+n9YJz2QQ147P66ELpa1FQEg20Dk8oW9t2KgLbpDLLp9aGZ7y8WHSshDknG0bknqGw5/tyCs5tw==}
+  bidi-js@1.1.0:
+    resolution: {integrity: sha512-fX1Onk0tdVPC7obPWB5EbJ1z7NVhLq4m2xZLq2YXBkxzMXIGRpNMU88n0EPgWseKl12J7zXs7qrDxPK4sRs2fg==}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -3222,8 +3222,8 @@ packages:
     resolution: {integrity: sha512-OBwBN9AL4dqmETlpS2zasx+vTeWclWzkblfZk7KTA5j3jeOONz/tRCnZomUyvNg83wL5Zv9Ss6HMJXAgL8R2Yg==}
     engines: {node: '>=16 || 14 >=14.17'}
 
-  modern-tar@0.8.4:
-    resolution: {integrity: sha512-gN54ddmyzEg10orwZ2u4OOv+bjpMWdIl5jIkodK97bMq8QBSL5c0D7YX0lT1Ooz+99S7+PvFbnxzdjgHo1r41g==}
+  modern-tar@0.8.5:
+    resolution: {integrity: sha512-snEhs+6G5Tjd4I7tLCDOaoln2RgE0bD19RzEKgvgK2hZ5VKy3MpLhLTZ2fWpXSTg4K2cyPwp+VHATFJhxfnOeA==}
     engines: {node: '>=18.0.0'}
 
   mrmime@2.0.1:
@@ -4298,7 +4298,7 @@ snapshots:
 
   '@asamuzakjp/dom-selector@8.3.2':
     dependencies:
-      bidi-js: 1.0.3
+      bidi-js: 1.1.0
       css-tree: 3.2.1
       is-potential-custom-element-name: 1.0.1
       lru-cache: 11.5.2
@@ -5046,15 +5046,15 @@ snapshots:
     dependencies:
       '@cyberalien/svg-utils': 1.2.19
       '@iconify/types': 2.0.0
-      '@iconify/utils': 3.1.5
+      '@iconify/utils': 3.1.7
       fflate: 0.8.3
-      modern-tar: 0.8.4
+      modern-tar: 0.8.5
       pathe: 2.0.3
       svgo: 4.1.0
 
   '@iconify/types@2.0.0': {}
 
-  '@iconify/utils@3.1.5':
+  '@iconify/utils@3.1.7':
     dependencies:
       '@antfu/install-pkg': 2.0.1
       '@iconify/types': 2.0.0
@@ -5864,7 +5864,7 @@ snapshots:
     dependencies:
       '@iconify/tools': 5.0.14
       '@iconify/types': 2.0.0
-      '@iconify/utils': 3.1.5
+      '@iconify/utils': 3.1.7
       astro: 7.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.4.1)(jiti@1.21.7)(yaml@2.9.0)
     optionalDependencies:
       react: 19.2.8
@@ -5989,7 +5989,7 @@ snapshots:
       is-alphanumerical: 2.0.1
       is-decimal: 2.0.1
 
-  bidi-js@1.0.3:
+  bidi-js@1.1.0:
     dependencies:
       require-from-string: 2.0.2
 
@@ -7460,7 +7460,7 @@ snapshots:
     dependencies:
       brace-expansion: 2.1.4
 
-  modern-tar@0.8.4: {}
+  modern-tar@0.8.5: {}
 
   mrmime@2.0.1: {}
 
@@ -7636,24 +7636,29 @@ snapshots:
       extend: 3.0.2
       postcss: 8.4.31
 
-  postcss-import@15.1.0(postcss@8.5.28):
+  postcss-import@15.1.0(postcss@8.4.31):
     dependencies:
-      postcss: 8.5.28
+      postcss: 8.4.31
       postcss-value-parser: 4.2.0
       read-cache: 1.0.2
       resolve: 1.22.12
 
-  postcss-js@4.1.0(postcss@8.5.28):
+  postcss-js@4.1.0(postcss@8.4.31):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.5.28
+      postcss: 8.4.31
 
-  postcss-load-config@4.0.2(postcss@8.5.28):
+  postcss-load-config@4.0.2(postcss@8.4.31):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.9.0
     optionalDependencies:
-      postcss: 8.5.28
+      postcss: 8.4.31
+
+  postcss-nested@6.2.0(postcss@8.4.31):
+    dependencies:
+      postcss: 8.4.31
+      postcss-selector-parser: 6.1.4
 
   postcss-nested@6.2.0(postcss@8.5.28):
     dependencies:
@@ -8147,11 +8152,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.28
-      postcss-import: 15.1.0(postcss@8.5.28)
-      postcss-js: 4.1.0(postcss@8.5.28)
-      postcss-load-config: 4.0.2(postcss@8.5.28)
-      postcss-nested: 6.2.0(postcss@8.5.28)
+      postcss: 8.4.31
+      postcss-import: 15.1.0(postcss@8.4.31)
+      postcss-js: 4.1.0(postcss@8.4.31)
+      postcss-load-config: 4.0.2(postcss@8.4.31)
+      postcss-nested: 6.2.0(postcss@8.4.31)
       postcss-selector-parser: 6.1.4
       postcss-value-parser: 4.2.0
       resolve: 1.22.12
