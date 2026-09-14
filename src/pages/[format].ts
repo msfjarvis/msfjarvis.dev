@@ -16,12 +16,11 @@ export const { getStaticPaths, GET } = createFeedEndpoint({
     return [
       {
         entries: posts,
-        urlBuilder: (entry: any, origin: string) =>
-          `${origin}/posts/${entry.id}/`,
+        urlBuilder: (entry, origin: string) => `${origin}/posts/${entry.id}/`,
       },
       {
         entries: weeknotes,
-        urlBuilder: (entry: any, origin: string) =>
+        urlBuilder: (entry, origin: string) =>
           entry.data.date < WEEKNOTES_LEGACY_CUTOFF
             ? `${origin}/posts/weeknotes-${entry.id}/`
             : `${origin}/weeknotes/${entry.id}/`,

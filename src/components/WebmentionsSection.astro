@@ -118,10 +118,37 @@ import { SITE_URL } from "../consts";
         const res = await fetch(
           `/api/webmentions.json?target=${encodeURIComponent(pageUrl)}`,
         );
-        const data = (await res.json()) as any;
+        const data: unknown = await res.json();
 
-        const isSuccess = (data: any): data is { mentions: Mention[] } => {
-          return !!data.mentions;
+        const isOptionalString = (value: unknown) =>
+          value === undefined || value === null || typeof value === "string";
+
+        const isMention = (value: unknown): value is Mention => {
+          if (!value || typeof value !== "object") return false;
+          const mention = value as Record<string, unknown>;
+          const author = mention.author;
+          const validAuthor =
+            author === undefined ||
+            author === null ||
+            (typeof author === "object" &&
+              isOptionalString((author as Record<string, unknown>).name) &&
+              isOptionalString((author as Record<string, unknown>).url) &&
+              isOptionalString((author as Record<string, unknown>).photo));
+          return (
+            typeof mention.id === "number" &&
+            typeof mention.verified_at === "number" &&
+            typeof mention.source === "string" &&
+            validAuthor &&
+            isOptionalString(mention.content) &&
+            isOptionalString(mention.interaction_type)
+          );
+        };
+
+        const isSuccess = (data: unknown): data is { mentions: Mention[] } => {
+          if (!data || typeof data !== "object" || !("mentions" in data)) {
+            return false;
+          }
+          return Array.isArray(data.mentions) && data.mentions.every(isMention);
         };
 
         if (!isSuccess(data) || data.mentions.length === 0) {
@@ -130,7 +157,7 @@ import { SITE_URL } from "../consts";
           return;
         }
 
-        const mentions = data.mentions as Mention[];
+        const mentions = data.mentions;
         heading.innerHTML = `Webmentions<span>・${mentions.length} mention${mentions.length === 1 ? "" : "s"}</span>`;
 
         const likes = mentions.filter(

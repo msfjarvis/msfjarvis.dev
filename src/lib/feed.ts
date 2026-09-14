@@ -3,7 +3,7 @@ import { getContentCacheKey } from "../utils";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import type { APIContext } from "astro";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
-import { render } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
 import { load } from "cheerio";
 
 /** Maximum number of entries to include in any feed. */
@@ -24,10 +24,13 @@ export interface FeedItem {
   summary?: string;
 }
 
+/** Entries supported by the site's post-like feeds. */
+export type FeedEntry = CollectionEntry<"posts" | "notes" | "weeknotes">;
+
 /** One collection's contribution to a multi-source feed. */
 export interface FeedSource {
-  entries: any[];
-  urlBuilder: (entry: any, origin: string) => string;
+  entries: FeedEntry[];
+  urlBuilder: (entry: FeedEntry, origin: string) => string;
 }
 
 /** A function that turns pre-built FeedItems into an HTTP Response. */
@@ -181,7 +184,7 @@ function flattenMermaidLightboxes(html: string): string {
 /** Render a single entry to absolute-URL HTML via the container. */
 async function renderEntryHtml(
   container: Awaited<ReturnType<typeof createContainer>>,
-  entry: any,
+  entry: FeedEntry,
   origin: string,
 ): Promise<string> {
   const { Content } = await render(entry);
@@ -196,7 +199,7 @@ async function renderEntryHtml(
 /** Convert a rendered collection entry into a FeedItem, caching rendered HTML by entry. */
 async function entryToFeedItem(
   container: Awaited<ReturnType<typeof createContainer>>,
-  entry: any,
+  entry: FeedEntry,
   url: string,
   origin: string,
 ): Promise<FeedItem> {

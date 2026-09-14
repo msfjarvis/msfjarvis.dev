@@ -14,6 +14,8 @@ export type LookupOptions = {
   maxAuthors?: number;
 };
 
+type JsonObject = Record<string, unknown>;
+
 const cache = new Map<string, Promise<OpenLibraryBook>>();
 const WORK_PATH = /^\/(works)\/(OL\d+W)(?:\/[^/]*)*\/?$/i;
 const EDITION_PATH = /^\/(books)\/(OL\d+M)(?:\/[^/]*)*\/?$/i;
@@ -112,8 +114,18 @@ async function lookup(
   };
 }
 
-function workKeyFromEdition(edition: Record<string, any> | undefined): string {
-  const key = edition?.works?.[0]?.key;
+function isJsonObject(value: unknown): value is JsonObject {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function propertyValue(value: unknown, key: string): unknown {
+  return isJsonObject(value) ? value[key] : undefined;
+}
+
+function workKeyFromEdition(edition: JsonObject | undefined): string {
+  const works = propertyValue(edition, "works");
+  const firstWork = Array.isArray(works) ? works[0] : undefined;
+  const key = propertyValue(firstWork, "key");
   if (typeof key !== "string")
     throw new Error("Open Library edition has no work identity.");
   const path = /^\/works\/(OL\d+W)\/?$/i.exec(key);
@@ -132,7 +144,10 @@ async function authorNames(
   if (!Array.isArray(entries)) return [];
   const keys = entries
     .slice(0, Math.max(0, Math.min(maxAuthors, MAX_AUTHORS)))
-    .map((entry) => (entry as any)?.author?.key ?? (entry as any)?.key)
+    .map((entry) => {
+      const author = propertyValue(entry, "author");
+      return propertyValue(author, "key") ?? propertyValue(entry, "key");
+    })
     .filter(
       (key): key is string =>
         typeof key === "string" && /^\/authors\/OL\d+A$/i.test(key),
@@ -150,7 +165,7 @@ async function getJson(
   fetcher: typeof globalThis.fetch,
   path: string,
   deadline: number,
-): Promise<Record<string, any>> {
+): Promise<JsonObject> {
   const remaining = deadline - Date.now();
   if (remaining <= 0) throw new Error("Open Library request timed out.");
   const controller = new AbortController();
@@ -161,7 +176,10 @@ async function getJson(
     });
     if (!response.ok)
       throw new Error(`Open Library request failed (${response.status}).`);
-    return (await response.json()) as Record<string, any>;
+    const data: unknown = await response.json();
+    if (!isJsonObject(data))
+      throw new Error("Open Library returned invalid JSON.");
+    return data;
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError")
       throw new Error("Open Library request timed out.", { cause: error });
@@ -189,8 +207,8 @@ function normalizeSeries(value: unknown): { name: string; number: string } {
   if (typeof item === "string") return { name: item, number: "" };
   if (item && typeof item === "object")
     return {
-      name: stringValue((item as any).name),
-      number: stringValue((item as any).number),
+      name: stringValue(propertyValue(item, "name")),
+      number: stringValue(propertyValue(item, "number")),
     };
   return { name: "", number: "" };
 }

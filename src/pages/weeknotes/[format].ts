@@ -11,7 +11,7 @@ export const { getStaticPaths, GET } = createFeedEndpoint({
     return [
       {
         entries: weeknotes,
-        urlBuilder: (entry: any, origin: string) =>
+        urlBuilder: (entry, origin: string) =>
           // Pre-cutoff weeknotes were originally published under /posts/weeknotes-<id>/
           entry.data.date < WEEKNOTES_LEGACY_CUTOFF
             ? `${origin}/posts/weeknotes-${entry.id}/`
