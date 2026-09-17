@@ -22,6 +22,6 @@ I had already built around 70-80% of [factual-budget](https://git.msfjarvis.dev/
 - DeepSeek models are **thonkers**. I initially [set up DeepSeek](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/b9d27124e255a463a92a521a5fb5a4004a2c3cf1) with the `high` reasoning effort I use with other models but the unredacted reasoning going on for aeons started ticking me off and I [switched reasoning to `off`](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/50e5e57ad3b6d5f34b9db83cd2f3d3f0e84f9743), not that it helped...
 - They seem extremely allergic to tool calls. Maybe it's something with Pi or my specific setup? The LLM consistently chooses to invoke `cat`, `sed`, and `find` when my system prompt includes specific guidance to use the harness-provided tools instead of shelling out.
 - The inference speeds were comparable to OpenAI at the start of the session, but were much more unstable as the session reached around the 150K token mark.
-- The cost difference is simply unreal. I used Ope
+- The cost is simply unreal. I used OpenRouter's [simulation feature](https://openrouter.ai/labs/simulate-price) to compare my DeepSeek cost with what it would be on other frontier models and the difference is stark. For _very_ comparable code quality it is a no-brainer to prefer DeepSeek over everything else.
 
 ![](20260917-123714.webp)
