@@ -1,0 +1,53 @@
+---
+title: "Brief experience report on the DeepSeek v4 Flash model"
+date: "2026-09-17T12:19:00+05:30"
+lastmod: "2026-09-17T12:19:00+05:30"
+summary: "I tried replacing my use of OpenAI Codex with DeepSeek, and here's how it went."
+tags:
+  - "llms"
+  - "programming"
+  - "deepseek"
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import deepseek_cost_comparison from "./deepseek-cost-comparison.webp";
+import openrouter_provider_breakdown from "./openrouter-provider-breakdown.webp";
+
+>[!NOTE]
+> This is not going to be exhaustive, I didn't compare them against exactly identical tasks, and this blog post is effectively me turning a somewhat wordy journal entry into a short blog post. Take it with an appropriate amount of salt as per your dietary needs.
+
+I've recently been testing out the famous [Matt Pocock skills](https://github.com/mattpocock/skills) package to rebuild a [slop tool](https://git.msfjarvis.dev/msfjarvis/actual-budget-backfiller) that had achieved slop singularity and become such a mess not even the clankers could figure it out any more. I'll probably write a separate thing about that process (early hint: I get why it has 260K stars) but this post is mostly about the swap from Codex to DeepSeek. For access to DeepSeek models, I signed up for [OpenRouter](https://openrouter.ai) and paid them $10 for an initial top-up of credits.
+
+I had already built around 70-80% of [factual-budget](https://git.msfjarvis.dev/msfjarvis/factual-budget/) with Codex (last pre-DeepSeek commit [is this](https://git.msfjarvis.dev/msfjarvis/factual-budget/src/commit/3a7ed81dd749a22354df4e74635c5e138133fd50)), and swapped to DeepSeek to implement the final feature of writing out transactions to Actual Budget. I haven't figured out how to share the session transcript in Pi's nice HTML format yet, but 🔜™️
+
+Here are my main takeaways so far
+
+- DeepSeek models are **thinkers**. I initially [set up DeepSeek](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/b9d27124e255a463a92a521a5fb5a4004a2c3cf1) with the `high` reasoning effort I use with other models but the reasoning going on for aeons started ticking me off and I [switched reasoning to `off`](https://git.msfjarvis.dev/msfjarvis/my-pi/commit/50e5e57ad3b6d5f34b9db83cd2f3d3f0e84f9743). This might not _exactly_ hold true, but since OpenAI redacts thinking traces for Codex users, I might just be overly sensitive to the LLM reasoning word vomit.
+- They seem extremely averse to tool calls. Maybe it's something with Pi or my specific setup? The LLM consistently chooses to invoke `cat`, `sed`, and `find` when my system prompt includes specific guidance to use the harness-provided tools instead of shelling out. OpenAI's and Anthropic's models do not exhibit this problem in my experience, and Kimi seems to share this drawback with DeepSeek.
+- The inference speeds were comparable to OpenAI at the start of the session, but were much more unstable as the session reached around the 150K token mark. I think that is an OpenRouter-specific problem because it can send every request to a different provider and cause prompt cache misses. I was able to extract a per-provider split for my current measly $1.75 spend and that backs the theory.
+
+<Figure
+  src={openrouter_provider_breakdown}
+  alt={
+    "Per-provider breakdown for my $1.75 USD of OpenRouter spend, showing it was spread out over 7 providers in an uneven spread"
+  }
+  title={"OpenRouter takes its 'routing' bit quite seriously"}
+/>
+
+- The token pricing is simply unreal. I used OpenRouter's [simulation feature](https://openrouter.ai/labs/simulate-price) to compare my DeepSeek cost with what it would be on other frontier models and the difference is stark. For _very_ comparable code quality it is a no-brainer to prefer DeepSeek over everything else.
+
+<Figure
+  src={deepseek_cost_comparison}
+  alt={
+    "Price comparison between DeepSeek v4 Flash and other leading frontier models, showing DeepSeek costing $1.16 for my usage which maps to $6.80 on Gemini Flash, $11.28 for Kimi K3, $13.66 for Claude Sonnet 5, $16.07 for GPT 5.6 Sol, and $25.39 for Claude Opus 5."
+  }
+  title={
+    "DeepSeek's claim to fame was how many orders of magnitude cheaper it is, but it's quality is definitely competitive."
+  }
+/>
+
+<hr />
+
+All things considered I'm quite impressed with the DeepSeek models, and I can see why OpenAI and Anthropic seem to have found common ground [against open weight models from China](https://www.axios.com/2026/07/22/openai-anthropic-open-models-trump-china) when they're so close in capabilities. So far it doesn't seem any such regulation is coming, and I hope for other countries to also step up and start competing in the open weight division instead of buying into the Anthropic and OpenAI silos.
