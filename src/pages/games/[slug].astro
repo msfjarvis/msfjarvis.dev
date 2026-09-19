@@ -1,31 +1,631 @@
 ---
-import { getCollection, render } from "astro:content";
-import PostLayout from "../../layouts/PostLayout.astro";
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PhotoSwipe from "../../components/PhotoSwipe.astro";
 import { getContentCacheKey } from "../../utils";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const notes = await getCollection("games");
-  return notes.map((note) => ({
-    params: { slug: note.id },
-    props: { entry: note },
-    cacheKey: getContentCacheKey([note]),
+  const games = await getCollection("games");
+  return games.map((game) => ({
+    params: { slug: game.id },
+    props: { entry: game },
+    cacheKey: getContentCacheKey([game]),
   }));
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await render(entry);
+const photos = entry.data.photos;
+const total = photos.length;
+const subtitle = entry.data.subtitle ?? `${total} frames, left to right.`;
+const dateLabel = entry.data.date.toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
 ---
 
-<PostLayout
-  postId={`games/${entry.id}`}
-  title={entry.data.title}
-  date={entry.data.date}
-  image={entry.data.image}
-  autoImage={false}
-  collection="games"
-  headings={headings}
->
-  <Content />
-</PostLayout>
+<BaseLayout title={entry.data.title} description={subtitle}>
+  <div class="reel-page" data-reel>
+    <div class="rl-shell">
+      <header class="rl-mast">
+        <h1>{entry.data.title}</h1>
+        <p class="rl-date">
+          <time datetime={entry.data.date.toISOString()}>{dateLabel}</time>
+        </p>
+        <p class="rl-stand">{subtitle}</p>
+      </header>
+
+      <div class="rl-main">
+        <ol
+          class="rl-strip"
+          data-reel-strip
+          data-pswp-gallery
+          role="list"
+          tabindex="0"
+          aria-label="Frames"
+          aria-describedby="rl-hint"
+        >
+          {
+            photos.map((photo, index) => (
+              <li
+                class="rl-slide"
+                data-reel-slide
+                aria-current={index === 0 ? "true" : undefined}
+              >
+                <figure class="rl-fig">
+                  <a
+                    class="rl-mat pswp-gallery-item"
+                    data-reel-link
+                    tabindex={index === 0 ? 0 : -1}
+                    href={photo.image.src}
+                    data-pswp-width={photo.image.width}
+                    data-pswp-height={photo.image.height}
+                    data-pswp-caption={
+                      photo.caption
+                        ? `${photo.title} — ${photo.caption}`
+                        : photo.title
+                    }
+                    aria-label={`Open ${photo.title} in the viewer`}
+                  >
+                    <img
+                      src={photo.image.src}
+                      alt={photo.alt}
+                      width={photo.image.width}
+                      height={photo.image.height}
+                      decoding="async"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      fetchpriority={index === 0 ? "high" : undefined}
+                    />
+                  </a>
+                  <figcaption class="rl-cap">
+                    <span class="rl-sub">{photo.title}</span>
+                    <span class="rl-obs">{photo.caption}</span>
+                  </figcaption>
+                </figure>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <div class="rl-bar">
+        <div class="rl-controls">
+          <button
+            type="button"
+            class="rl-btn"
+            data-reel-prev
+            aria-label="Previous frame"
+            disabled
+          >
+            Previous
+          </button>
+          <button
+            type="button"
+            class="rl-btn"
+            data-reel-next
+            aria-label="Next frame"
+            disabled={total < 2}
+          >
+            Next
+          </button>
+        </div>
+        <div class="rl-track" aria-hidden="true">
+          <span
+            class="rl-fill"
+            data-reel-fill
+            style={`width: ${total ? (1 / total) * 100 : 0}%`}
+          />
+        </div>
+        <p class="rl-count" data-reel-count aria-live="polite">
+          {total ? `1 / ${total}` : "0 / 0"}
+        </p>
+        <p class="rl-hint" id="rl-hint">
+          <span class="rl-hint-key">
+            Left and right arrow keys move the strip while it has focus.
+          </span>
+          <span class="rl-hint-touch">
+            Swipe the strip, or use Previous and Next.
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<PhotoSwipe />
+
+<style is:global>
+  body:has(.reel-page) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  body:has(.reel-page) main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin: 0;
+    max-width: none;
+    padding: 0;
+  }
+</style>
+
+<style>
+  .reel-page {
+    --rl-bg: var(--bg);
+    --rl-text: var(--text);
+    --rl-muted: var(--text-2);
+    --rl-control: var(--border);
+    --rl-focus: var(--accent);
+    --rl-pad: clamp(16px, 3vw, 40px);
+    --rl-edge: 1480px;
+    --rl-slide: min(
+      80vw,
+      var(--rl-edge),
+      max(280px, calc((100vh - 310px) * 16 / 9))
+    );
+
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--rl-bg);
+    color: var(--rl-text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.45;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @supports (height: 100svh) {
+    .reel-page {
+      --rl-slide: min(
+        80vw,
+        var(--rl-edge),
+        max(280px, calc((100svh - 310px) * 16 / 9))
+      );
+    }
+  }
+
+  /* Size frames from the reel's own height so the masthead, strip and
+     controls fit between the site header and footer without scrolling. */
+  @supports (container-type: size) {
+    .reel-page {
+      --rl-slide: min(
+        80vw,
+        var(--rl-edge),
+        max(280px, calc((100cqh - 120px) * 16 / 9))
+      );
+    }
+  }
+
+  /* ---- shell ---- */
+
+  .rl-shell {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .rl-mast,
+  .rl-bar {
+    width: 100%;
+    max-width: calc(var(--rl-edge) + 2 * var(--rl-pad));
+    margin-inline: auto;
+  }
+
+  .rl-mast {
+    padding: clamp(16px, 2.6vh, 30px) var(--rl-pad) clamp(6px, 1.4vh, 14px);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    column-gap: 18px;
+    row-gap: 6px;
+  }
+
+  .rl-mast h1 {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.004em;
+  }
+
+  .rl-mast .rl-date {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--rl-muted);
+    white-space: nowrap;
+  }
+
+  .rl-mast .rl-stand {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--rl-muted);
+  }
+
+  /* ---- strip ---- */
+
+  .rl-main {
+    container-type: size;
+    display: grid;
+    align-content: center;
+    min-height: 0;
+  }
+
+  .rl-strip {
+    list-style: none;
+    margin: 0;
+    padding: 10px calc(50% - var(--rl-slide) / 2) 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(14px, 1.8vw, 34px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .rl-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rl-strip:focus-visible {
+    outline: 2px solid var(--rl-focus);
+    outline-offset: 3px;
+  }
+
+  .rl-slide {
+    flex: 0 0 auto;
+    width: var(--rl-slide);
+    scroll-snap-align: center;
+  }
+
+  .rl-fig {
+    margin: 0;
+  }
+
+  .rl-mat {
+    display: block;
+    border-bottom: none;
+    box-shadow: 0 0 0 1px var(--border);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .rl-slide.is-current .rl-mat {
+    box-shadow: 0 0 0 1px var(--text-3);
+  }
+
+  .rl-mat img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .rl-mat:focus-visible {
+    outline: 2px solid var(--rl-focus);
+    outline-offset: 3px;
+  }
+
+  .rl-cap {
+    margin: 13px 0 0;
+    display: grid;
+    gap: 2px;
+    max-width: min(56ch, 100%);
+    overflow-wrap: break-word;
+    opacity: 0.62;
+    transition: opacity 0.22s ease;
+  }
+
+  .rl-slide.is-current .rl-cap {
+    opacity: 1;
+  }
+
+  .rl-sub {
+    font-size: 0.95rem;
+  }
+  .rl-obs {
+    font-size: 0.85rem;
+    color: var(--rl-muted);
+    overflow-wrap: break-word;
+  }
+
+  /* ---- controls ---- */
+
+  .rl-bar {
+    padding: clamp(10px, 1.8vh, 18px) var(--rl-pad) clamp(16px, 2.6vh, 28px);
+    display: grid;
+    grid-template-columns: max-content minmax(90px, 1fr) max-content;
+    grid-template-areas:
+      "controls track count"
+      "hint hint hint";
+    align-items: center;
+    gap: 10px 18px;
+  }
+
+  .rl-controls {
+    grid-area: controls;
+    display: flex;
+    gap: 8px;
+  }
+
+  .rl-btn {
+    font: inherit;
+    font-size: 0.92rem;
+    padding: 9px 18px;
+    background: transparent;
+    color: var(--rl-text);
+    border: 1px solid var(--rl-control);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.16s ease;
+  }
+
+  .rl-btn:hover {
+    background: var(--rl-control);
+  }
+  .rl-btn:focus-visible {
+    outline: 2px solid var(--rl-focus);
+    outline-offset: 2px;
+  }
+  .rl-btn:disabled {
+    color: var(--rl-muted);
+    opacity: 0.5;
+    cursor: default;
+    background: transparent;
+  }
+
+  .rl-track {
+    grid-area: track;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--rl-control);
+    overflow: hidden;
+  }
+
+  .rl-fill {
+    display: block;
+    height: 100%;
+    background: var(--rl-muted);
+    transition: width 0.18s ease;
+  }
+
+  .rl-count {
+    grid-area: count;
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--rl-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rl-hint {
+    grid-area: hint;
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--rl-muted);
+  }
+  .rl-hint-touch {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .reel-page {
+      --rl-slide: 88vw;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .rl-mast {
+      grid-template-columns: 1fr;
+    }
+    .rl-bar {
+      grid-template-columns: 1fr max-content;
+      grid-template-areas:
+        "track track"
+        "controls count"
+        "hint hint";
+    }
+    .rl-controls {
+      width: 100%;
+    }
+    .rl-btn {
+      flex: 1 1 0;
+    }
+    .rl-hint-key {
+      display: none;
+    }
+    .rl-hint-touch {
+      display: inline;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reel-page *,
+    .reel-page *::before,
+    .reel-page *::after {
+      transition-duration: 0.001ms !important;
+      animation-duration: 0.001ms !important;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-reel]");
+  const strip = root?.querySelector<HTMLElement>("[data-reel-strip]");
+  const slides = root
+    ? Array.from(root.querySelectorAll<HTMLElement>("[data-reel-slide]"))
+    : [];
+  const links = slides.map((slide) =>
+    slide.querySelector<HTMLAnchorElement>("[data-reel-link]"),
+  );
+  const prev = root?.querySelector<HTMLButtonElement>("[data-reel-prev]");
+  const next = root?.querySelector<HTMLButtonElement>("[data-reel-next]");
+  const fill = root?.querySelector<HTMLElement>("[data-reel-fill]");
+  const counter = root?.querySelector<HTMLElement>("[data-reel-count]");
+  const total = slides.length;
+
+  if (strip && total > 0 && links.every((link) => link !== null)) {
+    const anchors = links as HTMLAnchorElement[];
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reduced = () => reduce.matches;
+
+    let current = 0;
+    let programmatic = false;
+    let programmaticTimer = 0;
+    let queued = false;
+    let resizeTimer = 0;
+
+    const midOf = (element: Element) => {
+      const box = element.getBoundingClientRect();
+      return box.left + box.width / 2;
+    };
+
+    const nearestIndex = () => {
+      const mid = midOf(strip);
+      let best = 0;
+      let bestGap = Infinity;
+      slides.forEach((slide, index) => {
+        const gap = Math.abs(midOf(slide) - mid);
+        if (gap < bestGap - 0.5) {
+          bestGap = gap;
+          best = index;
+        }
+      });
+      return best;
+    };
+
+    const paint = (index: number) => {
+      current = index;
+      slides.forEach((slide, i) => {
+        const isCurrent = i === index;
+        slide.classList.toggle("is-current", isCurrent);
+        if (isCurrent) {
+          slide.setAttribute("aria-current", "true");
+        } else {
+          slide.removeAttribute("aria-current");
+        }
+        anchors[i].tabIndex = isCurrent ? 0 : -1;
+      });
+      if (fill) {
+        fill.style.width = `${((index + 1) / total) * 100}%`;
+      }
+      if (counter) {
+        counter.textContent = `${index + 1} / ${total}`;
+      }
+      if (prev) {
+        prev.disabled = index === 0;
+      }
+      if (next) {
+        next.disabled = index === total - 1;
+      }
+    };
+
+    const beginProgrammatic = (duration: number) => {
+      programmatic = true;
+      window.clearTimeout(programmaticTimer);
+      programmaticTimer = window.setTimeout(() => {
+        programmatic = false;
+      }, duration);
+    };
+
+    const scrollToIndex = (index: number, smooth: boolean) => {
+      const delta = midOf(slides[index]) - midOf(strip);
+      if (Math.abs(delta) > 1) {
+        strip.scrollBy({
+          left: delta,
+          behavior: smooth ? "smooth" : "auto",
+        });
+      }
+    };
+
+    const go = (index: number, smooth: boolean, moveFocus: boolean) => {
+      const target = Math.max(0, Math.min(total - 1, index));
+      beginProgrammatic(smooth ? 500 : 100);
+      paint(target);
+      scrollToIndex(target, smooth);
+      if (moveFocus) {
+        anchors[target].focus({ preventScroll: true });
+      }
+    };
+
+    const step = (delta: number, moveFocus: boolean) => {
+      go(current + delta, !reduced(), moveFocus);
+    };
+
+    const focusIsInStrip = () =>
+      document.activeElement instanceof HTMLElement &&
+      anchors.includes(document.activeElement as HTMLAnchorElement);
+
+    strip.addEventListener(
+      "scroll",
+      () => {
+        if (programmatic || queued) {
+          return;
+        }
+        queued = true;
+        window.requestAnimationFrame(() => {
+          queued = false;
+          paint(nearestIndex());
+        });
+      },
+      { passive: true },
+    );
+
+    strip.addEventListener("keydown", (event) => {
+      const key = event.key;
+
+      if (key === "Home") {
+        event.preventDefault();
+        go(0, !reduced(), focusIsInStrip());
+        return;
+      }
+
+      if (key === "End") {
+        event.preventDefault();
+        go(total - 1, !reduced(), focusIsInStrip());
+        return;
+      }
+
+      let delta = 0;
+      if (key === "ArrowRight" || key === "Right" || key === "PageDown") {
+        delta = 1;
+      } else if (key === "ArrowLeft" || key === "Left" || key === "PageUp") {
+        delta = -1;
+      } else {
+        return;
+      }
+
+      event.preventDefault();
+      step(delta, focusIsInStrip());
+    });
+
+    prev?.addEventListener("click", () => step(-1, false));
+    next?.addEventListener("click", () => step(1, false));
+
+    window.addEventListener(
+      "resize",
+      () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => {
+          beginProgrammatic(100);
+          scrollToIndex(current, false);
+        }, 120);
+      },
+      { passive: true },
+    );
+
+    paint(nearestIndex());
+  }
+</script>
