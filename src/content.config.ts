@@ -16,12 +16,6 @@ const postSchema = z.object({
   deleted: z.boolean().optional().default(false),
 });
 
-const gameSchema = z.object({
-  title: z.string(),
-  date: z.coerce.date(),
-  cover: z.string(),
-});
-
 const posts = defineCollection({
   loader: glob({ base: "./src/content/posts", pattern: "**/index.{md,mdx}" }),
   schema: postSchema,
@@ -42,7 +36,12 @@ const weeknotes = defineCollection({
 
 const games = defineCollection({
   loader: glob({ base: "./src/content/games", pattern: "**/index.{md,mdx}" }),
-  schema: gameSchema,
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      cover: image(),
+    }),
 });
 
 const books = defineCollection({

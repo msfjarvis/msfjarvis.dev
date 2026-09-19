@@ -20,7 +20,7 @@ games.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
     // TODO(msfjarvis): The Figure URL doesn't seem to load, and the styling is currently non-existent.
     games.map((game) => (
       <>
-        <Figure src={`/games/${game.id}/${game.data.cover}`} />
+        <Figure src={game.data.cover} />
         <h2>{game.data.title}</h2>
       </>
     ))
