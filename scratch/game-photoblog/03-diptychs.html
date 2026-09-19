@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HoloTrials: Case Covered — pairs</title>
+    <link rel="stylesheet" href="viewer.css" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body[data-concept="3"] {
+        --dp-bg: #e9e5ef;
+        --dp-ink: #30253b;
+        --dp-muted: #6a5d76;
+        --dp-white: #fff;
+        --dp-line: #cdc5d7;
+        --dp-page: 1640px;
+        --dp-pad: clamp(18px, 3.2vw, 52px);
+        --dp-unite: clamp(9px, 1vw, 16px);
+        --dp-fold: clamp(30px, 3.6vw, 62px);
+        --dp-hero-w: max(240px, calc((100vh - 17rem) * 16 / 9));
+        --dp-display:
+          Optima, "Optima Nova", Candara, "Gill Sans", "Trebuchet MS",
+          sans-serif;
+        --dp-sans:
+          "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica,
+          sans-serif;
+
+        margin: 0;
+        background: var(--dp-bg);
+        color: var(--dp-ink);
+        font-family: var(--dp-sans);
+        font-size: 16px;
+        line-height: 1.5;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      @supports (height: 100svh) {
+        body[data-concept="3"] {
+          --dp-hero-w: max(240px, calc((100svh - 17rem) * 16 / 9));
+        }
+      }
+
+      /* ---- masthead ---- */
+
+      .dp-mast {
+        max-width: var(--dp-page);
+        margin-inline: auto;
+        padding: clamp(26px, 5vh, 62px) var(--dp-pad) clamp(18px, 3vh, 34px);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: baseline;
+        column-gap: 22px;
+        row-gap: 7px;
+      }
+
+      .dp-mast h1 {
+        margin: 0;
+        font-family: var(--dp-display);
+        font-weight: 500;
+        font-size: clamp(1.45rem, 2.7vw, 2.25rem);
+        line-height: 1.08;
+        letter-spacing: -0.012em;
+      }
+
+      .dp-mast .dp-date {
+        margin: 0;
+        color: var(--dp-muted);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .dp-mast .dp-note {
+        grid-column: 1 / -1;
+        margin: 0;
+        max-width: 56ch;
+        color: var(--dp-muted);
+        font-size: 0.95rem;
+      }
+
+      /* ---- plate ---- */
+
+      .dp-col {
+        max-width: var(--dp-page);
+        margin-inline: auto;
+        padding-inline: var(--dp-pad);
+      }
+
+      .dp-mat {
+        display: block;
+        background: var(--dp-white);
+        border: 1px solid var(--dp-line);
+        padding: var(--dp-unite);
+        transition: border-color 0.16s ease;
+      }
+
+      .dp-mat img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
+
+      .dp-mat:hover {
+        border-color: var(--dp-ink);
+      }
+      .dp-mat:focus-visible {
+        outline: 2px solid var(--dp-ink);
+        outline-offset: 3px;
+      }
+
+      .dp-cap {
+        margin: 11px 0 0;
+        padding-top: 9px;
+        border-top: 1px solid var(--dp-line);
+        color: var(--dp-muted);
+        font-size: 0.87rem;
+        line-height: 1.45;
+        overflow-wrap: break-word;
+      }
+
+      /* ---- opening plate ---- */
+
+      .dp-hero {
+        margin: 0;
+        width: min(100%, var(--dp-hero-w));
+        margin-inline: auto;
+      }
+
+      /* ---- pairs ---- */
+
+      .dp-move {
+        margin-top: clamp(3.5rem, 8vw, 7.5rem);
+      }
+
+      .dp-move > h2 {
+        margin: 0;
+        padding-top: 18px;
+        border-top: 1px solid var(--dp-line);
+        font-family: var(--dp-display);
+        font-weight: 500;
+        font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+        line-height: 1.25;
+      }
+
+      .dp-set {
+        margin-top: clamp(2.25rem, 4.5vw, 3.5rem);
+      }
+
+      .dp-set > h3 {
+        margin: 0 0 14px;
+        font-family: var(--dp-display);
+        font-weight: 500;
+        font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+        line-height: 1.3;
+      }
+
+      .dp-pair {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: clamp(30px, 6vw, 46px);
+      }
+
+      .dp-frame {
+        margin: 0;
+      }
+
+      .dp-pair + .dp-pair {
+        margin-top: clamp(36px, 5vw, 64px);
+      }
+      .dp-set + .dp-set {
+        margin-top: clamp(56px, 8vw, 104px);
+      }
+
+      @media (min-width: 720px) {
+        .dp-pair {
+          grid-template-columns: 1fr 1fr;
+          row-gap: 0;
+        }
+
+        /* one mount, two windows: the fold replaces the outer edge at the seam */
+        .dp-pair .dp-frame:first-child .dp-mat {
+          padding-right: calc(var(--dp-fold) / 2);
+          border-right: 0;
+        }
+        .dp-pair .dp-frame:last-child .dp-mat {
+          padding-left: calc(var(--dp-fold) / 2);
+          border-left: 0;
+        }
+      }
+
+      .dp-end {
+        padding-bottom: clamp(4rem, 9vw, 9rem);
+      }
+
+      @media (max-width: 560px) {
+        .dp-mast {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        body[data-concept="3"] *,
+        body[data-concept="3"] *::before,
+        body[data-concept="3"] *::after {
+          transition-duration: 0.001ms !important;
+          animation-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body data-concept="3">
+    <header class="dp-mast">
+      <h1>HoloTrials: Case Covered</h1>
+      <p class="dp-date">13 September 2026</p>
+      <p class="dp-note">
+        Thirty-one frames from the case, set side by side in fifteen pairs.
+      </p>
+    </header>
+
+    <main class="dp-col dp-end">
+      <figure class="dp-hero">
+        <a
+          class="dp-mat"
+          data-photo
+          href="../../src/content/games/holotrials/opening_shot.webp"
+          data-title="Schoolyard, first frame"
+          data-caption="Wide shot of the schoolyard: low-poly trees, a notice board, one figure on the path."
+        >
+          <img
+            src="../../src/content/games/holotrials/opening_shot.webp"
+            alt="Wide view of a low-poly schoolyard with green and pink trees, a poster board and a single figure walking on the path."
+            width="2560"
+            height="1440"
+            decoding="async"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </a>
+        <figcaption class="dp-cap">
+          Wide shot of the schoolyard: low-poly trees, a notice board, one
+          figure on the path.
+        </figcaption>
+      </figure>
+      <section class="dp-move">
+        <h2>Two frames, same figure</h2>
+        <section class="dp-set">
+          <h3>Ceres Fauna</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/fauna_angry.webp"
+                data-title="Ceres Fauna, schoolyard"
+                data-caption="Schoolyard. Arms folded, mouth set, brows down."
+              >
+                <img
+                  src="../../src/content/games/holotrials/fauna_angry.webp"
+                  alt="Ceres Fauna stands in the schoolyard with her arms folded, frowning."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Schoolyard. Arms folded, mouth set, brows down.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/fauna_happy.webp"
+                data-title="Ceres Fauna, schoolyard"
+                data-caption="Same camera. Hands up at her chest, eyes closed, smiling."
+              >
+                <img
+                  src="../../src/content/games/holotrials/fauna_happy.webp"
+                  alt="The same schoolyard shot, with Fauna smiling and her hands raised at her chest."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Same camera. Hands up at her chest, eyes closed, smiling.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Ninomae Ina'nis</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/ina_staring.webp"
+                data-title="Ninomae Ina'nis, art room"
+                data-caption="Art room. Palette and brush in hand, flat stare."
+              >
+                <img
+                  src="../../src/content/games/holotrials/ina_staring.webp"
+                  alt="Ina stands in the art room holding a palette and a brush, staring forward."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Art room. Palette and brush in hand, flat stare.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/ina_smug.webp"
+                data-title="Ninomae Ina'nis, art room"
+                data-caption="Same camera. Palette gone, half-lidded smile."
+              >
+                <img
+                  src="../../src/content/games/holotrials/ina_smug.webp"
+                  alt="The same art room shot, with Ina empty-handed and smiling with half-lidded eyes."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Same camera. Palette gone, half-lidded smile.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Takanashi Kiara</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/kiara_peace_sign.webp"
+                data-title="Takanashi Kiara, cafeteria"
+                data-caption="Cafeteria. Eyes shut, mouth open, peace sign up."
+              >
+                <img
+                  src="../../src/content/games/holotrials/kiara_peace_sign.webp"
+                  alt="Kiara laughs with her eyes closed in the cafeteria, holding up a peace sign."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Cafeteria. Eyes shut, mouth open, peace sign up.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/kiara_shocked.webp"
+                data-title="Takanashi Kiara, cafeteria"
+                data-caption="Same camera. Hand to chin, wide eyes, two exclamation marks."
+              >
+                <img
+                  src="../../src/content/games/holotrials/kiara_shocked.webp"
+                  alt="The same cafeteria shot, with Kiara wide-eyed, her hand at her chin and two red exclamation marks beside her."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Same camera. Hand to chin, wide eyes, two exclamation marks.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/kiara_phoenix.webp"
+                data-title="Takanashi Kiara, cafeteria, phoenix form"
+                data-caption="Cafeteria. Flame aura, glowing eyes, a red blade in her fists."
+              >
+                <img
+                  src="../../src/content/games/holotrials/kiara_phoenix.webp"
+                  alt="Kiara in the cafeteria wreathed in a pale flame aura, eyes glowing, holding a red blade."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Cafeteria. Flame aura, glowing eyes, a red blade in her fists.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/kiara_mad_trial.webp"
+                data-title="Takanashi Kiara, trial room"
+                data-caption="Trial room. Same flame aura, both fists flat on the bench."
+              >
+                <img
+                  src="../../src/content/games/holotrials/kiara_mad_trial.webp"
+                  alt="Kiara behind a blue bench in the trial room, flame aura behind her and both fists on the desk."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Trial room. Same flame aura, both fists flat on the bench.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Ouro Kronii</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/cover.webp"
+                data-title="Ouro Kronii, trial room"
+                data-caption="Trial room. Eyes closed, one hand raised with the white clock hand."
+              >
+                <img
+                  src="../../src/content/games/holotrials/cover.webp"
+                  alt="Kronii stands in the blue trial room with her eyes closed and a white clock-hand figure at her raised hand."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Trial room. Eyes closed, one hand raised with the white clock
+                hand.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/kronii_angry.webp"
+                data-title="Ouro Kronii, council office"
+                data-caption="Office. Arms folded, frown, the clock hand at her shoulder."
+              >
+                <img
+                  src="../../src/content/games/holotrials/kronii_angry.webp"
+                  alt="Kronii stands with her arms folded and a frown in a lilac office, the white clock-hand figure beside her head."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Office. Arms folded, frown, the clock hand at her shoulder.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Mori Calliope</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/mori_cool.webp"
+                data-title="Mori Calliope, council corridor"
+                data-caption="Council corridor. Hands in coat pockets, flat stare."
+              >
+                <img
+                  src="../../src/content/games/holotrials/mori_cool.webp"
+                  alt="Mori Calliope stands in the council room corridor with her hands in her coat pockets, staring flatly."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Council corridor. Hands in coat pockets, flat stare.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/mori_shrugging.webp"
+                data-title="Mori Calliope, council corridor"
+                data-caption="Same camera. Both palms up, eyes closed, grinning."
+              >
+                <img
+                  src="../../src/content/games/holotrials/mori_shrugging.webp"
+                  alt="The same corridor shot, with Mori shrugging, palms up, eyes closed in a grin."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Same camera. Both palms up, eyes closed, grinning.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/mori_miffed.webp"
+                data-title="Mori Calliope, council corridor"
+                data-caption="Council corridor. Hand at the back of her neck, eyes narrowed."
+              >
+                <img
+                  src="../../src/content/games/holotrials/mori_miffed.webp"
+                  alt="Mori stands in the corridor with one hand at the back of her neck and her eyes narrowed."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Council corridor. Hand at the back of her neck, eyes narrowed.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/mori_embarrased.webp"
+                data-title="Mori Calliope, council corridor"
+                data-caption="Same camera. Bandaged hands up, palms out, eyes wide."
+              >
+                <img
+                  src="../../src/content/games/holotrials/mori_embarrased.webp"
+                  alt="The same corridor shot, with Mori's bandaged hands raised palms out and her eyes wide."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Same camera. Bandaged hands up, palms out, eyes wide.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Tsukumo Sana</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/sana_happy.webp"
+                data-title="Tsukumo Sana, council room door"
+                data-caption="Council room door. Both fists at her cheeks, eyes closed."
+              >
+                <img
+                  src="../../src/content/games/holotrials/sana_happy.webp"
+                  alt="Sana stands under the council room sign with both fists at her cheeks, eyes closed and smiling."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Council room door. Both fists at her cheeks, eyes closed.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/sana_whisper.webp"
+                data-title="Tsukumo Sana, council room door"
+                data-caption="Same camera. Hand at her mouth, wink, star sparks."
+              >
+                <img
+                  src="../../src/content/games/holotrials/sana_whisper.webp"
+                  alt="The same doorway shot, with Sana's hand at her mouth, one eye winking and star sparks beside her."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Same camera. Hand at her mouth, wink, star sparks.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+      <section class="dp-move">
+        <h2>Card, then frame</h2>
+        <section class="dp-set">
+          <h3>Gawr Gura</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/gawr_gura_title_card.webp"
+                data-title="Gawr Gura title card"
+                data-caption="Card: Gawr Gura, Swimming Club Ace."
+              >
+                <img
+                  src="../../src/content/games/holotrials/gawr_gura_title_card.webp"
+                  alt="Title card for Gawr Gura, Swimming Club Ace: Gura grins with sharp teeth against a coral shape on a teal patterned background."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Gawr Gura, Swimming Club Ace.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/gura_crying.webp"
+                data-title="Gawr Gura, pool hall"
+                data-caption="Pool hall. Fists at her cheeks, tears, a shark tail behind her."
+              >
+                <img
+                  src="../../src/content/games/holotrials/gura_crying.webp"
+                  alt="Gura stands in a blue pool hall crying, fists at her cheeks, a shark tail visible behind her."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Pool hall. Fists at her cheeks, tears, a shark tail behind her.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>IRyS</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/irys_title_card.webp"
+                data-title="IRyS title card"
+                data-caption="Card: IRyS, Holohigh's Honor Student."
+              >
+                <img
+                  src="../../src/content/games/holotrials/irys_title_card.webp"
+                  alt="Title card for IRyS, Holohigh's Honor Student: IRyS carries a stack of books against a pink star burst."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: IRyS, Holohigh's Honor Student.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/irys_thinking.webp"
+                data-title="IRyS, library"
+                data-caption="Library. Finger to chin, paper plane in hand, monitors behind."
+              >
+                <img
+                  src="../../src/content/games/holotrials/irys_thinking.webp"
+                  alt="IRyS stands in a dark library with a finger at her chin and a paper plane in her other hand."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Library. Finger to chin, paper plane in hand, monitors behind.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Mori Calliope</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/mori_calliope_title_card.webp"
+                data-title="Mori Calliope title card"
+                data-caption="Card: Mori Calliope, Music Club Member."
+              >
+                <img
+                  src="../../src/content/games/holotrials/mori_calliope_title_card.webp"
+                  alt="Title card for Mori Calliope, Music Club Member: Calliope, bandaged hand at her collar, against a pale dotted circle and a red ring."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Mori Calliope, Music Club Member.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/mori_staring.webp"
+                data-title="Mori Calliope, council corridor"
+                data-caption="Council corridor. One hand lifting the cap brim, eyes narrowed."
+              >
+                <img
+                  src="../../src/content/games/holotrials/mori_staring.webp"
+                  alt="Mori stands in the council room corridor lifting the brim of her cap with one finger, eyes narrowed."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Council corridor. One hand lifting the cap brim, eyes narrowed.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Nanashi Mumei</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/nanashi_mumei_title_card.webp"
+                data-title="Nanashi Mumei title card"
+                data-caption="Card: Nanashi Mumei, Student Council's Secretary."
+              >
+                <img
+                  src="../../src/content/games/holotrials/nanashi_mumei_title_card.webp"
+                  alt="Title card for Nanashi Mumei, Student Council's Secretary: Mumei holds a black book against a teal and orange background of leaf shapes."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Nanashi Mumei, Student Council's Secretary.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/mumei_smug_thinking.webp"
+                data-title="Nanashi Mumei, art room"
+                data-caption="Art room. Arms folded, glove at her chin, a figure at the door."
+              >
+                <img
+                  src="../../src/content/games/holotrials/mumei_smug_thinking.webp"
+                  alt="Mumei stands in the art room with her arms folded and a gloved hand at her chin, another figure leaning in at the door."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Art room. Arms folded, glove at her chin, a figure at the door.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+      <section class="dp-move">
+        <h2>Cards, paired</h2>
+        <section class="dp-set">
+          <h3>Student Council</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/ceres_fauna_title_card.webp"
+                data-title="Ceres Fauna title card"
+                data-caption="Card: Ceres Fauna, Student Council's Head of Discipline."
+              >
+                <img
+                  src="../../src/content/games/holotrials/ceres_fauna_title_card.webp"
+                  alt="Title card for Ceres Fauna, Student Council's Head of Discipline: Fauna holds a red flower to her mouth against a peach flower shape and teal thorn vines."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Ceres Fauna, Student Council's Head of Discipline.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/tsukomo_sana_title_card.webp"
+                data-title="Tsukumo Sana title card"
+                data-caption="Card: Tsukumo Sana, Student Council's Head of Treasury."
+              >
+                <img
+                  src="../../src/content/games/holotrials/tsukomo_sana_title_card.webp"
+                  alt="Title card for Tsukumo Sana, Student Council's Head of Treasury: Sana smiles with a finger to her cheek against a pink ringed planet."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Tsukumo Sana, Student Council's Head of Treasury.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/hakos_baelz_title_card.webp"
+                data-title="Hakos Baelz title card"
+                data-caption="Card: Hakos Baelz, Student Council's President."
+              >
+                <img
+                  src="../../src/content/games/holotrials/hakos_baelz_title_card.webp"
+                  alt="Title card for Hakos Baelz, Student Council's President: Baelz stands in a dark blazer and yellow vest against yellow and red zigzags."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Hakos Baelz, Student Council's President.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/ouro_kronii_title_card.webp"
+                data-title="Ouro Kronii title card"
+                data-caption="Card: Ouro Kronii, Student Council's Vice President."
+              >
+                <img
+                  src="../../src/content/games/holotrials/ouro_kronii_title_card.webp"
+                  alt="Title card for Ouro Kronii, Student Council's Vice President: Kronii, finger at her temple, with the white clock-hand figure behind her on a mint background."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Ouro Kronii, Student Council's Vice President.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="dp-set">
+          <h3>Club members</h3>
+          <div class="dp-pair">
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/ninomae_inanis_title_card.webp"
+                data-title="Ninomae Ina'nis title card"
+                data-caption="Card: Ninomae Ina'nis, Occult Club Member."
+              >
+                <img
+                  src="../../src/content/games/holotrials/ninomae_inanis_title_card.webp"
+                  alt="Title card for Ninomae Ina'nis, Occult Club Member: Ina holds up a paintbrush, smiling, against a pink and orange field of paint splashes."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Ninomae Ina'nis, Occult Club Member.
+              </figcaption>
+            </figure>
+            <figure class="dp-frame">
+              <a
+                class="dp-mat"
+                data-photo
+                href="../../src/content/games/holotrials/takanashi_kiara_title_card.webp"
+                data-title="Takanashi Kiara title card"
+                data-caption="Card: Takanashi Kiara, Dance Club Member."
+              >
+                <img
+                  src="../../src/content/games/holotrials/takanashi_kiara_title_card.webp"
+                  alt="Title card for Takanashi Kiara, Dance Club Member: Kiara holds up a peace sign against a pale circle and a coral flame."
+                  width="2560"
+                  height="1440"
+                  decoding="async"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption class="dp-cap">
+                Card: Takanashi Kiara, Dance Club Member.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="viewer.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,1376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>HoloTrials: Case Covered — 13 September 2026</title>
+    <link rel="stylesheet" href="viewer.css" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --base: #e4ebef;
+        --base-hi: #f2f7f9;
+        --base-lo: #d3dee4;
+        --ink: #163048;
+        --muted: #607785;
+        --surface: #ffffff;
+        --focus: #365f89;
+        --line: rgba(22, 48, 64, 0.19);
+        --line-soft: rgba(22, 48, 64, 0.08);
+        --sans:
+          "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system,
+          sans-serif;
+        --display:
+          Optima, "Optima Nova", "Palatino Linotype", Palatino,
+          "Times New Roman", serif;
+        --pad: clamp(16px, 3.2vw, 44px);
+        --gap: clamp(14px, 1.8vw, 30px);
+        --sticky-top: clamp(10px, 2vh, 26px);
+        --sticky-h: 0px;
+      }
+
+      html {
+        background: var(--base);
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        background: var(--base);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: clamp(15px, 0.35vw + 14px, 16.5px);
+        line-height: 1.55;
+        letter-spacing: 0.002em;
+      }
+
+      /* Diffused light-table glow, fixed so the glass reads as a surface, not a gradient. */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            115% 78% at 10% -8%,
+            var(--base-hi) 0%,
+            rgba(242, 247, 249, 0) 62%
+          ),
+          radial-gradient(
+            88% 62% at 92% 104%,
+            rgba(211, 222, 228, 0.9) 0%,
+            rgba(211, 222, 228, 0) 70%
+          );
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+
+      .lt-sr {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      .lt-skip {
+        position: absolute;
+        left: -9999px;
+        font-size: 0.86rem;
+        background: var(--surface);
+        color: var(--ink);
+        padding: 8px 12px;
+        border: 1px solid var(--focus);
+        border-radius: 2px;
+      }
+      .lt-skip:focus {
+        left: var(--pad);
+        top: 12px;
+        z-index: 6;
+      }
+
+      /* ---------- masthead ---------- */
+
+      .lt-mast {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 3px 22px;
+        padding: clamp(20px, 3.4vh, 38px) var(--pad) clamp(11px, 1.8vh, 17px);
+        border-bottom: 1px solid var(--line-soft);
+      }
+
+      .lt-mast h1 {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: clamp(1.28rem, 1.02rem + 0.95vw, 1.72rem);
+        line-height: 1.16;
+        letter-spacing: 0.004em;
+        text-wrap: balance;
+      }
+
+      .lt-mast .lt-date {
+        margin: 0 0 0 auto;
+        font-size: 0.8rem;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+      }
+
+      /* ---------- table ---------- */
+
+      .lt-table {
+        display: block;
+        padding: clamp(14px, 2.4vh, 26px) var(--pad) clamp(32px, 6vh, 64px);
+      }
+
+      @media (min-width: 62rem) {
+        .lt-table {
+          display: grid;
+          grid-template-columns: minmax(0, 72fr) minmax(17rem, 28fr);
+          gap: var(--gap);
+          align-items: start;
+        }
+      }
+
+      /* ---------- stage (selected capture) ---------- */
+
+      /* --frame-w keeps the plate, caption and transport on one shared edge, and
+     caps the plate width so a short viewport narrows it instead of letterboxing. */
+      .lt-stage {
+        --frame-w: min(100%, calc(36dvh * 16 / 9 + 26px));
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 10px 0 12px;
+        background: var(--base);
+        border-bottom: 1px solid var(--line-soft);
+      }
+
+      @media (min-width: 62rem) {
+        .lt-stage {
+          --frame-w: min(100%, calc((100dvh - 15rem) * 16 / 9 + 26px));
+          top: var(--sticky-top);
+          padding: 0;
+          background: transparent;
+          border-bottom: 0;
+        }
+      }
+
+      .lt-figure {
+        margin: 0;
+        width: var(--frame-w);
+      }
+
+      .lt-plate {
+        display: block;
+        background: var(--surface);
+        padding: clamp(5px, 0.7vw, 12px);
+        border-radius: 2px;
+        box-shadow:
+          0 0 0 1px var(--line-soft),
+          0 26px 46px -34px rgba(22, 48, 64, 0.62),
+          0 0 70px -14px rgba(255, 255, 255, 0.95);
+        transition: box-shadow 0.18s ease;
+      }
+
+      .lt-plate:hover {
+        box-shadow:
+          0 0 0 1px var(--line),
+          0 30px 52px -32px rgba(22, 48, 64, 0.6),
+          0 0 80px -12px rgba(255, 255, 255, 1);
+      }
+
+      .lt-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        background: var(--surface);
+        transition: opacity 0.18s ease;
+      }
+
+      .lt-plate.is-swapping .lt-image {
+        opacity: 0.3;
+      }
+
+      .lt-readout {
+        width: var(--frame-w);
+        margin-top: clamp(10px, 1.4vh, 15px);
+      }
+
+      .lt-count {
+        margin: 0;
+        font-size: 0.74rem;
+        letter-spacing: 0.13em;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .lt-count .lt-of {
+        margin: 0 0.38em;
+        letter-spacing: 0.05em;
+      }
+
+      .lt-cap {
+        margin: 3px 0 0;
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: clamp(1rem, 0.9rem + 0.35vw, 1.18rem);
+        line-height: 1.25;
+      }
+
+      .lt-caption {
+        margin: 2px 0 0;
+        max-width: 54ch;
+        font-size: 0.92rem;
+        line-height: 1.5;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+
+      /* Hold two caption lines on small screens so the sticky stage keeps its height
+     and the thumbnails below never shift under a tap. */
+      @media (max-width: 61.99rem) {
+        .lt-caption {
+          min-height: 3em;
+        }
+      }
+
+      .lt-transport {
+        display: flex;
+        gap: 8px;
+        margin-top: clamp(10px, 1.6vh, 15px);
+      }
+
+      .lt-transport button {
+        font: inherit;
+        font-size: 0.86rem;
+        color: var(--ink);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        padding: 7px 15px;
+        cursor: pointer;
+        transition:
+          background-color 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
+      }
+      .lt-transport button:hover:not(:disabled) {
+        border-color: var(--focus);
+        color: var(--focus);
+      }
+      .lt-transport button:disabled {
+        color: var(--muted);
+        background: transparent;
+        border-color: var(--line-soft);
+        opacity: 0.6;
+        cursor: default;
+      }
+
+      .lt-note {
+        margin: 8px 0 0;
+        font-size: 0.84rem;
+        color: var(--muted);
+      }
+
+      /* ---------- contact sheet ---------- */
+
+      .lt-sheet {
+        margin-top: clamp(18px, 3vh, 28px);
+        padding: clamp(10px, 1.3vw, 15px);
+        border: 1px solid var(--line-soft);
+        border-radius: 3px;
+        background: linear-gradient(
+          180deg,
+          var(--base-hi) 0%,
+          var(--base) 32%,
+          var(--base-lo) 100%
+        );
+        box-shadow: inset 0 1px 0 var(--surface);
+      }
+
+      @media (min-width: 62rem) {
+        .lt-sheet {
+          margin-top: 0;
+        }
+      }
+
+      .lt-thumbs {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(7px, 1vw, 11px);
+      }
+
+      .lt-thumb {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 3px;
+        font: inherit;
+        line-height: 0;
+        color: inherit;
+        background: var(--surface);
+        border: 1px solid var(--line-soft);
+        border-radius: 2px;
+        cursor: pointer;
+        scroll-margin-top: 18px;
+        transition:
+          border-color 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+
+      @media (max-width: 61.99rem) {
+        .lt-thumb {
+          scroll-margin-top: calc(var(--sticky-h) + 18px);
+        }
+      }
+
+      .lt-thumb img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        background: var(--surface);
+      }
+
+      .lt-num {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        padding: 0 4px;
+        font-size: 0.62rem;
+        line-height: 1.5;
+        letter-spacing: 0.06em;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 0 0 1px rgba(22, 48, 64, 0.12);
+        border-radius: 1px;
+        transition:
+          background-color 0.15s ease,
+          color 0.15s ease;
+      }
+
+      .lt-thumb:hover {
+        border-color: var(--muted);
+      }
+
+      .lt-thumb[aria-pressed="true"] {
+        border-color: var(--focus);
+        box-shadow:
+          0 0 0 2px rgba(54, 95, 137, 0.26),
+          0 10px 22px -18px rgba(22, 48, 64, 0.7);
+      }
+      .lt-thumb[aria-pressed="true"] .lt-num {
+        background: var(--focus);
+        color: #fff;
+        box-shadow: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.001ms !important;
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body data-concept="5">
+    <a class="lt-skip" href="#lt-sheet">Skip to contact sheet</a>
+
+    <header class="lt-mast">
+      <h1>HoloTrials: Case Covered</h1>
+      <p class="lt-date">
+        <time datetime="2026-09-13">13 September 2026</time>
+      </p>
+    </header>
+
+    <main class="lt-table">
+      <section class="lt-stage" aria-labelledby="lt-cap">
+        <figure class="lt-figure">
+          <a
+            class="lt-plate"
+            id="lt-plate"
+            href="../../src/content/games/holotrials/opening_shot.webp"
+            data-photo="../../src/content/games/holotrials/opening_shot.webp"
+            data-title="School grounds"
+            data-caption="Stepped paths, clipped hedges, and trees fill an outdoor campus view."
+          >
+            <img
+              class="lt-image"
+              id="lt-image"
+              decoding="async"
+              fetchpriority="high"
+              width="2560"
+              height="1440"
+              src="../../src/content/games/holotrials/opening_shot.webp"
+              alt="School grounds"
+            />
+          </a>
+        </figure>
+
+        <div class="lt-readout">
+          <p class="lt-count">
+            <span id="lt-index">01</span><span class="lt-of">of</span
+            ><span id="lt-total">31</span>
+          </p>
+          <h2 class="lt-cap" id="lt-cap">School grounds</h2>
+          <p class="lt-caption" id="lt-caption">
+            Stepped paths, clipped hedges, and trees fill an outdoor campus
+            view.
+          </p>
+          <div class="lt-transport">
+            <button
+              type="button"
+              id="lt-prev"
+              aria-label="Previous capture"
+              disabled
+            >
+              Previous
+            </button>
+            <button type="button" id="lt-next" aria-label="Next capture">
+              Next
+            </button>
+          </div>
+        </div>
+
+        <noscript
+          ><p class="lt-note">
+            JavaScript is off, so the large view stays on the first capture.
+            Every frame is listed in the contact sheet below.
+          </p></noscript
+        >
+        <p class="lt-sr" id="lt-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="lt-sheet" id="lt-sheet" aria-labelledby="lt-sheet-title">
+        <h2 class="lt-sr" id="lt-sheet-title">Contact sheet, 31 captures</h2>
+        <ul class="lt-thumbs" id="lt-thumbs" role="list">
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="true"
+              data-shot="opening_shot"
+              data-shot-src="../../src/content/games/holotrials/opening_shot.webp"
+              data-shot-title="School grounds"
+              data-shot-caption="Stepped paths, clipped hedges, and trees fill an outdoor campus view."
+              aria-label="Show capture 01 of 31: School grounds"
+            >
+              <img
+                src="../../src/content/games/holotrials/opening_shot.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">01</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="cover"
+              data-shot-src="../../src/content/games/holotrials/cover.webp"
+              data-shot-title="Cover frame"
+              data-shot-caption="A blue-lit courtroom with a tall window and a bench."
+              aria-label="Show capture 02 of 31: Cover frame"
+            >
+              <img
+                src="../../src/content/games/holotrials/cover.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">02</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="ceres_fauna_title_card"
+              data-shot-src="../../src/content/games/holotrials/ceres_fauna_title_card.webp"
+              data-shot-title="Ceres Fauna, title card"
+              data-shot-caption="Title card reads &ldquo;Ceres Fauna&rdquo; above &ldquo;Student Council&rsquo;s Head of Discipline&rdquo;."
+              aria-label="Show capture 03 of 31: Ceres Fauna, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/ceres_fauna_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">03</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="gawr_gura_title_card"
+              data-shot-src="../../src/content/games/holotrials/gawr_gura_title_card.webp"
+              data-shot-title="Gawr Gura, title card"
+              data-shot-caption="Title card reads &ldquo;Gawr Gura&rdquo; above &ldquo;Swimming Club Ace&rdquo;."
+              aria-label="Show capture 04 of 31: Gawr Gura, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/gawr_gura_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">04</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="hakos_baelz_title_card"
+              data-shot-src="../../src/content/games/holotrials/hakos_baelz_title_card.webp"
+              data-shot-title="Hakos Baelz, title card"
+              data-shot-caption="Title card reads &ldquo;Hakos Baelz&rdquo; above &ldquo;Student Council&rsquo;s President&rdquo;."
+              aria-label="Show capture 05 of 31: Hakos Baelz, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/hakos_baelz_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">05</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="irys_title_card"
+              data-shot-src="../../src/content/games/holotrials/irys_title_card.webp"
+              data-shot-title="Irys, title card"
+              data-shot-caption="Title card for Irys with the name above a subtitle."
+              aria-label="Show capture 06 of 31: Irys, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/irys_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">06</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="mori_calliope_title_card"
+              data-shot-src="../../src/content/games/holotrials/mori_calliope_title_card.webp"
+              data-shot-title="Mori Calliope, title card"
+              data-shot-caption="Title card reads &ldquo;Mori Calliope&rdquo; above &ldquo;Music Club Member&rdquo;."
+              aria-label="Show capture 07 of 31: Mori Calliope, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/mori_calliope_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">07</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="nanashi_mumei_title_card"
+              data-shot-src="../../src/content/games/holotrials/nanashi_mumei_title_card.webp"
+              data-shot-title="Nanashi Mumei, title card"
+              data-shot-caption="Title card reads &ldquo;Nanashi Mumei&rdquo; above &ldquo;Student Council&rsquo;s Secretary&rdquo;."
+              aria-label="Show capture 08 of 31: Nanashi Mumei, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/nanashi_mumei_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">08</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="ninomae_inanis_title_card"
+              data-shot-src="../../src/content/games/holotrials/ninomae_inanis_title_card.webp"
+              data-shot-title="Ninomae Ina&rsquo;nis, title card"
+              data-shot-caption="Title card reads &ldquo;Ninomae Ina&rsquo;nis&rdquo; above &ldquo;Occult Club Member&rdquo;."
+              aria-label="Show capture 09 of 31: Ninomae Ina&rsquo;nis, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/ninomae_inanis_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">09</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="ouro_kronii_title_card"
+              data-shot-src="../../src/content/games/holotrials/ouro_kronii_title_card.webp"
+              data-shot-title="Ouro Kronii, title card"
+              data-shot-caption="Title card reads &ldquo;Ouro Kronii&rdquo; above &ldquo;Student Council&rsquo;s Vice President&rdquo;."
+              aria-label="Show capture 10 of 31: Ouro Kronii, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/ouro_kronii_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">10</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="takanashi_kiara_title_card"
+              data-shot-src="../../src/content/games/holotrials/takanashi_kiara_title_card.webp"
+              data-shot-title="Takanashi Kiara, title card"
+              data-shot-caption="Title card reads &ldquo;Takanashi Kiara&rdquo; above &ldquo;Dance Club Member&rdquo;."
+              aria-label="Show capture 11 of 31: Takanashi Kiara, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/takanashi_kiara_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">11</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="tsukomo_sana_title_card"
+              data-shot-src="../../src/content/games/holotrials/tsukomo_sana_title_card.webp"
+              data-shot-title="Tsukomo Sana, title card"
+              data-shot-caption="Title card reads &ldquo;Tsukomo Sana&rdquo; above &ldquo;Student Council&rsquo;s Head of Treasury&rdquo;."
+              aria-label="Show capture 12 of 31: Tsukomo Sana, title card"
+            >
+              <img
+                src="../../src/content/games/holotrials/tsukomo_sana_title_card.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">12</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="fauna_angry"
+              data-shot-src="../../src/content/games/holotrials/fauna_angry.webp"
+              data-shot-title="Outdoors, campus path"
+              data-shot-caption="Trees and hedges line an outdoor campus path."
+              aria-label="Show capture 13 of 31: Outdoors, campus path"
+            >
+              <img
+                src="../../src/content/games/holotrials/fauna_angry.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">13</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="fauna_happy"
+              data-shot-src="../../src/content/games/holotrials/fauna_happy.webp"
+              data-shot-title="Outdoors, campus path"
+              data-shot-caption="The same outdoor campus path from another angle."
+              aria-label="Show capture 14 of 31: Outdoors, campus path"
+            >
+              <img
+                src="../../src/content/games/holotrials/fauna_happy.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">14</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="gura_crying"
+              data-shot-src="../../src/content/games/holotrials/gura_crying.webp"
+              data-shot-title="Indoor pool"
+              data-shot-caption="A tiled indoor pool fills the room, lit in blue."
+              aria-label="Show capture 15 of 31: Indoor pool"
+            >
+              <img
+                src="../../src/content/games/holotrials/gura_crying.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">15</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="irys_thinking"
+              data-shot-src="../../src/content/games/holotrials/irys_thinking.webp"
+              data-shot-title="Library shelves"
+              data-shot-caption="Bookshelves line a dimly lit library."
+              aria-label="Show capture 16 of 31: Library shelves"
+            >
+              <img
+                src="../../src/content/games/holotrials/irys_thinking.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">16</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="kiara_mad_trial"
+              data-shot-src="../../src/content/games/holotrials/kiara_mad_trial.webp"
+              data-shot-title="Courtroom bench"
+              data-shot-caption="A desk sits below tall windows with pointed arches."
+              aria-label="Show capture 17 of 31: Courtroom bench"
+            >
+              <img
+                src="../../src/content/games/holotrials/kiara_mad_trial.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">17</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="kiara_peace_sign"
+              data-shot-src="../../src/content/games/holotrials/kiara_peace_sign.webp"
+              data-shot-title="Cafeteria, hand raised"
+              data-shot-caption="Rows of canteen tables fill the room; one hand is raised at the front."
+              aria-label="Show capture 18 of 31: Cafeteria, hand raised"
+            >
+              <img
+                src="../../src/content/games/holotrials/kiara_peace_sign.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">18</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="kiara_shocked"
+              data-shot-src="../../src/content/games/holotrials/kiara_shocked.webp"
+              data-shot-title="Cafeteria, arms out"
+              data-shot-caption="The same room, both arms held out to the sides."
+              aria-label="Show capture 19 of 31: Cafeteria, arms out"
+            >
+              <img
+                src="../../src/content/games/holotrials/kiara_shocked.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">19</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="kiara_phoenix"
+              data-shot-src="../../src/content/games/holotrials/kiara_phoenix.webp"
+              data-shot-title="Cafeteria, flame"
+              data-shot-caption="A large flame shape rises behind the figure."
+              aria-label="Show capture 20 of 31: Cafeteria, flame"
+            >
+              <img
+                src="../../src/content/games/holotrials/kiara_phoenix.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">20</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="kronii_angry"
+              data-shot-src="../../src/content/games/holotrials/kronii_angry.webp"
+              data-shot-title="Laboratory"
+              data-shot-caption="A white counter and blue cabinets run along a laboratory wall."
+              aria-label="Show capture 21 of 31: Laboratory"
+            >
+              <img
+                src="../../src/content/games/holotrials/kronii_angry.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">21</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="ina_smug"
+              data-shot-src="../../src/content/games/holotrials/ina_smug.webp"
+              data-shot-title="Art room, easels"
+              data-shot-caption="Framed pictures hang above two easels in a warm-lit room."
+              aria-label="Show capture 22 of 31: Art room, easels"
+            >
+              <img
+                src="../../src/content/games/holotrials/ina_smug.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">22</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="ina_staring"
+              data-shot-src="../../src/content/games/holotrials/ina_staring.webp"
+              data-shot-title="Art room, straight on"
+              data-shot-caption="The same room seen straight on, facing the viewer."
+              aria-label="Show capture 23 of 31: Art room, straight on"
+            >
+              <img
+                src="../../src/content/games/holotrials/ina_staring.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">23</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="mumei_smug_thinking"
+              data-shot-src="../../src/content/games/holotrials/mumei_smug_thinking.webp"
+              data-shot-title="Art room, chin on hand"
+              data-shot-caption="A chin rests on one hand beside the easels."
+              aria-label="Show capture 24 of 31: Art room, chin on hand"
+            >
+              <img
+                src="../../src/content/games/holotrials/mumei_smug_thinking.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">24</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="mori_cool"
+              data-shot-src="../../src/content/games/holotrials/mori_cool.webp"
+              data-shot-title="Red hall, hand at collar"
+              data-shot-caption="Posters line a red-lit hall; one hand rests at the collar."
+              aria-label="Show capture 25 of 31: Red hall, hand at collar"
+            >
+              <img
+                src="../../src/content/games/holotrials/mori_cool.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">25</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="mori_embarrased"
+              data-shot-src="../../src/content/games/holotrials/mori_embarrased.webp"
+              data-shot-title="Red hall, hands up"
+              data-shot-caption="Both hands are raised at shoulder height."
+              aria-label="Show capture 26 of 31: Red hall, hands up"
+            >
+              <img
+                src="../../src/content/games/holotrials/mori_embarrased.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">26</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="mori_miffed"
+              data-shot-src="../../src/content/games/holotrials/mori_miffed.webp"
+              data-shot-title="Red hall, hand at hat"
+              data-shot-caption="One hand is held at the brim of the hat."
+              aria-label="Show capture 27 of 31: Red hall, hand at hat"
+            >
+              <img
+                src="../../src/content/games/holotrials/mori_miffed.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">27</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="mori_shrugging"
+              data-shot-src="../../src/content/games/holotrials/mori_shrugging.webp"
+              data-shot-title="Red hall, palms up"
+              data-shot-caption="Palms are turned upward at either side."
+              aria-label="Show capture 28 of 31: Red hall, palms up"
+            >
+              <img
+                src="../../src/content/games/holotrials/mori_shrugging.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">28</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="mori_staring"
+              data-shot-src="../../src/content/games/holotrials/mori_staring.webp"
+              data-shot-title="Red hall, standing"
+              data-shot-caption="A straight-on view of the same hall and figure."
+              aria-label="Show capture 29 of 31: Red hall, standing"
+            >
+              <img
+                src="../../src/content/games/holotrials/mori_staring.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">29</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="sana_happy"
+              data-shot-src="../../src/content/games/holotrials/sana_happy.webp"
+              data-shot-title="Council room"
+              data-shot-caption="A red-walled council room interior."
+              aria-label="Show capture 30 of 31: Council room"
+            >
+              <img
+                src="../../src/content/games/holotrials/sana_happy.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">30</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="lt-thumb"
+              aria-pressed="false"
+              data-shot="sana_whisper"
+              data-shot-src="../../src/content/games/holotrials/sana_whisper.webp"
+              data-shot-title="Council room, close"
+              data-shot-caption="A closer view of the same council room."
+              aria-label="Show capture 31 of 31: Council room, close"
+            >
+              <img
+                src="../../src/content/games/holotrials/sana_whisper.webp"
+                alt=""
+                width="2560"
+                height="1440"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="lt-num">31</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var plate = document.getElementById("lt-plate");
+        if (!plate) return;
+
+        var plateImage = document.getElementById("lt-image");
+        var capTitle = document.getElementById("lt-cap");
+        var capText = document.getElementById("lt-caption");
+        var indexOut = document.getElementById("lt-index");
+        var totalOut = document.getElementById("lt-total");
+        var status = document.getElementById("lt-status");
+        var prevBtn = document.getElementById("lt-prev");
+        var nextBtn = document.getElementById("lt-next");
+        var stage = document.querySelector(".lt-stage");
+        var grid = document.getElementById("lt-thumbs");
+        if (!grid) return;
+
+        var thumbs = Array.prototype.slice.call(
+          grid.querySelectorAll(".lt-thumb"),
+        );
+        var total = thumbs.length;
+        if (!total) return;
+
+        var current = 0;
+        var seq = 0;
+        var reduced = window.matchMedia
+          ? window.matchMedia("(prefers-reduced-motion: reduce)")
+          : { matches: false };
+
+        function pad(n) {
+          return n < 10 ? "0" + n : String(n);
+        }
+
+        function shotAt(i) {
+          var b = thumbs[i];
+          return {
+            src: b.getAttribute("data-shot-src"),
+            title: b.getAttribute("data-shot-title"),
+            caption: b.getAttribute("data-shot-caption"),
+          };
+        }
+
+        function commit(i, shot) {
+          /* The parent viewer reads these attributes at click time, so keep them live. */
+          plate.setAttribute("href", shot.src);
+          plate.setAttribute("data-photo", shot.src);
+          plate.setAttribute("data-title", shot.title);
+          plate.setAttribute("data-caption", shot.caption);
+          plateImage.setAttribute("src", shot.src);
+          plateImage.setAttribute("alt", shot.title);
+
+          capTitle.textContent = shot.title;
+          capText.textContent = shot.caption;
+          indexOut.textContent = pad(i + 1);
+          totalOut.textContent = String(total);
+
+          for (var t = 0; t < total; t++) {
+            thumbs[t].setAttribute("aria-pressed", t === i ? "true" : "false");
+          }
+
+          status.textContent =
+            "Capture " +
+            (i + 1) +
+            " of " +
+            total +
+            ". " +
+            shot.title +
+            ". " +
+            shot.caption;
+          prevBtn.disabled = i === 0;
+          nextBtn.disabled = i === total - 1;
+          current = i;
+        }
+
+        function show(i, reveal) {
+          if (i < 0 || i >= total) return;
+          var shot = shotAt(i);
+          var token = ++seq;
+
+          var finish = function () {
+            if (token !== seq) return;
+            commit(i, shot);
+            if (!reduced.matches) {
+              window.requestAnimationFrame(function () {
+                if (token === seq) plate.classList.remove("is-swapping");
+              });
+            }
+            if (reveal) thumbs[i].scrollIntoView({ block: "nearest" });
+          };
+
+          if (reduced.matches) {
+            finish();
+            return;
+          }
+
+          plate.classList.add("is-swapping");
+          var pre = new Image();
+          pre.onload = finish;
+          pre.onerror = finish;
+          pre.src = shot.src;
+        }
+
+        for (var k = 0; k < total; k++) {
+          (function (i) {
+            thumbs[i].addEventListener("click", function () {
+              show(i, false);
+            });
+          })(k);
+        }
+
+        prevBtn.addEventListener("click", function () {
+          show(current - 1, true);
+        });
+        nextBtn.addEventListener("click", function () {
+          show(current + 1, true);
+        });
+
+        /* Arrow keys move focus through the sheet; Enter or Space makes the selection. */
+        function columns() {
+          var tracks = window.getComputedStyle(grid).gridTemplateColumns;
+          var parts = tracks ? tracks.split(" ").filter(Boolean) : [];
+          return parts.length > 1 ? parts.length : 2;
+        }
+
+        grid.addEventListener("keydown", function (event) {
+          var key = event.key;
+          if (
+            key !== "ArrowRight" &&
+            key !== "ArrowLeft" &&
+            key !== "ArrowDown" &&
+            key !== "ArrowUp" &&
+            key !== "Home" &&
+            key !== "End"
+          )
+            return;
+
+          var from = thumbs.indexOf(document.activeElement);
+          if (from < 0) return;
+
+          var step = columns();
+          var target = -1;
+          if (key === "ArrowRight") target = from + 1;
+          else if (key === "ArrowLeft") target = from - 1;
+          else if (key === "ArrowDown") target = from + step;
+          else if (key === "ArrowUp") target = from - step;
+          else if (key === "Home") target = 0;
+          else if (key === "End") target = total - 1;
+
+          event.preventDefault();
+          if (target < 0 || target >= total) return;
+          thumbs[target].focus();
+        });
+
+        /* Arrow keys also step the large view while its link has focus. */
+        plate.addEventListener("keydown", function (event) {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            show(current - 1, true);
+          } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            show(current + 1, true);
+          }
+        });
+
+        /* Publish the sticky stage height so focused thumbnails are never hidden by it. */
+        function measure() {
+          if (!stage) return;
+          var h = Math.round(stage.getBoundingClientRect().height);
+          document.documentElement.style.setProperty("--sticky-h", h + "px");
+        }
+        measure();
+        window.addEventListener("resize", measure);
+        window.addEventListener("load", measure);
+        if (window.ResizeObserver && stage)
+          new ResizeObserver(measure).observe(stage);
+
+        commit(0, shotAt(0));
+      })();
+    </script>
+
+    <script src="viewer.js" defer></script>
+  </body>
+</html>

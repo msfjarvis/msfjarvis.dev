@@ -1,0 +1,228 @@
+/* Shared prototype photo viewer. Scoped to .photo-viewer-* and .prototype-* only
+   so it never collides with the concept pages' own global styles. */
+
+.photo-viewer-dialog {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  background: rgba(6, 8, 12, 0.96);
+  color: #f4f5f7;
+  overflow: hidden;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.photo-viewer-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-viewer-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.photo-viewer-figure {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: clamp(28px, 5vh, 56px) clamp(16px, 4vw, 56px) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-viewer-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.photo-viewer-caption {
+  flex: 0 0 auto;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: clamp(12px, 2vh, 20px) clamp(16px, 4vw, 56px) 0;
+  text-align: center;
+}
+
+.photo-viewer-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.photo-viewer-text {
+  margin: 0.35em 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(244, 245, 247, 0.72);
+}
+
+.photo-viewer-controls {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: clamp(12px, 2vh, 22px) 16px clamp(16px, 3vh, 28px);
+}
+
+.photo-viewer-controls button {
+  font: inherit;
+  font-size: 0.8rem;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 0.35em 1em;
+  cursor: pointer;
+}
+
+.photo-viewer-controls button:hover,
+.photo-viewer-controls button:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.photo-viewer-controls button[hidden] {
+  display: none;
+}
+
+.photo-viewer-count {
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(244, 245, 247, 0.6);
+  min-width: 3.5em;
+  text-align: center;
+}
+
+.photo-viewer-count[hidden] {
+  display: none;
+}
+
+.photo-viewer-close {
+  position: absolute;
+  top: clamp(10px, 2vh, 20px);
+  right: clamp(10px, 2vw, 20px);
+  z-index: 1;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.photo-viewer-close:hover,
+.photo-viewer-close:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Concept picker: unobtrusive, collapsed by default, bottom corner. */
+.prototype-picker {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 40;
+  font-family:
+    "Avenir Next",
+    "Avenir",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #e8eaee;
+}
+
+.prototype-picker > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(12, 14, 18, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.prototype-picker > summary::-webkit-details-marker {
+  display: none;
+}
+
+.prototype-picker > summary::before {
+  content: "\25B8";
+  display: inline-block;
+  margin-right: 0.45em;
+  transition: transform 0.15s ease;
+}
+
+.prototype-picker[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.prototype-picker[open] > summary {
+  background: rgba(12, 14, 18, 0.95);
+}
+
+.prototype-picker-nav {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  min-width: 11rem;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: 10px;
+  background: rgba(12, 14, 18, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.prototype-picker-nav a {
+  display: block;
+  padding: 5px 9px;
+  border-radius: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.prototype-picker-nav a:hover,
+.prototype-picker-nav a:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+
+.prototype-picker-nav a[aria-current="page"] {
+  color: #fff;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prototype-picker > summary::before {
+    transition: none;
+  }
+}
