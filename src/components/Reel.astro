@@ -429,6 +429,7 @@ const dateLabel = date.toLocaleDateString("en-GB", {
     let programmaticTimer = 0;
     let queued = false;
     let resizeTimer = 0;
+    let scrollFallbackTimer = 0;
 
     const midOf = (element: Element) => {
       const box = element.getBoundingClientRect();
@@ -475,29 +476,66 @@ const dateLabel = date.toLocaleDateString("en-GB", {
       }
     };
 
-    const beginProgrammatic = (duration: number) => {
+    const clampScroll = (left: number) =>
+      Math.max(0, Math.min(left, strip.scrollWidth - strip.clientWidth));
+
+    /** Absolute `scrollLeft` that centres the slide in the strip. */
+    const targetScrollLeft = (index: number) => {
+      const stripBox = strip.getBoundingClientRect();
+      const slideBox = slides[index].getBoundingClientRect();
+      return clampScroll(
+        strip.scrollLeft +
+          (slideBox.left + slideBox.width / 2) -
+          (stripBox.left + stripBox.width / 2),
+      );
+    };
+
+    const endProgrammatic = () => {
+      if (!programmatic) return;
+      programmatic = false;
+      window.clearTimeout(programmaticTimer);
+      paint(nearestIndex());
+    };
+
+    const beginProgrammatic = () => {
       programmatic = true;
       window.clearTimeout(programmaticTimer);
-      programmaticTimer = window.setTimeout(() => {
-        programmatic = false;
-      }, duration);
+      // Safety net for engines that never fire `scrollend`.
+      programmaticTimer = window.setTimeout(endProgrammatic, 800);
     };
 
     const scrollToIndex = (index: number, smooth: boolean) => {
-      const delta = midOf(slides[index]) - midOf(strip);
-      if (Math.abs(delta) > 1) {
-        strip.scrollBy({
-          left: delta,
-          behavior: smooth ? "smooth" : "auto",
-        });
+      const target = targetScrollLeft(index);
+      window.clearTimeout(scrollFallbackTimer);
+
+      if (Math.abs(target - strip.scrollLeft) < 1) {
+        return false;
       }
+
+      if (!smooth) {
+        strip.scrollLeft = target;
+        return false;
+      }
+
+      const before = strip.scrollLeft;
+      strip.scrollBy({ left: target - before, behavior: "smooth" });
+      // Some engines drop a programmatic smooth scroll started inside a click
+      // handler. If the strip has not moved shortly after, jump to the target.
+      scrollFallbackTimer = window.setTimeout(() => {
+        if (Math.abs(strip.scrollLeft - before) < 1) {
+          strip.scrollLeft = target;
+          endProgrammatic();
+        }
+      }, 150);
+      return true;
     };
 
     const go = (index: number, smooth: boolean, moveFocus: boolean) => {
       const target = Math.max(0, Math.min(total - 1, index));
-      beginProgrammatic(smooth ? 500 : 100);
       paint(target);
-      scrollToIndex(target, smooth);
+      if (scrollToIndex(target, smooth) && smooth) {
+        beginProgrammatic();
+      }
       if (moveFocus) {
         anchors[target].focus({ preventScroll: true });
       }
@@ -525,6 +563,8 @@ const dateLabel = date.toLocaleDateString("en-GB", {
       },
       { passive: true },
     );
+
+    strip.addEventListener("scrollend", endProgrammatic);
 
     strip.addEventListener("keydown", (event) => {
       const key = event.key;
@@ -562,7 +602,6 @@ const dateLabel = date.toLocaleDateString("en-GB", {
       () => {
         window.clearTimeout(resizeTimer);
         resizeTimer = window.setTimeout(() => {
-          beginProgrammatic(100);
           scrollToIndex(current, false);
         }, 120);
       },
