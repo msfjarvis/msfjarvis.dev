@@ -1,0 +1,40 @@
+---
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  title: string;
+  caption?: string;
+  priority?: boolean;
+}
+
+const { image, alt, title, caption = "", priority = false } = Astro.props;
+---
+
+<li class="rl-slide" data-reel-slide>
+  <figure class="rl-fig">
+    <a
+      class="rl-mat pswp-gallery-item"
+      data-reel-link
+      href={image.src}
+      data-pswp-width={image.width}
+      data-pswp-height={image.height}
+      data-pswp-title={title}
+      data-pswp-caption={caption}
+      aria-label={`Open ${title} in the viewer`}
+    >
+      <img
+        src={image.src}
+        alt={alt}
+        width={image.width}
+        height={image.height}
+        decoding="async"
+        loading={priority ? "eager" : "lazy"}
+        fetchpriority={priority ? "high" : undefined}
+      />
+    </a>
+    <figcaption class="rl-cap">
+      <span class="rl-sub">{title}</span>
+      {caption && <span class="rl-obs">{caption}</span>}
+    </figcaption>
+  </figure>
+</li>

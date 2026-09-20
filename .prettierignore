@@ -5,3 +5,6 @@ node_modules/
 pnpm-lock.yaml
 
 slopdocs/
+
+# Games entries are written by the reel-mdx CMS format
+src/content/games/**/index.mdx

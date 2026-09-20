@@ -27,6 +27,7 @@ export const prerender = true;
         createOpenLibraryBookField,
         type CmsReactRuntime,
       } from "../../lib/cms/open-library-book-field";
+      import { formatReelMdx, parseReelMdx } from "../../lib/cms/reel-format";
 
       // ─── Tombstone hook ───────────────────────────────────────────────────────
 
@@ -107,6 +108,16 @@ export const prerender = true;
         "open-library-book",
         createOpenLibraryBookField(cmsReact),
       );
+
+      // ─── Reel format ──────────────────────────────────────────────────────────
+
+      // The games collection edits a structured frame list, but the file on
+      // disk keeps Astro's ImageMetadata imports so Frame.astro gets real
+      // width/height values without the editor touching an import statement.
+      CMS.registerCustomFormat("reel-mdx", "mdx", {
+        fromFile: parseReelMdx,
+        toFile: formatReelMdx,
+      });
 
       // ─── Figure editor component ──────────────────────────────────────────────
 
@@ -477,6 +488,54 @@ export const prerender = true;
                 widget: "markdown",
                 editor_components: ["code-block", "image", "figure"],
                 modes: ["raw", "rich_text"],
+              },
+            ],
+          },
+          {
+            name: "games",
+            label: "Games",
+            folder: "src/content/games",
+            format: "reel-mdx",
+            create: true,
+            path: "{{slug}}/index",
+            slug: "{{slug}}",
+            media_folder: "",
+            public_folder: "",
+            editor: { preview: false },
+            fields: [
+              { label: "Title", name: "title", widget: "string" },
+              {
+                label: "Date",
+                name: "date",
+                widget: "datetime",
+                format: "YYYY-MM-DD",
+                date_format: "YYYY-MM-DD",
+                time_format: false,
+                picker_utc: false,
+              },
+              { label: "Cover", name: "cover", widget: "image" },
+              {
+                label: "Subtitle",
+                name: "subtitle",
+                widget: "string",
+                required: false,
+              },
+              {
+                label: "Frames",
+                name: "frames",
+                widget: "list",
+                summary: "{{title}}",
+                fields: [
+                  { label: "Image", name: "src", widget: "image" },
+                  { label: "Alt text", name: "alt", widget: "text" },
+                  { label: "Title", name: "title", widget: "string" },
+                  {
+                    label: "Caption",
+                    name: "caption",
+                    widget: "text",
+                    required: false,
+                  },
+                ],
               },
             ],
           },

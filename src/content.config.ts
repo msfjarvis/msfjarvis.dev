@@ -42,14 +42,6 @@ const games = defineCollection({
       date: z.coerce.date(),
       cover: image(),
       subtitle: z.string().optional(),
-      photos: z.array(
-        z.object({
-          image: image(),
-          alt: z.string(),
-          title: z.string(),
-          caption: z.string().optional().default(""),
-        }),
-      ),
     }),
 });
 

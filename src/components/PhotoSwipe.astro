@@ -4,33 +4,129 @@
   import PhotoSwipeLightbox from "photoswipe/lightbox";
   import { defaultSelector } from "@xingwangzhe/satteri-photoswipe";
 
+  type PhotoSwipeUI = NonNullable<PhotoSwipeLightbox["pswp"]>["ui"];
+
+  const registerCaption = (ui: PhotoSwipeUI) => {
+    ui?.registerElement({
+      name: "caption",
+      className: "pswp__caption",
+      appendTo: "root",
+      onInit: (element, pswp) => {
+        pswp.on("change", () => {
+          const slideElement = pswp.currSlide?.data.element;
+          const caption =
+            slideElement instanceof HTMLElement
+              ? slideElement.dataset.pswpCaption
+              : undefined;
+          element.textContent = caption ?? "";
+          element.toggleAttribute("hidden", !caption);
+        });
+      },
+    });
+  };
+
+  /* Reel variant: mirrors scratch/game-photoblog/viewer.css — a two-line
+     caption plus Previous/count/Next pills instead of the default chrome. */
+  const registerReelCaption = (ui: PhotoSwipeUI) => {
+    ui?.registerElement({
+      name: "reel-caption",
+      className: "pswp__reel-caption",
+      appendTo: "root",
+      onInit: (element, pswp) => {
+        const title = document.createElement("p");
+        title.className = "pswp__reel-title";
+        const text = document.createElement("p");
+        text.className = "pswp__reel-text";
+        element.appendChild(title);
+        element.appendChild(text);
+
+        pswp.on("change", () => {
+          const slideElement = pswp.currSlide?.data.element;
+          const data =
+            slideElement instanceof HTMLElement ? slideElement.dataset : null;
+          title.textContent = data?.pswpTitle ?? "";
+          text.textContent = data?.pswpCaption ?? "";
+          title.toggleAttribute("hidden", !title.textContent);
+          text.toggleAttribute("hidden", !text.textContent);
+        });
+      },
+    });
+  };
+
+  const registerReelControls = (ui: PhotoSwipeUI, total: number) => {
+    ui?.registerElement({
+      name: "reel-controls",
+      className: "pswp__reel-controls",
+      appendTo: "root",
+      onInit: (element, pswp) => {
+        const prev = document.createElement("button");
+        prev.type = "button";
+        prev.className = "pswp__reel-btn";
+        prev.textContent = "Previous";
+        prev.setAttribute("aria-label", "Previous frame");
+        prev.addEventListener("click", () => pswp.prev());
+
+        const count = document.createElement("span");
+        count.className = "pswp__reel-count";
+        count.setAttribute("aria-live", "polite");
+
+        const next = document.createElement("button");
+        next.type = "button";
+        next.className = "pswp__reel-btn";
+        next.textContent = "Next";
+        next.setAttribute("aria-label", "Next frame");
+        next.addEventListener("click", () => pswp.next());
+
+        element.appendChild(prev);
+        element.appendChild(count);
+        element.appendChild(next);
+
+        pswp.on("change", () => {
+          count.textContent = `${pswp.currIndex + 1} / ${total}`;
+        });
+      },
+    });
+  };
+
   const createLightbox = (gallery: HTMLElement, children: string) => {
+    const reel = gallery.dataset.pswpVariant === "reel";
+    const total =
+      reel && typeof children === "string"
+        ? gallery.querySelectorAll(children).length
+        : 0;
+
     const lightbox = new PhotoSwipeLightbox({
       gallery,
       children,
       pswpModule: PhotoSwipe,
+      ...(reel
+        ? {
+            bgOpacity: 0.96,
+            mainClass: "pswp--reel",
+            clickToCloseNonZoomable: false,
+            paddingFn: (viewportSize: { x: number }) => {
+              const narrow = viewportSize.x < 620;
+              return {
+                top: narrow ? 36 : 56,
+                bottom: narrow ? 150 : 140,
+                left: narrow ? 16 : 48,
+                right: narrow ? 16 : 48,
+              };
+            },
+          }
+        : {}),
     });
 
     lightbox.on("uiRegister", () => {
       const ui = lightbox.pswp?.ui;
       if (!ui) return;
 
-      ui.registerElement({
-        name: "caption",
-        className: "pswp__caption",
-        appendTo: "root",
-        onInit: (element, pswp) => {
-          pswp.on("change", () => {
-            const slideElement = pswp.currSlide?.data.element;
-            const caption =
-              slideElement instanceof HTMLElement
-                ? slideElement.dataset.pswpCaption
-                : undefined;
-            element.textContent = caption ?? "";
-            element.toggleAttribute("hidden", !caption);
-          });
-        },
-      });
+      if (reel) {
+        registerReelCaption(ui);
+        registerReelControls(ui, total);
+      } else {
+        registerCaption(ui);
+      }
     });
 
     lightbox.init();
@@ -78,6 +174,95 @@
     padding: 0.5rem 0.75rem;
     background: rgb(0 0 0 / 0.75);
     color: white;
+    text-align: center;
+  }
+
+  /* ---- Reel variant ---- */
+
+  .pswp--reel .pswp__bg {
+    background: #06080c;
+  }
+
+  .pswp--reel .pswp__counter,
+  .pswp--reel .pswp__button--zoom,
+  .pswp--reel .pswp__button--arrow--prev,
+  .pswp--reel .pswp__button--arrow--next {
+    display: none;
+  }
+
+  .pswp--reel .pswp__button--close {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+  }
+
+  .pswp--reel .pswp__button--close:hover,
+  .pswp--reel .pswp__button--close:focus-visible {
+    background: rgba(255, 255, 255, 0.2);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+  }
+
+  .pswp--reel .pswp__reel-caption {
+    position: absolute;
+    right: clamp(16px, 4vw, 56px);
+    bottom: clamp(76px, 10vh, 92px);
+    left: clamp(16px, 4vw, 56px);
+    max-width: 52rem;
+    margin: 0 auto;
+    color: #f4f5f7;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .pswp--reel .pswp__reel-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .pswp--reel .pswp__reel-text {
+    margin: 0.35em 0 0;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: rgba(244, 245, 247, 0.72);
+  }
+
+  .pswp--reel .pswp__reel-controls {
+    position: absolute;
+    right: 0;
+    bottom: clamp(16px, 3vh, 28px);
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .pswp--reel .pswp__reel-btn {
+    padding: 0.35em 1em;
+    font: inherit;
+    font-size: 0.8rem;
+    color: #f4f5f7;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .pswp--reel .pswp__reel-btn:hover,
+  .pswp--reel .pswp__reel-btn:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+  }
+
+  .pswp--reel .pswp__reel-count {
+    min-width: 3.5em;
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: rgba(244, 245, 247, 0.6);
     text-align: center;
   }
 </style>
