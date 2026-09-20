@@ -1,0 +1,97 @@
+---
+title: "Weeknotes: Week #38 (2026)"
+date: "2026-09-20T12:55:07.934Z"
+lastmod: "2026-09-20T12:55:07.934Z"
+summary: "Another lazy week with an exciting end to it"
+tags:
+  - games
+  - movies
+  - programming
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import MastodonPost from "../../../components/MastodonPost.astro";
+import chana_paneer from "./chana-paneer.webp";
+import empty_theatre from "./empty-theatre.webp";
+import fuckass_flashbang_warning from "./fuckass-flashbang-warning.webp";
+import jolof_rice from "./jolof-rice.webp";
+import resident_evil from "./resident-evil.webp";
+
+A very slow week, all things considered, with all the excitement concentrated towards the tail end. I wish I could say the same for next week, which is bound to be exciting throughout: new office, [Amogh](https://kat.bio/) coming over, [CONTROL: Resonant](https://controlgame.com) releasing, and [IndiaFOSS 2026](https://fossunited.org/indiafoss/2026)!
+
+# Social
+
+<Figure
+  src={resident_evil}
+  title="🙌 ABSOLUTE CINEMA 🙌"
+  alt="Resident Evil title over a snowy scene"
+/>
+
+[Yash](https://yashgarg.dev/) made an impromptu plan for him, Mayank, and me to watch [Resident Evil](https://www.imdb.com/title/tt35538033) on Friday morning, and it was an absolute riot. The first half had a handful of excellent jump scares that made all of us actually yelp out in terror. Mayank was so jumpy that he kept startling me even when the actual jump scare didn't get me. Like I said, absolute riot. I'm off to rewatch it with my friend [Devansh](https://www.devanshbajaj.dev/) tonight. He recently moved to Bengaluru, and I expect it to be just as fun this time around. I get why #PreggersForCregger was doing the rounds on social media 🙈
+
+<Figure
+  src={empty_theatre}
+  title="First time we've been early enough to catch an empty theatre"
+  alt="Empty IMAX theater with rows of blue seats"
+/>
+
+<Figure
+  src={fuckass_flashbang_warning}
+  title="This bright motherfucker in a dark scene was so distracting"
+  alt="Movie screen showing a warning against smoking and alcohol"
+/>
+
+It was Mayank's birthday on Thursday so we had a night out of definitely non-alcoholic beverages and mediocre bar food. I had a great time hanging out with him and his college friends.
+
+[IndieWebClub](https://blr.indiewebclub.org/) was on this week, and I mostly used the time to work on the game photography section of my site and help out people who came looking for hosting advice. I've made a bad habit of bolting out of the underline center the millisecond after the meetup, which I'd like to change next time. I make the excuse to myself that everyone's headed for coffee which I don't drink in the evenings, but it's just that, an excuse.
+
+# Games
+
+I finished off [HoloTrials: Case Covered](https://store.steampowered.com/app/4252960/HoloTrials_Case_Covered/) this week with a little cheating from a Steam Community post. I got stuck on the very final sequence where I had the right clue but kept presenting it against the wrong line of the testimony. Either way, the game has beautiful art and pretty decent gameplay for what's ultimately a visual novel. Hopefully, I'll be able to showcase it on the site soon.
+
+# Work
+
+Work started off quite hectic since I went from a day off on Monday immediately into three hours of meetings on Tuesday, but things are still fairly quiet overall. I put out a release for our SDKs that had been delayed over the past couple of weeks, and things didn't explode _too_ much. I did have one morning where I couldn't get into my work laptop because my YubiKey suddenly stopped accepting my PIN, but it turns out that was because I dared to think while typing instead of doing it mindlessly.
+
+<MastodonPost url={"https://fantastic.earth/@msfjarvis/117284587802078178"} />
+
+# Personal projects
+
+I made a [big release](https://github.com/msfjarvis/compose-lobsters/releases/tag/v1.71.0) of Claw with some important fixes for the comments UX, and workarounds for dealing with Lobsters now being fronted by Anubis. It also includes a brand-new feature: a daily random saved post as a notification. I've found this to be quite nice since it gives me something interesting to read every morning as I'm waking up, and I can always drop it into my browser and have it read aloud podcast style. I have collected over 1,800 saved posts over the years and definitely haven't read a majority of them, so it also helps me get through that backlog in a drip-fed manner. I opted to not add a "sent posts" log but the data layer does capture this information, so the option is always there. Let me know if you think that'd be useful to have!
+
+## 🤖 CLANK CLANK CLANK 🤖
+
+I posted about the [DeepSeek v4 model](/posts/brief-experience-report-on-the-deepseek-v4-flash-model/) that I have been trying out this week via [OpenRouter](https://openrouter.ai/), and it has been quite impressive so far (slightly more detailed opinions in the post). I finished off [factual-budget](https://git.msfjarvis.dev/msfjarvis/factual-budget) with its help. I also kicked off work on [factual-budget-android](https://git.msfjarvis.dev/msfjarvis/factual-budget-android) which will capture SMSes and submit transactions automatically instead of reconciling at the end of the month. Not quite ready yet, but making good progress :)
+
+I also added support for fetching remote `.ics` files to [wearos-calendar-sync](https://git.msfjarvis.dev/msfjarvis/wearos-calendar-sync) because I was tired of manually importing IndieWebClub BLR's events to my calendar. This now lets me provide a link to [their ICS file](https://blr.indiewebclub.org/events.ics), and the app will take care of refreshing this every week and automatically feeding the events to my watch. It's an almost unnecessary feature that I would never have bothered with pre-clankers, but it was quite easy to make once I fully articulated its product and engineering aspects.
+
+# Meta
+
+This site got a major build speed improvement this week as I fixed an inefficiency in how I render Mastodon posts. Previously each Mastodon post would get fetched at build time, coming in at around 6 seconds per post and with the 3 embeds I have so far, making the weeknotes category take 19 seconds to render uncached. I've [now changed](https://github.com/msfjarvis/msfjarvis.dev/commit/1e9f82551d38ce1cf366a51cea1637976dca00df) this to use a static data store instead which is updated manually by a script that scans the site contents for Mastodon URLs and snapshots them. This adds a bit of manual work for me but in exchange for shaving 18 seconds out of a build that used to take around 25 seconds, I can accept the trade off.
+
+As I mentioned [last week](/weeknotes/week-37-2026/#games), I've been inspired to add a video game photography section to my website, and the work on it is _almost_ done. I'll hopefully have it up and running soon, but I don't know if I'll have time next week given how much is going on.
+
+
+# Cooking
+
+There was very little cooking, as we were lazy/busy for most of this week. We just made the stuff we'd discovered recently since it was quick and easy.
+
+<Gallery>
+    <Figure
+        src={chana_paneer}
+        title="Made it properly this time round, still think ours was better"
+        alt="Bowl of creamy chickpea and paneer curry"
+    />
+
+    <Figure
+        src={jolof_rice}
+        title="This nice and easy one pot jolof rice recipe has been so great"
+        alt="Plate of spiced rice with meat"
+    />
+
+</Gallery>

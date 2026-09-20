@@ -3,6 +3,21 @@
 import type { MastodonStatus } from "../lib/mastodon.ts";
 
 export const mastodonSnapshots = {
+  "https://fantastic.earth/@msfjarvis/117284587802078178": {
+    canonicalUrl: "https://fantastic.earth/@msfjarvis/117284587802078178",
+    paragraphs: [
+      "New facts have come to light in this investigation and the updated hypothesis now states that I am the world's greatest idiot.",
+      "Turns out I have been typing in my PIN via muscle memory instead of actual memorization for the past 18 months, and the actual PIN is one digit off than what I had intended/remembered. When I consciously think about it I get the PIN wrong, when I remove my brain from the equation I get it right.",
+      "The human brain is a beautiful enigma.",
+    ],
+    createdAt: "2026-09-17T04:53:05.553Z",
+    author: {
+      displayName: "Harsh Shandilya",
+      account: "@msfjarvis@fantastic.earth",
+    },
+    images: [],
+    attachments: [],
+  },
   "https://infosec.exchange/@0xabad1dea/116900098449254586": {
     canonicalUrl: "https://infosec.exchange/@0xabad1dea/116900098449254586",
     paragraphs: [
