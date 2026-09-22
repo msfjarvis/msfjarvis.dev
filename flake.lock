@@ -58,18 +58,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1789778232,
-        "narHash": "sha256-BVWmCPqTMnQ5PFqXCXqSs90o0uTKmKH6xue+3zNG+1c=",
-        "owner": "msfjarvis",
-        "repo": "nixpkgs",
-        "rev": "36a94096fb5e8de3d6cfecdd94a56956da7a958a",
-        "type": "github"
+        "lastModified": 315532800,
+        "narHash": "sha256-3+M3ceRIEwQi9ybgJsPvctLDEaExk6BTdzZZKnAMzTw=",
+        "rev": "8b80bc4da6c1bf777784925c2e50eac1a4966919",
+        "revCount": 1065199,
+        "type": "tarball",
+        "url": "https://nix-channels.msfjarvis.dev/nixpkgs/snapshots/sha256-3%2BM3ceRIEwQi9ybgJsPvctLDEaExk6BTdzZZKnAMzTw%3D.tar.zst"
       },
       "original": {
-        "owner": "msfjarvis",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://nix-channels.msfjarvis.dev/nixpkgs/latest.tar.zst"
       }
     },
     "root": {

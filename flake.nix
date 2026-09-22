@@ -1,7 +1,7 @@
 {
   description = "The source behind msfjarvis.dev";
 
-  inputs.nixpkgs.url = "github:msfjarvis/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "https://nix-channels.msfjarvis.dev/nixpkgs/latest.tar.zst";
 
   inputs.systems.url = "github:msfjarvis/flake-systems";
 
