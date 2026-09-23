@@ -6,20 +6,21 @@ allowBuilds:
   workerd: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - "astro"
+  - astro
   - "@astrojs/cloudflare"
   - "@astrojs/internal-helpers"
   - "@astrojs/markdown-satteri"
   - "@astrojs/underscore-redirects"
+  - "@cloudflare/unenv-preset"
   - "@cloudflare/workerd-darwin-64"
   - "@cloudflare/workerd-darwin-arm64"
   - "@cloudflare/workerd-linux-64"
   - "@cloudflare/workerd-linux-arm64"
   - "@cloudflare/workerd-windows-64"
-  - "miniflare"
+  - miniflare
   - "@sveltia/cms"
-  - "workerd"
-  - "wrangler"
+  - workerd
+  - wrangler
   - "@xingwangzhe/satteri-mermaid"
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
