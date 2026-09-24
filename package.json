@@ -33,7 +33,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@mermanjs/web": "^0.7.0",
     "@pagefind/component-ui": "^1.5.2",
-    "@sveltia/cms": "^0.210.3",
+    "@sveltia/cms": "^0.220.0",
     "@xingwangzhe/satteri-mermaid": "^0.7.9",
     "astro": "^7.3.4",
     "astro-expressive-code": "^0.44.2",
