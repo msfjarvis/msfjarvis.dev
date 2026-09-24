@@ -330,9 +330,8 @@ export const prerender = true;
             extension: "mdx",
             create: true,
             path: "{{slug}}/index",
-            // Sveltia normalizes this template into a URL slug. Collision
-            // resolution is intentionally left to the CMS save flow; no
-            // undocumented slug API is used here.
+            // The importer stores its result as an object. Declare the nested
+            // title field below so Sveltia can validate this slug template.
             slug: "{{bookImport.bookTitle}}",
             media_folder: "",
             public_folder: "",
@@ -348,6 +347,7 @@ export const prerender = true;
                 name: "bookImport",
                 widget: "open-library-book",
                 required: false,
+                fields: [{ name: "bookTitle", widget: "string" }],
               },
               {
                 label: "Title",
