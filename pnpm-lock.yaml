@@ -245,6 +245,9 @@ importers:
       '@iconify-json/simple-icons':
         specifier: ^1.2.96
         version: 1.2.96
+      '@msfjarvis/prettier-plugin-keep-sorted':
+        specifier: jsr:0.1.0
+        version: '@jsr/msfjarvis__prettier-plugin-keep-sorted@0.1.0'
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -1459,6 +1462,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@jsr/msfjarvis__prettier-plugin-keep-sorted@0.1.0':
+    resolution: {integrity: sha512-Q4J198qrm914C2ET0d6ExSSx+fqaW4jQonXroaxo0KjGa96n4gv0qkyf4EbgejnNVE+SIlVL7rBjb2pCe4E2YQ==, tarball: https://npm.jsr.io/~/11/@jsr/msfjarvis__prettier-plugin-keep-sorted/0.1.0.tgz}
 
   '@keyv/bigmap@1.3.1':
     resolution: {integrity: sha512-WbzE9sdmQtKy8vrNPa9BRnwZh5UF4s1KTmSK0KUVLo3eff5BlQNNWDnFOouNpKfPKDnms9xynJjsMYjMaT/aFQ==}
@@ -5197,6 +5203,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
+
+  '@jsr/msfjarvis__prettier-plugin-keep-sorted@0.1.0':
+    dependencies:
+      prettier: 3.9.8
 
   '@keyv/bigmap@1.3.1(keyv@5.6.0)':
     dependencies:

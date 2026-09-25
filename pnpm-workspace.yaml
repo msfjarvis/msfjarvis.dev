@@ -6,7 +6,7 @@ allowBuilds:
   workerd: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-# keep-sorted start
+  # keep-sorted start
   - "@astrojs/cloudflare"
   - "@astrojs/compiler-binding"
   - "@astrojs/compiler-binding-android-arm64"
@@ -29,6 +29,7 @@ minimumReleaseAgeExclude:
   - "@cloudflare/workerd-linux-64"
   - "@cloudflare/workerd-linux-arm64"
   - "@cloudflare/workerd-windows-64"
+  - "@jsr/msfjarvis__prettier-plugin-keep-sorted@0.1.0"
   - "@sveltia/cms"
   - "@xingwangzhe/satteri-mermaid"
   - astro

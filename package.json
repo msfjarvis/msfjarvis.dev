@@ -55,6 +55,7 @@
     "@fontsource/jetbrains-mono": "^5.3.0",
     "@iarna/toml": "^2.2.5",
     "@iconify-json/simple-icons": "^1.2.96",
+    "@msfjarvis/prettier-plugin-keep-sorted": "jsr:0.1.0",
     "@resvg/resvg-js": "^2.6.2",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/jsdom": "^30.0.0",

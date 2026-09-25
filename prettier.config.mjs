@@ -3,5 +3,9 @@ export default {
   trailingComma: "all",
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
-  plugins: ["prettier-plugin-astro", "@trivago/prettier-plugin-sort-imports"],
+  plugins: [
+    "prettier-plugin-astro",
+    "@msfjarvis/prettier-plugin-keep-sorted",
+    "@trivago/prettier-plugin-sort-imports",
+  ],
 };
