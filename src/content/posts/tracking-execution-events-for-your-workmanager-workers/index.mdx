@@ -7,9 +7,13 @@ tags:
   - "android"
   - "workmanager"
   - "analytics"
-draft: true
+draft: false
 deleted: false
 ---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import workmanager_metrics_dashboard from "./workmanager-metrics-dashboard.webp";
 
 [WorkManager](https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started) is Android Jetpack's first party solution to long-running background work. It takes care of dealing with the idiosyncrasies and differences between Android versions, and gives you a very simple API that lets you focus on _what_ needs to happen instead of the _how_. It's very well designed, and as someone who's had to deal with [JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler) and [AlarmManager](https://developer.android.com/reference/android/app/AlarmManager) years ago for this class of problems, it's a boon.
 
@@ -35,16 +39,25 @@ public interface ExecutionEventListener {
 You start by creating a subclass of this interface, then pass it to your WorkManager `Configuration.Builder` like so:
 
 ```diff lang="kotlin"
-      Configuration.Builder()
-        .setWorkerFactory(workerFactory)
-+        .setExecutionEventListener(MyExecutionEventListener())
-        .setMinimumLoggingLevel(Log.DEBUG)
-        .build(),
+WorkManager.initialize(
+  application,
+  Configuration.Builder()
+    .setWorkerFactory(workerFactory)
++   .setExecutionEventListener(WorkManagerExecutionTelemetry())
+    .setMinimumLoggingLevel(Log.DEBUG)
+    .build(),
+)
 ```
 
 I wired this up in my app [Claw](https://github.com/msfjarvis/compose-lobsters) to emit events to Sentry, and can now visualize them via a dashboard to see data like failure rates and p50/p95 of execution duration. Here's the relatively minimal dashboard I set up which has collected a couple of days of data through my internal testing channel.
 
-![A set of line graphs showing execution outcomes grouped by started/success, a worker failure graph showing 0% for all workers and a Runtime tail graph plotting p50/p95 latency for worker execution.](workmanager-metrics-dashboard.webp "Love me some graphs")
+<Figure
+  src={workmanager_metrics_dashboard}
+  title={"Love me some graphs"}
+  alt={
+    "A set of line graphs showing execution outcomes grouped by started/success, a worker failure graph showing 0% for all workers and a Runtime tail graph plotting p50/p95 latency for worker execution."
+  }
+/>
 
 Naturally with this still being a new API, there are some quirks to it. The major one is that while you get a `ListenableWorker.Result` instance in the method parameters, all three subtypes (`Success`, `Failure`, and `Retry`) are marked with `@RestrictTo(RestrictTo.LIBRARY_GROUP)` which means Lint flags any attempt to use them for determining what the result actually is. I've filed [an issue](https://issuetracker.google.com/issues/565504491) to provide a solution for this. In the meantime, you can simply suppress the Lint like I do. Another problem is the lack of support for `@IntDef` and friends in Kotlin, which means the `stopReason` parameter arrives as a plain Int. When publishing this as a metric, you'll have to check its values against the `WorkInfo.STOP_REASON_*` constants yourself and map it to a string.
 
