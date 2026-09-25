@@ -43,7 +43,7 @@ WorkManager.initialize(
   application,
   Configuration.Builder()
     .setWorkerFactory(workerFactory)
-+   .setExecutionEventListener(WorkManagerExecutionTelemetry())
++    .setExecutionEventListener(WorkManagerExecutionTelemetry())
     .setMinimumLoggingLevel(Log.DEBUG)
     .build(),
 )
