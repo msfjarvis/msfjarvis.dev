@@ -1,0 +1,53 @@
+---
+title: "Tracking execution events for your WorkManager Workers"
+date: "2026-09-25T16:35:00+05:30"
+lastmod: "2026-09-25T16:35:00+05:30"
+summary: "WorkManager 2.12.0 introduces brand new APIs for deep introspection of Worker executions"
+tags:
+  - "android"
+  - "workmanager"
+  - "analytics"
+draft: true
+deleted: false
+---
+
+[WorkManager](https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started) is Android Jetpack's first party solution to long-running background work. It takes care of dealing with the idiosyncrasies and differences between Android versions, and gives you a very simple API that lets you focus on _what_ needs to happen instead of the _how_. It's very well designed, and as someone who's had to deal with [JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler) and [AlarmManager](https://developer.android.com/reference/android/app/AlarmManager) years ago for this class of problems, it's a boon.
+
+That said, debugging WorkManager is somewhat cumbersome ([ref](https://developer.android.com/develop/background-work/background-tasks/testing/persistent/debug)). This also had the limitation that it only lets you debug issues on your own device, and collecting metrics from the field required instrumenting each worker manually to report back metrics which just doesn't scale all that well.
+
+Enter: `ExecutionEventListener`. This is a brand new API that was introduced in [WorkManager 2.12.0](https://developer.android.com/jetpack/androidx/releases/work#2.12.0). The WorkManager team has also introduced a new `work-analytics` library on top of this low-level API to retrieve historical execution data, but we'll focus on `ExecutionEventListener`. It is still experimental, so you'll need to mark your code with `@ExperimentalEventsApi`.
+
+As of writing, the API looks like this:
+
+```kotlin
+@ExperimentalEventsApi
+public interface ExecutionEventListener {
+    public suspend fun onStarted(workInfo: WorkInfo)
+
+    public suspend fun onStopped(@StopReason stopReason: Int, workInfo: WorkInfo)
+
+    public suspend fun onFinished(result: Result, workInfo: WorkInfo)
+
+    public suspend fun onException(throwable: Throwable, workInfo: WorkInfo)
+}
+```
+
+You start by creating a subclass of this interface, then pass it to your WorkManager `Configuration.Builder` like so:
+
+```diff lang="kotlin"
+      Configuration.Builder()
+        .setWorkerFactory(workerFactory)
++        .setExecutionEventListener(MyExecutionEventListener())
+        .setMinimumLoggingLevel(Log.DEBUG)
+        .build(),
+```
+
+I wired this up in my app [Claw](https://github.com/msfjarvis/compose-lobsters) to emit events to Sentry, and can now visualize them via a dashboard to see data like failure rates and p50/p95 of execution duration. Here's the relatively minimal dashboard I set up which has collected a couple of days of data through my internal testing channel.
+
+![A set of line graphs showing execution outcomes grouped by started/success, a worker failure graph showing 0% for all workers and a Runtime tail graph plotting p50/p95 latency for worker execution.](workmanager-metrics-dashboard.webp "Love me some graphs")
+
+Naturally with this still being a new API, there are some quirks to it. The major one is that while you get a `ListenableWorker.Result` instance in the method parameters, all three subtypes (`Success`, `Failure`, and `Retry`) are marked with `@RestrictTo(RestrictTo.LIBRARY_GROUP)` which means Lint flags any attempt to use them for determining what the result actually is. I've filed [an issue](https://issuetracker.google.com/issues/565504491) to provide a solution for this. In the meantime, you can simply suppress the Lint like I do. Another problem is the lack of support for `@IntDef` and friends in Kotlin, which means the `stopReason` parameter arrives as a plain Int. When publishing this as a metric, you'll have to check its values against the `WorkInfo.STOP_REASON_*` constants yourself and map it to a string.
+
+You can find my implementation [here](https://github.com/msfjarvis/compose-lobsters/commit/1340a311f202f643bf57c3f6ec6dcd21d2013977) which deals with both these paper cuts.
+
+Thanks for reading!
