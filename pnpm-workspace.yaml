@@ -6,8 +6,20 @@ allowBuilds:
   workerd: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - astro
+# keep-sorted start
   - "@astrojs/cloudflare"
+  - "@astrojs/compiler-binding"
+  - "@astrojs/compiler-binding-android-arm64"
+  - "@astrojs/compiler-binding-darwin-arm64"
+  - "@astrojs/compiler-binding-darwin-x64"
+  - "@astrojs/compiler-binding-linux-arm64-gnu"
+  - "@astrojs/compiler-binding-linux-arm64-musl"
+  - "@astrojs/compiler-binding-linux-x64-gnu"
+  - "@astrojs/compiler-binding-linux-x64-musl"
+  - "@astrojs/compiler-binding-wasm32-wasi"
+  - "@astrojs/compiler-binding-win32-arm64-msvc"
+  - "@astrojs/compiler-binding-win32-x64-msvc"
+  - "@astrojs/compiler-rs"
   - "@astrojs/internal-helpers"
   - "@astrojs/markdown-satteri"
   - "@astrojs/underscore-redirects"
@@ -17,11 +29,13 @@ minimumReleaseAgeExclude:
   - "@cloudflare/workerd-linux-64"
   - "@cloudflare/workerd-linux-arm64"
   - "@cloudflare/workerd-windows-64"
-  - miniflare
   - "@sveltia/cms"
+  - "@xingwangzhe/satteri-mermaid"
+  - astro
+  - miniflare
   - workerd
   - wrangler
-  - "@xingwangzhe/satteri-mermaid"
+# keep-sorted end
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
 enableGlobalVirtualStore: false
