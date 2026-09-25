@@ -1,0 +1,37 @@
+---
+title: "Weeknotes: Week #39 (2026)"
+date: "2026-09-25T06:30:55.461Z"
+lastmod: "2026-09-25T06:30:55.461Z"
+summary: "My ordeal with the Passport Office finally comes to a close"
+tags: []
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+HUGE week as I finally managed to wrap up my passport issuance, and it has now shipped out. If I knew I could not count on the Bengaluru Police to do their jobs I would've just gone to the police station on day one instead of waiting the stipulated 3 weeks. Anyway, no point raging about that any more.
+
+# Social
+
+Like I mentioned last week, [Amogh](https://kat.bio) is in town for IndiaFOSS so him, [Yash](https://yashgarg.dev), [Fenil](https://fknil.com), and I will probably spend most of the event together.
+
+# Media
+
+[CONTROL: Resonant](https://controlgame.com/) is finally out! Remedy made a small blunder and a day 1 patch caused Steam users to have to redownload the game even if they preloaded it the day before which was a little annoying, but goddamn they have cooked! It's been worth the wait, and I'm glad I shelled out for the Deluxe Edition. It's so good that even the game pirates over on Reddit have been rallying to buy the game instead of pirating it lol.
+
+INSERT SCREENSHOT HERE YOU HAVE SO MANY
+
+Oh, and I also finally watched KPop Demon Hunters; unsurprisingly it was very good. I had listened to all the songs before so it was a surprise when the boy band turns up and starts singing the songs that I had only heard the female renditions of so far.
+
+# Personal projects
+
+I don't have any big ticket items left to implement in [Claw](https://github.com/msfjarvis/compose-lobsters), so I've mostly been focusing on minor quality of life changes for my own needs as a developer. Google Play users now get an in-app UI affordance that an update is available and up to 7 days of leeway before they're forced to upgrade. [WorkManager](https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started) execution metrics are now [reported to Sentry](https://github.com/msfjarvis/compose-lobsters/commit/1340a311f202f643bf57c3f6ec6dcd21d2013977).
+
+## Meta
+
+[Last week](/weeknotes/week-38-2026)'s promise has been kept, and the first entry in my game screenshots collection is ready to be perceived! The game is called [HoloTrials: Case Covered](/games/holotrials/), it's a short visual novel style game involving a detective protagonist fighting a case in her high school to defend her close friend who's being framed. You can find it on [Steam](https://store.steampowered.com/app/4252960/HoloTrials_Case_Covered/).
+
+## 🤖CLANK CLANK CLANK 🤖
+
+I've been burning tokens left and right on objectively pointless stuff, with the new OpenAI models being as cheap as they are. I recently discovered that [Nixpkgs](https://github.com/NixOS/nixpkgs) archives support being compressed as `.tar.zst` files instead of just `.tar.gz` and they come down to 20% smaller. I tried naively hosting a static archive but that doesn't work for reproducibility, and there's a proper [specification for it](https://nix.dev/manual/nix/2.25/protocols/tarball-fetcher) explaining how to do it. I went back to the stack of Matt Pocock's skills which I have come to like a lot, and managed to quickly implement a [Cloudflare Worker](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/nix-channels-worker) that stores tarballs in R2 and correctly implements the Lockable HTTP Tarball protocol.
