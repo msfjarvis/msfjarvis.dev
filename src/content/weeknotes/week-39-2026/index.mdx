@@ -6,7 +6,7 @@ summary: "My ordeal with the Passport Office finally comes to a close, also Indi
 tags:
   - "IndiaFOSS"
   - "Games"
-draft: true
+draft: false
 deleted: false
 categories:
   - "weeknotes"
@@ -31,7 +31,7 @@ I'll write a separate post about it next week, [stay tuned](/posts/rss.xml)!
 
 [CONTROL: Resonant](https://controlgame.com/) is finally out! Remedy made a small blunder and a day 1 patch caused Steam users to have to redownload the game even if they preloaded it the day before which was a little annoying, but goddamn they have cooked! It's been worth the wait, and I'm glad I shelled out for the Deluxe Edition. It's so good that even the game pirates over on Reddit have been rallying to buy the game instead of pirating it lol.
 
-I'd attach a screenshot here except for the aforementioned distance from computer. The game's photo mode
+I'd attach a screenshot here except for the aforementioned distance from computer. The game's photo mode will launch sometime in November so I'm tempted to pause my playthrough until the update arrives.
 
 Oh, and I also finally watched KPop Demon Hunters; unsurprisingly it was very good. I had listened to all the songs before so it was a surprise when the boy band turns up and starts singing the songs that I had only heard the female renditions of so far.
 
@@ -47,7 +47,7 @@ I don't have any big ticket items left to implement in [Claw](https://github.com
 
 I've been burning tokens left and right on objectively pointless stuff, with the new OpenAI models being as cheap as they are. I recently discovered that [Nixpkgs](https://github.com/NixOS/nixpkgs) archives support being compressed as `.tar.zst` files instead of just `.tar.gz` and they come down to 20% smaller. I tried naively hosting a static archive but that doesn't work for reproducibility. I later found that there's a proper [specification](https://nix.dev/manual/nix/2.25/protocols/tarball-fetcher) explaining how to do it correctly. I went back to the stack of Matt Pocock's skills which I have come to like a lot, and managed to quickly implement a [Cloudflare Worker](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/nix-channels-worker) that stores tarballs in R2 and correctly implements the Lockable HTTP Tarball protocol.
 
-## Cooking
+# Cooking
 
 We cooked a few times this week but a bunch of our days ended up with us dining outside.
 
