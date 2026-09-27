@@ -32,7 +32,7 @@ Oh, and I also finally watched KPop Demon Hunters; unsurprisingly it was very go
 
 # Personal projects
 
-I don't have any big ticket items left to implement in [Claw](https://github.com/msfjarvis/compose-lobsters), so I've mostly been focusing on minor quality of life changes for my own needs as a developer. Google Play users now get an in-app UI affordance that an update is available and up to 7 days of leeway before they're forced to upgrade. [WorkManager](https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started) execution metrics are now [reported to Sentry](https://github.com/msfjarvis/compose-lobsters/commit/1340a311f202f643bf57c3f6ec6dcd21d2013977).
+I don't have any big ticket items left to implement in [Claw](https://github.com/msfjarvis/compose-lobsters), so I've mostly been focusing on minor quality of life changes for my own needs as a developer. Google Play users now get an in-app UI affordance that an update is available and up to 7 days of leeway before they're forced to upgrade. [WorkManager](https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started) execution metrics are now [reported to Sentry](https://github.com/msfjarvis/compose-lobsters/commit/1340a311f202f643bf57c3f6ec6dcd21d2013977), which I wrote about [on the blog](/posts/tracking-execution-events-for-your-workmanager-workers/).
 
 ## Meta
 
@@ -40,4 +40,12 @@ I don't have any big ticket items left to implement in [Claw](https://github.com
 
 ## 🤖CLANK CLANK CLANK 🤖
 
-I've been burning tokens left and right on objectively pointless stuff, with the new OpenAI models being as cheap as they are. I recently discovered that [Nixpkgs](https://github.com/NixOS/nixpkgs) archives support being compressed as `.tar.zst` files instead of just `.tar.gz` and they come down to 20% smaller. I tried naively hosting a static archive but that doesn't work for reproducibility, and there's a proper [specification for it](https://nix.dev/manual/nix/2.25/protocols/tarball-fetcher) explaining how to do it. I went back to the stack of Matt Pocock's skills which I have come to like a lot, and managed to quickly implement a [Cloudflare Worker](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/nix-channels-worker) that stores tarballs in R2 and correctly implements the Lockable HTTP Tarball protocol.
+I've been burning tokens left and right on objectively pointless stuff, with the new OpenAI models being as cheap as they are. I recently discovered that [Nixpkgs](https://github.com/NixOS/nixpkgs) archives support being compressed as `.tar.zst` files instead of just `.tar.gz` and they come down to 20% smaller. I tried naively hosting a static archive but that doesn't work for reproducibility. I later found that there's a proper [specification](https://nix.dev/manual/nix/2.25/protocols/tarball-fetcher) explaining how to do it correctly. I went back to the stack of Matt Pocock's skills which I have come to like a lot, and managed to quickly implement a [Cloudflare Worker](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/nix-channels-worker) that stores tarballs in R2 and correctly implements the Lockable HTTP Tarball protocol.
+
+## Cooking
+
+We cooked a few times this week but a bunch of our days ended up with us dining outside.
+
+<Figure src="33865.webp" alt="A stainless-steel bowl filled with a quinoa and chickpea salad mixed with chopped cucumber, tomato, red onion, corn, and herbs." title="Quinoa is annoying to cook but the salads come out so good. " />
+
+<Figure src="33866.webp" alt="A stainless-steel plate holding several folded rotis, a bowl of orange-brown chicken curry, and a dollop of green chutney." title="This chicken was so good, I regret only making single servings. " />
