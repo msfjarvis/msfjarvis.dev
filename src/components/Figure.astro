@@ -39,7 +39,7 @@ const { src, srcDark, alt = "", title, small = false } = Astro.props;
         )}
         <img class={(small && "half") || ""} src={src} alt={alt} />
       </picture>
-      {title && <figcaption>{title}</figcaption>}
+      {title && <figcaption class="figure-caption">{title}</figcaption>}
     </figure>
   )
 }

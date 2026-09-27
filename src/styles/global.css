@@ -189,6 +189,11 @@ p {
   margin: 0 0 1rem;
 }
 
+.figure-caption {
+  color: var(--text-2);
+  font-size: 0.9em;
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
