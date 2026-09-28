@@ -1,5 +1,6 @@
 import { AUTHOR_NAME, SITE_URL } from "../consts";
 import { getContentCacheKey } from "../utils";
+import { simplifyCodeBlocksForFeeds } from "./feed-html.ts";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import type { APIContext } from "astro";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
@@ -191,6 +192,7 @@ async function renderEntryHtml(
   let html = await container.renderToString(Content);
   html = removeLightboxDuplicates(html);
   html = flattenMermaidLightboxes(html);
+  html = simplifyCodeBlocksForFeeds(html);
   const $doc = load(html);
   html = $doc("body").html() ?? html;
   return absolutizeUrls(html, origin);
