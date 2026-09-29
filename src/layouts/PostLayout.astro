@@ -178,10 +178,101 @@ const tocHeadings = headings;
     <pagefind-modal reset-on-close></pagefind-modal>
     <PhotoSwipe />
     <Footer />
+    <script>
+      const footnoteReferences = document.querySelectorAll<HTMLAnchorElement>(
+        ".prose a[data-footnote-ref]",
+      );
+      let popoverIndex = 0;
+
+      for (const reference of footnoteReferences) {
+        const targetId = decodeURIComponent(reference.hash.slice(1));
+        const definition = document.getElementById(targetId);
+        if (!definition) continue;
+
+        const popover = document.createElement("div");
+        popover.className = "footnote-popover";
+        popover.setAttribute("role", "tooltip");
+        popover.hidden = true;
+        popover.innerHTML = definition.innerHTML;
+        popover
+          .querySelectorAll(
+            '[data-footnote-backref], a[href^="#user-content-fnref-"]',
+          )
+          .forEach((backlink) => backlink.remove());
+        reference.insertAdjacentElement("afterend", popover);
+        popover.id = `footnote-popover-${++popoverIndex}`;
+        reference.setAttribute("aria-describedby", popover.id);
+
+        let closeTimeout: ReturnType<typeof setTimeout> | undefined;
+        const showPopover = () => {
+          if (closeTimeout) clearTimeout(closeTimeout);
+          popover.hidden = false;
+          const referenceRect = reference.getBoundingClientRect();
+          const popoverRect = popover.getBoundingClientRect();
+          const left = Math.max(
+            8,
+            Math.min(
+              referenceRect.left,
+              window.innerWidth - popoverRect.width - 8,
+            ),
+          );
+          const top =
+            referenceRect.bottom + popoverRect.height + 8 > window.innerHeight
+              ? Math.max(8, referenceRect.top - popoverRect.height - 8)
+              : referenceRect.bottom + 8;
+          popover.style.left = `${left}px`;
+          popover.style.top = `${top}px`;
+        };
+        const hidePopover = () => {
+          closeTimeout = setTimeout(() => {
+            popover.hidden = true;
+          }, 120);
+        };
+        popover.addEventListener("pointerenter", showPopover);
+        popover.addEventListener("pointerleave", hidePopover);
+
+        reference.addEventListener("pointerenter", showPopover);
+        reference.addEventListener("pointerleave", hidePopover);
+        reference.addEventListener("focus", showPopover);
+        reference.addEventListener("blur", hidePopover);
+        reference.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") popover.hidden = true;
+        });
+      }
+    </script>
   </body>
 </html>
 
 <style>
+  :global(.footnote-popover) {
+    position: fixed;
+    z-index: 100;
+    width: max-content;
+    max-width: min(24rem, calc(100vw - 1rem));
+    max-height: min(18rem, calc(100vh - 1rem));
+    overflow: auto;
+    padding: 0.65rem 0.8rem;
+    color: var(--text);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 0.35rem;
+    box-shadow: 0 0.35rem 1rem rgb(0 0 0 / 18%);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  :global(.footnote-popover[hidden]) {
+    display: none;
+  }
+
+  :global(.footnote-popover > :first-child) {
+    margin-top: 0;
+  }
+
+  :global(.footnote-popover > :last-child) {
+    margin-bottom: 0;
+  }
+
   .post-toc {
     margin-top: 1rem;
     margin-bottom: 1.5rem;
