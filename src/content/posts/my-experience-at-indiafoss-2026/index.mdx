@@ -1,0 +1,58 @@
+---
+title: "My experience at IndiaFOSS 2026"
+date: "2026-09-29T13:07:00+05:30"
+lastmod: "2026-09-29T13:07:00+05:30"
+summary: "My first IndiaFOSS ever!"
+tags:
+  - "events"
+  - "fossunited"
+  - "indiafoss"
+draft: true
+deleted: false
+---
+
+I've been making more of an effort this year to show up to meetups and events happening in the area so I eagerly looking forward to IndiaFOSS 2026. A lot of my friends over at the [IndieWebClub](https://blr.indiewebclub.org) were also planning to visit so there was going to be no lack of familiar faces, and hopefully some new ones too 😄 
+
+# Day 1
+
+[Fenil](https://fknil.com), [Yash](https://yashgarg.dev), and I had decided to leave together bright and early so Fenil biked down to our place and we took a cab together. We made it well in time for breakfast and the welcome keynote, after which we split up with Fenil and Yash heading to the Open Hardware devroom while I headed over to the Documentation & Technical Writing devroom.
+
+The quality of the talks was quite high, and while AI inevitably comes up when talking about documentation; it was refreshing to see [Ganesh Devgan](https://www.linkedin.com/in/devgancode/) from [Bruno](https://www.usebruno.com/) reaffirm that good documentation will continue to be written for humans.
+
+[Vinamra Harkar](https://vinamraharkar.in/) presented a very engaging talk about discovering the [National Informatics Center](https://www.nic.gov.in/)'s newsletter named [Informatics](https://informatics.nic.in/archive) that has been running since **July 1992**, and his journey of converting this stack of PDFs into an [indexed, searchable resource](https://vinamraharkar.github.io/nic-archives/index.html) spanning 30+ years. I browsed through some of the older issues, and there are some fascinating stories there about the technological advances being made at country-scale to bring up India's digital capabilities as the Internet started gaining ground. It's almost like a portal to a time we can scarcely imagine, where computers were a rarity and not something that is now in most people's pockets.
+
+I decided to ditch the documentation devroom for a bit to roam around the booths and find some friends. After stuffing my pockets with stickers, I joined Yash and Fenil in the Open Hardware devroom right in time for [Balu Babu](https://github.com/balub)'s talk about [Minnow](https://github.com/balub/minnow), a swarm robotics project he has been working on and off since college. With an overarching goal of capping the per-unit pricing of the device around the 3000 INR mark, he walked us through the tradeoffs he's made and how the software architecture has evolved to bring this ambitious goal closer to reality.
+
+Next up was [Syed Ali](https://instagram.com/tarab_instruments) walking us through the journey of building [Open Source Music Hardware in India](https://fossunited.org/c/indiafoss/2026/cfp/3nr9benq94). He set out to build himself a cheaper alternative to a prohibitively expensive MIDI controller that he was confident was too simple electronically to command that price. We walked through his journey of discovering Open Hardware, building his first controller and eventually selling it, and then making a side hustle out of it. He shared his tier lists for vendors to buy parts from, and some more of the custom gear he had since built.
+
+It was time for lunch now, where we saw [Tanvi](https://tanvibhakta.in/) and [Ankur](https://ankursethi.com/) and chatted for a bit. After the meal we split up again, Yash and Fenil went to the Compilers, Programming Languages & Systems devroom while I headed to the AOSP devroom with [Amogh](https://kat.bio).
+
+My main objective was to meet [Amit Pundir](https://www.linkedin.com/in/pundiramit/), who was one of the first people to ever invite me to a conference, all the way back in 2018 and we've kept in touch since. The devroom had some interesting talks but most people very obviously used Claude to generate their slides, and the telltale signs of "Claudish" were rather annoying to read through. I grumbled about it on Mastodon and Amit responded saying he'll be passing the feedback along and try to keep a higher quality gate moving forward. I'm going to try and get involved with the local FOSS United chapter, and hopefully help out with CFP review for next year's iteration of the AOSP devroom to improve on this.
+
+// TODO: popover definition for Claudish -> 'Claudish is the dense, jargon-heavy register Claude and similar coding agents default to — compressed metaphors, invented compound nouns, and objects doing action verbs.'
+
+// TODO embed: [https://fantastic.earth/@msfjarvis/117336964230291690](https://fantastic.earth/@msfjarvis/117336964230291690)
+
+That said, the talks themselves were mostly quite enjoyable and I learned a lot. Karthikeyan's talk about porting AOSP to the [Allwinner Sunxi](https://fossunited.org/c/indiafoss/2026/cfp/d883e2uauk) platform dove deep into the quirks of the Sunxi SoCs and how they got different components to work on these chips and finally get to AOSP.
+
+After the devroom Amogh and I went back to sticker collection, and met a bunch of friends. Amogh's quite popular over here! Though I imagine being at a debConf and running the FOSS Mumbai event will do that 😄 
+
+We reunited with Yash and Fenil to yap for a bit, after which they left with some of Fenil's friends from the [FP](https://en.wikipedia.org/wiki/Functional_programming)/Rust circles for a nearby cafe and Amogh and I headed back home.
+
+# Day 2
+
+I woke up feeling quite tired so I decided to skip most of the day 2 event, and decided to only go for the off-track [Communi-Con](https://fossunited.org/c/indiafoss/2026communi-con) event. We had dinner plans for that day so the timing was also going to work out for me. I had voted on the proposals on day 1, and was pleased to find most of my picks had indeed won out and got selected. There were a total of 7 lightning talks but I'll only highlight a few here.
+
+The FOSS United volunteer team that had taken on the task of having visitor Wi-Fi available for the first time in IndiaFOSS history went through their physical network architecture, and the software stack behind it. They had laid out nearly 4 kilometers of cabling across 2 floors to provide (in my experience) reliable connectivity to all attendees. It was quite impressive, and I hope the tear down was less grueling than installing all of it!
+
+[Kailash Nadh](https://nadh.in/) had an incendiary talk titled "Say no to JS React garbage" about his story of constantly fighting JS framework churn working on [listmonk](https://listmonk.app/) and eventually choosing to build his own NodeJS-free component library called [Oat](https://oat.ink) and deleting thousands of line of JavaScript in listmonk while regaining control of his frontend stack. I have been using Oat for my personal web apps since the beginning of this year and share all his frustrations and how relieving it is to simply rely on the platform than invent abstractions on top.
+
+[Shree Kumar](https://www.linkedin.com/in/shreekumar3d/) presented some bold ideas on what he thinks IndiaFOSS 2027 needs to evolve into to achieve its goal of unifying FOSS in India. More devrooms, bigger venues, more student tickets were only the start of what he has in mind. Excitedly waiting to see if the new governing board members share his vision!
+
+Communi-con was probably the most fun part of the event, and I hope it makes a comeback next year.
+
+After the talks we did another round on the proverbial hallway track, then headed out with some of Fenil's friends to [The Bloom](https://www.zomato.com/bangalore/the-bloom-cafe-patisserie-jayanagar-bangalore) cafe for some coffee/food/yapping. My social battery had started to run out by then so I mostly spent that time finishing up [my weeknote](/weeknotes/week-39-2026/) that I had mercifully pre-written most of on Friday expecting to not be home to publish it.
+
+><><><><><
+
+All things considered, IndiaFOSS was extremely fun if exhausting and I would like to visit more FOSS United events in the future!
