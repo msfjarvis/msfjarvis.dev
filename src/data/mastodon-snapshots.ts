@@ -18,6 +18,20 @@ export const mastodonSnapshots = {
     images: [],
     attachments: [],
   },
+  "https://fantastic.earth/@msfjarvis/117336964230291690": {
+    canonicalUrl: "https://fantastic.earth/@msfjarvis/117336964230291690",
+    paragraphs: [
+      "After Amit's opening keynote and lightning talk, almost every session I've seen in the AOSP devroom has had blatantly Claude generated slides. Very disappointing that people continue to delegate prose to LLMs when they're knowledgeable enough about the topic at hand to do it themselves.",
+      "#IndiaFOSS",
+    ],
+    createdAt: "2026-09-26T10:53:06.425Z",
+    author: {
+      displayName: "Harsh Shandilya",
+      account: "@msfjarvis@fantastic.earth",
+    },
+    images: [],
+    attachments: [],
+  },
   "https://infosec.exchange/@0xabad1dea/116900098449254586": {
     canonicalUrl: "https://infosec.exchange/@0xabad1dea/116900098449254586",
     paragraphs: [
