@@ -41,7 +41,7 @@ const {
   collection,
   headings = [],
 } = Astro.props;
-const tocHeadings = headings;
+const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
 ---
 
 <!doctype html>
@@ -235,10 +235,15 @@ const tocHeadings = headings;
         reference.addEventListener("pointerleave", hidePopover);
         reference.addEventListener("focus", showPopover);
         reference.addEventListener("blur", hidePopover);
+        reference.addEventListener("click", (event) => event.preventDefault());
         reference.addEventListener("keydown", (event) => {
           if (event.key === "Escape") popover.hidden = true;
         });
       }
+
+      document
+        .querySelector<HTMLElement>(".prose section[data-footnotes]")
+        ?.setAttribute("hidden", "");
     </script>
   </body>
 </html>
