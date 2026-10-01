@@ -61,6 +61,7 @@
           };
           packages = with pkgs; [
             libwebp
+            lychee
           ];
           commands = [
             {

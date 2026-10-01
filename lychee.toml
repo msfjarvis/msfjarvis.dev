@@ -1,0 +1,31 @@
+accept = ["200..=299", "403", "405", "429"]
+max_retries = 2
+timeout = 20
+retry_wait_time = 2
+max_concurrency = 16
+scheme = ["https", "http"]
+method = "get"
+base_url = "https://msfjarvis.dev"
+
+exclude = [
+  "^https?://msfjarvis\\.dev",
+]
+
+exclude_path = [
+  "node_modules",
+  "\\.astro",
+  "dist",
+  "\\.cache",
+]
+
+extensions = ["md", "mdx"]
+exclude_all_private = true
+accept_timeouts = true
+include_mail = false
+
+cache = true
+max_cache_age = "3d"
+
+verbose = "error"
+format = "detailed"
+no_progress = false

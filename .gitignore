@@ -30,3 +30,6 @@ pnpm-debug.log*
 
 # WebStorm
 /.idea/
+
+# Lychee link checker
+.lycheecache
