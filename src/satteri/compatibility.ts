@@ -1,6 +1,6 @@
 import type { Blockquote, Emphasis, Paragraph } from "mdast";
 import { defineHastPlugin, defineMdastPlugin } from "satteri";
-import type { MdastNode } from "satteri";
+import type { HastNode, MdastNode } from "satteri";
 
 const alertPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i;
 
@@ -117,6 +117,118 @@ export const remarkSmartypantsCompatibility = defineMdastPlugin({
     }
   },
 });
+
+function isElement(
+  node: HastNode,
+): node is Extract<HastNode, { type: "element" }> {
+  return node.type === "element";
+}
+
+function removeFootnoteBacklinks(node: HastNode): void {
+  if (!isElement(node)) return;
+
+  for (let index = node.children.length - 1; index >= 0; index--) {
+    const child = node.children[index] as HastNode;
+    if (isElement(child)) {
+      const href = child.properties?.href;
+      if (
+        child.tagName === "a" &&
+        ("dataFootnoteBackref" in (child.properties ?? {}) ||
+          (typeof href === "string" && href.startsWith("#user-content-fnref-")))
+      ) {
+        node.children.splice(index, 1);
+        continue;
+      }
+      removeFootnoteBacklinks(child);
+    }
+  }
+}
+
+export const footnotePopovers = () => {
+  const references: { node: HastNode; targetId: string }[] = [];
+  let popoverIndex = 0;
+
+  return defineHastPlugin({
+    name: "footnote-popovers",
+
+    element: [
+      {
+        filter: ["a"],
+        visit(node) {
+          if (!("dataFootnoteRef" in (node.properties ?? {}))) return;
+          const href = node.properties?.href;
+          if (typeof href !== "string" || !href.startsWith("#")) return;
+          references.push({
+            node: node as HastNode,
+            targetId: decodeURIComponent(href.slice(1)),
+          });
+        },
+      },
+      {
+        filter: ["section"],
+        visit(node, context) {
+          if (
+            !("dataFootnotes" in (node.properties ?? {})) &&
+            !("data-footnotes" in (node.properties ?? {}))
+          ) {
+            return;
+          }
+
+          const definitions = new Map<string, HastNode[]>();
+          const collectDefinitions = (current: HastNode): void => {
+            if (!isElement(current)) return;
+            const id = current.properties?.id;
+            if (current.tagName === "li" && typeof id === "string") {
+              definitions.set(id, current.children as HastNode[]);
+            }
+            for (const child of current.children) {
+              collectDefinitions(child as HastNode);
+            }
+          };
+          for (const child of node.children) {
+            collectDefinitions(child as HastNode);
+          }
+
+          for (const { node: reference, targetId } of references) {
+            const definition = definitions.get(targetId);
+            if (!definition) continue;
+
+            const id = `footnote-popover-${++popoverIndex}`;
+            context.setProperty(reference, "ariaDescribedBy", id);
+            const popoverChildren = structuredClone(definition);
+            for (const child of popoverChildren) {
+              removeFootnoteBacklinks(child);
+            }
+            context.insertBefore(
+              node as HastNode,
+              {
+                type: "element",
+                tagName: "div",
+                properties: {
+                  className: ["footnote-popover"],
+                  hidden: true,
+                  id,
+                  role: "tooltip",
+                },
+                children: popoverChildren,
+              } as HastNode,
+            );
+          }
+
+          context.replaceNode(
+            node as HastNode,
+            {
+              type: "element",
+              tagName: "template",
+              properties: { dataFootnotesFallback: true },
+              children: [structuredClone(node)] as HastNode[],
+            } as HastNode,
+          );
+        },
+      },
+    ],
+  });
+};
 
 export const legacyTableAlignment = defineHastPlugin({
   name: "legacy-table-alignment",

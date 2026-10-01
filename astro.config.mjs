@@ -5,6 +5,7 @@ import opengraphImages from "./src/integrations/opengraph-images.ts";
 import pagefind from "./src/integrations/pagefind.ts";
 import webmentionsIntegration from "./src/integrations/webmentions.ts";
 import {
+  footnotePopovers,
   githubAlerts,
   legacyTableAlignment,
   remarkSmartypantsCompatibility,
@@ -44,6 +45,7 @@ const markdownProcessor = satteri({
   },
   mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts, mermaidMdast()],
   hastPlugins: [
+    footnotePopovers,
     legacyTableAlignment,
     mermaidHast(mermaidOptions),
     mermaidLightbox,

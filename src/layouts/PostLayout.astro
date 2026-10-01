@@ -182,26 +182,17 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
       const footnoteReferences = document.querySelectorAll<HTMLAnchorElement>(
         ".prose a[data-footnote-ref]",
       );
-      let popoverIndex = 0;
 
       for (const reference of footnoteReferences) {
-        const targetId = decodeURIComponent(reference.hash.slice(1));
-        const definition = document.getElementById(targetId);
-        if (!definition) continue;
-
-        const popover = document.createElement("div");
-        popover.className = "footnote-popover";
-        popover.setAttribute("role", "tooltip");
-        popover.hidden = true;
-        popover.innerHTML = definition.innerHTML;
-        popover
-          .querySelectorAll(
-            '[data-footnote-backref], a[href^="#user-content-fnref-"]',
-          )
-          .forEach((backlink) => backlink.remove());
-        reference.insertAdjacentElement("afterend", popover);
-        popover.id = `footnote-popover-${++popoverIndex}`;
-        reference.setAttribute("aria-describedby", popover.id);
+        const popover = document.getElementById(
+          reference.getAttribute("aria-describedby") ?? "",
+        );
+        if (
+          !(popover instanceof HTMLElement) ||
+          !popover.classList.contains("footnote-popover")
+        ) {
+          continue;
+        }
 
         let closeTimeout: ReturnType<typeof setTimeout> | undefined;
         const showPopover = () => {
@@ -240,10 +231,6 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
           if (event.key === "Escape") popover.hidden = true;
         });
       }
-
-      document
-        .querySelector<HTMLElement>(".prose section[data-footnotes]")
-        ?.setAttribute("hidden", "");
     </script>
   </body>
 </html>

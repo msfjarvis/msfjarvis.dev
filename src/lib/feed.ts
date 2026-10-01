@@ -190,6 +190,17 @@ async function renderEntryHtml(
 ): Promise<string> {
   const { Content } = await render(entry);
   let html = await container.renderToString(Content);
+  const $footnotes = load(html);
+  $footnotes(".footnote-popover").remove();
+  $footnotes("template[data-footnotes-fallback]").each((_, template) => {
+    const fallbackHtml = $footnotes(template).html();
+    if (fallbackHtml) {
+      $footnotes(template).replaceWith(fallbackHtml);
+    } else {
+      $footnotes(template).remove();
+    }
+  });
+  html = $footnotes("body").html() ?? html;
   html = removeLightboxDuplicates(html);
   html = flattenMermaidLightboxes(html);
   html = simplifyCodeBlocksForFeeds(html);

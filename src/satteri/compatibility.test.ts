@@ -1,4 +1,5 @@
 import {
+  footnotePopovers,
   githubAlerts,
   legacyTableAlignment,
   remarkSmartypantsCompatibility,
@@ -18,7 +19,7 @@ const options: CompileOptions = {
     },
   },
   mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts],
-  hastPlugins: [legacyTableAlignment],
+  hastPlugins: [footnotePopovers, legacyTableAlignment],
 };
 
 test("preserves GitHub alert markup", () => {
@@ -57,6 +58,30 @@ test("preserves legacy GFM table alignment attributes", () => {
   assert.match(html, /<th align="left">left<\/th>/);
   assert.match(html, /<th align="right">right<\/th>/);
   assert.doesNotMatch(html, /style="text-align:/);
+});
+
+test("renders static popovers and keeps an inert footnote fallback", () => {
+  const { html } = markdownToHtml(
+    "A note[^1] and another reference[^1].\n\n[^1]: Definition with **bold** text.\n",
+    options,
+  );
+
+  assert.equal((html.match(/class="footnote-popover"/g) ?? []).length, 2);
+  assert.match(html, /aria-describedby="footnote-popover-1"/);
+  assert.match(html, /id="footnote-popover-1" role="tooltip"/);
+  assert.match(html, /<strong>bold<\/strong> text\.\s*<\/p>\s*<\/div>/);
+  assert.match(
+    html,
+    /<template data-footnotes-fallback><section data-footnotes/,
+  );
+  const popoverContents = [
+    ...html.matchAll(/<div class="footnote-popover"[^>]*>([\s\S]*?)<\/div>/g),
+  ].map(([, content]) => content ?? "");
+  assert.equal(popoverContents.length, 2);
+  for (const content of popoverContents) {
+    assert.doesNotMatch(content, /data-footnote-backref/);
+  }
+  assert.match(html, /id="footnote-popover-2"/);
 });
 
 test("retains GFM task lists, autolinks, and strikethrough", () => {
