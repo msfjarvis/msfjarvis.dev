@@ -23,7 +23,7 @@ And then I decided to tackle the Dependency Injection monster.
 
 ## The beginnings
 
-The dependency injection story always begins with the search for a library that does it for you. You look at Dagger, go to the documentation, look up what a Thermosiphon is, then scratch Dagger off the list and move on. Kotlin users will then end up on one of [Koin](http://insert-koin.io/) or [Kodein](https://kodein.org/di/) and that'll be the end of their story.
+The dependency injection story always begins with the search for a library that does it for you. You look at Dagger, go to the documentation, look up what a Thermosiphon is, then scratch Dagger off the list and move on. Kotlin users will then end up on one of [Koin](http://insert-koin.io/) or [Kodein](https://kosi-libs.org/kodein/) and that'll be the end of their story.
 
 That was mine as well! Before Viscerion was forked, the app used to have Dagger (albeit sorely underused as I can tell now that I know a fair bit about it) but then it was [swapped out](https://github.com/WireGuard/wireguard-android/commit/712b6c6f600ef6eb683d356a6e9a05e9415b7e12) for singleton access from the Application class. I really, really wanted to try out the fancy 'Dependency Injection' thing everybody loved so I did some searching around, went through the aforementioned motions and [settled on Koin](https://github.com/msfjarvis/viscerion/pull/131).
 

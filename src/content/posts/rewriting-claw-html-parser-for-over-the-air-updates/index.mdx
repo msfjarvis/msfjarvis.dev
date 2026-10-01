@@ -67,7 +67,7 @@ sequenceDiagram
 
 Step 1: Converted the data model layer to Kotlin Multiplatform, [which went relatively fine](https://github.com/msfjarvis/compose-lobsters/commit/22f4e542e4ac820be152a16bda2bb650588d7b24).
 
-Step 2: Added the [actual Zipline-backed parsers](https://github.com/msfjarvis/compose-lobsters/commit/c1b35eb2019799547b53fd8fa4aecfab1b18e11c). I replaced [Kspoon](https://github.com/fleeksoft/Kspoon) with the underlying [Ksoup](https://github.com/fleeksoft/Ksoup) library and called it directly instead of through a `kotlinx.serialization` based parser.
+Step 2: Added the [actual Zipline-backed parsers](https://github.com/msfjarvis/compose-lobsters/commit/c1b35eb2019799547b53fd8fa4aecfab1b18e11c). I replaced [Kspoon](https://github.com/burnoo/kspoon) with the underlying [Ksoup](https://github.com/fleeksoft/Ksoup) library and called it directly instead of through a `kotlinx.serialization` based parser.
 
 Step 3: Migrated the Android code to using [the new Zipline-backed parser](https://github.com/msfjarvis/compose-lobsters/commit/a015794e1f7c3eabad8a965c4a991b13de0c9be6). I've put together a [terrible kludge](https://github.com/msfjarvis/compose-lobsters/blob/a015794e1f7c3eabad8a965c4a991b13de0c9be6/api/src/main/kotlin/dev/msfjarvis/claw/api/converters/ZiplineHtmlConverterFactory.kt) to determine when to call which parser method, and I am sure there's a nicer way to do this that evaded me at the time.
 

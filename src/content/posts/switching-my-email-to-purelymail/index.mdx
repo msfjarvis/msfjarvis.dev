@@ -19,7 +19,7 @@ A couple days ago, [Jake Wharton](https://twitter.com/JakeWharton) retweeted a b
 
 ## Migration
 
-Like any other email provider, all you need to configure for PurelyMail to work is DNS. I use Cloudflare for my sites, so there was nothing to do on the Google Domains side of things. I left the forwarding setup as-is to allow any lagging DNS resolvers to still be able to get email to me, even if its to my Google account. I hope to get rid of that setting in the near future since I believe the change will have propagated by then. I maintain my DNS settings under a git repository, using StackExchange's excellent [dnscontrol](http://stackexchange.github.io/dnscontrol/) tool. DNSControl operates on a JS-like syntax that is parsed, evaluated and then used to publish to the DNS provider of choice. Neat stuff! The changes required looked something like this:
+Like any other email provider, all you need to configure for PurelyMail to work is DNS. I use Cloudflare for my sites, so there was nothing to do on the Google Domains side of things. I left the forwarding setup as-is to allow any lagging DNS resolvers to still be able to get email to me, even if its to my Google account. I hope to get rid of that setting in the near future since I believe the change will have propagated by then. I maintain my DNS settings under a git repository, using StackExchange's excellent [dnscontrol](http://dnscontrol.org) tool. DNSControl operates on a JS-like syntax that is parsed, evaluated and then used to publish to the DNS provider of choice. Neat stuff! The changes required looked something like this:
 
 ```diff
 diff --git dnsconfig.js dnsconfig.js
