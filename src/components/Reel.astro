@@ -581,17 +581,13 @@ const dateLabel = date.toLocaleDateString("en-GB", {
         return;
       }
 
-      let delta = 0;
       if (key === "ArrowRight" || key === "Right" || key === "PageDown") {
-        delta = 1;
+        event.preventDefault();
+        step(1, focusIsInStrip());
       } else if (key === "ArrowLeft" || key === "Left" || key === "PageUp") {
-        delta = -1;
-      } else {
-        return;
+        event.preventDefault();
+        step(-1, focusIsInStrip());
       }
-
-      event.preventDefault();
-      step(delta, focusIsInStrip());
     });
 
     prev?.addEventListener("click", () => step(-1, false));
