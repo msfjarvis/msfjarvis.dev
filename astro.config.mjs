@@ -66,7 +66,7 @@ export default defineConfig({
   },
   integrations: [
     expressiveCode({
-      themes: ["catppuccin-latte", "gruvbox-dark-soft"],
+      themes: ["catppuccin-latte", "material-theme-darker"],
     }),
     mdx(),
     sitemap(),
