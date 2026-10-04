@@ -1,0 +1,102 @@
+---
+title: "Weeknotes: Week #40 (2026)"
+date: "2026-10-04T12:42:27.525Z"
+lastmod: "2026-10-04T12:42:27.525Z"
+summary: "Great week for my media consumption "
+tags:
+  - movies
+  - games
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import chicken from "./chicken.webp";
+import fried_rice from "./fried_rice.webp";
+import paneer from "./paneer.webp";
+import paneer_2 from "./paneer_2.webp";
+import pasta from "./pasta.webp";
+
+This week was super fun as I got the chance to meet my colleagues for the first time in weeks, played a ton more of [CONTROL: Resonant](https://controlgame.com/en), and watched **two** movies!
+
+# Social
+
+[Fenil](https://fknil.com) pitched [Yash](https://yashgarg.dev) and me on a breakfast place nearby, except we chose to go there on Tuesday. Guess the one day in the week they are closed :)
+
+To celebrate Cloudflare's 16th birthday, we had a team dinner at the Hilton hotel in Embassy GolfLinks. It was nice to chat with everyone again after nearly a month of not having an office. We were given a soft promise of the new office reopening some time in the next 5 to 10 days 🤞. I'm eagerly looking forward to getting some time in there before I leave for home at the end of the month.
+
+Following up on the promise to myself [made during the last IndieWebClub](/weeknotes/week-38-2026/), I chose to go a little early to hang out with people; I had a great time yapping with [Ankur](https://ankursethi.com/) and a few others who shall go unnamed purely because I am terrible with names 😓
+
+The discussions at IWC itself were quite spirited and engaging. Apparently we all have a lot of strong opinions on archiving! Could be fun to have another session dedicated purely towards it. I ended up using the writing time to _delete_ some drafts instead of working on them, so admittedly the spirit of that exercise was a little lost on me.
+
+# Media
+
+## Writing
+
+I published a post about my [IndiaFOSS 2026 experience](https://msfjarvis.dev/posts/my-experience-at-indiafoss-2026/) which got reposted by the CEO of FOSS United, admittedly a nice surprise :)
+
+## Reading
+
+I finished reading [Wheel of the Infinite](/reading/wheel-of-the-infinite/) and picked up [When We Cease to Understand The World](/reading/when-we-cease-to-understand-the-world/) purely because it was in my eBook collection, having no clue what the theme was. The premise was a bit of a shock, but it's quite intriguing and rather short, so I'll read it through.
+
+## Movies
+
+Yash and I watched two movies this week: [Digger](https://www.imdb.com/title/tt31450459/) starring Tom Cruise and [Primetime](https://www.imdb.com/title/tt34206385/) starring Robert Pattinson.
+
+Digger was deeply weird and often hard to follow, but Tom Cruise really delivers something unique here that we haven't seen in a long, long while from him. I could go for a re-watch of this _today_ and still have as much fun as I did.
+
+Primetime is significantly less _weird_, but delivers just as much on the acting front. Robert Pattinson has proved time and again that he's a phenomenal actor and this was no different. His Chris Hansen is deeply troubled, an obvious hypocrite, and just as fucked up as someone trying to convert paedophilia into TV views would be. Aftermath had an in-depth [breakdown](https://aftermath.site/primetime-hansen-review-impressions) of the movie that I quite enjoyed reading and resonated with me.
+
+## Games
+
+[CONTROL: Resonant](https://store.steampowered.com/app/3669870/CONTROL_Resonant/) still has me fully hooked, and I've been making steady progress on it all week. I got through two Resonant fights; the Factory Resonant fight was extremely telegraphed and barely had anything to it, so I one-shot it with ease. The Park Resonant was much more fun, and I had to take a few shots at it before I finally got it down. On my final attempt I was so locked in that I forgot to blink and my eyes started burning to remind me of the fact. I need to take this stuff less seriously!
+
+# Personal Projects
+
+Somewhat unsurprisingly, last week's [Claw release](https://github.com/msfjarvis/compose-lobsters/releases/tag/v1.72.0) got rejected by the [IzzyOnDroid](https://izzyondroid.org/) repository for its new proprietary dependency on [Play Core](https://developer.android.com/guide/playcore), so I had to create a separate [FOSS-only build](https://github.com/msfjarvis/compose-lobsters/pull/1291) to satisfy their requirements again. The team behind IzzyOnDroid do great work on extending the core [F-Droid](https://f-droid.org) repository with apps that are still FOSS but might have some other properties that make them unsuitable for core. I've donated to them in the past and would encourage others to [do the same](https://izzyondroid.org/contributing/Donating/)!
+
+This site received some very minor tweaks; footnotes now render as [popovers](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) on the website (like this[^1]), the dark theme for code blocks was changed, and the WebMentions server was tweaked to make it possible to provide per-host renderers so I can tweak how, say, [bubbles.town](https://bubbles.town/) webmentions show up under my posts.
+
+## 🤖 CLANK CLANK CLANK 🤖
+
+Yash and I use an app called [Spliit](https://spliit.app/) to manage our shared transactions for the household. I discovered recently that it has an in-built JSON and CSV export, so I added support in [factual-budget](https://git.msfjarvis.dev/msfjarvis/factual-budget) to generate a summary of unsettled transactions with proper categories.
+
+# Cooking
+
+Being at home all week has made cooking much easier, so we're now cooking most days.
+
+<Gallery>
+  <Figure
+    src={pasta}
+    title="This pasta recipe wasn't great and tasted rather bland so we probably won't be revisiting this."
+    alt="A bowl of creamy penne pasta"
+  />
+  <Figure
+    src={paneer}
+    title="This paneer was a new recipe we tried, it was delicious and the texture of the veggies was perfect."
+    alt="Spiced paneer with peppers and onions on a plate"
+  />
+  <Figure
+    src={fried_rice}
+    title="Made some fried rice to use up leftovers and threw parsley on it because greens make it healthy"
+    alt="A bowl of fried rice topped with herbs"
+  />
+
+</Gallery>
+<Gallery>
+  <Figure
+    src={paneer_2}
+    title="This was a more traditional matar paneer recipe which is both delicious and rather pain-free to make."
+    alt="Paneer and peas simmering in curry sauce"
+  />
+  <Figure
+    src={chicken}
+    title="Remade last week's chicken recipe again with the quantity doubled because it still slaps."
+    alt="Chicken curry simmering in a pan on the stove"
+  />
+</Gallery>
+
+[^1]: This is a popover
