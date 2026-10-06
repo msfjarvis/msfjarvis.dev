@@ -36,6 +36,10 @@ minimumReleaseAgeExclude:
   - miniflare
   - workerd
   - wrangler
+  - "@shikijs/langs@4.5.0"
+  - "@shikijs/themes@4.5.0"
+  - "@shikijs/types@4.5.0"
+  - terra-draw@1.36.0
 # keep-sorted end
 blockExoticSubdeps: true
 trustPolicy: no-downgrade

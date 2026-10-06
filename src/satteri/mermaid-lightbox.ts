@@ -4,6 +4,7 @@ import {
 } from "./mermaid-theme.ts";
 import * as cheerio from "cheerio";
 import { fromHtml } from "hast-util-from-html";
+import { toHtml } from "hast-util-to-html";
 import { basename } from "node:path";
 import { fileURLToPath } from "node:url";
 import { find, svg as svgSchema } from "property-information";
@@ -181,6 +182,41 @@ function isMermaidFallback(className: unknown): boolean {
   return Array.isArray(className) && className.includes("mermaid");
 }
 
+function cloneAstNode<T>(node: T): T {
+  if (Array.isArray(node)) {
+    return node.map(cloneAstNode) as T;
+  }
+  if (node !== null && typeof node === "object") {
+    return Object.fromEntries(
+      Object.entries(node).map(([key, value]) => [key, cloneAstNode(value)]),
+    ) as T;
+  }
+  return node;
+}
+
+function lightboxNodes(svg: string, label: string): HastNode[] {
+  const fragment = fromHtml(modalMarkup(ensureSvgDocument(svg), label), {
+    fragment: true,
+  });
+  const children = fragment.children.map((child) =>
+    prepareForSatteri(child as HastNode),
+  );
+  if (children.length !== 3 || children.some((child) => !child)) {
+    throw new Error("Failed to build Mermaid lightbox markup");
+  }
+  return children as HastNode[];
+}
+
+function isMermaidContainer(node: HastNode): boolean {
+  return (
+    node.type === "element" &&
+    node.tagName === "div" &&
+    isMermaidFallback(node.properties.className) &&
+    (node.properties["data-mermaid-ssg"] === "true" ||
+      node.properties.dataMermaidSsg === "true")
+  );
+}
+
 function prepareForSatteri(node: HastNode, insideSvg = false): HastNode {
   if (node.type !== "element") return node;
 
@@ -210,44 +246,42 @@ function prepareForSatteri(node: HastNode, insideSvg = false): HastNode {
 export const mermaidLightbox = defineHastPlugin({
   name: "mermaid-lightbox",
 
-  raw(node, context) {
-    if (!node.value.startsWith('<div class="mermaid" data-mermaid-ssg="true"'))
-      return;
+  element: [
+    {
+      filter: ["div"],
+      visit(node, context) {
+        if (!isMermaidContainer(node)) return;
 
-    const svgStart = node.value.indexOf("<svg");
-    const svgEnd = node.value.lastIndexOf("</svg>");
-    if (svgStart === -1 || svgEnd === -1) {
-      throw new Error(
-        `Failed to render Mermaid diagram in ${context.fileURL ? fileURLToPath(context.fileURL) : "unknown file"}: Satteri Mermaid returned invalid output`,
-      );
-    }
+        const svgNode = node.children.find(
+          (child) => child.type === "element" && child.tagName === "svg",
+        );
+        if (!svgNode) {
+          throw new Error(
+            `Failed to render Mermaid diagram in ${context.fileURL ? fileURLToPath(context.fileURL) : "unknown file"}: Satteri Mermaid returned invalid SVG markup`,
+          );
+        }
 
-    const svg = ensureSvgDocument(
-      node.value.slice(svgStart, svgEnd + "</svg>".length),
-    );
-    const fragment = fromHtml(modalMarkup(svg, fileName(context.fileURL)), {
-      fragment: true,
-    });
-    const children = fragment.children.map((child) =>
-      prepareForSatteri(child as HastNode),
-    );
-    const [style, modal, script] = children;
-    if (!style || !modal || !script || children.length !== 3) {
-      throw new Error("Failed to build Mermaid lightbox markup");
-    }
-    context.insertBefore(node, style);
-    context.insertBefore(node, modal);
-    context.replaceNode(node, script);
-  },
-
-  element: {
-    filter: ["pre"],
-    visit(node, context) {
-      if (!isMermaidFallback(node.properties?.className)) return;
-
-      throw new Error(
-        `Failed to render Mermaid diagram in ${context.fileURL ? fileURLToPath(context.fileURL) : "unknown file"}: Satteri Mermaid fell back to an unrendered code block`,
-      );
+        const normalizedSvg = prepareForSatteri(
+          cloneAstNode(svgNode as HastNode),
+        );
+        const [style, modal, script] = lightboxNodes(
+          toHtml(normalizedSvg as Parameters<typeof toHtml>[0]),
+          fileName(context.fileURL),
+        );
+        context.insertBefore(node, style);
+        context.insertBefore(node, modal);
+        context.replaceNode(node, script);
+      },
     },
-  },
+    {
+      filter: ["pre"],
+      visit(node, context) {
+        if (!isMermaidFallback(node.properties?.className)) return;
+
+        throw new Error(
+          `Failed to render Mermaid diagram in ${context.fileURL ? fileURLToPath(context.fileURL) : "unknown file"}: Satteri Mermaid fell back to an unrendered code block`,
+        );
+      },
+    },
+  ],
 });

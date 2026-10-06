@@ -4,6 +4,18 @@ import type { HastNode, MdastNode } from "satteri";
 
 const alertPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i;
 
+function cloneAstNode<T>(node: T): T {
+  if (Array.isArray(node)) {
+    return node.map(cloneAstNode) as T;
+  }
+  if (node !== null && typeof node === "object") {
+    return Object.fromEntries(
+      Object.entries(node).map(([key, value]) => [key, cloneAstNode(value)]),
+    ) as T;
+  }
+  return node;
+}
+
 type AlertType = "note" | "tip" | "important" | "warning" | "caution";
 
 const alertIconPaths: Record<AlertType, string> = {
@@ -47,7 +59,7 @@ export const githubAlerts = defineMdastPlugin({
   name: "github-alerts",
 
   blockquote(node) {
-    const replacement = structuredClone(node) as Blockquote;
+    const replacement = cloneAstNode(node) as Blockquote;
     let alertType: AlertType | undefined;
     let seekingMarker = true;
 
@@ -195,7 +207,7 @@ export const footnotePopovers = () => {
 
             const id = `footnote-popover-${++popoverIndex}`;
             context.setProperty(reference, "ariaDescribedBy", id);
-            const popoverChildren = structuredClone(definition);
+            const popoverChildren = cloneAstNode(definition);
             for (const child of popoverChildren) {
               removeFootnoteBacklinks(child);
             }
@@ -221,7 +233,7 @@ export const footnotePopovers = () => {
               type: "element",
               tagName: "template",
               properties: { dataFootnotesFallback: true },
-              children: [structuredClone(node)] as HastNode[],
+              children: [cloneAstNode(node)] as HastNode[],
             } as HastNode,
           );
         },

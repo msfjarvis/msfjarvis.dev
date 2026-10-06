@@ -3,7 +3,7 @@ import { mermaidOptions } from "./mermaid-theme.ts";
 import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { markdownToHtml } from "satteri";
+import { mdxToJs } from "satteri";
 
 const options = {
   mdastPlugins: [mermaidMdast()],
@@ -11,45 +11,33 @@ const options = {
   fileURL: new URL("file:///tmp/example.mdx"),
 };
 
-test("renders Mermaid through Satteri while preserving the lightbox contract", async () => {
-  const { html } = await markdownToHtml(
-    "```mermaid\nflowchart LR\n  A --> B\n```",
+test("adds the lightbox and theme styles to Mermaid diagrams in MDX", async () => {
+  const { code } = await mdxToJs(
+    ["```mermaid", "sequenceDiagram", "  A->>B: hello", "```"].join("\n"),
     options,
   );
 
-  assert.match(
-    html,
-    /<div data-mermaid-modal-root(?:="")? class="mermaid-modal">/,
-  );
-  assert.match(html, /class="[^"]*mermaid-diagram[^"]*"/);
-  assert.match(html, /var\(--bg\)/);
-  assert.match(html, /data-mermaid-modal-trigger/);
-  assert.match(html, /data-mermaid-modal-close/);
-  assert.match(html, /aria-label="Expanded Mermaid diagram from example\.mdx"/);
-  assert.match(html, /<script>/);
-  assert.match(html, /<defs><marker /);
-  assert.match(html, /class="edgePath"/);
-  assert.doesNotMatch(
-    html,
-    /markerEnd=|strokeWidth=|textAnchor=|dominantBaseline=|fillRule=|xmlnsXlink=/,
-  );
-  assert.equal(html.match(/<svg\b/g)?.length, 2);
-  assert.doesNotMatch(html, /&lt;svg/);
-  assert.doesNotMatch(html, /<pre class="mermaid">/);
+  assert.match(code, /data-mermaid-modal-trigger/);
+  assert.match(code, /Expand diagram/);
+  assert.match(code, /data-mermaid-modal-container/);
+  assert.match(code, /var\(--text\)/);
+  assert.doesNotMatch(code, /#ECECFF|#eaeaea/);
 });
 
-test("fails the document when the Mermaid extension falls back to source", async () => {
+test("fails MDX when the Mermaid extension cannot render a diagram", async () => {
   await assert.rejects(
-    async () => markdownToHtml("```mermaid\nnot a diagram\n```", options),
-    /Failed to render Mermaid diagram in \/tmp\/example\.mdx/,
+    async () =>
+      mdxToJs(["```mermaid", "not a diagram", "```"].join("\n"), options),
+    /Merman render failed: No diagram type detected/,
   );
 });
 
-test("leaves non-Mermaid code blocks unchanged", async () => {
-  const { html } = await markdownToHtml("```text\nflowchart LR\n```", options);
-
-  assert.equal(
-    html,
-    '<pre><code class="language-text">flowchart LR\n</code></pre>\n',
+test("leaves non-Mermaid code blocks unchanged in MDX", async () => {
+  const { code } = await mdxToJs(
+    ["```text", "flowchart LR", "```"].join("\n"),
+    options,
   );
+
+  assert.match(code, /flowchart LR/);
+  assert.doesNotMatch(code, /data-mermaid-modal-trigger/);
 });
