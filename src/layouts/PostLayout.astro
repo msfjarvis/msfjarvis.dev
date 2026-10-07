@@ -3,7 +3,6 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
-import PagefindConfig from "../components/PagefindConfig.astro";
 import PhotoSwipe from "../components/PhotoSwipe.astro";
 import { slugify } from "../utils";
 import WebmentionsSection from "../components/WebmentionsSection.astro";
@@ -74,27 +73,8 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
         margin: 2rem 0;
       }
     </style>
-    <script is:inline>
-      const applyPagefindTheme = (isDark) => {
-        document.documentElement.toggleAttribute("data-pf-theme", isDark);
-        if (isDark) {
-          document.documentElement.setAttribute("data-pf-theme", "dark");
-          document.body?.setAttribute("data-pf-theme", "dark");
-        } else {
-          document.documentElement.removeAttribute("data-pf-theme");
-          document.body?.removeAttribute("data-pf-theme");
-        }
-      };
-
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      applyPagefindTheme(mediaQuery.matches);
-      mediaQuery.addEventListener("change", (event) =>
-        applyPagefindTheme(event.matches),
-      );
-    </script>
   </head>
   <body>
-    <PagefindConfig />
     <Header />
     <main data-pagefind-body>
       <article class="h-entry">
@@ -169,7 +149,6 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
         <WebmentionsSection />
       </article>
     </main>
-    <pagefind-modal reset-on-close></pagefind-modal>
     <PhotoSwipe />
     <Footer />
     <script>

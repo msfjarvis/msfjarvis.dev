@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from "../consts";
 import { navLinks } from "../data/nav-links.ts";
+import CloudflareSearch from "./CloudflareSearch.astro";
 
 const pathname = new URL(Astro.request.url).pathname;
 // Returns true if the current path matches, supporting both trailing-slash and non-trailing-slash forms
@@ -43,10 +44,7 @@ const overflowNavLinks = navLinks.slice(1);
           ))}
         </div>
       </div>
-      <pagefind-modal-trigger
-        compact
-        placeholder="Search"
-      ></pagefind-modal-trigger>
+      <CloudflareSearch />
     </div>
   </nav>
 </header>
