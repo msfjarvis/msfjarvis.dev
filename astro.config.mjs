@@ -1,5 +1,6 @@
 // astro.config.mjs
 // @ts-check
+import cloudflareAiSearch from "./src/integrations/cloudflare-ai-search.ts";
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
 import opengraphImages from "./src/integrations/opengraph-images.ts";
 import pagefind from "./src/integrations/pagefind.ts";
@@ -71,6 +72,7 @@ export default defineConfig({
     mdx(),
     sitemap(),
     pagefind(),
+    cloudflareAiSearch(),
     icon({
       include: {
         "simple-icons": ["mastodon", "forgejo"],
