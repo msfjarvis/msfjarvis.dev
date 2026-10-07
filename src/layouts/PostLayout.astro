@@ -76,7 +76,7 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
   </head>
   <body>
     <Header />
-    <main data-pagefind-body>
+    <main>
       <article class="h-entry">
         <header class="post-header">
           <h1 class="p-name">{title}</h1>
@@ -94,7 +94,7 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
           </p>
           <span hidden data-og-date={date.toISOString()}></span>
           {collection && <span hidden data-og-collection={collection} />}
-          <span class="p-author h-card" hidden data-pagefind-ignore="all">
+          <span class="p-author h-card" hidden>
             <img class="u-photo" src="/harsh-shandilya.webp" alt="" />
             <a class="p-name u-url" href="/">
               Harsh Shandilya

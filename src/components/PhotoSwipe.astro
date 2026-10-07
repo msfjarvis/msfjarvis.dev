@@ -156,7 +156,7 @@
   });
 
   const standaloneSelector = `${defaultSelector}:not([data-pswp-gallery] ${defaultSelector})`;
-  document.querySelectorAll("[data-pagefind-body]").forEach((article) => {
+  document.querySelectorAll("article.h-entry").forEach((article) => {
     if (article instanceof HTMLElement) {
       createLightbox(article, standaloneSelector);
     }

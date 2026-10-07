@@ -33,7 +33,6 @@
     "@astrojs/sitemap": "^3.7.4",
     "@cloudflare/ai-search-snippet": "^0.0.43",
     "@mermanjs/web": "^0.7.0",
-    "@pagefind/component-ui": "^1.5.2",
     "@sveltia/cms": "^0.232.0",
     "@xingwangzhe/satteri-mermaid": "^0.8.2",
     "astro": "^7.3.8",
@@ -43,12 +42,10 @@
     "cheerio": "^1.2.0",
     "hast-util-from-html": "^2.0.3",
     "hast-util-to-html": "^9.0.5",
-    "pagefind": "^1.5.2",
     "photoswipe": "^5.4.4",
     "property-information": "^7.2.0",
     "satteri": "^0.10.5",
-    "sharp": "^0.35.5",
-    "sirv": "^3.0.2"
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

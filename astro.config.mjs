@@ -3,7 +3,6 @@
 import cloudflareAiSearch from "./src/integrations/cloudflare-ai-search.ts";
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
 import opengraphImages from "./src/integrations/opengraph-images.ts";
-import pagefind from "./src/integrations/pagefind.ts";
 import webmentionsIntegration from "./src/integrations/webmentions.ts";
 import {
   footnotePopovers,
@@ -71,7 +70,6 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
-    pagefind(),
     cloudflareAiSearch(),
     icon({
       include: {
