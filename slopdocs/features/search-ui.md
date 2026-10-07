@@ -1,6 +1,12 @@
 # Search UI
 
-Decision: integrate search with Pagefind directly, copying only the necessary wiring patterns from the local `../astro-pagefind` checkout, while using Pagefind’s predefined Component UI for the actual search experience. The site will expose a compact global trigger in the header, a floating modal with inline results, and a dedicated `/search` page using the same Pagefind-backed presentation.
+## Current implementation / phases
+
+Pagefind remains the active search UI and indexer; its header trigger, modal, `/search` page, and build integration are unchanged. The first AI Search phase adds a parallel build-time ingestion integration only. It uploads the raw Markdown/MDX source files in `posts`, `notes`, `weeknotes`, `games`, and `books` to Cloudflare AI Search; it does not change the UI or retrieval path. A later phase must explicitly replace or augment the Pagefind UI before AI Search serves user queries. Hybrid retrieval is configured on the Cloudflare AI Search instance, not through item uploads.
+
+Indexing uses `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_AI_SEARCH_NAMESPACE`, `CLOUDFLARE_AI_SEARCH_INSTANCE_ID`, and `CLOUDFLARE_API_TOKEN`, only in the build process. If all four are unset, indexing is skipped (so ordinary local builds need no secrets); partial configuration and failed upload requests fail the build. Documents are uploaded as multipart `file` items with stable collection-prefixed filenames. Deleted entries are always omitted; drafts are omitted unless `INCLUDE_DRAFTS=true`. Only `.md` and `.mdx` files are submitted.
+
+Decision: integrate the existing UI with Pagefind directly, copying only the necessary wiring patterns from the local `../astro-pagefind` checkout, while using Pagefind’s predefined Component UI for the actual search experience. The site exposes a compact global trigger in the header, a floating modal with inline results, and a dedicated `/search` page using the same Pagefind-backed presentation.
 
 ## Context
 
