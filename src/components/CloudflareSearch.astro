@@ -1,0 +1,71 @@
+---
+const endpoint = import.meta.env.PUBLIC_CLOUDFLARE_AI_SEARCH_ENDPOINT?.trim();
+---
+
+{endpoint && (
+  <>
+    <button
+      type="button"
+      class="search-trigger"
+      data-search-trigger
+      aria-label="Open search (⌘K)"
+    >
+      <span>Search</span>
+      <kbd aria-hidden="true">⌘K</kbd>
+    </button>
+    <search-modal-snippet
+      api-url={endpoint}
+      theme="auto"
+      shortcut="k"
+      use-meta-key="true"
+      max-results="8"
+      max-render-results="8"
+    ></search-modal-snippet>
+    <script>
+      import "@cloudflare/ai-search-snippet/search";
+
+      document
+        .querySelectorAll<HTMLButtonElement>("[data-search-trigger]")
+        .forEach((trigger) => {
+          trigger.addEventListener("click", () => {
+            document.querySelector("search-modal-snippet")?.open();
+          });
+        });
+    </script>
+  </>
+)}
+
+<style>
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.25rem 0.55rem;
+    color: var(--text-2);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .search-trigger:hover {
+    color: var(--accent);
+    border-color: var(--accent-subtle);
+  }
+
+  .search-trigger:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .search-trigger kbd {
+    color: var(--text-3);
+    font: inherit;
+    font-size: 0.75rem;
+  }
+</style>
