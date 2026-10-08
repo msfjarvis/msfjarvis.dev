@@ -9,8 +9,8 @@ const isActive = (path: string, exact = false): boolean =>
     ? pathname === path || pathname === path + "/"
     : pathname.startsWith(path);
 
-const primaryNavLinks = navLinks.slice(0, 3);
-const overflowNavLinks = navLinks.slice(3);
+const primaryNavLinks = navLinks.slice(0, 1);
+const overflowNavLinks = navLinks.slice(1);
 ---
 
 <header class="site-header">
@@ -31,7 +31,6 @@ const overflowNavLinks = navLinks.slice(3);
           popovertarget="more-links"
           aria-label="Show more navigation links"
         >
-          more
           <svg aria-hidden="true" viewBox="0 0 12 12" focusable="false">
             <path d="m3 5 3 3 3-3"></path>
           </svg>
