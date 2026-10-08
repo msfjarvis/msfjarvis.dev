@@ -103,6 +103,8 @@ export const githubAlerts = defineMdastPlugin({
           className: ["markdown-alert-title"],
           dir: "auto",
         },
+      } as NonNullable<Paragraph["data"]> & {
+        hProperties: { className: string[]; dir: string };
       },
       children: [
         alertIcon(alertType),

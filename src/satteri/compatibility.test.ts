@@ -22,8 +22,11 @@ const options: CompileOptions = {
   hastPlugins: [footnotePopovers, legacyTableAlignment],
 };
 
-test("preserves GitHub alert markup", () => {
-  const { html } = markdownToHtml("> [!NOTE]\n> Hello **world**.", options);
+test("preserves GitHub alert markup", async () => {
+  const { html } = await markdownToHtml(
+    "> [!NOTE]\n> Hello **world**.",
+    options,
+  );
 
   assert.match(
     html,
@@ -40,8 +43,8 @@ test("preserves GitHub alert markup", () => {
   assert.match(html, /<p>Hello <strong>world<\/strong>\.<\/p>/);
 });
 
-test("preserves Remark smartypants behavior", () => {
-  const { html } = markdownToHtml(
+test("preserves Remark smartypants behavior", async () => {
+  const { html } = await markdownToHtml(
     "\"Hello *world*.\" -- Wait... . . . ``fine''",
     options,
   );
@@ -49,8 +52,8 @@ test("preserves Remark smartypants behavior", () => {
   assert.equal(html, "<p>“Hello <em>world</em>.” — Wait… … “fine”</p>\n");
 });
 
-test("preserves legacy GFM table alignment attributes", () => {
-  const { html } = markdownToHtml(
+test("preserves legacy GFM table alignment attributes", async () => {
+  const { html } = await markdownToHtml(
     "| left | right |\n| :--- | ---: |\n| one | two |",
     options,
   );
@@ -60,8 +63,8 @@ test("preserves legacy GFM table alignment attributes", () => {
   assert.doesNotMatch(html, /style="text-align:/);
 });
 
-test("renders static popovers and keeps an inert footnote fallback", () => {
-  const { html } = markdownToHtml(
+test("renders static popovers and keeps an inert footnote fallback", async () => {
+  const { html } = await markdownToHtml(
     "A note[^1] and another reference[^1].\n\n[^1]: Definition with **bold** text.\n",
     options,
   );
@@ -84,8 +87,8 @@ test("renders static popovers and keeps an inert footnote fallback", () => {
   assert.match(html, /id="footnote-popover-2"/);
 });
 
-test("retains GFM task lists, autolinks, and strikethrough", () => {
-  const { html } = markdownToHtml(
+test("retains GFM task lists, autolinks, and strikethrough", async () => {
+  const { html } = await markdownToHtml(
     "- [x] done\n- [ ] todo\n\nhttps://example.com and ~~removed~~",
     options,
   );
