@@ -30,16 +30,16 @@ minimumReleaseAgeExclude:
   - "@cloudflare/workerd-linux-arm64"
   - "@cloudflare/workerd-windows-64"
   - "@jsr/msfjarvis__prettier-plugin-keep-sorted@0.1.0"
+  - "@shikijs/langs@4.5.0"
+  - "@shikijs/themes@4.5.0"
+  - "@shikijs/types@4.5.0"
   - "@sveltia/cms"
   - "@xingwangzhe/satteri-mermaid"
   - astro
   - miniflare
+  - terra-draw@1.36.0
   - workerd
   - wrangler
-  - "@shikijs/langs@4.5.0"
-  - "@shikijs/themes@4.5.0"
-  - "@shikijs/types@4.5.0"
-  - terra-draw@1.36.0
 # keep-sorted end
 blockExoticSubdeps: true
 trustPolicy: no-downgrade

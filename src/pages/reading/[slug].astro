@@ -59,107 +59,95 @@ const coverSource = bookCover as ImageMetadata;
 
 <BaseLayout title={bookTitle} description={`Review of ${bookTitle}.`}>
   <div class="book-page">
-    <a class="back-link" href="/reading">← Back to reading</a>
+    <a class="back-link" href="/reading">
+      ← Back to reading
+    </a>
 
     <div class="book-layout">
       <aside class="book-sidebar" aria-label="Book details">
         <div class="cover-frame">
-          {
-            bookCover ? (
-              <Image
-                class="cover"
-                src={coverSource}
-                alt={bookCoverAlt || `Cover of ${bookTitle}`}
-                width={320}
-                height={480}
-                densities={[1, 2]}
-                format="webp"
-                fit="cover"
-                decoding="async"
-                onerror="this.setAttribute('data-error', '')"
-              />
-            ) : (
-              <span class="cover-fallback">{bookTitle}</span>
-            )
-          }
+          {bookCover ? (
+            <Image
+              class="cover"
+              src={coverSource}
+              alt={bookCoverAlt || `Cover of ${bookTitle}`}
+              width={320}
+              height={480}
+              densities={[1, 2]}
+              format="webp"
+              fit="cover"
+              decoding="async"
+              onerror="this.setAttribute('data-error', '')"
+            />
+          ) : (
+            <span class="cover-fallback">{bookTitle}</span>
+          )}
         </div>
 
         <h1 id="book-title">{bookTitle}</h1>
-        {
-          bookAuthors.length > 0 && (
-            <p class="authors">{bookAuthors.join(", ")}</p>
-          )
-        }
+        {bookAuthors.length > 0 && (
+          <p class="authors">{bookAuthors.join(", ")}</p>
+        )}
 
         <dl class="facts">
           <div>
             <dt>Status</dt>
             <dd>{shelfLabel}</dd>
           </div>
-          {
-            seriesLabel && (
-              <div>
-                <dt>Series</dt>
-                <dd>{seriesLabel}</dd>
-              </div>
-            )
-          }
-          {
-            bookPublishedYear && (
-              <div>
-                <dt>Published</dt>
-                <dd>
-                  <time datetime={`${bookPublishedYear}`}>
-                    {bookPublishedYear}
-                  </time>
-                </dd>
-              </div>
-            )
-          }
-          {
-            readingStartedAt && (
-              <div>
-                <dt>Started</dt>
-                <dd>
-                  <time datetime={dateOnly(readingStartedAt)}>
-                    {formatDate(readingStartedAt)}
-                  </time>
-                </dd>
-              </div>
-            )
-          }
-          {
-            readingFinishedAt && (
-              <div>
-                <dt>Finished</dt>
-                <dd>
-                  <time datetime={dateOnly(readingFinishedAt)}>
-                    {formatDate(readingFinishedAt)}
-                  </time>
-                </dd>
-              </div>
-            )
-          }
-          {
-            readingStoppedAt && (
-              <div>
-                <dt>Stopped</dt>
-                <dd>
-                  <time datetime={dateOnly(readingStoppedAt)}>
-                    {formatDate(readingStoppedAt)}
-                  </time>
-                </dd>
-              </div>
-            )
-          }
+          {seriesLabel && (
+            <div>
+              <dt>Series</dt>
+              <dd>{seriesLabel}</dd>
+            </div>
+          )}
+          {bookPublishedYear && (
+            <div>
+              <dt>Published</dt>
+              <dd>
+                <time datetime={`${bookPublishedYear}`}>
+                  {bookPublishedYear}
+                </time>
+              </dd>
+            </div>
+          )}
+          {readingStartedAt && (
+            <div>
+              <dt>Started</dt>
+              <dd>
+                <time datetime={dateOnly(readingStartedAt)}>
+                  {formatDate(readingStartedAt)}
+                </time>
+              </dd>
+            </div>
+          )}
+          {readingFinishedAt && (
+            <div>
+              <dt>Finished</dt>
+              <dd>
+                <time datetime={dateOnly(readingFinishedAt)}>
+                  {formatDate(readingFinishedAt)}
+                </time>
+              </dd>
+            </div>
+          )}
+          {readingStoppedAt && (
+            <div>
+              <dt>Stopped</dt>
+              <dd>
+                <time datetime={dateOnly(readingStoppedAt)}>
+                  {formatDate(readingStoppedAt)}
+                </time>
+              </dd>
+            </div>
+          )}
         </dl>
       </aside>
 
       <article
         class="review"
-        aria-label={hasReview
-          ? `${bookTitle} review`
-          : `${bookTitle} review status`}
+        aria-label={
+          hasReview ? `${bookTitle} review` : `${bookTitle} review status`
+        }
       >
         {hasReview ? <Content /> : <p>No review yet.</p>}
       </article>

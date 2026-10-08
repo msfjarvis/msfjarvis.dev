@@ -68,24 +68,26 @@ const feeds = alternateFeeds ?? [
 <meta name="twitter:image" content={openGraphImage} />
 
 <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
-<script is:inline type="module" src="/pagefind/pagefind-component-ui.js"
+<script
+  is:inline
+  type="module"
+  src="/pagefind/pagefind-component-ui.js"
 ></script>
 <script
   is:inline
   defer
   src="https://stats01.msfjarvis.dev/script.js"
-  data-website-id="8cec1982-7db5-4719-9b61-018401a7590d"></script>
+  data-website-id="8cec1982-7db5-4719-9b61-018401a7590d"
+></script>
 
-{
-  feeds.map((f) => (
-    <link
-      rel="alternate"
-      type={f.type}
-      title={f.title}
-      href={new URL(f.href, Astro.site)}
-    />
-  ))
-}
+{feeds.map((f) => (
+  <link
+    rel="alternate"
+    type={f.type}
+    title={f.title}
+    href={new URL(f.href, Astro.site)}
+  />
+))}
 
 <link rel="me" href="https://fantastic.earth/@msfjarvis" />
 <link rel="me" href="https://codeberg.org/msfjarvis" />

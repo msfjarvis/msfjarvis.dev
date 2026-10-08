@@ -27,9 +27,7 @@ const noteCount = notes.length;
 const weeknoteCount = weeknotes.length;
 ---
 
-{
-  /* Pass all discovered feeds so the home page advertises every feed on the site */
-}
+{/* Pass all discovered feeds so the home page advertises every feed on the site */}
 <BaseLayout
   title={SITE_TITLE}
   description={SITE_DESCRIPTION}
@@ -62,37 +60,37 @@ const weeknoteCount = weeknotes.length;
   <section class="recent">
     <div class="recent-grid">
       <div class="recent-col">
-        <h2 class="section-heading"><a href="/posts">Posts</a></h2>
+        <h2 class="section-heading">
+          <a href="/posts">Posts</a>
+        </h2>
         <ul>
-          {
-            recentPosts.map((post) => (
-              <li class="post-row">
-                <a href={`/posts/${post.id}/`} class="post-title">
-                  {post.data.title}
-                </a>
-                <span class="post-date">
-                  <FormattedDate date={post.data.date} />
-                </span>
-              </li>
-            ))
-          }
+          {recentPosts.map((post) => (
+            <li class="post-row">
+              <a href={`/posts/${post.id}/`} class="post-title">
+                {post.data.title}
+              </a>
+              <span class="post-date">
+                <FormattedDate date={post.data.date} />
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
       <div class="recent-col">
-        <h2 class="section-heading"><a href="/weeknotes">Weeknotes</a></h2>
+        <h2 class="section-heading">
+          <a href="/weeknotes">Weeknotes</a>
+        </h2>
         <ul>
-          {
-            recentWeeknotes.map((note) => (
-              <li class="post-row">
-                <a href={`/weeknotes/${note.id}/`} class="post-title">
-                  {note.data.title}
-                </a>
-                <span class="post-date">
-                  <FormattedDate date={note.data.date} />
-                </span>
-              </li>
-            ))
-          }
+          {recentWeeknotes.map((note) => (
+            <li class="post-row">
+              <a href={`/weeknotes/${note.id}/`} class="post-title">
+                {note.data.title}
+              </a>
+              <span class="post-date">
+                <FormattedDate date={note.data.date} />
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

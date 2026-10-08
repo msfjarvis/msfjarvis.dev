@@ -17,29 +17,27 @@ games.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 >
   <h1>Games</h1>
   <ul class="game-list">
-    {
-      games.map((game) => (
-        <li>
-          <a class="game-link" href={`/games/${game.id}/`}>
-            <img
-              class="game-cover"
-              src={game.data.cover.src}
-              alt=""
-              width={game.data.cover.width}
-              height={game.data.cover.height}
-              loading="lazy"
-              decoding="async"
-            />
-            <span class="game-meta">
-              <span class="game-title">{game.data.title}</span>
-              <span class="game-date">
-                <FormattedDate date={game.data.date} />
-              </span>
+    {games.map((game) => (
+      <li>
+        <a class="game-link" href={`/games/${game.id}/`}>
+          <img
+            class="game-cover"
+            src={game.data.cover.src}
+            alt=""
+            width={game.data.cover.width}
+            height={game.data.cover.height}
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="game-meta">
+            <span class="game-title">{game.data.title}</span>
+            <span class="game-date">
+              <FormattedDate date={game.data.date} />
             </span>
-          </a>
-        </li>
-      ))
-    }
+          </span>
+        </a>
+      </li>
+    ))}
   </ul>
 </BaseLayout>
 

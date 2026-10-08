@@ -15,40 +15,34 @@ const { currentlyReading, finishedReading, stoppedReading } = partitionBooks(
   title="Reading"
   description="Books Harsh Shandilya is reading and has finished reading."
 >
-  {
-    currentlyReading.length > 0 && (
-      <>
-        <h2>currently reading</h2>
-        <ol class="book-grid">
-          {currentlyReading.map((book) => (
-            <Book book={book.data} href={`/reading/${book.id}/`} />
-          ))}
-        </ol>
-      </>
-    )
-  }
+  {currentlyReading.length > 0 && (
+    <>
+      <h2>currently reading</h2>
+      <ol class="book-grid">
+        {currentlyReading.map((book) => (
+          <Book book={book.data} href={`/reading/${book.id}/`} />
+        ))}
+      </ol>
+    </>
+  )}
 
   <h2>finished reading</h2>
   <ol class="book-grid">
-    {
-      finishedReading.map((book) => (
-        <Book book={book.data} href={`/reading/${book.id}/`} />
-      ))
-    }
+    {finishedReading.map((book) => (
+      <Book book={book.data} href={`/reading/${book.id}/`} />
+    ))}
   </ol>
 
-  {
-    stoppedReading.length > 0 && (
-      <>
-        <h2>stopped reading</h2>
-        <ol class="book-grid">
-          {stoppedReading.map((book) => (
-            <Book book={book.data} href={`/reading/${book.id}/`} />
-          ))}
-        </ol>
-      </>
-    )
-  }
+  {stoppedReading.length > 0 && (
+    <>
+      <h2>stopped reading</h2>
+      <ol class="book-grid">
+        {stoppedReading.map((book) => (
+          <Book book={book.data} href={`/reading/${book.id}/`} />
+        ))}
+      </ol>
+    </>
+  )}
 </BaseLayout>
 
 <style>

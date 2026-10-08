@@ -29,45 +29,41 @@ const coverSource = bookCover as ImageMetadata;
 <li class="book">
   <a class="book-link" href={href}>
     <div class="cover-frame">
-      <span class="cover-placeholder" aria-hidden="true">{bookTitle}</span>
-      {
-        bookCover && (
-          <Image
-            class="cover"
-            src={coverSource}
-            alt={bookCoverAlt || `Cover of ${bookTitle}`}
-            width={320}
-            height={480}
-            densities={[1, 2]}
-            format="webp"
-            fit="cover"
-            loading="lazy"
-            decoding="async"
-            onerror="this.setAttribute('data-error', '')"
-          />
-        )
-      }
+      <span class="cover-placeholder" aria-hidden="true">
+        {bookTitle}
+      </span>
+      {bookCover && (
+        <Image
+          class="cover"
+          src={coverSource}
+          alt={bookCoverAlt || `Cover of ${bookTitle}`}
+          width={320}
+          height={480}
+          densities={[1, 2]}
+          format="webp"
+          fit="cover"
+          loading="lazy"
+          decoding="async"
+          onerror="this.setAttribute('data-error', '')"
+        />
+      )}
     </div>
     <div class="details">
       <h2>{bookTitle}</h2>
-      {
-        bookAuthors.length > 0 && (
-          <p class="authors">{bookAuthors.join(", ")}</p>
-        )
-      }
-      {
-        (seriesLabel || bookPublishedYear) && (
-          <p class="publication">
-            {seriesLabel && <span>{seriesLabel}</span>}
-            {seriesLabel && bookPublishedYear && (
-              <span aria-hidden="true"> · </span>
-            )}
-            {bookPublishedYear && (
-              <time datetime={`${bookPublishedYear}`}>{bookPublishedYear}</time>
-            )}
-          </p>
-        )
-      }
+      {bookAuthors.length > 0 && (
+        <p class="authors">{bookAuthors.join(", ")}</p>
+      )}
+      {(seriesLabel || bookPublishedYear) && (
+        <p class="publication">
+          {seriesLabel && <span>{seriesLabel}</span>}
+          {seriesLabel && bookPublishedYear && (
+            <span aria-hidden="true"> · </span>
+          )}
+          {bookPublishedYear && (
+            <time datetime={`${bookPublishedYear}`}>{bookPublishedYear}</time>
+          )}
+        </p>
+      )}
     </div>
   </a>
 </li>

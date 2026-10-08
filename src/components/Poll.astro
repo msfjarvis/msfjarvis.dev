@@ -74,55 +74,51 @@ if (mode === "multiple" && totalChoiceCharacters > 512) {
     <fieldset disabled>
       <legend>{question}</legend>
       <p class="poll__instruction">
-        {
-          mode === "single"
-            ? "Choose one option."
-            : "Choose one or more options."
-        }
+        {mode === "single"
+          ? "Choose one option."
+          : "Choose one or more options."}
       </p>
       <div class="poll__options">
-        {
-          options.map((option) => (
-            <label class="poll__option">
-              <span class="poll__choice">
-                <input
-                  data-choice
-                  type={mode === "single" ? "radio" : "checkbox"}
-                  value={option.id}
-                  required={mode === "single"}
-                />
-                <span>{option.label}</span>
+        {options.map((option) => (
+          <label class="poll__option">
+            <span class="poll__choice">
+              <input
+                data-choice
+                type={mode === "single" ? "radio" : "checkbox"}
+                value={option.id}
+                required={mode === "single"}
+              />
+              <span>{option.label}</span>
+            </span>
+            <span class="poll__result" data-result={option.id}>
+              <span class="poll__bar" aria-hidden="true" />
+              <span class="poll__count" data-result-count>
+                0 votes
               </span>
-              <span class="poll__result" data-result={option.id}>
-                <span class="poll__bar" aria-hidden="true" />
-                <span class="poll__count" data-result-count>
-                  0 votes
-                </span>
-              </span>
-            </label>
-          ))
-        }
+            </span>
+          </label>
+        ))}
       </div>
       <p class="poll__total">
         <span data-total>0</span>
         <span data-ballot-label>ballots</span> cast
       </p>
       <div class="poll__actions">
-        <button class="poll__submit" type="submit" data-submit disabled
-          >Vote</button
-        >
-        <button class="poll__clear" type="button" data-clear disabled
-          >Clear my vote</button
-        >
+        <button class="poll__submit" type="submit" data-submit disabled>
+          Vote
+        </button>
+        <button class="poll__clear" type="button" data-clear disabled>
+          Clear my vote
+        </button>
       </div>
     </fieldset>
     <div class="poll__feedback">
       <p class="poll__status" data-status aria-live="polite" aria-atomic="true">
         Loading poll…
       </p>
-      <button type="button" data-retry aria-label="Retry loading poll" hidden
-        >Retry</button
-      >
+      <button type="button" data-retry aria-label="Retry loading poll" hidden>
+        Retry
+      </button>
     </div>
   </form>
 </vote-poll>

@@ -33,19 +33,17 @@ weeknotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 >
   <h1>Weeknotes</h1>
   <ul>
-    {
-      weeknotes.map((entry) => (
-        <li class="weeknote-row">
-          <div class="weeknote-main">
-            <a href={`/weeknotes/${entry.id}/`}>{entry.data.title}</a>
-            {entry.data.summary && <p class="summary">{entry.data.summary}</p>}
-          </div>
-          <span class="date">
-            <FormattedDate date={entry.data.date} />
-          </span>
-        </li>
-      ))
-    }
+    {weeknotes.map((entry) => (
+      <li class="weeknote-row">
+        <div class="weeknote-main">
+          <a href={`/weeknotes/${entry.id}/`}>{entry.data.title}</a>
+          {entry.data.summary && <p class="summary">{entry.data.summary}</p>}
+        </div>
+        <span class="date">
+          <FormattedDate date={entry.data.date} />
+        </span>
+      </li>
+    ))}
   </ul>
 </BaseLayout>
 

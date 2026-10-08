@@ -35,14 +35,12 @@ const imageLabel = alt || title || "Open image in gallery";
   >
     <span class="image-modal__media">
       <picture>
-        {
-          srcDark && (
-            <source
-              media="(prefers-color-scheme: dark)"
-              srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
-            />
-          )
-        }
+        {srcDark && (
+          <source
+            media="(prefers-color-scheme: dark)"
+            srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
+          />
+        )}
         <img
           src={imageSrc}
           alt={alt}
@@ -52,7 +50,9 @@ const imageLabel = alt || title || "Open image in gallery";
           height={image?.height}
         />
       </picture>
-      <span class="image-modal__hint" aria-hidden="true">Expand image</span>
+      <span class="image-modal__hint" aria-hidden="true">
+        Expand image
+      </span>
     </span>
   </a>
   {title && <figcaption class="figure-caption">{title}</figcaption>}

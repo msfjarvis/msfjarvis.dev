@@ -39,19 +39,17 @@ function tagSize(count: number): string {
 <BaseLayout title="Tags — Harsh Shandilya" description="All tags">
   <h1>Tags</h1>
   <div class="cloud" role="list">
-    {
-      tags.map(([tag, count]) => (
-        <a
-          href={`/tags/${slugify(tag)}/`}
-          class="cloud-tag"
-          style={`font-size: ${tagSize(count)}`}
-          role="listitem"
-          title={`${count} ${count === 1 ? "post" : "posts"}`}
-        >
-          {tag}
-        </a>
-      ))
-    }
+    {tags.map(([tag, count]) => (
+      <a
+        href={`/tags/${slugify(tag)}/`}
+        class="cloud-tag"
+        style={`font-size: ${tagSize(count)}`}
+        role="listitem"
+        title={`${count} ${count === 1 ? "post" : "posts"}`}
+      >
+        {tag}
+      </a>
+    ))}
   </div>
 </BaseLayout>
 

@@ -15,16 +15,16 @@ const overflowNavLinks = navLinks.slice(1);
 
 <header class="site-header">
   <nav>
-    <a href="/" class="site-name">{SITE_TITLE}</a>
+    <a href="/" class="site-name">
+      {SITE_TITLE}
+    </a>
     <div class="nav-actions">
       <div class="nav-links">
-        {
-          primaryNavLinks.map((link) => (
-            <a href={link.href} class:list={[{ active: isActive(link.href) }]}>
-              {link.label}
-            </a>
-          ))
-        }
+        {primaryNavLinks.map((link) => (
+          <a href={link.href} class:list={[{ active: isActive(link.href) }]}>
+            {link.label}
+          </a>
+        ))}
         <button
           type="button"
           class="more-links-trigger"
@@ -36,19 +36,16 @@ const overflowNavLinks = navLinks.slice(1);
           </svg>
         </button>
         <div id="more-links" class="more-links-popover" popover="auto">
-          {
-            overflowNavLinks.map((link) => (
-              <a
-                href={link.href}
-                class:list={[{ active: isActive(link.href) }]}
-              >
-                {link.label}
-              </a>
-            ))
-          }
+          {overflowNavLinks.map((link) => (
+            <a href={link.href} class:list={[{ active: isActive(link.href) }]}>
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
-      <pagefind-modal-trigger compact placeholder="Search"
+      <pagefind-modal-trigger
+        compact
+        placeholder="Search"
       ></pagefind-modal-trigger>
     </div>
   </nav>

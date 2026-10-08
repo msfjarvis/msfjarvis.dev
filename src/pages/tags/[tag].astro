@@ -80,22 +80,22 @@ const { tag, entries } = Astro.props;
     },
   ]}
 >
-  <h1><a href="/tags/">Tags</a> <span class="sep">›</span> {tag}</h1>
+  <h1>
+    <a href="/tags/">Tags</a> <span class="sep">›</span> {tag}
+  </h1>
   <p class="count">
     {entries.length}
     {entries.length === 1 ? "entry" : "entries"}
   </p>
   <ul>
-    {
-      entries.map(({ title, date, url }) => (
-        <li class="entry-row">
-          <a href={url}>{title}</a>
-          <span class="date">
-            <FormattedDate date={date} />
-          </span>
-        </li>
-      ))
-    }
+    {entries.map(({ title, date, url }) => (
+      <li class="entry-row">
+        <a href={url}>{title}</a>
+        <span class="date">
+          <FormattedDate date={date} />
+        </span>
+      </li>
+    ))}
   </ul>
 </BaseLayout>
 

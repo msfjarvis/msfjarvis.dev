@@ -24,14 +24,12 @@ const categories = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
 <BaseLayout title="Categories — Harsh Shandilya" description="All categories">
   <h1>Categories</h1>
   <ul>
-    {
-      categories.map(([cat, count]) => (
-        <li class="cat-row">
-          <a href={`/categories/${slugify(cat)}/`}>{cat}</a>
-          <span class="count">{count}</span>
-        </li>
-      ))
-    }
+    {categories.map(([cat, count]) => (
+      <li class="cat-row">
+        <a href={`/categories/${slugify(cat)}/`}>{cat}</a>
+        <span class="count">{count}</span>
+      </li>
+    ))}
   </ul>
 </BaseLayout>
 

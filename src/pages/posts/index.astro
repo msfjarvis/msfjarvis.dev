@@ -40,28 +40,26 @@ posts.forEach((post) => {
   ]}
 >
   <h1>Posts</h1>
-  {
-    Array.from(groupedPosts.entries()).map(([year, posts]) => (
-      <>
-        <h2>
-          {year} – {posts.length} posts
-        </h2>
-        <ul>
-          {posts.map((post) => (
-            <li class="post-row">
-              <a href={`/posts/${post.id}/`}>
-                {post.data.title}
-                {post.data.draft ? " – [draft]" : ""}
-              </a>
-              <span class="date">
-                <FormattedDate date={post.data.date} />
-              </span>
-            </li>
-          ))}
-        </ul>
-      </>
-    ))
-  }
+  {Array.from(groupedPosts.entries()).map(([year, posts]) => (
+    <>
+      <h2>
+        {year} – {posts.length} posts
+      </h2>
+      <ul>
+        {posts.map((post) => (
+          <li class="post-row">
+            <a href={`/posts/${post.id}/`}>
+              {post.data.title}
+              {post.data.draft ? " – [draft]" : ""}
+            </a>
+            <span class="date">
+              <FormattedDate date={post.data.date} />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  ))}
 </BaseLayout>
 
 <style>

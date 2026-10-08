@@ -102,76 +102,70 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
           <h1 class="p-name">{title}</h1>
           <p class="post-meta">
             <FormattedDate date={date} class="dt-published" />
-            {
-              lastmod && lastmod.getTime() !== date.getTime() && (
-                <>
-                  {" "}
-                  · updated <FormattedDate date={lastmod} class="dt-updated" />
-                </>
-              )
-            }
-            {
-              minutesRead != null && minutesRead > 0 && (
-                <> · {minutesRead} min read</>
-              )
-            }
+            {lastmod && lastmod.getTime() !== date.getTime() && (
+              <>
+                {" "}
+                · updated <FormattedDate date={lastmod} class="dt-updated" />
+              </>
+            )}
+            {minutesRead != null && minutesRead > 0 && (
+              <> · {minutesRead} min read</>
+            )}
           </p>
           <span hidden data-og-date={date.toISOString()}></span>
           {collection && <span hidden data-og-collection={collection} />}
           <span class="p-author h-card" hidden data-pagefind-ignore="all">
             <img class="u-photo" src="/harsh-shandilya.webp" alt="" />
-            <a class="p-name u-url" href="/">Harsh Shandilya</a>
+            <a class="p-name u-url" href="/">
+              Harsh Shandilya
+            </a>
           </span>
-          <a class="u-url" href={Astro.url.pathname} hidden aria-hidden="true"
+          <a
+            class="u-url"
+            href={Astro.url.pathname}
+            hidden
+            aria-hidden="true"
           ></a>
-          {
-            description && (
-              <p class="p-summary" hidden>
-                {description}
-              </p>
-            )
-          }
-          {
-            tags && tags.length > 0 && (
-              <ul class="tags">
-                {tags.map((tag) => (
-                  <li class="tag p-category">
-                    <a href={`/tags/${slugify(tag)}/`}>{tag}</a>
+          {description && (
+            <p class="p-summary" hidden>
+              {description}
+            </p>
+          )}
+          {tags && tags.length > 0 && (
+            <ul class="tags">
+              {tags.map((tag) => (
+                <li class="tag p-category">
+                  <a href={`/tags/${slugify(tag)}/`}>{tag}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </header>
+        {tocHeadings.length > 0 && (
+          <aside class="post-toc" aria-label="Table of contents">
+            <div class="post-toc-inner">
+              <p class="post-toc-title">On this page</p>
+              <ul>
+                {tocHeadings.map(({ depth, slug, text }) => (
+                  <li class:list={[`depth-${depth}`]}>
+                    <a href={`#${slug}`}>{text}</a>
                   </li>
                 ))}
               </ul>
-            )
-          }
-        </header>
-        {
-          tocHeadings.length > 0 && (
-            <aside class="post-toc" aria-label="Table of contents">
-              <div class="post-toc-inner">
-                <p class="post-toc-title">On this page</p>
-                <ul>
-                  {tocHeadings.map(({ depth, slug, text }) => (
-                    <li class:list={[`depth-${depth}`]}>
-                      <a href={`#${slug}`}>{text}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
-          )
-        }
+            </div>
+          </aside>
+        )}
         <div class="prose e-content">
           <slot />
         </div>
-        {
-          collection == "weeknotes" && (
-            <>
-              <hr />
-              Thanks for reading! You can keep up with these week notes via RSS,
-              by sharing <a href="/weeknotes/atom.xml">this link</a> to your
-              feed readers.
-            </>
-          )
-        }
+        {collection == "weeknotes" && (
+          <>
+            <hr />
+            Thanks for reading! You can keep up with these week notes via RSS,
+            by sharing <a href="/weeknotes/atom.xml">this link</a> to your feed
+            readers.
+          </>
+        )}
         <WebmentionsSection />
       </article>
     </main>

@@ -14,21 +14,25 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
 
 <upvote-button data-post-id={postId} aria-busy="true">
   <button type="button" data-upvote aria-pressed="false" disabled>
-    <span class="upvote-button__arrow" aria-hidden="true">↑</span>
+    <span class="upvote-button__arrow" aria-hidden="true">
+      ↑
+    </span>
     <span>Upvote</span>
-    <span class="upvote-button__count" data-count aria-label="vote count"
-      >…</span
-    >
+    <span class="upvote-button__count" data-count aria-label="vote count">
+      …
+    </span>
   </button>
   <span
     class="upvote-button__status"
     data-status
     aria-live="polite"
-    aria-atomic="true">Loading votes…</span
+    aria-atomic="true"
   >
-  <button type="button" data-retry aria-label="Retry loading upvotes" hidden
-    >Retry</button
-  >
+    Loading votes…
+  </span>
+  <button type="button" data-retry aria-label="Retry loading upvotes" hidden>
+    Retry
+  </button>
 </upvote-button>
 
 <style>
