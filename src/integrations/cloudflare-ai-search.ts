@@ -1,5 +1,7 @@
 import {
   AI_SEARCH_COLLECTIONS,
+  changedAiSearchDocuments,
+  listAiSearchItems,
   prepareAiSearchDocuments,
   readAiSearchConfig,
   reconcileAiSearchDocuments,
@@ -68,12 +70,24 @@ export default function cloudflareAiSearch(siteUrl: string): AstroIntegration {
           process.env.INCLUDE_DRAFTS === "true",
           siteUrl,
         );
-        for (const document of documents) {
+        const existingItems = await listAiSearchItems(config);
+        const changedDocuments = changedAiSearchDocuments(
+          documents,
+          existingItems,
+          siteUrl,
+        );
+        for (const document of changedDocuments) {
           await uploadAiSearchDocument(config, document);
         }
-        await reconcileAiSearchDocuments(config, documents, siteUrl);
+        await reconcileAiSearchDocuments(
+          config,
+          documents,
+          siteUrl,
+          fetch,
+          existingItems,
+        );
         logger.info(
-          `Cloudflare AI Search indexed ${documents.length} source files`,
+          `Cloudflare AI Search indexed ${changedDocuments.length} changed source files`,
         );
       },
     },

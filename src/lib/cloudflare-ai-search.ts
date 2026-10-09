@@ -1,4 +1,6 @@
+import { findChangedFiles } from "./files-changed.ts";
 import { load } from "js-yaml";
+import { createHash } from "node:crypto";
 
 export const AI_SEARCH_COLLECTIONS = [
   "posts",
@@ -23,6 +25,7 @@ export interface AiSearchDocument extends SearchSourceDocument {
     description: string;
     site: string;
     collection: AiSearchCollection;
+    sourceHash: string;
   };
 }
 
@@ -145,6 +148,9 @@ export function prepareAiSearchDocuments(
             "",
           site,
           collection: document.collection,
+          sourceHash: createHash("sha256")
+            .update(document.source)
+            .digest("hex"),
         },
       };
     });
@@ -208,29 +214,33 @@ export async function uploadAiSearchDocument(
 interface ManagedItem {
   id?: string;
   key?: string;
-  metadata?: { site?: unknown };
+  metadata?: { site?: unknown; sourceHash?: unknown } | string;
 }
 
-function isManagedItem(item: ManagedItem, site: string): boolean {
-  if (typeof item.metadata?.site === "string") {
-    return item.metadata.site === site;
+function normalizeManagedItem(item: ManagedItem): ManagedItem {
+  if (typeof item.metadata !== "string") return item;
+  try {
+    const metadata: unknown = JSON.parse(item.metadata);
+    return {
+      ...item,
+      metadata:
+        typeof metadata === "object" &&
+        metadata !== null &&
+        !Array.isArray(metadata)
+          ? metadata
+          : undefined,
+    };
+  } catch {
+    return { ...item, metadata: undefined };
   }
-  return (
-    typeof item.key === "string" &&
-    LEGACY_KEY_PREFIXES.some((prefix) => item.key!.startsWith(prefix))
-  );
 }
 
-export async function reconcileAiSearchDocuments(
+export async function listAiSearchItems(
   config: AiSearchConfig,
-  documents: readonly AiSearchDocument[],
-  siteUrl: string,
   fetcher: typeof fetch = fetch,
-): Promise<void> {
+): Promise<ManagedItem[]> {
   const endpoint = itemsEndpoint(config);
-  const site = new URL(siteUrl).host;
-  const desired = new Set(documents.map(({ filename }) => filename));
-  const managed: ManagedItem[] = [];
+  const items: ManagedItem[] = [];
   for (let page = 1; ; page += 1) {
     const listUrl = new URL(endpoint);
     listUrl.searchParams.set("source", "builtin");
@@ -241,15 +251,67 @@ export async function reconcileAiSearchDocuments(
     });
     const body = await responseBody(response, "list");
     const result = body.result as ManagedItem[] | undefined;
-    const items = Array.isArray(result) ? result : [];
-    managed.push(...items);
+    const pageItems = Array.isArray(result)
+      ? result.map((item) => normalizeManagedItem(item))
+      : [];
+    items.push(...pageItems);
     const totalCount = body.result_info?.total_count;
     if (
       (totalCount !== undefined && page * PAGE_SIZE >= totalCount) ||
-      (totalCount === undefined && items.length < PAGE_SIZE)
+      (totalCount === undefined && pageItems.length < PAGE_SIZE)
     )
       break;
   }
+  return items;
+}
+
+export function changedAiSearchDocuments(
+  documents: readonly AiSearchDocument[],
+  existingItems: readonly ManagedItem[],
+  siteUrl: string,
+): AiSearchDocument[] {
+  const site = new URL(siteUrl).host;
+  const previous = existingItems
+    .filter((item) => isManagedItem(item, site) && typeof item.key === "string")
+    .map((item) => ({
+      path: item.key!,
+      revision:
+        typeof normalizeManagedItem(item).metadata?.sourceHash === "string"
+          ? (normalizeManagedItem(item).metadata?.sourceHash as string)
+          : "",
+    }));
+  return findChangedFiles(
+    previous,
+    documents.map((document) => ({
+      path: document.filename,
+      revision: document.metadata.sourceHash,
+      document,
+    })),
+  ).map(({ entry }) => entry.document);
+}
+
+function isManagedItem(item: ManagedItem, site: string): boolean {
+  const normalized = normalizeManagedItem(item);
+  if (typeof normalized.metadata?.site === "string") {
+    return normalized.metadata.site === site;
+  }
+  return (
+    typeof normalized.key === "string" &&
+    LEGACY_KEY_PREFIXES.some((prefix) => normalized.key!.startsWith(prefix))
+  );
+}
+
+export async function reconcileAiSearchDocuments(
+  config: AiSearchConfig,
+  documents: readonly AiSearchDocument[],
+  siteUrl: string,
+  fetcher: typeof fetch = fetch,
+  existingItems?: readonly ManagedItem[],
+): Promise<void> {
+  const endpoint = itemsEndpoint(config);
+  const site = new URL(siteUrl).host;
+  const desired = new Set(documents.map(({ filename }) => filename));
+  const managed = existingItems ?? (await listAiSearchItems(config, fetcher));
 
   for (const item of managed) {
     if (!isManagedItem(item, site) || !item.key || desired.has(item.key))

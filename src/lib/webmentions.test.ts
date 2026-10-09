@@ -94,6 +94,29 @@ test("diffManifests classifies publish update and delete", () => {
   ]);
 });
 
+test("diffManifests preserves map semantics for duplicate URLs", () => {
+  const manifest = (entries: { url: string; lastmod: string }[]) => ({
+    schemaVersion: 2 as const,
+    siteOrigin: "https://example.com",
+    generatedAt: "2026-05-15T00:00:00.000Z",
+    entries,
+  });
+  const previous = manifest([
+    { url: "https://example.com/posts/same/", lastmod: "old" },
+    { url: "https://example.com/posts/same/", lastmod: "current" },
+    { url: "https://example.com/posts/gone/", lastmod: "old" },
+    { url: "https://example.com/posts/gone/", lastmod: "current" },
+  ]);
+  const next = manifest([
+    { url: "https://example.com/posts/same/", lastmod: "old" },
+    { url: "https://example.com/posts/same/", lastmod: "current" },
+  ]);
+
+  assert.deepEqual(diffManifests(previous, next), [
+    { pageUrl: "https://example.com/posts/gone/", reason: "delete" },
+  ]);
+});
+
 test("formatSendSummary renders success and failure rows", () => {
   const output = formatSendSummary([
     {

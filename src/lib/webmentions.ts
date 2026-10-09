@@ -1,3 +1,5 @@
+import { findChangedFiles } from "./files-changed.ts";
+
 export type WebmentionsCollection = "posts" | "notes" | "weeknotes";
 
 export interface BuildManifestEntryInput {
@@ -84,29 +86,34 @@ export function diffManifests(
   previous: WebmentionsManifest,
   next: WebmentionsManifest,
 ): WebmentionSendEvent[] {
-  const previousMap = new Map(
-    previous.entries.map((entry) => [entry.url, entry.lastmod]),
-  );
-  const nextMap = new Map(
-    next.entries.map((entry) => [entry.url, entry.lastmod]),
-  );
-  const events: WebmentionSendEvent[] = [];
-
-  for (const [url, lastmod] of previousMap) {
-    if (!nextMap.has(url)) {
-      events.push({ pageUrl: url, reason: "delete" });
-      continue;
-    }
-    if (nextMap.get(url) !== lastmod) {
-      events.push({ pageUrl: url, reason: "update" });
-    }
-  }
-
-  for (const [url] of nextMap) {
-    if (!previousMap.has(url)) {
-      events.push({ pageUrl: url, reason: "publish" });
-    }
-  }
+  const previousEntries = [
+    ...new Map(
+      previous.entries.map(({ url, lastmod }) => [
+        url,
+        { path: url, revision: lastmod },
+      ]),
+    ).values(),
+  ];
+  const nextEntries = [
+    ...new Map(
+      next.entries.map(({ url, lastmod }) => [
+        url,
+        { path: url, revision: lastmod },
+      ]),
+    ).values(),
+  ];
+  const nextPaths = new Set(nextEntries.map(({ path }) => path));
+  const events: WebmentionSendEvent[] = [
+    ...findChangedFiles(previousEntries, nextEntries).map(
+      ({ entry, change }) => ({
+        pageUrl: entry.path,
+        reason: change === "added" ? ("publish" as const) : ("update" as const),
+      }),
+    ),
+    ...previousEntries
+      .filter(({ path }) => !nextPaths.has(path))
+      .map(({ path }) => ({ pageUrl: path, reason: "delete" as const })),
+  ];
 
   return events.sort(
     (a, b) =>

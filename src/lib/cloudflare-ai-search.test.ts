@@ -1,5 +1,6 @@
 import {
   type SearchSourceDocument,
+  changedAiSearchDocuments,
   prepareAiSearchDocuments,
   readAiSearchConfig,
   reconcileAiSearchDocuments,
@@ -42,13 +43,59 @@ test("prepares canonical URL filenames and indexing metadata", () => {
       "https://msfjarvis.dev/reading/hello/",
     ],
   );
-  assert.deepEqual(prepared[0]?.metadata, {
-    title: "A",
-    description: "Desc",
-    site: "msfjarvis.dev",
-    collection: "posts",
-  });
+  assert.deepEqual(
+    {
+      title: prepared[0]?.metadata.title,
+      description: prepared[0]?.metadata.description,
+      site: prepared[0]?.metadata.site,
+      collection: prepared[0]?.metadata.collection,
+    },
+    {
+      title: "A",
+      description: "Desc",
+      site: "msfjarvis.dev",
+      collection: "posts",
+    },
+  );
+  assert.match(prepared[0]?.metadata.sourceHash ?? "", /^[a-f0-9]{64}$/);
   assert.equal(prepared[1]?.metadata.title, "Book title");
+});
+
+test("uploads only added or changed documents based on indexed source hashes", () => {
+  const prepared = prepareAiSearchDocuments(
+    [
+      document("same/index.md", "Unchanged"),
+      document("changed/index.md", "Updated"),
+      document("new/index.md", "New"),
+    ],
+    false,
+    SITE,
+  );
+  const [same, changed, added] = prepared;
+  assert.ok(same && changed && added);
+
+  const selected = changedAiSearchDocuments(
+    prepared,
+    [
+      {
+        key: same.filename,
+        metadata: JSON.stringify({
+          site: "msfjarvis.dev",
+          sourceHash: same.metadata.sourceHash,
+        }),
+      },
+      {
+        key: changed.filename,
+        metadata: { site: "msfjarvis.dev", sourceHash: "old-hash" },
+      },
+    ],
+    SITE,
+  );
+
+  assert.deepEqual(
+    selected.map(({ filename }) => filename),
+    [changed.filename, added.filename],
+  );
 });
 
 test("excludes drafts unless enabled and always excludes deleted documents", () => {
