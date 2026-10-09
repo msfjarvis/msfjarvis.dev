@@ -18,6 +18,12 @@ export interface SearchSourceDocument {
 
 export interface AiSearchDocument extends SearchSourceDocument {
   filename: string;
+  metadata: {
+    title: string;
+    description: string;
+    site: string;
+    collection: AiSearchCollection;
+  };
 }
 
 export interface AiSearchConfig {
@@ -33,6 +39,15 @@ const configKeys = [
   "CLOUDFLARE_AI_SEARCH_INSTANCE_ID",
   "CLOUDFLARE_AI_SEARCH_API_TOKEN",
 ] as const;
+
+const LEGACY_KEY_PREFIXES = [
+  "posts-",
+  "notes-",
+  "weeknotes-",
+  "games-",
+  "books-",
+];
+const PAGE_SIZE = 50;
 
 export function readAiSearchConfig(
   env: Record<string, string | undefined>,
@@ -73,29 +88,95 @@ export function isSearchDocumentIncluded(
   );
 }
 
+function contentString(value: unknown): string | undefined {
+  return typeof value === "string" ? value : undefined;
+}
+
+function canonicalUrl(
+  siteUrl: string,
+  collection: AiSearchCollection,
+  path: string,
+): string {
+  const id = path
+    .replace(/\\/g, "/")
+    .replace(/\/index\.(?:md|mdx)$/i, "")
+    .replace(/\.(?:md|mdx)$/i, "");
+  const route = collection === "books" ? "reading" : collection;
+  return new URL(`/${route}/${id}/`, siteUrl).href;
+}
+
 export function prepareAiSearchDocuments(
   documents: readonly SearchSourceDocument[],
   includeDrafts: boolean,
+  siteUrl: string,
 ): AiSearchDocument[] {
+  const site = new URL(siteUrl).host;
   return documents
     .filter((document) => isSearchDocumentIncluded(document, includeDrafts))
     .map((document) => {
-      const extension = document.relativePath.match(/\.(md|mdx)$/i)?.[1];
-      if (!extension) {
+      if (!/\.(md|mdx)$/i.test(document.relativePath)) {
         throw new Error(
           `Unsupported AI Search source file: ${document.relativePath}`,
         );
       }
-      const id = document.relativePath
-        .replace(/\\/g, "/")
-        .replace(/\/index\.(?:md|mdx)$/i, "")
-        .replace(/\.(?:md|mdx)$/i, "")
-        .replaceAll("/", "-");
+      const url = canonicalUrl(
+        siteUrl,
+        document.collection,
+        document.relativePath,
+      );
+      if (url.length > 128) {
+        throw new Error(
+          `Cloudflare AI Search filename exceeds 128 characters: ${url}`,
+        );
+      }
+      const content = frontmatter(document.source);
       return {
         ...document,
-        filename: `${document.collection}-${id}.${extension.toLowerCase()}`,
+        filename: url,
+        metadata: {
+          title:
+            contentString(content.title) ??
+            contentString(content.bookTitle) ??
+            document.relativePath.replace(/\.(md|mdx)$/i, ""),
+          description:
+            contentString(content.summary) ??
+            contentString(content.subtitle) ??
+            contentString(content.description) ??
+            "",
+          site,
+          collection: document.collection,
+        },
       };
     });
+}
+
+function itemsEndpoint(config: AiSearchConfig): URL {
+  return new URL(
+    `/client/v4/accounts/${encodeURIComponent(config.accountId)}/ai-search/namespaces/${encodeURIComponent(config.namespace)}/instances/${encodeURIComponent(config.instanceId)}/items`,
+    "https://api.cloudflare.com",
+  );
+}
+
+interface CloudflareResponse {
+  success?: boolean;
+  errors?: unknown[];
+  result?: unknown;
+  result_info?: { total_count?: number; per_page?: number };
+}
+
+async function responseBody(
+  response: Response,
+  action: string,
+): Promise<CloudflareResponse> {
+  const body = (await response.json().catch(() => undefined)) as
+    CloudflareResponse | undefined;
+  if (!response.ok || body?.success === false) {
+    const details = body?.errors?.length
+      ? JSON.stringify(body.errors)
+      : `${response.status} ${response.statusText}`;
+    throw new Error(`Cloudflare AI Search ${action} failed: ${details}`);
+  }
+  return body ?? {};
 }
 
 export async function uploadAiSearchDocument(
@@ -103,30 +184,87 @@ export async function uploadAiSearchDocument(
   document: AiSearchDocument,
   fetcher: typeof fetch = fetch,
 ): Promise<void> {
-  const endpoint = new URL(
-    `/client/v4/accounts/${encodeURIComponent(config.accountId)}/ai-search/namespaces/${encodeURIComponent(config.namespace)}/instances/${encodeURIComponent(config.instanceId)}/items`,
-    "https://api.cloudflare.com",
-  );
+  if (document.filename.length > 128) {
+    throw new Error(
+      `Cloudflare AI Search filename exceeds 128 characters: ${document.filename}`,
+    );
+  }
   const form = new FormData();
   form.set(
     "file",
     new Blob([document.source], { type: "text/markdown" }),
     document.filename,
   );
+  form.set("metadata", JSON.stringify(document.metadata));
 
-  const response = await fetcher(endpoint, {
+  const response = await fetcher(itemsEndpoint(config), {
     method: "POST",
     headers: { Authorization: `Bearer ${config.apiToken}` },
     body: form,
   });
-  const body = (await response.json().catch(() => undefined)) as
-    { success?: boolean; errors?: unknown[] } | undefined;
-  if (!response.ok || body?.success === false) {
-    const details = body?.errors?.length
-      ? JSON.stringify(body.errors)
-      : `${response.status} ${response.statusText}`;
-    throw new Error(
-      `Cloudflare AI Search upload failed for ${document.filename}: ${details}`,
+  await responseBody(response, `upload for ${document.filename}`);
+}
+
+interface ManagedItem {
+  id?: string;
+  key?: string;
+  metadata?: { site?: unknown };
+}
+
+function isManagedItem(item: ManagedItem, site: string): boolean {
+  if (typeof item.metadata?.site === "string") {
+    return item.metadata.site === site;
+  }
+  return (
+    typeof item.key === "string" &&
+    LEGACY_KEY_PREFIXES.some((prefix) => item.key!.startsWith(prefix))
+  );
+}
+
+export async function reconcileAiSearchDocuments(
+  config: AiSearchConfig,
+  documents: readonly AiSearchDocument[],
+  siteUrl: string,
+  fetcher: typeof fetch = fetch,
+): Promise<void> {
+  const endpoint = itemsEndpoint(config);
+  const site = new URL(siteUrl).host;
+  const desired = new Set(documents.map(({ filename }) => filename));
+  const managed: ManagedItem[] = [];
+  for (let page = 1; ; page += 1) {
+    const listUrl = new URL(endpoint);
+    listUrl.searchParams.set("source", "builtin");
+    listUrl.searchParams.set("page", String(page));
+    listUrl.searchParams.set("per_page", String(PAGE_SIZE));
+    const response = await fetcher(listUrl, {
+      headers: { Authorization: `Bearer ${config.apiToken}` },
+    });
+    const body = await responseBody(response, "list");
+    const result = body.result as ManagedItem[] | undefined;
+    const items = Array.isArray(result) ? result : [];
+    managed.push(...items);
+    const totalCount = body.result_info?.total_count;
+    if (
+      (totalCount !== undefined && page * PAGE_SIZE >= totalCount) ||
+      (totalCount === undefined && items.length < PAGE_SIZE)
+    )
+      break;
+  }
+
+  for (const item of managed) {
+    if (!isManagedItem(item, site) || !item.key || desired.has(item.key))
+      continue;
+    if (!item.id)
+      throw new Error(
+        `Cloudflare AI Search item ${item.key} has no id for deletion`,
+      );
+    const response = await fetcher(
+      new URL(`${endpoint.href}/${encodeURIComponent(item.id)}`),
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${config.apiToken}` },
+      },
     );
+    await responseBody(response, `delete for ${item.key}`);
   }
 }

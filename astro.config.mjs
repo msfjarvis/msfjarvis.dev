@@ -70,7 +70,7 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
-    cloudflareAiSearch(),
+    cloudflareAiSearch(siteUrl),
     icon({
       include: {
         "simple-icons": ["mastodon", "forgejo"],

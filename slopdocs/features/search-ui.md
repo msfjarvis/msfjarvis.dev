@@ -8,7 +8,7 @@ The snippet calls the configured public Cloudflare AI Search endpoint directly f
 
 ## Ingestion
 
-Cloudflare AI Search ingestion is implemented separately in `src/integrations/cloudflare-ai-search.ts`. It uploads raw Markdown/MDX source documents from supported collections. Build ingestion requires `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_AI_SEARCH_NAMESPACE`, `CLOUDFLARE_AI_SEARCH_INSTANCE_ID`, and `CLOUDFLARE_API_TOKEN`; these are server/build-time settings, never browser configuration. Hybrid retrieval is configured on the Cloudflare instance, not through item uploads.
+Cloudflare AI Search ingestion is implemented separately in `src/integrations/cloudflare-ai-search.ts`. It uploads raw Markdown/MDX source documents from supported collections, using each canonical absolute content URL as the multipart filename/key and JSON metadata (`title`, `description`, site host, and collection). `siteUrl` is supplied from Astro config so production and drafts builds index their own host. After uploads, the integration paginates built-in items and removes stale URLs only when their metadata site matches this build's host or their key has a legacy collection prefix. Build ingestion requires `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_AI_SEARCH_NAMESPACE`, `CLOUDFLARE_AI_SEARCH_INSTANCE_ID`, and `CLOUDFLARE_AI_SEARCH_API_TOKEN`; these are server/build-time settings, never browser configuration. If all are absent, indexing is skipped for local builds; partial configuration or API failure fails the build. Hybrid retrieval is configured on the Cloudflare instance, not through item uploads.
 
 ## Implementation notes
 

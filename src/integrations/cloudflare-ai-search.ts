@@ -2,6 +2,7 @@ import {
   AI_SEARCH_COLLECTIONS,
   prepareAiSearchDocuments,
   readAiSearchConfig,
+  reconcileAiSearchDocuments,
   uploadAiSearchDocument,
 } from "../lib/cloudflare-ai-search.ts";
 import type {
@@ -40,7 +41,7 @@ async function readCollectionSources(
   return documents;
 }
 
-export default function cloudflareAiSearch(): AstroIntegration {
+export default function cloudflareAiSearch(siteUrl: string): AstroIntegration {
   let rootDir: string;
   let config: AiSearchConfig | undefined;
 
@@ -65,10 +66,12 @@ export default function cloudflareAiSearch(): AstroIntegration {
         const documents = prepareAiSearchDocuments(
           sources,
           process.env.INCLUDE_DRAFTS === "true",
+          siteUrl,
         );
         for (const document of documents) {
           await uploadAiSearchDocument(config, document);
         }
+        await reconcileAiSearchDocuments(config, documents, siteUrl);
         logger.info(
           `Cloudflare AI Search indexed ${documents.length} source files`,
         );
