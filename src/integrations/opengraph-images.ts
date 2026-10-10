@@ -2,13 +2,11 @@ import {
   type LocalIntegrationInput,
   type OpenGraphOptions,
   type OpenGraphRenderInput,
-  extractOpenGraphDetails,
-  sanitizeHtml,
+  parseOpenGraphPage,
 } from "./opengraph-images-local.ts";
 import { getPageHtmlPath } from "./opengraph-images-paths.ts";
 import { Resvg } from "@resvg/resvg-js";
 import type { AstroIntegration } from "astro";
-import { JSDOM } from "jsdom";
 import * as fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -49,13 +47,11 @@ export default function opengraphImages({
     html: string;
     dir: URL;
   }) {
-    const document = new JSDOM(sanitizeHtml(html)).window.document;
-    const pageDetails = extractOpenGraphDetails(document);
+    const pageDetails = parseOpenGraphPage(html);
     const renderInput: OpenGraphRenderInput = {
       ...page,
       ...pageDetails,
       dir,
-      document,
     };
 
     if (filter) {

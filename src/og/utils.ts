@@ -1,11 +1,5 @@
 export type CollectionKind = "posts" | "notes" | "weeknotes";
 
-export function isCollectionKind(
-  value: string | null | undefined,
-): value is CollectionKind {
-  return value === "posts" || value === "notes" || value === "weeknotes";
-}
-
 export function getCollectionKindFromPath(
   pathname: string,
 ): CollectionKind | null {
@@ -32,31 +26,6 @@ export function formatOGDate(input: string): string {
     month: "short",
     year: "numeric",
   }).format(new Date(input));
-}
-
-export function readMetaContent(
-  document: Document,
-  selector: string,
-): string | undefined {
-  const value = document.querySelector(selector)?.getAttribute("content");
-  return value?.trim() || undefined;
-}
-
-export function readDate(document: Document): string | undefined {
-  return (
-    document
-      .querySelector("[data-og-date]")
-      ?.getAttribute("data-og-date")
-      ?.trim() || undefined
-  );
-}
-
-export function readCollection(document: Document): CollectionKind | undefined {
-  const value = document
-    .querySelector("[data-og-collection]")
-    ?.getAttribute("data-og-collection")
-    ?.trim();
-  return isCollectionKind(value) ? value : undefined;
 }
 
 export function getAccentColor(kind: CollectionKind): string {

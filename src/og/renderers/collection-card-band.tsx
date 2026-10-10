@@ -15,8 +15,6 @@ import {
   getAccentColor,
   getCollectionKindFromPath,
   getCollectionLabel,
-  readCollection,
-  readDate,
 } from "../utils";
 import React, { type ReactNode } from "react";
 
@@ -38,7 +36,8 @@ const SUMMARY_MAX_HEIGHT = Math.round(
 
 export async function renderCollectionCard({
   pathname,
-  document,
+  collection,
+  date: rawDate,
   title,
   description,
 }: RenderFunctionInput): Promise<ReactNode> {
@@ -46,10 +45,9 @@ export async function renderCollectionCard({
     throw new Error(`Missing og:title for ${pathname}`);
   }
 
-  const kind = readCollection(document) ?? getCollectionKindFromPath(pathname);
+  const kind = collection ?? getCollectionKindFromPath(pathname);
   const collectionLabel = kind ? getCollectionLabel(kind) : "";
   const accentColor = kind ? getAccentColor(kind) : "#A6B6FF";
-  const rawDate = readDate(document);
   const formattedDate = rawDate ? formatOGDate(rawDate) : undefined;
   const summary = description?.trim();
 
