@@ -1,22 +1,18 @@
+import {
+  type LocalIntegrationInput,
+  type OpenGraphOptions,
+  type OpenGraphRenderInput,
+  extractOpenGraphDetails,
+  sanitizeHtml,
+} from "./opengraph-images-local.ts";
+import { getPageHtmlPath } from "./opengraph-images-paths.ts";
 import { Resvg } from "@resvg/resvg-js";
 import type { AstroIntegration } from "astro";
-import type {
-  FilterFunction,
-  IntegrationInput,
-  IntegrationOptions,
-  RenderFunctionInput,
-} from "astro-opengraph-images";
-import { extract, sanitizeHtml } from "astro-opengraph-images/extract.js";
-import { getFilePath } from "astro-opengraph-images/util.js";
 import { JSDOM } from "jsdom";
 import * as fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import satori from "satori";
-
-type LocalIntegrationInput = IntegrationInput & {
-  matchPathname?: (pathname: string) => boolean;
-};
 
 type Page = {
   pathname: string;
@@ -26,7 +22,7 @@ const defaults = {
   width: 1200,
   height: 630,
   verbose: false,
-} satisfies Pick<IntegrationOptions, "width" | "height" | "verbose">;
+} satisfies Pick<OpenGraphOptions, "width" | "height" | "verbose">;
 
 export function getPagePathname(imagePathname: string): string | undefined {
   if (!imagePathname.endsWith("/index.png")) {
@@ -42,7 +38,7 @@ export default function opengraphImages({
   filter,
   matchPathname,
 }: LocalIntegrationInput): AstroIntegration {
-  const optionsWithDefaults: IntegrationOptions = { ...defaults, ...options };
+  const optionsWithDefaults: OpenGraphOptions = { ...defaults, ...options };
 
   async function renderPng({
     page,
@@ -54,8 +50,8 @@ export default function opengraphImages({
     dir: URL;
   }) {
     const document = new JSDOM(sanitizeHtml(html)).window.document;
-    const pageDetails = extract(document);
-    const renderInput: RenderFunctionInput = {
+    const pageDetails = extractOpenGraphDetails(document);
+    const renderInput: OpenGraphRenderInput = {
       ...page,
       ...pageDetails,
       dir,
@@ -63,14 +59,17 @@ export default function opengraphImages({
     };
 
     if (filter) {
-      const shouldRender = await (filter as FilterFunction)(renderInput);
+      const shouldRender = await filter(renderInput);
       if (!shouldRender) {
         return undefined;
       }
     }
 
     const reactNode = await render(renderInput);
-    const svg = await satori(reactNode, optionsWithDefaults);
+    const svg = await satori(reactNode, {
+      ...optionsWithDefaults,
+      fonts: optionsWithDefaults.fonts ?? [],
+    });
     const resvg = new Resvg(svg, {
       font: { loadSystemFonts: false },
       fitTo: { mode: "width", value: optionsWithDefaults.width },
@@ -165,7 +164,7 @@ export default function opengraphImages({
               return;
             }
 
-            const htmlFile = await getFilePath({
+            const htmlFile = await getPageHtmlPath({
               dir: fileURLToPath(dir),
               page: page.pathname,
             });

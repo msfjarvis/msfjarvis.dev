@@ -1,3 +1,4 @@
+import type { OpenGraphRenderInput as RenderFunctionInput } from "../../integrations/opengraph-images-local.ts";
 import {
   formatOGDate,
   getAccentColor,
@@ -6,7 +7,6 @@ import {
   readCollection,
   readDate,
 } from "../utils";
-import type { RenderFunctionInput } from "astro-opengraph-images";
 import React, { type ReactNode } from "react";
 
 const TITLE_LINE_HEIGHT = 1.04;

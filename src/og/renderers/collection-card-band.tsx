@@ -9,6 +9,7 @@
  * To use, swap the import in astro.config.mjs:
  *   import { renderCollectionCard } from "./src/og/renderers/collection-card-band.tsx"
  */
+import type { OpenGraphRenderInput as RenderFunctionInput } from "../../integrations/opengraph-images-local.ts";
 import {
   formatOGDate,
   getAccentColor,
@@ -17,7 +18,6 @@ import {
   readCollection,
   readDate,
 } from "../utils";
-import type { RenderFunctionInput } from "astro-opengraph-images";
 import React, { type ReactNode } from "react";
 
 const BAND_HEIGHT = 82;
