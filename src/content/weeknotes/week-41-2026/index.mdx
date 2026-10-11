@@ -1,0 +1,114 @@
+---
+title: "Weeknotes: Week #41 (2026)"
+date: "2026-10-11T13:29:02.652Z"
+lastmod: "2026-10-11T13:29:02.652Z"
+summary: "I been gamin and cookin"
+tags:
+  - cooking
+  - gaming
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import aloo_tamatar from "./src/content/weeknotes/week-41-2026/aloo-tamatar.webp";
+import biryani_bowl from "./src/content/weeknotes/week-41-2026/biryani-bowl.webp";
+import biryani_cooker from "./src/content/weeknotes/week-41-2026/biryani-cooker.webp";
+import egg_curry from "./src/content/weeknotes/week-41-2026/egg-curry.webp";
+import gochujang_chicken_breasts from "./src/content/weeknotes/week-41-2026/gochujang-chicken-breasts.webp";
+import no_cash from "./src/content/weeknotes/week-41-2026/no-cash.webp";
+import rats_nest from "./src/content/weeknotes/week-41-2026/rats-nest.webp";
+
+Some _interesting_ things at work, lots of good cooking, and a metric ton of [CONTROL: Resonant](https://controlgame.com/en) gameplay!
+
+# Personal
+
+After a long, long break I was finally back in the gym this week for a couple of days. Not remotely as good a schedule as I wanna keep but a small victory nonetheless. I've been equally lazy about getting a haircut, and it's starting to get to the point where my mother would've started teasing me to tie it up in a ponytail. I might take her up on that offer given I'll be home in some 20-odd days.
+
+<Figure
+  src={rats_nest}
+  title="I sent this picture to my younger sister and got the quickest roast reply I've ever seen from her. Little devil..."
+  alt="Me with tousled hair taking a mirror selfie while brushing my teeth"
+  small={true}
+/>
+
+I saw some Godzilla slander on the interwebs which reminded me that I hadn't watched [Godzilla: King of the Monsters](https://www.imdb.com/title/tt3741700) yet which has now been remedied. I'd say it's an easy 3 out of 5 Godzilla movie, and a 2.5 in general. Soe more monster-on-monster combat and perhaps additional screen time for Mothra could've taken it up to 4 stars for me.
+
+I'm trying to figure out how much I can even talk about CONTROL: Resonant since it's a very new game, but I've been playing so much, and it is so cool!! [Amogh](https://kat.bio/) is also playing and is down to yap, but he's pretty far behind and I don't wanna spoil anything for him so it's a bit difficult. My [Obsidian notes](/notes/collating-entries-in-my-obsidian-journal-for-week-notes/) this week are, by line count, mostly about CONTROL :3
+
+# Random bullshit
+
+Why is there no cash in the ATMs near me?? I'm just trying to pay my maintenance bro
+
+<Figure
+  src={no_cash}
+  title="This was the 3rd ATM I checked with the exact same error"
+  alt="An ATM screen says it cannot dispense cash"
+  small={true}
+/>
+
+I switched back to the default YouTube app because the Revanced mod I was using stopped sending notifications. This resulted in me regaining the algorithmic feed, and it delivered this truly unskippable title: [Could Pro Speedrunners Zero Cycle The Twin Towers?](https://www.youtube.com/watch?v=9c7wS1vcW9c)
+
+Maybe the algorithms are alright _/s_.
+
+# Work
+
+Things at work remain on quieter side. Most of my current priorities are blocked on other people for one reason or another, so I've mostly spent the week racking ye olde brain for future roadmap items. There was an awkward conversation with a colleague who had started overusing Google Chat's 'Refine with AI' button for literally all their messages. They had been given feedback to not do this before as well, but apparently nobody had spent some time to actually explain our problems with it. I linked them to the [Meat Proxy](https://gruhn.me/blog/2026-08-03/) blog post, and explained why we much prefer them to use their own words. So far it seems to have stuck, so that's a win in my book.
+
+Also, the new office finally (re)opens on Monday 🎉
+
+# Personal projects
+
+Busy week for [Claw](https://github.com/msfjarvis/compose-lobsters/), my Android app for the [Lobsters link aggregator community](https://lobste.rs) as I shipped fixes for a multitude of UI and UX bugs. [v1.74.0](https://github.com/msfjarvis/compose-lobsters/releases/tag/v1.74.0) includes a completely new HTML renderer (used to render comments) which fixes some longstanding bugs <sup>[[1](https://github.com/cbeyls/HtmlConverterCompose/issues/26)][[2](https://github.com/cbeyls/HtmlConverterCompose/issues/20)]</sup>. It also restores proper support for Android's new [predictive back animations](https://developer.android.com/design/ui/mobile/guides/patterns/predictive-back) which had silently regressed as part of a dependency update some time ago.
+
+As part of this I also discovered that [Tramline](https://tramline.app/), the release automation platform I've used for Claw for the past 2-3 years had actually wound down commercial operations. It is now being run by a couple of its original maintainers, so I naturally signed up as a GitHub sponsor to help keep the lights on. If you have mobile apps and hate having to interact with the App Stores, you should sign up too! I've never had a single problem with their platform and this "shout out" is mostly because they deserve it for the immense amount of value the service has provided to me for free.
+
+## 🤖 CLANK CLANK CLANK 🤖
+
+I've been wanting to test the new [System One](https://docs.typesafe.ai/concepts/system-one) class models for a while, and with Cloudflare releasing its [own Clef models](https://blog.cloudflare.com/clef-decision-models/) it was the perfect time to dive in. I built a [small Worker](https://git.msfjarvis.dev/msfjarvis/acceptable-vibes/src/branch/main/daily-dose) that sends me a Telegram message with my GitHub notifications classified based on priority and category, so I know what I'm working on before I even open a laptop.
+
+## Meta
+
+This website has had some minor changes. The header now only shows 1 link entry and delegates the rest into the popover to improve the mobile layout. I've refactored some build-time stuff to reduce the number of direct dependencies and somewhat lower my risk of beta-testing the next Shai-Hulud.
+
+# Cooking
+
+Very great week for cooking enjoyers on this here blog as we made many new things and flubbed our way through all of it.
+
+We made biryani this week, and only discovered midway through that we had no Biryani masala in the house. The magic of quick commerce was called upon, where I accidentally ordered a "biryani kit" that you're supposed to drop rice and chicken into while we already had a full masala base and everything in place. I suspect that contributed to why it tasted so damn amazing.
+
+<Gallery>
+  <Figure
+    src={biryani_cooker}
+    title="Even while it was cooking we knew we have a winner."
+    alt="Chicken biryani cooking in a pressure cooker"
+  />
+  <Figure
+    src={biryani_bowl}
+    title="Genuinely tasted like what you'd get at a biryani restaurant."
+    alt="A bowl of chicken biryani"
+  />
+</Gallery>
+
+Other than that we also had a day of air frying some chicken breasts, making simple vegetable curries, and having yet another comedy of errors while making an egg curry. [Yash](https://yashgarg.dev/) only _soft_-boiled the eggs which made peeling them an absolute pain, and we lost one soldier in the ensuing struggle. Then we realized the recipe we were following was written by some demon who wanted us to use 2 _tablespoons_ of chilli powder. The entire thing was looking positively radioactive by the end so we decided to add a bit of heavy cream to salvage it, and we were rewarded with edible dinner.
+
+<Gallery>
+  <Figure
+    src={aloo_tamatar}
+    title="Simple and delicious, came out just like how Mom makes it. Quite proud."
+    alt="A bowl of potato and tomato curry"
+  />
+  <Figure
+    src={gochujang_chicken_breasts}
+    title="Was tasty but gochujang by itself isn't a good marinade, needs some work."
+    alt="Spiced chicken breasts cooked until golden"
+  />
+  <Figure
+    src={egg_curry}
+    title="The whole cooking process was a comedy of errors."
+    alt="Boiled eggs in a bowl of creamy curry"
+  />
+</Gallery>
