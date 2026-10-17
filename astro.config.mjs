@@ -22,6 +22,9 @@ import expressiveCode from "astro-expressive-code";
 import icon from "astro-iconset";
 import { defineConfig } from "astro/config";
 import * as fs from "node:fs";
+import { createRequire } from "node:module";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
 const siteUrl = isDrafts
@@ -33,6 +36,10 @@ const webmentionAuthToken = process.env.WEBMENTION_AUTH_TOKEN;
 
 const { renderCollectionCard } =
   await import("./src/og/renderers/collection-card-split.tsx");
+// Reuse Astro's Vite dependency rather than adding a separate bundler dependency.
+const { build: buildVite } = createRequire(import.meta.resolve("astro"))(
+  "vite",
+);
 
 const markdownProcessor = satteri({
   features: {
@@ -71,6 +78,25 @@ export default defineConfig({
     mdx(),
     sitemap(),
     pagefind(),
+    {
+      name: "cms-admin-build",
+      hooks: {
+        "astro:build:done": async ({ dir }) => {
+          await buildVite({
+            configFile: false,
+            root: process.cwd(),
+            build: {
+              outDir: fileURLToPath(dir),
+              emptyOutDir: false,
+              rollupOptions: {
+                input: path.resolve("src/cms/admin.ts"),
+                output: { entryFileNames: "admin.js" },
+              },
+            },
+          });
+        },
+      },
+    },
     icon({
       include: {
         "simple-icons": ["mastodon", "forgejo"],
@@ -124,6 +150,17 @@ export default defineConfig({
   }),
   vite: {
     plugins: [
+      {
+        name: "cms-admin-dev-entry",
+        configureServer(server) {
+          server.middlewares.use((request, _response, next) => {
+            if (request.url === "/admin.js") {
+              request.url = "/src/cms/admin.ts";
+            }
+            next();
+          });
+        },
+      },
       {
         // Sätteri ships a Rust/NAPI binary with a WASM browser fallback that
         // imports @napi-rs/wasm-runtime — a browser-only peer not installed in
