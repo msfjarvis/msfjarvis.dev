@@ -22,6 +22,8 @@ minimumReleaseAgeExclude:
   - "@astrojs/compiler-rs"
   - "@astrojs/internal-helpers"
   - "@astrojs/markdown-satteri"
+  - "@astrojs/prism@4.1.0"
+  - "@astrojs/telemetry@3.4.0"
   - "@astrojs/underscore-redirects"
   - "@cloudflare/unenv-preset"
   - "@cloudflare/workerd-darwin-64"
@@ -37,9 +39,11 @@ minimumReleaseAgeExclude:
   - "@xingwangzhe/satteri-mermaid"
   - astro
   - miniflare
+  - p-queue@9.3.5
   - terra-draw
   - workerd
   - wrangler
+  - zod@4.6.6
 # keep-sorted end
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
