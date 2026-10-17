@@ -3,7 +3,7 @@ import type { Blockquote, Emphasis, Paragraph } from "mdast";
 import { defineHastPlugin, defineMdastPlugin } from "satteri";
 import type { HastNode, MdastNode } from "satteri";
 
-const alertPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i;
+const alertPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)]/i;
 
 type AlertType = "note" | "tip" | "important" | "warning" | "caution";
 

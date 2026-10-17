@@ -216,7 +216,7 @@ function normalizeSeries(value: unknown): { name: string; number: string } {
 function publishedYear(value: unknown): number | undefined {
   const match =
     typeof value === "string" &&
-    /(?:^|\D)((?:1[0-9]{3}|20[0-9]{2}|21[0-9]{2}))(?:\D|$)/.exec(value);
+    /(?:^|\D)(1[0-9]{3}|20[0-9]{2}|21[0-9]{2})(?:\D|$)/.exec(value);
   return match ? Number(match[1]) : undefined;
 }
 
