@@ -1,20 +1,9 @@
+import { cloneAstNode } from "../lib/nodejs.ts";
 import type { Blockquote, Emphasis, Paragraph } from "mdast";
 import { defineHastPlugin, defineMdastPlugin } from "satteri";
 import type { HastNode, MdastNode } from "satteri";
 
 const alertPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i;
-
-function cloneAstNode<T>(node: T): T {
-  if (Array.isArray(node)) {
-    return node.map(cloneAstNode) as T;
-  }
-  if (node !== null && typeof node === "object") {
-    return Object.fromEntries(
-      Object.entries(node).map(([key, value]) => [key, cloneAstNode(value)]),
-    ) as T;
-  }
-  return node;
-}
 
 type AlertType = "note" | "tip" | "important" | "warning" | "caution";
 

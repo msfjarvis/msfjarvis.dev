@@ -1,3 +1,4 @@
+import { cloneAstNode } from "../lib/nodejs.ts";
 import {
   applyMermaidThemeVariables,
   mermaidSvgThemeStyles,
@@ -180,18 +181,6 @@ function modalMarkup(svg: string, label: string): string {
 
 function isMermaidFallback(className: unknown): boolean {
   return Array.isArray(className) && className.includes("mermaid");
-}
-
-function cloneAstNode<T>(node: T): T {
-  if (Array.isArray(node)) {
-    return node.map(cloneAstNode) as T;
-  }
-  if (node !== null && typeof node === "object") {
-    return Object.fromEntries(
-      Object.entries(node).map(([key, value]) => [key, cloneAstNode(value)]),
-    ) as T;
-  }
-  return node;
 }
 
 function lightboxNodes(svg: string, label: string): HastNode[] {
