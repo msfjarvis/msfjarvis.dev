@@ -9,7 +9,7 @@ tags:
   - work
 categories:
   - weeknotes
-draft: true
+draft: false
 deleted: false
 ---
 
@@ -64,17 +64,21 @@ By that point I was at my limit of aimless wandering and had drained my social (
   />
 </Gallery>
 
+There were also plans to visit [Manjit Da Dhaba](https://maps.app.goo.gl/vYKwcHWsV2Ui8JCW6) for dinner tonight on [Tanvi](https://tanvibhakta.in/)'s and [Ankur](https://ankursethi.com/)'s recommendation (I think to Yash?) but my sleep schedule lately has been so cooked that I just fell asleep and had to skip.
+
 # Work
 
 It had been a long while since I last had to deal with a customer support ticket so this week's was a welcome surprise. That work resulted in a [new minor release](https://developers.cloudflare.com/realtime/realtimekit/release-notes/android-core/#2026-10-22), that I naturally found a small bug in on the very next day 🙄
 
+Other than that I've mostly been focusing on wrapping up bigger workstreams that will be disrupted next month once we're all traveling to be with our families for Diwali.
+
 # Gaming
 
-Whoo boy what a weird week for games. Let's take it from the top.
+Whoo boy what a rollercoaster week for games. Let's take it from the top.
 
-I fully finished the [CONTROL: Resonant](https://controlgame.com/en) main quest. I had to do this in two waves because while I finished the final mission on Tuesday itself, I had unsuccessfully tried my hand at the `The Unknown Resonant` mission a few times and had just ignored it. [Amogh](https://kat.bio) accidentally spoiled it assuming I had also finished it, so I was then forced to go figure out the traversal required to reach that area and give it a shot. Got my ass beat a handful of times, but in the final attempt I managed to delete half its health bar in my very first volley of attacks, and it was smooth sailing after that. The game was exceedingly beautiful and moving till the very end; such a great sequel. Despite my intention to do a New Game+ run after photo mode releases, I've already started assembling my [in-game photography](/games) reel for it that I'll publish soon.
+I fully finished the [CONTROL: Resonant](https://controlgame.com/en) main quest. I had to do this in two waves because while I finished the final mission on Tuesday itself, I had unsuccessfully tried my hand at finding the `The Unknown Resonant` mission a few times and had just ignored it. [Amogh](https://kat.bio) accidentally spoiled it assuming I had also finished it, so I was then forced to go figure out the traversal required to reach that area and give it a shot. Got my ass beat a handful of times, but in the final attempt I managed to delete half its health bar in my very first volley of attacks, and it was smooth sailing after that. The game was exceedingly beautiful and moving till the very end; the new mêlée and gravity mechanics were pulled off to perfection by Remedy. Despite my intention to do a New Game+ run after photo mode releases, I've already started assembling my [in-game photography](/games) reel for it that I'll publish soon.
 
-To fill the gap that 45 hours of CONTROL over the past 3 weeks has now created, I started playing Witcher 3 Remastered with Amogh in the proverbial [cuckstoel](https://knowyourmeme.com/memes/cuckstoel) to watch along and hopefully guide me to a good ending. If only I actually listened to what he was saying :D. The game itself is a little janky but once I knew what to expect I was able to start making some progress. Combat still feels very impossible to me, but hopefully that's something I can also get used to.
+To fill the gap that 45 hours of CONTROL over the past 3 weeks has now created, I started playing Witcher 3 Remastered with Amogh in the proverbial [cuckstoel](https://knowyourmeme.com/memes/cuckstoel) to watch along and hopefully guide me to a good ending. If only I actually listened to what he was saying :D. The game itself is a little janky but once I knew what to expect I was able to start making some progress. Combat still feels impossible to me, but hopefully that's something I can also get used to.
 
 Now onto the stinkers! I tried [Deadlock](https://www.playdeadlock.com/) after being influenced by the one and only [Gigi Murin](https://www.youtube.com/@holoen_gigimurin) and absolutely hated every second of it. The MOBA genre is built too much around poking each other from behind a wall for 30 minutes, and I'm just not about that life. The characters are definitely quite fun but the whole game is a psyop to rehabilitate the MOBA genre's reputation by adding shooting to it. Do not fall for it, this is League of Legends by a different name! Albeit with a probably better community because you need to have a friend to invite you.
 
@@ -84,26 +88,26 @@ I also finally logged back into Marvel Rivals to check out the "Path to Doomsday
 
 A series of "minor" security problems rocked the software world this week. Thankfully I don't run anything with PHP, but I did have to deal with the [eMudhra private key compromise](https://emudhra.we-have-a-problem.com/) which NixOS made very easy.
 
-I poked a bit at [kage](https://github.com/android-password-store/kage/) this week mostly for benchmarking related things. I got set up with [CodSpeed](https://codspeed.io/) which tracks your benchmark suite's performance over time to identify regressions and has a generous free tier for open source projects. I'm happy with the numbers I saw but some of the defence-in-depth validation clearly hurts throughput that I aim to look at soon.
+I poked a bit at [kage](https://github.com/android-password-store/kage/) this week mostly for benchmarking related things. I got set up with [CodSpeed](https://codspeed.io/) which tracks your benchmark suite's performance over time to identify regressions and has a generous free tier for open source projects. I'm happy with the numbers I saw but some of the defence-in-depth validation clearly hurts throughput that I aim to improve soon.
 
 [Claw](https://github.com/msfjarvis/compose-lobsters/) also had a bunch of changes, mostly in response to two specific threads on Lobsters that stretched its limits.
 
-- [eMudhra private key compromise megathread](https://lobste.rs/s/gqyvn5/protecting_firefox_users_following) - The lack of merged thread support causes all titles to become merged into one unreadable mess
 - [Updates to site guidelines and AI/LLM tags](https://lobste.rs/s/h0eate/updates_site_guidelines_ai_llm_tags) - 436 comments as of writing cause the in-app display of comment counts to start looking weird.
+- [eMudhra private key compromise megathread](https://lobste.rs/s/gqyvn5/protecting_firefox_users_following) - The lack of merged thread support causes all titles to become concatenated into one unreadable mess
 
-I fixed the second one with a simple [`if (count > 99) ∞ else count`](https://github.com/msfjarvis/compose-lobsters/commit/d5007a41a6534df6762afca66c151335491d90e1) which loses accuracy but doesn't make me cringe looking at the layout. The first one took a few days for me to dream up a proper data layer change that could model merged threads accurately. I [ended up with this](https://github.com/msfjarvis/compose-lobsters/commit/22a8f2e20dd036cd0fc4691e3e8e6a667d0ee6be) which seems to work so far. It's still missing a UI component to list all the merged stories, but it's a good enough stopgap for the immediate parsing issue.
+I fixed the first one with a simple [`if (count > 99) ∞ else count`](https://github.com/msfjarvis/compose-lobsters/commit/d5007a41a6534df6762afca66c151335491d90e1) which loses accuracy but doesn't make me cringe looking at the layout. The latter took a few days for me to dream up a proper data layer change that could model merged threads accurately. I [ended up with this](https://github.com/msfjarvis/compose-lobsters/commit/22a8f2e20dd036cd0fc4691e3e8e6a667d0ee6be) which seems to work so far. It's still missing a UI component to list all the merged stories, but it's a good enough stopgap for the immediate parsing issue.
 
 ## 🤖CLANK CLANK CLANK🤖
 
-Someone had linked [AppFlare](https://appflare.dev/) in the Self-hosting chat at work which I decided to give a shot, knowing fully well most of this is slop. It's also explicitly not self-hosting in my eyes if it's running on the infrastructure of one of the world's single biggest internet monopolies, but I digress.
+Someone had linked [AppFlare](https://appflare.dev/) in the Self-hosting chat at work which I decided to give a shot, knowing fully well most of this is slop. It's also explicitly not self-hosting in my eyes if it's running on the infrastructure of one of the world's single biggest Internet monopolies, but I digress.
 
-[YAOS](https://github.com/kavinsood/yaos) immediately jumped out as interesting since I was definitely a little annoyed with my Git-based sync for Obsidian and I tried this for a couple of days. Unsurprisingly, the grass wasn't exactly greener on the other side. The plugin kept generating piles of "crdt sync artefact" files claiming desync where there was none and since I was trying to still keep my Git setup in place while I tested this, it just got pretty annoying. I ran with it for a couple of days and eventually had to get rid of it.
+[YAOS](https://github.com/kavinsood/yaos) immediately jumped out as interesting since I'm always a little annoyed with my Git-based sync for Obsidian, so I tried it for a couple of days and the grass wasn't exactly greener on the other side. The plugin kept generating piles of "crdt sync artefact" files claiming desync where there was none and since I was trying to still keep my Git setup in place while I tested this, it was annoying as hell. I ran with it for a couple of days but the mess it kept making of the file system, paired with no synchronization for plugin files and settings made this strictly a regression on my existing setup. I'm back to using Git now, but I'll give [obsidian-livesync](https://github.com/vrtmrz/obsidian-livesync) a try next month when I'm at home.
 
 The rest of the [AppFlare catalogue](https://appflare.dev/apps/) is not particularly exciting either, so there's a strong chance I get rid of the whole thing by the end of this month.
 
 # Cooking
 
-Cooking this week was pretty spotty for various reasons, and most nights I was barely holding my 3 braincells together to remember to take pictures. Go check out [Yash's weeknote](https://yashgarg.dev/weekly-notes-43-2026/) for that. All I have is this fried rice I made one night because Yash was coming home too late for us to cook together.
+Cooking this week was pretty spotty for various reasons, and most nights I was barely holding my 3 braincells together to remember to take pictures, so go check out [Yash's weeknote](https://yashgarg.dev/weekly-notes-43-2026/) for that. All I have is this fried rice I made one night because Yash was out late and I had to cook for myself.
 
 <Figure
   src={fried_rice}
