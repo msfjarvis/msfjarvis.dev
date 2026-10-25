@@ -1,0 +1,113 @@
+---
+title: "Weeknotes: Week #43 (2026)"
+date: "2026-10-25T15:02:01.977Z"
+lastmod: "2026-10-25T15:02:01.977Z"
+summary: "I might just not be an outdoor person"
+tags:
+  - movies
+  - games
+  - work
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import fried_rice from "./fried-rice.webp";
+import paneer_sandwiches from "./paneer-sandwiches.webp";
+import street_fighter_callina_liang from "./street-fighter-callina-liang.webp";
+import street_fighter_splash_art from "./street-fighter-splash-art.webp";
+import vada_pav from "./vada-pav.webp";
+
+It's been raining entirely too frequently this week, and I'm over it. The constant power cuts are annoying!
+
+# Social
+
+On a bit of a whim we booked tickets for me, Swapnil, and Mayank to watch Street Fighter on Wednesday to take advantage of the day of. The movie was equal parts gritty and funny, and by not taking itself too seriously it elevated the experience IMO. I was mostly watching for Callina Liang (😍💖) but was surprised to see Jason Momoa sneak in a pretty good performance in there as well!
+
+<Gallery>
+  <Figure
+    src={street_fighter_splash_art}
+    title=""
+    alt="Street Fighter logo on a glowing red screen"
+  />
+  <Figure
+    src={street_fighter_callina_liang}
+    title=""
+    alt="Actress Callina Liang in a white dress leaning over to give a hand to a character off screen"
+  />
+</Gallery>
+
+That same evening [Fenil](https://fknil.com) and Kunwar had gone to watch Resident Evil and signed up Yash and I for a foodie tour through Indiranagar. [Fenil's](https://fknil.com/weeknote/2026-week-43/) and [Yash's](https://yashgarg.dev/weekly-notes-43-2026/) weeknotes have more details on this excursion which I would summarize as a disaster, and they will vehemently disagree. Here's my one-line-per-stop summary of the misadventures.
+
+- CK Vada Pav — Main attraction, closed
+- Khao aur Khane Do — Borderline inedible
+- Chaska Bun — Actually inedible. Next to no seating already makes this a hard sell.
+- Tea from Fenil's cook — The cook was a no-show, so a mystery.
+- Shambhu's Cafe — Fenil's propensity of trying new things caused us to follow up a nice vada pav with a terrible sandwich
+- Ainmane Cafe — Fenil wanted to try their coffee until he got there, then he wanted to go somewhere else
+
+By that point I was at my limit of aimless wandering and had drained my social (and phone) battery fully, so I broke off from the group and walked back home.
+
+<Gallery>
+  <Figure
+    src={vada_pav}
+    title="Probably the best vada pav I've had in a while"
+    alt="Vada pav served with green chutney and chopped onions"
+  />
+  <Figure
+    src={paneer_sandwiches}
+    title="DEFINITELY the worst sandwich I've had in forever"
+    alt="Grilled paneer sandwiches in a takeaway box"
+  />
+</Gallery>
+
+# Work
+
+It had been a long while since I last had to deal with a customer support ticket so this week's was a welcome surprise. That work resulted in a [new minor release](https://developers.cloudflare.com/realtime/realtimekit/release-notes/android-core/#2026-10-22), that I naturally found a small bug in on the very next day 🙄
+
+# Gaming
+
+Whoo boy what a weird week for games. Let's take it from the top.
+
+I fully finished the [CONTROL: Resonant](https://controlgame.com/en) main quest. I had to do this in two waves because while I finished the final mission on Tuesday itself, I had unsuccessfully tried my hand at the `The Unknown Resonant` mission a few times and had just ignored it. [Amogh](https://kat.bio) accidentally spoiled it assuming I had also finished it, so I was then forced to go figure out the traversal required to reach that area and give it a shot. Got my ass beat a handful of times, but in the final attempt I managed to delete half its health bar in my very first volley of attacks, and it was smooth sailing after that. The game was exceedingly beautiful and moving till the very end; such a great sequel. Despite my intention to do a New Game+ run after photo mode releases, I've already started assembling my [in-game photography](/games) reel for it that I'll publish soon.
+
+To fill the gap that 45 hours of CONTROL over the past 3 weeks has now created, I started playing Witcher 3 Remastered with Amogh in the proverbial [cuckstoel](https://knowyourmeme.com/memes/cuckstoel) to watch along and hopefully guide me to a good ending. If only I actually listened to what he was saying :D. The game itself is a little janky but once I knew what to expect I was able to start making some progress. Combat still feels very impossible to me, but hopefully that's something I can also get used to.
+
+Now onto the stinkers! I tried [Deadlock](https://www.playdeadlock.com/) after being influenced by the one and only [Gigi Murin](https://www.youtube.com/@holoen_gigimurin) and absolutely hated every second of it. The MOBA genre is built too much around poking each other from behind a wall for 30 minutes, and I'm just not about that life. The characters are definitely quite fun but the whole game is a psyop to rehabilitate the MOBA genre's reputation by adding shooting to it. Do not fall for it, this is League of Legends by a different name! Albeit with a probably better community because you need to have a friend to invite you.
+
+I also finally logged back into Marvel Rivals to check out the "Path to Doomsday" limited time game event and oh boy what a pile of shit. Genuinely why did they think that their already unfun horde shooter mode could be benefited from being PvP instead of PvE, I will never know.
+
+# Personal projects
+
+A series of "minor" security problems rocked the software world this week. Thankfully I don't run anything with PHP, but I did have to deal with the [eMudhra private key compromise](https://emudhra.we-have-a-problem.com/) which NixOS made very easy.
+
+I poked a bit at [kage](https://github.com/android-password-store/kage/) this week mostly for benchmarking related things. I got set up with [CodSpeed](https://codspeed.io/) which tracks your benchmark suite's performance over time to identify regressions and has a generous free tier for open source projects. I'm happy with the numbers I saw but some of the defence-in-depth validation clearly hurts throughput that I aim to look at soon.
+
+[Claw](https://github.com/msfjarvis/compose-lobsters/) also had a bunch of changes, mostly in response to two specific threads on Lobsters that stretched its limits.
+
+- [eMudhra private key compromise megathread](https://lobste.rs/s/gqyvn5/protecting_firefox_users_following) - The lack of merged thread support causes all titles to become merged into one unreadable mess
+- [Updates to site guidelines and AI/LLM tags](https://lobste.rs/s/h0eate/updates_site_guidelines_ai_llm_tags) - 436 comments as of writing cause the in-app display of comment counts to start looking weird.
+
+I fixed the second one with a simple [`if (count > 99) ∞ else count`](https://github.com/msfjarvis/compose-lobsters/commit/d5007a41a6534df6762afca66c151335491d90e1) which loses accuracy but doesn't make me cringe looking at the layout. The first one took a few days for me to dream up a proper data layer change that could model merged threads accurately. I [ended up with this](https://github.com/msfjarvis/compose-lobsters/commit/22a8f2e20dd036cd0fc4691e3e8e6a667d0ee6be) which seems to work so far. It's still missing a UI component to list all the merged stories, but it's a good enough stopgap for the immediate parsing issue.
+
+## 🤖CLANK CLANK CLANK🤖
+
+Someone had linked [AppFlare](https://appflare.dev/) in the Self-hosting chat at work which I decided to give a shot, knowing fully well most of this is slop. It's also explicitly not self-hosting in my eyes if it's running on the infrastructure of one of the world's single biggest internet monopolies, but I digress.
+
+[YAOS](https://github.com/kavinsood/yaos) immediately jumped out as interesting since I was definitely a little annoyed with my Git-based sync for Obsidian and I tried this for a couple of days. Unsurprisingly, the grass wasn't exactly greener on the other side. The plugin kept generating piles of "crdt sync artefact" files claiming desync where there was none and since I was trying to still keep my Git setup in place while I tested this, it just got pretty annoying. I ran with it for a couple of days and eventually had to get rid of it.
+
+The rest of the [AppFlare catalogue](https://appflare.dev/apps/) is not particularly exciting either, so there's a strong chance I get rid of the whole thing by the end of this month.
+
+# Cooking
+
+Cooking this week was pretty spotty for various reasons, and most nights I was barely holding my 3 braincells together to remember to take pictures. Go check out [Yash's weeknote](https://yashgarg.dev/weekly-notes-43-2026/) for that. All I have is this fried rice I made one night because Yash was coming home too late for us to cook together.
+
+<Figure
+  src={fried_rice}
+  small={true}
+  title="Throwing shit in a pan remains my saving grace"
+  alt="A bowl of fried rice with egg, peas, corn, and carrots"
+/>
