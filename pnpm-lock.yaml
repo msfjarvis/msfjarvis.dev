@@ -184,9 +184,6 @@ importers:
       '@sveltia/cms':
         specifier: ^0.246.1
         version: 0.246.1(@types/react@19.3.0)
-      '@xingwangzhe/satteri-mermaid':
-        specifier: ^0.8.2
-        version: 0.8.2(satteri@0.10.5)
       astro:
         specifier: ^7.4.0
         version: 7.4.0(@types/node@26.6.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.1)
@@ -1666,12 +1663,6 @@ packages:
 
   '@ungap/structured-clone@1.4.0':
     resolution: {integrity: sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ==}
-
-  '@xingwangzhe/satteri-mermaid@0.8.2':
-    resolution: {integrity: sha512-gBDptvOMzTFlHSbKWbkArsE/lHwQZo8FlH4OX5TWpSUOcMbeWCnVVpwDZgabyl6tSno3k246dNeUocAgtvA0yg==}
-    engines: {node: '>=22.14.0'}
-    peerDependencies:
-      satteri: '>=0.10.5 <0.11.0'
 
   '@xingwangzhe/satteri-photoswipe@0.2.6':
     resolution: {integrity: sha512-s7Po7WG2DtqDsvTPwZor6vVsnS9/hngVW0s/s31nDeOkr6PXs9lf2FgmeybVqJFxs5ChGtQN0fcvsf41DRrKyw==}
@@ -4347,10 +4338,6 @@ snapshots:
       eslint-visitor-keys: 5.0.1
 
   '@ungap/structured-clone@1.4.0': {}
-
-  '@xingwangzhe/satteri-mermaid@0.8.2(satteri@0.10.5)':
-    dependencies:
-      satteri: 0.10.5
 
   '@xingwangzhe/satteri-photoswipe@0.2.6(satteri@0.10.5)':
     dependencies:

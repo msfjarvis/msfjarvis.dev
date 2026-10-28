@@ -36,7 +36,6 @@ minimumReleaseAgeExclude:
   - "@shikijs/themes@4.5.0"
   - "@shikijs/types@4.5.0"
   - "@sveltia/cms"
-  - "@xingwangzhe/satteri-mermaid"
   - astro
   - miniflare
   - p-queue@9.3.5

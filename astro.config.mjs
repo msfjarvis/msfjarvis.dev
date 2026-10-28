@@ -10,13 +10,10 @@ import {
   legacyTableAlignment,
   remarkSmartypantsCompatibility,
 } from "./src/satteri/compatibility.ts";
-import { mermaidLightbox } from "./src/satteri/mermaid-lightbox.ts";
-import { mermaidOptions } from "./src/satteri/mermaid-theme.ts";
 import cloudflare from "@astrojs/cloudflare";
 import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import { mermaidHast, mermaidMdast } from "@xingwangzhe/satteri-mermaid";
 import { photoswipe } from "@xingwangzhe/satteri-photoswipe";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-iconset";
@@ -50,14 +47,8 @@ const markdownProcessor = satteri({
       ellipses: true,
     },
   },
-  mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts, mermaidMdast()],
-  hastPlugins: [
-    footnotePopovers,
-    legacyTableAlignment,
-    mermaidHast(mermaidOptions),
-    mermaidLightbox,
-    photoswipe(),
-  ],
+  mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts],
+  hastPlugins: [footnotePopovers, legacyTableAlignment, photoswipe()],
 });
 
 export default defineConfig({

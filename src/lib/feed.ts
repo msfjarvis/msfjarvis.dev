@@ -149,42 +149,6 @@ function removeLightboxDuplicates(html: string): string {
   return $.html();
 }
 
-function concretizeMermaidSvgForFeeds(svgHtml: string): string {
-  return svgHtml
-    .replaceAll("var(--bg)", "#ffffff")
-    .replaceAll("var(--bg-subtle)", "#f7f7f7")
-    .replaceAll("var(--border)", "#e8e8e8")
-    .replaceAll("var(--text)", "#111111")
-    .replaceAll("var(--text-2)", "#444444")
-    .replaceAll("var(--accent)", "#7a3d6e")
-    .replaceAll("var(--accent-subtle)", "#e0c8db");
-}
-
-function mermaidSvgToFeedImage(svgHtml: string): string {
-  const svg = concretizeMermaidSvgForFeeds(svgHtml);
-  const src = `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}`;
-  return `<img src="${src}" alt="Mermaid diagram" loading="lazy" decoding="async" />`;
-}
-
-function flattenMermaidLightboxes(html: string): string {
-  const $ = load(html);
-  $("[data-mermaid-modal-root]").each((_, root) => {
-    const $root = $(root);
-    const svgHtml = $root
-      .find(".mermaid-modal__preview svg")
-      .first()
-      .prop("outerHTML");
-    if (!svgHtml) {
-      throw Error(
-        "Failed to extract Mermaid SVG for feeds, has the layout changed?",
-      );
-    }
-    $root.replaceWith(mermaidSvgToFeedImage(svgHtml));
-  });
-  $("script").remove();
-  return $.html();
-}
-
 /** Render a single entry to absolute-URL HTML via the container. */
 async function renderEntryHtml(
   container: Awaited<ReturnType<typeof createContainer>>,
@@ -195,7 +159,6 @@ async function renderEntryHtml(
   let html = await container.renderToString(Content);
   html = restoreFootnotesForFeeds(html);
   html = removeLightboxDuplicates(html);
-  html = flattenMermaidLightboxes(html);
   html = simplifyCodeBlocksForFeeds(html);
   const $doc = load(html);
   html = $doc("body").html() ?? html;
