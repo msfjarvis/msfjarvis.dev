@@ -10,6 +10,7 @@ import {
   legacyTableAlignment,
   remarkSmartypantsCompatibility,
 } from "./src/satteri/compatibility.ts";
+import { mermaidDiagrams } from "./src/satteri/mermaid.ts";
 import cloudflare from "@astrojs/cloudflare";
 import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
@@ -41,13 +42,14 @@ const { build: buildVite } = createRequire(import.meta.resolve("astro"))(
 const markdownProcessor = satteri({
   features: {
     gfm: true,
+    rawHtml: true,
     smartPunctuation: {
       quotes: true,
       dashes: false,
       ellipses: true,
     },
   },
-  mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts],
+  mdastPlugins: [remarkSmartypantsCompatibility, githubAlerts, mermaidDiagrams],
   hastPlugins: [footnotePopovers, legacyTableAlignment, photoswipe()],
 });
 

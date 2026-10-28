@@ -39,6 +39,7 @@ minimumReleaseAgeExclude:
   - astro
   - miniflare
   - p-queue@9.3.5
+  - pele
   - terra-draw
   - workerd
   - wrangler

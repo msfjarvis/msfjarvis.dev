@@ -233,6 +233,34 @@ pre code {
   font-size: 1.042rem;
 }
 
+.mermaid-diagram {
+  --pele-bg: var(--bg);
+  --pele-fg: var(--text);
+  --pele-muted: var(--text-2);
+  --pele-line: var(--text-2);
+  --pele-surface: var(--bg-subtle);
+  --pele-surface-alt: var(--accent-subtle);
+  --pele-border: var(--border);
+  --pele-accent: var(--accent);
+  --pele-critical: var(--accent);
+  --pele-font: var(--font-sans);
+  --pele-font-mono: var(--font-mono);
+  position: relative;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.mermaid-diagram > svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.mermaid-diagram .pele-notes .pele-note rect {
+  stroke: var(--accent);
+}
+
 blockquote {
   margin: 1.5rem 0;
   padding-left: 1.25rem;
