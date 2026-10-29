@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { title, date, subtitle } = Astro.props;
+
 const dateLabel = date.toLocaleDateString("en-GB", {
   day: "numeric",
   month: "long",
@@ -407,12 +408,15 @@ const dateLabel = date.toLocaleDateString("en-GB", {
 <script>
   const root = document.querySelector<HTMLElement>("[data-reel]");
   const strip = root?.querySelector<HTMLElement>("[data-reel-strip]");
+
   const slides = root
     ? Array.from(root.querySelectorAll<HTMLElement>("[data-reel-slide]"))
     : [];
+
   const links = slides.map((slide) =>
     slide.querySelector<HTMLAnchorElement>("[data-reel-link]"),
   );
+
   const prev = root?.querySelector<HTMLButtonElement>("[data-reel-prev]");
   const next = root?.querySelector<HTMLButtonElement>("[data-reel-next]");
   const fill = root?.querySelector<HTMLElement>("[data-reel-fill]");
@@ -420,6 +424,7 @@ const dateLabel = date.toLocaleDateString("en-GB", {
   const total = slides.length;
 
   if (strip && total > 0 && links.every((link) => link !== null)) {
+    // SAFETY: The preceding `every` check proves each mapped link is non-null.
     const anchors = links as HTMLAnchorElement[];
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const reduced = () => reduce.matches;
@@ -433,6 +438,7 @@ const dateLabel = date.toLocaleDateString("en-GB", {
 
     const midOf = (element: Element) => {
       const box = element.getBoundingClientRect();
+
       return box.left + box.width / 2;
     };
 
@@ -442,11 +448,13 @@ const dateLabel = date.toLocaleDateString("en-GB", {
       let bestGap = Infinity;
       slides.forEach((slide, index) => {
         const gap = Math.abs(midOf(slide) - mid);
+
         if (gap < bestGap - 0.5) {
           bestGap = gap;
           best = index;
         }
       });
+
       return best;
     };
 
@@ -455,22 +463,28 @@ const dateLabel = date.toLocaleDateString("en-GB", {
       slides.forEach((slide, i) => {
         const isCurrent = i === index;
         slide.classList.toggle("is-current", isCurrent);
+
         if (isCurrent) {
           slide.setAttribute("aria-current", "true");
         } else {
           slide.removeAttribute("aria-current");
         }
+
         anchors[i].tabIndex = isCurrent ? 0 : -1;
       });
+
       if (fill) {
         fill.style.width = `${((index + 1) / total) * 100}%`;
       }
+
       if (counter) {
         counter.textContent = `${index + 1} / ${total}`;
       }
+
       if (prev) {
         prev.disabled = index === 0;
       }
+
       if (next) {
         next.disabled = index === total - 1;
       }
@@ -483,6 +497,7 @@ const dateLabel = date.toLocaleDateString("en-GB", {
     const targetScrollLeft = (index: number) => {
       const stripBox = strip.getBoundingClientRect();
       const slideBox = slides[index].getBoundingClientRect();
+
       return clampScroll(
         strip.scrollLeft +
           (slideBox.left + slideBox.width / 2) -
@@ -514,6 +529,7 @@ const dateLabel = date.toLocaleDateString("en-GB", {
 
       if (!smooth) {
         strip.scrollLeft = target;
+
         return false;
       }
 
@@ -527,15 +543,18 @@ const dateLabel = date.toLocaleDateString("en-GB", {
           endProgrammatic();
         }
       }, 150);
+
       return true;
     };
 
     const go = (index: number, smooth: boolean, moveFocus: boolean) => {
       const target = Math.max(0, Math.min(total - 1, index));
       paint(target);
+
       if (scrollToIndex(target, smooth) && smooth) {
         beginProgrammatic();
       }
+
       if (moveFocus) {
         anchors[target].focus({ preventScroll: true });
       }
@@ -547,7 +566,7 @@ const dateLabel = date.toLocaleDateString("en-GB", {
 
     const focusIsInStrip = () =>
       document.activeElement instanceof HTMLElement &&
-      anchors.includes(document.activeElement as HTMLAnchorElement);
+      anchors.some((anchor) => anchor === document.activeElement);
 
     strip.addEventListener(
       "scroll",
@@ -555,6 +574,7 @@ const dateLabel = date.toLocaleDateString("en-GB", {
         if (programmatic || queued) {
           return;
         }
+
         queued = true;
         window.requestAnimationFrame(() => {
           queued = false;
@@ -572,12 +592,14 @@ const dateLabel = date.toLocaleDateString("en-GB", {
       if (key === "Home") {
         event.preventDefault();
         go(0, !reduced(), focusIsInStrip());
+
         return;
       }
 
       if (key === "End") {
         event.preventDefault();
         go(total - 1, !reduced(), focusIsInStrip());
+
         return;
       }
 

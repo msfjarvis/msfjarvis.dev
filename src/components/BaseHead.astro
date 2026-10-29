@@ -14,6 +14,7 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
 const {
   title,
   description,
@@ -21,11 +22,13 @@ const {
   autoImage = false,
   alternateFeeds,
 } = Astro.props;
+
 const openGraphImage = image
   ? new URL(image, Astro.url)
   : autoImage
     ? getImagePath({ url: Astro.url, site: new URL("/", Astro.url) })
     : new URL("/android-chrome-512x512.webp", Astro.url);
+
 const feeds = alternateFeeds ?? [
   {
     type: "application/rss+xml",

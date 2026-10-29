@@ -30,6 +30,7 @@ const {
     <script is:inline>
       const applyPagefindTheme = (isDark) => {
         document.documentElement.toggleAttribute("data-pf-theme", isDark);
+
         if (isDark) {
           document.documentElement.setAttribute("data-pf-theme", "dark");
           document.body?.setAttribute("data-pf-theme", "dark");
@@ -40,7 +41,9 @@ const {
       };
 
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
       applyPagefindTheme(mediaQuery.matches);
+
       mediaQuery.addEventListener("change", (event) =>
         applyPagefindTheme(event.matches),
       );

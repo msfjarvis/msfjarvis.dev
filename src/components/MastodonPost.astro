@@ -8,6 +8,7 @@ interface Props {
 
 const { url } = Astro.props;
 const status = getMastodonStatusSnapshot({ url, snapshots: mastodonSnapshots });
+
 const displayTimestamp = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",
   timeStyle: "short",

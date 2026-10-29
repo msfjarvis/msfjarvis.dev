@@ -4,6 +4,18 @@ import test from "node:test";
 
 const statusUrl = "https://infosec.exchange/@0xabad1dea/116900098449254586";
 
+type StatusPayload = {
+  url?: string;
+  content?: string;
+  created_at?: string;
+  account?: { display_name?: string; acct?: string };
+  media_attachments?: Array<{
+    type?: string;
+    url?: string;
+    description?: string | number;
+  }>;
+};
+
 test("loads a snapshot using the normalized status URL", () => {
   const snapshot: MastodonStatus = {
     canonicalUrl: statusUrl,
@@ -32,10 +44,12 @@ test("fails descriptively when a Mastodon snapshot is missing", () => {
 
 test("normalizes HTTP status URLs before fetching", async () => {
   let requestedUrl = "";
+
   const status = await fetchMastodonStatus({
     url: `http://${statusUrl.slice("https://".length)}`,
     fetchImpl: async (input) => {
       requestedUrl = String(input);
+
       return validStatus();
     },
   });
@@ -46,10 +60,12 @@ test("normalizes HTTP status URLs before fetching", async () => {
 
 test("ignores query strings and fragments on status URLs", async () => {
   let requestedUrl = "";
+
   const status = await fetchMastodonStatus({
     url: `${statusUrl}?utm_source=site#post`,
     fetchImpl: async (input) => {
       requestedUrl = String(input);
+
       return validStatus();
     },
   });
@@ -64,6 +80,7 @@ test("blocks redirects with a Cloudflare-compatible fetch policy", async () => {
     url: statusUrl,
     fetchImpl: async (_, init) => {
       requestedInit = init;
+
       return validStatus();
     },
   });
@@ -198,10 +215,7 @@ test("wraps fetch rejection with the request context and original cause", async 
         throw cause;
       },
     }),
-    (error: unknown) =>
-      error instanceof Error &&
-      /Mastodon status request failed/.test(error.message) &&
-      error.cause === cause,
+    (error: Error) => /Mastodon status request failed/.test(error.message) && error.cause === cause,
   );
 });
 
@@ -229,7 +243,7 @@ test("throws on HTTP, invalid JSON, and malformed status payloads", async () => 
   );
 });
 
-const validStatus = (overrides: Record<string, unknown> = {}) =>
+const validStatus = (overrides: StatusPayload = {}) =>
   new Response(
     JSON.stringify({
       url: statusUrl,

@@ -3,6 +3,7 @@ import {
   buildManifestEntry,
   diffManifests,
   formatSendSummary,
+  isWebmentionsManifest,
   sendEvents,
 } from "./webmentions.ts";
 import assert from "node:assert/strict";
@@ -44,6 +45,23 @@ test("buildManifest sorts entries and emits schemaVersion 2", () => {
     manifest.entries.map((entry) => entry.url),
     ["https://example.com/notes/a/", "https://example.com/posts/z/"],
   );
+});
+
+test("isWebmentionsManifest validates the external manifest shape", () => {
+  const manifest = {
+    schemaVersion: 2,
+    siteOrigin: "https://example.com",
+    generatedAt: "2026-05-15T00:00:00.000Z",
+    entries: [{ url: "https://example.com/posts/a/", lastmod: "2026-05-01" }],
+  };
+
+  assert.equal(isWebmentionsManifest(manifest), true);
+  assert.equal(isWebmentionsManifest({ ...manifest, schemaVersion: 1 }), false);
+  assert.equal(
+    isWebmentionsManifest({ ...manifest, entries: [{ url: 42, lastmod: "today" }] }),
+    false,
+  );
+  assert.equal(isWebmentionsManifest(null), false);
 });
 
 test("diffManifests classifies publish update and delete", () => {
@@ -119,6 +137,7 @@ test("formatSendSummary renders success and failure rows", () => {
 
 test("sendEvents attempts all sends and records failures", async () => {
   const calls: Array<{ pageUrl: string; reason: string }> = [];
+
   const results = await sendEvents({
     events: [
       { pageUrl: "https://example.com/posts/a/", reason: "publish" },
@@ -129,12 +148,14 @@ test("sendEvents attempts all sends and records failures", async () => {
     fetchImpl: async (_url, init) => {
       const body = JSON.parse(String(init?.body));
       calls.push(body);
+
       if (body.pageUrl.endsWith("/b/")) {
         return new Response("boom", {
           status: 500,
           statusText: "Internal Server Error",
         });
       }
+
       return new Response("ok", { status: 202, statusText: "Accepted" });
     },
   });

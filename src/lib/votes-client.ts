@@ -1,12 +1,14 @@
-import type { PollMode, VoteSummary } from "./votes.ts";
+import type { JsonValue, PollMode, VoteSummary } from "./votes.ts";
 
 type UpvoteSubmission = { type: "upvote"; postId: string };
+
 type SinglePollSubmission = {
   type: "single";
   postId: string;
   pollId: string;
   choice: string;
 };
+
 type MultiplePollSubmission = {
   type: "multiple";
   postId: string;
@@ -29,6 +31,7 @@ const summaryRequestQueueKey = Symbol.for("msfjarvis.dev.votes.summary-request-q
 
 export function fetchVoteSummary(target: BrowserVoteTarget): Promise<VoteSummary> {
   const params = new URLSearchParams({ postId: target.postId });
+
   if (target.type === "poll") {
     params.set("pollId", target.pollId);
     params.set("mode", target.mode);
@@ -63,20 +66,18 @@ export function clearVote(target: BrowserVoteTarget): Promise<VoteSummary> {
   );
 }
 
-export function parseVoteSummary(input: unknown, target: BrowserVoteTarget): VoteSummary {
+export function parseVoteSummary(input: JsonValue, target: BrowserVoteTarget): VoteSummary {
   if (!isRecord(input)) throw new VoteApiError("The vote server returned an invalid response");
 
   const { total } = input;
+
   if (!isCount(total)) throw new VoteApiError("The vote server returned an invalid vote total");
 
   if (target.type === "upvote") {
-    if (
-      input.type !== "upvote" ||
-      input.postId !== target.postId ||
-      typeof input.voted !== "boolean"
-    ) {
+    if (input.type !== "upvote" || input.postId !== target.postId || !isBoolean(input.voted)) {
       throw new VoteApiError("The vote server returned a response for a different upvote");
     }
+
     return { type: "upvote", postId: target.postId, total, voted: input.voted };
   }
 
@@ -92,13 +93,16 @@ export function parseVoteSummary(input: unknown, target: BrowserVoteTarget): Vot
   }
 
   const results: Array<{ choice: string; votes: number }> = [];
+
   for (const result of input.results) {
-    if (!isRecord(result) || typeof result.choice !== "string" || !isCount(result.votes)) {
+    if (!isRecord(result) || !isString(result.choice) || !isCount(result.votes)) {
       throw new VoteApiError("The vote server returned invalid poll results");
     }
+
     results.push({ choice: result.choice, votes: result.votes });
   }
-  if (!input.selection.every((choice): choice is string => typeof choice === "string")) {
+
+  if (!input.selection.every(isString)) {
     throw new VoteApiError("The vote server returned an invalid poll selection");
   }
 
@@ -114,6 +118,7 @@ export function parseVoteSummary(input: unknown, target: BrowserVoteTarget): Vot
 }
 
 function queueSummaryRequest(request: () => Promise<VoteSummary>): Promise<VoteSummary> {
+  // SAFETY: the symbol is process-global and stores only this module's serialized request tail.
   const sharedGlobal = globalThis as typeof globalThis & Record<symbol, Promise<void> | undefined>;
   const previousRequest = sharedGlobal[summaryRequestQueueKey] ?? Promise.resolve();
   const result = previousRequest.catch(() => undefined).then(request);
@@ -122,6 +127,7 @@ function queueSummaryRequest(request: () => Promise<VoteSummary>): Promise<VoteS
     () => undefined,
     () => undefined,
   );
+
   return result;
 }
 
@@ -131,6 +137,7 @@ async function requestVote(
   target: BrowserVoteTarget,
 ): Promise<VoteSummary> {
   let response: Response;
+
   try {
     response = await fetch(url, {
       ...init,
@@ -140,7 +147,8 @@ async function requestVote(
     throw new VoteApiError("Could not reach the vote server. Please try again.");
   }
 
-  let body: unknown;
+  let body: JsonValue;
+
   try {
     body = await response.json();
   } catch {
@@ -148,7 +156,7 @@ async function requestVote(
   }
 
   if (!response.ok) {
-    const message = isRecord(body) && typeof body.error === "string" ? body.error : null;
+    const message = isRecord(body) && isString(body.error) ? body.error : null;
     throw new VoteApiError(message ?? `Vote request failed (${response.status})`);
   }
 
@@ -166,10 +174,18 @@ function targetForSubmission(submission: BrowserVoteSubmission): BrowserVoteTarg
       };
 }
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+function isRecord(value: JsonValue | undefined): value is { [key: string]: JsonValue } {
+  return value instanceof Object && !Array.isArray(value);
 }
 
-function isCount(value: unknown): value is number {
-  return typeof value === "number" && Number.isSafeInteger(value) && value >= 0;
+function isString(value: JsonValue | undefined): value is string {
+  return Object.prototype.toString.call(value) === "[object String]";
+}
+
+function isBoolean(value: JsonValue | undefined): value is boolean {
+  return value === true || value === false;
+}
+
+function isCount(value: JsonValue | undefined): value is number {
+  return Number.isSafeInteger(value) && Number(value) >= 0;
 }

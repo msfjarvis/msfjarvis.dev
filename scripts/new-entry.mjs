@@ -32,6 +32,7 @@ export function slugifyTitle(str) {
 function formatCategories(categories) {
   if (categories.length == 0) return "categories: []";
   const formatted = categories.map((category) => `  - ${category}`).join("\n");
+
   return `categories:\n${formatted}`;
 }
 
@@ -41,11 +42,13 @@ function buildFrontmatter({ title, now, categories, type }) {
   }
 
   const timestamp = now.toISOString();
+
   return `---\ntitle: ${JSON.stringify(title)}\ndate: ${JSON.stringify(timestamp)}\nlastmod: ${JSON.stringify(timestamp)}\nsummary: ""\ntags: []\n${formatCategories(categories)}\ndraft: true\ndeleted: false\n---\n`;
 }
 
 export function createEntry({ root = PROJECT_ROOT, type, title, now = new Date() }) {
   const collection = TYPE_TO_DIR[type];
+
   if (!collection) {
     throw new Error(`Invalid content type: ${type}`);
   }
@@ -80,6 +83,7 @@ export function createEntry({ root = PROJECT_ROOT, type, title, now = new Date()
     })}\n`,
     "utf8",
   );
+
   return entryPath;
 }
 

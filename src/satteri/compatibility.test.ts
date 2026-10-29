@@ -59,13 +59,17 @@ test("renders static popovers and keeps an inert footnote fallback", async () =>
   assert.match(html, /id="footnote-popover-1" role="tooltip"/);
   assert.match(html, /<strong>bold<\/strong> text\.\s*<\/p>\s*<\/div>/);
   assert.match(html, /<template data-footnotes-fallback><section data-footnotes/);
+
   const popoverContents = [
     ...html.matchAll(/<div class="footnote-popover"[^>]*>([\s\S]*?)<\/div>/g),
   ].map(([, content]) => content ?? "");
+
   assert.equal(popoverContents.length, 2);
+
   for (const content of popoverContents) {
     assert.doesNotMatch(content, /data-footnote-backref/);
   }
+
   assert.match(html, /id="footnote-popover-2"/);
 });
 

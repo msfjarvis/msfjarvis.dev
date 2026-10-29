@@ -7,6 +7,7 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", filterDrafts);
+
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { entry: post },

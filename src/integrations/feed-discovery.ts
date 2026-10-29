@@ -13,16 +13,20 @@ const RESOLVED_ID = "\0" + VIRTUAL_MODULE_ID;
 function findFormatFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   const results: string[] = [];
+
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
+
     const isDir =
       entry.isDirectory() || (entry.isSymbolicLink() && fs.statSync(full).isDirectory());
+
     if (isDir) {
       results.push(...findFormatFiles(full));
     } else if (entry.name === "[format].ts" || entry.name === "[format].js") {
       results.push(full);
     }
   }
+
   return results;
 }
 

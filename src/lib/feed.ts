@@ -89,6 +89,7 @@ function absolutizeUrls(html: string, origin: string): string {
  */
 async function createContainer() {
   const OrigURL = globalThis.URL;
+
   const SafeURL = class extends OrigURL {
     constructor(url: string | URL, base?: string | URL) {
       try {
@@ -98,10 +99,13 @@ async function createContainer() {
       }
     }
   };
-  globalThis.URL = SafeURL as typeof URL;
+
+  globalThis.URL = SafeURL;
+
   try {
     const container = await AstroContainer.create();
     container.addServerRenderer({ renderer: mdxRenderer });
+
     return container;
   } finally {
     globalThis.URL = OrigURL;
@@ -119,8 +123,10 @@ async function createContainer() {
  * lifetime of a single build/request process.
  */
 let containerPromise: ReturnType<typeof createContainer> | undefined;
+
 function getSharedContainer() {
   if (!containerPromise) containerPromise = createContainer();
+
   return containerPromise;
 }
 
@@ -132,22 +138,27 @@ function removeLightboxDuplicates(html: string): string {
   $("[data-image-lightbox]").each((_, figure) => {
     const $figure = $(figure);
     const $trigger = $figure.find("[data-lightbox-trigger]").first();
+
     if ($trigger.length > 0) {
       const imageHtml = $trigger.find("picture, img").first().prop("outerHTML");
+
       if (!imageHtml) {
         throw Error("Failed to extract lightbox image for feeds, has the layout changed?");
       }
+
       $trigger.replaceWith(imageHtml);
     }
   });
   $("[data-lightbox-container]").remove();
   $("script").remove();
+
   return $.html();
 }
 
 function mermaidSvgToFeedImage(svgHtml: string): string {
   const svg = addMermaidSvgNamespace(svgHtml);
   const src = `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}`;
+
   return `<img src="${src}" alt="Mermaid diagram" loading="lazy" decoding="async" />`;
 }
 
@@ -156,12 +167,15 @@ function flattenMermaidSvgs(html: string): string {
   $(".mermaid-diagram").each((_, diagram) => {
     const $diagram = $(diagram);
     const svgHtml = $diagram.find("svg").first().prop("outerHTML");
+
     if (!svgHtml) {
       throw Error("Failed to extract Mermaid SVG for feeds, has the markup changed?");
     }
+
     $diagram.replaceWith(mermaidSvgToFeedImage(svgHtml));
   });
   $("script").remove();
+
   return $.html();
 }
 
@@ -179,6 +193,7 @@ async function renderEntryHtml(
   html = simplifyCodeBlocksForFeeds(html);
   const $doc = load(html);
   html = $doc("body").html() ?? html;
+
   return absolutizeUrls(html, origin);
 }
 
@@ -191,11 +206,14 @@ async function entryToFeedItem(
 ): Promise<FeedItem> {
   const cacheKey = `${origin}::${entry.collection}::${entry.id}`;
   let htmlPromise = entryHtmlCache.get(cacheKey);
+
   if (!htmlPromise) {
     htmlPromise = renderEntryHtml(container, entry, origin);
     entryHtmlCache.set(cacheKey, htmlPromise);
   }
+
   const html = await htmlPromise;
+
   return {
     title: entry.data.title,
     url,
@@ -219,6 +237,7 @@ async function buildFeedItems(
   const allEntries = sources.flatMap((source) =>
     source.entries.map((entry) => ({ entry, source })),
   );
+
   const sorted = allEntries
     .sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
     .slice(0, FEED_MAX_ENTRIES);
@@ -226,6 +245,7 @@ async function buildFeedItems(
   return Promise.all(
     sorted.map(({ entry, source }) => {
       const url = source.urlBuilder(entry, origin);
+
       return entryToFeedItem(container, entry, url, origin);
     }),
   );
@@ -245,6 +265,7 @@ export function rssSerializer(opts: {
   const site = opts.context.site!;
 
   const needsContent = items.some((i) => i.html);
+
   const ns = [
     needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : "",
     'xmlns:atom="http://www.w3.org/2005/Atom"',
@@ -254,6 +275,7 @@ export function rssSerializer(opts: {
 
   const xmlItems = items.map((item) => {
     const guid = item.guid || item.url;
+
     return `    <item>
       <title>${escapeXml(item.title)}</title>
       <link>${escapeXml(item.url)}</link>
@@ -345,14 +367,18 @@ export function jsonFeedSerializer(opts: {
     home_page_url: site.href,
     feed_url: `${site.origin}${selfPath}`,
     authors: [{ name: AUTHOR_NAME, url: SITE_URL }],
-    items: items.map((item) => ({
-      id: item.url,
-      url: item.url,
-      title: item.title,
-      date_published: item.date.toISOString(),
-      ...(item.summary ? { summary: item.summary } : {}),
-      ...(item.html ? { content_html: item.html } : {}),
-    })),
+    items: items.map((item) => {
+      const feedItem = {
+        id: item.url,
+        url: item.url,
+        title: item.title,
+        date_published: item.date.toISOString(),
+        summary: item.summary || undefined,
+        content_html: item.html || undefined,
+      };
+
+      return feedItem;
+    }),
   };
 
   return new Response(JSON.stringify(feed, null, 2), {
@@ -368,7 +394,7 @@ export const FEED_SERIALIZERS: Record<FeedFormat, FeedSerializer> = {
   "feed.json": jsonFeedSerializer,
 };
 
-export const FEED_FORMATS = Object.keys(FEED_SERIALIZERS) as FeedFormat[];
+export const FEED_FORMATS: FeedFormat[] = ["rss.xml", "atom.xml", "feed.json"];
 
 const FORMAT_MIME_TYPES: Record<FeedFormat, string> = {
   "rss.xml": "application/rss+xml",
@@ -421,6 +447,7 @@ export async function buildFeedFromSources(opts: {
   const site = opts.context.site!;
   const container = await getSharedContainer();
   const items = await buildFeedItems(opts.sources, container, site.origin);
+
   return opts.serializer({
     context: opts.context,
     title: opts.title,
@@ -437,26 +464,53 @@ export async function buildFeedFromSources(opts: {
  * Usage:
  *   export const { getStaticPaths, GET } = createFeedEndpoint({ ... });
  */
-export function createFeedEndpoint(config: FeedEndpointConfig): {
-  getStaticPaths: () => Promise<
-    Array<{
-      params: { format: FeedFormat };
-      props: { sources: FeedSource[] };
-      cacheKey: string;
-    }>
-  >;
-  GET: (context: APIContext) => Promise<Response>;
-} {
+function isFeedFormat(value: unknown): value is FeedFormat {
+  return FEED_FORMATS.some((format) => format === value);
+}
+
+interface FeedSourceCandidate {
+  entries?: unknown;
+  urlBuilder?: unknown;
+}
+
+interface FeedPropsCandidate {
+  sources?: unknown;
+}
+
+function isFeedSource(value: FeedSourceCandidate | null): value is FeedSource {
+  return (
+    value instanceof Object && Array.isArray(value.entries) && value.urlBuilder instanceof Function
+  );
+}
+
+function isFeedSources(value: unknown): value is FeedSource[] {
+  return Array.isArray(value) && value.every(isFeedSource);
+}
+
+function isFeedProps(value: FeedPropsCandidate | null): value is FeedPropsCandidate {
+  return value instanceof Object;
+}
+
+function feedSourcesFromProps(value: APIContext["props"]): FeedSource[] | undefined {
+  if (!isFeedProps(value)) return undefined;
+
+  return isFeedSources(value.sources) ? value.sources : undefined;
+}
+
+export function createFeedEndpoint(config: FeedEndpointConfig) {
   // Register all format variants into the discovery registry.
   // Guard against duplicate registration on hot-reload re-evaluation.
   for (const format of FEED_FORMATS) {
     const href = config.selfPath(format);
+
     const entry: AlternateFeed = {
       type: FORMAT_MIME_TYPES[format],
       title: `${config.title} — ${FORMAT_LABELS[format]}`,
       href,
     };
+
     const existing = _feedRegistry.findIndex((f) => f.href === href);
+
     if (existing === -1) _feedRegistry.push(entry);
     else _feedRegistry[existing] = entry;
   }
@@ -465,6 +519,7 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
     async getStaticPaths() {
       const sources = await config.getSources();
       const cacheKey = getContentCacheKey(sources.flatMap(({ entries }) => entries));
+
       return FEED_FORMATS.map((format) => ({
         params: { format },
         props: { sources },
@@ -472,11 +527,14 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
       }));
     },
     async GET(context: APIContext): Promise<Response> {
-      const format = context.params.format as FeedFormat;
+      const format = context.params.format;
+
+      if (!isFeedFormat(format)) return new Response("Not found", { status: 404 });
       const serializer = FEED_SERIALIZERS[format];
-      if (!serializer) return new Response("Not found", { status: 404 });
-      const sources = (context.props as { sources?: FeedSource[] }).sources;
+      const sources = feedSourcesFromProps(context.props);
+
       if (!sources) return new Response("Internal Error", { status: 500 });
+
       return buildFeedFromSources({
         context,
         sources,

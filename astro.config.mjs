@@ -32,6 +32,7 @@ const webmentionWorkerOrigin = process.env.WEBMENTION_WORKER_ORIGIN;
 const webmentionAuthToken = process.env.WEBMENTION_AUTH_TOKEN;
 
 const { renderCollectionCard } = await import("./src/og/renderers/collection-card-split.tsx");
+
 // Reuse Astro's Vite dependency rather than adding a separate bundler dependency.
 const { build: buildVite } = createRequire(import.meta.resolve("astro"))("vite");
 
@@ -149,6 +150,7 @@ export default defineConfig({
             if (request.url === "/admin.js") {
               request.url = "/src/cms/admin.ts";
             }
+
             next();
           });
         },
@@ -168,6 +170,7 @@ export default defineConfig({
           const existing = Array.isArray(cfg.build?.rolldownOptions?.external)
             ? cfg.build.rolldownOptions.external
             : [];
+
           return {
             build: {
               rolldownOptions: {

@@ -16,15 +16,19 @@ export const SNAPSHOT_MODULE = join(PROJECT_ROOT, "src/data/mastodon-snapshots.t
 
 async function sourceFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
+
   const nested = await Promise.all(
     entries
       .sort((a, b) => a.name.localeCompare(b.name))
       .map(async (entry) => {
         const path = join(directory, entry.name);
+
         if (entry.isDirectory()) return sourceFiles(path);
+
         return entry.isFile() && /\.(astro|mdx)$/.test(entry.name) ? [path] : [];
       }),
   );
+
   return nested.flat();
 }
 
@@ -40,25 +44,33 @@ function activeComponentSource(source) {
 export function extractMastodonUrls(source, file = "source") {
   const urls = [];
   const tags = activeComponentSource(source).matchAll(/<MastodonPost\b([\s\S]*?)\/>/g);
+
   for (const tag of tags) {
     const attributes = tag[1];
+
     const url = attributes.match(
       /\burl\s*=\s*(?:"([^"]+)"|'([^']+)'|\{\s*"([^"]+)"\s*\}|\{\s*'([^']+)'\s*\})/,
     );
+
     const literalUrl = url?.slice(1).find(Boolean);
+
     if (!literalUrl) {
       throw new Error(`MastodonPost in ${file} must provide url as a string literal.`);
     }
+
     urls.push(literalUrl);
   }
+
   return urls;
 }
 
 export async function collectMastodonUrls(sourceDirectory) {
   const files = await sourceFiles(sourceDirectory);
+
   const urls = await Promise.all(
     files.map(async (file) => extractMastodonUrls(await readFile(file, "utf8"), file)),
   );
+
   return [...new Set(urls.flat().map(getMastodonSnapshotKey))].sort();
 }
 
@@ -80,12 +92,15 @@ export async function refreshMastodonSnapshots({
 } = {}) {
   const urls = await collectMastodonUrls(sourceDirectory);
   const statuses = await Promise.all(urls.map((url) => fetchMastodonStatus({ url, fetchImpl })));
+
   const snapshots = Object.fromEntries(
     statuses
       .map((status) => [status.canonicalUrl, status])
       .sort(([left], [right]) => left.localeCompare(right)),
   );
+
   await writeSnapshotModule(snapshots, outputPath);
+
   return urls.length;
 }
 

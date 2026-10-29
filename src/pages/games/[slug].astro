@@ -8,6 +8,7 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const games = await getCollection("games");
+
   return games.map((game) => ({
     params: { slug: game.id },
     props: { entry: game },

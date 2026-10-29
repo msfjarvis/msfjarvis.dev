@@ -30,9 +30,11 @@ test("imported metadata is optional before the pre-save merge", () => {
 test("optional metadata patterns accept empty fields before pre-save", () => {
   for (const fieldName of ["bookCover"]) {
     const field = openLibraryBookMetadataFields.find((candidate) => candidate.name === fieldName);
+
     if (!field || !("pattern" in field)) {
       throw new Error(`Missing pattern for ${fieldName}`);
     }
+
     assert.match("", new RegExp(field.pattern[0]));
   }
 });

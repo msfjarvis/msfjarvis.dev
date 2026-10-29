@@ -12,6 +12,7 @@ const [posts, weeknotes] = await Promise.all([
 ]);
 
 const counts = new Map<string, number>();
+
 for (const entry of [...posts, ...weeknotes]) {
   for (const cat of entry.data.categories) {
     counts.set(cat, (counts.get(cat) ?? 0) + 1);

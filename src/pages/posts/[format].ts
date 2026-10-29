@@ -8,6 +8,7 @@ export const prerender = true;
 export const { getStaticPaths, GET } = createFeedEndpoint({
   async getSources() {
     const posts = await getCollection("posts", filterDrafts);
+
     return [
       {
         entries: posts,

@@ -1,8 +1,8 @@
-import { bookSchema, orderBooks, partitionBooks } from "./books.ts";
+import { bookSchema, orderBooks, partitionBooks, type Book } from "./books.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
 
-function book(overrides: Record<string, unknown> = {}) {
+function book(overrides: Partial<Book> = {}) {
   return {
     bookTitle: "A book",
     bookAuthors: ["An author"],
@@ -14,7 +14,7 @@ function book(overrides: Record<string, unknown> = {}) {
   };
 }
 
-function entry(data: Record<string, unknown>, id: string) {
+function entry(data: ReturnType<typeof book>, id: string) {
   return { id, data: bookSchema.parse(data) };
 }
 

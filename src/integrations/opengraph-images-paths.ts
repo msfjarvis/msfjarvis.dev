@@ -3,12 +3,14 @@ import path from "node:path";
 
 export function getImagePath({ url, site }: { url: URL; site: URL }): URL {
   const pathname = url.pathname;
+
   const imagePath =
     pathname === "/404/" || pathname === "/500/"
       ? `${pathname.slice(0, -1)}.png`
       : pathname.endsWith("/")
         ? `${pathname}index.png`
         : `${pathname}.png`;
+
   return new URL(imagePath.slice(1), site);
 }
 
@@ -27,6 +29,7 @@ export async function getPageHtmlPath({
   for (const candidate of candidates) {
     try {
       await fs.access(candidate);
+
       return candidate;
     } catch {
       // Try the next supported Astro output layout.

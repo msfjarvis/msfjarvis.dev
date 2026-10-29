@@ -10,6 +10,7 @@ export interface PagefindOptions {
 
 export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIntegration {
   let clientDir: string | undefined;
+
   return {
     name: "pagefind",
     hooks: {
@@ -21,10 +22,12 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
       "astro:server:setup": ({ server, logger }) => {
         const outDir = clientDir ?? path.join(server.config.root, server.config.build.outDir);
         logger.debug(`Serving pagefind from ${outDir}`);
+
         const serve = sirv(outDir, {
           dev: true,
           etag: true,
         });
+
         server.middlewares.use((req, res, next) => {
           if (req.url?.startsWith("/pagefind/")) {
             serve(req, res, next);
@@ -36,28 +39,38 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
       "astro:build:done": async ({ dir, logger }) => {
         const outDir = fileURLToPath(dir);
         const { index, errors: createErrors } = await createIndex(indexConfig);
+
         if (!index) {
           logger.error("Pagefind failed to create index");
           createErrors.forEach(logger.error);
+
           return;
         }
+
         const { page_count, errors: addErrors } = await index.addDirectory({
           path: outDir,
         });
+
         if (addErrors.length) {
           logger.error("Pagefind failed to index files");
           addErrors.forEach(logger.error);
+
           return;
         }
+
         logger.info(`Pagefind indexed ${page_count} pages`);
+
         const { outputPath, errors: writeErrors } = await index.writeFiles({
           outputPath: path.join(outDir, "pagefind"),
         });
+
         if (writeErrors.length) {
           logger.error("Pagefind failed to write index");
           writeErrors.forEach(logger.error);
+
           return;
         }
+
         logger.info(`Pagefind wrote index to ${outputPath}`);
       },
     },

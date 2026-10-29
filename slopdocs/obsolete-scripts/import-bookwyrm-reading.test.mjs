@@ -23,6 +23,7 @@ function readthrough({
 
 function book(id, shelf, readthroughs, overrides = {}) {
   const { authors, edition: editionOverrides, ...remaining } = overrides;
+
   return {
     edition: {
       id: `https://bookwyrm.social/book/${id}`,
@@ -60,6 +61,7 @@ function exportData(...books) {
 
 test("imports all reading shelves and projects BookWyrm read-through timestamps", async () => {
   const destination = await mkdtemp(join(tmpdir(), "bookwyrm-import-"));
+
   try {
     const result = await importReadingCatalog({
       destination,
@@ -93,10 +95,12 @@ test("imports all reading shelves and projects BookWyrm read-through timestamps"
       count: 4,
       shelves: { read: 2, reading: 1, "stopped-reading": 1 },
     });
+
     const current = await readFile(
       join(destination, "current", "index.mdx"),
       "utf8",
     );
+
     assert.match(current, /bookAuthors:\n {2}- "Ada Lovelace"\n/);
     assert.doesNotMatch(current, /bookwyrm\.social\/author/);
     assert.match(current, /readingStartedAt: "2026-03-04T00:00:00Z"/);
@@ -112,6 +116,7 @@ test("imports all reading shelves and projects BookWyrm read-through timestamps"
       join(destination, "stopped", "index.mdx"),
       "utf8",
     );
+
     assert.match(stopped, /readingShelf: stopped-reading/);
     assert.match(stopped, /readingStoppedAt: "2026-02-05T00:00:00Z"/);
     assert.match(stopped, /readingLastReadAt: "2026-02-05T00:00:00Z"/);
@@ -152,6 +157,7 @@ test("uses firstPublishedDate when publishedDate is absent", () => {
       },
     ),
   );
+
   assert.equal(projected.bookPublishedYear, 1987);
 });
 
@@ -184,6 +190,7 @@ test("renders empty authors and omits unavailable cover metadata", () => {
       },
     ),
   );
+
   const mdx = renderMdx(projected);
   assert.match(mdx, /bookAuthors: \[\]\n/);
   assert.doesNotMatch(mdx, /bookCover:/);
@@ -240,6 +247,7 @@ test("refuses to overwrite a populated destination unless forced", async () => {
       throw new Error("should not write");
     },
   };
+
   await assert.rejects(
     importReadingCatalog({
       exportData: exportData(

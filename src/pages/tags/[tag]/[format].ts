@@ -1,10 +1,5 @@
 import { SITE_TITLE, WEEKNOTES_LEGACY_CUTOFF } from "../../../consts";
-import {
-  FEED_FORMATS,
-  FEED_SERIALIZERS,
-  type FeedFormat,
-  buildFeedFromSources,
-} from "../../../lib/feed";
+import { FEED_FORMATS, FEED_SERIALIZERS, buildFeedFromSources } from "../../../lib/feed";
 import { filterDrafts, getContentCacheKey, slugify } from "../../../utils";
 import type { APIContext } from "astro";
 import { getCollection } from "astro:content";
@@ -32,6 +27,7 @@ export async function getStaticPaths() {
     const filteredPosts = posts.filter((e) => e.data.tags.map(slugify).includes(slug));
     const filteredNotes = notes.filter((e) => e.data.tags.map(slugify).includes(slug));
     const filteredWeeknotes = weeknotes.filter((e) => e.data.tags.map(slugify).includes(slug));
+
     return FEED_FORMATS.map((format) => ({
       params: { tag: slug, format },
       cacheKey: `${name}:${format}:${getContentCacheKey([
@@ -51,13 +47,20 @@ export async function getStaticPaths() {
 
 export async function GET(context: APIContext) {
   const { tag, format } = context.params;
+
   if (!tag || !format) return new Response("Bad Request", { status: 400 });
+
+  // SAFETY: Astro attaches these props from the matching getStaticPaths entry for this prerendered route.
   const { tagName, filteredPosts, filteredNotes, filteredWeeknotes } =
     context.props as TagFeedProps;
+
   if (!tagName) return new Response("Internal Error", { status: 500 });
 
-  const serializer = FEED_SERIALIZERS[format as FeedFormat];
-  if (!serializer) return new Response("Not Found", { status: 404 });
+  const feedFormat = FEED_FORMATS.find((candidate) => candidate === format);
+
+  if (!feedFormat) return new Response("Not Found", { status: 404 });
+
+  const serializer = FEED_SERIALIZERS[feedFormat];
 
   return buildFeedFromSources({
     context,

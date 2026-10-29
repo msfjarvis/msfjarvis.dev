@@ -91,6 +91,7 @@ function migrateContentType(contentType) {
 
     // Move associated images from slug-specific folder
     const imageSourceDir = path.join(imagesTypeDir, slug);
+
     if (fs.existsSync(imageSourceDir)) {
       const images = fs.readdirSync(imageSourceDir);
       images.forEach((img) => {
@@ -105,6 +106,7 @@ function migrateContentType(contentType) {
     genericMatches.forEach((match) => {
       const imageName = match[1]; // Group 1, not 2
       const imagePath = path.join(imagesTypeDir, imageName);
+
       if (fs.existsSync(imagePath)) {
         const dest = path.join(bundleDir, imageName);
         fs.copyFileSync(imagePath, dest);
@@ -127,6 +129,7 @@ function removeOldImageDir() {
     const items = fs.readdirSync(dir);
     items.forEach((item) => {
       const itemPath = path.join(dir, item);
+
       if (fs.statSync(itemPath).isDirectory()) {
         removeEmptyDirs(itemPath);
       }

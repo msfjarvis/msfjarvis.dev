@@ -40,6 +40,7 @@ export default function opengraphImages({
 
   async function renderPng({ page, html, dir }: { page: Page; html: string; dir: URL }) {
     const pageDetails = parseOpenGraphPage(html);
+
     const renderInput: OpenGraphRenderInput = {
       ...page,
       ...pageDetails,
@@ -48,16 +49,19 @@ export default function opengraphImages({
 
     if (filter) {
       const shouldRender = await filter(renderInput);
+
       if (!shouldRender) {
         return undefined;
       }
     }
 
     const reactNode = await render(renderInput);
+
     const svg = await satori(reactNode, {
       ...optionsWithDefaults,
       fonts: optionsWithDefaults.fonts ?? [],
     });
+
     const resvg = new Resvg(svg, {
       font: { loadSystemFonts: false },
       fitTo: { mode: "width", value: optionsWithDefaults.width },
@@ -84,6 +88,7 @@ export default function opengraphImages({
                   server.middlewares.use(async (req, res, next) => {
                     if (req.method !== "GET" && req.method !== "HEAD") {
                       next();
+
                       return;
                     }
 
@@ -91,21 +96,27 @@ export default function opengraphImages({
                     const imageUrl = new URL(req.url ?? "/", origin);
                     const devServerUrl = server.resolvedUrls?.local[0] ?? imageUrl.origin;
                     const pageUrlPathname = getPagePathname(imageUrl.pathname);
+
                     if (!pageUrlPathname) {
                       next();
+
                       return;
                     }
 
                     const pathname = pageUrlPathname.slice(1);
+
                     if (matchPathname && !matchPathname(pathname)) {
                       next();
+
                       return;
                     }
 
                     try {
                       const pageResponse = await fetch(new URL(pageUrlPathname, devServerUrl));
+
                       if (!pageResponse.ok) {
                         next();
+
                         return;
                       }
 
@@ -114,8 +125,10 @@ export default function opengraphImages({
                         html: await pageResponse.text(),
                         dir: pathToFileURL(`${server.config.root}${path.sep}`),
                       });
+
                       if (!rendered) {
                         next();
+
                         return;
                       }
 
@@ -146,6 +159,7 @@ export default function opengraphImages({
               if (optionsWithDefaults.verbose) {
                 logger.info(`Skipping page ${page.pathname}.`);
               }
+
               return;
             }
 
@@ -153,15 +167,18 @@ export default function opengraphImages({
               dir: fileURLToPath(dir),
               page: page.pathname,
             });
+
             const rendered = await renderPng({
               page,
               html: await fs.readFile(htmlFile, "utf8"),
               dir,
             });
+
             if (!rendered) {
               if (optionsWithDefaults.verbose) {
                 logger.info(`Skipping page ${page.pathname}.`);
               }
+
               return;
             }
 
@@ -171,9 +188,11 @@ export default function opengraphImages({
             const relativePngFile = path
               .relative(fileURLToPath(dir), pngFile)
               .replaceAll("\\", "/");
+
             const imageUrl = decodeURIComponent(
               new URL(rendered.pageDetails.image).pathname.slice(1),
             );
+
             if (imageUrl !== relativePngFile) {
               throw new Error(
                 `The og:image property in ${htmlFile} (${imageUrl}) does not match the generated image (${relativePngFile}).`,

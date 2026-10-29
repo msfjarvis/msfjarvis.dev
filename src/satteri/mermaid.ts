@@ -14,6 +14,7 @@ export const mermaidDiagrams = defineMdastPlugin({
       idPrefix: `mermaid-${++diagramIndex}`,
       responsive: true,
     });
+
     const htmlSvg = svg.replace(' xmlns="http://www.w3.org/2000/svg"', "");
     context.replaceNode(node, {
       type: "html",

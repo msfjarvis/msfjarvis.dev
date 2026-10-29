@@ -10,6 +10,7 @@ import test from "node:test";
 
 const svg =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><rect fill="var(--pele-bg)" stroke="var(--pele-accent)" width="100" height="40"/></svg>';
+
 const dataUrl = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 const publicSiteUrl = "https://msfjarvis.dev";
 
@@ -17,6 +18,7 @@ test("normalizes Mermaid namespaces to exactly one SVG namespace", () => {
   const normalized = addMermaidSvgNamespace(
     '<svg xmlns="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"><g/></svg>',
   );
+
   assert.equal(
     (normalized.match(/\sxmlns=/g) ?? []).length,
     1,
@@ -30,6 +32,7 @@ test("externalizes parsed SVGs with a background and absolute public URLs", asyn
   const clientDir = path.join(root, "client");
   const publicDir = path.join(root, "public");
   const unrelatedAsset = path.join(publicDir, "diagrams", "keep.svg");
+
   try {
     await mkdir(path.join(clientDir, "tags", "topic"), { recursive: true });
     await mkdir(path.dirname(unrelatedAsset), { recursive: true });
@@ -84,6 +87,7 @@ test("externalizes parsed SVGs with a background and absolute public URLs", asyn
 test("uses the configured draft origin for draft feed URLs", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "feed-mermaid-drafts-"));
   const draftSiteUrl = "https://drafts.msfjarvis.dev";
+
   try {
     await writeFile(
       path.join(root, "feed.json"),

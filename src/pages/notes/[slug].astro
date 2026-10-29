@@ -7,6 +7,7 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const notes = await getCollection("notes", filterDrafts);
+
   return notes.map((note) => ({
     params: { slug: note.id },
     props: { entry: note },

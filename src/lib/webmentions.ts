@@ -37,11 +37,14 @@ export function buildManifestEntry(
   input: BuildManifestEntryInput,
 ): WebmentionsManifestEntry | null {
   const { collection, id, data, siteUrl, workersCi } = input;
+
   if (!(data.lastmod instanceof Date) || Number.isNaN(data.lastmod.valueOf())) {
     if (workersCi) return null;
     throw new Error(`Missing or invalid lastmod for ${collection}/${id}`);
   }
+
   const urlPath = `${collection}/${id}/`;
+
   return {
     url: new URL(urlPath, `${siteUrl}/`).toString(),
     lastmod: data.lastmod.toISOString(),
@@ -61,20 +64,37 @@ export function buildManifest(input: {
   };
 }
 
-export function parseManifest(value: unknown): WebmentionsManifest {
-  if (!value || typeof value !== "object") throw new Error("Invalid webmentions manifest");
-  const manifest = value as WebmentionsManifest;
-  if (!Array.isArray(manifest.entries)) throw new Error("Invalid webmentions manifest entries");
+interface ManifestRecord {
+  schemaVersion?: unknown;
+  siteOrigin?: unknown;
+  generatedAt?: unknown;
+  entries?: unknown;
+  url?: unknown;
+  lastmod?: unknown;
+}
 
-  if (manifest.schemaVersion !== 2)
-    throw new Error("Unsupported webmentions manifest schemaVersion");
-  for (const entry of manifest.entries) {
-    if (!entry || typeof entry !== "object") throw new Error("Invalid webmentions manifest entry");
-    if (typeof entry.url !== "string" || typeof entry.lastmod !== "string") {
-      throw new Error("Invalid webmentions manifest entry shape");
-    }
+function isRecord(value: unknown): value is ManifestRecord {
+  return value instanceof Object;
+}
+
+function isString(value: unknown): value is string {
+  try {
+    return String.prototype.valueOf.call(value) === value;
+  } catch {
+    return false;
   }
-  return manifest as WebmentionsManifest;
+}
+
+export function isWebmentionsManifest(value: unknown): value is WebmentionsManifest {
+  if (!isRecord(value) || value.schemaVersion !== 2) return false;
+
+  if (!isString(value.siteOrigin) || !isString(value.generatedAt)) return false;
+
+  if (!Array.isArray(value.entries)) return false;
+
+  return value.entries.every(
+    (entry) => isRecord(entry) && isString(entry.url) && isString(entry.lastmod),
+  );
 }
 
 export function diffManifests(
@@ -90,6 +110,7 @@ export function diffManifests(
       events.push({ pageUrl: url, reason: "delete" });
       continue;
     }
+
     if (nextMap.get(url) !== lastmod) {
       events.push({ pageUrl: url, reason: "update" });
     }
@@ -108,17 +129,21 @@ export function diffManifests(
 
 export function formatSendSummary(results: WebmentionSendResult[]): string {
   const headers = ["pageUrl", "reason", "result", "detail"] as const;
+
   const rows = results.map((result) => ({
     pageUrl: result.pageUrl,
     reason: result.reason,
     result: result.ok ? "success" : "failed",
     detail: result.status === null ? result.detail : `${result.status} ${result.detail}`.trim(),
   }));
+
   const widths = headers.map((header) =>
     Math.max(header.length, ...rows.map((row) => row[header].length)),
   );
+
   const pad = (value: string, index: number) => value.padEnd(widths[index]);
   const render = (values: string[]) => values.map(pad).join(" | ");
+
   return [
     render(headers.map(String)),
     widths.map((width) => "-".repeat(width)).join("-|-"),
@@ -133,6 +158,7 @@ export async function sendEvents(input: {
   fetchImpl?: typeof fetch;
 }): Promise<WebmentionSendResult[]> {
   const fetchImpl = input.fetchImpl ?? fetch;
+
   return Promise.all(
     input.events.map(async (event) => {
       try {
@@ -144,7 +170,9 @@ export async function sendEvents(input: {
           },
           body: JSON.stringify(event),
         });
+
         const detail = response.statusText || (response.ok ? "OK" : "Request failed");
+
         return {
           pageUrl: event.pageUrl,
           reason: event.reason,

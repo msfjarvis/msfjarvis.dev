@@ -24,6 +24,7 @@ function generateImageImports(imageDir) {
 
   if (imageFiles.length === 0) {
     console.log("No images found in directory");
+
     return;
   }
 

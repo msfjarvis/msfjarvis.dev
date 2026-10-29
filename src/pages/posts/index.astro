@@ -8,8 +8,11 @@ import { filterDrafts } from "../../utils";
 export const prerender = true;
 
 const posts = await getCollection("posts", filterDrafts);
+
 posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
 const groupedPosts = new Map<number, typeof posts>();
+
 posts.forEach((post) => {
   const year = post.data.date.getFullYear();
   const updated = groupedPosts.get(year) ?? [];

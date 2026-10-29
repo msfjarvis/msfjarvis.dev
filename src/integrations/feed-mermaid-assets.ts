@@ -15,6 +15,7 @@ export default function feedMermaidAssets(options: {
           options.publicDir,
           options.siteUrl,
         );
+
         logger.info(`Externalized ${count} Mermaid feed SVG assets`);
       },
     },

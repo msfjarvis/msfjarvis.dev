@@ -11,9 +11,11 @@ export function restoreFootnotesForFeeds(html: string): string {
   $("a[data-footnote-ref]").attr("aria-describedby", "footnote-label");
   $("template[data-footnotes-fallback]").each((_, template) => {
     const fallbackHtml = $(template).html();
+
     if (fallbackHtml) $(template).replaceWith(fallbackHtml);
     else $(template).remove();
   });
+
   return $("body").html() ?? html;
 }
 
@@ -27,18 +29,23 @@ export function simplifyCodeBlocksForFeeds(html: string): string {
   const $ = load(html);
   $(".expressive-code pre[data-language]").each((_, pre) => {
     const $pre = $(pre);
+
     const code = $pre
       .find(".ec-line")
       .map((_, line) => $(line).text())
       .get()
       .join("\n");
+
     const language = $pre.attr("data-language");
     const $code = $("<code>").text(code);
+
     if (language) $code.addClass(`language-${language}`);
     const $plainPre = $("<pre>").append($code);
     const $container = $pre.closest(".expressive-code");
+
     if ($container.length > 0) $container.replaceWith($plainPre);
     else $pre.replaceWith($plainPre);
   });
+
   return $("body").html() ?? html;
 }

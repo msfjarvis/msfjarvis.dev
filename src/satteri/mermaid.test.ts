@@ -31,6 +31,7 @@ test("renders Mermaid fences to responsive Pele SVG", () => {
     html.match(/<svg[^>]*>[\s\S]*?<\/svg>/)?.[0] ?? "",
     "dark",
   );
+
   assert.match(standaloneSvg, /fill="#dddddd"/);
   assert.doesNotMatch(
     standaloneSvg,
@@ -52,9 +53,11 @@ test("generates light and dark site tokens with the existing system-theme query"
   for (const [token, value] of Object.entries(sitePalette.light)) {
     assert.ok(css.includes(`--${token}: ${value};`));
   }
+
   for (const [token, value] of Object.entries(sitePalette.dark)) {
     assert.ok(css.includes(`--${token}: ${value};`));
   }
+
   assert.match(css, /^:root \{/);
   assert.match(css, /@media \(prefers-color-scheme: dark\)/);
   assert.equal((css.match(/@media/g) ?? []).length, 1);
@@ -75,6 +78,7 @@ test("uses the site palette for browser and standalone Mermaid colors", () => {
   const svg = concretizeMermaidSvgForFeeds(
     '<svg><rect fill="var(--pele-bg)" stroke="var(--pele-surface-alt)"/><text fill="var(--pele-fg)">label</text></svg>',
   );
+
   assert.equal(
     svg,
     '<svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#ffffff"/><rect fill="#ffffff" stroke="#e0c8db"/><text fill="#111111">label</text></svg>',
@@ -85,6 +89,7 @@ test("resolves nested CSS variable fallbacks", () => {
   const svg = concretizeMermaidSvgForFeeds(
     '<svg><rect fill="var(--unknown, var(--pele-accent, red))"/></svg>',
   );
+
   assert.ok(svg.includes(`fill="${feedSitePalette.accent}"`));
   assert.doesNotMatch(svg, /var\(/);
 });

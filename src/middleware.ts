@@ -32,6 +32,7 @@ export const onRequest = defineMiddleware((context, next) => {
           redirectUrl = `${MY_GITHUB}/${urlParts[1]}/issues/${urlParts[3]}`;
           break;
       }
+
       break;
     case "aps":
       switch (urlParts.length) {
@@ -45,6 +46,7 @@ export const onRequest = defineMiddleware((context, next) => {
           redirectUrl = `${APS_GITHUB_URL}/issues/${urlParts[2]}`;
           break;
       }
+
       break;
     case "apsg":
       switch (urlParts.length) {
@@ -61,6 +63,7 @@ export const onRequest = defineMiddleware((context, next) => {
           redirectUrl = `${GITHUB_URL}/${APS_SLUG}/${urlParts[1]}/issues/${urlParts[3]}`;
           break;
       }
+
       break;
   }
 

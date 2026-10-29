@@ -38,6 +38,7 @@
   function readItem(link) {
     var img = link.querySelector("img");
     var title = link.getAttribute("data-title") || "";
+
     return {
       src: link.getAttribute("href") || link.getAttribute("data-photo") || "",
       title: title,
@@ -116,6 +117,7 @@
     /* Arrow keys only while the dialog owns focus; Escape is native. */
     dialog.addEventListener("keydown", function (event) {
       if (items.length < 2) return;
+
       if (event.key === "ArrowLeft") {
         event.preventDefault();
         step(-1);
@@ -127,14 +129,14 @@
 
     dialog.addEventListener("close", function () {
       document.body.style.overflow = savedOverflow;
-      if (lastFocus && typeof lastFocus.focus === "function") {
-        lastFocus.focus({ preventScroll: true });
-      }
+
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
     });
   }
 
   function render() {
     var link = items[index];
+
     if (!link) return;
     var item = readItem(link);
     imgEl.src = item.src;
@@ -149,6 +151,7 @@
     prevBtn.hidden = !multiple;
     nextBtn.hidden = !multiple;
     countEl.hidden = !multiple;
+
     if (multiple) countEl.textContent = index + 1 + " / " + items.length;
   }
 
@@ -164,6 +167,7 @@
     /* Snapshot the currently relevant links, in document order. */
     items = all("[data-photo]");
     index = items.indexOf(link);
+
     if (index < 0) index = 0;
 
     lastFocus = link;
@@ -172,23 +176,28 @@
 
     render();
 
-    if (typeof dialog.showModal === "function") {
+    if ("showModal" in dialog) {
       dialog.showModal();
     } else {
       dialog.setAttribute("open", "");
     }
+
     closeBtn.focus();
   }
 
   function close() {
     if (!dialog) return;
-    if (typeof dialog.close === "function" && dialog.open) {
+
+    if ("close" in dialog && dialog.open) {
       dialog.close();
+
       return;
     }
+
     dialog.removeAttribute("open");
     document.body.style.overflow = savedOverflow;
-    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+
+    if (lastFocus) lastFocus.focus();
   }
 
   function buildPicker() {
@@ -211,6 +220,7 @@
       link.href = entry.file;
       link.textContent = entry.label;
       var isCurrent = entry.id === null ? !current : entry.id === current;
+
       if (isCurrent) link.setAttribute("aria-current", "page");
       nav.appendChild(link);
     });
@@ -225,11 +235,13 @@
     /* Delegated so links replaced or rewritten later are still picked up. */
     document.addEventListener("click", function (event) {
       if (event.defaultPrevented) return;
+
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
         return;
 
       var target = event.target;
       var link = target && target.closest ? target.closest("[data-photo]") : null;
+
       if (!link || !document.documentElement.contains(link)) return;
 
       event.preventDefault();

@@ -16,6 +16,7 @@ const metadata = (overrides: Record<string, string> = {}) => {
     description: "Description",
     ...overrides,
   };
+
   return Object.entries(values)
     .map(
       ([name, content]) =>
@@ -84,6 +85,7 @@ test("decodes HTML entities in metadata and marker attributes", () => {
   const result = parseOpenGraphPage(
     '<meta property="og:title" content="Fish &amp; Chips &quot;Today&quot;"><meta property="og:url" content="https://example.test/?a=1&amp;b=2"><meta property="og:type" content="article"><meta property="og:image" content="https://example.test/image.png"><span data-og-date="2026-06-01&amp;tz=UTC" data-og-collection="posts"></span>',
   );
+
   assert.equal(result.title, 'Fish & Chips "Today"');
   assert.equal(result.url, "https://example.test/?a=1&b=2");
   assert.equal(result.date, "2026-06-01&tz=UTC");
@@ -93,6 +95,7 @@ test("ignores metadata-looking text in script and style without executing it", (
   const result = parseOpenGraphPage(
     `<html><head>${metadata({ title: "Real title" })}<style>meta[property="og:title"] { color: red }</style><script>globalThis.ogParserExecuted = true; const fake = '<meta property="og:title" content="Fake">';</script></head><body></body></html>`,
   );
+
   assert.equal(result.title, "Real title");
   assert.equal("ogParserExecuted" in globalThis, false);
 });
@@ -119,6 +122,7 @@ test("maps directory, file, and error page URLs to generated image URLs", () => 
 
 test("maps the root and every supported collection directory", () => {
   const site = new URL("https://example.test/");
+
   for (const pathname of ["/", "/posts/foo/", "/notes/foo/", "/weeknotes/foo/"]) {
     assert.equal(
       getImagePath({
@@ -135,6 +139,7 @@ test("preserves URL encoding and the origin of the supplied draft site", () => {
     url: new URL("http://localhost:4321/posts/café/"),
     site: new URL("https://drafts.example.test/"),
   });
+
   assert.equal(image.origin, "https://drafts.example.test");
   assert.equal(image.pathname, "/posts/caf%C3%A9/index.png");
 });

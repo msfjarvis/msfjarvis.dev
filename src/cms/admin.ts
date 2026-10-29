@@ -3,43 +3,60 @@ import {
   createOpenLibraryBookField,
 } from "../lib/cms/open-library-book-field";
 import { openLibraryBookMetadataFields } from "../lib/cms/open-library-book-fields";
-import { applyImportedBook, isImportedBook } from "../lib/cms/open-library-book-import";
+import {
+  type CmsData,
+  type CmsValue,
+  applyImportedBook,
+  isImportedBook,
+} from "../lib/cms/open-library-book-import";
 import { formatReelMdx, parseReelMdx } from "../lib/cms/reel-format";
 import { deriveWeeknoteMetadata } from "../lib/weeknote-metadata";
 import CMS, { type CmsConfig } from "@sveltia/cms";
+import { z } from "astro/zod";
+
+declare global {
+  interface Window extends CmsReactRuntime {}
+}
 
 // ─── Tombstone hook ───────────────────────────────────────────────────────
 
-function normalizeBlogEntryForSave(entry: {
-  collection: string;
-  data: Record<string, unknown>;
-}): typeof entry {
+function normalizeBlogEntryForSave(entry: { collection: string; data: CmsData }): typeof entry {
   const data = structuredClone(entry.data ?? {});
+
   if (entry.collection !== "pages" && entry.collection !== "books" && !data.deleted) {
     data.deleted = false;
   }
+
   return { ...entry, data };
 }
 
-function expandImportedBook(data: Record<string, unknown>): Record<string, unknown> {
+function expandImportedBook(data: CmsData): CmsData {
   const { bookImport, ...bookData } = data;
+
   return isImportedBook(bookImport) ? applyImportedBook(data, bookImport) : bookData;
 }
 
-function presentTimestamp(value: unknown): string | undefined {
-  return typeof value === "string" && value.trim() ? value : undefined;
+function presentTimestamp(value: CmsValue | undefined): string | undefined {
+  const parsed = z.string().safeParse(value);
+
+  return parsed.success && parsed.data.trim() ? parsed.data : undefined;
 }
 
-function normalizeBookForSave(data: Record<string, unknown>): Record<string, unknown> {
+function normalizeBookForSave(data: CmsData): CmsData {
   const normalized = structuredClone(data);
+
   if (normalized.bookAuthors === undefined) normalized.bookAuthors = [];
   const finishedAt = presentTimestamp(normalized.readingFinishedAt);
   const stoppedAt = presentTimestamp(normalized.readingStoppedAt);
+
   if (finishedAt && stoppedAt) {
     throw new Error("A book cannot be both finished and stopped.");
   }
+
   const lastReadAt = finishedAt ?? stoppedAt ?? presentTimestamp(normalized.readingStartedAt);
+
   if (lastReadAt) normalized.readingLastReadAt = lastReadAt;
+
   return normalized;
 }
 
@@ -47,22 +64,27 @@ CMS.registerEventListener({
   name: "preSave",
   handler: ({ entry }) => {
     const plain = entry.toJS();
+
     const data =
       plain.collection === "books"
         ? normalizeBookForSave(expandImportedBook(plain.data))
         : plain.data;
+
     if (plain.collection === "books" && !plain.path && !String(data.bookTitle ?? "").trim()) {
       throw new Error("New books require a title.");
     }
+
     const normalized = normalizeBlogEntryForSave({
       collection: plain.collection,
       data,
     });
+
     return entry.set("data", entry.get("data").clear().merge(normalized.data));
   },
 });
 
-const cmsReact = window as typeof window & CmsReactRuntime;
+const cmsReact: CmsReactRuntime = window;
+
 CMS.registerFieldType("open-library-book", createOpenLibraryBookField(cmsReact));
 
 // ─── Reel format ──────────────────────────────────────────────────────────
@@ -80,25 +102,23 @@ CMS.registerCustomFormat("reel-mdx", "mdx", {
 const FIGURE_MDX_PATTERN = /^<Figure\s+([\s\S]+?)\s*\/>\s*$/;
 const ATTR_PATTERN = /(\w+)="((?:\\.|[^"\\])*)"/g;
 
-function escapeAttr(value: unknown): string {
-  return String(value ?? "")
-    .replace(/\\/g, "\\\\")
-    .replace(/"/g, '\\"');
+function escapeAttr(value: string): string {
+  return value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
 
-function unescapeAttr(value: unknown): string {
-  return String(value ?? "")
-    .replace(/\\"/g, '"')
-    .replace(/\\\\/g, "\\");
+function unescapeAttr(value: string): string {
+  return value.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
 }
 
-function parseAttrs(str: string): Record<string, string> {
-  const attrs: Record<string, string> = {};
+function parseAttrs(str: string) {
+  const attrs = new Map<string, string>();
   ATTR_PATTERN.lastIndex = 0;
   let m: RegExpExecArray | null;
+
   while ((m = ATTR_PATTERN.exec(str)) !== null) {
-    attrs[m[1]] = unescapeAttr(m[2]);
+    attrs.set(m[1], unescapeAttr(m[2]));
   }
+
   return attrs;
 }
 
@@ -118,20 +138,25 @@ CMS.registerEditorComponent({
   pattern: FIGURE_MDX_PATTERN,
   fromBlock(match: RegExpMatchArray) {
     const attrs = parseAttrs(match[1] ?? "");
+
     return {
-      src: attrs.src,
-      alt: attrs.alt ?? "",
-      title: attrs.title ?? "",
+      src: attrs.get("src"),
+      alt: attrs.get("alt") ?? "",
+      title: attrs.get("title") ?? "",
     };
   },
   toBlock(data: Record<string, string>) {
     const parts = [`src="${escapeAttr(data.src)}"`];
+
     if (data.alt) parts.push(`alt="${escapeAttr(data.alt)}"`);
+
     if (data.title) parts.push(`title="${escapeAttr(data.title)}"`);
+
     return `<Figure ${parts.join(" ")} />`;
   },
   toPreview(data: Record<string, string>) {
     const img = `<img src="${data.src}" alt="${data.alt ?? ""}">`;
+
     return data.title
       ? `<figure>${img}<figcaption>${data.title}</figcaption></figure>`
       : `<figure>${img}</figure>`;

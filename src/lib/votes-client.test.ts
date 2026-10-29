@@ -1,4 +1,5 @@
 import { VoteApiError, fetchVoteSummary, parseVoteSummary, submitVote } from "./votes-client.ts";
+import type { JsonValue } from "./votes.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -58,15 +59,19 @@ test("parses a poll summary and preserves configured response values", () => {
 test("serializes summary requests through a global queue", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
+  // SAFETY: this test accesses only its own symbol-keyed queue slot on the shared global.
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, Promise<void> | undefined>;
   delete sharedGlobal[queueKey];
 
   let resolveFirst: ((response: Response) => void) | undefined;
   const firstResponse = new Promise<Response>((resolve) => (resolveFirst = resolve));
   const requestedUrls: string[] = [];
+  // SAFETY: the mock accepts fetch's input shape and resolves only Response values.
   globalThis.fetch = (async (input) => {
     requestedUrls.push(String(input));
+
     if (requestedUrls.length === 1) return firstResponse;
+
     return jsonResponse({
       type: "upvote",
       postId: "posts/second",
@@ -101,13 +106,17 @@ test("serializes summary requests through a global queue", async () => {
 test("releases the summary queue after request errors", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
+  // SAFETY: this test accesses only its own symbol-keyed queue slot on the shared global.
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, Promise<void> | undefined>;
   delete sharedGlobal[queueKey];
 
   let requestCount = 0;
+  // SAFETY: the mock accepts fetch's input shape and resolves only Response values.
   globalThis.fetch = (async () => {
     requestCount += 1;
+
     if (requestCount === 1) throw new Error("network unavailable");
+
     return jsonResponse({
       type: "upvote",
       postId: "posts/second",
@@ -137,13 +146,17 @@ test("releases the summary queue after request errors", async () => {
 test("releases the summary queue after API errors", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
+  // SAFETY: this test accesses only its own symbol-keyed queue slot on the shared global.
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, Promise<void> | undefined>;
   delete sharedGlobal[queueKey];
 
   let requestCount = 0;
+  // SAFETY: the mock accepts fetch's input shape and resolves only Response values.
   globalThis.fetch = (async () => {
     requestCount += 1;
+
     if (requestCount === 1) return jsonResponse({ error: "temporarily unavailable" }, 503);
+
     return jsonResponse({
       type: "upvote",
       postId: "posts/second",
@@ -168,16 +181,20 @@ test("releases the summary queue after API errors", async () => {
 test("does not queue vote mutations behind summary requests", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
+  // SAFETY: this test accesses only its own symbol-keyed queue slot on the shared global.
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, Promise<void> | undefined>;
   delete sharedGlobal[queueKey];
 
   let resolveSummary: ((response: Response) => void) | undefined;
   const summaryResponse = new Promise<Response>((resolve) => (resolveSummary = resolve));
   const methods: string[] = [];
+  // SAFETY: the mock accepts fetch's input shape and resolves only Response values.
   globalThis.fetch = (async (_input, init) => {
     const method = init?.method ?? "GET";
     methods.push(method);
+
     if (method === "GET") return summaryResponse;
+
     return jsonResponse({
       type: "upvote",
       postId: "posts/hello",
@@ -245,7 +262,7 @@ function flushQueuedRequest(): Promise<void> {
   return new Promise((resolve) => setImmediate(resolve));
 }
 
-function jsonResponse(body: unknown, status = 200): Response {
+function jsonResponse(body: JsonValue, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
     headers: { "Content-Type": "application/json" },

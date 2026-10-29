@@ -1,26 +1,60 @@
 import { type OpenLibraryBook, lookupOpenLibraryBook } from "../open-library-lookup";
 import { isImportedBook } from "./open-library-book-import";
+import type { ReactNode } from "react";
 import type { CustomFieldControl, CustomFieldControlProps } from "@sveltia/cms";
 
-type CmsElement = unknown;
-type H = (
-  type: string,
-  props?: Record<string, unknown> | null,
-  ...children: CmsElement[]
-) => CmsElement;
+type CmsProps = {
+  alt?: string;
+  className?: string;
+  disabled?: boolean;
+  forID?: string;
+  gap?: string;
+  htmlFor?: string;
+  id?: string;
+  margin?: string;
+  marginTop?: string;
+  maxWidth?: string;
+  onChange?: (event: { currentTarget: HTMLInputElement }) => void;
+  onClick?: () => void;
+  role?: string;
+  src?: string;
+  style?: {
+    display?: string;
+    fontWeight?: string;
+    gap?: string;
+    gridTemplateColumns?: string;
+    margin?: string;
+    marginTop?: string;
+    maxWidth?: string;
+  };
+  type?: string;
+  value?: string;
+  placeholder?: string;
+};
+
+type H = (type: string, props?: CmsProps | null, ...children: ReactNode[]) => ReactNode;
+
 type FieldState = {
   book?: OpenLibraryBook;
   error?: string;
   loading: boolean;
   url: string;
 };
+
 type FieldInstance = {
   props: CustomFieldControlProps;
   state: FieldState;
   setState: (state: Partial<FieldState>) => void;
   lookup: () => void;
 };
-type CreateClass = (spec: Record<string, unknown>) => CustomFieldControl;
+
+type CmsClassSpec = {
+  getInitialState(this: FieldInstance): FieldState;
+  lookup(this: FieldInstance): Promise<void>;
+  render(this: FieldInstance): ReactNode;
+};
+
+type CreateClass = (spec: CmsClassSpec) => CustomFieldControl;
 
 export type CmsReactRuntime = { createClass: CreateClass; h: H };
 
@@ -46,6 +80,7 @@ export function createOpenLibraryBookField({
 
     async lookup(this: FieldInstance) {
       this.setState({ error: undefined, loading: true });
+
       try {
         const book = await lookupOpenLibraryBook(this.state.url);
         this.setState({ book });
@@ -62,6 +97,7 @@ export function createOpenLibraryBookField({
     render(this: FieldInstance) {
       const { book, error, loading, url } = this.state;
       const lookupId = `${this.props.forID}-lookup`;
+
       return h(
         "div",
         { className: this.props.classNameWrapper },
@@ -73,10 +109,8 @@ export function createOpenLibraryBookField({
             id: lookupId,
             value: url,
             placeholder: "https://openlibrary.org/works/OL...W",
-            onChange: (event: Event) =>
-              this.setState({
-                url: (event.target as HTMLInputElement).value,
-              }),
+            onChange: (event: { currentTarget: HTMLInputElement }) =>
+              this.setState({ url: event.currentTarget.value }),
           }),
           h(
             "button",
@@ -102,11 +136,12 @@ export function createOpenLibraryBookField({
   });
 }
 
-function bookPreview(h: H, book: OpenLibraryBook): CmsElement {
-  const detail = (label: string, value: CmsElement[]): CmsElement[] => [
+function bookPreview(h: H, book: OpenLibraryBook): ReactNode {
+  const detail = (label: string, value: ReactNode[]): ReactNode[] => [
     h("dt", { style: { fontWeight: "bold" } }, label),
     h("dd", { style: { margin: "0" } }, ...value),
   ];
+
   return h(
     "section",
     {

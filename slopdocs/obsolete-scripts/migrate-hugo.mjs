@@ -58,11 +58,14 @@ const MDX_IMPORTS = {
 function parseHugoFile(raw) {
   // Match opening +++, TOML content, closing +++, then rest of file
   const match = raw.match(/^\+\+\+\r?\n([\s\S]+?)\r?\n\+\+\+\r?\n?([\s\S]*)$/);
+
   if (!match) {
     throw new Error("File does not have TOML frontmatter delimited by +++");
   }
+
   const data = toml.parse(match[1]);
   const body = match[2].trimStart();
+
   return { data, body };
 }
 
@@ -92,11 +95,13 @@ function buildFrontmatter(data, schemaType) {
       data.lastmod instanceof Date
         ? data.lastmod.toISOString()
         : String(data.lastmod);
+
     if (lm !== out.date) out.lastmod = lm;
   }
 
   // summary — from Hugo's summary or description field
   const summary = data.summary || data.description;
+
   if (summary) out.summary = String(summary);
 
   // tags — skip empty arrays
@@ -122,6 +127,7 @@ function buildFrontmatter(data, schemaType) {
   if (schemaType !== "note") {
     if (data.draft === true) out.draft = true;
   }
+
   if (data.deleted === true) out.deleted = true;
 
   return `---\n${yaml.dump(out, { lineWidth: -1 }).trimEnd()}\n---`;
@@ -140,13 +146,16 @@ function parseShortcodeAttrs(attrStr) {
   // Match key="..." or key='...' with backslash-escaped quotes inside
   const re = /(\w+)=(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)')/g;
   let m;
+
   while ((m = re.exec(attrStr)) !== null) {
     const value = (m[2] ?? m[3])
       .replace(/\\"/g, '"')
       .replace(/\\'/g, "'")
       .replace(/\\\\/g, "\\");
+
     attrs[m[1]] = value;
   }
+
   return attrs;
 }
 
@@ -185,6 +194,7 @@ function transformContent(body, slug, collection) {
   // ---- asciinema ID → <Asciinema id="ID" /> ----
   body = body.replace(/\{\{<\s*asciinema\s+(\S+)\s*>\}\}/g, (_, id) => {
     usedComponents.add("Asciinema");
+
     return `<Asciinema id="${id}" />`;
   });
 
@@ -209,10 +219,13 @@ function transformContent(body, slug, collection) {
     const esc = (s) => s.replace(/"/g, "&quot;");
 
     const parts = [`src="${esc(publicSrc)}"`];
+
     if (alt) parts.push(`alt="${esc(alt)}"`);
+
     if (title) parts.push(`title="${esc(title)}"`);
 
     usedComponents.add("Figure");
+
     return `<Figure ${parts.join(" ")} />`;
   });
 
@@ -227,6 +240,7 @@ function transformContent(body, slug, collection) {
   body = body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, target) => {
     const [rawSrc, ...titleParts] = target.split(/\s+(?=")/);
     const title = titleParts.join(" ");
+
     if (
       rawSrc.startsWith("/") ||
       rawSrc.startsWith("http") ||
@@ -234,8 +248,10 @@ function transformContent(body, slug, collection) {
     ) {
       return match; // already absolute or anchor
     }
+
     if (!imageExtRe.test(rawSrc)) return match; // not an image
     const absSrc = `/${collection}/${slug}/${rawSrc}`;
+
     return title ? `![${alt}](${absSrc} ${title})` : `![${alt}](${absSrc})`;
   });
 
@@ -250,7 +266,9 @@ function transformContent(body, slug, collection) {
       ) {
         return match;
       }
+
       if (!imageExtRe.test(target)) return match;
+
       return `${ref}: /${collection}/${slug}/${target}${rest}`;
     },
   );
@@ -275,6 +293,7 @@ function escapeMdxProse(body) {
   // Replace < that isn't the start of a real tag (letter, /, !, ?) with &lt;
   // This catches things like "x < y", "n < 5", etc.
   body = body.replace(/<(?![a-zA-Z/!?])/g, "&lt;");
+
   return body;
 }
 
@@ -310,17 +329,21 @@ function migratePageBundle(
   publicDestDir,
 ) {
   const indexPath = join(srcDir, "index.md");
+
   if (!existsSync(indexPath)) {
     console.warn(`  ⚠ No index.md in ${srcDir} — skipping`);
+
     return;
   }
 
   const raw = readFileSync(indexPath, "utf8");
   let data, body;
+
   try {
     ({ data, body } = parseHugoFile(raw));
   } catch (err) {
     console.warn(`  ⚠ ${srcDir}: ${err.message} — skipping`);
+
     return;
   }
 
@@ -336,12 +359,15 @@ function migratePageBundle(
 
   const frontmatter = buildFrontmatter(data, collection);
   const needsMdx = usedComponents.size > 0;
+
   const processedBody = needsMdx
     ? escapeMdxProse(transformedBody)
     : transformedBody;
+
   const ext = needsMdx ? ".mdx" : ".md";
 
   let output = frontmatter + "\n";
+
   if (needsMdx) {
     output += "\n" + buildImports(usedComponents) + "\n\n" + processedBody;
   } else {
@@ -354,8 +380,10 @@ function migratePageBundle(
 
   // Copy image assets to public/<collection>/<outputSlug>/
   const entries = readdirSync(srcDir);
+
   const images = entries.filter((f) => {
     const fullPath = join(srcDir, f);
+
     return (
       statSync(fullPath).isFile() && IMAGE_EXTS.has(extname(f).toLowerCase())
     );
@@ -364,9 +392,11 @@ function migratePageBundle(
   if (images.length > 0) {
     const publicSlugDir = join(publicDestDir, outputSlug);
     fse.ensureDirSync(publicSlugDir);
+
     for (const img of images) {
       copyFileSync(join(srcDir, img), join(publicSlugDir, img));
     }
+
     console.log(
       `    + ${images.length} image(s) → public/${collection}/${outputSlug}/`,
     );
@@ -379,10 +409,12 @@ function migratePageBundle(
 function migrateNote(srcFile, slug, astroDestDir) {
   const raw = readFileSync(srcFile, "utf8");
   let data, body;
+
   try {
     ({ data, body } = parseHugoFile(raw));
   } catch (err) {
     console.warn(`  ⚠ ${srcFile}: ${err.message} — skipping`);
+
     return;
   }
 
@@ -400,6 +432,7 @@ function migrateNote(srcFile, slug, astroDestDir) {
 
 async function main() {
   const hugoRoot = process.argv[2];
+
   if (!hugoRoot) {
     console.error("Usage: node scripts/migrate-hugo.mjs <path-to-hugo-root>");
     process.exit(1);
@@ -478,6 +511,7 @@ async function main() {
   const noteFiles = readdirSync(hugoNotesDir)
     .filter((name) => {
       const fullPath = join(hugoNotesDir, name);
+
       return (
         statSync(fullPath).isFile() &&
         extname(name) === ".md" &&
@@ -487,6 +521,7 @@ async function main() {
     .sort();
 
   let noteCount = 0;
+
   for (const fileName of noteFiles) {
     const slug = basename(fileName, ".md");
     migrateNote(join(hugoNotesDir, fileName), slug, astroNotesDir);

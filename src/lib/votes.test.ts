@@ -1,4 +1,5 @@
 import {
+  type BallotMetadata,
   type VoteStore,
   VoteValidationError,
   applyRetractionToSummary,
@@ -15,6 +16,7 @@ import test from "node:test";
 
 test("records idempotent upvotes once per voter", async () => {
   const memory = createMemoryStore();
+
   const submission = parseVoteSubmission({
     type: "upvote",
     postId: "hello-world",
@@ -37,6 +39,7 @@ test("records idempotent upvotes once per voter", async () => {
 
 test("aggregates single-choice poll ballots and lets a voter change their choice", async () => {
   const memory = createMemoryStore();
+
   const target = {
     type: "poll" as const,
     postId: "roadmap",
@@ -76,6 +79,7 @@ test("aggregates single-choice poll ballots and lets a voter change their choice
 
 test("counts every selection in multiple-choice ballots", async () => {
   const memory = createMemoryStore(1);
+
   const target = {
     type: "poll" as const,
     postId: "languages",
@@ -121,12 +125,14 @@ test("counts every selection in multiple-choice ballots", async () => {
 
 test("retracts poll ballots", async () => {
   const memory = createMemoryStore();
+
   const target = {
     type: "poll" as const,
     postId: "roadmap",
     pollId: "next-feature",
     mode: "single" as const,
   };
+
   const submission = parseVoteSubmission({
     type: "single",
     postId: target.postId,
@@ -197,6 +203,7 @@ test("updates summaries without reading KV after a committed mutation", () => {
     pollId: "poll",
     choices: ["one", "two"],
   });
+
   const current = {
     type: "poll" as const,
     postId: "post",
@@ -277,11 +284,13 @@ test("validates vote payloads and targets", () => {
   );
 });
 
-function createMemoryStore(pageSize = 1_000): {
+type MemoryStore = {
   store: VoteStore;
   writes: () => number;
-} {
-  const values = new Map<string, unknown>();
+};
+
+function createMemoryStore(pageSize = 1_000): MemoryStore {
+  const values = new Map<string, BallotMetadata>();
   let writeCount = 0;
 
   return {
@@ -301,11 +310,15 @@ function createMemoryStore(pageSize = 1_000): {
         const matching = Array.from(values.entries())
           .filter(([key]) => key.startsWith(prefix))
           .sort(([left], [right]) => left.localeCompare(right));
+
         const start = cursor === undefined ? 0 : Number(cursor);
+
         const entries = matching
           .slice(start, start + pageSize)
           .map(([key, metadata]) => ({ key, metadata }));
+
         const next = start + entries.length;
+
         return {
           entries,
           ...(next < matching.length && { cursor: String(next) }),

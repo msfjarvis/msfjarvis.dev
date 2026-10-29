@@ -1,7 +1,7 @@
 import { feedSitePalette, sitePalette } from "./site-palette.ts";
 
 // Pele-only defaults stay here; site colors come from the shared palette.
-const mermaidFeedColors: Record<string, string> = {
+const mermaidFeedColors = {
   ...feedSitePalette,
   "fg-on-light": feedSitePalette.fg,
   "fg-on-dark": "#ffffff",
@@ -14,7 +14,7 @@ const mermaidFeedColors: Record<string, string> = {
   "series-6": "#eeca3b",
   "series-7": "#b279a2",
   "series-8": "#9d755d",
-};
+} satisfies Record<string, string>;
 
 export function concretizeMermaidSvgForFeeds(
   svgHtml: string,
@@ -34,9 +34,11 @@ export function concretizeMermaidSvgForFeeds(
           border: sitePalette.dark.border,
           accent: sitePalette.dark.accent,
         };
+
   const variables = new Map(
     Object.entries(colors).map(([name, value]) => [`--pele-${name}`, value]),
   );
+
   for (const [, name, value] of svgHtml.matchAll(/(--_[a-z-]+)\s*:\s*([^;"']+)/g)) {
     variables.set(name, value.trim());
   }
@@ -50,6 +52,7 @@ function resolveCssVariables(svg: string, variables: Map<string, string>): strin
 
   while (cursor < svg.length) {
     const start = svg.indexOf("var(", cursor);
+
     if (start === -1) {
       result += svg.slice(cursor);
       break;
@@ -58,11 +61,13 @@ function resolveCssVariables(svg: string, variables: Map<string, string>): strin
     result += svg.slice(cursor, start);
     let end = start + 4;
     let depth = 1;
+
     while (end < svg.length && depth > 0) {
       if (svg[end] === "(") depth++;
       else if (svg[end] === ")") depth--;
       end++;
     }
+
     if (depth !== 0) {
       result += svg.slice(start);
       break;
@@ -71,6 +76,7 @@ function resolveCssVariables(svg: string, variables: Map<string, string>): strin
     const body = svg.slice(start + 4, end - 1);
     let comma = -1;
     let nestedDepth = 0;
+
     for (let index = 0; index < body.length; index++) {
       if (body[index] === "(") nestedDepth++;
       else if (body[index] === ")") nestedDepth--;
@@ -83,9 +89,11 @@ function resolveCssVariables(svg: string, variables: Map<string, string>): strin
     const name = (comma === -1 ? body : body.slice(0, comma)).trim();
     const fallback = comma === -1 ? undefined : body.slice(comma + 1).trim();
     const value = variables.get(name) ?? fallback;
+
     if (value === undefined) {
       throw new Error(`Cannot resolve CSS variable ${name} in standalone Mermaid SVG`);
     }
+
     result += resolveCssVariables(value, variables);
     cursor = end;
   }
@@ -102,7 +110,9 @@ function normalizeFeedSvg(svgHtml: string, background?: string): string {
     const normalizedAttributes = attributes
       .replace(/\s+xmlns=(?:"[^"]*"|'[^']*')/g, "")
       .replace(/\s+/g, " ");
+
     const openingTag = `<svg${normalizedAttributes} xmlns="http://www.w3.org/2000/svg">`;
+
     return background
       ? `${openingTag}<rect width="100%" height="100%" fill="${background}"/>`
       : openingTag;

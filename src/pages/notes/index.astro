@@ -7,8 +7,11 @@ import { filterDrafts } from "../../utils";
 export const prerender = true;
 
 const notes = await getCollection("notes", filterDrafts);
+
 notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
 const groupedNotes = new Map<number, typeof notes>();
+
 notes.forEach((note) => {
   const year = note.data.date.getFullYear();
   const updated = groupedNotes.get(year) ?? [];

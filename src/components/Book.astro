@@ -19,11 +19,15 @@ const {
   bookSeriesNumber,
   bookTitle,
 } = book;
+
 const seriesLabel =
   bookSeries && bookSeriesNumber
     ? `${bookSeries} #${bookSeriesNumber}`
     : bookSeries;
-const coverSource = bookCover as ImageMetadata;
+
+function isImageMetadata(value: string | ImageMetadata): value is ImageMetadata {
+  return value instanceof Object && "src" in value;
+}
 ---
 
 <li class="book">
@@ -32,16 +36,28 @@ const coverSource = bookCover as ImageMetadata;
       <span class="cover-placeholder" aria-hidden="true">
         {bookTitle}
       </span>
-      {bookCover && (
+      {bookCover && isImageMetadata(bookCover) && (
         <Image
           class="cover"
-          src={coverSource}
+          src={bookCover}
           alt={bookCoverAlt || `Cover of ${bookTitle}`}
           width={320}
           height={480}
           densities={[1, 2]}
           format="webp"
           fit="cover"
+          loading="lazy"
+          decoding="async"
+          onerror="this.setAttribute('data-error', '')"
+        />
+      )}
+      {bookCover && !isImageMetadata(bookCover) && (
+        <img
+          class="cover"
+          src={bookCover}
+          alt={bookCoverAlt || `Cover of ${bookTitle}`}
+          width="320"
+          height="480"
           loading="lazy"
           decoding="async"
           onerror="this.setAttribute('data-error', '')"

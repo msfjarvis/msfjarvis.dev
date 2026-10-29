@@ -7,6 +7,7 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const weeknotes = await getCollection("weeknotes", filterDrafts);
+
   return weeknotes.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },

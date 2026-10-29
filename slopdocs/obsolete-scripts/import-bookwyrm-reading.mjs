@@ -4,8 +4,17 @@ import { gunzipSync } from "node:zlib";
 
 const DEFAULT_DESTINATION = "src/content/books";
 const READING_SHELVES = new Set(["read", "reading", "stopped-reading"]);
+
 const BOOKWYRM_COVER_ORIGIN =
   "https://bookwyrm-social.sfo3.digitaloceanspaces.com/";
+
+function parseString(value) {
+  try {
+    return String.prototype.valueOf.call(value);
+  } catch {
+    return undefined;
+  }
+}
 
 function archiveEntryName(buffer, offset) {
   return buffer
@@ -20,38 +29,48 @@ function archiveEntrySize(buffer, offset) {
     .toString("utf8")
     .replace(/\0.*$/, "")
     .trim();
+
   return size ? Number.parseInt(size, 8) : 0;
 }
 
 /** Returns `archive.json` from a BookWyrm account-export tarball. */
 export function extractArchiveJson(archive) {
   const contents = gunzipSync(archive);
+
   for (let offset = 0; offset + 512 <= contents.length;) {
     const name = archiveEntryName(contents, offset);
+
     if (!name) break;
     const size = archiveEntrySize(contents, offset);
+
     if (!Number.isSafeInteger(size) || size < 0)
       throw new Error(`Invalid tar entry size for ${name}`);
     const contentStart = offset + 512;
     const contentEnd = contentStart + size;
+
     if (contentEnd > contents.length)
       throw new Error(`Truncated tar entry: ${name}`);
+
     if (name === "archive.json")
       return contents.subarray(contentStart, contentEnd);
     offset = contentStart + Math.ceil(size / 512) * 512;
   }
+
   throw new Error("BookWyrm account export does not contain archive.json");
 }
 
 export function parseBookwyrmExport(contents) {
   const buffer = Buffer.isBuffer(contents) ? contents : Buffer.from(contents);
   const json = buffer.subarray(0, 1).toString("utf8") === "{";
+
   try {
     const exportData = JSON.parse(
       (json ? buffer : extractArchiveJson(buffer)).toString("utf8"),
     );
+
     if (!Array.isArray(exportData.books))
       throw new Error("archive.json has no books array");
+
     return exportData;
   } catch (error) {
     if (error instanceof SyntaxError)
@@ -70,25 +89,21 @@ export function normalizeTitleSlug(title) {
     .replace(/&/g, "and")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+
   if (!slug)
     throw new Error(
       `Cannot generate a slug for title ${JSON.stringify(title)}`,
     );
+
   return slug;
 }
 
 function displayAuthors(authors) {
   return (Array.isArray(authors) ? authors : [])
-    .map((author) =>
-      typeof author === "string"
-        ? author
-        : typeof author?.name === "string"
-          ? author.name
-          : undefined,
-    )
+    .map((author) => parseString(author) ?? parseString(author?.name))
     .filter(
       (author) =>
-        typeof author === "string" &&
+        author !== undefined &&
         author.length > 0 &&
         !/^https?:\/\//i.test(author),
     );
@@ -97,23 +112,31 @@ function displayAuthors(authors) {
 function yearOf(value) {
   if (!value) return undefined;
   const match = String(value).match(/^(\d{4})/);
+
   return match ? Number(match[1]) : undefined;
 }
 
 function timestamp(value, field) {
   if (value === null || value === undefined || value === "") return undefined;
-  if (typeof value !== "string" || Number.isNaN(Date.parse(value)))
+
+  const parsed = parseString(value);
+
+  if (parsed === undefined || Number.isNaN(Date.parse(parsed)))
     throw new Error(`Invalid BookWyrm ${field}: ${JSON.stringify(value)}`);
-  return value;
+
+  return parsed;
 }
 
 function shelfIdentifier(shelf) {
-  if (!shelf || typeof shelf.id !== "string")
+  const id = parseString(shelf?.id);
+
+  if (id === undefined)
     throw new Error("BookWyrm book has a shelf without an ID");
+
   try {
-    return new URL(shelf.id).pathname.split("/").at(-1);
+    return new URL(id).pathname.split("/").at(-1);
   } catch {
-    throw new Error(`Invalid BookWyrm shelf ID: ${shelf.id}`);
+    throw new Error(`Invalid BookWyrm shelf ID: ${id}`);
   }
 }
 
@@ -121,11 +144,14 @@ export function selectReadingShelf(shelves) {
   const matchingShelves = (Array.isArray(shelves) ? shelves : [])
     .map(shelfIdentifier)
     .filter((shelf) => READING_SHELVES.has(shelf));
+
   if (matchingShelves.length === 0) return undefined;
+
   if (matchingShelves.length > 1)
     throw new Error(
       `BookWyrm book belongs to multiple reading shelves: ${matchingShelves.join(", ")}`,
     );
+
   return matchingShelves[0];
 }
 
@@ -135,10 +161,12 @@ export function selectReadthrough(readthroughs) {
       const startedAt = timestamp(readthrough.start_date, "start_date");
       const finishedAt = timestamp(readthrough.finish_date, "finish_date");
       const stoppedAt = timestamp(readthrough.stopped_date, "stopped_date");
+
       if (finishedAt && stoppedAt)
         throw new Error(
           "BookWyrm read-through has both finish_date and stopped_date",
         );
+
       if (
         startedAt &&
         ((finishedAt && Date.parse(finishedAt) < Date.parse(startedAt)) ||
@@ -146,14 +174,19 @@ export function selectReadthrough(readthroughs) {
       ) {
         throw new Error("BookWyrm read-through ends before it starts");
       }
+
       const lastReadAt = finishedAt ?? stoppedAt ?? startedAt;
+
       if (!lastReadAt)
         throw new Error("BookWyrm read-through has no reading timestamp");
+
       return { startedAt, finishedAt, stoppedAt, lastReadAt };
     },
   );
+
   if (candidates.length === 0)
     throw new Error("BookWyrm book has no read-throughs");
+
   return candidates.sort(
     (left, right) =>
       Date.parse(right.lastReadAt) - Date.parse(left.lastReadAt) ||
@@ -163,20 +196,27 @@ export function selectReadthrough(readthroughs) {
 }
 
 function coverUrl(cover) {
-  if (!cover?.url || typeof cover.url !== "string") return undefined;
-  if (/^https:\/\//i.test(cover.url)) return cover.url;
-  if (cover.url.startsWith("images/"))
-    return new URL(cover.url, BOOKWYRM_COVER_ORIGIN).toString();
+  const url = parseString(cover?.url);
+
+  if (!url) return undefined;
+
+  if (/^https:\/\//i.test(url)) return url;
+
+  if (url.startsWith("images/"))
+    return new URL(url, BOOKWYRM_COVER_ORIGIN).toString();
+
   return undefined;
 }
 
 async function downloadCover(sourceUrl, fetch) {
   if (!sourceUrl) return undefined;
   const response = await fetch(sourceUrl);
+
   if (!response.ok)
     throw new Error(
       `Failed to download cover (${response.status} ${response.statusText}): ${sourceUrl}`,
     );
+
   return {
     filename: `cover${extname(new URL(sourceUrl).pathname)}`,
     contents: Buffer.from(await response.arrayBuffer()),
@@ -186,28 +226,32 @@ async function downloadCover(sourceUrl, fetch) {
 /** Projects one book from BookWyrm's authenticated account export. */
 export function projectBook(source) {
   const edition = source?.edition;
-  if (
-    !edition ||
-    typeof edition.id !== "string" ||
-    typeof edition.title !== "string"
-  ) {
+  const editionId = parseString(edition?.id);
+  const editionTitle = parseString(edition?.title);
+
+  if (editionId === undefined || editionTitle === undefined) {
     throw new Error("BookWyrm export book is missing edition ID or title");
   }
+
   const readingShelf = selectReadingShelf(source.shelves);
+
   if (!readingShelf) return undefined;
 
   const reading = selectReadthrough(source.readthroughs);
+
   if (readingShelf === "read" && !reading.finishedAt)
-    throw new Error(`${edition.title}: read shelf entry has no finish_date`);
+    throw new Error(`${editionTitle}: read shelf entry has no finish_date`);
+
   if (readingShelf === "reading" && (reading.finishedAt || reading.stoppedAt))
-    throw new Error(`${edition.title}: reading shelf entry has ended`);
+    throw new Error(`${editionTitle}: reading shelf entry has ended`);
+
   if (readingShelf === "stopped-reading" && !reading.stoppedAt)
     throw new Error(
-      `${edition.title}: stopped-reading shelf entry has no stopped_date`,
+      `${editionTitle}: stopped-reading shelf entry has no stopped_date`,
     );
 
   const book = {
-    bookTitle: edition.title,
+    bookTitle: editionTitle,
     bookAuthors: displayAuthors(source.authors ?? edition.authors),
     bookCover: undefined,
     bookCoverAlt: undefined,
@@ -220,17 +264,24 @@ export function projectBook(source) {
     readingStoppedAt: reading.stoppedAt,
     readingLastReadAt: reading.lastReadAt,
   };
+
   const bookCover = coverUrl(edition.cover);
+
   if (bookCover) {
     book.bookCover = bookCover;
-    book.bookCoverAlt = edition.cover.name || `Cover of ${edition.title}`;
+    book.bookCoverAlt = parseString(edition.cover.name) || `Cover of ${editionTitle}`;
   }
+
   if (edition.series) book.bookSeries = edition.series;
+
   if (edition.seriesNumber)
     book.bookSeriesNumber = String(edition.seriesNumber);
+
   const publishedYear =
     yearOf(edition.publishedDate) ?? yearOf(edition.firstPublishedDate);
+
   if (publishedYear !== undefined) book.bookPublishedYear = publishedYear;
+
   return book;
 }
 
@@ -240,31 +291,41 @@ function yamlString(value) {
 
 export function renderMdx(book) {
   const lines = ["---", `bookTitle: ${yamlString(book.bookTitle)}`];
+
   if (book.bookAuthors.length) {
     lines.push("bookAuthors:");
+
     for (const author of book.bookAuthors)
       lines.push(`  - ${yamlString(author)}`);
   } else {
     lines.push("bookAuthors: []");
   }
+
   if (book.bookCover !== undefined) {
     lines.push(`bookCover: ${yamlString(book.bookCover)}`);
     lines.push(`bookCoverAlt: ${yamlString(book.bookCoverAlt)}`);
   }
+
   if (book.bookSeries !== undefined)
     lines.push(`bookSeries: ${yamlString(book.bookSeries)}`);
+
   if (book.bookSeriesNumber !== undefined)
     lines.push(`bookSeriesNumber: ${yamlString(book.bookSeriesNumber)}`);
+
   if (book.bookPublishedYear !== undefined)
     lines.push(`bookPublishedYear: ${book.bookPublishedYear}`);
   lines.push(`readingShelf: ${book.readingShelf}`);
+
   if (book.readingStartedAt !== undefined)
     lines.push(`readingStartedAt: ${yamlString(book.readingStartedAt)}`);
+
   if (book.readingFinishedAt !== undefined)
     lines.push(`readingFinishedAt: ${yamlString(book.readingFinishedAt)}`);
+
   if (book.readingStoppedAt !== undefined)
     lines.push(`readingStoppedAt: ${yamlString(book.readingStoppedAt)}`);
   lines.push(`readingLastReadAt: ${yamlString(book.readingLastReadAt)}`, "---");
+
   return `${lines.join("\n")}\n`;
 }
 
@@ -295,25 +356,32 @@ export async function importReadingCatalog({
     throw new Error("Provide a BookWyrm account export with --export");
   const data = exportData ?? parseBookwyrmExport(await fs.readFile(exportPath));
   const sourceIds = new Set();
+
   const books = data.books
     .map((source) => {
       const book = projectBook(source);
+
       if (!book) return undefined;
+
       if (sourceIds.has(source.edition.id))
         throw new Error(`Duplicate BookWyrm source item: ${source.edition.id}`);
       sourceIds.add(source.edition.id);
+
       return book;
     })
     .filter(Boolean)
     .sort(catalogOrder);
 
   const usedSlugs = new Set();
+
   const entries = books.map((book) => {
     const base = normalizeTitleSlug(book.bookTitle);
     let slug = base;
     let suffix = 2;
+
     while (usedSlugs.has(slug)) slug = `${base}-${suffix++}`;
     usedSlugs.add(slug);
+
     return { slug, shelf: book.readingShelf, book };
   });
 
@@ -322,23 +390,29 @@ export async function importReadingCatalog({
       `Refusing to overwrite populated destination: ${destination} (use --force)`,
     );
   }
+
   if (!fetch) throw new Error("No fetch implementation is available");
+
   const entriesWithCovers = await Promise.all(
     entries.map(async (entry) => ({
       ...entry,
       cover: await downloadCover(entry.book.bookCover, fetch),
     })),
   );
+
   await fs.mkdir(destination, { recursive: true });
   let writtenCount = 0;
+
   for (const entry of entriesWithCovers) {
     await fs.mkdir(join(destination, entry.slug), { recursive: true });
+
     if (entry.cover) {
       await fs.writeFile(
         join(destination, entry.slug, entry.cover.filename),
         entry.cover.contents,
       );
     }
+
     await fs.writeFile(
       join(destination, entry.slug, "index.mdx"),
       renderMdx({
@@ -349,8 +423,10 @@ export async function importReadingCatalog({
     );
     writtenCount += 1;
   }
+
   if (writtenCount !== sourceIds.size)
     throw new Error("Written count does not match source count");
+
   return {
     count: entries.length,
     shelves: Object.fromEntries(
@@ -364,14 +440,18 @@ export async function importReadingCatalog({
 
 function parseArgs(args) {
   const options = { destination: DEFAULT_DESTINATION, force: false };
+
   for (let index = 0; index < args.length; index += 1) {
     const arg = args[index];
+
     if (arg === "--") continue;
+
     if (arg === "--force") options.force = true;
     else if (arg === "--export") options.exportPath = args[++index];
     else if (arg === "--output") options.destination = args[++index];
     else throw new Error(`Unknown argument: ${arg}`);
   }
+
   return options;
 }
 

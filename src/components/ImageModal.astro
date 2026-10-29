@@ -15,10 +15,25 @@ type ImageMetadata = {
 };
 
 const { src, srcDark, alt = "", title, small } = Astro.props;
-const image = typeof src === "object" ? src : undefined;
-const imageSrc = typeof src === "object" ? src.src : src;
-const darkImageSrc =
-  typeof srcDark === "object" ? srcDark.src : (srcDark ?? undefined);
+
+function isImageMetadata(
+  source: ImageMetadata | string,
+): source is ImageMetadata {
+  return source instanceof Object && "src" in source;
+}
+
+function imageUrl(source: ImageMetadata | string): string {
+  return isImageMetadata(source) ? source.src : source;
+}
+
+function imageMetadata(source: ImageMetadata | string): ImageMetadata | undefined {
+  return isImageMetadata(source) ? source : undefined;
+}
+
+const image = imageMetadata(src);
+const imageSrc = imageUrl(src);
+const darkImageSrc = srcDark ? imageUrl(srcDark) : undefined;
+
 const imageLabel = alt || title || "Open image in gallery";
 ---
 
@@ -38,7 +53,7 @@ const imageLabel = alt || title || "Open image in gallery";
         {srcDark && (
           <source
             media="(prefers-color-scheme: dark)"
-            srcset={typeof srcDark === "object" ? srcDark.src : srcDark}
+            srcset={srcDark ? imageUrl(srcDark) : undefined}
           />
         )}
         <img

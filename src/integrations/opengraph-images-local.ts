@@ -38,33 +38,33 @@ export function parseOpenGraphPage(html: string): OpenGraphPageMetadata {
   const url = read("url");
   const type = read("type");
   const image = read("image");
+
   const missing = [
     ["og:title", title],
     ["og:url", url],
     ["og:type", type],
     ["og:image", image],
-  ]
-    .filter(([, value]) => !value)
-    .map(([name]) => name);
+  ].flatMap(([name, value]) => (!value ? [name] : []));
 
-  if (missing.length > 0) {
+  if (missing.length > 0 || !title || !url || !type || !image) {
     throw new Error(`Missing required Open Graph metadata: ${missing.join(", ")}`);
   }
 
   const description = read("description");
   const date = $("[data-og-date]").first().attr("data-og-date")?.trim();
   const collection = $("[data-og-collection]").first().attr("data-og-collection")?.trim();
-  return {
-    title: title!,
-    url: url!,
-    type: type!,
-    image: image!,
-    ...(description && description !== title ? { description } : {}),
-    ...(date ? { date } : {}),
-    ...(collection === "posts" || collection === "notes" || collection === "weeknotes"
-      ? { collection }
-      : {}),
-  };
+
+  const metadata: OpenGraphPageMetadata = { title, url, type, image };
+
+  if (description && description !== title) metadata.description = description;
+
+  if (date) metadata.date = date;
+
+  if (collection === "posts" || collection === "notes" || collection === "weeknotes") {
+    metadata.collection = collection;
+  }
+
+  return metadata;
 }
 
 export type LocalIntegrationInput = {

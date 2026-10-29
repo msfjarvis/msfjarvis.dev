@@ -42,7 +42,9 @@ export function createBookSchema<T extends z.ZodType>(localBookCover: T) {
           path: ["readingStoppedAt"],
         });
       }
+
       const lastReadAt = book.readingFinishedAt ?? book.readingStoppedAt ?? book.readingStartedAt;
+
       if (book.readingLastReadAt !== lastReadAt) {
         context.addIssue({
           code: "custom",
@@ -68,20 +70,24 @@ export function orderBooks<T extends BookEntry>(books: readonly T[]): T[] {
   return [...books].sort((left, right) => {
     const leftLastReadAt = left.data.readingLastReadAt;
     const rightLastReadAt = right.data.readingLastReadAt;
+
     if (leftLastReadAt && rightLastReadAt) {
       const order = Date.parse(rightLastReadAt) - Date.parse(leftLastReadAt);
+
       if (order) return order;
     } else if (leftLastReadAt) {
       return -1;
     } else if (rightLastReadAt) {
       return 1;
     }
+
     return left.id.localeCompare(right.id);
   });
 }
 
 export function partitionBooks<T extends BookEntry>(books: readonly T[]) {
   const ordered = orderBooks(books);
+
   return {
     currentlyReading: ordered.filter((book) => book.data.readingShelf === "reading"),
     finishedReading: ordered.filter((book) => book.data.readingShelf === "read"),

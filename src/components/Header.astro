@@ -3,6 +3,7 @@ import { SITE_TITLE } from "../consts";
 import { navLinks } from "../data/nav-links.ts";
 
 const pathname = new URL(Astro.request.url).pathname;
+
 // Returns true if the current path matches, supporting both trailing-slash and non-trailing-slash forms
 const isActive = (path: string, exact = false): boolean =>
   exact

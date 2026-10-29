@@ -14,10 +14,12 @@
       onInit: (element, pswp) => {
         pswp.on("change", () => {
           const slideElement = pswp.currSlide?.data.element;
+
           const caption =
             slideElement instanceof HTMLElement
               ? slideElement.dataset.pswpCaption
               : undefined;
+
           element.textContent = caption ?? "";
           element.toggleAttribute("hidden", !caption);
         });
@@ -42,8 +44,10 @@
 
         pswp.on("change", () => {
           const slideElement = pswp.currSlide?.data.element;
+
           const data =
             slideElement instanceof HTMLElement ? slideElement.dataset : null;
+
           title.textContent = data?.pswpTitle ?? "";
           text.textContent = data?.pswpCaption ?? "";
           title.toggleAttribute("hidden", !title.textContent);
@@ -90,35 +94,38 @@
 
   const createLightbox = (gallery: HTMLElement, children: string) => {
     const reel = gallery.dataset.pswpVariant === "reel";
-    const total =
-      reel && typeof children === "string"
-        ? gallery.querySelectorAll(children).length
-        : 0;
 
-    const lightbox = new PhotoSwipeLightbox({
+    const total = reel ? gallery.querySelectorAll(children).length : 0;
+
+    const options = {
       gallery,
       children,
       pswpModule: PhotoSwipe,
-      ...(reel
-        ? {
-            bgOpacity: 0.96,
-            mainClass: "pswp--reel",
-            clickToCloseNonZoomable: false,
-            paddingFn: (viewportSize: { x: number }) => {
-              const narrow = viewportSize.x < 620;
-              return {
-                top: narrow ? 36 : 56,
-                bottom: narrow ? 150 : 140,
-                left: narrow ? 16 : 48,
-                right: narrow ? 16 : 48,
-              };
-            },
-          }
-        : {}),
-    });
+    };
+
+    if (reel) {
+      Object.assign(options, {
+        bgOpacity: 0.96,
+        mainClass: "pswp--reel",
+        clickToCloseNonZoomable: false,
+        paddingFn: (viewportSize: { x: number }) => {
+          const narrow = viewportSize.x < 620;
+
+          return {
+            top: narrow ? 36 : 56,
+            bottom: narrow ? 150 : 140,
+            left: narrow ? 16 : 48,
+            right: narrow ? 16 : 48,
+          };
+        },
+      });
+    }
+
+    const lightbox = new PhotoSwipeLightbox(options);
 
     lightbox.on("uiRegister", () => {
       const ui = lightbox.pswp?.ui;
+
       if (!ui) return;
 
       if (reel) {
@@ -139,12 +146,15 @@
         const source = isDark
           ? item.dataset.pswpDarkSrc
           : item.dataset.pswpLightSrc;
+
         if (source) item.href = source;
       });
   };
 
   const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
   updateColorScheme(colorScheme.matches);
+
   colorScheme.addEventListener("change", (event) =>
     updateColorScheme(event.matches),
   );
@@ -156,6 +166,7 @@
   });
 
   const standaloneSelector = `${defaultSelector}:not([data-pswp-gallery] ${defaultSelector})`;
+
   document.querySelectorAll("[data-pagefind-body]").forEach((article) => {
     if (article instanceof HTMLElement) {
       createLightbox(article, standaloneSelector);

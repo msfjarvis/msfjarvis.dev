@@ -27,7 +27,9 @@ const WEEKNOTE_CUTOFF = new Date("2026-05-01");
 
 function parseFrontmatter(raw) {
   const match = raw.match(/^---\r?\n([\s\S]+?)\r?\n---/);
+
   if (!match) return {};
+
   try {
     return yaml.load(match[1]) ?? {};
   } catch {
@@ -41,10 +43,12 @@ function parseFrontmatter(raw) {
 
 function collectEntries(dir) {
   if (!statSync(dir, { throwIfNoEntry: false })?.isDirectory()) return [];
+
   return readdirSync(dir)
     .filter((name) => {
       // Each entry is now a directory containing index.mdx
       const fullPath = join(dir, name);
+
       return statSync(fullPath, { throwIfNoEntry: false })?.isDirectory();
     })
     .map((name) => {
@@ -52,6 +56,7 @@ function collectEntries(dir) {
       const indexPath = join(dir, name, "index.mdx");
       const raw = readFileSync(indexPath, "utf8");
       const data = parseFrontmatter(raw);
+
       return { id, data };
     });
 }
@@ -79,15 +84,18 @@ function main() {
   const oldWeeknotePaths = weeknotes
     .filter((w) => {
       const date = w.data.date ? new Date(w.data.date) : null;
+
       return date && date < WEEKNOTE_CUTOFF;
     })
     .sort((a, b) => a.id.localeCompare(b.id));
 
   if (oldWeeknotePaths.length > 0) {
     lines.push("# Weeknote URL migration: /posts/weeknotes-* → /weeknotes/*");
+
     for (const w of oldWeeknotePaths) {
       lines.push(`/posts/weeknotes-${w.id}/\t/weeknotes/${w.id}/\t301`);
     }
+
     lines.push("");
   }
 
@@ -100,6 +108,7 @@ function main() {
 
   if (allEntries.length > 0) {
     lines.push("# Alias redirects: old paths → canonical URLs");
+
     for (const entry of allEntries) {
       for (const alias of entry.data.aliases) {
         // Normalise: ensure leading slash and trailing slash
@@ -107,6 +116,7 @@ function main() {
         lines.push(`${src}\t${entry.canonical}\t301`);
       }
     }
+
     lines.push("");
   }
 

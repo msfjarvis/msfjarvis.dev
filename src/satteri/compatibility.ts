@@ -5,6 +5,14 @@ import type { HastNode, MdastNode } from "satteri";
 
 const alertPattern = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)]/i;
 
+function isString(value: unknown): value is string {
+  try {
+    return String.prototype.valueOf.call(value) === value;
+  } catch {
+    return false;
+  }
+}
+
 type AlertType = "note" | "tip" | "important" | "warning" | "caution";
 
 const alertIconPaths: Record<AlertType, string> = {
@@ -48,6 +56,7 @@ export const githubAlerts = defineMdastPlugin({
   name: "github-alerts",
 
   blockquote(node) {
+    // SAFETY: this Mdast plugin callback receives a blockquote node, and cloning preserves its node type.
     const replacement = cloneAstNode(node) as Blockquote;
     let alertType: AlertType | undefined;
     let seekingMarker = true;
@@ -58,9 +67,11 @@ export const githubAlerts = defineMdastPlugin({
       const first = child.children[0];
       const text = first?.type === "text" ? first.value : "";
       const match = text.match(alertPattern);
+
       if (!match) continue;
 
       seekingMarker = false;
+      // SAFETY: alertPattern's capture group only matches the AlertType variants.
       alertType = match[1]?.toLocaleLowerCase() as AlertType;
 
       if (text.includes("\n")) {
@@ -84,6 +95,7 @@ export const githubAlerts = defineMdastPlugin({
         dir: "auto",
       },
     };
+    // SAFETY: this paragraph uses the HAST metadata shape supported by the Mdast plugin.
     replacement.children.unshift({
       type: "paragraph",
       data: {
@@ -97,6 +109,7 @@ export const githubAlerts = defineMdastPlugin({
       children: [alertIcon(alertType), { type: "text", value: alertType.toLocaleUpperCase() }],
     } satisfies Paragraph);
 
+    // SAFETY: replacement is cloned from the Mdast blockquote passed to this callback.
     return replacement as MdastNode;
   },
 });
@@ -125,17 +138,21 @@ function removeFootnoteBacklinks(node: HastNode): void {
   if (!isElement(node)) return;
 
   for (let index = node.children.length - 1; index >= 0; index--) {
+    // SAFETY: children of this HAST element are all HAST nodes.
     const child = node.children[index] as HastNode;
+
     if (isElement(child)) {
       const href = child.properties?.href;
+
       if (
         child.tagName === "a" &&
         ("dataFootnoteBackref" in (child.properties ?? {}) ||
-          (typeof href === "string" && href.startsWith("#user-content-fnref-")))
+          (isString(href) && href.startsWith("#user-content-fnref-")))
       ) {
         node.children.splice(index, 1);
         continue;
       }
+
       removeFootnoteBacklinks(child);
     }
   }
@@ -154,8 +171,10 @@ export const footnotePopovers = () => {
         visit(node) {
           if (!("dataFootnoteRef" in (node.properties ?? {}))) return;
           const href = node.properties?.href;
-          if (typeof href !== "string" || !href.startsWith("#")) return;
+
+          if (!isString(href) || !href.startsWith("#")) return;
           references.push({
+            // SAFETY: the element visitor supplies a HAST element node.
             node: node as HastNode,
             targetId: decodeURIComponent(href.slice(1)),
           });
@@ -172,32 +191,44 @@ export const footnotePopovers = () => {
           }
 
           const definitions = new Map<string, HastNode[]>();
+
           const collectDefinitions = (current: HastNode): void => {
             if (!isElement(current)) return;
             const id = current.properties?.id;
-            if (current.tagName === "li" && typeof id === "string") {
+
+            if (current.tagName === "li" && isString(id)) {
+              // SAFETY: a HAST element's children are HAST nodes by the HAST definition.
               definitions.set(id, current.children as HastNode[]);
             }
+
             for (const child of current.children) {
+              // SAFETY: HAST element children are valid HAST nodes by the AST contract.
               collectDefinitions(child as HastNode);
             }
           };
+
           for (const child of node.children) {
+            // SAFETY: the section visitor receives a HAST element whose children are nodes.
             collectDefinitions(child as HastNode);
           }
 
           for (const { node: reference, targetId } of references) {
             const definition = definitions.get(targetId);
+
             if (!definition) continue;
 
             const id = `footnote-popover-${++popoverIndex}`;
             context.setProperty(reference, "ariaDescribedBy", id);
             const popoverChildren = cloneAstNode(definition);
+
             for (const child of popoverChildren) {
               removeFootnoteBacklinks(child);
             }
+
+            // SAFETY: the section visitor receives this HAST section node.
             context.insertBefore(
               node as HastNode,
+              // SAFETY: this object conforms to the HAST Element node shape.
               {
                 type: "element",
                 tagName: "div",
@@ -212,12 +243,15 @@ export const footnotePopovers = () => {
             );
           }
 
+          // SAFETY: the section visitor receives this HAST section node.
           context.replaceNode(
             node as HastNode,
+            // SAFETY: this object conforms to the HAST Element node shape.
             {
               type: "element",
               tagName: "template",
               properties: { dataFootnotesFallback: true },
+              // SAFETY: cloneAstNode preserves the supplied HAST section node.
               children: [cloneAstNode(node)] as HastNode[],
             } as HastNode,
           );
@@ -234,9 +268,11 @@ export const legacyTableAlignment = defineHastPlugin({
     filter: ["th", "td"],
     visit(node, context) {
       const style = node.properties?.style;
-      if (typeof style !== "string") return;
+
+      if (!isString(style)) return;
 
       const match = /^text-align:\s*(left|right|center)\s*;?$/.exec(style);
+
       if (!match) return;
 
       context.setProperty(node, "align", match[1]);

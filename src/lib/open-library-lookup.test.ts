@@ -6,12 +6,25 @@ import {
 import assert from "node:assert/strict";
 import test from "node:test";
 
-function mockFetch(records: Record<string, unknown>, calls: string[] = []) {
+type OpenLibraryRecord = {
+  title?: string;
+  covers?: number[];
+  authors?: Array<{ author: { key: string } }>;
+  name?: string;
+  works?: Array<{ key: string }>;
+  publish_date?: string;
+  first_publish_year?: number;
+  series?: string[];
+};
+
+function mockFetch(records: Record<string, OpenLibraryRecord>, calls: string[] = []) {
   return async (input: RequestInfo | URL) => {
     const url = String(input);
     calls.push(url);
     const body = records[url];
+
     if (!body) return new Response("missing", { status: 404 });
+
     return new Response(JSON.stringify(body), { status: 200 });
   };
 }
@@ -34,6 +47,7 @@ test("parses exact work and edition identities", () => {
 test("looks up a work with bounded authors and normalizes metadata", async () => {
   clearOpenLibraryCache();
   const calls: string[] = [];
+
   const fetch = mockFetch(
     {
       "https://openlibrary.org/works/OL123W.json": {
@@ -46,6 +60,7 @@ test("looks up a work with bounded authors and normalizes metadata", async () =>
     },
     calls,
   );
+
   const result = await lookupOpenLibraryBook("https://openlibrary.org/works/OL123W", { fetch });
   assert.deepEqual(result, {
     bookTitle: "A Work",
@@ -61,6 +76,7 @@ test("looks up a work with bounded authors and normalizes metadata", async () =>
 
 test("resolves editions and falls back to work cover/year", async () => {
   clearOpenLibraryCache();
+
   const fetch = mockFetch({
     "https://openlibrary.org/books/OL9M.json": {
       title: "Edition",
@@ -74,6 +90,7 @@ test("resolves editions and falls back to work cover/year", async () => {
       series: ["Saga"],
     },
   });
+
   const result = await lookupOpenLibraryBook("https://openlibrary.org/books/OL9M", { fetch });
   assert.equal(result.bookTitle, "Edition");
   assert.equal(result.bookCover, "https://covers.openlibrary.org/b/id/7-L.jpg");
@@ -83,11 +100,14 @@ test("resolves editions and falls back to work cover/year", async () => {
 
 test("uses one deadline for sequential author requests", async () => {
   clearOpenLibraryCache();
+
   const fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input);
+
     const body = url.endsWith("/works/OL2W.json")
       ? { title: "Slow", authors: [{ author: { key: "/authors/OL1A" } }] }
       : { name: "Author" };
+
     await new Promise<void>((resolve, reject) => {
       const timer = setTimeout(resolve, 20);
       init?.signal?.addEventListener("abort", () => {
@@ -95,8 +115,10 @@ test("uses one deadline for sequential author requests", async () => {
         reject(new DOMException("Aborted", "AbortError"));
       });
     });
+
     return new Response(JSON.stringify(body));
   };
+
   await assert.rejects(
     () =>
       lookupOpenLibraryBook("https://openlibrary.org/works/OL2W", {
@@ -110,11 +132,15 @@ test("uses one deadline for sequential author requests", async () => {
 test("custom fetches are not cached and failures can be retried", async () => {
   clearOpenLibraryCache();
   let calls = 0;
+
   const fetch = async () => {
     calls++;
+
     if (calls === 1) return new Response("nope", { status: 500 });
+
     return new Response(JSON.stringify({ title: "Retry" }));
   };
+
   await assert.rejects(() =>
     lookupOpenLibraryBook("https://openlibrary.org/works/OL3W", { fetch }),
   );
@@ -128,12 +154,14 @@ test("reports HTTP and timeout failures and permits retry", async () => {
     () => lookupOpenLibraryBook("https://openlibrary.org/works/nope"),
     /exact HTTPS/,
   );
+
   const slow = async (_input: RequestInfo | URL, init?: RequestInit) =>
     new Promise<Response>((_, reject) => {
       init?.signal?.addEventListener("abort", () =>
         reject(new DOMException("Aborted", "AbortError")),
       );
     });
+
   await assert.rejects(
     () =>
       lookupOpenLibraryBook("https://openlibrary.org/works/OL1W", {
@@ -142,11 +170,14 @@ test("reports HTTP and timeout failures and permits retry", async () => {
       }),
     /timed out/,
   );
+
   const retry = mockFetch({
     "https://openlibrary.org/works/OL1W.json": { title: "Retry" },
   });
+
   const result = await lookupOpenLibraryBook("https://openlibrary.org/works/OL1W", {
     fetch: retry,
   });
+
   assert.equal(result.bookTitle, "Retry");
 });

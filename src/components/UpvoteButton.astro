@@ -5,7 +5,8 @@ interface Props {
 
 const { postId } = Astro.props;
 const idPattern = /^[A-Za-z0-9][A-Za-z0-9._~/-]{0,127}$/;
-if (typeof postId !== "string" || !idPattern.test(postId)) {
+
+if (!idPattern.test(postId)) {
   throw new Error(
     "UpvoteButton postId must be 1–128 URL-safe characters and start with a letter or number",
   );
@@ -140,6 +141,7 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
 
       const button = this.querySelector("[data-upvote]");
       const retry = this.querySelector("[data-retry]");
+
       if (
         !(button instanceof HTMLButtonElement) ||
         !(retry instanceof HTMLButtonElement)
@@ -157,11 +159,13 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
     private async load() {
       this.setBusy(true);
       this.setStatus("Loading votes…");
+
       try {
         const summary = await fetchVoteSummary({
           type: "upvote",
           postId: this.postId,
         });
+
         if (summary.type !== "upvote")
           throw new VoteApiError("Invalid upvote response");
         this.summary = summary;
@@ -169,7 +173,12 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
         this.setStatus("");
         this.setRetryVisible(false);
       } catch (error) {
-        this.setStatus(errorMessage(error), true);
+        this.setStatus(
+          error instanceof Error
+            ? error.message
+            : "Could not update this upvote. Please try again.",
+          true,
+        );
         this.setRetryVisible(true);
       } finally {
         this.setBusy(false);
@@ -186,13 +195,19 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
         const summary = wasVoted
           ? await clearVote({ type: "upvote", postId: this.postId })
           : await submitVote({ type: "upvote", postId: this.postId });
+
         if (summary.type !== "upvote")
           throw new VoteApiError("Invalid upvote response");
         this.summary = summary;
         this.renderSummary();
         this.setStatus(wasVoted ? "Upvote removed." : "Upvote added.");
       } catch (error) {
-        this.setStatus(errorMessage(error), true);
+        this.setStatus(
+          error instanceof Error
+            ? error.message
+            : "Could not update this upvote. Please try again.",
+          true,
+        );
       } finally {
         this.setBusy(false);
       }
@@ -202,6 +217,7 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
       if (this.summary === null) return;
       const button = this.querySelector("[data-upvote]");
       const count = this.querySelector("[data-count]");
+
       if (
         !(button instanceof HTMLButtonElement) ||
         !(count instanceof HTMLElement)
@@ -220,29 +236,27 @@ if (typeof postId !== "string" || !idPattern.test(postId)) {
       this.busy = busy;
       this.setAttribute("aria-busy", String(busy));
       const button = this.querySelector("[data-upvote]");
+
       if (button instanceof HTMLButtonElement)
         button.disabled = busy || this.summary === null;
       const retry = this.querySelector("[data-retry]");
+
       if (retry instanceof HTMLButtonElement) retry.disabled = busy;
     }
 
     private setRetryVisible(visible: boolean) {
       const retry = this.querySelector("[data-retry]");
+
       if (retry instanceof HTMLButtonElement) retry.hidden = !visible;
     }
 
     private setStatus(message: string, isError = false) {
       const status = this.querySelector("[data-status]");
+
       if (!(status instanceof HTMLElement)) return;
       status.textContent = message;
       status.toggleAttribute("data-error", isError);
     }
-  }
-
-  function errorMessage(error: unknown): string {
-    return error instanceof Error
-      ? error.message
-      : "Could not update this upvote. Please try again.";
   }
 
   if (!customElements.get("upvote-button")) {

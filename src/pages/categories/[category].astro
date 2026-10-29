@@ -42,6 +42,7 @@ export async function getStaticPaths() {
     const sortedEntries = entries.sort(
       (a, b) => b.date.getTime() - a.date.getTime(),
     );
+
     return {
       params: { category: slugify(category) },
       props: {

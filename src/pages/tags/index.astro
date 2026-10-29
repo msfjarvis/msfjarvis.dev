@@ -14,6 +14,7 @@ const [posts, notes, weeknotes] = await Promise.all([
 ]);
 
 const counts = new Map<string, number>();
+
 for (const entry of [...posts, ...notes, ...weeknotes]) {
   for (const tag of entry.data.tags) {
     counts.set(tag, (counts.get(tag) ?? 0) + 1);
@@ -32,6 +33,7 @@ function tagSize(count: number): string {
   if (maxFreq === minFreq) return `${(MIN_SIZE + MAX_SIZE) / 2}rem`;
   // Log scale so outliers don't dominate
   const scale = Math.log(count - minFreq + 1) / Math.log(maxFreq - minFreq + 1);
+
   return `${(MIN_SIZE + scale * (MAX_SIZE - MIN_SIZE)).toFixed(3)}rem`;
 }
 ---

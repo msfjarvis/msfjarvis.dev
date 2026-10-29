@@ -9,6 +9,7 @@ export const { getStaticPaths, GET } = createFeedEndpoint({
   async getSources() {
     const posts = await getCollection("posts", filterDrafts);
     const weeknotes = await getCollection("weeknotes", filterDrafts);
+
     return [
       {
         entries: posts,

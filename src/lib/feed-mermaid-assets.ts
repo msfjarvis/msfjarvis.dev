@@ -22,12 +22,14 @@ export async function externalizeFeedMermaidSvgs(
 
   for (const feedPath of feeds) {
     const original = await readFile(feedPath, "utf8");
+
     const updated = original.replace(EMBEDDED_SVG, (_dataUrl, base64: string) => {
       const originalSvg = Buffer.from(base64, "base64").toString("utf8");
       const darkSvg = concretizeMermaidSvgForFeeds(originalSvg, "dark");
       const hash = createHash("sha256").update(darkSvg).digest("hex");
       const fileName = `${hash}.svg`;
       assets.set(fileName, darkSvg);
+
       return `${siteUrl.replace(/\/$/, "")}/diagrams/${fileName}`;
     });
 
@@ -47,19 +49,24 @@ export async function externalizeFeedMermaidSvgs(
       ),
     );
   }
+
   return assets.size;
 }
 
 async function findFeedFiles(directory: string): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true });
+
   const nested = await Promise.all(
     entries.map(async (entry) => {
       const fullPath = path.join(directory, entry.name);
+
       if (entry.isDirectory() && entry.name !== "diagrams") {
         return findFeedFiles(fullPath);
       }
+
       return entry.isFile() && FEED_FILE.test(entry.name) ? [fullPath] : [];
     }),
   );
+
   return nested.flat();
 }
