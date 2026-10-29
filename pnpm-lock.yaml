@@ -236,6 +236,9 @@ importers:
       '@msfjarvis/prettier-plugin-keep-sorted':
         specifier: jsr:0.2.0
         version: '@jsr/msfjarvis__prettier-plugin-keep-sorted@0.2.0'
+      '@oxlint/plugins':
+        specifier: 1.89.0
+        version: 1.89.0
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -1130,6 +1133,10 @@ packages:
 
   '@oxc-project/types@0.153.0':
     resolution: {integrity: sha512-jSNrRIyvPVLL5E1z/tS5zLAprosGz/FuI1PWwEOz59j3E4TTTzSpqKb/RDGqJhhW0QHYISGXxq582wGx6T11Tw==}
+
+  '@oxlint/plugins@1.89.0':
+    resolution: {integrity: sha512-TJBBNl4KIxbxrSk7gsqlz6iM1kxidfyTizEzfWqXvijF2Ou8/Da58GvjemBVmCmaUamwRij+JwsVc0kpBFuqfg==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   '@oxlint/binding-android-arm-eabi@1.89.0':
     resolution: {integrity: sha512-Pflpba5F3gRAQ12sWglRxvWTHEdAusNDvmi4Y5N1T5SY1AGkM7AixOnET8qkrnLJ/F32qAlNokO6eCknT8tmnw==}
@@ -3558,6 +3565,8 @@ snapshots:
   '@oslojs/encoding@1.1.0': {}
 
   '@oxc-project/types@0.153.0': {}
+
+  '@oxlint/plugins@1.89.0': {}
 
   '@oxlint/binding-android-arm-eabi@1.89.0':
     optional: true
