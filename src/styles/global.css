@@ -66,15 +66,6 @@
 
 /* Design tokens */
 :root {
-  --bg: #ffffff;
-  --bg-subtle: #f7f7f7;
-  --border: #e8e8e8;
-  --text: #111111;
-  --text-2: #444444;
-  --text-3: #888888;
-  --accent: #7a3d6e;
-  --accent-subtle: #e0c8db;
-
   --font-mono:
     "Atkinson Hyperlegible Mono", ui-monospace, "Cascadia Code", "Menlo",
     "Consolas", monospace;
@@ -120,15 +111,6 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1a1a1a;
-    --bg-subtle: #242424;
-    --border: #343434;
-    --text: #dddddd;
-    --text-2: #b0b0b0;
-    --text-3: #888888;
-    --accent: #c084b8;
-    --accent-subtle: #4a2a45;
-
     --pf-scroll-shadow: rgba(255, 255, 255, 0.08);
     --pf-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);

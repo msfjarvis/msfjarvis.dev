@@ -4,6 +4,7 @@ import {
   restoreFootnotesForFeeds,
   simplifyCodeBlocksForFeeds,
 } from "./feed-html.ts";
+import { concretizeMermaidSvgForFeeds } from "./feed-mermaid.ts";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import type { APIContext } from "astro";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
@@ -147,37 +148,6 @@ function removeLightboxDuplicates(html: string): string {
   $("[data-lightbox-container]").remove();
   $("script").remove();
   return $.html();
-}
-
-const mermaidFeedColors: Record<string, string> = {
-  bg: "#ffffff",
-  fg: "#111111",
-  "fg-on-light": "#111111",
-  "fg-on-dark": "#ffffff",
-  muted: "#444444",
-  line: "#444444",
-  surface: "#f7f7f7",
-  "surface-alt": "#e0c8db",
-  border: "#e8e8e8",
-  accent: "#7a3d6e",
-  critical: "#7a3d6e",
-  "series-1": "#4c78a8",
-  "series-2": "#f58518",
-  "series-3": "#54a24b",
-  "series-4": "#e45756",
-  "series-5": "#72b7b2",
-  "series-6": "#eeca3b",
-  "series-7": "#b279a2",
-  "series-8": "#9d755d",
-};
-
-function concretizeMermaidSvgForFeeds(svgHtml: string): string {
-  const svg = svgHtml.replace(
-    /var\(--pele-([a-z-]+)(?:,([^)]*))?\)/g,
-    (variable, name, fallback: string | undefined) =>
-      mermaidFeedColors[name] ?? fallback ?? variable,
-  );
-  return svg.replace(/^<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
 }
 
 function mermaidSvgToFeedImage(svgHtml: string): string {

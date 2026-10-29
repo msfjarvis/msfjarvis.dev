@@ -1,3 +1,9 @@
+import { concretizeMermaidSvgForFeeds } from "../lib/feed-mermaid.ts";
+import {
+  feedSitePalette,
+  generateSitePaletteCss,
+  sitePalette,
+} from "../lib/site-palette.ts";
 import { mermaidDiagrams } from "./mermaid.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -36,7 +42,42 @@ test("loads Mermaid zoom in the post layout", async () => {
   assert.match(layout, /import ["']\.\.\/scripts\/mermaid-zoom\.ts["']/);
 });
 
-test("uses the site accent palette for Pele sequence-note fills", async () => {
+test("generates light and dark site tokens with the existing system-theme query", () => {
+  const css = generateSitePaletteCss();
+
+  for (const [token, value] of Object.entries(sitePalette.light)) {
+    assert.ok(css.includes(`--${token}: ${value};`));
+  }
+  for (const [token, value] of Object.entries(sitePalette.dark)) {
+    assert.ok(css.includes(`--${token}: ${value};`));
+  }
+  assert.match(css, /^:root \{/);
+  assert.match(css, /@media \(prefers-color-scheme: dark\)/);
+  assert.equal((css.match(/@media/g) ?? []).length, 1);
+});
+
+test("uses the site palette for browser and standalone Mermaid colors", () => {
+  assert.deepEqual(feedSitePalette, {
+    bg: sitePalette.light.bg,
+    fg: sitePalette.light.text,
+    muted: sitePalette.light["text-2"],
+    line: sitePalette.light["text-2"],
+    surface: sitePalette.light["bg-subtle"],
+    "surface-alt": sitePalette.light["accent-subtle"],
+    border: sitePalette.light.border,
+    accent: sitePalette.light.accent,
+  });
+
+  const svg = concretizeMermaidSvgForFeeds(
+    '<svg><rect fill="var(--pele-bg)" stroke="var(--pele-surface-alt)"/><text fill="var(--pele-fg)">label</text></svg>',
+  );
+  assert.equal(
+    svg,
+    '<svg xmlns="http://www.w3.org/2000/svg"><rect fill="#ffffff" stroke="#e0c8db"/><text fill="#111111">label</text></svg>',
+  );
+});
+
+test("keeps Pele-specific fallbacks in Mermaid integration", async () => {
   const { readFile } = await import("node:fs/promises");
   const stylesheet = await readFile(
     new URL("../styles/global.css", import.meta.url),
@@ -44,27 +85,10 @@ test("uses the site accent palette for Pele sequence-note fills", async () => {
   );
 
   assert.match(stylesheet, /--pele-surface-alt:\s*var\(--accent-subtle\)/);
-  assert.match(stylesheet, /--accent-subtle:\s*#e0c8db/);
-  assert.match(stylesheet, /--accent-subtle:\s*#4a2a45/);
   assert.match(
     stylesheet,
     /\.mermaid-diagram \.pele-notes \.pele-note rect\s*\{\s*stroke:\s*var\(--accent\);/,
   );
-
-  const feed = await readFile(
-    new URL("../lib/feed.ts", import.meta.url),
-    "utf8",
-  );
-  assert.match(feed, /"surface-alt":\s*"#e0c8db"/);
-});
-
-test("uses Pele defaults for text on source-defined diagram fills", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const stylesheet = await readFile(
-    new URL("../styles/global.css", import.meta.url),
-    "utf8",
-  );
-
   assert.doesNotMatch(stylesheet, /--pele-fg-on-(?:light|dark)\s*:/);
 });
 
