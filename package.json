@@ -8,11 +8,15 @@
     "build": "pnpm run generate-redirects && astro build",
     "build:drafts": "WRANGLER_CONFIG_PATH=wrangler.drafts.jsonc INCLUDE_DRAFTS=true pnpm run build",
     "dev": "astro dev",
+    "fmt": "oxfmt --write .",
+    "format": "oxfmt --write .",
+    "fmt:check": "oxfmt --check .",
+    "format:check": "oxfmt --check .",
     "generate-redirects": "node scripts/generate-redirects.mjs",
     "import:bookwyrm": "node scripts/import-bookwyrm-reading.mjs",
     "lint": "oxlint .",
     "migrate": "node scripts/migrate-hugo.mjs",
-    "mastodon:refresh": "node scripts/refresh-mastodon-snapshots.mjs",
+    "mastodon:refresh": "node scripts/refresh-mastodon-snapshots.mjs && oxfmt --write src/data/mastodon-snapshots.ts",
     "new:game": "node scripts/new-entry.mjs games",
     "new:note": "node scripts/new-entry.mjs notes",
     "new:post": "node scripts/new-entry.mjs posts",
@@ -20,7 +24,7 @@
     "preview": "astro preview",
     "serve": "astro dev",
     "test": "node --test ./**/*.test.ts scripts/*.test.mjs",
-    "types": "wrangler types"
+    "types": "wrangler types && oxfmt --write worker-configuration.d.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.0",
@@ -54,6 +58,7 @@
     "@types/react": "^19.3.0",
     "@xingwangzhe/satteri-photoswipe": "^0.2.6",
     "js-yaml": "^5.4.3",
+    "oxfmt": "0.74.0",
     "oxlint": "1.89.0",
     "react": "^19.3.0",
     "satori": "^0.47.1",
