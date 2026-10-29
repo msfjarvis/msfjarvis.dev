@@ -1,6 +1,7 @@
 // astro.config.mjs
 // @ts-check
 import feedDiscovery from "./src/integrations/feed-discovery.ts";
+import feedMermaidAssets from "./src/integrations/feed-mermaid-assets.ts";
 import opengraphImages from "./src/integrations/opengraph-images.ts";
 import pagefind from "./src/integrations/pagefind.ts";
 import webmentionsIntegration from "./src/integrations/webmentions.ts";
@@ -130,6 +131,10 @@ export default defineConfig({
       render: renderCollectionCard,
     }),
     feedDiscovery(),
+    feedMermaidAssets({
+      publicDir: fileURLToPath(new URL("./public", import.meta.url)),
+      siteUrl,
+    }),
     webmentionsIntegration({
       siteUrl,
       workerOrigin: webmentionWorkerOrigin,

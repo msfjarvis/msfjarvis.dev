@@ -30,6 +30,17 @@ test("renders Mermaid fences to responsive Pele SVG", () => {
   assert.match(html, /<svg[^>]+width="\d+" height="\d+"/);
   assert.match(html, /Start/);
   assert.match(html, /Finish/);
+
+  const standaloneSvg = concretizeMermaidSvgForFeeds(
+    html.match(/<svg[^>]*>[\s\S]*?<\/svg>/)?.[0] ?? "",
+    "dark",
+  );
+  assert.match(standaloneSvg, /fill="#dddddd"/);
+  assert.doesNotMatch(
+    standaloneSvg,
+    /var\(/,
+    "Pele output must not retain CSS variables in standalone SVGs",
+  );
 });
 
 test("loads Mermaid zoom in the post layout", async () => {
@@ -73,8 +84,16 @@ test("uses the site palette for browser and standalone Mermaid colors", () => {
   );
   assert.equal(
     svg,
-    '<svg xmlns="http://www.w3.org/2000/svg"><rect fill="#ffffff" stroke="#e0c8db"/><text fill="#111111">label</text></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#ffffff"/><rect fill="#ffffff" stroke="#e0c8db"/><text fill="#111111">label</text></svg>',
   );
+});
+
+test("resolves nested CSS variable fallbacks", () => {
+  const svg = concretizeMermaidSvgForFeeds(
+    '<svg><rect fill="var(--unknown, var(--pele-accent, red))"/></svg>',
+  );
+  assert.ok(svg.includes(`fill="${feedSitePalette.accent}"`));
+  assert.doesNotMatch(svg, /var\(/);
 });
 
 test("keeps Pele-specific fallbacks in Mermaid integration", async () => {

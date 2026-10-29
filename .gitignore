@@ -33,3 +33,5 @@ pnpm-debug.log*
 
 # Lychee link checker
 .lycheecache
+
+public/diagrams/

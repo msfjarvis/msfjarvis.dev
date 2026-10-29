@@ -4,7 +4,7 @@ import {
   restoreFootnotesForFeeds,
   simplifyCodeBlocksForFeeds,
 } from "./feed-html.ts";
-import { concretizeMermaidSvgForFeeds } from "./feed-mermaid.ts";
+import { addMermaidSvgNamespace } from "./feed-mermaid.ts";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import type { APIContext } from "astro";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
@@ -151,7 +151,7 @@ function removeLightboxDuplicates(html: string): string {
 }
 
 function mermaidSvgToFeedImage(svgHtml: string): string {
-  const svg = concretizeMermaidSvgForFeeds(svgHtml);
+  const svg = addMermaidSvgNamespace(svgHtml);
   const src = `data:image/svg+xml;base64,${Buffer.from(svg, "utf8").toString("base64")}`;
   return `<img src="${src}" alt="Mermaid diagram" loading="lazy" decoding="async" />`;
 }
