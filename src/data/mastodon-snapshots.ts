@@ -74,9 +74,7 @@ export const mastodonSnapshots = {
   },
   "https://infosec.exchange/@0xabad1dea/116980897659510296": {
     canonicalUrl: "https://infosec.exchange/@0xabad1dea/116980897659510296",
-    paragraphs: [
-      "Someone needed an extra big brushie and wasn’t too thrilled about it",
-    ],
+    paragraphs: ["Someone needed an extra big brushie and wasn’t too thrilled about it"],
     createdAt: "2026-07-25T13:40:41.730Z",
     author: {
       displayName: "abadidea",

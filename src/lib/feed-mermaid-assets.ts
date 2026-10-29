@@ -22,17 +22,14 @@ export async function externalizeFeedMermaidSvgs(
 
   for (const feedPath of feeds) {
     const original = await readFile(feedPath, "utf8");
-    const updated = original.replace(
-      EMBEDDED_SVG,
-      (_dataUrl, base64: string) => {
-        const originalSvg = Buffer.from(base64, "base64").toString("utf8");
-        const darkSvg = concretizeMermaidSvgForFeeds(originalSvg, "dark");
-        const hash = createHash("sha256").update(darkSvg).digest("hex");
-        const fileName = `${hash}.svg`;
-        assets.set(fileName, darkSvg);
-        return `${siteUrl.replace(/\/$/, "")}/diagrams/${fileName}`;
-      },
-    );
+    const updated = original.replace(EMBEDDED_SVG, (_dataUrl, base64: string) => {
+      const originalSvg = Buffer.from(base64, "base64").toString("utf8");
+      const darkSvg = concretizeMermaidSvgForFeeds(originalSvg, "dark");
+      const hash = createHash("sha256").update(darkSvg).digest("hex");
+      const fileName = `${hash}.svg`;
+      assets.set(fileName, darkSvg);
+      return `${siteUrl.replace(/\/$/, "")}/diagrams/${fileName}`;
+    });
 
     if (updated !== original) await writeFile(feedPath, updated);
   }
@@ -40,9 +37,7 @@ export async function externalizeFeedMermaidSvgs(
   if (assets.size > 0) {
     const publicDiagramDir = path.join(publicDir, "diagrams");
     await Promise.all(
-      [diagramDir, publicDiagramDir].map((directory) =>
-        mkdir(directory, { recursive: true }),
-      ),
+      [diagramDir, publicDiagramDir].map((directory) => mkdir(directory, { recursive: true })),
     );
     await Promise.all(
       [...assets].flatMap(([fileName, svg]) =>

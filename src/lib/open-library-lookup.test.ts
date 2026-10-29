@@ -18,31 +18,17 @@ function mockFetch(records: Record<string, unknown>, calls: string[] = []) {
 
 test("parses exact work and edition identities", () => {
   assert.deepEqual(
-    parseOpenLibraryUrl(
-      "https://openlibrary.org/works/ol123w/an/ordinary/title?view=1#details",
-    ),
+    parseOpenLibraryUrl("https://openlibrary.org/works/ol123w/an/ordinary/title?view=1#details"),
     { kind: "work", key: "OL123W" },
   );
   assert.deepEqual(parseOpenLibraryUrl("https://openlibrary.org/books/OL9M/"), {
     kind: "edition",
     key: "OL9M",
   });
-  assert.equal(
-    parseOpenLibraryUrl("http://openlibrary.org/works/OL123W"),
-    undefined,
-  );
-  assert.equal(
-    parseOpenLibraryUrl("https://openlibrary.org/works/OL123W.json"),
-    undefined,
-  );
-  assert.equal(
-    parseOpenLibraryUrl("https://openlibrary.org/books/OL123W"),
-    undefined,
-  );
-  assert.equal(
-    parseOpenLibraryUrl("https://openlibrary.org/search?q=OL123W"),
-    undefined,
-  );
+  assert.equal(parseOpenLibraryUrl("http://openlibrary.org/works/OL123W"), undefined);
+  assert.equal(parseOpenLibraryUrl("https://openlibrary.org/works/OL123W.json"), undefined);
+  assert.equal(parseOpenLibraryUrl("https://openlibrary.org/books/OL123W"), undefined);
+  assert.equal(parseOpenLibraryUrl("https://openlibrary.org/search?q=OL123W"), undefined);
 });
 
 test("looks up a work with bounded authors and normalizes metadata", async () => {
@@ -53,20 +39,14 @@ test("looks up a work with bounded authors and normalizes metadata", async () =>
       "https://openlibrary.org/works/OL123W.json": {
         title: "A Work",
         covers: [42],
-        authors: [
-          { author: { key: "/authors/OL1A" } },
-          { author: { key: "/authors/OL2A" } },
-        ],
+        authors: [{ author: { key: "/authors/OL1A" } }, { author: { key: "/authors/OL2A" } }],
       },
       "https://openlibrary.org/authors/OL1A.json": { name: "One" },
       "https://openlibrary.org/authors/OL2A.json": { name: "Two" },
     },
     calls,
   );
-  const result = await lookupOpenLibraryBook(
-    "https://openlibrary.org/works/OL123W",
-    { fetch },
-  );
+  const result = await lookupOpenLibraryBook("https://openlibrary.org/works/OL123W", { fetch });
   assert.deepEqual(result, {
     bookTitle: "A Work",
     bookAuthors: ["One", "Two"],
@@ -94,10 +74,7 @@ test("resolves editions and falls back to work cover/year", async () => {
       series: ["Saga"],
     },
   });
-  const result = await lookupOpenLibraryBook(
-    "https://openlibrary.org/books/OL9M",
-    { fetch },
-  );
+  const result = await lookupOpenLibraryBook("https://openlibrary.org/books/OL9M", { fetch });
   assert.equal(result.bookTitle, "Edition");
   assert.equal(result.bookCover, "https://covers.openlibrary.org/b/id/7-L.jpg");
   assert.equal(result.bookPublishedYear, 2018);
@@ -141,10 +118,7 @@ test("custom fetches are not cached and failures can be retried", async () => {
   await assert.rejects(() =>
     lookupOpenLibraryBook("https://openlibrary.org/works/OL3W", { fetch }),
   );
-  const result = await lookupOpenLibraryBook(
-    "https://openlibrary.org/works/OL3W",
-    { fetch },
-  );
+  const result = await lookupOpenLibraryBook("https://openlibrary.org/works/OL3W", { fetch });
   assert.equal(result.bookTitle, "Retry");
 });
 
@@ -171,9 +145,8 @@ test("reports HTTP and timeout failures and permits retry", async () => {
   const retry = mockFetch({
     "https://openlibrary.org/works/OL1W.json": { title: "Retry" },
   });
-  const result = await lookupOpenLibraryBook(
-    "https://openlibrary.org/works/OL1W",
-    { fetch: retry },
-  );
+  const result = await lookupOpenLibraryBook("https://openlibrary.org/works/OL1W", {
+    fetch: retry,
+  });
   assert.equal(result.bookTitle, "Retry");
 });

@@ -1,9 +1,4 @@
-import {
-  diffManifests,
-  formatSendSummary,
-  parseManifest,
-  sendEvents,
-} from "../lib/webmentions";
+import { diffManifests, formatSendSummary, parseManifest, sendEvents } from "../lib/webmentions";
 import type { AstroIntegration } from "astro";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -24,13 +19,9 @@ export default function webmentionsIntegration(config: {
 
         const outputDir = dir.pathname;
         const manifestPath = path.join(outputDir, "webmentions-manifest.json");
-        const builtManifest = parseManifest(
-          JSON.parse(await readFile(manifestPath, "utf8")),
-        );
+        const builtManifest = parseManifest(JSON.parse(await readFile(manifestPath, "utf8")));
 
-        const deployedResponse = await fetch(
-          new URL("/webmentions-manifest.json", config.siteUrl),
-        );
+        const deployedResponse = await fetch(new URL("/webmentions-manifest.json", config.siteUrl));
         if (!deployedResponse.ok) {
           throw new Error(
             `Failed to fetch deployed webmentions manifest: ${deployedResponse.status} ${deployedResponse.statusText}`,

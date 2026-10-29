@@ -42,22 +42,15 @@ test("writes deterministic snapshots for every MDX and Astro embed", async (t) =
   t.after(() => rm(directory, { recursive: true, force: true }));
   const sourceDirectory = join(directory, "src");
   const outputPath = join(directory, "mastodon-snapshots.ts");
-  const astroStatusUrl =
-    "https://infosec.exchange/@0xabad1dea/116946074763792559";
+  const astroStatusUrl = "https://infosec.exchange/@0xabad1dea/116946074763792559";
   await mkdir(join(sourceDirectory, "content", "nested"), { recursive: true });
   await writeFile(
     join(sourceDirectory, "content", "nested", "post.mdx"),
     `<MastodonPost url={"http://${statusUrl.slice("https://".length)}"} />`,
   );
-  await writeFile(
-    join(sourceDirectory, "page.astro"),
-    `<MastodonPost url="${astroStatusUrl}" />`,
-  );
+  await writeFile(join(sourceDirectory, "page.astro"), `<MastodonPost url="${astroStatusUrl}" />`);
 
-  assert.deepEqual(await collectMastodonUrls(sourceDirectory), [
-    statusUrl,
-    astroStatusUrl,
-  ]);
+  assert.deepEqual(await collectMastodonUrls(sourceDirectory), [statusUrl, astroStatusUrl]);
   assert.equal(
     await refreshMastodonSnapshots({
       sourceDirectory,

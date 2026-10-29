@@ -38,15 +38,7 @@ export default function opengraphImages({
 }: LocalIntegrationInput): AstroIntegration {
   const optionsWithDefaults: OpenGraphOptions = { ...defaults, ...options };
 
-  async function renderPng({
-    page,
-    html,
-    dir,
-  }: {
-    page: Page;
-    html: string;
-    dir: URL;
-  }) {
+  async function renderPng({ page, html, dir }: { page: Page; html: string; dir: URL }) {
     const pageDetails = parseOpenGraphPage(html);
     const renderInput: OpenGraphRenderInput = {
       ...page,
@@ -97,8 +89,7 @@ export default function opengraphImages({
 
                     const origin = `http://${req.headers.host ?? "localhost"}`;
                     const imageUrl = new URL(req.url ?? "/", origin);
-                    const devServerUrl =
-                      server.resolvedUrls?.local[0] ?? imageUrl.origin;
+                    const devServerUrl = server.resolvedUrls?.local[0] ?? imageUrl.origin;
                     const pageUrlPathname = getPagePathname(imageUrl.pathname);
                     if (!pageUrlPathname) {
                       next();
@@ -112,9 +103,7 @@ export default function opengraphImages({
                     }
 
                     try {
-                      const pageResponse = await fetch(
-                        new URL(pageUrlPathname, devServerUrl),
-                      );
+                      const pageResponse = await fetch(new URL(pageUrlPathname, devServerUrl));
                       if (!pageResponse.ok) {
                         next();
                         return;

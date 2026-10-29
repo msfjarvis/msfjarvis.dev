@@ -23,19 +23,14 @@ const MAX_AUTHORS = 4;
 
 export function parseOpenLibraryUrl(
   input: string,
-):
-  { kind: "work"; key: string } | { kind: "edition"; key: string } | undefined {
+): { kind: "work"; key: string } | { kind: "edition"; key: string } | undefined {
   let url: URL;
   try {
     url = new URL(input.trim());
   } catch {
     return undefined;
   }
-  if (
-    url.protocol !== "https:" ||
-    url.hostname !== "openlibrary.org" ||
-    url.port !== ""
-  )
+  if (url.protocol !== "https:" || url.hostname !== "openlibrary.org" || url.port !== "")
     return undefined;
   const work = WORK_PATH.exec(url.pathname);
   if (work) return { kind: "work", key: work[2].toUpperCase() };
@@ -84,8 +79,7 @@ async function lookup(
     parsed.kind === "edition"
       ? await getJson(fetcher, `/books/${parsed.key}.json`, deadline)
       : undefined;
-  const workKey =
-    parsed.kind === "work" ? parsed.key : workKeyFromEdition(edition);
+  const workKey = parsed.kind === "work" ? parsed.key : workKeyFromEdition(edition);
   const work = await getJson(fetcher, `/works/${workKey}.json`, deadline);
   const authors = await authorNames(
     work.authors,
@@ -97,12 +91,9 @@ async function lookup(
   const workCover = coverUrl(work.covers);
   const title = stringValue(edition?.title) || stringValue(work.title);
   const series = normalizeSeries(edition?.series ?? work.series);
-  const year =
-    publishedYear(edition?.publish_date) ??
-    numberValue(work.first_publish_year);
+  const year = publishedYear(edition?.publish_date) ?? numberValue(work.first_publish_year);
 
-  if (!title)
-    throw new Error("Open Library returned a record without a title.");
+  if (!title) throw new Error("Open Library returned a record without a title.");
   return {
     bookTitle: title,
     bookAuthors: authors,
@@ -126,8 +117,7 @@ function workKeyFromEdition(edition: JsonObject | undefined): string {
   const works = propertyValue(edition, "works");
   const firstWork = Array.isArray(works) ? works[0] : undefined;
   const key = propertyValue(firstWork, "key");
-  if (typeof key !== "string")
-    throw new Error("Open Library edition has no work identity.");
+  if (typeof key !== "string") throw new Error("Open Library edition has no work identity.");
   const path = /^\/works\/(OL\d+W)\/?$/i.exec(key);
   if (path) return path[1].toUpperCase();
   const url = parseOpenLibraryUrl(key);
@@ -148,10 +138,7 @@ async function authorNames(
       const author = propertyValue(entry, "author");
       return propertyValue(author, "key") ?? propertyValue(entry, "key");
     })
-    .filter(
-      (key): key is string =>
-        typeof key === "string" && /^\/authors\/OL\d+A$/i.test(key),
-    );
+    .filter((key): key is string => typeof key === "string" && /^\/authors\/OL\d+A$/i.test(key));
   const names: string[] = [];
   for (const key of keys) {
     const author = await getJson(fetcher, `${key}.json`, deadline);
@@ -174,20 +161,16 @@ async function getJson(
     const response = await fetcher(`https://openlibrary.org${path}`, {
       signal: controller.signal,
     });
-    if (!response.ok)
-      throw new Error(`Open Library request failed (${response.status}).`);
+    if (!response.ok) throw new Error(`Open Library request failed (${response.status}).`);
     const data: unknown = await response.json();
-    if (!isJsonObject(data))
-      throw new Error("Open Library returned invalid JSON.");
+    if (!isJsonObject(data)) throw new Error("Open Library returned invalid JSON.");
     return data;
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError")
       throw new Error("Open Library request timed out.", { cause: error });
     if (error instanceof Error && error.name === "AbortError")
       throw new Error("Open Library request timed out.", { cause: error });
-    throw error instanceof Error
-      ? error
-      : new Error("Open Library request failed.");
+    throw error instanceof Error ? error : new Error("Open Library request failed.");
   } finally {
     clearTimeout(timer);
   }
@@ -197,9 +180,7 @@ function coverUrl(covers: unknown): string {
   const id = Array.isArray(covers)
     ? covers.find((value) => Number.isInteger(value) && value > 0)
     : undefined;
-  return id === undefined
-    ? ""
-    : `https://covers.openlibrary.org/b/id/${id}-L.jpg`;
+  return id === undefined ? "" : `https://covers.openlibrary.org/b/id/${id}-L.jpg`;
 }
 
 function normalizeSeries(value: unknown): { name: string; number: string } {
@@ -215,21 +196,14 @@ function normalizeSeries(value: unknown): { name: string; number: string } {
 
 function publishedYear(value: unknown): number | undefined {
   const match =
-    typeof value === "string" &&
-    /(?:^|\D)(1[0-9]{3}|20[0-9]{2}|21[0-9]{2})(?:\D|$)/.exec(value);
+    typeof value === "string" && /(?:^|\D)(1[0-9]{3}|20[0-9]{2}|21[0-9]{2})(?:\D|$)/.exec(value);
   return match ? Number(match[1]) : undefined;
 }
 
 function stringValue(value: unknown): string {
-  return typeof value === "string"
-    ? value.trim()
-    : value == null
-      ? ""
-      : String(value).trim();
+  return typeof value === "string" ? value.trim() : value == null ? "" : String(value).trim();
 }
 
 function numberValue(value: unknown): number | undefined {
-  return typeof value === "number" && Number.isFinite(value)
-    ? value
-    : undefined;
+  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
 }

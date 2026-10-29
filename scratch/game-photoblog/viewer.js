@@ -205,9 +205,7 @@
     nav.className = "prototype-picker-nav";
     nav.setAttribute("aria-label", "Prototype concepts");
 
-    var entries = [{ file: "index.html", label: "Overview", id: null }].concat(
-      CONCEPTS,
-    );
+    var entries = [{ file: "index.html", label: "Overview", id: null }].concat(CONCEPTS);
     entries.forEach(function (entry) {
       var link = document.createElement("a");
       link.href = entry.file;
@@ -227,18 +225,11 @@
     /* Delegated so links replaced or rewritten later are still picked up. */
     document.addEventListener("click", function (event) {
       if (event.defaultPrevented) return;
-      if (
-        event.button !== 0 ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey
-      )
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
         return;
 
       var target = event.target;
-      var link =
-        target && target.closest ? target.closest("[data-photo]") : null;
+      var link = target && target.closest ? target.closest("[data-photo]") : null;
       if (!link || !document.documentElement.contains(link)) return;
 
       event.preventDefault();

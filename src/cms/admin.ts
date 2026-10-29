@@ -3,10 +3,7 @@ import {
   createOpenLibraryBookField,
 } from "../lib/cms/open-library-book-field";
 import { openLibraryBookMetadataFields } from "../lib/cms/open-library-book-fields";
-import {
-  applyImportedBook,
-  isImportedBook,
-} from "../lib/cms/open-library-book-import";
+import { applyImportedBook, isImportedBook } from "../lib/cms/open-library-book-import";
 import { formatReelMdx, parseReelMdx } from "../lib/cms/reel-format";
 import { deriveWeeknoteMetadata } from "../lib/weeknote-metadata";
 import CMS, { type CmsConfig } from "@sveltia/cms";
@@ -18,32 +15,22 @@ function normalizeBlogEntryForSave(entry: {
   data: Record<string, unknown>;
 }): typeof entry {
   const data = structuredClone(entry.data ?? {});
-  if (
-    entry.collection !== "pages" &&
-    entry.collection !== "books" &&
-    !data.deleted
-  ) {
+  if (entry.collection !== "pages" && entry.collection !== "books" && !data.deleted) {
     data.deleted = false;
   }
   return { ...entry, data };
 }
 
-function expandImportedBook(
-  data: Record<string, unknown>,
-): Record<string, unknown> {
+function expandImportedBook(data: Record<string, unknown>): Record<string, unknown> {
   const { bookImport, ...bookData } = data;
-  return isImportedBook(bookImport)
-    ? applyImportedBook(data, bookImport)
-    : bookData;
+  return isImportedBook(bookImport) ? applyImportedBook(data, bookImport) : bookData;
 }
 
 function presentTimestamp(value: unknown): string | undefined {
   return typeof value === "string" && value.trim() ? value : undefined;
 }
 
-function normalizeBookForSave(
-  data: Record<string, unknown>,
-): Record<string, unknown> {
+function normalizeBookForSave(data: Record<string, unknown>): Record<string, unknown> {
   const normalized = structuredClone(data);
   if (normalized.bookAuthors === undefined) normalized.bookAuthors = [];
   const finishedAt = presentTimestamp(normalized.readingFinishedAt);
@@ -51,8 +38,7 @@ function normalizeBookForSave(
   if (finishedAt && stoppedAt) {
     throw new Error("A book cannot be both finished and stopped.");
   }
-  const lastReadAt =
-    finishedAt ?? stoppedAt ?? presentTimestamp(normalized.readingStartedAt);
+  const lastReadAt = finishedAt ?? stoppedAt ?? presentTimestamp(normalized.readingStartedAt);
   if (lastReadAt) normalized.readingLastReadAt = lastReadAt;
   return normalized;
 }
@@ -65,11 +51,7 @@ CMS.registerEventListener({
       plain.collection === "books"
         ? normalizeBookForSave(expandImportedBook(plain.data))
         : plain.data;
-    if (
-      plain.collection === "books" &&
-      !plain.path &&
-      !String(data.bookTitle ?? "").trim()
-    ) {
+    if (plain.collection === "books" && !plain.path && !String(data.bookTitle ?? "").trim()) {
       throw new Error("New books require a title.");
     }
     const normalized = normalizeBlogEntryForSave({
@@ -81,10 +63,7 @@ CMS.registerEventListener({
 });
 
 const cmsReact = window as typeof window & CmsReactRuntime;
-CMS.registerFieldType(
-  "open-library-book",
-  createOpenLibraryBookField(cmsReact),
-);
+CMS.registerFieldType("open-library-book", createOpenLibraryBookField(cmsReact));
 
 // ─── Reel format ──────────────────────────────────────────────────────────
 

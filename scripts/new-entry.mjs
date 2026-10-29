@@ -44,12 +44,7 @@ function buildFrontmatter({ title, now, categories, type }) {
   return `---\ntitle: ${JSON.stringify(title)}\ndate: ${JSON.stringify(timestamp)}\nlastmod: ${JSON.stringify(timestamp)}\nsummary: ""\ntags: []\n${formatCategories(categories)}\ndraft: true\ndeleted: false\n---\n`;
 }
 
-export function createEntry({
-  root = PROJECT_ROOT,
-  type,
-  title,
-  now = new Date(),
-}) {
+export function createEntry({ root = PROJECT_ROOT, type, title, now = new Date() }) {
   const collection = TYPE_TO_DIR[type];
   if (!collection) {
     throw new Error(`Invalid content type: ${type}`);
@@ -67,13 +62,7 @@ export function createEntry({
   }
 
   const { title: resolvedTitle, slug } = resolved;
-  const entryDir = path.join(
-    root,
-    "src",
-    "content",
-    collection,
-    slug.toLowerCase(),
-  );
+  const entryDir = path.join(root, "src", "content", collection, slug.toLowerCase());
   const entryPath = path.join(entryDir, "index.mdx");
 
   if (existsSync(entryPath)) {
@@ -99,9 +88,7 @@ function main() {
   const title = titleParts.join(" ").trim();
 
   if (!type || (type !== "weeknotes" && !title)) {
-    console.error(
-      "Usage: node scripts/new-entry.mjs <posts|notes|games> <title>",
-    );
+    console.error("Usage: node scripts/new-entry.mjs <posts|notes|games> <title>");
     console.error("   or: node scripts/new-entry.mjs <weeknotes>");
     process.exit(1);
   }

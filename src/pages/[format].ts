@@ -1,8 +1,4 @@
-import {
-  SITE_DESCRIPTION,
-  SITE_TITLE,
-  WEEKNOTES_LEGACY_CUTOFF,
-} from "../consts";
+import { SITE_DESCRIPTION, SITE_TITLE, WEEKNOTES_LEGACY_CUTOFF } from "../consts";
 import { createFeedEndpoint } from "../lib/feed";
 import { filterDrafts } from "../utils";
 import { getCollection } from "astro:content";

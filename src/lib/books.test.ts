@@ -60,12 +60,8 @@ test("allows missing optional book and reading metadata", () => {
 
 test("rejects invalid URLs, timestamps, and inconsistent reading data", () => {
   assert.throws(() => bookSchema.parse(book({ bookPublishedYear: 2024.5 })));
-  assert.throws(() =>
-    bookSchema.parse(book({ readingStartedAt: "yesterday" })),
-  );
-  assert.throws(() =>
-    bookSchema.parse(book({ readingStoppedAt: "2026-01-02T00:00:00Z" })),
-  );
+  assert.throws(() => bookSchema.parse(book({ readingStartedAt: "yesterday" })));
+  assert.throws(() => bookSchema.parse(book({ readingStoppedAt: "2026-01-02T00:00:00Z" })));
   assert.throws(() =>
     bookSchema.parse(
       book({

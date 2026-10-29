@@ -1,8 +1,5 @@
 import { externalizeFeedMermaidSvgs } from "./feed-mermaid-assets.ts";
-import {
-  addMermaidSvgNamespace,
-  concretizeMermaidSvgForFeeds,
-} from "./feed-mermaid.ts";
+import { addMermaidSvgNamespace, concretizeMermaidSvgForFeeds } from "./feed-mermaid.ts";
 import { Resvg } from "@resvg/resvg-js";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
@@ -38,33 +35,19 @@ test("externalizes parsed SVGs with a background and absolute public URLs", asyn
     await mkdir(path.dirname(unrelatedAsset), { recursive: true });
     await writeFile(unrelatedAsset, "pre-existing asset");
     await writeFile(path.join(clientDir, "rss.xml"), `<img src="${dataUrl}"/>`);
-    await writeFile(
-      path.join(clientDir, "tags", "topic", "atom.xml"),
-      `<img src="${dataUrl}"/>`,
-    );
+    await writeFile(path.join(clientDir, "tags", "topic", "atom.xml"), `<img src="${dataUrl}"/>`);
     await writeFile(
       path.join(clientDir, "tags", "topic", "feed.json"),
       JSON.stringify({ content_html: `<img src="${dataUrl}"/>` }),
     );
 
-    const count = await externalizeFeedMermaidSvgs(
-      clientDir,
-      publicDir,
-      publicSiteUrl,
-    );
-    assert.equal(
-      count,
-      1,
-      "identical SVGs should share one content-addressed file",
-    );
+    const count = await externalizeFeedMermaidSvgs(clientDir, publicDir, publicSiteUrl);
+    assert.equal(count, 1, "identical SVGs should share one content-addressed file");
 
     const expectedSvg = concretizeMermaidSvgForFeeds(svg, "dark");
     const hash = createHash("sha256").update(expectedSvg).digest("hex");
     const fileName = `${hash}.svg`;
-    const asset = await readFile(
-      path.join(clientDir, "diagrams", fileName),
-      "utf8",
-    );
+    const asset = await readFile(path.join(clientDir, "diagrams", fileName), "utf8");
     assert.equal(asset, expectedSvg);
     assert.equal(
       (asset.match(/\sxmlns=/g) ?? []).length,
@@ -73,10 +56,7 @@ test("externalizes parsed SVGs with a background and absolute public URLs", asyn
     );
     assert.match(asset, /<rect width="100%" height="100%" fill="#1a1a1a"\/>/);
     assert.match(asset, /stroke="#c084b8"/);
-    assert.doesNotThrow(
-      () => new Resvg(asset).render(),
-      "output must parse as SVG",
-    );
+    assert.doesNotThrow(() => new Resvg(asset).render(), "output must parse as SVG");
     assert.equal(
       await readFile(path.join(publicDir, "diagrams", fileName), "utf8"),
       asset,
@@ -95,10 +75,7 @@ test("externalizes parsed SVGs with a background and absolute public URLs", asyn
     }
 
     assert.equal(await readFile(unrelatedAsset, "utf8"), "pre-existing asset");
-    assert.equal(
-      await externalizeFeedMermaidSvgs(clientDir, publicDir, publicSiteUrl),
-      0,
-    );
+    assert.equal(await externalizeFeedMermaidSvgs(clientDir, publicDir, publicSiteUrl), 0);
   } finally {
     await rm(root, { recursive: true, force: true });
   }
@@ -112,11 +89,7 @@ test("uses the configured draft origin for draft feed URLs", async () => {
       path.join(root, "feed.json"),
       JSON.stringify({ content_html: `<img src="${dataUrl}"/>` }),
     );
-    await externalizeFeedMermaidSvgs(
-      root,
-      path.join(root, "public"),
-      draftSiteUrl,
-    );
+    await externalizeFeedMermaidSvgs(root, path.join(root, "public"), draftSiteUrl);
 
     const feed = await readFile(path.join(root, "feed.json"), "utf8");
     assert.ok(feed.includes(`${draftSiteUrl}/diagrams/`));

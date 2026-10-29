@@ -20,18 +20,13 @@ import { env } from "cloudflare:workers";
 const VOTER_COOKIE = "__Host-msfjarvis-voter";
 const VOTER_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 const MAX_BODY_BYTES = 8 * 1024;
-const UUID_PATTERN =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export const GET: APIRoute = async ({ url, cookies }) => {
   try {
     const target = voteTargetFromQuery(url.searchParams);
     const voterHash = await voterHashFor(cookies);
-    const summary = await getVoteSummary(
-      createKvVoteStore(env.VOTES),
-      target,
-      voterHash,
-    );
+    const summary = await getVoteSummary(createKvVoteStore(env.VOTES), target, voterHash);
     return json(summary);
   } catch (error) {
     return errorResponse(error);
@@ -48,10 +43,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const currentSummary = await getVoteSummary(store, target, voterHash);
     const updatedSummary = applyVoteToSummary(currentSummary, submission);
     const outcome = await recordVote(store, submission, voterHash);
-    return json(
-      { outcome, ...updatedSummary },
-      outcome === "created" ? 201 : 200,
-    );
+    return json({ outcome, ...updatedSummary }, outcome === "created" ? 201 : 200);
   } catch (error) {
     return errorResponse(error);
   }
@@ -73,16 +65,11 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
 };
 
 export const ALL: APIRoute = () =>
-  json(
-    { error: "Method not allowed" },
-    405,
-    new Headers({ Allow: "GET, HEAD, POST, DELETE" }),
-  );
+  json({ error: "Method not allowed" }, 405, new Headers({ Allow: "GET, HEAD, POST, DELETE" }));
 
 async function voterHashFor(cookies: AstroCookies): Promise<string> {
   const existing = cookies.get(VOTER_COOKIE)?.value;
-  const voterId =
-    existing && UUID_PATTERN.test(existing) ? existing : crypto.randomUUID();
+  const voterId = existing && UUID_PATTERN.test(existing) ? existing : crypto.randomUUID();
 
   if (voterId !== existing) {
     cookies.set(VOTER_COOKIE, voterId, {
@@ -97,10 +84,7 @@ async function voterHashFor(cookies: AstroCookies): Promise<string> {
   return hashVoterId(voterId);
 }
 
-async function enforceMutationRateLimit(
-  target: VoteTarget,
-  voterHash: string,
-): Promise<void> {
+async function enforceMutationRateLimit(target: VoteTarget, voterHash: string): Promise<void> {
   const targetKey =
     target.type === "upvote"
       ? `upvote:${target.postId}`
@@ -113,11 +97,7 @@ async function enforceMutationRateLimit(
 }
 
 async function readJson(request: Request): Promise<unknown> {
-  const contentType = request.headers
-    .get("Content-Type")
-    ?.split(";", 1)[0]
-    .trim()
-    .toLowerCase();
+  const contentType = request.headers.get("Content-Type")?.split(";", 1)[0].trim().toLowerCase();
   if (contentType !== "application/json") {
     throw new VoteValidationError("Content-Type must be application/json");
   }
@@ -163,20 +143,14 @@ function errorResponse(error: unknown): Response {
     return json({ error: error.message }, 400);
   }
   if (error instanceof VoteRateLimitError) {
-    return json(
-      { error: error.message },
-      429,
-      new Headers({ "Retry-After": "10" }),
-    );
+    return json({ error: error.message }, 429, new Headers({ "Retry-After": "10" }));
   }
   if (error instanceof VoteCapacityError) {
     return json({ error: "Vote results are temporarily unavailable" }, 503);
   }
 
   const message = error instanceof Error ? error.message : String(error);
-  console.error(
-    JSON.stringify({ message: "Votes API request failed", error: message }),
-  );
+  console.error(JSON.stringify({ message: "Votes API request failed", error: message }));
   if (/KV PUT failed: 429/.test(message)) {
     return json(
       { error: "Please wait before changing this vote again" },
@@ -187,11 +161,7 @@ function errorResponse(error: unknown): Response {
   return json({ error: "Vote request failed" }, 503);
 }
 
-function json(
-  body: unknown,
-  status = 200,
-  additionalHeaders?: Headers,
-): Response {
+function json(body: unknown, status = 200, additionalHeaders?: Headers): Response {
   const headers = new Headers(additionalHeaders);
   headers.set("Cache-Control", "no-store");
   headers.set("Content-Type", "application/json; charset=utf-8");

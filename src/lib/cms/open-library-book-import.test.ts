@@ -2,10 +2,7 @@ import {
   openLibraryBookMetadataFieldNames,
   openLibraryBookMetadataFields,
 } from "./open-library-book-fields.ts";
-import {
-  applyImportedBook,
-  isImportedBook,
-} from "./open-library-book-import.ts";
+import { applyImportedBook, isImportedBook } from "./open-library-book-import.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -27,16 +24,12 @@ test("every imported field is declared in the CMS metadata fields", () => {
 });
 
 test("imported metadata is optional before the pre-save merge", () => {
-  assert.ok(
-    openLibraryBookMetadataFields.every((field) => field.required === false),
-  );
+  assert.ok(openLibraryBookMetadataFields.every((field) => field.required === false));
 });
 
 test("optional metadata patterns accept empty fields before pre-save", () => {
   for (const fieldName of ["bookCover"]) {
-    const field = openLibraryBookMetadataFields.find(
-      (candidate) => candidate.name === fieldName,
-    );
+    const field = openLibraryBookMetadataFields.find((candidate) => candidate.name === fieldName);
     if (!field || !("pattern" in field)) {
       throw new Error(`Missing pattern for ${fieldName}`);
     }

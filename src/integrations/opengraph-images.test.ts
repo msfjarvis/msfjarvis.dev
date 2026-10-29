@@ -25,16 +25,13 @@ const metadata = (overrides: Record<string, string> = {}) => {
 };
 
 test("extracts required Open Graph metadata and a distinct description", () => {
-  assert.deepEqual(
-    parseOpenGraphPage(`<html><head>${metadata()}</head></html>`),
-    {
-      title: "Title",
-      url: "https://example.test/post/",
-      type: "article",
-      image: "https://example.test/post/index.png",
-      description: "Description",
-    },
-  );
+  assert.deepEqual(parseOpenGraphPage(`<html><head>${metadata()}</head></html>`), {
+    title: "Title",
+    url: "https://example.test/post/",
+    type: "article",
+    image: "https://example.test/post/index.png",
+    description: "Description",
+  });
 });
 
 test("throws with the names of missing and empty required metadata", () => {
@@ -103,8 +100,7 @@ test("ignores metadata-looking text in script and style without executing it", (
 test("maps directory, file, and error page URLs to generated image URLs", () => {
   const site = new URL("https://drafts.example.test/base/");
   assert.equal(
-    getImagePath({ url: new URL("https://dev.example.test/posts/foo/"), site })
-      .href,
+    getImagePath({ url: new URL("https://dev.example.test/posts/foo/"), site }).href,
     "https://drafts.example.test/base/posts/foo/index.png",
   );
   assert.equal(
@@ -123,12 +119,7 @@ test("maps directory, file, and error page URLs to generated image URLs", () => 
 
 test("maps the root and every supported collection directory", () => {
   const site = new URL("https://example.test/");
-  for (const pathname of [
-    "/",
-    "/posts/foo/",
-    "/notes/foo/",
-    "/weeknotes/foo/",
-  ]) {
+  for (const pathname of ["/", "/posts/foo/", "/notes/foo/", "/weeknotes/foo/"]) {
     assert.equal(
       getImagePath({
         url: new URL(`${pathname}?preview=true#heading`, site),
@@ -159,10 +150,7 @@ test("finds directory-index and flat built HTML output", async (t) => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "og-html-path-"));
   t.after(() => fs.rm(dir, { recursive: true, force: true }));
   await fs.mkdir(path.join(dir, "posts", "directory"), { recursive: true });
-  await fs.writeFile(
-    path.join(dir, "posts", "directory", "index.html"),
-    "directory",
-  );
+  await fs.writeFile(path.join(dir, "posts", "directory", "index.html"), "directory");
   await fs.writeFile(path.join(dir, "posts", "flat.html"), "flat");
 
   assert.equal(

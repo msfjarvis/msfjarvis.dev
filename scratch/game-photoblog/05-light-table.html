@@ -23,12 +23,8 @@
         --focus: #365f89;
         --line: rgba(22, 48, 64, 0.19);
         --line-soft: rgba(22, 48, 64, 0.08);
-        --sans:
-          "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system,
-          sans-serif;
-        --display:
-          Optima, "Optima Nova", "Palatino Linotype", Palatino,
-          "Times New Roman", serif;
+        --sans: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system, sans-serif;
+        --display: Optima, "Optima Nova", "Palatino Linotype", Palatino, "Times New Roman", serif;
         --pad: clamp(16px, 3.2vw, 44px);
         --gap: clamp(14px, 1.8vw, 30px);
         --sticky-top: clamp(10px, 2vh, 26px);
@@ -58,11 +54,7 @@
         z-index: -1;
         pointer-events: none;
         background:
-          radial-gradient(
-            115% 78% at 10% -8%,
-            var(--base-hi) 0%,
-            rgba(242, 247, 249, 0) 62%
-          ),
+          radial-gradient(115% 78% at 10% -8%, var(--base-hi) 0%, rgba(242, 247, 249, 0) 62%),
           radial-gradient(
             88% 62% at 92% 104%,
             rgba(211, 222, 228, 0.9) 0%,
@@ -438,33 +430,24 @@
 
         <div class="lt-readout">
           <p class="lt-count">
-            <span id="lt-index">01</span><span class="lt-of">of</span
-            ><span id="lt-total">31</span>
+            <span id="lt-index">01</span><span class="lt-of">of</span><span id="lt-total">31</span>
           </p>
           <h2 class="lt-cap" id="lt-cap">School grounds</h2>
           <p class="lt-caption" id="lt-caption">
-            Stepped paths, clipped hedges, and trees fill an outdoor campus
-            view.
+            Stepped paths, clipped hedges, and trees fill an outdoor campus view.
           </p>
           <div class="lt-transport">
-            <button
-              type="button"
-              id="lt-prev"
-              aria-label="Previous capture"
-              disabled
-            >
+            <button type="button" id="lt-prev" aria-label="Previous capture" disabled>
               Previous
             </button>
-            <button type="button" id="lt-next" aria-label="Next capture">
-              Next
-            </button>
+            <button type="button" id="lt-next" aria-label="Next capture">Next</button>
           </div>
         </div>
 
         <noscript
           ><p class="lt-note">
-            JavaScript is off, so the large view stays on the first capture.
-            Every frame is listed in the contact sheet below.
+            JavaScript is off, so the large view stays on the first capture. Every frame is listed
+            in the contact sheet below.
           </p></noscript
         >
         <p class="lt-sr" id="lt-status" role="status" aria-live="polite"></p>
@@ -1208,9 +1191,7 @@
         var grid = document.getElementById("lt-thumbs");
         if (!grid) return;
 
-        var thumbs = Array.prototype.slice.call(
-          grid.querySelectorAll(".lt-thumb"),
-        );
+        var thumbs = Array.prototype.slice.call(grid.querySelectorAll(".lt-thumb"));
         var total = thumbs.length;
         if (!total) return;
 
@@ -1252,14 +1233,7 @@
           }
 
           status.textContent =
-            "Capture " +
-            (i + 1) +
-            " of " +
-            total +
-            ". " +
-            shot.title +
-            ". " +
-            shot.caption;
+            "Capture " + (i + 1) + " of " + total + ". " + shot.title + ". " + shot.caption;
           prevBtn.disabled = i === 0;
           nextBtn.disabled = i === total - 1;
           current = i;
@@ -1364,8 +1338,7 @@
         measure();
         window.addEventListener("resize", measure);
         window.addEventListener("load", measure);
-        if (window.ResizeObserver && stage)
-          new ResizeObserver(measure).observe(stage);
+        if (window.ResizeObserver && stage) new ResizeObserver(measure).observe(stage);
 
         commit(0, shotAt(0));
       })();

@@ -33,21 +33,13 @@ export function getContentCacheKey(entries: ContentEntry[]): string {
 
   return JSON.stringify(
     entries
-      .map(({ collection, id, url, digest }) => [
-        collection ?? "",
-        id ?? url ?? "",
-        String(digest),
-      ])
+      .map(({ collection, id, url, digest }) => [collection ?? "", id ?? url ?? "", String(digest)])
       .sort(([leftCollection, leftId], [rightCollection, rightId]) =>
-        `${leftCollection}/${leftId}`.localeCompare(
-          `${rightCollection}/${rightId}`,
-        ),
+        `${leftCollection}/${leftId}`.localeCompare(`${rightCollection}/${rightId}`),
       ),
   );
 }
 
-export const filterDrafts: (p: {
-  data: { draft: boolean; deleted: boolean };
-}) => boolean = (p) => {
+export const filterDrafts: (p: { data: { draft: boolean; deleted: boolean } }) => boolean = (p) => {
   return !p.data.deleted && (showDrafts || !p.data.draft);
 };

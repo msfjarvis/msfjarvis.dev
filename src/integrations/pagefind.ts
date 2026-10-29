@@ -8,9 +8,7 @@ export interface PagefindOptions {
   indexConfig?: PagefindServiceConfig;
 }
 
-export default function pagefind({
-  indexConfig,
-}: PagefindOptions = {}): AstroIntegration {
+export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIntegration {
   let clientDir: string | undefined;
   return {
     name: "pagefind",
@@ -21,9 +19,7 @@ export default function pagefind({
         }
       },
       "astro:server:setup": ({ server, logger }) => {
-        const outDir =
-          clientDir ??
-          path.join(server.config.root, server.config.build.outDir);
+        const outDir = clientDir ?? path.join(server.config.root, server.config.build.outDir);
         logger.debug(`Serving pagefind from ${outDir}`);
         const serve = sirv(outDir, {
           dev: true,

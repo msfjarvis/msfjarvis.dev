@@ -7,16 +7,9 @@ scheme = ["https", "http"]
 method = "get"
 base_url = "https://msfjarvis.dev"
 
-exclude = [
-  "^https?://msfjarvis\\.dev",
-]
+exclude = ["^https?://msfjarvis\\.dev"]
 
-exclude_path = [
-  "node_modules",
-  "\\.astro",
-  "dist",
-  "\\.cache",
-]
+exclude_path = ["node_modules", "\\.astro", "dist", "\\.cache"]
 
 extensions = ["md", "mdx"]
 exclude_all_private = true

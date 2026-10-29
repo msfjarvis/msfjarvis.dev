@@ -21,13 +21,8 @@ export async function getPageHtmlPath({
 }): Promise<string> {
   const decodedPath = decodeURIComponent(page);
   const normalizedPath = decodedPath.replace(/^\/+/, "");
-  const pagePath = normalizedPath.endsWith("/")
-    ? normalizedPath.slice(0, -1)
-    : normalizedPath;
-  const candidates = [
-    path.join(dir, pagePath, "index.html"),
-    path.join(dir, `${pagePath}.html`),
-  ];
+  const pagePath = normalizedPath.endsWith("/") ? normalizedPath.slice(0, -1) : normalizedPath;
+  const candidates = [path.join(dir, pagePath, "index.html"), path.join(dir, `${pagePath}.html`)];
 
   for (const candidate of candidates) {
     try {

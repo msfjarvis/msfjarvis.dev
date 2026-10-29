@@ -25,8 +25,7 @@ export interface ReelEntry {
 }
 
 const FRONTMATTER_PATTERN = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
-const IMPORT_PATTERN =
-  /^import\s+([A-Za-z_$][\w$]*)\s+from\s+"([^"]+)";?\s*$/gm;
+const IMPORT_PATTERN = /^import\s+([A-Za-z_$][\w$]*)\s+from\s+"([^"]+)";?\s*$/gm;
 const FIELD_ORDER = ["title", "date", "cover", "subtitle"];
 
 /** Games entries are always `src/content/games/<slug>/index.mdx`. */
@@ -77,9 +76,7 @@ export function formatReelMdx(entry: ReelEntry): string {
 
   const importBlock = [
     FRAME_IMPORT,
-    ...[...imports].map(
-      ([src, name]) => `import ${name} from ${JSON.stringify(src)};`,
-    ),
+    ...[...imports].map(([src, name]) => `import ${name} from ${JSON.stringify(src)};`),
   ].join("\n");
 
   const frameBlock = frames
@@ -105,9 +102,7 @@ export function formatReelMdx(entry: ReelEntry): string {
 function serializeFrontmatter(front: Record<string, unknown>): string {
   const keys = [
     ...FIELD_ORDER.filter((key) => front[key] !== undefined),
-    ...Object.keys(front).filter(
-      (key) => !FIELD_ORDER.includes(key) && front[key] !== undefined,
-    ),
+    ...Object.keys(front).filter((key) => !FIELD_ORDER.includes(key) && front[key] !== undefined),
   ];
   return keys.map((key) => `${key}: ${yamlValue(front[key])}`).join("\n");
 }

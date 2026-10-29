@@ -23,31 +23,16 @@ const options: CompileOptions = {
 };
 
 test("preserves GitHub alert markup", async () => {
-  const { html } = await markdownToHtml(
-    "> [!NOTE]\n> Hello **world**.",
-    options,
-  );
+  const { html } = await markdownToHtml("> [!NOTE]\n> Hello **world**.", options);
 
-  assert.match(
-    html,
-    /^<div class="markdown-alert markdown-alert-note" dir="auto">/,
-  );
-  assert.match(
-    html,
-    /<p class="markdown-alert-title" dir="auto"><svg class="octicon"/,
-  );
-  assert.match(
-    html,
-    /aria-hidden="true"><path d="[^"]+"><\/path><\/svg>NOTE<\/p>/,
-  );
+  assert.match(html, /^<div class="markdown-alert markdown-alert-note" dir="auto">/);
+  assert.match(html, /<p class="markdown-alert-title" dir="auto"><svg class="octicon"/);
+  assert.match(html, /aria-hidden="true"><path d="[^"]+"><\/path><\/svg>NOTE<\/p>/);
   assert.match(html, /<p>Hello <strong>world<\/strong>\.<\/p>/);
 });
 
 test("preserves Remark smartypants behavior", async () => {
-  const { html } = await markdownToHtml(
-    "\"Hello *world*.\" -- Wait... . . . ``fine''",
-    options,
-  );
+  const { html } = await markdownToHtml("\"Hello *world*.\" -- Wait... . . . ``fine''", options);
 
   assert.equal(html, "<p>“Hello <em>world</em>.” — Wait… … “fine”</p>\n");
 });
@@ -73,10 +58,7 @@ test("renders static popovers and keeps an inert footnote fallback", async () =>
   assert.match(html, /aria-describedby="footnote-popover-1"/);
   assert.match(html, /id="footnote-popover-1" role="tooltip"/);
   assert.match(html, /<strong>bold<\/strong> text\.\s*<\/p>\s*<\/div>/);
-  assert.match(
-    html,
-    /<template data-footnotes-fallback><section data-footnotes/,
-  );
+  assert.match(html, /<template data-footnotes-fallback><section data-footnotes/);
   const popoverContents = [
     ...html.matchAll(/<div class="footnote-popover"[^>]*>([\s\S]*?)<\/div>/g),
   ].map(([, content]) => content ?? "");
@@ -96,9 +78,6 @@ test("retains GFM task lists, autolinks, and strikethrough", async () => {
   assert.match(html, /<ul class="contains-task-list">/);
   assert.match(html, /<input type="checkbox" checked disabled> done/);
   assert.match(html, /<input type="checkbox" disabled> todo/);
-  assert.match(
-    html,
-    /<a href="https:\/\/example.com">https:\/\/example.com<\/a>/,
-  );
+  assert.match(html, /<a href="https:\/\/example.com">https:\/\/example.com<\/a>/);
   assert.match(html, /<del>removed<\/del>/);
 });

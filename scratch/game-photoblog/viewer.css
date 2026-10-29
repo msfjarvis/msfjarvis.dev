@@ -145,13 +145,7 @@
   right: 14px;
   bottom: 14px;
   z-index: 40;
-  font-family:
-    "Avenir Next",
-    "Avenir",
-    "Segoe UI",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: "Avenir Next", "Avenir", "Segoe UI", system-ui, -apple-system, sans-serif;
   font-size: 12px;
   line-height: 1.4;
   color: #e8eaee;

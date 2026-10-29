@@ -1,8 +1,6 @@
 export type CollectionKind = "posts" | "notes" | "weeknotes";
 
-export function getCollectionKindFromPath(
-  pathname: string,
-): CollectionKind | null {
+export function getCollectionKindFromPath(pathname: string): CollectionKind | null {
   if (pathname.startsWith("/posts/")) return "posts";
   if (pathname.startsWith("/notes/")) return "notes";
   if (pathname.startsWith("/weeknotes/")) return "weeknotes";

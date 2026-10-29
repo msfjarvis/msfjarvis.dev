@@ -1,7 +1,4 @@
-import {
-  type OpenLibraryBook,
-  lookupOpenLibraryBook,
-} from "../open-library-lookup";
+import { type OpenLibraryBook, lookupOpenLibraryBook } from "../open-library-lookup";
 import { isImportedBook } from "./open-library-book-import";
 import type { CustomFieldControl, CustomFieldControlProps } from "@sveltia/cms";
 
@@ -97,11 +94,7 @@ export function createOpenLibraryBookField({
             { role: "alert" },
             error,
             " ",
-            h(
-              "button",
-              { type: "button", disabled: loading, onClick: this.lookup },
-              "Retry",
-            ),
+            h("button", { type: "button", disabled: loading, onClick: this.lookup }, "Retry"),
           ),
         book && bookPreview(h, book),
       );
@@ -143,12 +136,8 @@ function bookPreview(h: H, book: OpenLibraryBook): CmsElement {
       ...detail("Title", [book.bookTitle]),
       ...detail("Authors", [book.bookAuthors.join(", ")]),
       ...(book.bookSeries ? detail("Series", [book.bookSeries]) : []),
-      ...(book.bookSeriesNumber
-        ? detail("Series number", [book.bookSeriesNumber])
-        : []),
-      ...(book.bookPublishedYear
-        ? detail("Published", [String(book.bookPublishedYear)])
-        : []),
+      ...(book.bookSeriesNumber ? detail("Series number", [book.bookSeriesNumber]) : []),
+      ...(book.bookPublishedYear ? detail("Published", [String(book.bookPublishedYear)]) : []),
     ),
   );
 }

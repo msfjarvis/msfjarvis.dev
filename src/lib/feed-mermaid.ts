@@ -37,19 +37,14 @@ export function concretizeMermaidSvgForFeeds(
   const variables = new Map(
     Object.entries(colors).map(([name, value]) => [`--pele-${name}`, value]),
   );
-  for (const [, name, value] of svgHtml.matchAll(
-    /(--_[a-z-]+)\s*:\s*([^;"']+)/g,
-  )) {
+  for (const [, name, value] of svgHtml.matchAll(/(--_[a-z-]+)\s*:\s*([^;"']+)/g)) {
     variables.set(name, value.trim());
   }
 
   return normalizeFeedSvg(resolveCssVariables(svgHtml, variables), colors.bg);
 }
 
-function resolveCssVariables(
-  svg: string,
-  variables: Map<string, string>,
-): string {
+function resolveCssVariables(svg: string, variables: Map<string, string>): string {
   let result = "";
   let cursor = 0;
 
@@ -89,9 +84,7 @@ function resolveCssVariables(
     const fallback = comma === -1 ? undefined : body.slice(comma + 1).trim();
     const value = variables.get(name) ?? fallback;
     if (value === undefined) {
-      throw new Error(
-        `Cannot resolve CSS variable ${name} in standalone Mermaid SVG`,
-      );
+      throw new Error(`Cannot resolve CSS variable ${name} in standalone Mermaid SVG`);
     }
     result += resolveCssVariables(value, variables);
     cursor = end;

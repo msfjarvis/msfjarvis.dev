@@ -20,16 +20,12 @@ import React, { type ReactNode } from "react";
 const TITLE_LINE_HEIGHT = 1.04;
 const TITLE_FONT_SIZE = 58;
 const TITLE_MAX_LINES = 4;
-const TITLE_MAX_HEIGHT = Math.round(
-  TITLE_FONT_SIZE * TITLE_LINE_HEIGHT * TITLE_MAX_LINES,
-);
+const TITLE_MAX_HEIGHT = Math.round(TITLE_FONT_SIZE * TITLE_LINE_HEIGHT * TITLE_MAX_LINES);
 
 const SUMMARY_LINE_HEIGHT = 1.4;
 const SUMMARY_FONT_SIZE = 22;
 const SUMMARY_MAX_LINES = 3;
-const SUMMARY_MAX_HEIGHT = Math.round(
-  SUMMARY_FONT_SIZE * SUMMARY_LINE_HEIGHT * SUMMARY_MAX_LINES,
-);
+const SUMMARY_MAX_HEIGHT = Math.round(SUMMARY_FONT_SIZE * SUMMARY_LINE_HEIGHT * SUMMARY_MAX_LINES);
 
 export async function renderCollectionCard({
   pathname,

@@ -1,9 +1,4 @@
-import {
-  VoteApiError,
-  fetchVoteSummary,
-  parseVoteSummary,
-  submitVote,
-} from "./votes-client.ts";
+import { VoteApiError, fetchVoteSummary, parseVoteSummary, submitVote } from "./votes-client.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -63,14 +58,11 @@ test("parses a poll summary and preserves configured response values", () => {
 test("serializes summary requests through a global queue", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis &
-    Record<symbol, unknown>;
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
   delete sharedGlobal[queueKey];
 
   let resolveFirst: ((response: Response) => void) | undefined;
-  const firstResponse = new Promise<Response>(
-    (resolve) => (resolveFirst = resolve),
-  );
+  const firstResponse = new Promise<Response>((resolve) => (resolveFirst = resolve));
   const requestedUrls: string[] = [];
   globalThis.fetch = (async (input) => {
     requestedUrls.push(String(input));
@@ -109,8 +101,7 @@ test("serializes summary requests through a global queue", async () => {
 test("releases the summary queue after request errors", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis &
-    Record<symbol, unknown>;
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
   delete sharedGlobal[queueKey];
 
   let requestCount = 0;
@@ -146,15 +137,13 @@ test("releases the summary queue after request errors", async () => {
 test("releases the summary queue after API errors", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis &
-    Record<symbol, unknown>;
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
   delete sharedGlobal[queueKey];
 
   let requestCount = 0;
   globalThis.fetch = (async () => {
     requestCount += 1;
-    if (requestCount === 1)
-      return jsonResponse({ error: "temporarily unavailable" }, 503);
+    if (requestCount === 1) return jsonResponse({ error: "temporarily unavailable" }, 503);
     return jsonResponse({
       type: "upvote",
       postId: "posts/second",
@@ -179,14 +168,11 @@ test("releases the summary queue after API errors", async () => {
 test("does not queue vote mutations behind summary requests", async () => {
   const originalFetch = globalThis.fetch;
   const queueKey = Symbol.for("msfjarvis.dev.votes.summary-request-queue");
-  const sharedGlobal = globalThis as typeof globalThis &
-    Record<symbol, unknown>;
+  const sharedGlobal = globalThis as typeof globalThis & Record<symbol, unknown>;
   delete sharedGlobal[queueKey];
 
   let resolveSummary: ((response: Response) => void) | undefined;
-  const summaryResponse = new Promise<Response>(
-    (resolve) => (resolveSummary = resolve),
-  );
+  const summaryResponse = new Promise<Response>((resolve) => (resolveSummary = resolve));
   const methods: string[] = [];
   globalThis.fetch = (async (_input, init) => {
     const method = init?.method ?? "GET";

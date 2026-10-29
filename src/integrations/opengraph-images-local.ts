@@ -21,13 +21,9 @@ export type OpenGraphRenderInput = OpenGraphPageMetadata & {
   dir: URL;
 };
 
-export type OpenGraphRender = (
-  input: OpenGraphRenderInput,
-) => ReactNode | Promise<ReactNode>;
+export type OpenGraphRender = (input: OpenGraphRenderInput) => ReactNode | Promise<ReactNode>;
 
-export type OpenGraphFilter = (
-  input: OpenGraphRenderInput,
-) => boolean | Promise<boolean>;
+export type OpenGraphFilter = (input: OpenGraphRenderInput) => boolean | Promise<boolean>;
 
 export type OpenGraphOptions = Partial<Pick<SatoriOptions, "fonts">> & {
   width: number;
@@ -37,8 +33,7 @@ export type OpenGraphOptions = Partial<Pick<SatoriOptions, "fonts">> & {
 
 export function parseOpenGraphPage(html: string): OpenGraphPageMetadata {
   const $ = load(html);
-  const read = (name: string) =>
-    $(`meta[property="og:${name}"]`).first().attr("content")?.trim();
+  const read = (name: string) => $(`meta[property="og:${name}"]`).first().attr("content")?.trim();
   const title = read("title");
   const url = read("url");
   const type = read("type");
@@ -53,17 +48,12 @@ export function parseOpenGraphPage(html: string): OpenGraphPageMetadata {
     .map(([name]) => name);
 
   if (missing.length > 0) {
-    throw new Error(
-      `Missing required Open Graph metadata: ${missing.join(", ")}`,
-    );
+    throw new Error(`Missing required Open Graph metadata: ${missing.join(", ")}`);
   }
 
   const description = read("description");
   const date = $("[data-og-date]").first().attr("data-og-date")?.trim();
-  const collection = $("[data-og-collection]")
-    .first()
-    .attr("data-og-collection")
-    ?.trim();
+  const collection = $("[data-og-collection]").first().attr("data-og-collection")?.trim();
   return {
     title: title!,
     url: url!,
@@ -71,9 +61,7 @@ export function parseOpenGraphPage(html: string): OpenGraphPageMetadata {
     image: image!,
     ...(description && description !== title ? { description } : {}),
     ...(date ? { date } : {}),
-    ...(collection === "posts" ||
-    collection === "notes" ||
-    collection === "weeknotes"
+    ...(collection === "posts" || collection === "notes" || collection === "weeknotes"
       ? { collection }
       : {}),
   };

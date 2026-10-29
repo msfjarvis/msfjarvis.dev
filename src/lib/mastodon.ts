@@ -19,9 +19,7 @@ function httpUrl(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
   try {
     const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:"
-      ? url.toString()
-      : undefined;
+    return url.protocol === "http:" || url.protocol === "https:" ? url.toString() : undefined;
   } catch {
     return undefined;
   }
@@ -34,11 +32,7 @@ function parseStatusUrl(value: string): ParsedStatusUrl {
   } catch {
     throw new Error("Invalid Mastodon status URL");
   }
-  if (
-    (url.protocol !== "http:" && url.protocol !== "https:") ||
-    url.username ||
-    url.password
-  ) {
+  if ((url.protocol !== "http:" && url.protocol !== "https:") || url.username || url.password) {
     throw new Error("Invalid Mastodon status URL");
   }
 
@@ -70,10 +64,7 @@ function normalizeContent(value: string): string[] {
   return text ? [text] : [];
 }
 
-function requiredRecord(
-  value: unknown,
-  label: string,
-): Record<string, unknown> {
+function requiredRecord(value: unknown, label: string): Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     throw new Error(`Invalid Mastodon status: ${label}`);
   }
@@ -81,8 +72,7 @@ function requiredRecord(
 }
 
 function parseTimestamp(value: unknown): string {
-  if (typeof value !== "string")
-    throw new Error("Invalid Mastodon status: created_at");
+  if (typeof value !== "string") throw new Error("Invalid Mastodon status: created_at");
   const timestamp = new Date(value);
   if (Number.isNaN(timestamp.getTime())) {
     throw new Error("Invalid Mastodon status: created_at");
@@ -98,28 +88,20 @@ export function getMastodonSnapshotKey(url: string): string {
   return parseStatusUrl(url).canonicalUrl;
 }
 
-function normalizeStatus(
-  value: unknown,
-  requested: ParsedStatusUrl,
-): MastodonStatus {
+function normalizeStatus(value: unknown, requested: ParsedStatusUrl): MastodonStatus {
   const data = requiredRecord(value, "payload");
   if (typeof data.content !== "string") {
     throw new Error("Invalid Mastodon status: content");
   }
 
   const account = requiredRecord(data.account, "account");
-  if (
-    typeof account.display_name !== "string" ||
-    typeof account.acct !== "string"
-  ) {
+  if (typeof account.display_name !== "string" || typeof account.acct !== "string") {
     throw new Error("Invalid Mastodon status: account");
   }
 
   const images: MastodonStatus["images"] = [];
   const attachments: MastodonStatus["attachments"] = [];
-  const media = Array.isArray(data.media_attachments)
-    ? data.media_attachments
-    : [];
+  const media = Array.isArray(data.media_attachments) ? data.media_attachments : [];
   for (const item of media) {
     if (!item || typeof item !== "object" || Array.isArray(item)) continue;
     const url = httpUrl(item.url);
@@ -168,18 +150,12 @@ function snapshotList(
   return value.map((item, index) => {
     const record = requiredRecord(item, `${label}[${index}]`);
     return Object.fromEntries(
-      fields.map((field) => [
-        field,
-        snapshotString(record[field], `${label}[${index}].${field}`),
-      ]),
+      fields.map((field) => [field, snapshotString(record[field], `${label}[${index}].${field}`)]),
     );
   });
 }
 
-function normalizeSnapshot(
-  value: unknown,
-  canonicalUrl: string,
-): MastodonStatus {
+function normalizeSnapshot(value: unknown, canonicalUrl: string): MastodonStatus {
   const data = requiredRecord(value, "payload");
   if (data.canonicalUrl !== canonicalUrl) {
     throw new Error("Invalid Mastodon status snapshot: canonicalUrl");
@@ -187,13 +163,13 @@ function normalizeSnapshot(
 
   const author = requiredRecord(data.author, "author");
   const paragraphs = snapshotStringList(data.paragraphs, "paragraphs");
-  const images = snapshotList(data.images, "images", ["url", "alt"]).map(
-    ({ url, alt }) => ({ url, alt }),
+  const images = snapshotList(data.images, "images", ["url", "alt"]).map(({ url, alt }) => ({
+    url,
+    alt,
+  }));
+  const attachments = snapshotList(data.attachments, "attachments", ["url", "label"]).map(
+    ({ url, label }) => ({ url, label }),
   );
-  const attachments = snapshotList(data.attachments, "attachments", [
-    "url",
-    "label",
-  ]).map(({ url, label }) => ({ url, label }));
 
   return {
     canonicalUrl,
@@ -234,15 +210,9 @@ export async function fetchMastodonStatus(input: {
       redirect: "manual",
     });
   } catch (error) {
-    throw new Error(
-      `Mastodon status request failed for ${requested.endpoint}`,
-      { cause: error },
-    );
+    throw new Error(`Mastodon status request failed for ${requested.endpoint}`, { cause: error });
   }
-  if (!response.ok)
-    throw new Error(
-      `Mastodon status request failed with HTTP ${response.status}`,
-    );
+  if (!response.ok) throw new Error(`Mastodon status request failed with HTTP ${response.status}`);
 
   let payload: unknown;
   try {

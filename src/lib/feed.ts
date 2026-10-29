@@ -1,9 +1,6 @@
 import { AUTHOR_NAME, SITE_URL } from "../consts";
 import { getContentCacheKey } from "../utils";
-import {
-  restoreFootnotesForFeeds,
-  simplifyCodeBlocksForFeeds,
-} from "./feed-html.ts";
+import { restoreFootnotesForFeeds, simplifyCodeBlocksForFeeds } from "./feed-html.ts";
 import { addMermaidSvgNamespace } from "./feed-mermaid.ts";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import type { APIContext } from "astro";
@@ -138,9 +135,7 @@ function removeLightboxDuplicates(html: string): string {
     if ($trigger.length > 0) {
       const imageHtml = $trigger.find("picture, img").first().prop("outerHTML");
       if (!imageHtml) {
-        throw Error(
-          "Failed to extract lightbox image for feeds, has the layout changed?",
-        );
+        throw Error("Failed to extract lightbox image for feeds, has the layout changed?");
       }
       $trigger.replaceWith(imageHtml);
     }
@@ -162,9 +157,7 @@ function flattenMermaidSvgs(html: string): string {
     const $diagram = $(diagram);
     const svgHtml = $diagram.find("svg").first().prop("outerHTML");
     if (!svgHtml) {
-      throw Error(
-        "Failed to extract Mermaid SVG for feeds, has the markup changed?",
-      );
+      throw Error("Failed to extract Mermaid SVG for feeds, has the markup changed?");
     }
     $diagram.replaceWith(mermaidSvgToFeedImage(svgHtml));
   });
@@ -253,9 +246,7 @@ export function rssSerializer(opts: {
 
   const needsContent = items.some((i) => i.html);
   const ns = [
-    needsContent
-      ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"'
-      : "",
+    needsContent ? 'xmlns:content="http://purl.org/rss/1.0/modules/content/"' : "",
     'xmlns:atom="http://www.w3.org/2005/Atom"',
   ]
     .filter(Boolean)
@@ -303,8 +294,7 @@ export function atomSerializer(opts: {
   const { title, description, selfPath, items } = opts;
   const site = opts.context.site!;
 
-  const updated =
-    items.length > 0 ? items[0].date.toISOString() : new Date().toISOString();
+  const updated = items.length > 0 ? items[0].date.toISOString() : new Date().toISOString();
 
   const entries = items
     .map(
@@ -474,9 +464,7 @@ export function createFeedEndpoint(config: FeedEndpointConfig): {
   return {
     async getStaticPaths() {
       const sources = await config.getSources();
-      const cacheKey = getContentCacheKey(
-        sources.flatMap(({ entries }) => entries),
-      );
+      const cacheKey = getContentCacheKey(sources.flatMap(({ entries }) => entries));
       return FEED_FORMATS.map((format) => ({
         params: { format },
         props: { sources },

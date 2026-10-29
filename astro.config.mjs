@@ -26,19 +26,14 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const isDrafts = process.env.INCLUDE_DRAFTS === "true";
-const siteUrl = isDrafts
-  ? "https://drafts.msfjarvis.dev"
-  : "https://msfjarvis.dev";
+const siteUrl = isDrafts ? "https://drafts.msfjarvis.dev" : "https://msfjarvis.dev";
 const wranglerConfigPath = process.env.WRANGLER_CONFIG_PATH;
 const webmentionWorkerOrigin = process.env.WEBMENTION_WORKER_ORIGIN;
 const webmentionAuthToken = process.env.WEBMENTION_AUTH_TOKEN;
 
-const { renderCollectionCard } =
-  await import("./src/og/renderers/collection-card-split.tsx");
+const { renderCollectionCard } = await import("./src/og/renderers/collection-card-split.tsx");
 // Reuse Astro's Vite dependency rather than adding a separate bundler dependency.
-const { build: buildVite } = createRequire(import.meta.resolve("astro"))(
-  "vite",
-);
+const { build: buildVite } = createRequire(import.meta.resolve("astro"))("vite");
 
 const markdownProcessor = satteri({
   features: {
@@ -97,8 +92,7 @@ export default defineConfig({
       },
     }),
     opengraphImages({
-      matchPathname: (pathname) =>
-        /^(posts|notes|weeknotes)\/[^/]+\/$/.test(pathname),
+      matchPathname: (pathname) => /^(posts|notes|weeknotes)\/[^/]+\/$/.test(pathname),
       options: {
         verbose: false,
         fonts: [
@@ -177,11 +171,7 @@ export default defineConfig({
           return {
             build: {
               rolldownOptions: {
-                external: [
-                  ...existing,
-                  "@napi-rs/wasm-runtime",
-                  "@bruits/satteri-wasm32-wasi",
-                ],
+                external: [...existing, "@napi-rs/wasm-runtime", "@bruits/satteri-wasm32-wasi"],
               },
             },
           };

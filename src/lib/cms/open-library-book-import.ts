@@ -23,7 +23,6 @@ export function isImportedBook(value: unknown): value is OpenLibraryBook {
     typeof book.bookCoverAlt === "string" &&
     typeof book.bookSeries === "string" &&
     typeof book.bookSeriesNumber === "string" &&
-    (book.bookPublishedYear === undefined ||
-      typeof book.bookPublishedYear === "number")
+    (book.bookPublishedYear === undefined || typeof book.bookPublishedYear === "number")
   );
 }

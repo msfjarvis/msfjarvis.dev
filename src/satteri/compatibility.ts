@@ -70,8 +70,7 @@ export const githubAlerts = defineMdastPlugin({
         };
       } else {
         child.children = child.children.filter(
-          (item, index) =>
-            index !== 0 && !(index === 1 && item.type === "break"),
+          (item, index) => index !== 0 && !(index === 1 && item.type === "break"),
         );
       }
     }
@@ -95,10 +94,7 @@ export const githubAlerts = defineMdastPlugin({
       } as NonNullable<Paragraph["data"]> & {
         hProperties: { className: string[]; dir: string };
       },
-      children: [
-        alertIcon(alertType),
-        { type: "text", value: alertType.toLocaleUpperCase() },
-      ],
+      children: [alertIcon(alertType), { type: "text", value: alertType.toLocaleUpperCase() }],
     } satisfies Paragraph);
 
     return replacement as MdastNode;
@@ -121,9 +117,7 @@ export const remarkSmartypantsCompatibility = defineMdastPlugin({
   },
 });
 
-function isElement(
-  node: HastNode,
-): node is Extract<HastNode, { type: "element" }> {
+function isElement(node: HastNode): node is Extract<HastNode, { type: "element" }> {
   return node.type === "element";
 }
 

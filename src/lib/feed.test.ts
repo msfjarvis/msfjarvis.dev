@@ -1,8 +1,5 @@
 import { footnotePopovers } from "../satteri/compatibility.ts";
-import {
-  restoreFootnotesForFeeds,
-  simplifyCodeBlocksForFeeds,
-} from "./feed-html.ts";
+import { restoreFootnotesForFeeds, simplifyCodeBlocksForFeeds } from "./feed-html.ts";
 import { load } from "cheerio";
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -18,18 +15,12 @@ test("restores standard GFM footnotes in feed HTML", () => {
   assert.equal(result(".footnote-popover").length, 0);
   assert.equal(result("template[data-footnotes-fallback]").length, 0);
   assert.equal(result("section[data-footnotes].footnotes").length, 1);
-  assert.equal(
-    result("#user-content-fn-1").text().trim(),
-    "Definition text. ↩",
-  );
+  assert.equal(result("#user-content-fn-1").text().trim(), "Definition text. ↩");
   assert.equal(
     result("#user-content-fn-1 a[data-footnote-backref]").attr("href"),
     "#user-content-fnref-1",
   );
-  assert.equal(
-    result('a[href="#user-content-fn-1"]').attr("aria-describedby"),
-    "footnote-label",
-  );
+  assert.equal(result('a[href="#user-content-fn-1"]').attr("aria-describedby"), "footnote-label");
 });
 
 test("simplifies Expressive Code blocks into plain preformatted text", () => {

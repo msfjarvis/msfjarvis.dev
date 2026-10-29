@@ -1,9 +1,5 @@
 import { concretizeMermaidSvgForFeeds } from "../lib/feed-mermaid.ts";
-import {
-  feedSitePalette,
-  generateSitePaletteCss,
-  sitePalette,
-} from "../lib/site-palette.ts";
+import { feedSitePalette, generateSitePaletteCss, sitePalette } from "../lib/site-palette.ts";
 import { mermaidDiagrams } from "./mermaid.ts";
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -45,10 +41,7 @@ test("renders Mermaid fences to responsive Pele SVG", () => {
 
 test("loads Mermaid zoom in the post layout", async () => {
   const { readFile } = await import("node:fs/promises");
-  const layout = await readFile(
-    new URL("../layouts/PostLayout.astro", import.meta.url),
-    "utf8",
-  );
+  const layout = await readFile(new URL("../layouts/PostLayout.astro", import.meta.url), "utf8");
 
   assert.match(layout, /import ["']\.\.\/scripts\/mermaid-zoom\.ts["']/);
 });
@@ -98,10 +91,7 @@ test("resolves nested CSS variable fallbacks", () => {
 
 test("keeps Pele-specific fallbacks in Mermaid integration", async () => {
   const { readFile } = await import("node:fs/promises");
-  const stylesheet = await readFile(
-    new URL("../styles/global.css", import.meta.url),
-    "utf8",
-  );
+  const stylesheet = await readFile(new URL("../styles/global.css", import.meta.url), "utf8");
 
   assert.match(stylesheet, /--pele-surface-alt:\s*var\(--accent-subtle\)/);
   assert.match(

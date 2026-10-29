@@ -164,10 +164,7 @@ test("assorted posts use timezone-explicit lastmod values", async () => {
   ];
 
   for (const file of files) {
-    const content = await readFile(
-      new URL(`../../${file}`, import.meta.url),
-      "utf8",
-    );
+    const content = await readFile(new URL(`../../${file}`, import.meta.url), "utf8");
     const match = content.match(/^lastmod:\s*"([^"]+)"/m);
     assert.ok(match, `expected lastmod in ${file}`);
     assert.match(match[1], /(?:Z|[+-]\d\d:\d\d)$/);

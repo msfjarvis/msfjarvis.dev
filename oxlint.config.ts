@@ -2,12 +2,16 @@ import { defineConfig } from "oxlint";
 
 export default defineConfig({
   ignorePatterns: [
-    ".agent/**", ".agents/**", ".astro/**", ".wrangler/**", "dist/**",
-    "node_modules/**", "worker-configuration.d.ts", "tools/oxlint/anti-slop/**",
+    ".agent/**",
+    ".agents/**",
+    ".astro/**",
+    ".wrangler/**",
+    "dist/**",
+    "node_modules/**",
+    "worker-configuration.d.ts",
+    "tools/oxlint/anti-slop/**",
   ],
-  jsPlugins: [
-    { name: "anti-slop", specifier: "./tools/oxlint/anti-slop/index.ts" },
-  ],
+  jsPlugins: [{ name: "anti-slop", specifier: "./tools/oxlint/anti-slop/index.ts" }],
   rules: {
     "oxc/no-accumulating-spread": "error",
     "anti-slop/no-array-filter-map": "error",

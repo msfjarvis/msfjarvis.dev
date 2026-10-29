@@ -13,9 +13,8 @@ const readingTimestamp = z
   .string()
   .refine(
     (value) =>
-      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(
-        value,
-      ) && !Number.isNaN(Date.parse(value)),
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value) &&
+      !Number.isNaN(Date.parse(value)),
     "Timestamp must be an ISO 8601 date-time with an offset",
   );
 
@@ -29,12 +28,7 @@ export function createBookSchema<T extends z.ZodType>(localBookCover: T) {
       bookSeries: z.string().optional(),
       bookSeriesNumber: z.string().optional(),
       bookPublishedYear: z.number().int().optional(),
-      readingShelf: z.enum([
-        "read",
-        "reading",
-        "stopped-reading",
-        "want-to-read",
-      ]),
+      readingShelf: z.enum(["read", "reading", "stopped-reading", "want-to-read"]),
       readingStartedAt: readingTimestamp.optional(),
       readingFinishedAt: readingTimestamp.optional(),
       readingStoppedAt: readingTimestamp.optional(),
@@ -48,15 +42,11 @@ export function createBookSchema<T extends z.ZodType>(localBookCover: T) {
           path: ["readingStoppedAt"],
         });
       }
-      const lastReadAt =
-        book.readingFinishedAt ??
-        book.readingStoppedAt ??
-        book.readingStartedAt;
+      const lastReadAt = book.readingFinishedAt ?? book.readingStoppedAt ?? book.readingStartedAt;
       if (book.readingLastReadAt !== lastReadAt) {
         context.addIssue({
           code: "custom",
-          message:
-            "readingLastReadAt must equal the finished, stopped, or started timestamp",
+          message: "readingLastReadAt must equal the finished, stopped, or started timestamp",
           path: ["readingLastReadAt"],
         });
       }
@@ -93,17 +83,9 @@ export function orderBooks<T extends BookEntry>(books: readonly T[]): T[] {
 export function partitionBooks<T extends BookEntry>(books: readonly T[]) {
   const ordered = orderBooks(books);
   return {
-    currentlyReading: ordered.filter(
-      (book) => book.data.readingShelf === "reading",
-    ),
-    finishedReading: ordered.filter(
-      (book) => book.data.readingShelf === "read",
-    ),
-    stoppedReading: ordered.filter(
-      (book) => book.data.readingShelf === "stopped-reading",
-    ),
-    wantToRead: ordered.filter(
-      (book) => book.data.readingShelf === "want-to-read",
-    ),
+    currentlyReading: ordered.filter((book) => book.data.readingShelf === "reading"),
+    finishedReading: ordered.filter((book) => book.data.readingShelf === "read"),
+    stoppedReading: ordered.filter((book) => book.data.readingShelf === "stopped-reading"),
+    wantToRead: ordered.filter((book) => book.data.readingShelf === "want-to-read"),
   };
 }

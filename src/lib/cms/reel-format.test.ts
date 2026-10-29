@@ -28,10 +28,7 @@ test("reel entries round-trip through the custom format", () => {
   const mdx = formatReelMdx(entry);
 
   assert.match(mdx, /^---\ntitle: "HoloTrials: Case Covered"\n/);
-  assert.match(
-    mdx,
-    /^import Frame from "\.\.\/\.\.\/\.\.\/components\/Frame\.astro";$/m,
-  );
+  assert.match(mdx, /^import Frame from "\.\.\/\.\.\/\.\.\/components\/Frame\.astro";$/m);
   assert.match(mdx, /^import opening_shot from "\.\/opening_shot\.webp";$/m);
   assert.match(mdx, /^import cover from "\.\/cover\.webp";$/m);
   assert.match(mdx, /image=\{opening_shot\}/);
