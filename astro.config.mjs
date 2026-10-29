@@ -64,6 +64,23 @@ export default defineConfig({
   integrations: [
     expressiveCode({
       themes: ["catppuccin-latte", "material-theme-darker"],
+      shiki: {
+        bundledLangs: [
+          "astro",
+          "bash",
+          "diff",
+          "groovy",
+          "html",
+          "javascript",
+          "js",
+          "json",
+          "kotlin",
+          "shell",
+          "ts",
+          "tsx",
+          "typescript",
+        ],
+      },
     }),
     mdx(),
     sitemap(),
