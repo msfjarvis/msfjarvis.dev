@@ -175,7 +175,7 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
           </>
         )}
         <!-- Only render Webmentions for the "production" setup, it's unnecessary D1 reads when I am working locally -->
-        {showDrafts || <WebmentionsSection />}
+        {!showDrafts && <WebmentionsSection />}
       </article>
     </main>
     <pagefind-modal reset-on-close></pagefind-modal>
