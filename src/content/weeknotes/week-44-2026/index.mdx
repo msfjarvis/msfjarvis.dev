@@ -1,0 +1,76 @@
+---
+title: "Weeknotes: Week #44 (2026)"
+date: "2026-11-01T12:36:58.525Z"
+lastmod: "2026-11-01T12:36:58.525Z"
+summary: "Curse you RAMageddon!"
+tags:
+  - travel
+  - cooking
+  - tech
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import dosa_the_filter_coffee from "./dosa-the-filter-coffee.webp";
+import ellie from "./ellie.webp";
+import mix_veg from "./mix-veg.webp";
+import pulav from "./pulav.webp";
+
+<Figure
+  src={ellie}
+  title="Still wary of every single sound in the house"
+  alt="Ellie relaxes on a patterned couch while being petted"
+  small={true}
+/>
+
+I'm back home in Ghaziabad as of this Saturday, and will be for the next 3 weeks. Weeknotes might be a little less exciting going forward for that reason, also because a little too much happened this week :)
+
+# Personal
+
+I'm in petting distance of Ellie again! She's been overjoyed at the prospect and has spent a considerable amount of time in my bed as I caught up on sleep. She still refuses to be held by anyone while sleeping but with how much she sheds it's probably a good thing.
+
+I have been having hearing problems in my right ear all week due to what seems like wax buildup. I wasn't able to secure a visit to an ENT doctor until I reached home, who has punted forward the cleaning another 3 days. Hopefully I can be over this soon, muffled hearing is a very weird sensation :/
+
+I did end up next to The Filter Coffee on 80 feet road during my unsuccessful attempt to meet an ENT doctor in Bengaluru so I had to stop by for lunch.
+
+<Figure
+  src={dosa_the_filter_coffee}
+  title="I had forgotten their paper dosas are so massive"
+  alt="A long dosa served on a banana leaf with chutneys"
+/>
+
+# Media
+
+I've been slowly catching up on a bunch of my Netflix backlog as I sail the seven seas. I finished watching the latest season of [Lupin](<https://en.wikipedia.org/wiki/Lupin_(French_TV_series)>) and started watching [Love, Death & Robots](https://en.wikipedia.org/wiki/Love,_Death_%26_Robots) and [The Sandman](<https://en.wikipedia.org/wiki/The_Sandman_(TV_series)>) in parallel. I also took some time to catch up on [VisionQuest](https://en.wikipedia.org/wiki/VisionQuest) which is looking pretty good so far.
+
+# Work
+
+Nothing new to report here, as I've mostly continued to struggle with the same big refactor and largely failing to break it down into reviewable chunks. Might just have to declare bankruptcy here and start posting 2 thousand line diffs.
+
+I also finally received the message about having to buy back the Dyte MacBook I've been using for the past year as my personal dev machine. Last time we had this conversation the price was 50K in a market where a new one was available for 55K with a better CPU so I had opted to not go forward. Due to some logistical fuck ups the laptop never actually left my possession, and this time around I was offered to buy it for 30K which is simply too good a deal to pass up on with the recent price hikes from Apple.
+
+# Personal Projects
+
+With completely perfect timing Lobsters made a markup change that broke my app while I was on my flight back and was not going to have access to a PC for the rest of the day. I unsuccessfully tried having Copilot take a stab at it then just took the hit and filed an issue so people knew I was aware. The release fixing it [went out today](https://github.com/msfjarvis/compose-lobsters/releases/tag/v1.76.0).
+
+My PC was fully losing its mind as I tried to unpack and boot it up, with things crashing left and right and system stability generally being in the gutter. It took me a full day of struggling before I saw a log line about an invalid memory reference and it all clicked: once again I've been cursed with bad RAM. A quick `memtest86+` run confirmed that there indeed are a lot of errors, which ruined my night rather proper. As a hail Mary I decided to rerun the test with just one stick which passed, so I will at least have 16 gigs of RAM in the worst case. I'll take some time to test the other stick in isolation and rejig around the slots hoping I can get both of them working, but chances are rather slim. My exact 16G x 2 RAM kit currently costs 65K on Amazon so this is about the second worst thing that could've broken down after the NVIDIA GPU.
+
+The irony of LLM usage right after that paragraph is not lost on me.
+
+## 🤖 CLANK CLANK CLANK 🤖
+
+[Gradle](https://gradle.org) released a [best practices skill](https://github.com/gradle/gradle-skills) a few weeks ago that I ran my projects through, it was able to find a few inefficiencies and I also picked up on a bunch of tricks that I intend to blog about. The diff for [Claw](https://github.com/msfjarvis/compose-lobsters/compare/345fe96a7d210734ff188cf560e22a992e673d54...393cf298ea649bce9a13bf767c573dbe09a9d6ac) ended up not being _that_ big despite the initial list of problems being rather massive. I combed over the whole branch myself to rebuild its history which was a good learning exercise and also somewhat contributed to keeping the diff smaller.
+
+# Cooking
+
+Nothing too fancy this week. We made multiple half kilogram servings of raita because free will and what not, and I experimented with dumping some Maggie masala premixes into our food which worked out quite well. Since Yash and I were both traveling back home, our primary goal this week was simply to empty the fridge of perishables so the meals started getting rather sparse, kept afloat by the volume of raita we were making.
+
+<Gallery>
+  <Figure src={mix_veg} title="Every vegetable in this came out of a frozen Safal bag and it still tasted good" alt="Chapatis served with mixed vegetables and yogurt" />
+
+  <Figure src={pulav} title="I still haven't figured out how to fully cook the potatoes in my pulav" alt="A bowl of spiced rice with vegetables and soyabean chunks" />
+</Gallery>
