@@ -26,19 +26,19 @@
     "types": "wrangler types && oxfmt --write worker-configuration.d.ts"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.4.0",
-    "@astrojs/markdown-satteri": "^0.4.4",
-    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/cloudflare": "^14.4.6",
+    "@astrojs/markdown-satteri": "^0.4.7",
+    "@astrojs/mdx": "^8.1.2",
     "@astrojs/sitemap": "^3.7.4",
-    "@pagefind/component-ui": "^1.5.2",
+    "@pagefind/component-ui": "^1.6.0",
     "@sveltia/cms": "^0.246.1",
-    "astro": "^7.4.0",
-    "astro-expressive-code": "^0.44.2",
+    "astro": "^7.4.7",
+    "astro-expressive-code": "^0.44.3",
     "astro-iconset": "^0.0.6",
     "cheerio": "^1.2.0",
     "hast-util-from-html": "^2.0.3",
-    "hast-util-to-html": "^9.0.5",
-    "pagefind": "^1.5.2",
+    "hast-util-to-html": "^9.0.6",
+    "pagefind": "^1.6.0",
     "pele": "1.12.0",
     "photoswipe": "^5.4.4",
     "property-information": "^7.2.0",
@@ -49,20 +49,20 @@
   "devDependencies": {
     "@fontsource/inter": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
-    "@iconify-json/simple-icons": "^1.2.99",
+    "@iconify-json/simple-icons": "^1.2.101",
     "@oxlint/plugins": "1.89.0",
     "@resvg/resvg-js": "^2.6.2",
     "@types/mdast": "^4.0.4",
-    "@types/node": "^26.6.5",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@xingwangzhe/satteri-photoswipe": "^0.2.6",
-    "js-yaml": "^5.4.3",
+    "js-yaml": "^5.5.0",
     "oxfmt": "0.74.0",
     "oxlint": "1.89.0",
-    "react": "^19.3.0",
+    "react": "^19.3.1",
     "satori": "^0.47.1",
     "typescript": "^6.0.3",
-    "wrangler": "^4.151.1"
+    "wrangler": "^4.158.0"
   },
   "overrides": {
     "satteri": "^0.9.5",
@@ -71,5 +71,5 @@
   "engines": {
     "node": ">=22.22.3"
   },
-  "packageManager": "pnpm@12.11.0"
+  "packageManager": "pnpm@12.18.0"
 }
