@@ -8,9 +8,6 @@
   inputs.devshell.url = "github:numtide/devshell";
   inputs.devshell.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.flake-compat.url = "git+https://git.lix.systems/lix-project/flake-compat";
-  inputs.flake-compat.flake = false;
-
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.flake-utils.inputs.systems.follows = "systems";
 
