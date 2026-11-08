@@ -1,0 +1,63 @@
+---
+title: "Weeknotes: Week #45 (2026)"
+date: "2026-11-08T12:14:49.180Z"
+lastmod: "2026-11-08T12:14:49.180Z"
+summary: "Absolute relaxation ✋️😀️🤚️"
+tags:
+  - games
+  - career
+categories:
+  - weeknotes
+draft: true
+deleted: false
+---
+
+import Figure from "../../../components/Figure.astro";
+import Gallery from "../../../components/Gallery.astro";
+import coffee_mug from './coffee-mug.webp';
+import ellie from './ellie.webp';
+
+ <Figure
+     src={ellie}
+     title="It took precisely 0 hours for her to assume ownership of my bed"
+     alt="Ellie rests her head on a patterned cushion."
+ />
+
+ <hr />
+
+ As I had expected, being back home has been quite relaxing and somewhat boring so there isn't a whole lot to talk about. I've also been rather lazy about journaling which further hampers the whole journal to week note pipeline.
+
+ # Personal
+
+I've spent a good chunk of the week just catching up with friends and family; and helping out with things at home wherever I can as we headed into Diwali. I was rather surprised to discover one of my oldest friends had actually moved out to and was now 50 kilometers away. Just goes to show how bad I am at reaching out and keeping up with people. All those "Salesforce for personal connection" apps don't seem that weird anymore… 
+
+My hearing problems are finally behind me, but the ENT doctor found signs of an infection so it was back to ear drops thrice a day 🫠️
+
+# Media
+
+I spent inordinate hours early on in the week to finish [Sandman](https://en.wikipedia.org/wiki/The_Sandman_(TV_series)) and [Love, Death & Robots](https://en.wikipedia.org/wiki/Love,_Death_%26_Robots) both of which were incredible. I'm eyeing my [Trakt](https://trakt.tv) history and it would appear [The Gentlemen](https://en.wikipedia.org/wiki/The_Gentlemen_(2024_TV_series)) is next up.
+
+Reading has been going much slower because I actually sleep 8 hours a day now, but I expect to be done with [City of Bones](https://openlibrary.org/books/OL1274775M/City_of_bones) before I leave for Bengaluru in 2 weeks. I have already queued up a few more books: [All Tomorrows: The Myriad Species and Mixed Fortunes of Man](https://books.google.com/books?id=T3lfEQAAQBAJ), [Cuckoo's Egg](https://en.wikipedia.org/wiki/The_Cuckoo%27s_Egg_(book)), and [When the Dust Settles](https://books.google.co.in/books/about/When_the_Dust_Settles.html?id=2DJEEAAAQBAJ&redir_esc=y). I don't remember who reviewed/recommended which, but thanks to [Terence Eden](https://edent.tel/) and [Marcin Wichary](https://aresluna.org/) whose posts in my feed reader inspired the additions.
+ 
+ # Work
+
+ I lied about things being boring. [Swapnil](https://github.com/swapnilmadavi) is leaving Cloudflare to go back and be with his friends and family in Pune, which rocked the group chat early on in the week. I'm not going to comment on the circumstances that led to his decision since that's his prerogative, all I'll say is that while I expected something along these lines to happen; this was definitely a lot earlier than I thought. I wish him the best on his future ventures and hopefully we stay in touch :)
+
+ Onwards to other work stuff, my meetings schedule has been completely thrown off by Daylight Savings Time. I also recently discovered that the macOS CI runners we use don't have a shared cache so I've been wasting 20 seconds at the end of my jobs for no benefit. I've started writing a proposal on building up my own caching, but it is yet another distraction which is hard to justify time and effort for. Since I work solo on the mobile SDKs at the moment, my ability to fuck around and find out has been severely constrained which I'm not very happy about.
+
+ The Diwali present from the office was a credit we could use towards a variety of gift cards. I ended up going for Tanishq and gifting it to my mother who seemed rather chuffed about it so mission successful on that front.
+
+ # Personal Projects
+
+I accidentally discovered that the search functionality in [Claw](https://github.com/msfjarvis/compose-lobsters) was broken due to the site admins being forced to deploy [Anubis](https://anubis.techaro.lol) in front of the page. Inspired by how [Boorusama](https://github.com/khoadng/Boorusama) solves Cloudflare Turnstile challenges by loading up a WebView for users to legitimately clear it, I implemented a near-identical flow of detecting when results are blocked and allowing users to [solve the challenge](https://github.com/msfjarvis/compose-lobsters/commit/d539104f452cd8c90e17a1f74afe529cedd56d31). I also finally [parted ways](https://github.com/msfjarvis/compose-lobsters/commit/a8788f433e5ca2416404d9bf5c64fee001cb3f07) with the fancy navigation bar I had stolen from the now-defunct [Tivi](https://github.com/chrisbanes/tivi) app to go for a more "default" Material look.
+
+ # Cooking
+
+ Absolutely none! My doting mother refuses to let me in the kitchen, despite my lighthearted jabs about my cooking probably being better than her :D
+
+<Figure
+     src={coffee_mug}
+     title="I sorely lack cute coffee mugs back in Bengaluru"
+     alt="A yellow mug with “Brighten Up!” printed on it."
+     small={true}
+/>
