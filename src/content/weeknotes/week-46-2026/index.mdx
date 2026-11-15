@@ -1,0 +1,50 @@
+---
+title: "Weeknotes: Week #46 (2026)"
+date: "2026-11-15T10:03:54.078Z"
+lastmod: "2026-11-15T10:03:54.078Z"
+summary: "Another mundane week goes by"
+tags:
+  - media
+  - games
+  - programming
+categories:
+  - weeknotes
+draft: false
+deleted: false
+---
+
+# Personal
+
+I've intentionally kept my schedule relatively mundane, opting to spend time with family over trying to make plans for things. I had a hangout planned with a childhood friend which fell through due to him being busy with work, hopefully we'll be able to catch up before I have to head back next Saturday.
+
+The process for getting my Singapore Visa has finally started, it's supposed to be a quick affair but unfortunately only served by a limited set of authorized agencies so I'm hoping that it all goes smoothly 🤞️
+
+My father on the other hand had a much more exciting week after getting rear ended in Patna by a group of teenagers very obviously not paying attention to the road. Thankfully nobody was injured, and our car got away with not even a shattered back glass but the other vehicle was pretty much totaled. I wish father dearest a pleasant time with the insurance company.
+
+# Media
+
+The season finale of [Vision Quest](https://en.wikipedia.org/wiki/Visionquest) aired this week which I had been watching. I liked it a lot, but like most Marvel media these days the conflict at the end is resolved by the power of friendship which gets underwhelming fast.
+
+I've also been watching the second season of [Cyberpunk: Edgerunners](https://en.wikipedia.org/wiki/Cyberpunk:_Edgerunners) and thoroughly enjoying it! It's much more slower paced than season 1 which I've liked, we get to know the characters a lot more without them exploding after 2 episodes and the characters are just more charming and impersonable in general. I'm mentally preparing myself for all of that to go sideways as the end of the season looms closer but I'll enjoy it while it lasts :)
+
+# Games
+
+I updated my Minecraft world to the latest release and surprisingly ran into no real problems other than foolishly forgetting to back up the data from a couple of mods, so I had to map out my world again. Was fun to revisit everything again, and I _almost_ got inspired to start a big project. Maybe once I'm back in Bengaluru!
+
+[Raft](https://store.steampowered.com/app/648800/Raft/) shenanigans continued, and we're finally making progress towards the actual story instead of just aimless wandering.
+
+# Work
+
+I took last Friday and this Monday off work to have a relaxing long weekend at home but boredom got the better of me by Monday and I couldn't help but check on things and get a bit of work done. I'm also being forced to coordinate hiring work via my manager since getting HR to respond to messages seems impossible across the industry. Hopefully we'll be able to make the much needed additions to our team sooner than later.
+
+On the actual work front I've once again been bamboozled by a seemingly simple task that has devolved into so many edge cases that the entire thing might no longer be feasible which is just great for me. Foreseeing many meetings in my future as we try to solve this 🫠️
+
+# Personal Projects
+
+[Claw](https://github.com/msfjarvis/compose-lobsters) had a bunch of changes this week. I [reorganized the entire codebase](https://github.com/msfjarvis/compose-lobsters/compare/709f4c9c4d1015aa96b9953fcc479f1fa44d7b49...5cc1981eb7028e8795a8b2b54780664914824022) to more closely follow the Android multi-module guidance, going from 10 modules to 37 as of writing. The previous module layout was inherited from the app's [past as Kotlin Multiplatform app](https://github.com/msfjarvis/compose-lobsters/tree/archive) which had become messy and cumbersome in the 5 years since. It's also a chance for me to get some practical experience with taming a decently sized Gradle build (relatively speaking, Cash App's has 800+ modules) and learn how things like compilation avoidance and cache invalidation work in these scenarios.
+
+I also cut out the [Haze](https://github.com/chrisbanes/haze) backed fancy navigation bar and replaced it with the [standard Material3 one](https://github.com/msfjarvis/compose-lobsters/commit/a8788f433e5ca2416404d9bf5c64fee001cb3f07).
+
+Another UI change that landed this week was adding a small [shared element transition](https://developer.android.com/develop/ui/compose/animation/shared-elements) going from a post to its comments page, which uncovered [a regression](https://issuetracker.google.com/issues/585614999) in the Navigation3 library.
+
+Some homelab changes: I swapped out my webmail from [alps](https://git.sr.ht/~migadu/alps) to [pl_mail](https://github.com/karatektus/pl_mail), and quite love it. It supports WebDAV + CalDAV, SSO, and just works much better in general. There are obvious downsides in the form of PHP and it being complete slop, but alps is just as bad so I've made peace with the fact that selfhosted webmail can either be ancient or slop. To minimize risk I've kept pl_mail in its containerized format instead of directly running it on the host, and kept it restricted to my [Tailscale](https://tailscale.com/) network.
