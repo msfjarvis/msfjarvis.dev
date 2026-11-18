@@ -4,67 +4,6 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
-minimumReleaseAge: 10080
-minimumReleaseAgeExclude:
-  # keep-sorted start
-  - "@astrojs/cloudflare"
-  - "@astrojs/compiler-binding"
-  - "@astrojs/compiler-binding-android-arm64"
-  - "@astrojs/compiler-binding-darwin-arm64"
-  - "@astrojs/compiler-binding-darwin-x64"
-  - "@astrojs/compiler-binding-linux-arm64-gnu"
-  - "@astrojs/compiler-binding-linux-arm64-musl"
-  - "@astrojs/compiler-binding-linux-x64-gnu"
-  - "@astrojs/compiler-binding-linux-x64-musl"
-  - "@astrojs/compiler-binding-wasm32-wasi"
-  - "@astrojs/compiler-binding-win32-arm64-msvc"
-  - "@astrojs/compiler-binding-win32-x64-msvc"
-  - "@astrojs/compiler-rs"
-  - "@astrojs/internal-helpers"
-  - "@astrojs/markdown-satteri"
-  - "@astrojs/prism@4.1.0"
-  - "@astrojs/runtime@0.1.1"
-  - "@astrojs/telemetry@3.4.0"
-  - "@astrojs/underscore-redirects"
-  - "@astrojs/vite-plugin-astro@0.1.2"
-  - "@cloudflare/unenv-preset"
-  - "@cloudflare/workerd-darwin-64"
-  - "@cloudflare/workerd-darwin-arm64"
-  - "@cloudflare/workerd-linux-64"
-  - "@cloudflare/workerd-linux-arm64"
-  - "@cloudflare/workerd-windows-64"
-  - "@jsr/msfjarvis__prettier-plugin-keep-sorted@0.1.0"
-  - "@pnpm/exe.android-arm64@12.18.0"
-  - "@pnpm/exe.android-x64@12.18.0"
-  - "@pnpm/exe.darwin-arm64@12.18.0"
-  - "@pnpm/exe.darwin-x64@12.18.0"
-  - "@pnpm/exe.freebsd-x64@12.18.0"
-  - "@pnpm/exe.linux-arm64-musl@12.18.0"
-  - "@pnpm/exe.linux-arm64@12.18.0"
-  - "@pnpm/exe.linux-ppc64@12.18.0"
-  - "@pnpm/exe.linux-riscv64@12.18.0"
-  - "@pnpm/exe.linux-s390x@12.18.0"
-  - "@pnpm/exe.linux-x64-musl@12.18.0"
-  - "@pnpm/exe.linux-x64@12.18.0"
-  - "@pnpm/exe.win32-arm64@12.18.0"
-  - "@pnpm/exe.win32-x64@12.18.0"
-  - "@shikijs/langs@4.5.0"
-  - "@shikijs/themes@4.5.0"
-  - "@shikijs/types@4.5.0"
-  - "@sveltia/cms"
-  - astro
-  - cookie@2.0.2
-  - immutable@5.1.10
-  - keep-sorted-node@0.1.0
-  - miniflare
-  - p-queue@9.3.5
-  - pele
-  - pnpm@12.18.0
-  - terra-draw
-  - workerd
-  - wrangler
-  - zod@4.6.6
-# keep-sorted end
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
 enableGlobalVirtualStore: false
