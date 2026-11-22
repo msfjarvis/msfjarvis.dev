@@ -69,7 +69,6 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
     max-height: 75vh;
     width: auto;
     margin: auto;
-    border-radius: 0.35rem;
     background: var(--bg-subtle);
     cursor: pointer;
   }
@@ -80,7 +79,11 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
     width: 100%;
     height: 24px;
     margin: 0;
-    background: transparent;
+    background: linear-gradient(
+        to right,
+        var(--accent) var(--progress, 0%),
+        var(--accent-subtle) var(--progress, 0%)
+      ) top / 100% 2px no-repeat;
     cursor: ew-resize;
     opacity: 0;
   }
@@ -98,11 +101,7 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
 
   .video-progress::-webkit-slider-runnable-track {
     height: 2px;
-    background: linear-gradient(
-      to right,
-      var(--accent) var(--progress, 0%),
-      var(--accent-subtle) var(--progress, 0%)
-    );
+    background: transparent;
   }
 
   .video-progress::-webkit-slider-thumb {
@@ -113,12 +112,7 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
 
   .video-progress::-moz-range-track {
     height: 2px;
-    background: var(--accent-subtle);
-  }
-
-  .video-progress::-moz-range-progress {
-    height: 2px;
-    background: var(--accent);
+    background: transparent;
   }
 
   .video-progress::-moz-range-thumb {
