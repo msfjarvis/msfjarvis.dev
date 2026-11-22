@@ -1,0 +1,21 @@
+---
+title: "Working title: Mistakes I made implementing shared transitions in Compose"
+date: "2026-11-23T01:10:00+05:30"
+lastmod: "2026-11-23T01:10:00+05:30"
+draft: true
+deleted: false
+---
+
+Implemented in 1941fc6609ae03f6251b94305f1d7e4efd8fc7cf
+Found a bug in the process: https://issuetracker.google.com/issues/585614999
+First bug of weird animation: 7f129f13beca66388b7db1e5eed666940d332d16
+Second round of bugs: 801f4cd57a916251818b0f87d8ca7f882bb106d4
+
+- Implementing shared element transitions is incredibly easy in Compose
+- First mistake was to try and transition a container instead of *elements*, rookie mistake, the name is right there!
+- Being _too_ fine grained can also cause issues!
+- Can have weird problems if the same source element exists on multiple screens
+
+required media:
+- videos of animation in each step
+- screenshot of the weird pill size
