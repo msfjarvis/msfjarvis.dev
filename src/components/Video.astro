@@ -1,0 +1,135 @@
+---
+interface Props {
+  src: string;
+  label: string;
+  type?: string;
+  poster?: string;
+}
+
+const { src, label, type = "video/mp4", poster } = Astro.props;
+---
+
+<figure class="video-player" aria-label={label}>
+  <video controls playsinline muted loop preload="metadata" {poster} aria-label={label}>
+    <source {src} {type} />
+    Your browser does not support video. <a href={src}>Download the video</a>.
+  </video>
+  <input class="video-progress" type="range" min="0" max="1000" value="0" aria-label="Video progress" hidden />
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".video-player").forEach((player) => {
+    const video = player.querySelector("video");
+    const progress = player.querySelector<HTMLInputElement>(".video-progress");
+
+    if (!video || !progress) return;
+    video.controls = false;
+    video.tabIndex = 0;
+    progress.hidden = false;
+
+    const toggle = () => {
+      if (video.paused) void video.play().catch(() => {});
+      else video.pause();
+    };
+
+    video.addEventListener("click", toggle);
+    video.addEventListener("keydown", (event) => {
+      if (event.key === " " || event.key === "Enter") {
+        event.preventDefault();
+        toggle();
+      }
+    });
+
+    const update = () => {
+      const value = Number.isFinite(video.duration) && video.duration > 0 ? video.currentTime / video.duration : 0;
+      progress.value = String(Math.round(value * 1000));
+      progress.style.setProperty("--progress", `${value * 100}%`);
+    };
+
+    video.addEventListener("timeupdate", update);
+    video.addEventListener("durationchange", update);
+    progress.addEventListener("input", () => {
+      if (Number.isFinite(video.duration)) video.currentTime = (Number(progress.value) / 1000) * video.duration;
+      update();
+    });
+    void video.play().catch(() => {});
+  });
+</script>
+
+<style>
+  .video-player {
+    margin: 2rem auto;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  video {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    width: auto;
+    margin: auto;
+    border-radius: 0.35rem;
+    background: var(--bg-subtle);
+    cursor: pointer;
+  }
+
+  .video-progress:not([hidden]) {
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 24px;
+    margin: 0;
+    background: transparent;
+    cursor: ew-resize;
+    opacity: 0;
+  }
+
+  .video-player:hover .video-progress,
+  .video-player:focus-within .video-progress {
+    opacity: 1;
+  }
+
+  @media (hover: none) {
+    .video-progress:not([hidden]) {
+      opacity: 1;
+    }
+  }
+
+  .video-progress::-webkit-slider-runnable-track {
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      var(--accent) var(--progress, 0%),
+      var(--accent-subtle) var(--progress, 0%)
+    );
+  }
+
+  .video-progress::-webkit-slider-thumb {
+    appearance: none;
+    width: 0;
+    height: 0;
+  }
+
+  .video-progress::-moz-range-track {
+    height: 2px;
+    background: var(--accent-subtle);
+  }
+
+  .video-progress::-moz-range-progress {
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .video-progress::-moz-range-thumb {
+    border: 0;
+    width: 0;
+    height: 0;
+  }
+
+  video:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
