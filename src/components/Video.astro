@@ -17,6 +17,14 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
   <input class="video-progress" type="range" min="0" max="1000" value="0" aria-label="Video progress" hidden />
 </figure>
 
+<noscript>
+  <style is:inline>
+    .video-player video {
+      opacity: 1 !important;
+    }
+  </style>
+</noscript>
+
 <script>
   document.querySelectorAll<HTMLElement>(".video-player").forEach((player) => {
     const video = player.querySelector("video");
@@ -52,6 +60,7 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
       if (Number.isFinite(video.duration)) video.currentTime = (Number(progress.value) / 1000) * video.duration;
       update();
     });
+    video.classList.add("processed");
     void video.play().catch(() => {});
   });
 </script>
@@ -71,6 +80,11 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
     margin: auto;
     background: var(--bg-subtle);
     cursor: pointer;
+    opacity: 0;
+  }
+
+  video.processed {
+    opacity: 1;
   }
 
   .video-progress:not([hidden]) {
