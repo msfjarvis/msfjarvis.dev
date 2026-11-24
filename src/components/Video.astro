@@ -4,13 +4,15 @@ interface Props {
   label: string;
   type?: string;
   poster?: string;
+  scale?: number;
 }
 
-const { src, label, type = "video/mp4", poster } = Astro.props;
+const { src, label, type = "video/mp4", poster, scale = 1 } = Astro.props;
+const videoScale = Number.isFinite(scale) && scale > 0 ? scale : 1;
 ---
 
 <figure class="video-player" aria-label={label}>
-  <video controls playsinline muted loop preload="metadata" {poster} aria-label={label}>
+  <video controls playsinline muted preload="metadata" {poster} aria-label={label} style={`zoom: ${videoScale}`}>
     <source {src} {type} />
     Your browser does not support video. <a href={src}>Download the video</a>.
   </video>
@@ -31,6 +33,7 @@ const { src, label, type = "video/mp4", poster } = Astro.props;
     const progress = player.querySelector<HTMLInputElement>(".video-progress");
 
     if (!video || !progress) return;
+
     video.controls = false;
     video.tabIndex = 0;
     progress.hidden = false;
