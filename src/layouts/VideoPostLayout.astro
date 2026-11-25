@@ -206,6 +206,8 @@ const postProps = Astro.props;
     border-radius: 10px;
     background: var(--bg-subtle);
     aspect-ratio: 9 / 19.5;
+    max-height: none;
+    height: auto;
   }
 
   /* Split narrative and media rows.
@@ -260,8 +262,6 @@ const postProps = Astro.props;
     }
 
     .prose[data-video-focused] .vp-row-media .video-player video {
-      max-height: min(54vh, 36rem);
-      height: min(54vh, 36rem);
       width: auto;
       max-width: 100%;
       margin: 0 auto;
@@ -289,10 +289,5 @@ const postProps = Astro.props;
     .prose[data-video-focused] .vp-row {
       margin-bottom: 1.75rem;
     }
-
-    .prose[data-video-focused] .vp-row-media .video-player video {
-      max-height: 50vh;
-    }
   }
-
 </style>

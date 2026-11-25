@@ -14,12 +14,11 @@ import weird_pills from "./weird-pills.webp";
 
 Shared Element Transitions: You've never seen 'em. Only somewhat kidding, since I can't remember the last time I saw one in a format that was not a Google-authored Android sample app. They used to be pretty finicky as a platform feature and didn't work consistently, plus they seem to have relied on Fragments so it probably is no surprise nobody wanted anything to do with it.
 
-So, here's a quick explainer: when moving between Screen A to Screen B in an app, you will sometimes have one or many UI elements that are shared. For example, clicking a restaurant in a list and then going to its menu will probably show the name in both places. With Shared Element Transitions, you can have the name from Screen A animate into the one in Screen B in a (usually) smooth transition animation. Here is the laggy video Google plays at the top of the relevant docs page:
+So, here's a quick explainer: when moving between Screen A to Screen B in an app, you will sometimes have one or many UI elements that are shared. For example, clicking a restaurant in a list and then going to its menu will probably show the name in both places. With Shared Element Transitions, you can have the name from Screen A animate into the one in Screen B in a (usually) smooth transition animation. Here is the laggy video Google plays at the top of the relevant docs page.
 
 <Video
   src="https://media.msfjarvis.dev/shared-element-mistakes/official-example.webm"
   label="Google's official example really doesn't try to sell it"
-  scale={0.8}
 />
 
 Now that we're familiarised, let's walk through the multiple iteration it took for me to get this right in **Compose**, which already makes it significantly easier.
@@ -29,7 +28,6 @@ Following the [official docs](https://developer.android.com/develop/ui/compose/a
 <Video
   src="https://media.msfjarvis.dev/shared-element-mistakes/first-iteration.webm"
   label="Methinks that isn't quite what should be happening"
-  scale={0.8}
   playbackRate={0.5}
 />
 
@@ -38,7 +36,6 @@ This turned out to be [a bug](https://issuetracker.google.com/issues/585614999) 
 <Video
   src="https://media.msfjarvis.dev/shared-element-mistakes/after-nav3-fix.webm"
   label="At least it actually animates now"
-  scale={0.8}
   playbackRate={0.5}
 />
 
@@ -47,7 +44,6 @@ We're in business! The transition works, but doesn't _look_ that great yet. Turn
 <Video
   src="https://media.msfjarvis.dev/shared-element-mistakes/individual-elements.webm"
   label="So much nicer to have them actually animate between screens"
-  scale={0.8}
   playbackRate={0.5}
 />
 
@@ -65,9 +61,6 @@ What's the final result after all that?
 
 <Video
   src="https://media.msfjarvis.dev/shared-element-mistakes/final-version.webm"
-  label="Pretty sweet, right?"
-  scale={0.8}
+  label="Pretty cool!"
   playbackRate={0.5}
 />
-
-I think that's pretty neat!

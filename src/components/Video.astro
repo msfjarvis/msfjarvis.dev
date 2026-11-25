@@ -14,7 +14,7 @@ const playbackRateClamped = Number.isFinite(playbackRate) && playbackRate > 0 ? 
 ---
 
 <figure class="video-player" aria-label={label}>
-  <video controls playsinline muted preload="metadata" {poster} aria-label={label} style={`zoom: ${videoScale}`} data-playback-rate={playbackRateClamped}>
+  <video controls playsinline muted loop preload="metadata" {poster} aria-label={label} style={`zoom: ${videoScale}`} data-playback-rate={playbackRateClamped}>
     <source {src} {type} />
     Your browser does not support video. <a href={src}>Download the video</a>.
   </video>
