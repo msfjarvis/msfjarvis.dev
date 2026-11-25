@@ -52,7 +52,7 @@ We're in business! The transition works, but doesn't _look_ that great yet. Turn
 
 It's not immediately obvious in the example but each tag such as `elixir` or `erlang` is animating individually here. This will now cause problems :D
 
-The first issue I noticed was that if the same post was in both the "Hottest" and "Newest" feeds, they would animate when moving between the two! I wish I had a recording to attach here but [scrcpy](https://github.com/Genymobile/scrcpy) is having trouble rendering that transition but it definitely looked odd. This was fixed by giving each list of posts [its own transition scope](https://msfjarvis.dev/g/compose-lobsters/801f4cd57a91) so they behave more like islands.
+The first issue I noticed was that if the same post was in both the "Hottest" and "Newest" feeds, they would animate when moving between the two! I wish I had a recording to attach here but [scrcpy](https://github.com/Genymobile/scrcpy) is having trouble rendering that transition. This was fixed by giving each list of posts [its own transition scope](https://msfjarvis.dev/g/compose-lobsters/801f4cd57a91) so they behave more like islands.
 
 Another issue I noticed was that some tag pills were not being sized correctly if I scrolled far enough for the layout to be reused.
 
