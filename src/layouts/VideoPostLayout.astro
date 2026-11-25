@@ -57,10 +57,8 @@ const postProps = Astro.props;
         const video = player.querySelector("video");
 
         if (video) {
-          // Neutralize Video.astro's inline `zoom` style and wait for exact dimensions
-          // from loadedmetadata rather than guessing 9/19.5 if the video is landscape,
-          // while still reserving 9/19.5 immediately for portrait videos (which this layout targets).
-          video.style.zoom = "";
+          // Rows size videos to their media column; standalone videos keep their scale prop.
+          if (player.closest(".vp-row")) video.style.zoom = "";
 
           // Reserve portrait phone aspect ratio before metadata arrives so the row height
           // never jumps as each WebM loads. Update to exact dimensions once metadata fires.
