@@ -94,6 +94,10 @@ const postProps = Astro.props;
     position: relative;
   }
 
+  .prose [data-video-focused] > .video-player {
+    margin-block: 1rem;
+  }
+
   .prose [data-video-focused] .video-caption {
     margin-top: 0.35rem;
     font-size: 0.85rem;
@@ -118,6 +122,12 @@ const postProps = Astro.props;
     .prose [data-video-focused] {
       display: grid;
       gap: 2.25rem;
+    }
+
+    /* The grid gap already separates standalone videos from adjacent content. */
+    .prose [data-video-focused] > .video-player,
+    .prose [data-video-focused] > .video-player + noscript + * {
+      margin-block: 0;
     }
 
     .prose [data-video-focused] > .vp-row {
