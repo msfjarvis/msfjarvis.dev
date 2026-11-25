@@ -82,7 +82,7 @@ It's not immediately obvious in the example but each tag such as `elixir` or `er
 
 The first issue I noticed was that if the same post was in both the "Hottest" and "Newest" feeds, they would animate when moving between the two! I wish I had a recording to attach here but [scrcpy](https://github.com/Genymobile/scrcpy) is having trouble rendering that transition. This was fixed by giving each list of posts [its own transition scope](https://msfjarvis.dev/g/compose-lobsters/801f4cd57a91) so they behave more like islands.
 
-Another issue I noticed was that some tag pills were not being sized correctly if I scrolled far enough for the layout to be reused.
+Another issue I noticed was that some tag pills were not being sized correctly if I scrolled far enough for the layout to be reused. This was fixed by animating the entire `TagRow` parent instead of individual `Tag`s. Shared container _can_ be the right choice, at the correct granularity!
 
   </div>
   <div slot="media">
@@ -90,19 +90,13 @@ Another issue I noticed was that some tag pills were not being sized correctly i
   </div>
 </VideoRow>
 
-<VideoRow side="left">
-  <div slot="text">
+So what's the final result after all that?
 
-I don't know what the root cause of this issue was, but on a hunch I changed the tags to transition the full row instead of each individual one and that seems to have fixed it.
+<Video
+  src="https://media.msfjarvis.dev/shared-element-mistakes/final-version.webm"
+  label="Pretty cool!"
+  scale={0.4}
+  playbackRate={0.5}
+/>
 
-What's the final result after all that?
-
-  </div>
-  <div slot="media">
-    <Video
-      src="https://media.msfjarvis.dev/shared-element-mistakes/final-version.webm"
-      label="Pretty cool!"
-      playbackRate={0.5}
-    />
-  </div>
-</VideoRow>
+I'm starting to make a habit of writing about [stumbling around new concepts](/posts/rewriting-claw-html-parser-for-over-the-air-updates/), whether that's good or bad remains to be seen!
