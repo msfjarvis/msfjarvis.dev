@@ -1,6 +1,10 @@
 import { AUTHOR_NAME, SITE_URL } from "../consts";
 import { getContentCacheKey } from "../utils";
-import { restoreFootnotesForFeeds, simplifyCodeBlocksForFeeds } from "./feed-html.ts";
+import {
+  restoreFootnotesForFeeds,
+  simplifyCodeBlocksForFeeds,
+  sizeMediaForFeeds,
+} from "./feed-html.ts";
 import { addMermaidSvgNamespace } from "./feed-mermaid.ts";
 import mdxRenderer from "@astrojs/mdx/server.js";
 import type { APIContext } from "astro";
@@ -191,6 +195,7 @@ async function renderEntryHtml(
   html = removeLightboxDuplicates(html);
   html = flattenMermaidSvgs(html);
   html = simplifyCodeBlocksForFeeds(html);
+  html = sizeMediaForFeeds(html, entry.collection === "posts" && entry.data.videoFocused);
   const $doc = load(html);
   html = $doc("body").html() ?? html;
 

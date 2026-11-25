@@ -6,16 +6,18 @@ interface Props {
   poster?: string;
   scale?: number;
   playbackRate?: number;
+  width?: number;
+  height?: number;
 }
 
-const { src, label, type = "video/mp4", poster, scale = 1, playbackRate = 1.0 } = Astro.props;
+const { src, label, type = /\.webm(?:[?#]|$)/i.test(src) ? "video/webm" : "video/mp4", poster, scale = 1, playbackRate = 1.0, width, height } = Astro.props;
 const videoScale = Number.isFinite(scale) && scale > 0 ? scale : 1;
 const playbackRateClamped = Number.isFinite(playbackRate) && playbackRate > 0 ? Math.min(playbackRate, 1.0) : 1.0;
 ---
 
 <figure class="video-player" aria-label={label}>
   <div class="video-media">
-    <video controls playsinline muted loop preload="metadata" {poster} aria-label={label} style={`zoom: ${videoScale}`} data-playback-rate={playbackRateClamped}>
+    <video controls playsinline muted loop preload="metadata" {poster} {width} {height} aria-label={label} style={`zoom: ${videoScale}`} data-playback-rate={playbackRateClamped}>
       <source {src} {type} />
       Your browser does not support video. <a href={src}>Download the video</a>.
     </video>
