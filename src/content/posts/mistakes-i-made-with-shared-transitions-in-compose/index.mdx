@@ -8,44 +8,75 @@ videoFocused: true
 ---
 
 import Video from "../../../components/Video.astro";
+import VideoRow from "../../../components/VideoRow.astro";
 import Figure from "../../../components/Figure.astro";
-import Gallery from "../../../components/Gallery.astro";
 import weird_pills from "./weird-pills.webp";
 
 Shared Element Transitions: You've never seen 'em. Only somewhat kidding, since I can't remember the last time I saw one in a format that was not a Google-authored Android sample app. They used to be pretty finicky as a platform feature and didn't work consistently, plus they seem to have relied on Fragments so it probably is no surprise nobody wanted anything to do with it.
 
+<VideoRow>
+  <div slot="text">
+
 So, here's a quick explainer: when moving between Screen A to Screen B in an app, you will sometimes have one or many UI elements that are shared. For example, clicking a restaurant in a list and then going to its menu will probably show the name in both places. With Shared Element Transitions, you can have the name from Screen A animate into the one in Screen B in a (usually) smooth transition animation. Here is the laggy video Google plays at the top of the relevant docs page.
 
-<Video
-  src="https://media.msfjarvis.dev/shared-element-mistakes/official-example.webm"
-  label="Google's official example really doesn't try to sell it"
-/>
+  </div>
+  <div slot="media">
+    <Video
+      src="https://media.msfjarvis.dev/shared-element-mistakes/official-example.webm"
+      label="Google's official example really doesn't try to sell it"
+    />
+  </div>
+</VideoRow>
+
+<VideoRow side="left">
+  <div slot="text">
 
 Now that we're familiarised, let's walk through the multiple iteration it took for me to get this right in **Compose**, which already makes it significantly easier.
 
 Following the [official docs](https://developer.android.com/develop/ui/compose/animation/shared-elements), I did my first naive implementation in [this commit](https://msfjarvis.dev/g/compose-lobsters/1941fc6609ae) and the results were rather disappointing.
 
-<Video
-  src="https://media.msfjarvis.dev/shared-element-mistakes/first-iteration.webm"
-  label="Methinks that isn't quite what should be happening"
-  playbackRate={0.5}
-/>
+  </div>
+  <div slot="media">
+    <Video
+      src="https://media.msfjarvis.dev/shared-element-mistakes/first-iteration.webm"
+      label="Methinks that isn't quite what should be happening"
+      playbackRate={0.5}
+    />
+  </div>
+</VideoRow>
+
+<VideoRow>
+  <div slot="text">
 
 This turned out to be [a bug](https://issuetracker.google.com/issues/585614999) in the underlying Navigation3 library which was relatively easy to isolate since I use the latest alpha releases of Jetpack and remembered seeing some transition related changes in the release notes. Downgrading from [Navigation3 1.3.0-alpha04 to 1.2.0](https://msfjarvis.dev/g/compose-lobsters/3438f8a3ea52) resolved the bug and now it looks like this.
 
-<Video
-  src="https://media.msfjarvis.dev/shared-element-mistakes/after-nav3-fix.webm"
-  label="At least it actually animates now"
-  playbackRate={0.5}
-/>
+  </div>
+  <div slot="media">
+    <Video
+      src="https://media.msfjarvis.dev/shared-element-mistakes/after-nav3-fix.webm"
+      label="At least it actually animates now"
+      playbackRate={0.5}
+    />
+  </div>
+</VideoRow>
+
+<VideoRow side="left">
+  <div slot="text">
 
 We're in business! The transition works, but doesn't _look_ that great yet. Turns out, the answer to it was to simply read the name of the feature again. Shared **Element** Transitions, not Shared **Container** Transitions. I had scoped the animation to animate from the `LobstersCard` component to the `PostHeader` component which the framework was doing correctly, but it'd look nicer for it to be individual elements. With [that change in place](https://msfjarvis.dev/g/compose-lobsters/7f129f13beca), this is what we get.
 
-<Video
-  src="https://media.msfjarvis.dev/shared-element-mistakes/individual-elements.webm"
-  label="So much nicer to have them actually animate between screens"
-  playbackRate={0.5}
-/>
+  </div>
+  <div slot="media">
+    <Video
+      src="https://media.msfjarvis.dev/shared-element-mistakes/individual-elements.webm"
+      label="So much nicer to have them actually animate between screens"
+      playbackRate={0.5}
+    />
+  </div>
+</VideoRow>
+
+<VideoRow>
+  <div slot="text">
 
 It's not immediately obvious in the example but each tag such as `elixir` or `erlang` is animating individually here. This will now cause problems :D
 
@@ -53,14 +84,25 @@ The first issue I noticed was that if the same post was in both the "Hottest" an
 
 Another issue I noticed was that some tag pills were not being sized correctly if I scrolled far enough for the layout to be reused.
 
-<Figure src={weird_pills} small={true} />
+  </div>
+  <div slot="media">
+    <Figure src={weird_pills} small={true} />
+  </div>
+</VideoRow>
+
+<VideoRow side="left">
+  <div slot="text">
 
 I don't know what the root cause of this issue was, but on a hunch I changed the tags to transition the full row instead of each individual one and that seems to have fixed it.
 
 What's the final result after all that?
 
-<Video
-  src="https://media.msfjarvis.dev/shared-element-mistakes/final-version.webm"
-  label="Pretty cool!"
-  playbackRate={0.5}
-/>
+  </div>
+  <div slot="media">
+    <Video
+      src="https://media.msfjarvis.dev/shared-element-mistakes/final-version.webm"
+      label="Pretty cool!"
+      playbackRate={0.5}
+    />
+  </div>
+</VideoRow>

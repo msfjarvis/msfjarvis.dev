@@ -1,0 +1,12 @@
+---
+interface Props {
+  side?: "left" | "right";
+}
+
+const { side = "right" } = Astro.props;
+---
+
+<section class:list={["vp-row", { "vp-row-flip": side === "left" }]}>
+  <div class="vp-row-text"><slot name="text" /></div>
+  <div class="vp-row-media"><slot name="media" /></div>
+</section>

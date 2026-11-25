@@ -31,16 +31,10 @@ const postProps = Astro.props;
 </PostLayout>
 
 <script is:inline>
-  // Run DOM restructuring & placeholder sizing synchronously right after slot parsing
-  // so there is zero layout reflow or staggering when module scripts or video metadata load.
   (() => {
     const shell = document.querySelector("[data-video-focused]");
 
     if (!shell) return;
-    const prose = shell.closest(".prose");
-
-    if (!prose) return;
-    prose.setAttribute("data-video-focused", "");
 
     const attachCaption = (figure) => {
       if (figure.querySelector(".video-caption")) return;
@@ -92,108 +86,17 @@ const postProps = Astro.props;
       });
     };
 
-    const isMedia = (el) =>
-      el.classList.contains("video-player") || el.hasAttribute("data-image-modal-root");
-
-    const buildMediaRows = () => {
-      const blocks = Array.from(shell.children).filter((node) => node instanceof HTMLElement);
-      let index = 0;
-      let mediaRowCount = 0;
-
-      while (index < blocks.length) {
-        const current = blocks[index];
-
-        if (isMedia(current)) {
-          index += 1;
-          continue;
-        }
-
-        const proseGroup = [];
-
-        while (index < blocks.length && !isMedia(blocks[index])) {
-          proseGroup.push(blocks[index]);
-          index += 1;
-        }
-
-        const mediaEl = blocks[index];
-
-        if (!mediaEl || !isMedia(mediaEl)) {
-          continue;
-        }
-
-        index += 1;
-        mediaRowCount += 1;
-
-        const row = document.createElement("section");
-        row.className = mediaRowCount % 2 === 0 ? "vp-row vp-row-flip" : "vp-row";
-
-        const textCol = document.createElement("div");
-        textCol.className = "vp-row-text";
-
-        const mediaCol = document.createElement("div");
-        mediaCol.className = "vp-row-media";
-
-        shell.insertBefore(row, proseGroup[0]);
-        proseGroup.forEach((el) => textCol.appendChild(el));
-        mediaCol.appendChild(mediaEl);
-        row.append(textCol, mediaCol);
-      }
-
-      const lastChild = shell.lastElementChild;
-      const rows = shell.querySelectorAll(":scope > .vp-row");
-      const lastRow = rows.item(rows.length - 1);
-
-      if (lastRow && lastChild && !lastChild.classList.contains("vp-row")) {
-        const trailing = [];
-        let cursor = lastRow.nextElementSibling;
-
-        while (cursor instanceof HTMLElement) {
-          trailing.push(cursor);
-          cursor = cursor.nextElementSibling;
-        }
-
-        const trailingText = trailing.map((el) => el.textContent?.trim() ?? "").join(" ");
-
-        if (trailing.length > 0 && trailingText.length < 240) {
-          const textCol = lastRow.querySelector(".vp-row-text");
-
-          if (textCol) {
-            trailing.forEach((el) => textCol.appendChild(el));
-          }
-        }
-      }
-    };
-
     prepareMedia();
-
-    buildMediaRows();
-
-    // Unwrap once all DOM mutations are done so the hidden shell renders atomically.
-    shell.replaceWith(...Array.from(shell.childNodes));
   })();
 </script>
 
 <style is:global>
-  /* Also style .video-post-shell directly so if anything paints before inline script runs,
-     the portrait aspect ratio is still reserved. */
-  .prose .video-post-shell .video-player video {
-    aspect-ratio: 9 / 19.5;
-  }
-
-  /* Hide until inline layout transform completes in JS-enabled browsers so there is
-     zero visible reflow/staggering between raw single-column and split-row grids. */
-  @media (scripting: enabled) {
-    .prose .video-post-shell {
-      visibility: hidden;
-    }
-  }
-
   /* Video caption treatment */
-  .prose[data-video-focused] .video-player {
+  .prose [data-video-focused] .video-player {
     position: relative;
   }
 
-  .prose[data-video-focused] .video-caption {
+  .prose [data-video-focused] .video-caption {
     margin-top: 0.35rem;
     font-size: 0.85rem;
     line-height: 1.4;
@@ -201,7 +104,7 @@ const postProps = Astro.props;
     text-align: center;
   }
 
-  .prose[data-video-focused] .video-player video {
+  .prose [data-video-focused] .video-player video {
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--bg-subtle);
@@ -214,12 +117,12 @@ const postProps = Astro.props;
      Pairs each commentary block directly beside its video/screenshot so
      there is zero vertical dead space between paragraphs. */
   @media (min-width: 780px) {
-    .prose[data-video-focused] {
+    .prose [data-video-focused] {
       display: grid;
       gap: 2.25rem;
     }
 
-    .prose[data-video-focused] > .vp-row {
+    .prose [data-video-focused] > .vp-row {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(14rem, 17rem);
       gap: 1.75rem 2.25rem;
@@ -228,48 +131,48 @@ const postProps = Astro.props;
       border-bottom: 1px dashed var(--border);
     }
 
-    .prose[data-video-focused] > .vp-row:last-of-type {
+    .prose [data-video-focused] > .vp-row:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
 
-    .prose[data-video-focused] > .vp-row.vp-row-flip {
+    .prose [data-video-focused] > .vp-row.vp-row-flip {
       grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
     }
 
-    .prose[data-video-focused] > .vp-row.vp-row-flip .vp-row-media {
+    .prose [data-video-focused] > .vp-row.vp-row-flip .vp-row-media {
       order: -1;
     }
 
-    .prose[data-video-focused] .vp-row-text > * {
+    .prose [data-video-focused] .vp-row-text > * {
       margin-block: 0;
     }
 
-    .prose[data-video-focused] .vp-row-text > * + * {
+    .prose [data-video-focused] .vp-row-text > * + * {
       margin-block-start: 0.9rem;
     }
 
-    .prose[data-video-focused] .vp-row-media {
+    .prose [data-video-focused] .vp-row-media {
       display: flex;
       justify-content: center;
     }
 
-    .prose[data-video-focused] .vp-row-media .video-player,
-    .prose[data-video-focused] .vp-row-media [data-image-modal-root] {
+    .prose [data-video-focused] .vp-row-media .video-player,
+    .prose [data-video-focused] .vp-row-media [data-image-modal-root] {
       margin: 0 auto;
       width: fit-content;
       max-width: 100%;
     }
 
-    .prose[data-video-focused] .vp-row-media .video-player video {
+    .prose [data-video-focused] .vp-row-media .video-player video {
       width: auto;
       max-width: 100%;
       margin: 0 auto;
     }
 
     /* Reset ImageModal's width: 100% on the nested <img> and .half cap inside the narrow media column */
-    .prose[data-video-focused] .vp-row-media [data-image-modal-root] img,
-    .prose[data-video-focused] .vp-row-media .image-modal__media img {
+    .prose [data-video-focused] .vp-row-media [data-image-modal-root] img,
+    .prose [data-video-focused] .vp-row-media .image-modal__media img {
       max-height: min(54vh, 36rem);
       height: min(54vh, 36rem);
       width: auto;
@@ -280,13 +183,13 @@ const postProps = Astro.props;
     }
 
     /* Reset global .half max-width: 50% inside the already-narrow media column */
-    .prose[data-video-focused] .vp-row-media [data-image-modal-root].half {
+    .prose [data-video-focused] .vp-row-media [data-image-modal-root].half {
       max-width: 100%;
     }
   }
 
   @media (max-width: 779px) {
-    .prose[data-video-focused] .vp-row {
+    .prose [data-video-focused] .vp-row {
       margin-bottom: 1.75rem;
     }
   }
