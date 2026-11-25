@@ -14,6 +14,7 @@ const postSchema = z.object({
   aliases: z.array(z.string()).optional().default([]),
   draft: z.boolean().optional().default(false),
   deleted: z.boolean().optional().default(false),
+  videoFocused: z.boolean().optional().default(false),
 });
 
 const posts = defineCollection({

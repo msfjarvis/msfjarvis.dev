@@ -74,6 +74,21 @@ const tocHeadings = headings.filter(({ slug }) => slug !== "footnote-label");
         border-top: 1px solid var(--border);
         margin: 2rem 0;
       }
+
+      /* Avoid first-render flash before VideoPostLayout unwraps .video-post-shell */
+      .prose .video-post-shell > * {
+        margin-block: 0;
+      }
+
+      .prose .video-post-shell > * + * {
+        margin-block-start: 1rem;
+      }
+
+      .prose .video-post-shell > hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 2rem 0;
+      }
     </style>
     <script is:inline>
       const applyPagefindTheme = (isDark) => {
