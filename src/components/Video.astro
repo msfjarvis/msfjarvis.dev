@@ -5,14 +5,16 @@ interface Props {
   type?: string;
   poster?: string;
   scale?: number;
+  playbackRate?: number;
 }
 
-const { src, label, type = "video/mp4", poster, scale = 1 } = Astro.props;
+const { src, label, type = "video/mp4", poster, scale = 1, playbackRate = 1.0 } = Astro.props;
 const videoScale = Number.isFinite(scale) && scale > 0 ? scale : 1;
+const playbackRateClamped = Number.isFinite(playbackRate) && playbackRate > 0 ? Math.min(playbackRate, 1.0) : 1.0;
 ---
 
 <figure class="video-player" aria-label={label}>
-  <video controls playsinline muted preload="metadata" {poster} aria-label={label} style={`zoom: ${videoScale}`}>
+  <video controls playsinline muted preload="metadata" {poster} aria-label={label} style={`zoom: ${videoScale}`} data-playback-rate={playbackRateClamped}>
     <source {src} {type} />
     Your browser does not support video. <a href={src}>Download the video</a>.
   </video>
@@ -35,6 +37,7 @@ const videoScale = Number.isFinite(scale) && scale > 0 ? scale : 1;
     if (!video || !progress) return;
 
     video.controls = false;
+    video.playbackRate = Number(video.dataset.playbackRate);
     video.tabIndex = 0;
     progress.hidden = false;
 
