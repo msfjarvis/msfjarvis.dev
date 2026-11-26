@@ -12,12 +12,12 @@ import VideoRow from "../../../components/VideoRow.astro";
 import Figure from "../../../components/Figure.astro";
 import weird_pills from "./weird-pills.webp";
 
-Shared Element Transitions: You've never seen 'em. Only somewhat kidding, since I can't remember the last time I saw one in a format that was not a Google-authored Android sample app. They used to be pretty finicky as a platform feature and didn't work consistently, plus they seem to have relied on Fragments so it probably is no surprise nobody wanted anything to do with it.
+Shared Element Transitions: You've never seen 'em. Kidding, kind of. I can't remember the last time I saw one in an app that was not a Google sample. They used to be pretty finicky as a platform feature and didn't work consistently, plus they seem to have relied on Fragments so it probably is no surprise nobody wanted anything to do with it.
 
 <VideoRow>
   <div slot="text">
 
-So, here's a quick explainer: when moving between Screen A to Screen B in an app, you will sometimes have one or many UI elements that are shared. For example, clicking a restaurant in a list and then going to its menu will probably show the name in both places. With Shared Element Transitions, you can have the name from Screen A animate into the one in Screen B in a (usually) smooth transition animation. Here is the laggy video Google plays at the top of the relevant docs page.
+So, here's a quick introduction: when moving between Screen A to Screen B in an app, you will sometimes have one or many UI elements that are shared. For example, clicking a restaurant in a list and then going to its menu will probably show the name and an image in both places. With Shared Element Transitions, you can have the animate from Screen A into Screen B in a (usually) smooth transition animation. Here is the laggy video Google plays at the top of the relevant docs page to deter you from wanting to do this.
 
   </div>
   <div slot="media">
@@ -31,9 +31,9 @@ So, here's a quick explainer: when moving between Screen A to Screen B in an app
 <VideoRow side="left">
   <div slot="text">
 
-Now that we're familiarised, let's walk through the multiple iteration it took for me to get this right in **Compose**, which already makes it significantly easier.
+Now that we're familiarised, let's walk through the multiple iterations it took for me to get this right in **Compose**, which already makes it _very_ easy compared to the View toolkit.
 
-Following the [official docs](https://developer.android.com/develop/ui/compose/animation/shared-elements), I did my first naive implementation in [this commit](https://msfjarvis.dev/g/compose-lobsters/1941fc6609ae) and the results were rather disappointing.
+I followed the [official docs](https://developer.android.com/develop/ui/compose/animation/shared-elements) [for my first pass](https://msfjarvis.dev/g/compose-lobsters/1941fc6609ae) and the results were rather disappointing. There's no animation at all!
 
   </div>
   <div slot="media">
@@ -48,7 +48,7 @@ Following the [official docs](https://developer.android.com/develop/ui/compose/a
 <VideoRow>
   <div slot="text">
 
-This turned out to be [a bug](https://issuetracker.google.com/issues/585614999) in the underlying Navigation3 library which was relatively easy to isolate since I use the latest alpha releases of Jetpack and remembered seeing some transition related changes in the release notes. Downgrading from [Navigation3 1.3.0-alpha04 to 1.2.0](https://msfjarvis.dev/g/compose-lobsters/3438f8a3ea52) resolved the bug and now it looks like this.
+This turned out to be [a bug](https://issuetracker.google.com/issues/585614999) in the underlying Navigation3 library. Since I use the latest alpha releases of Jetpack and remembered seeing some transition related changes in the release notes, this was rather easy to pinpoint and lightly debug to file a report. Downgrading from [Navigation3 1.3.0-alpha04 to 1.2.0](https://msfjarvis.dev/g/compose-lobsters/3438f8a3ea52) resolved the bug and now we finally see some motion.
 
   </div>
   <div slot="media">
@@ -63,7 +63,7 @@ This turned out to be [a bug](https://issuetracker.google.com/issues/585614999) 
 <VideoRow side="left">
   <div slot="text">
 
-We're in business! The transition works, but doesn't _look_ that great yet. Turns out, the answer to it was to simply read the name of the feature again. Shared **Element** Transitions, not Shared **Container** Transitions. I had scoped the animation to animate from the `LobstersCard` component to the `PostHeader` component which the framework was doing correctly, but it'd look nicer for it to be individual elements. With [that change in place](https://msfjarvis.dev/g/compose-lobsters/7f129f13beca), this is what we get.
+We're in business! The transition works, but doesn't look _that_ great yet. Turns out, the simplest improvement was to read the name of the feature again. Shared _Element_ Transitions, not Shared _Container_ Transitions. I had scoped the animation to animate from the `LobstersCard` component to the `PostHeader` component which the framework was doing correctly, but it'd look much nicer if we animate the individual elements instead. With [that change in place](https://msfjarvis.dev/g/compose-lobsters/7f129f13beca), this is where we are at now.
 
   </div>
   <div slot="media">
@@ -78,11 +78,12 @@ We're in business! The transition works, but doesn't _look_ that great yet. Turn
 <VideoRow>
   <div slot="text">
 
-It's not immediately obvious in the example but each tag such as `elixir` or `erlang` is animating individually here. This will now cause problems :D
+It's not immediately obvious in the example, but each tag such as `elixir` or `erlang` is animating individually here. This will now cause problems :D
 
-The first issue I noticed was that if the same post was in both the "Hottest" and "Newest" feeds, they would animate when moving between the two! I wish I had a recording to attach here but [scrcpy](https://github.com/Genymobile/scrcpy) is having trouble rendering that transition. This was fixed by giving each list of posts [its own transition scope](https://msfjarvis.dev/g/compose-lobsters/801f4cd57a91) so they behave more like islands.
+I noticed was that some tag pills were not being sized correctly if I scrolled far enough for the layout to be reused. I'm not sure why layout reuse regressed, but I flailed around for a bit and it was fixed by animating the entire `TagRow` parent instead of individual `Tag`s. Shared container _can_ be the right choice, at the correct granularity!
 
-Another issue I noticed was that some tag pills were not being sized correctly if I scrolled far enough for the layout to be reused. This was fixed by animating the entire `TagRow` parent instead of individual `Tag`s. Shared container _can_ be the right choice, at the correct granularity!
+The next major issue I noticed was that if the same post was in both the "Hottest" and "Newest" feeds, it would animate when moving between the two list! I wish I had a recording to attach here but [scrcpy](https://github.com/Genymobile/scrcpy) is having trouble rendering that transition. This was fixed by giving each list of posts [its own transition scope](https://msfjarvis.dev/g/compose-lobsters/801f4cd57a91) so they behave more like islands and don't interact with each other.
+
 
   </div>
   <div slot="media">
@@ -101,4 +102,4 @@ So what's the final result after all that?
   playbackRate={0.5}
 />
 
-I'm starting to make a habit of writing about [stumbling around new concepts](/posts/rewriting-claw-html-parser-for-over-the-air-updates/), whether that's good or bad remains to be seen!
+Once more writing about the thing has taken more effort than doing the thing itself. I'm starting to make a habit of writing about [stumbling around new concepts](/posts/rewriting-claw-html-parser-for-over-the-air-updates/), whether that's good or bad remains to be seen!
