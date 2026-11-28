@@ -82,7 +82,7 @@ It's not immediately obvious in the example, but each tag such as `elixir` or `e
 
 I noticed was that some tag pills were not being sized correctly if I scrolled far enough for the layout to be reused. I'm not sure why layout reuse regressed, but I flailed around for a bit and it was fixed by animating the entire `TagRow` parent instead of individual `Tag`s. Shared container _can_ be the right choice, at the correct granularity!
 
-The next major issue I noticed was that if the same post was in both the "Hottest" and "Newest" feeds, it would animate when moving between the two list! I wish I had a recording to attach here but [scrcpy](https://github.com/Genymobile/scrcpy) is having trouble rendering that transition. This was fixed by giving each list of posts [its own transition scope](https://msfjarvis.dev/g/compose-lobsters/801f4cd57a91) so they behave more like islands and don't interact with each other.
+The next major issue I noticed was that if the same post was in both the "Hottest" and "Newest" feeds, it would animate when moving between the two lists! I wish I had a recording to attach here but [scrcpy](https://github.com/Genymobile/scrcpy) was having trouble rendering that transition. This was fixed by giving each list of posts [its own transition scope](https://msfjarvis.dev/g/compose-lobsters/801f4cd57a91) so they behave more like islands and don't interact with each other.
 
 
   </div>
@@ -96,9 +96,7 @@ So what's the final result after all that?
 <Video
   src="https://media.msfjarvis.dev/shared-element-mistakes/final-version.webm"
   label="Pretty cool!"
-  width={1080}
-  height={2340}
-  scale={0.4}
+  scale={0.7}
   playbackRate={0.5}
 />
 
